@@ -12,6 +12,8 @@
 		80F2C57F2038808000212739 /* TenTunes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C57D2038808000212739 /* TenTunes.xcdatamodeld */; };
 		80F2C5812038808000212739 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80F2C5802038808000212739 /* Assets.xcassets */; };
 		80F2C5842038808000212739 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80F2C5822038808000212739 /* Main.storyboard */; };
+		80F2C58F20389B9B00212739 /* TrackSpectrumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C58E20389B9B00212739 /* TrackSpectrumView.swift */; };
+		80F2C5912038A80D00212739 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C5902038A80D00212739 /* Track.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		80F2C5832038808000212739 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		80F2C5852038808000212739 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		80F2C5862038808000212739 /* TenTunes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TenTunes.entitlements; sourceTree = "<group>"; };
+		80F2C58E20389B9B00212739 /* TrackSpectrumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSpectrumView.swift; sourceTree = "<group>"; };
+		80F2C5902038A80D00212739 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,8 @@
 			children = (
 				80F2C5792038808000212739 /* AppDelegate.swift */,
 				80F2C57B2038808000212739 /* ViewController.swift */,
+				80F2C5902038A80D00212739 /* Track.swift */,
+				80F2C58E20389B9B00212739 /* TrackSpectrumView.swift */,
 				80F2C5802038808000212739 /* Assets.xcassets */,
 				80F2C5822038808000212739 /* Main.storyboard */,
 				80F2C5852038808000212739 /* Info.plist */,
@@ -99,6 +105,11 @@
 					80F2C5752038808000212739 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -138,6 +149,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				80F2C57C2038808000212739 /* ViewController.swift in Sources */,
+				80F2C5912038A80D00212739 /* Track.swift in Sources */,
+				80F2C58F20389B9B00212739 /* TrackSpectrumView.swift in Sources */,
 				80F2C57F2038808000212739 /* TenTunes.xcdatamodeld in Sources */,
 				80F2C57A2038808000212739 /* AppDelegate.swift in Sources */,
 			);
@@ -267,7 +280,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = TenTunes/TenTunes.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = TenTunes/Info.plist;
@@ -282,7 +294,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = TenTunes/TenTunes.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = TenTunes/Info.plist;

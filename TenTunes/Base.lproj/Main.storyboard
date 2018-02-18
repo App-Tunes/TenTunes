@@ -810,6 +810,9 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="62" id="RsI-DC-5eW"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="clickSpectrumView:" target="XfG-lQ-9wD" id="8oE-Da-U9p"/>
+                                </connections>
                             </customView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xgZ-yw-G8b">
                                 <rect key="frame" x="54" y="492" width="25" height="19"/>
@@ -885,6 +888,7 @@
                     </view>
                     <connections>
                         <outlet property="_play" destination="4Fc-0r-wVE" id="DPb-N7-0hb"/>
+                        <outlet property="_spectrumView" destination="TnY-8S-uno" id="4GH-DY-Vz2"/>
                         <outlet property="_stop" destination="xgZ-yw-G8b" id="Mdb-cQ-9ZT"/>
                         <outlet property="_subtitle" destination="dQc-no-5jm" id="E1J-HT-CTw"/>
                         <outlet property="_tableView" destination="oIp-LF-46S" id="ftF-35-gcd"/>

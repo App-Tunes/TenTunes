@@ -27,9 +27,11 @@ class ViewController: NSViewController {
     @IBOutlet var _play: NSButton!
     @IBOutlet var _stop: NSButton!
 
+    @IBOutlet var _spectrumView: TrackSpectrumView!
+    
     var database: [Track]! = []
     
-    var player: AVAudioPlayer?
+    var player: AVPlayer?
     var playing: Track?
 
     override func viewDidLoad() {
@@ -57,6 +59,10 @@ class ViewController: NSViewController {
         }
         
         self.updatePlaying()
+        
+        NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
+            return self.keyDown(with: $0)
+        }
     }
     
     override var representedObject: Any? {
@@ -65,8 +71,12 @@ class ViewController: NSViewController {
         }
     }
     
+    func isPlaying() -> Bool {
+        return self.player?.isPlaying ?? false
+    }
+
     func isPaused() -> Bool {
-        return !(self.player?.isPlaying ?? false)
+        return !self.isPlaying()
     }
 
     func updatePlaying() {
@@ -89,15 +99,17 @@ class ViewController: NSViewController {
     
     func play(track: Track?) -> Void {
         if let player = self.player {
-            player.stop()
+            player.pause()
         }
         
         if let track = track {
             do {
-                let player = try AVAudioPlayer(contentsOf: URL(string: track.path!)!)
+                let player = try AVPlayer(url: URL(string: track.path!)!)
                 self.player = player
                 
-                player.prepareToPlay()
+                player.addPeriodicTimeObserver(forInterval: CMTimeMake(1, 100), queue: DispatchQueue.main) { [unowned self] _ in self._spectrumView.setBy(player: self.player!);
+                    }
+                
                 player.play()
                 self.playing = track
             } catch let error {
@@ -111,6 +123,7 @@ class ViewController: NSViewController {
             self.playing = nil
         }
         
+        self._spectrumView.analyze(player: player, samples: 500)
         self.updatePlaying()
     }
     
@@ -120,6 +133,13 @@ class ViewController: NSViewController {
         
         if track.path != nil {
             self.play(track: track)
+        }
+    }
+    
+    func playCurrentTrack() {
+        let selectedRow = self._tableView.selectedRow
+        if selectedRow >= 0 {
+            self.play(track: self.database[selectedRow])
         }
     }
     
@@ -133,8 +153,7 @@ class ViewController: NSViewController {
             }
         }
         else {
-            let selectedRow = self._tableView.selectedRow
-            self.play(track: self.database[selectedRow])
+            self.playCurrentTrack()
         }
         
         self.updatePlaying()
@@ -144,9 +163,26 @@ class ViewController: NSViewController {
         self.play(track: nil)
     }
     
-    func keyDown(theEvent: NSEvent) {
-        if let keyString = theEvent.charactersIgnoringModifiers, keyString == " " {
+    func keyDown(with event: NSEvent) -> NSEvent? {
+        if let keyString = event.charactersIgnoringModifiers, keyString == " " {
             self._play.performClick(self)
+        }
+        else if Keycodes.enterKey.matches(event: event) || Keycodes.returnKey.matches(event: event) {
+            self.playCurrentTrack()
+        }
+        else {
+            return event
+        }
+
+        return nil
+    }
+    
+    @IBAction func clickSpectrumView(_ sender: Any) {
+        if let player = self.player {
+            player.seek(to: self._spectrumView.getBy(player: player))
+        }
+        else {
+            self._spectrumView.location = nil
         }
     }
 }

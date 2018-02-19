@@ -116,11 +116,11 @@ class ViewController: NSViewController {
         
         if let track = track {
             do {
-                let akfile = try AKAudioFile(forReading: URL(string: track.path!)!)
+                let akfile = try AKAudioFile(forReading: track.url)
                 
                 // Async anyway so run first
                 self._spectrumView.analyze(file: akfile)
-
+                
                 self.player.load(audioFile: akfile)
                 
                 player.play()
@@ -262,6 +262,8 @@ extension ViewController: NSTableViewDelegate {
                 let album = track.rAlbum()
 
                 cell.textField?.stringValue = "\(artist) - \(title) (\(album))"
+                cell.imageView?.image = track.artwork
+
                 return cell
             }
         } else if tableColumn == tableView.tableColumns[1] {

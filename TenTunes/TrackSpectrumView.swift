@@ -8,6 +8,8 @@
 
 import Cocoa
 
+let sampleCount = 200
+
 extension ClosedRange {
     public func random() -> Bound {
         let range = (self.upperBound as! CGFloat) - (self.lowerBound as! CGFloat)
@@ -16,9 +18,74 @@ extension ClosedRange {
     }
 }
 
+extension MutableCollection {
+    /// Shuffles the contents of this collection.
+    mutating func shuffle(seed: Int) {
+        let c = count
+        guard c > 1 else { return }
+        
+        srand48(seed)
+        for (firstUnshuffled, unshuffledCount) in zip(indices, stride(from: c, to: 1, by: -1)) {
+            let d: IndexDistance = numericCast(Int(drand48() * Double(Int(unshuffledCount))))
+            let i = index(firstUnshuffled, offsetBy: d)
+            swapAt(firstUnshuffled, i)
+        }
+    }
+}
+
+func analyze(file: AVAudioFile?, shift: Int, values: [CGFloat]?) -> [CGFloat]? {
+    guard let file = file, var values = values else {
+        return nil
+    }
+    
+    let startPos = file.framePosition
+    
+    let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: file.fileFormat.sampleRate, channels: file.fileFormat.channelCount, interleaved: false)!
+    
+    let readSamples = AVAudioFrameCount(1)
+    let skipSamples = AVAudioFrameCount(Int(file.length) / values.count - 1)
+    
+    let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: UInt32(readSamples))!
+    
+    // Shuffle order to hopefully speed up result accuracy
+    var order = Array(0...skipSamples)
+    order.shuffle(seed: 42)
+    file.framePosition = Int64(order[shift])
+
+    for i in 0..<values.count {
+        do {
+            try file.read(into: buf, frameCount: readSamples)
+        }
+        catch let error {
+            print(error.localizedDescription)
+            return nil
+        }
+        
+        let floatValues = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
+        file.framePosition += Int64(skipSamples)
+        
+        let val = CGFloat(floatValues.map(abs).reduce(0, +)) / CGFloat(floatValues.count)
+        
+        if shift > 0 {
+            values[i] = values[i] / CGFloat(shift + 1) * CGFloat(shift)
+        }
+        values[i] += val / CGFloat(shift + 1)
+    }
+    
+    file.framePosition = startPos
+    
+    return values
+}
+
 class TrackSpectrumView: NSControl {
 
-    var location: Float? {
+    var location: Double? {
+        didSet {
+            self.setNeedsDisplay()
+        }
+    }
+    
+    var curSamples: [CGFloat] = Array(repeating: CGFloat(0), count: sampleCount) {
         didSet {
             self.setNeedsDisplay()
         }
@@ -26,24 +93,53 @@ class TrackSpectrumView: NSControl {
     
     var samples: [CGFloat]? = nil
     
+    var audioFile: AVAudioFile? = nil
+    
+    var timer: Timer? = nil
+    
+    override func viewDidMoveToWindow() {
+        self.timer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true) { _ in
+            let drawSamples = self.samples ?? Array(repeating: CGFloat(0), count: sampleCount)
+            
+            self.curSamples = zip(self.curSamples, drawSamples).map { (cur, sam) in
+                return cur * CGFloat(29.0 / 30.0) + sam / CGFloat(30.0) // .5 second lerp
+            }
+            
+            self.setNeedsDisplay()
+        }
+    }
+    
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
 
         NSColor.lightGray.set() // choose color
+        
+        let samples = self.curSamples
+    
+        var bars: [CGFloat] = []
 
-        if let samples = self.samples {
-            let numBars = Int(self.bounds.width / 5)
-            for bar in 0..<Int(self.bounds.width / 5) {
-                let figure = NSBezierPath()
-                let trackPos = Double(bar) / Double(numBars)
-                let height = samples[Int(trackPos * Double(samples.count))]
-                
-                figure.move(to: NSMakePoint(CGFloat(bar * 5), height * self.bounds.minY))
-                figure.line(to: NSMakePoint(CGFloat(bar * 5), height * self.bounds.maxY))
-                
-                figure.lineWidth = 3
-                figure.stroke()
-            }
+        let numBars = Int(self.bounds.width / 5)
+        for bar in 0..<Int(self.bounds.width / 5) {
+            let trackPosStart = Double(bar) / Double(numBars + 1)
+            let trackPosEnd = Double(bar + 1) / Double(numBars + 1)
+            let trackRange = Int(trackPosStart * Double(samples.count))...Int(trackPosEnd * Double(samples.count))
+            
+            bars.append(samples[trackRange].reduce(0, +) / CGFloat(trackRange.count))
+        }
+        
+        let samplesMax = max(samples.max()!, 0.00001) // Make sure if it goes against 0 it does go
+        bars = bars.map {$0 / samplesMax}
+
+        for bar in 0..<Int(self.bounds.width / 5) {
+            let val = bars[bar]
+
+            let figure = NSBezierPath()
+
+            figure.move(to: NSMakePoint(CGFloat(bar * 5), val * self.bounds.minY))
+            figure.line(to: NSMakePoint(CGFloat(bar * 5), val * self.bounds.maxY))
+            
+            figure.lineWidth = 3
+            figure.stroke()
         }
         
         if let location = self.location {
@@ -79,36 +175,53 @@ class TrackSpectrumView: NSControl {
     }
 }
 
-import AVFoundation
+import AudioKit
+import AudioKitUI
 
 extension TrackSpectrumView {
-    func setBy(player: AVPlayer) {
-        self.setBy(time: player.currentTime(), max: player.currentItem!.asset.duration)
-    }
-    
-    func setBy(time: CMTime, max: CMTime) {
-        self.location = Float(CMTimeGetSeconds(time) / CMTimeGetSeconds(max))
-    }
-    
-    func getBy(player: AVPlayer) -> CMTime {
-        return self.getBy(max: player.currentItem!.asset.duration)
-    }
-
-    func getBy(max: CMTime) -> CMTime {
-        return CMTimeMultiplyByFloat64(max, Float64(self.location!))
-    }
-    
-    func analyze(player: AVPlayer?, samples: Int) {
-        if let player = player {
-            self.samples = []
-            for i in 0..<samples {
-                let trackPos = Double(i) / Double(samples)
-                let val = CGFloat((sin(CGFloat(trackPos) * 15) + 1) / 2 * 0.5 + (sin(CGFloat(trackPos) * 5) + 1) / 2 * 0.5)
-                self.samples!.append(val)
-            }
+    func setBy(player: AKPlayer) {
+        if player.audioFile != nil {
+            self.setBy(time: player.currentTime, max: player.duration)
         }
         else {
-            self.samples = nil
+            self.location = nil
+        }
+    }
+    
+    func setBy(time: Double, max: Double) {
+        self.location = time / max
+    }
+    
+    func getBy(player: AKPlayer) -> Double? {
+        return player.audioFile != nil ? self.getBy(max: player.duration) : nil
+    }
+
+    func getBy(max: Double) -> Double? {
+        return self.location != nil ? self.location! * max : nil
+    }
+    
+    func analyze(file: AVAudioFile?) {
+        self.audioFile = file
+        self.samples = nil
+        
+        if let file = file {
+            // Run Async
+            DispatchQueue.global(qos: .userInitiated).async {
+                var samples: [CGFloat]? = Array(repeating: CGFloat(0), count: sampleCount)
+                
+                for i in 0..<sampleCount {
+                    samples = TenTunes.analyze(file: file, shift: i, values: samples)
+                    
+                    if self.audioFile != file {
+                        return
+                    }
+                    
+                    // Update on main thread
+                    DispatchQueue.main.async {
+                        self.samples = samples
+                    }
+                }
+            }
         }
     }
 }

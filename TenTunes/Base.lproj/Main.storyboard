@@ -836,6 +836,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="12" name="LucidaGrande"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="nextTrack:" target="XfG-lQ-9wD" id="tib-HN-e55"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vGp-jR-JQ9">
                                 <rect key="frame" x="20" y="492" width="26" height="19"/>
@@ -846,6 +849,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="12" name=".LucidaGrandeUI"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="previousTrack:" target="XfG-lQ-9wD" id="Pk1-jA-gYo"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4Fc-0r-wVE">
                                 <rect key="frame" x="87" y="492" width="25" height="19"/>

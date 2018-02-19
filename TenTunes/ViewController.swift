@@ -8,7 +8,8 @@
 
 import Cocoa
 import Foundation
-import AVFoundation
+import AudioKit
+import AudioKitUI
 
 let playString = "▶"
 let pauseString = "||"
@@ -31,11 +32,18 @@ class ViewController: NSViewController {
     
     var database: [Track]! = []
     
-    var player: AVPlayer?
+    var player: AKPlayer!
     var playing: Track?
+    var playingIndex: Int?
+    
+    var visualTimer: Timer!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.player = AKPlayer()
+        AudioKit.output = self.player
+        try! AudioKit.start()
 
         let path = "/Volumes/Lukebox/iTunes/iTunes Library.xml"
         
@@ -63,6 +71,10 @@ class ViewController: NSViewController {
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             return self.keyDown(with: $0)
         }
+        
+        self.visualTimer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true ) { [unowned self] (timer) in
+            self._spectrumView.setBy(player: self.player)
+        }
     }
     
     override var representedObject: Any? {
@@ -72,7 +84,7 @@ class ViewController: NSViewController {
     }
     
     func isPlaying() -> Bool {
-        return self.player?.isPlaying ?? false
+        return self.player.isPlaying
     }
 
     func isPaused() -> Bool {
@@ -81,7 +93,7 @@ class ViewController: NSViewController {
 
     func updatePlaying() {
         guard let track = self.playing else {
-            self.player = nil
+            self.player.stop()
 
             self._play.stringValue = playString
             
@@ -98,32 +110,34 @@ class ViewController: NSViewController {
     }
     
     func play(track: Track?) -> Void {
-        if let player = self.player {
-            player.pause()
+        if player.isPlaying {
+            player.stop()
         }
         
         if let track = track {
             do {
-                let player = try AVPlayer(url: URL(string: track.path!)!)
-                self.player = player
+                let akfile = try AKAudioFile(forReading: URL(string: track.path!)!)
                 
-                player.addPeriodicTimeObserver(forInterval: CMTimeMake(1, 100), queue: DispatchQueue.main) { [unowned self] _ in self._spectrumView.setBy(player: self.player!);
-                    }
+                // Async anyway so run first
+                self._spectrumView.analyze(file: akfile)
+
+                self.player.load(audioFile: akfile)
                 
                 player.play()
                 self.playing = track
             } catch let error {
                 print(error.localizedDescription)
-                self.player = nil
+                self.player.stop()
                 self.playing = nil
+                self._spectrumView.analyze(file: nil)
             }
         }
         else {
-            self.player = nil
+            self.player.stop()
             self.playing = nil
+            self._spectrumView.analyze(file: nil)
         }
         
-        self._spectrumView.analyze(player: player, samples: 500)
         self.updatePlaying()
     }
     
@@ -139,6 +153,7 @@ class ViewController: NSViewController {
     func playCurrentTrack() {
         let selectedRow = self._tableView.selectedRow
         if selectedRow >= 0 {
+            self.playingIndex = selectedRow
             self.play(track: self.database[selectedRow])
         }
     }
@@ -146,10 +161,10 @@ class ViewController: NSViewController {
     @IBAction func play(_ sender: Any) {
         if self.playing != nil {
             if self.isPaused() {
-                self.player!.play()
+                self.player.play()
             }
             else {
-                self.player!.pause()
+                self.player.stop()
             }
         }
         else {
@@ -161,6 +176,41 @@ class ViewController: NSViewController {
     
     @IBAction func stop(_ sender: Any) {
         self.play(track: nil)
+    }
+    
+    func play(moved: Int) {
+        guard let database = self.database else {
+            self.playingIndex = nil
+            return
+        }
+        
+        if let playingIndex = self.playingIndex {
+            self.playingIndex = playingIndex + moved
+        }
+        else {
+            self.playingIndex = moved > 0 ? 0 : database.count - 1
+        }
+        
+        if self.playingIndex! >= database.count || self.playingIndex! < 0 {
+            self.playingIndex = nil
+            self.play(track: nil)
+            return
+        }
+        
+        let track = self.database?[self.playingIndex!]
+        self.play(track: track)
+        
+        if track == nil {
+            self.playingIndex = nil
+        }
+    }
+    
+    @IBAction func nextTrack(_ sender: Any) {
+        self.play(moved: 1)
+    }
+    
+    @IBAction func previousTrack(_ sender: Any) {
+        self.play(moved: -1)
     }
     
     func keyDown(with event: NSEvent) -> NSEvent? {
@@ -178,8 +228,9 @@ class ViewController: NSViewController {
     }
     
     @IBAction func clickSpectrumView(_ sender: Any) {
-        if let player = self.player {
-            player.seek(to: self._spectrumView.getBy(player: player))
+        if self.player.isPlaying {
+            self.player.stop()
+            self.player.play(from: self._spectrumView.getBy(player: self.player)!, to: self.player.duration)
         }
         else {
             self._spectrumView.location = nil
@@ -229,3 +280,4 @@ extension ViewController: NSTableViewDataSource {
         return database.count;
     }
 }
+

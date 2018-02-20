@@ -91,20 +91,22 @@ class TrackSpectrumView: NSControl {
         }
     }
     
+    var _drawSamples: [CGFloat] { return self.samples ?? Array(repeating: CGFloat(0), count: sampleCount) }
+    
     var samples: [CGFloat]? = nil
     
     var audioFile: AVAudioFile? = nil
     
     var timer: Timer? = nil
     
-    override func viewDidMoveToWindow() {
+    override func awakeFromNib() {
         self.timer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true) { _ in
-            let drawSamples = self.samples ?? Array(repeating: CGFloat(0), count: sampleCount)
+            let drawSamples = self._drawSamples
             
             self.curSamples = zip(self.curSamples, drawSamples).map { (cur, sam) in
                 return cur * CGFloat(29.0 / 30.0) + sam / CGFloat(30.0) // .5 second lerp
             }
-            
+
             self.setNeedsDisplay()
         }
     }
@@ -127,7 +129,7 @@ class TrackSpectrumView: NSControl {
             bars.append(samples[trackRange].reduce(0, +) / CGFloat(trackRange.count))
         }
         
-        let samplesMax = max(samples.max()!, 0.00001) // Make sure if it goes against 0 it does go
+        let samplesMax = max(samples.max()!, 0.2) // Make sure if it goes against 0 it does go
         bars = bars.map {$0 / samplesMax}
 
         for bar in 0..<Int(self.bounds.width / 5) {

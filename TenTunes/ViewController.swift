@@ -58,12 +58,16 @@ class ViewController: NSViewController {
         for (_, trackData) in tracksRaw {
             let trackData = trackData as! NSDictionary
             
-            let title = trackData["Name"] as? String
-            let author = trackData["Artist"] as? String
-            let album = trackData["Album"] as? String
-            let file = trackData["Location"] as? String
+            let track = Track()
+            
+            track.title = trackData["Name"] as? String
+            track.author = trackData["Artist"] as? String
+            track.album = trackData["Album"] as? String
+            track.path = trackData["Location"] as? String
 
-            self.database.append(Track(title: title, author: author, album: album, path: file))
+            track.length = trackData["Total Time"] as? Int
+            
+            self.database.append(track)
         }
         
         self.updatePlaying()
@@ -114,9 +118,9 @@ class ViewController: NSViewController {
             player.stop()
         }
         
-        if let track = track {
+        if let track = track, let url = track.url {
             do {
-                let akfile = try AKAudioFile(forReading: track.url)
+                let akfile = try AKAudioFile(forReading: url)
                 
                 // Async anyway so run first
                 self._spectrumView.analyze(file: akfile)
@@ -142,12 +146,8 @@ class ViewController: NSViewController {
     }
     
     @IBAction func doubleClick(_ sender: Any) {
-        let row = self._tableView.clickedRow
-        let track = self.database[row]
-        
-        if track.path != nil {
-            self.play(track: track)
-        }
+        self.playingIndex = self._tableView.clickedRow
+        self.play(track: self.database[self.playingIndex!])
     }
     
     func playCurrentTrack() {
@@ -164,6 +164,7 @@ class ViewController: NSViewController {
                 self.player.play()
             }
             else {
+                self.player.play(from: self.player.currentTime, to: self.player.duration)
                 self.player.stop()
             }
         }
@@ -233,7 +234,8 @@ class ViewController: NSViewController {
             self.player.play(from: self._spectrumView.getBy(player: self.player)!, to: self.player.duration)
         }
         else {
-            self._spectrumView.location = nil
+            self.player.play(from: self._spectrumView.getBy(player: self.player)!, to: self.player.duration)
+            self.player.stop()
         }
     }
 }
@@ -256,15 +258,21 @@ extension ViewController: NSTableViewDelegate {
         
         // 2
         if tableColumn == tableView.tableColumns[0] {
-            if let cell = tableView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? NSTableCellView {
+            if let view = tableView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? TrackCellView {
                 let artist = track.rAuthor()
                 let title = track.rTitle()
                 let album = track.rAlbum()
 
-                cell.textField?.stringValue = "\(artist) - \(title) (\(album))"
-                cell.imageView?.image = track.artwork
+                view.textField?.stringValue = title
+                view.subtitleTextField?.stringValue = "\(artist) - (\(album))"
+                view.lengthTextField?.stringValue = track.rLength()
+                view.imageView?.image = NSImage(named: NSImage.Name(rawValue: "music_missing"))
 
-                return cell
+                track.fetchArtwork() { (img) in
+                    view.imageView?.image = img ?? NSImage(named: NSImage.Name(rawValue: "music_missing"))
+                }
+
+                return view
             }
         } else if tableColumn == tableView.tableColumns[1] {
             

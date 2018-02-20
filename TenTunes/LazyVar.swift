@@ -8,6 +8,9 @@
 
 import Cocoa
 
+// Make sure only one of these is running at the same time to avoid performance problems
+let computeSemaphore = DispatchSemaphore(value: 1)
+
 class LazyVar<G> {
     var _computed = false
     var _cached: G? = nil
@@ -44,6 +47,7 @@ class LazyVar<G> {
             return
         }
         
+        computeSemaphore.wait()
         DispatchQueue.global(qos: .userInitiated).async {
             let val = self.fetch()
             
@@ -52,6 +56,7 @@ class LazyVar<G> {
                 self.set(val: val)
                 completion(val)
             }
+            computeSemaphore.signal()
         }
     }
 }

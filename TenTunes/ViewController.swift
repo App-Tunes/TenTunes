@@ -19,6 +19,13 @@ extension AVPlayer {
         return rate != 0 && error == nil
     }
 }
+
+func synced(_ lock: Any, closure: () -> ()) {
+    objc_sync_enter(lock)
+    closure()
+    objc_sync_exit(lock)
+}
+
 class ViewController: NSViewController {
 
     @IBOutlet var _tableView: NSTableView!
@@ -76,8 +83,42 @@ class ViewController: NSViewController {
             return self.keyDown(with: $0)
         }
         
-        self.visualTimer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true ) { [unowned self] (timer) in
+        self.visualTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true ) { [unowned self] (timer) in
             self._spectrumView.setBy(player: self.player)
+            
+            // Only fetch one at once
+            if !self._fetchingArtwork {
+                self.fetchOneArtwork()
+            }
+        }
+    }
+    
+    var _fetchingArtwork: Bool = false
+    
+    func fetchOneArtwork() {
+        if let visibleRect = self._tableView.enclosingScrollView?.contentView.visibleRect {
+            let visibleRows = self._tableView.rows(in: visibleRect)
+            
+            for row in visibleRows.lowerBound...visibleRows.upperBound {
+                if let view = self._tableView.view(atColumn: 0, row: row, makeIfNecessary: false) as? TrackCellView {
+                    if let track = view.track, !track.artworkFetched {
+                        
+                        self._fetchingArtwork = true
+                        DispatchQueue.global(qos: .userInitiated).async {
+                            if let img = track.fetchArtwork() {
+                                // Update on main thread
+                                DispatchQueue.main.async {
+                                    view.imageView?.image = img
+                                }
+                            }
+                            
+                            self._fetchingArtwork = false
+                        }
+                        
+                        return
+                    }
+                }
+            }
         }
     }
     
@@ -263,14 +304,11 @@ extension ViewController: NSTableViewDelegate {
                 let title = track.rTitle()
                 let album = track.rAlbum()
 
+                view.track = track
                 view.textField?.stringValue = title
                 view.subtitleTextField?.stringValue = "\(artist) - (\(album))"
                 view.lengthTextField?.stringValue = track.rLength()
-                view.imageView?.image = NSImage(named: NSImage.Name(rawValue: "music_missing"))
-
-                track.fetchArtwork() { (img) in
-                    view.imageView?.image = img ?? NSImage(named: NSImage.Name(rawValue: "music_missing"))
-                }
+                view.imageView?.image = track.artwork ?? NSImage(named: NSImage.Name(rawValue: "music_missing"))
 
                 return view
             }

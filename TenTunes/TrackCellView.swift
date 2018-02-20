@@ -13,6 +13,8 @@ class TrackCellView: NSTableCellView {
     @IBOutlet var subtitleTextField: NSTextField?
     @IBOutlet var lengthTextField: NSTextField?
     
+    var track: Track?
+    
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
     }

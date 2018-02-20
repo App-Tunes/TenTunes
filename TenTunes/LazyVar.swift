@@ -8,28 +8,23 @@
 
 import Cocoa
 
-// Make sure only one of these is running at the same time to avoid performance problems
-let computeSemaphore = DispatchSemaphore(value: 1)
-
 class LazyVar<G> {
     var _computed = false
     var _cached: G? = nil
-    var _computer: () -> G
+    var _computer: (@escaping (G) -> Swift.Void) -> Swift.Void
     
-    init(computer: @escaping () -> G) {
+    init(computer: @escaping (@escaping (G) -> Swift.Void) -> Swift.Void) {
         self._computer = computer
     }
     
     var value: G {
         if !_computed {
-            self.set(val: self.fetch())
+            _computer() { (ret) in
+                self.set(val: ret)
+            }
         }
         
         return _cached!
-    }
-    
-    func fetch() -> G {
-        return _computer()
     }
     
     func set(val: G) {
@@ -47,16 +42,9 @@ class LazyVar<G> {
             return
         }
         
-        computeSemaphore.wait()
-        DispatchQueue.global(qos: .userInitiated).async {
-            let val = self.fetch()
-            
-            // Update on main thread
-            DispatchQueue.main.async {
-                self.set(val: val)
-                completion(val)
-            }
-            computeSemaphore.signal()
+        _computer() { (ret) in
+            self.set(val: ret)
+            completion(ret)
         }
     }
 }

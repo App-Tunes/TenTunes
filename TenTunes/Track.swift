@@ -47,31 +47,28 @@ class Track {
         }
     }
     
-     lazy var _artwork: LazyVar<NSImage?> = LazyVar() {
+    var artworkFetched: Bool = false
+    var artwork: NSImage? = nil
+
+    func fetchArtwork() -> NSImage? {
+        self.artworkFetched = true
+        self.artwork = nil
+
         guard let url = self.url else {
             return nil
         }
         
         let urlAsset = AVURLAsset(url: url)
-        for format in urlAsset.availableMetadataFormats {
-            for metadata in urlAsset.metadata(forFormat: format) {
-                if let commonKey = metadata.commonKey {
-                    if commonKey.rawValue == "artwork" {
-                        if let data = metadata.dataValue {
-                            return NSImage(data: data)
-                        }
-                    }
-                }
+
+        let metadatas = AVMetadataItem.metadataItems(from: urlAsset.commonMetadata, withKey: AVMetadataKey.commonKeyArtwork, keySpace: AVMetadataKeySpace.common)
+        
+        for metadata in metadatas {
+            if let data = metadata.dataValue {
+                self.artwork = NSImage(data: data)
+                return self.artwork
             }
         }
+        
         return nil
-    }
-    
-    var artwork: NSImage? {
-        return _artwork.value
-    }
-    
-    func fetchArtwork(completion: @escaping (NSImage?) -> Swift.Void) {
-        _artwork.async(completion: completion)
     }
 }

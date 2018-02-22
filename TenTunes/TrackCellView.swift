@@ -12,6 +12,7 @@ class TrackCellView: NSTableCellView {
 
     @IBOutlet var subtitleTextField: NSTextField?
     @IBOutlet var lengthTextField: NSTextField?
+    @IBOutlet var keyTextField: NSTextField?
     
     var track: Track?
     
@@ -33,7 +34,7 @@ class TrackCellView: NSTableCellView {
     override var backgroundStyle: NSView.BackgroundStyle {
         didSet {
             self.subtitleTextField?.textColor = backgroundStyle == NSView.BackgroundStyle.light ? NSColor.darkGray : NSColor.white;
-            self.lengthTextField?.textColor = backgroundStyle == NSView.BackgroundStyle.light ? NSColor.darkGray : NSColor.white;
+            self.lengthTextField?.textColor = backgroundStyle == NSView.BackgroundStyle.light ? NSColor.gray : NSColor.white;
         }
     }
 }

@@ -87,32 +87,33 @@ class ViewController: NSViewController {
             self._spectrumView.setBy(player: self.player)
             
             // Only fetch one at once
-            if !self._fetchingArtwork {
-                self.fetchOneArtwork()
+            if !self._fetchingMetadata {
+                self.fetchOneMetadata()
             }
         }
     }
     
-    var _fetchingArtwork: Bool = false
+    var _fetchingMetadata: Bool = false
     
-    func fetchOneArtwork() {
+    func fetchOneMetadata() {
         if let visibleRect = self._tableView.enclosingScrollView?.contentView.visibleRect {
             let visibleRows = self._tableView.rows(in: visibleRect)
             
             for row in visibleRows.lowerBound...visibleRows.upperBound {
                 if let view = self._tableView.view(atColumn: 0, row: row, makeIfNecessary: false) as? TrackCellView {
-                    if let track = view.track, !track.artworkFetched {
+                    if let track = view.track, !track.metadataFetched {
                         
-                        self._fetchingArtwork = true
+                        self._fetchingMetadata = true
                         DispatchQueue.global(qos: .userInitiated).async {
-                            if let img = track.fetchArtwork() {
-                                // Update on main thread
-                                DispatchQueue.main.async {
-                                    view.imageView?.image = img
-                                }
+                            track.fetchMetadata()
+                            
+                            // Update on main thread
+                            DispatchQueue.main.async {
+                                view.imageView?.image = track.rArtwork
+                                view.keyTextField?.stringValue = track.rKey
                             }
                             
-                            self._fetchingArtwork = false
+                            self._fetchingMetadata = false
                         }
                         
                         return
@@ -308,7 +309,8 @@ extension ViewController: NSTableViewDelegate {
                 view.textField?.stringValue = title
                 view.subtitleTextField?.stringValue = "\(artist) - (\(album))"
                 view.lengthTextField?.stringValue = track.rLength()
-                view.imageView?.image = track.artwork ?? NSImage(named: NSImage.Name(rawValue: "music_missing"))
+                view.imageView?.image = track.rArtwork
+                view.keyTextField?.stringValue = track.rKey
 
                 return view
             }

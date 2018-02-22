@@ -16,7 +16,8 @@ class Track {
     var length: Int? = nil
 
     var path: String? = nil
-    
+    var key: Key? = nil
+
     func rTitle() -> String {
         return title ?? "Unknown Title"
     }
@@ -27,6 +28,18 @@ class Track {
 
     func rAlbum() -> String {
         return album ?? "Unknown Album"
+    }
+    
+    var rKey: String {
+        guard let key = self.key else {
+            return ""
+        }
+        
+        return key.description
+    }
+    
+    var rArtwork: NSImage {
+        return self.artwork ?? NSImage(named: NSImage.Name(rawValue: "music_missing"))!
     }
     
     func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
@@ -47,28 +60,61 @@ class Track {
         }
     }
     
-    var artworkFetched: Bool = false
+    var metadataFetched: Bool = false
     var artwork: NSImage? = nil
 
-    func fetchArtwork() -> NSImage? {
-        self.artworkFetched = true
+    func fetchMetadata() {
+        self.metadataFetched = true
         self.artwork = nil
 
         guard let url = self.url else {
-            return nil
+            return
         }
         
         let urlAsset = AVURLAsset(url: url)
+        
+        self.fetchArtwork(asset: urlAsset)
+        self.fetchKey(asset: urlAsset)
 
-        let metadatas = AVMetadataItem.metadataItems(from: urlAsset.commonMetadata, withKey: AVMetadataKey.commonKeyArtwork, keySpace: AVMetadataKeySpace.common)
+        return
+    }
+
+    func fetchKey(asset: AVURLAsset) {
+        let metadatas = AVMetadataItem.metadataItems(from: asset.metadata, withKey: AVMetadataKey.id3MetadataKeyInitialKey, keySpace: AVMetadataKeySpace.id3)
         
         for metadata in metadatas {
+            if let key = metadata.stringValue {
+                self.key = Key.parse(string: key)
+                return
+            }
+        }
+    }
+
+    func fetchArtwork(asset: AVURLAsset) {
+        var metadatas = AVMetadataItem.metadataItems(from: asset.commonMetadata, withKey: AVMetadataKey.commonKeyArtwork, keySpace: AVMetadataKeySpace.common)
+
+        for metadata in metadatas {
             if let data = metadata.dataValue {
+                print("Found 1")
                 self.artwork = NSImage(data: data)
-                return self.artwork
+                return
+            }
+            else {
+                print("Fail 1")
             }
         }
         
-        return nil
+        metadatas = AVMetadataItem.metadataItems(from: asset.metadata, withKey: AVMetadataKey.iTunesMetadataKeyCoverArt, keySpace: AVMetadataKeySpace.iTunes)
+        
+        for metadata in metadatas {
+            if let data = metadata.dataValue {
+                print("Found 2")
+                self.artwork = NSImage(data: data)
+                return
+            }
+            else {
+                print("Fail 2")
+            }
+        }
     }
 }

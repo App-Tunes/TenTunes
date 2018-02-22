@@ -21,6 +21,7 @@
 		80F2C5842038808000212739 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80F2C5822038808000212739 /* Main.storyboard */; };
 		80F2C58F20389B9B00212739 /* TrackSpectrumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C58E20389B9B00212739 /* TrackSpectrumView.swift */; };
 		80F2C5912038A80D00212739 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C5902038A80D00212739 /* Track.swift */; };
+		80F77BF5203D8B35001E397F /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F77BF4203D8B35001E397F /* Keys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -54,6 +55,7 @@
 		80F2C5862038808000212739 /* TenTunes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TenTunes.entitlements; sourceTree = "<group>"; };
 		80F2C58E20389B9B00212739 /* TrackSpectrumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSpectrumView.swift; sourceTree = "<group>"; };
 		80F2C5902038A80D00212739 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		80F77BF4203D8B35001E397F /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 				80E937582039C2850014C835 /* Keycodes.swift */,
 				80F2C58E20389B9B00212739 /* TrackSpectrumView.swift */,
 				8084AA50203B5CF400064B11 /* TrackCellView.swift */,
+				80F77BF4203D8B35001E397F /* Keys.swift */,
 				80F2C5802038808000212739 /* Assets.xcassets */,
 				80F2C5822038808000212739 /* Main.storyboard */,
 				80F2C5852038808000212739 /* Info.plist */,
@@ -190,6 +193,7 @@
 				80E937592039C2850014C835 /* Keycodes.swift in Sources */,
 				80F2C58F20389B9B00212739 /* TrackSpectrumView.swift in Sources */,
 				80F2C57F2038808000212739 /* TenTunes.xcdatamodeld in Sources */,
+				80F77BF5203D8B35001E397F /* Keys.swift in Sources */,
 				80F2C57A2038808000212739 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

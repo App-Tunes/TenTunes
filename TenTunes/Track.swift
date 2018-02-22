@@ -48,7 +48,7 @@ class Track {
         return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
     }
     
-    func rLength() -> String {
+    var rLength: String {
         guard let length = self.length else {
             return "??:??"
         }

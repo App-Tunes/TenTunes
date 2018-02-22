@@ -367,7 +367,7 @@ extension ViewController: NSTableViewDelegate {
                 view.lengthTextField?.stringValue = track.rLength
                 view.imageView?.image = track.rArtwork
                 view.key = track.rKey
-                view.bpmTextField?.stringValue = ""
+                view.bpmTextField?.stringValue = track.bpm?.description ?? ""
 
                 return view
             }

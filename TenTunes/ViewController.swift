@@ -364,7 +364,7 @@ extension ViewController: NSTableViewDelegate {
                 view.track = track
                 view.textField?.stringValue = title
                 view.subtitleTextField?.stringValue = "\(artist) - (\(album))"
-                view.lengthTextField?.stringValue = track.rLength()
+                view.lengthTextField?.stringValue = track.rLength
                 view.imageView?.image = track.rArtwork
                 view.key = track.rKey
                 view.bpmTextField?.stringValue = ""

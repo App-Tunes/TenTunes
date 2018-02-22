@@ -946,7 +946,7 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="698" height="438"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <size key="intercellSpacing" width="3" height="2"/>
-                                                                            <color key="backgroundColor" red="0.20393797588832485" green="0.20393797588832485" blue="0.20393797588832485" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="backgroundColor" red="0.16468328237533569" green="0.16471883654594421" blue="0.16468104720115662" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                             <tableColumns>
                                                                                 <tableColumn identifier="" width="695" minWidth="40" maxWidth="10000" id="NLH-lo-Ujw">
@@ -1061,7 +1061,7 @@
                                                                             </connections>
                                                                         </tableView>
                                                                     </subviews>
-                                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <color key="backgroundColor" red="0.16468328237533569" green="0.16471883654594421" blue="0.16468104720115662" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </clipView>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="500" id="TSy-pY-aPO"/>

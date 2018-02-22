@@ -78,6 +78,23 @@ class Track {
         self.fetchArtwork(asset: urlAsset)
         self.fetchID3(asset: urlAsset)
         self.fetchTitle(asset: urlAsset)
+        
+        let importer = JUKImporter.init(url: self.url!)
+        do {
+            try importer?.import()
+            if let img = importer?.image {
+                self.artwork = img
+            }
+            if let key = importer?.initialKey {
+                self.key = Key.parse(string: key)
+            }
+            if let bpm = importer?.bpm {
+                self.bpm = Int(bpm)
+            }
+        }
+        catch let error {
+            print(error)
+        }
 
         return
     }
@@ -115,7 +132,17 @@ class Track {
     func fetchArtwork(asset: AVURLAsset) {
         for metadata in AVMetadataItem.metadataItems(from: asset.commonMetadata, withKey: AVMetadataKey.commonKeyArtwork, keySpace: AVMetadataKeySpace.common) {
             if let data = metadata.dataValue {
-                print("Found 1")
+                self.artwork = NSImage(data: data)
+                return
+            }
+            else {
+                print("Fail 1")
+            }
+        }
+        
+        for metadata in AVMetadataItem.metadataItems(from: asset.commonMetadata, withKey: AVMetadataKey.id3MetadataKeyAttachedPicture, keySpace: AVMetadataKeySpace.id3) {
+            if let data = metadata.dataValue {
+                print("Found 2")
                 self.artwork = NSImage(data: data)
                 return
             }
@@ -126,13 +153,48 @@ class Track {
         
         for metadata in AVMetadataItem.metadataItems(from: asset.metadata, withKey: AVMetadataKey.iTunesMetadataKeyCoverArt, keySpace: AVMetadataKeySpace.iTunes) {
             if let data = metadata.dataValue {
-                print("Found 2")
+                print("Found 3")
                 self.artwork = NSImage(data: data)
                 return
             }
             else {
-                print("Fail 2")
+                print("Fail 3")
             }
         }
+        
+        let imgGenerator = AVAssetImageGenerator(asset: asset)
+        do {
+            let img = try imgGenerator.copyCGImage(at: CMTimeMake(0, 60), actualTime: nil)
+            self.artwork = NSImage(cgImage: img, size: NSZeroSize)
+            print("Found 4")
+        }
+        catch {
+            // print(err.localizedDescription)
+        }
+        
+//        var fileID: AudioFileID?
+//        if AudioFileOpenURL(self.url! as CFURL, AudioFilePermissions.readPermission, 0, &fileID) == 0 {
+//            var size: UInt32 = 0
+//            var data: CFData? = nil
+//            let err = AudioFileGetProperty(fileID!, kAudioFilePropertyAlbumArtwork, &size, &data)
+//            if err != 0 {
+//                print(err)
+//            }
+//            else {
+//                print("Sucks ass")
+//            }
+//            AudioFileClose(fileID!)
+//        }
+
+//        for track in asset.tracks {
+//            print(track)
+//            for desc in track.formatDescriptions {
+//                print(desc)
+//            }
+//        }
+//
+//        for track in asset.allMediaSelections {
+//            print(track)
+//        }
     }
 }

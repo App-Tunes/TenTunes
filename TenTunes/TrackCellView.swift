@@ -13,6 +13,7 @@ class TrackCellView: NSTableCellView {
     @IBOutlet var subtitleTextField: NSTextField?
     @IBOutlet var lengthTextField: NSTextField?
     @IBOutlet var keyTextField: NSTextField?
+    @IBOutlet var bpmTextField: NSTextField?
     
     var track: Track?
     

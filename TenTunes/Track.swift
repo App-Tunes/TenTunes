@@ -17,6 +17,7 @@ class Track {
 
     var path: String? = nil
     var key: Key? = nil
+    var bpm: Int? = nil
 
     func rTitle() -> String {
         return title ?? "Unknown Title"
@@ -74,18 +75,25 @@ class Track {
         let urlAsset = AVURLAsset(url: url)
         
         self.fetchArtwork(asset: urlAsset)
-        self.fetchKey(asset: urlAsset)
+        self.fetchID3(asset: urlAsset)
 
         return
     }
 
-    func fetchKey(asset: AVURLAsset) {
-        let metadatas = AVMetadataItem.metadataItems(from: asset.metadata, withKey: AVMetadataKey.id3MetadataKeyInitialKey, keySpace: AVMetadataKeySpace.id3)
+    func fetchID3(asset: AVURLAsset) {
+        var metadatas = AVMetadataItem.metadataItems(from: asset.metadata, withKey: AVMetadataKey.id3MetadataKeyInitialKey, keySpace: AVMetadataKeySpace.id3)
         
         for metadata in metadatas {
             if let key = metadata.stringValue {
                 self.key = Key.parse(string: key)
-                return
+            }
+        }
+
+        metadatas = AVMetadataItem.metadataItems(from: asset.metadata, withKey: AVMetadataKey.id3MetadataKeyBeatsPerMinute, keySpace: AVMetadataKeySpace.id3)
+        
+        for metadata in metadatas {
+            if let bpm = metadata.stringValue {
+                self.bpm = Int(bpm)
             }
         }
     }
@@ -93,6 +101,14 @@ class Track {
     func fetchArtwork(asset: AVURLAsset) {
         var metadatas = AVMetadataItem.metadataItems(from: asset.commonMetadata, withKey: AVMetadataKey.commonKeyArtwork, keySpace: AVMetadataKeySpace.common)
 
+        for metadata in asset.metadata {
+            if let data = metadata.dataValue {
+                if let img = NSImage(data: data) {
+                    self.artwork = img
+                }
+            }
+        }
+        
         for metadata in metadatas {
             if let data = metadata.dataValue {
                 print("Found 1")

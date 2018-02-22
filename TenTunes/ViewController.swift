@@ -111,6 +111,7 @@ class ViewController: NSViewController {
                             DispatchQueue.main.async {
                                 view.imageView?.image = track.rArtwork
                                 view.keyTextField?.attributedStringValue = track.rKey
+                                view.bpmTextField?.stringValue = track.bpm?.description ?? ""
                             }
                             
                             self._fetchingMetadata = false
@@ -311,6 +312,7 @@ extension ViewController: NSTableViewDelegate {
                 view.lengthTextField?.stringValue = track.rLength()
                 view.imageView?.image = track.rArtwork
                 view.key = track.rKey
+                view.bpmTextField?.stringValue = ""
 
                 return view
             }

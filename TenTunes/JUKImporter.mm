@@ -95,7 +95,7 @@ inline NSString *JUKTagLibCommentFrameToNS(const TagLib::ID3v2::CommentsFrame *f
 	if(TagLib::ID3v2::Tag *tag = dynamic_cast<TagLib::ID3v2::Tag *>(f.tag())) {
 		[self importID3v2:tag];
 	} else if(TagLib::ID3v1::Tag *tag = dynamic_cast<TagLib::ID3v1::Tag *>(f.tag())) {
-		std::cout << tag->artist() << std::endl;
+//        std::cout << tag->artist() << std::endl;
 	} else if(TagLib::MP4::Tag *tag = dynamic_cast<TagLib::MP4::Tag *>(f.tag())) {
 		[self importMP4:tag];
 	}
@@ -190,17 +190,17 @@ inline NSString *JUKTagLibCommentFrameToNS(const TagLib::ID3v2::CommentsFrame *f
 //            self.track.comment = JUKTagLibCommentFrameToNS(comment_frame);
 //        }
 		
-		std::cout << frame->frameID() << ": " << frame->toString() << std::endl;
+//        std::cout << frame->frameID() << ": " << frame->toString() << std::endl;
 	}
 }
 
 -(void)importMP4:(TagLib::MP4::Tag *)tag {
-	const TagLib::MP4::ItemMap &map = tag->itemMap();
-	TagLib::MP4::ItemMap::ConstIterator it = map.begin();
-	for(; it != map.end(); it++) {
-		auto item = (*it);
-		std::cout << item.first << "\t is actually \t " << item.second.toStringList() << std::endl;
-	}
+//    const TagLib::MP4::ItemMap &map = tag->itemMap();
+//    TagLib::MP4::ItemMap::ConstIterator it = map.begin();
+//    for(; it != map.end(); it++) {
+//        auto item = (*it);
+//        std::cout << item.first << "\t is actually \t " << item.second.toStringList() << std::endl;
+//    }
 	
 }
 

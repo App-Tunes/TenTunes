@@ -26,6 +26,17 @@ func synced(_ lock: Any, closure: () -> ()) {
     objc_sync_exit(lock)
 }
 
+func setButtonText(button: NSButton, text: String) {
+    button.attributedTitle = NSAttributedString(string: text, attributes: button.attributedTitle.fontAttributes(in: NSRange(location: 0, length: button.attributedTitle.length)))
+}
+
+func setButtonColor(button: NSButton, color: NSColor) {
+    if let mutableAttributedTitle = button.attributedTitle.mutableCopy() as? NSMutableAttributedString {
+        mutableAttributedTitle.addAttribute(.foregroundColor, value: color, range: NSRange(location: 0, length: mutableAttributedTitle.length))
+        button.attributedTitle = mutableAttributedTitle
+    }
+}
+
 class ViewController: NSViewController {
 
     @IBOutlet var _tableView: NSTableView!
@@ -34,7 +45,9 @@ class ViewController: NSViewController {
     
     @IBOutlet var _play: NSButton!
     @IBOutlet var _stop: NSButton!
-
+    @IBOutlet var _previous: NSButton!
+    @IBOutlet var _next: NSButton!
+    
     @IBOutlet var _spectrumView: TrackSpectrumView!
     
     var database: [Track]! = []
@@ -48,6 +61,13 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.wantsLayer = true
+        self.view.layer!.backgroundColor = NSColor.darkGray.cgColor
+        
+        setButtonColor(button: _play, color: NSColor.white)
+        setButtonColor(button: _previous, color: NSColor.white)
+        setButtonColor(button: _next, color: NSColor.white)
+
         self.player = AKPlayer()
         AudioKit.output = self.player
         try! AudioKit.start()
@@ -142,7 +162,7 @@ class ViewController: NSViewController {
         guard let track = self.playing else {
             self.player.stop()
 
-            self._play.stringValue = playString
+            setButtonText(button: self._play, text: playString)
             
             self._title.stringValue = ""
             self._subtitle.stringValue = ""
@@ -150,7 +170,7 @@ class ViewController: NSViewController {
             return
         }
         
-        self._play.title = self.isPaused() ? playString : pauseString
+        setButtonText(button: self._play, text: self.isPaused() ? playString : pauseString)
         
         self._title.stringValue = track.rTitle()
         self._subtitle.stringValue = "\(track.rAuthor()) - \(track.rAlbum())"

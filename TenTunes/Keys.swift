@@ -104,7 +104,7 @@ class Key {
     
     var description: NSAttributedString {
         let description = isMinor ? self.note.description.lowercased() : self.note.description
-        let color = NSColor(hue: CGFloat(self.camelot - 1) / CGFloat(12), saturation: CGFloat(1.0), brightness: CGFloat(0.5), alpha: CGFloat(1.0))
+        let color = NSColor(hue: CGFloat(self.camelot - 1) / CGFloat(12), saturation: CGFloat(0.8), brightness: CGFloat(1.0), alpha: CGFloat(1.0))
         return NSAttributedString(string: description, attributes: [.foregroundColor: color])
     }
 }

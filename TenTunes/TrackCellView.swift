@@ -34,8 +34,8 @@ class TrackCellView: NSTableCellView {
     
     override var backgroundStyle: NSView.BackgroundStyle {
         didSet {
-            self.subtitleTextField?.textColor = backgroundStyle == NSView.BackgroundStyle.light ? NSColor.darkGray : NSColor.white;
-            self.lengthTextField?.textColor = backgroundStyle == NSView.BackgroundStyle.light ? NSColor.gray : NSColor.white;
+            self.subtitleTextField?.textColor = backgroundStyle == NSView.BackgroundStyle.light ? NSColor.darkGray : NSColor.lightGray
+            self.lengthTextField?.textColor = NSColor.gray
         }
     }
     

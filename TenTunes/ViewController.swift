@@ -27,7 +27,7 @@ func synced(_ lock: Any, closure: () -> ()) {
 }
 
 func setButtonText(button: NSButton, text: String) {
-    button.attributedTitle = NSAttributedString(string: text, attributes: button.attributedTitle.fontAttributes(in: NSRange(location: 0, length: button.attributedTitle.length)))
+    button.attributedTitle = NSAttributedString(string: text, attributes: button.attributedTitle.attributes(at: 0, effectiveRange: nil))
 }
 
 func setButtonColor(button: NSButton, color: NSColor) {
@@ -50,13 +50,18 @@ class ViewController: NSViewController {
     
     @IBOutlet var _spectrumView: TrackSpectrumView!
     
-    var database: [Track]! = []
-    
+    var database: [Int: Track]! = [:]
+    var playlist: Playlist!
+    var playlistDatabase: [String: Playlist]! = [:]
+    var playlists: [Playlist]! = []
+
     var player: AKPlayer!
     var playing: Track?
     var playingIndex: Int?
     
     var visualTimer: Timer!
+    
+    @IBOutlet var playlistController: PlaylistController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +72,7 @@ class ViewController: NSViewController {
         setButtonColor(button: _play, color: NSColor.white)
         setButtonColor(button: _previous, color: NSColor.white)
         setButtonColor(button: _next, color: NSColor.white)
-
+        
         self.player = AKPlayer()
         AudioKit.output = self.player
         try! AudioKit.start()
@@ -80,13 +85,13 @@ class ViewController: NSViewController {
         }
 
         let nsdict = NSDictionary(contentsOfFile: path)!
-        let tracksRaw = nsdict.object(forKey: "Tracks") as! NSDictionary
         
-        for (_, trackData) in tracksRaw {
+        for (id, trackData) in nsdict.object(forKey: "Tracks") as! NSDictionary {
             let trackData = trackData as! NSDictionary
             
             let track = Track()
             
+            track.id = Int(id as! String)!
             track.title = trackData["Name"] as? String
             track.author = trackData["Artist"] as? String
             track.album = trackData["Album"] as? String
@@ -94,9 +99,39 @@ class ViewController: NSViewController {
 
             track.length = trackData["Total Time"] as? Int
             
-            self.database.append(track)
+            self.database[Int(id as! String)!] = track
         }
         
+        for playlistData in nsdict.object(forKey: "Playlists") as! NSArray {
+            let playlistData = playlistData as! NSDictionary
+            let playlist = Playlist()
+
+            playlist.name = playlistData.object(forKey: "Name") as! String
+            playlist.id = playlistData.object(forKey: "Playlist Persistent ID") as! String
+
+            for trackData in playlistData.object(forKey: "Playlist Items") as? NSArray ?? [] {
+                let trackData = trackData as! NSDictionary
+                let id = trackData["Track ID"] as! Int
+                playlist.tracks.append(self.database[id]!)
+            }
+            
+            if playlistData.object(forKey: "Master") as? Bool ?? false {
+                self.playlist = playlist
+            }
+            
+            self.playlistDatabase[playlist.id] = playlist
+            
+            if let parent = playlistData.object(forKey: "Parent Persistent ID") as? String {
+                self.playlistDatabase[parent]?.children.append(playlist)
+            }
+            else {
+                self.playlists.append(playlist)
+            }
+        }
+        
+        self.playlistController.setObserver(block: self.playlistSelected)
+        self.playlistController.playlists = self.playlists
+
         self.updatePlaying()
         
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
@@ -120,7 +155,7 @@ class ViewController: NSViewController {
             let visibleRows = self._tableView.rows(in: visibleRect)
             
             for row in visibleRows.lowerBound...visibleRows.upperBound {
-                if let view = self._tableView.view(atColumn: 0, row: row, makeIfNecessary: false) as? TrackCellView {
+                if self.playlist.tracks.count > row, let view = self._tableView.view(atColumn: 0, row: row, makeIfNecessary: false) as? TrackCellView {
                     if let track = view.track, !track.metadataFetched {
                         
                         self._fetchingMetadata = true
@@ -157,6 +192,10 @@ class ViewController: NSViewController {
     func isPaused() -> Bool {
         return !self.isPlaying()
     }
+    
+    func track(at: Int) -> Track? {
+        return self.playlist.tracks[at]
+    }
 
     func updatePlaying() {
         guard let track = self.playing else {
@@ -172,8 +211,8 @@ class ViewController: NSViewController {
         
         setButtonText(button: self._play, text: self.isPaused() ? playString : pauseString)
         
-        self._title.stringValue = track.rTitle()
-        self._subtitle.stringValue = "\(track.rAuthor()) - \(track.rAlbum())"
+        self._title.stringValue = track.rTitle
+        self._subtitle.stringValue = "\(track.rAuthor) - \(track.rAlbum)"
     }
     
     func play(track: Track?) -> Void {
@@ -210,14 +249,14 @@ class ViewController: NSViewController {
     
     @IBAction func doubleClick(_ sender: Any) {
         self.playingIndex = self._tableView.clickedRow
-        self.play(track: self.database[self.playingIndex!])
+        self.play(track: self.track(at: self.playingIndex!))
     }
     
     func playCurrentTrack() {
         let selectedRow = self._tableView.selectedRow
         if selectedRow >= 0 {
             self.playingIndex = selectedRow
-            self.play(track: self.database[selectedRow])
+            self.play(track: self.track(at: selectedRow))
         }
     }
     
@@ -243,25 +282,20 @@ class ViewController: NSViewController {
     }
     
     func play(moved: Int) {
-        guard let database = self.database else {
-            self.playingIndex = nil
-            return
-        }
-        
         if let playingIndex = self.playingIndex {
             self.playingIndex = playingIndex + moved
         }
         else {
-            self.playingIndex = moved > 0 ? 0 : database.count - 1
+            self.playingIndex = moved > 0 ? 0 : self.playlist.tracks.count - 1
         }
         
-        if self.playingIndex! >= database.count || self.playingIndex! < 0 {
+        if self.playingIndex! >= self.playlist.tracks.count || self.playingIndex! < 0 {
             self.playingIndex = nil
             self.play(track: nil)
             return
         }
         
-        let track = self.database?[self.playingIndex!]
+        let track = self.track(at: self.playingIndex!)
         self.play(track: track)
         
         if track == nil {
@@ -301,14 +335,17 @@ class ViewController: NSViewController {
             self.player.stop()
         }
     }
+    
+    func playlistSelected(_ playlist: Playlist) {
+        self.playlist = playlist
+        self._tableView.reloadData()
+    }
 }
 
 extension ViewController: NSTableViewDelegate {
     
     fileprivate enum CellIdentifiers {
         static let NameCell = NSUserInterfaceItemIdentifier(rawValue: "nameCell")
-        static let DateCell = NSUserInterfaceItemIdentifier(rawValue: "dateCell")
-        static let SizeCell = NSUserInterfaceItemIdentifier(rawValue: "sizeCell")
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
@@ -316,15 +353,13 @@ extension ViewController: NSTableViewDelegate {
         dateFormatter.dateStyle = .long
         dateFormatter.timeStyle = .long
         
-        // 1
-        let track = self.database[row]
+        let track = self.playlist.tracks[row]
         
-        // 2
         if tableColumn == tableView.tableColumns[0] {
             if let view = tableView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? TrackCellView {
-                let artist = track.rAuthor()
-                let title = track.rTitle()
-                let album = track.rAlbum()
+                let artist = track.rAuthor
+                let title = track.rTitle
+                let album = track.rAlbum
 
                 view.track = track
                 view.textField?.stringValue = title
@@ -349,7 +384,7 @@ extension ViewController: NSTableViewDelegate {
 extension ViewController: NSTableViewDataSource {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return database.count;
+        return self.playlist.tracks.count;
     }
 }
 

@@ -15,10 +15,33 @@ enum Note {
     static var order: [Note] = [.A, .Bb, .B, .C, .Db, .D, .Eb, .E, .F, .Gb, .G, .Ab]
 
     static func parse(string: String, isMinor: Bool) -> Note? {
-        for note in Note.order {
-            if note.description == string {
-                return note
-            }
+        switch string.lowercased() {
+        case "a":
+            return .A
+        case "bb":
+            return .Bb
+        case "b":
+            return .B
+        case "c":
+            return .C
+        case "db":
+            return .Db
+        case "d":
+            return .D
+        case "eb":
+            return .Eb
+        case "e":
+            return .E
+        case "f":
+            return .F
+        case "gb":
+            return .Gb
+        case "g":
+            return .G
+        case "ab":
+            return .Ab
+        default:
+            break
         }
         
         if let i = Int(string) {
@@ -39,27 +62,27 @@ enum Note {
         case .A:
             return "A"
         case .Bb:
-            return "Bb"
+            return "B♭"
         case .B:
             return "B"
         case .C:
             return "C"
         case .Db:
-            return "Db"
+            return "D♭"
         case .D:
             return "D"
         case .Eb:
-            return "Eb"
+            return "E♭"
         case .E:
             return "E"
         case .F:
             return "F"
         case .Gb:
-            return "Gb"
+            return "G♭"
         case .G:
             return "G"
         case .Ab:
-            return "Ab"
+            return "A♭"
         default:
             return ""
         }
@@ -104,7 +127,7 @@ class Key {
     
     var description: NSAttributedString {
         let description = isMinor ? self.note.description.lowercased() : self.note.description
-        let color = NSColor(hue: CGFloat(self.camelot - 1) / CGFloat(12), saturation: CGFloat(0.8), brightness: CGFloat(1.0), alpha: CGFloat(1.0))
+        let color = NSColor(hue: CGFloat(self.camelot - 1) / CGFloat(12), saturation: CGFloat(0.6), brightness: CGFloat(1.0), alpha: CGFloat(1.0))
         return NSAttributedString(string: description, attributes: [.foregroundColor: color])
     }
 }

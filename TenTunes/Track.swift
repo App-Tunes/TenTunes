@@ -10,6 +10,7 @@ import Cocoa
 import AudioKit
 
 class Track {
+    var id: Int = 0
     var title: String? = nil
     var author: String? = nil
     var album: String? = nil
@@ -19,15 +20,15 @@ class Track {
     var key: Key? = nil
     var bpm: Int? = nil
 
-    func rTitle() -> String {
+    var rTitle: String {
         return title ?? "Unknown Title"
     }
 
-    func rAuthor() -> String {
+    var rAuthor: String {
         return author ?? "Unknown Author"
     }
 
-    func rAlbum() -> String {
+    var rAlbum: String {
         return album ?? "Unknown Album"
     }
     
@@ -76,22 +77,35 @@ class Track {
         
         self.fetchArtwork(asset: urlAsset)
         self.fetchID3(asset: urlAsset)
+        self.fetchTitle(asset: urlAsset)
 
         return
     }
+    
+    func fetchTitle(asset: AVURLAsset) {
+        for metadata in AVMetadataItem.metadataItems(from: asset.commonMetadata, withKey: AVMetadataKey.commonKeyTitle, keySpace: AVMetadataKeySpace.common) {
+            if let title = metadata.stringValue {
+                self.title = title
+                return
+            }
+        }
+
+        for metadata in AVMetadataItem.metadataItems(from: asset.metadata, withKey: AVMetadataKey.id3MetadataKeyTitleDescription, keySpace: AVMetadataKeySpace.id3) {
+            if let title = metadata.stringValue {
+                self.title = title
+                return
+            }
+        }
+}
 
     func fetchID3(asset: AVURLAsset) {
-        var metadatas = AVMetadataItem.metadataItems(from: asset.metadata, withKey: AVMetadataKey.id3MetadataKeyInitialKey, keySpace: AVMetadataKeySpace.id3)
-        
-        for metadata in metadatas {
+        for metadata in AVMetadataItem.metadataItems(from: asset.metadata, withKey: AVMetadataKey.id3MetadataKeyInitialKey, keySpace: AVMetadataKeySpace.id3) {
             if let key = metadata.stringValue {
                 self.key = Key.parse(string: key)
             }
         }
 
-        metadatas = AVMetadataItem.metadataItems(from: asset.metadata, withKey: AVMetadataKey.id3MetadataKeyBeatsPerMinute, keySpace: AVMetadataKeySpace.id3)
-        
-        for metadata in metadatas {
+        for metadata in AVMetadataItem.metadataItems(from: asset.metadata, withKey: AVMetadataKey.id3MetadataKeyBeatsPerMinute, keySpace: AVMetadataKeySpace.id3) {
             if let bpm = metadata.stringValue {
                 self.bpm = Int(bpm)
             }
@@ -99,17 +113,7 @@ class Track {
     }
 
     func fetchArtwork(asset: AVURLAsset) {
-        var metadatas = AVMetadataItem.metadataItems(from: asset.commonMetadata, withKey: AVMetadataKey.commonKeyArtwork, keySpace: AVMetadataKeySpace.common)
-
-        for metadata in asset.metadata {
-            if let data = metadata.dataValue {
-                if let img = NSImage(data: data) {
-                    self.artwork = img
-                }
-            }
-        }
-        
-        for metadata in metadatas {
+        for metadata in AVMetadataItem.metadataItems(from: asset.commonMetadata, withKey: AVMetadataKey.commonKeyArtwork, keySpace: AVMetadataKeySpace.common) {
             if let data = metadata.dataValue {
                 print("Found 1")
                 self.artwork = NSImage(data: data)
@@ -120,9 +124,7 @@ class Track {
             }
         }
         
-        metadatas = AVMetadataItem.metadataItems(from: asset.metadata, withKey: AVMetadataKey.iTunesMetadataKeyCoverArt, keySpace: AVMetadataKeySpace.iTunes)
-        
-        for metadata in metadatas {
+        for metadata in AVMetadataItem.metadataItems(from: asset.metadata, withKey: AVMetadataKey.iTunesMetadataKeyCoverArt, keySpace: AVMetadataKeySpace.iTunes) {
             if let data = metadata.dataValue {
                 print("Found 2")
                 self.artwork = NSImage(data: data)

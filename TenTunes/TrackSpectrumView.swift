@@ -145,7 +145,7 @@ class TrackSpectrumView: NSControl {
         }
         
         if let location = self.location {
-            NSColor.black.set() // choose color
+            NSColor.white.set() // choose color
             let position = NSBezierPath()
             
             position.move(to: NSMakePoint(CGFloat(location) * self.bounds.width, self.bounds.minY))

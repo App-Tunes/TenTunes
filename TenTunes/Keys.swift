@@ -30,8 +30,8 @@ enum Note {
         return nil
     }
     
-    var camelot: Int {
-        return Note.camelotWheel.index(of: self)!
+    func camelot(isMinor: Bool) -> Int {
+        return (Note.camelotWheel.index(of: self)! + (isMinor ? 9 : 0)) % Note.camelotWheel.count
     }
     
     var description: String {
@@ -87,7 +87,7 @@ class Key {
     }
     
     var camelot: Int {
-        return self.note.camelot
+        return self.note.camelot(isMinor: isMinor)
     }
     
     var isMajor: Bool {
@@ -102,7 +102,9 @@ class Key {
         return Key(note: self.note, isMinor: true)
     }
     
-    var description: String {
-        return isMinor ? self.note.description.lowercased() : self.note.description
+    var description: NSAttributedString {
+        let description = isMinor ? self.note.description.lowercased() : self.note.description
+        let color = NSColor(hue: CGFloat(self.camelot - 1) / CGFloat(12), saturation: CGFloat(1.0), brightness: CGFloat(0.5), alpha: CGFloat(1.0))
+        return NSAttributedString(string: description, attributes: [.foregroundColor: color])
     }
 }

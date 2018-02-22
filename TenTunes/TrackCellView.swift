@@ -37,4 +37,11 @@ class TrackCellView: NSTableCellView {
             self.lengthTextField?.textColor = backgroundStyle == NSView.BackgroundStyle.light ? NSColor.gray : NSColor.white;
         }
     }
+    
+    var key: NSAttributedString? {
+        didSet {
+            self.keyTextField?.attributedStringValue = self.key!
+            self.keyTextField?.alignment = NSTextAlignment.right // Need to do this after, cause setting the string resets it
+        }
+    }
 }

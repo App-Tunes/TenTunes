@@ -30,9 +30,9 @@ class Track {
         return album ?? "Unknown Album"
     }
     
-    var rKey: String {
+    var rKey: NSAttributedString {
         guard let key = self.key else {
-            return ""
+            return NSAttributedString(string: "")
         }
         
         return key.description

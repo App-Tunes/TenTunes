@@ -110,7 +110,7 @@ class ViewController: NSViewController {
                             // Update on main thread
                             DispatchQueue.main.async {
                                 view.imageView?.image = track.rArtwork
-                                view.keyTextField?.stringValue = track.rKey
+                                view.keyTextField?.attributedStringValue = track.rKey
                             }
                             
                             self._fetchingMetadata = false
@@ -310,7 +310,7 @@ extension ViewController: NSTableViewDelegate {
                 view.subtitleTextField?.stringValue = "\(artist) - (\(album))"
                 view.lengthTextField?.stringValue = track.rLength()
                 view.imageView?.image = track.rArtwork
-                view.keyTextField?.stringValue = track.rKey
+                view.key = track.rKey
 
                 return view
             }

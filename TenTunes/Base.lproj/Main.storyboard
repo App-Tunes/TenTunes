@@ -760,7 +760,7 @@
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSUserGuest" id="FjQ-sJ-1eE"/>
                                                                 </imageView>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nuD-Ig-Zac">
-                                                                    <rect key="frame" x="47" y="18" width="96" height="17"/>
+                                                                    <rect key="frame" x="47" y="18" width="479" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="seD-AX-rU2"/>
                                                                     </constraints>
@@ -771,7 +771,7 @@
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xLA-Bm-OYD">
-                                                                    <rect key="frame" x="60" y="0.0" width="83" height="17"/>
+                                                                    <rect key="frame" x="60" y="0.0" width="466" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="zed-gc-H4s"/>
                                                                     </constraints>
@@ -793,8 +793,11 @@
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="D9T-Ey-BdL">
-                                                                    <rect key="frame" x="147" y="12" width="421" height="17"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="A#" id="cLM-C2-ZIb">
+                                                                    <rect key="frame" x="530" y="12" width="38" height="17"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="34" id="3U5-Fh-1l6"/>
+                                                                    </constraints>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="A#" id="cLM-C2-ZIb">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -809,7 +812,6 @@
                                                                 <constraint firstItem="pa8-29-GdI" firstAttribute="bottom" secondItem="D9T-Ey-BdL" secondAttribute="bottom" id="ZkE-ac-DyA"/>
                                                                 <constraint firstItem="D9T-Ey-BdL" firstAttribute="leading" secondItem="nuD-Ig-Zac" secondAttribute="trailing" constant="8" id="bnv-sZ-f0X"/>
                                                                 <constraint firstItem="nuD-Ig-Zac" firstAttribute="leading" secondItem="dcr-Xq-1GD" secondAttribute="trailing" constant="7" id="evg-he-D0n"/>
-                                                                <constraint firstItem="pa8-29-GdI" firstAttribute="leading" secondItem="D9T-Ey-BdL" secondAttribute="trailing" constant="8" id="fgd-VK-1TZ"/>
                                                                 <constraint firstItem="pa8-29-GdI" firstAttribute="centerY" secondItem="dcr-Xq-1GD" secondAttribute="centerY" id="hCK-PF-Hgg"/>
                                                                 <constraint firstItem="xLA-Bm-OYD" firstAttribute="top" secondItem="nuD-Ig-Zac" secondAttribute="bottom" constant="1" id="n1X-c5-pM2"/>
                                                                 <constraint firstItem="D9T-Ey-BdL" firstAttribute="leading" secondItem="xLA-Bm-OYD" secondAttribute="trailing" constant="8" id="paw-VU-0Gx"/>

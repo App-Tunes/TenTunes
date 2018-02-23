@@ -151,7 +151,7 @@ class ViewController: NSViewController {
         }
 
         self.visualTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true ) { [unowned self] (timer) in
-            self._spectrumView.setBy(player: self.player)
+            self._spectrumView.setBy(player: self.player) // TODO Apparently this loops back when the track is done (or rather just before)
             
             // Only fetch one at once
             if !self._fetchingMetadata {

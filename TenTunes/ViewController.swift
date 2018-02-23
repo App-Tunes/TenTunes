@@ -284,6 +284,7 @@ class ViewController: NSViewController {
             }
         }
         else {
+            self.playlist = trackController.playlist
             playAny()
         }
         

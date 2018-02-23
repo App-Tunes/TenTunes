@@ -23,9 +23,6 @@ import Cocoa
     }
     
     @IBAction func didClick(_ sender: Any) {
-        if let observer = self._playlistSelected {
-            observer(_outlineView.item(atRow: _outlineView.clickedRow) as! Playlist)
-        }
     }
 }
 
@@ -70,6 +67,12 @@ extension PlaylistController : NSOutlineViewDataSource {
 }
 
 extension PlaylistController : NSOutlineViewDelegate {
-
+    func outlineViewSelectionDidChange(_ notification: Notification) {
+        if let selected = _outlineView.selectedRowIndexes.first {
+            if let observer = self._playlistSelected {
+                observer(_outlineView.item(atRow: selected) as! Playlist)
+            }
+        }
+    }
 }
 

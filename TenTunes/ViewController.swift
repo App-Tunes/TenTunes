@@ -172,7 +172,7 @@ class ViewController: NSViewController {
             }
         }
         
-        for track in self.playlist.tracks {
+        for track in self.trackController.playlist.tracks {
             if !track.metadataFetched  {
                 fetchMetadata(for: track, updating: nil)
                 return

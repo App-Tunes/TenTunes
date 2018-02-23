@@ -109,10 +109,14 @@ class Track {
         author = author ?? avImporter.string(withKey: .commonKeyArtist, keySpace: .common)
         author = author ?? avImporter.string(withKey: .commonKeyCreator, keySpace: .common)
         author = author ?? avImporter.string(withKey: .commonKeyAuthor, keySpace: .common)
+        author = author ?? avImporter.string(withKey: .iTunesMetadataKeyOriginalArtist, keySpace: .iTunes)
         author = author ?? avImporter.string(withKey: .iTunesMetadataKeyArtist, keySpace: .iTunes)
+        author = author ?? avImporter.string(withKey: .iTunesMetadataKeySoloist, keySpace: .iTunes)
 
         artwork = artwork ?? avImporter.image(withKey: .commonKeyArtwork, keySpace: .common)
         artwork = artwork ?? avImporter.image(withKey: .iTunesMetadataKeyCoverArt, keySpace: .iTunes)
+
+        bpm = bpm ?? Int(avImporter.string(withKey: .iTunesMetadataKeyBeatsPerMin, keySpace: .iTunes) ?? "")
 
         // For videos, generate thumbnails
         if self.artwork == nil {

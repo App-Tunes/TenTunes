@@ -80,7 +80,21 @@ class TrackController: NSObject {
         return nil
     }
     
-    func update(view: TrackCellView, with track: Track) {
+    func visibleView(to: Track) -> TrackCellView? {
+        for visible in visibleTracks {
+            if visible.track != nil && visible.track === to {
+                return visible
+            }
+        }
+        
+        return nil
+    }
+    
+    func update(view: TrackCellView?, with track: Track) {
+        guard let view = view ?? visibleView(to: track) else {
+            return
+        }
+        
         view.track = track
         view.textField?.stringValue = track.rTitle
         view.subtitleTextField?.stringValue = track.rSource

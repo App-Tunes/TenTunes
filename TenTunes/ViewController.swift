@@ -167,22 +167,33 @@ class ViewController: NSViewController {
     func fetchOneMetadata() {
         for view in trackController.visibleTracks {
             if let track = view.track, !track.metadataFetched  {
-                self._fetchingMetadata = true
-                
-                DispatchQueue.global(qos: .userInitiated).async {
-                    track.fetchMetadata()
-                    
-                    // Update on main thread
-                    DispatchQueue.main.async {
-                        self.trackController.update(view: view, with: track)
-                    }
-                    
-                    self._fetchingMetadata = false
-                }
-                
+                fetchMetadata(for: track, updating: view)
                 return
             }
         }
+        
+        for track in self.playlist.tracks {
+            if !track.metadataFetched  {
+                fetchMetadata(for: track, updating: nil)
+                return
+            }
+        }
+    }
+    
+    func fetchMetadata(for track: Track, updating: TrackCellView? = nil) {
+        self._fetchingMetadata = true
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            track.fetchMetadata()
+
+            // Update on main thread
+            DispatchQueue.main.async {
+                self.trackController.update(view: updating, with: track)
+            }
+            
+            self._fetchingMetadata = false
+        }
+        
     }
     
     func keyDown(with event: NSEvent) -> NSEvent? {

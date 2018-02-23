@@ -10,7 +10,7 @@ import Cocoa
 import AudioKit
 
 class Track {
-    var id: Int = 0
+    var id: Int = 0 // TODO Good IDs
     var title: String? = nil
     var author: String? = nil
     var album: String? = nil

@@ -90,6 +90,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		805901BE20404CB900B97D84 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				80802587203F0399008D4168 /* PlaylistController.swift */,
+				80F2C58E20389B9B00212739 /* TrackSpectrumView.swift */,
+				8084AA50203B5CF400064B11 /* TrackCellView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		805901C020404CDF00B97D84 /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				80DCA9B1203F636D00B1E9B1 /* JUKImporter.h */,
+				80DCA9B2203F636E00B1E9B1 /* JUKImporter.mm */,
+				80F2C5902038A80D00212739 /* Track.swift */,
+				80802589203F03B3008D4168 /* Playlist.swift */,
+				80F77BF4203D8B35001E397F /* Keys.swift */,
+			);
+			path = Music;
+			sourceTree = "<group>";
+		};
 		80C0C2A0203F6DCA00FA6083 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,19 +150,13 @@
 		80F2C5782038808000212739 /* TenTunes */ = {
 			isa = PBXGroup;
 			children = (
+				805901BE20404CB900B97D84 /* View */,
+				805901C020404CDF00B97D84 /* Music */,
 				80F2C5792038808000212739 /* AppDelegate.swift */,
 				80F2C57B2038808000212739 /* ViewController.swift */,
-				80802587203F0399008D4168 /* PlaylistController.swift */,
-				80F2C5902038A80D00212739 /* Track.swift */,
-				80802589203F03B3008D4168 /* Playlist.swift */,
 				80CFDA09203C4E2300C7A506 /* LazyVar.swift */,
 				80E937582039C2850014C835 /* Keycodes.swift */,
-				80F2C58E20389B9B00212739 /* TrackSpectrumView.swift */,
-				8084AA50203B5CF400064B11 /* TrackCellView.swift */,
 				80802585203EFCC0008D4168 /* NSString+TT.swift */,
-				80F77BF4203D8B35001E397F /* Keys.swift */,
-				80DCA9B1203F636D00B1E9B1 /* JUKImporter.h */,
-				80DCA9B2203F636E00B1E9B1 /* JUKImporter.mm */,
 				80F2C5802038808000212739 /* Assets.xcassets */,
 				80F2C5822038808000212739 /* Main.storyboard */,
 				80F2C5852038808000212739 /* Info.plist */,

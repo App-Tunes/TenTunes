@@ -14,7 +14,7 @@ class Track {
     var title: String? = nil
     var author: String? = nil
     var album: String? = nil
-    var length: Int? = nil
+    var duration: CMTime? = nil
 
     var path: String? = nil
     var key: Key? = nil
@@ -49,10 +49,10 @@ class Track {
     }
     
     var rLength: String {
-        guard let length = self.length else {
+        guard let duration = duration else {
             return "??:??"
         }
-        let (h, m, s) = secondsToHoursMinutesSeconds(seconds: length / 1000)
+        let (h, m, s) = secondsToHoursMinutesSeconds(seconds: Int(CMTimeGetSeconds(duration)))
         return String(format: "\(m):%02d", s)
     }
     
@@ -77,6 +77,7 @@ class Track {
         key = nil
         bpm = nil
         artwork = nil
+        duration = nil
         
         // TODO Length
 
@@ -119,6 +120,8 @@ class Track {
                 // print(err.localizedDescription)
             }
         }
+        
+        duration = duration ?? avImporter.duration
 
 //        var fileID: AudioFileID?
 //        if AudioFileOpenURL(self.url! as CFURL, AudioFilePermissions.readPermission, 0, &fileID) == 0 {

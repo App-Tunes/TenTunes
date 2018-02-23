@@ -17,6 +17,10 @@ class AVFoundationImporter {
         self.asset = AVURLAsset(url: url)
     }
     
+    var duration: CMTime {
+        return asset.duration
+    }
+    
     func string(withKey: AVMetadataKey, keySpace: AVMetadataKeySpace) -> String? {
         for metadata in AVMetadataItem.metadataItems(from: asset.metadata, withKey: withKey, keySpace: keySpace) {
             if let val = metadata.stringValue {

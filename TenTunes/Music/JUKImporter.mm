@@ -84,7 +84,6 @@ inline NSString *JUKTagLibCommentFrameToNS(const TagLib::ID3v2::CommentsFrame *f
 
 -(BOOL)import:(NSError *__autoreleasing *)error {
 	[self parseID3];
-	[self loadDuration];
 	
 	return YES;
 }
@@ -99,16 +98,6 @@ inline NSString *JUKTagLibCommentFrameToNS(const TagLib::ID3v2::CommentsFrame *f
 	} else if(TagLib::MP4::Tag *tag = dynamic_cast<TagLib::MP4::Tag *>(f.tag())) {
 		[self importMP4:tag];
 	}
-}
-
--(void)loadDuration {
-	AVAsset *asset = [AVAsset assetWithURL:self.url];
-	if(asset == nil) {
-		NSLog(@"Error reading file!");
-		return;
-	}
-	double duration = CMTimeGetSeconds(asset.duration);
-//    self.track.duration = duration;
 }
 
 -(void)setTrackArtists:(NSString*)artists {
@@ -161,17 +150,6 @@ inline NSString *JUKTagLibCommentFrameToNS(const TagLib::ID3v2::CommentsFrame *f
 		} else if(auto text_frame = dynamic_cast<TagLib::ID3v2::TextIdentificationFrame *>(frame)) {
             auto frame_id = text_frame->frameID();
             NSString *textString = JUKTagLibTextFrameToNS(text_frame);
-//            } else if(frame_id == AVMetadataID3MetadataKeyRecordingTime.UTF8String) {
-//                [self setTrackYearReleased:textString overwrite:NO];
-//            } else if(frame_id == AVMetadataID3MetadataKeyReleaseTime.UTF8String) {
-//                [self setTrackYearReleased:textString overwrite:NO];
-//            } else if (frame_id == AVMetadataID3MetadataKeyOriginalReleaseTime.UTF8String) {
-//                [self setTrackYearReleased:textString overwrite:NO];
-//            } else if (frame_id == AVMetadataID3MetadataKeyOriginalReleaseYear.UTF8String) {
-//                [self setTrackYearReleased:textString overwrite:YES];
-//            } else if(frame_id == AVMetadataID3MetadataKeyTrackNumber.UTF8String) {
-//                self.track.position = textString;
-//            }
             if (frame_id == AVMetadataID3MetadataKeyTitleDescription.UTF8String) {
                 [self setTitle: textString];
             } else if(frame_id == AVMetadataID3MetadataKeyLeadPerformer.UTF8String) {
@@ -183,9 +161,7 @@ inline NSString *JUKTagLibCommentFrameToNS(const TagLib::ID3v2::CommentsFrame *f
             } else if(frame_id == AVMetadataID3MetadataKeyBeatsPerMinute.UTF8String) {
                 [self setBpm: textString];
             }
-//            } else if(frame_id == AVMetadataID3MetadataKeyContentType.UTF8String) {
-//                [self setTrackGenre:textString];
-            }
+        }
 //        } else if(auto comment_frame = dynamic_cast<TagLib::ID3v2::CommentsFrame *>(frame)) {
 //            self.track.comment = JUKTagLibCommentFrameToNS(comment_frame);
 //        }

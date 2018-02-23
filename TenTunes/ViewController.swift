@@ -104,8 +104,6 @@ class ViewController: NSViewController {
             track.author = trackData["Artist"] as? String
             track.album = trackData["Album"] as? String
             track.path = trackData["Location"] as? String
-
-            track.length = trackData["Total Time"] as? Int
             
             self.database[Int(id as! String)!] = track
         }

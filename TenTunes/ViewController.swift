@@ -74,6 +74,10 @@ class ViewController: NSViewController {
         setButtonColor(button: _next, color: NSColor.white)
         
         self.player = AKPlayer()
+        self.player.completionHandler = { [unowned self] in
+            self.play(moved: 1)
+        }
+
         AudioKit.output = self.player
         try! AudioKit.start()
 
@@ -256,8 +260,7 @@ class ViewController: NSViewController {
                 self.player.play()
             }
             else {
-                self.player.play(from: self.player.currentTime, to: self.player.duration)
-                self.player.stop()
+                self.pause()
             }
         }
         else {
@@ -265,6 +268,11 @@ class ViewController: NSViewController {
         }
         
         self.updatePlaying()
+    }
+    
+    func pause() {
+        self.player.play(from: self.player.currentTime, to: self.player.duration)
+        self.player.stop()
     }
     
     @IBAction func stop(_ sender: Any) {
@@ -302,14 +310,7 @@ class ViewController: NSViewController {
     }
         
     @IBAction func clickSpectrumView(_ sender: Any) {
-        if self.player.isPlaying {
-            self.player.stop()
-            self.player.play(from: self._spectrumView.getBy(player: self.player)!, to: self.player.duration)
-        }
-        else {
-            self.player.play(from: self._spectrumView.getBy(player: self.player)!, to: self.player.duration)
-            self.player.stop()
-        }
+        self.player.setPosition(self._spectrumView.getBy(player: self.player)!)
     }
     
     func play(_ track: Track, at: Int) {

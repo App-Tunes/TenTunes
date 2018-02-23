@@ -219,7 +219,7 @@ class ViewController: NSViewController {
         setButtonText(button: self._play, text: self.isPaused() ? playString : pauseString)
         
         self._title.stringValue = track.rTitle
-        self._subtitle.stringValue = "\(track.rAuthor) - \(track.rAlbum)"
+        self._subtitle.stringValue = track.rSource
     }
     
     func play(track: Track?) -> Void {

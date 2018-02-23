@@ -24,12 +24,16 @@ class Track {
         return title ?? "Unknown Title"
     }
 
+    var rSource: String {
+        return album != nil ? "\(rAuthor) - \(rAlbum)" : rAuthor
+    }
+
     var rAuthor: String {
         return author ?? "Unknown Author"
     }
 
     var rAlbum: String {
-        return album ?? "Unknown Album"
+        return album ?? ""
     }
     
     var rKey: NSAttributedString {

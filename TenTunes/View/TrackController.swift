@@ -81,13 +81,9 @@ class TrackController: NSObject {
     }
     
     func update(view: TrackCellView, with track: Track) {
-        let artist = track.rAuthor
-        let title = track.rTitle
-        let album = track.rAlbum
-        
         view.track = track
-        view.textField?.stringValue = title
-        view.subtitleTextField?.stringValue = "\(artist) - (\(album))"
+        view.textField?.stringValue = track.rTitle
+        view.subtitleTextField?.stringValue = track.rSource
         view.lengthTextField?.stringValue = track.rLength
         view.imageView?.image = track.rArtwork
         view.key = track.rKey

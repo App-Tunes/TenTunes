@@ -808,6 +808,9 @@
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system" size="20"/>
                                                 </buttonCell>
+                                                <connections>
+                                                    <action selector="toggleShuffle:" target="XfG-lQ-9wD" id="PPw-wd-bDy"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -851,17 +854,17 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="178" height="438"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
-                                                            <scrollView horizontalHuggingPriority="750" horizontalCompressionResistancePriority="25" verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5vh-kh-MXn">
+                                                            <scrollView horizontalHuggingPriority="750" horizontalCompressionResistancePriority="25" verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5vh-kh-MXn">
                                                                 <rect key="frame" x="0.0" y="0.0" width="178" height="411"/>
-                                                                <clipView key="contentView" copiesOnScroll="NO" id="TTJ-cs-lhc">
+                                                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="TTJ-cs-lhc">
                                                                     <rect key="frame" x="0.0" y="0.0" width="178" height="411"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="nFD-7F-dmi" id="1LK-qS-x1i">
                                                                             <rect key="frame" x="0.0" y="0.0" width="178" height="411"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
-                                                                            <size key="intercellSpacing" width="3" height="2"/>
-                                                                            <color key="backgroundColor" red="0.18428918719291687" green="0.1843278706073761" blue="0.18428674340248108" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <size key="intercellSpacing" width="2" height="3"/>
+                                                                            <color key="backgroundColor" red="0.14899864792823792" green="0.14903163909912109" blue="0.14899659156799316" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                             <tableColumns>
                                                                                 <tableColumn identifier="" width="175" minWidth="40" maxWidth="1000" id="nFD-7F-dmi">
@@ -873,7 +876,7 @@
                                                                                     <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="q5x-wD-K5e">
                                                                                         <font key="font" metaFont="system"/>
                                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                                        <color key="backgroundColor" red="0.38378410532994922" green="0.38378410532994922" blue="0.38378410532994922" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     </textFieldCell>
                                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                     <prototypeCellViews>
@@ -911,7 +914,7 @@
                                                                             </connections>
                                                                         </outlineView>
                                                                     </subviews>
-                                                                    <color key="backgroundColor" red="0.18428918719291687" green="0.1843278706073761" blue="0.18428674340248108" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <nil key="backgroundColor"/>
                                                                 </clipView>
                                                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="FSr-qS-CEI">
                                                                     <rect key="frame" x="0.0" y="377" width="110" height="16"/>
@@ -1084,6 +1087,7 @@
                                                                                 <action trigger="doubleAction" selector="doubleClick:" target="3PX-Ck-UDg" id="cHA-FR-t7n"/>
                                                                                 <outlet property="dataSource" destination="3PX-Ck-UDg" id="alo-O9-COc"/>
                                                                                 <outlet property="delegate" destination="3PX-Ck-UDg" id="cty-Mj-tsc"/>
+                                                                                <outlet property="menu" destination="DxB-Nb-Sgp" id="t92-WL-E2d"/>
                                                                             </connections>
                                                                         </tableView>
                                                                     </subviews>
@@ -1142,6 +1146,7 @@
                         <outlet property="_next" destination="Ws9-gx-fi8" id="l56-Fl-VBO"/>
                         <outlet property="_play" destination="4Fc-0r-wVE" id="DPb-N7-0hb"/>
                         <outlet property="_previous" destination="vGp-jR-JQ9" id="9Ln-gY-j8Q"/>
+                        <outlet property="_shuffle" destination="7Y2-7h-2Y4" id="znx-qG-XRl"/>
                         <outlet property="_spectrumView" destination="TnY-8S-uno" id="4GH-DY-Vz2"/>
                         <outlet property="_subtitle" destination="dQc-no-5jm" id="E1J-HT-CTw"/>
                         <outlet property="_title" destination="2zM-Qn-bbU" id="eJC-sn-d25"/>
@@ -1160,6 +1165,25 @@
                         <outlet property="_tableView" destination="oIp-LF-46S" id="SeX-qm-h4w"/>
                     </connections>
                 </customObject>
+                <menu id="DxB-Nb-Sgp">
+                    <items>
+                        <menuItem title="Play" id="x3W-k6-oqA">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="menuPlay:" target="3PX-Ck-UDg" id="iMh-9p-fAO"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Edit" enabled="NO" id="rpl-vA-Xsk">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                        </menuItem>
+                        <menuItem title="Show in Finder" id="ycU-jZ-dU0">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="menuShowInFinder:" target="3PX-Ck-UDg" id="2dE-Nb-7zn"/>
+                            </connections>
+                        </menuItem>
+                    </items>
+                </menu>
             </objects>
             <point key="canvasLocation" x="73.5" y="786.5"/>
         </scene>

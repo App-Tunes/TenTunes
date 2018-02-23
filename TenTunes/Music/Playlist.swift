@@ -18,4 +18,8 @@ class Playlist {
     func track(at: Int) -> Track? {
         return tracks[at]
     }
+    
+    var size: Int {
+        return tracks.count
+    }
 }

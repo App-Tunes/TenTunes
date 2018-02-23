@@ -59,6 +59,16 @@ class TrackController: NSObject {
         }
     }
     
+    @IBAction func menuPlay(_ sender: Any) {
+        self.doubleClick(sender)
+    }
+    
+    @IBAction func menuShowInFinder(_ sender: Any) {
+        let row = self._tableView.clickedRow
+        let track = self.playlist.track(at: row)!
+        NSWorkspace.shared.activateFileViewerSelecting([track.url!])
+    }
+    
     func keyDown(with event: NSEvent) -> NSEvent? {
         if Keycodes.enterKey.matches(event: event) || Keycodes.returnKey.matches(event: event) {
             self.playCurrentTrack()

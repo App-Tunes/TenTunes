@@ -49,6 +49,8 @@ class ViewController: NSViewController {
     
     @IBOutlet var _spectrumView: TrackSpectrumView!
     
+    @IBOutlet var _shuffle: NSButton!
+    
     var database: [Int: Track]! = [:]
     var playlistDatabase: [String: Playlist]! = [:]
     var playlists: [Playlist]! = []
@@ -59,6 +61,8 @@ class ViewController: NSViewController {
     var playingIndex: Int?
     
     var visualTimer: Timer!
+    
+    var shuffle = true
     
     @IBOutlet var playlistController: PlaylistController!
     @IBOutlet var trackController: TrackController!
@@ -280,14 +284,27 @@ class ViewController: NSViewController {
     }
     
     func play(moved: Int) {
+        if playlist.size == 0 {
+            self.playingIndex = nil
+            self.play(track: nil)
+            return
+        }
+        
+        if shuffle {
+            self.playingIndex = Int(arc4random_uniform(UInt32(playlist.size)))
+            let track = self.playlist.track(at: self.playingIndex!)
+            self.play(track: track)
+            return
+        }
+        
         if let playingIndex = self.playingIndex {
             self.playingIndex = playingIndex + moved
         }
         else {
-            self.playingIndex = moved > 0 ? 0 : self.playlist.tracks.count - 1
+            self.playingIndex = moved > 0 ? 0 : playlist.size - 1
         }
         
-        if self.playingIndex! >= self.playlist.tracks.count || self.playingIndex! < 0 {
+        if self.playingIndex! >= playlist.size || self.playingIndex! < 0 {
             self.playingIndex = nil
             self.play(track: nil)
             return
@@ -311,6 +328,12 @@ class ViewController: NSViewController {
         
     @IBAction func clickSpectrumView(_ sender: Any) {
         self.player.setPosition(self._spectrumView.getBy(player: self.player)!)
+    }
+    
+    @IBAction func toggleShuffle(_ sender: Any) {
+        shuffle = !shuffle
+        let img = NSImage(named: NSImage.Name(rawValue: "shuffle"))
+        _shuffle.image = shuffle ? img : img?.tinted(in: NSColor.gray)
     }
     
     func play(_ track: Track, at: Int) {

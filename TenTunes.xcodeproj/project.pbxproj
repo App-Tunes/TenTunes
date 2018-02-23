@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		8013720E203F7C9C00CA9036 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720C203F7C9C00CA9036 /* AudioKit.framework */; };
 		8013720F203F7C9C00CA9036 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720D203F7C9C00CA9036 /* AudioKitUI.framework */; };
-		80802586203EFCC0008D4168 /* NSString+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802585203EFCC0008D4168 /* NSString+TT.swift */; };
+		80802586203EFCC0008D4168 /* Cocoa+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802585203EFCC0008D4168 /* Cocoa+TT.swift */; };
 		80802588203F0399008D4168 /* PlaylistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802587203F0399008D4168 /* PlaylistController.swift */; };
 		8080258A203F03B3008D4168 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802589203F03B3008D4168 /* Playlist.swift */; };
 		808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808161CE2040520900AEA64F /* AVFoundationImporter.swift */; };
@@ -55,7 +55,7 @@
 /* Begin PBXFileReference section */
 		8013720C203F7C9C00CA9036 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = Carthage/Build/Mac/AudioKit.framework; sourceTree = SOURCE_ROOT; };
 		8013720D203F7C9C00CA9036 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = Carthage/Build/Mac/AudioKitUI.framework; sourceTree = SOURCE_ROOT; };
-		80802585203EFCC0008D4168 /* NSString+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSString+TT.swift"; sourceTree = "<group>"; };
+		80802585203EFCC0008D4168 /* Cocoa+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocoa+TT.swift"; sourceTree = "<group>"; };
 		80802587203F0399008D4168 /* PlaylistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistController.swift; sourceTree = "<group>"; };
 		80802589203F03B3008D4168 /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		808161CE2040520900AEA64F /* AVFoundationImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVFoundationImporter.swift; sourceTree = "<group>"; };
@@ -162,7 +162,7 @@
 				80F2C57B2038808000212739 /* ViewController.swift */,
 				80CFDA09203C4E2300C7A506 /* LazyVar.swift */,
 				80E937582039C2850014C835 /* Keycodes.swift */,
-				80802585203EFCC0008D4168 /* NSString+TT.swift */,
+				80802585203EFCC0008D4168 /* Cocoa+TT.swift */,
 				80F2C5802038808000212739 /* Assets.xcassets */,
 				80F2C5822038808000212739 /* Main.storyboard */,
 				80F2C5852038808000212739 /* Info.plist */,
@@ -272,7 +272,7 @@
 				80802588203F0399008D4168 /* PlaylistController.swift in Sources */,
 				8084AA51203B5CF400064B11 /* TrackCellView.swift in Sources */,
 				80DCA9B3203F636F00B1E9B1 /* JUKImporter.mm in Sources */,
-				80802586203EFCC0008D4168 /* NSString+TT.swift in Sources */,
+				80802586203EFCC0008D4168 /* Cocoa+TT.swift in Sources */,
 				80F2C5912038A80D00212739 /* Track.swift in Sources */,
 				80E937592039C2850014C835 /* Keycodes.swift in Sources */,
 				80F2C58F20389B9B00212739 /* TrackSpectrumView.swift in Sources */,

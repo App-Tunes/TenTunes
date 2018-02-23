@@ -73,12 +73,13 @@ class Track {
             return
         }
         
-        let urlAsset = AVURLAsset(url: url)
+        title = nil
+        key = nil
+        bpm = nil
+        artwork = nil
         
-        self.fetchArtwork(asset: urlAsset)
-        self.fetchID3(asset: urlAsset)
-        self.fetchTitle(asset: urlAsset)
-        
+        // TODO Author, Album, Length
+
         let importer = JUKImporter.init(url: self.url!)
         do {
             try importer?.import()
@@ -86,7 +87,7 @@ class Track {
                 self.artwork = img
             }
             if let key = importer?.initialKey {
-                self.key = Key.parse(string: key)
+                self.key = Key.parse(key)
             }
             if let bpm = importer?.bpm {
                 self.bpm = Int(bpm)
@@ -95,83 +96,32 @@ class Track {
         catch let error {
             print(error)
         }
-
-        return
-    }
-    
-    func fetchTitle(asset: AVURLAsset) {
-        for metadata in AVMetadataItem.metadataItems(from: asset.commonMetadata, withKey: AVMetadataKey.commonKeyTitle, keySpace: AVMetadataKeySpace.common) {
-            if let title = metadata.stringValue {
-                self.title = title
-                return
-            }
-        }
-
-        for metadata in AVMetadataItem.metadataItems(from: asset.metadata, withKey: AVMetadataKey.id3MetadataKeyTitleDescription, keySpace: AVMetadataKeySpace.id3) {
-            if let title = metadata.stringValue {
-                self.title = title
-                return
-            }
-        }
-}
-
-    func fetchID3(asset: AVURLAsset) {
-        for metadata in AVMetadataItem.metadataItems(from: asset.metadata, withKey: AVMetadataKey.id3MetadataKeyInitialKey, keySpace: AVMetadataKeySpace.id3) {
-            if let key = metadata.stringValue {
-                self.key = Key.parse(string: key)
-            }
-        }
-
-        for metadata in AVMetadataItem.metadataItems(from: asset.metadata, withKey: AVMetadataKey.id3MetadataKeyBeatsPerMinute, keySpace: AVMetadataKeySpace.id3) {
-            if let bpm = metadata.stringValue {
-                self.bpm = Int(bpm)
-            }
-        }
-    }
-
-    func fetchArtwork(asset: AVURLAsset) {
-        for metadata in AVMetadataItem.metadataItems(from: asset.commonMetadata, withKey: AVMetadataKey.commonKeyArtwork, keySpace: AVMetadataKeySpace.common) {
-            if let data = metadata.dataValue {
-                self.artwork = NSImage(data: data)
-                return
-            }
-            else {
-                print("Fail 1")
-            }
-        }
         
-        for metadata in AVMetadataItem.metadataItems(from: asset.commonMetadata, withKey: AVMetadataKey.id3MetadataKeyAttachedPicture, keySpace: AVMetadataKeySpace.id3) {
-            if let data = metadata.dataValue {
-                print("Found 2")
-                self.artwork = NSImage(data: data)
-                return
-            }
-            else {
-                print("Fail 1")
-            }
-        }
+        let avImporter = AVFoundationImporter(url: self.url!)
         
-        for metadata in AVMetadataItem.metadataItems(from: asset.metadata, withKey: AVMetadataKey.iTunesMetadataKeyCoverArt, keySpace: AVMetadataKeySpace.iTunes) {
-            if let data = metadata.dataValue {
-                print("Found 3")
-                self.artwork = NSImage(data: data)
-                return
-            }
-            else {
-                print("Fail 3")
-            }
-        }
+        title = title ?? avImporter.string(withKey: .commonKeyTitle, keySpace: .common)
+        title = title ?? avImporter.string(withKey: .id3MetadataKeyTitleDescription, keySpace: .id3)
         
-        let imgGenerator = AVAssetImageGenerator(asset: asset)
-        do {
-            let img = try imgGenerator.copyCGImage(at: CMTimeMake(0, 60), actualTime: nil)
-            self.artwork = NSImage(cgImage: img, size: NSZeroSize)
-            print("Found 4")
-        }
-        catch {
-            // print(err.localizedDescription)
-        }
+        key = key ?? Key.parse(avImporter.string(withKey: .id3MetadataKeyInitialKey, keySpace: .id3) ?? "")
         
+        bpm = bpm ?? Int(avImporter.string(withKey: .id3MetadataKeyBeatsPerMinute, keySpace: .id3) ?? "")
+
+        artwork = artwork ?? avImporter.image(withKey: .commonKeyArtwork, keySpace: .common)
+        artwork = artwork ?? avImporter.image(withKey: .iTunesMetadataKeyCoverArt, keySpace: .iTunes)
+
+        // For videos, generate thumbnails
+        if self.artwork == nil {
+            let imgGenerator = AVAssetImageGenerator(asset: AVURLAsset(url: url))
+            do {
+                let img = try imgGenerator.copyCGImage(at: CMTimeMake(0, 60), actualTime: nil)
+                self.artwork = NSImage(cgImage: img, size: NSZeroSize)
+                print("Generated thumbnail for " + path!)
+            }
+            catch {
+                // print(err.localizedDescription)
+            }
+        }
+
 //        var fileID: AudioFileID?
 //        if AudioFileOpenURL(self.url! as CFURL, AudioFilePermissions.readPermission, 0, &fileID) == 0 {
 //            var size: UInt32 = 0
@@ -196,5 +146,7 @@ class Track {
 //        for track in asset.allMediaSelections {
 //            print(track)
 //        }
+
+        return
     }
 }

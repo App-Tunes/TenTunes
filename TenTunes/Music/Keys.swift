@@ -14,7 +14,7 @@ enum Note {
     static var camelotWheel: [Note] = [.C, .G, .D, .A, .E, .B, .Gb, .Db, .Ab, .Eb, .Bb, .F]
     static var order: [Note] = [.A, .Bb, .B, .C, .Db, .D, .Eb, .E, .F, .Gb, .G, .Ab]
 
-    static func parse(string: String, isMinor: Bool) -> Note? {
+    static func parse(_ string: String, isMinor: Bool) -> Note? {
         switch string.lowercased() {
         case "a":
             return .A
@@ -93,11 +93,11 @@ class Key {
     var note: Note
     var isMinor: Bool
 
-    static func parse(string: String) -> Key? {
+    static func parse(_ string: String) -> Key? {
         let isMinor = string.last == "m"
         let noteString: String = isMinor ? String(string.dropLast()) : string
         
-        guard let note = Note.parse(string: noteString, isMinor: isMinor) else {
+        guard let note = Note.parse(noteString, isMinor: isMinor) else {
             return nil
         }
         

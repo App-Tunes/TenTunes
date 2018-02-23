@@ -79,6 +79,20 @@ class TrackController: NSObject {
         
         return nil
     }
+    
+    func update(view: TrackCellView, with track: Track) {
+        let artist = track.rAuthor
+        let title = track.rTitle
+        let album = track.rAlbum
+        
+        view.track = track
+        view.textField?.stringValue = title
+        view.subtitleTextField?.stringValue = "\(artist) - (\(album))"
+        view.lengthTextField?.stringValue = track.rLength
+        view.imageView?.image = track.rArtwork
+        view.key = track.rKey
+        view.bpmTextField?.stringValue = track.bpm?.description ?? ""
+    }
 }
 
 extension TrackController: NSTableViewDelegate {
@@ -92,21 +106,10 @@ extension TrackController: NSTableViewDelegate {
         dateFormatter.timeStyle = .long
         
         let track = self.playlist.tracks[row]
-        
+
         if tableColumn == tableView.tableColumns[0] {
             if let view = tableView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? TrackCellView {
-                let artist = track.rAuthor
-                let title = track.rTitle
-                let album = track.rAlbum
-                
-                view.track = track
-                view.textField?.stringValue = title
-                view.subtitleTextField?.stringValue = "\(artist) - (\(album))"
-                view.lengthTextField?.stringValue = track.rLength
-                view.imageView?.image = track.rArtwork
-                view.key = track.rKey
-                view.bpmTextField?.stringValue = track.bpm?.description ?? ""
-                
+                update(view: view, with: track)
                 return view
             }
         } else if tableColumn == tableView.tableColumns[1] {

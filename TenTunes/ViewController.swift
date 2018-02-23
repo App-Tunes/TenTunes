@@ -176,9 +176,7 @@ class ViewController: NSViewController {
                     
                     // Update on main thread
                     DispatchQueue.main.async {
-                        view.imageView?.image = track.rArtwork
-                        view.keyTextField?.attributedStringValue = track.rKey
-                        view.bpmTextField?.stringValue = track.bpm?.description ?? ""
+                        self.trackController.update(view: view, with: track)
                     }
                     
                     self._fetchingMetadata = false

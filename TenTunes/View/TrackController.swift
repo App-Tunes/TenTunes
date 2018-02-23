@@ -43,11 +43,14 @@ class TrackController: NSObject {
         return tracks
     }
     
-    func playCurrentTrack() {
+    var selectedTrack: Track? {
         let row = self._tableView.selectedRow
-        
-        if let playTrack = playTrack {
-            playTrack(self.playlist.track(at: row)!, row)
+        return row >= 0 ? self.playlist.track(at: row) : nil
+    }
+    
+    func playCurrentTrack() {
+        if let observer = playTrack {
+            observer(selectedTrack!, self._tableView.selectedRow)
         }
     }
     

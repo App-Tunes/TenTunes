@@ -909,6 +909,7 @@
                                                                             </tableColumns>
                                                                             <connections>
                                                                                 <action selector="didClick:" target="8ts-DO-v2q" id="HWZ-Me-z5k"/>
+                                                                                <action trigger="doubleAction" selector="didDoubleClick:" target="8ts-DO-v2q" id="jzE-WW-QZg"/>
                                                                                 <outlet property="dataSource" destination="8ts-DO-v2q" id="kCw-Ix-Crj"/>
                                                                                 <outlet property="delegate" destination="8ts-DO-v2q" id="Dio-rb-tJL"/>
                                                                             </connections>
@@ -966,13 +967,13 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <scrollView verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="QEo-kJ-TZV">
-                                                                <rect key="frame" x="0.0" y="0.0" width="630" height="438"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="630" height="399"/>
                                                                 <clipView key="contentView" id="Ic4-1D-uPe">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="630" height="438"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="630" height="399"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" autosaveColumns="NO" rowHeight="30" usesAutomaticRowHeights="YES" viewBased="YES" id="oIp-LF-46S">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="630" height="438"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="630" height="399"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <size key="intercellSpacing" width="3" height="2"/>
                                                                             <color key="backgroundColor" red="0.16468328237533569" green="0.16471883654594421" blue="0.16468104720115662" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1106,11 +1107,34 @@
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                 </scroller>
                                                             </scrollView>
+                                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0SU-GT-xfg">
+                                                                <rect key="frame" x="589" y="409" width="21" height="17"/>
+                                                                <buttonCell key="cell" type="inline" title="X" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="Vpu-L7-qS0">
+                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="smallSystemBold"/>
+                                                                </buttonCell>
+                                                            </button>
+                                                            <searchField wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRK-8m-Bpk">
+                                                                <rect key="frame" x="381" y="408" width="200" height="22"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="200" id="R26-AS-BJ8"/>
+                                                                </constraints>
+                                                                <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="Y5i-4v-xPm">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </searchFieldCell>
+                                                            </searchField>
                                                         </subviews>
                                                         <constraints>
+                                                            <constraint firstItem="QEo-kJ-TZV" firstAttribute="top" secondItem="0SU-GT-xfg" secondAttribute="bottom" constant="11" id="FpO-RE-XgT"/>
                                                             <constraint firstAttribute="bottom" secondItem="QEo-kJ-TZV" secondAttribute="bottom" id="GKf-9m-X8Y"/>
-                                                            <constraint firstItem="QEo-kJ-TZV" firstAttribute="top" secondItem="wx1-Jg-18R" secondAttribute="top" id="HhC-hp-YLM"/>
+                                                            <constraint firstItem="QEo-kJ-TZV" firstAttribute="top" secondItem="lRK-8m-Bpk" secondAttribute="bottom" constant="9" id="HhC-hp-YLM"/>
                                                             <constraint firstItem="QEo-kJ-TZV" firstAttribute="leading" secondItem="wx1-Jg-18R" secondAttribute="leading" id="MN6-e8-BIh"/>
+                                                            <constraint firstAttribute="trailing" secondItem="0SU-GT-xfg" secondAttribute="trailing" constant="20" id="Yuh-gr-bY2"/>
+                                                            <constraint firstItem="0SU-GT-xfg" firstAttribute="trailing" secondItem="lRK-8m-Bpk" secondAttribute="trailing" constant="29" id="Zpy-Oj-Cua"/>
+                                                            <constraint firstItem="0SU-GT-xfg" firstAttribute="top" secondItem="wx1-Jg-18R" secondAttribute="top" constant="12" id="qrN-mq-CZ6"/>
+                                                            <constraint firstItem="lRK-8m-Bpk" firstAttribute="top" secondItem="wx1-Jg-18R" secondAttribute="top" constant="8" id="u47-zJ-2Pw"/>
                                                             <constraint firstAttribute="trailing" secondItem="QEo-kJ-TZV" secondAttribute="trailing" id="y1r-UF-5su"/>
                                                         </constraints>
                                                     </customView>

@@ -139,6 +139,11 @@ class ViewController: NSViewController {
         self.playlistController.selectionDidChange = { [unowned self] in
             self.playlistSelected($0)
         }
+        self.playlistController.playPlaylist = { [unowned self] in
+            self.playlistSelected($0)
+            self.playlist = $0
+            self.playAny()
+        }
         self.playlistController.playlists = self.playlists
 
         self.trackController.playTrack = { [unowned self] in
@@ -279,10 +284,19 @@ class ViewController: NSViewController {
             }
         }
         else {
-            self.trackController.playCurrentTrack()
+            playAny()
         }
         
         self.updatePlaying()
+    }
+    
+    func playAny() {
+        if trackController.selectedTrack != nil {
+            trackController.playCurrentTrack()
+        }
+        else {
+            play(moved: 0)
+        }
     }
     
     func pause() {

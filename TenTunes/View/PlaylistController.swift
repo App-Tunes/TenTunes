@@ -14,11 +14,21 @@ import Cocoa
             self._outlineView.reloadData()
         }
     }
+
     var selectionDidChange: ((Playlist) -> Swift.Void)? = nil
+    var playPlaylist: ((Playlist) -> Swift.Void)? = nil
     
     @IBOutlet var _outlineView: NSOutlineView!
     
     @IBAction func didClick(_ sender: Any) {
+    }
+    
+    @IBAction func didDoubleClick(_ sender: Any) {
+        if let selected = _outlineView.selectedRowIndexes.first {
+            if let observer = self.playPlaylist {
+                observer(_outlineView.item(atRow: selected) as! Playlist)
+            }
+        }
     }
 }
 

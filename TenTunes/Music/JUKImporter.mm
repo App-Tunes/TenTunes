@@ -35,37 +35,10 @@ inline NSString *JUKTagLibStringToNS(const TagLib::String &tagString) {
 	return [NSString stringWithUTF8String:tagString.toCString()];
 }
 
-inline NSStringEncoding JUKTagLibEncodingToNS(const TagLib::String::Type type) {
-	NSStringEncoding encoding = NSUTF8StringEncoding;
-	switch(type) {
-		case TagLib::String::Type::Latin1:
-			encoding = NSISOLatin1StringEncoding;
-			break;
-		case TagLib::String::UTF16:
-			encoding = NSUTF16StringEncoding;
-			break;
-		case TagLib::String::UTF16BE:
-			encoding = NSUTF16BigEndianStringEncoding;
-			break;
-		case TagLib::String::UTF8:
-			encoding = NSUTF8StringEncoding;
-			break;
-		case TagLib::String::UTF16LE:
-			encoding = NSUTF16LittleEndianStringEncoding;
-			break;
-	}
-	return encoding;
-}
-
 inline NSString *JUKTagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFrame *frame) {
-	NSStringEncoding encoding = JUKTagLibEncodingToNS(frame->textEncoding());
-	return [NSString stringWithCString:frame->toString().toCString() encoding:encoding];
+    return [NSString stringWithUTF8String:frame->toString().toCString(true)];
 }
 
-inline NSString *JUKTagLibCommentFrameToNS(const TagLib::ID3v2::CommentsFrame *frame) {
-	NSStringEncoding encoding = JUKTagLibEncodingToNS(frame->textEncoding());
-	return [NSString stringWithCString:frame->text().toCString() encoding:encoding];
-}
 
 @interface JUKImporter()
 

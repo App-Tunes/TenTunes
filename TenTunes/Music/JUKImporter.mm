@@ -152,7 +152,7 @@ inline NSString *JUKTagLibCommentFrameToNS(const TagLib::ID3v2::CommentsFrame *f
             NSString *textString = JUKTagLibTextFrameToNS(text_frame);
             if (frame_id == AVMetadataID3MetadataKeyTitleDescription.UTF8String) {
                 [self setTitle: textString];
-            } else if(frame_id == AVMetadataID3MetadataKeyLeadPerformer.UTF8String) {
+            } else if(frame_id == AVMetadataID3MetadataKeyOriginalArtist.UTF8String) {
                 [self setArtist: textString];
             } else if(frame_id == AVMetadataID3MetadataKeyAlbumTitle.UTF8String) {
                 [self setAlbum: textString];

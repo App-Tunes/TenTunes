@@ -103,7 +103,12 @@ class Track {
         title = title ?? avImporter.string(withKey: .commonKeyTitle, keySpace: .common)
         title = title ?? avImporter.string(withKey: .iTunesMetadataKeySongName, keySpace: .iTunes)
 
+        album = album ?? avImporter.string(withKey: .commonKeyAlbumName, keySpace: .common)
         album = album ?? avImporter.string(withKey: .iTunesMetadataKeyAlbum, keySpace: .iTunes)
+
+        author = author ?? avImporter.string(withKey: .commonKeyArtist, keySpace: .common)
+        author = author ?? avImporter.string(withKey: .commonKeyCreator, keySpace: .common)
+        author = author ?? avImporter.string(withKey: .commonKeyAuthor, keySpace: .common)
         author = author ?? avImporter.string(withKey: .iTunesMetadataKeyArtist, keySpace: .iTunes)
 
         artwork = artwork ?? avImporter.image(withKey: .commonKeyArtwork, keySpace: .common)

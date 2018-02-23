@@ -14,4 +14,8 @@ class Playlist {
     
     var tracks: [Track] = []
     var children: [Playlist] = []
+    
+    func track(at: Int) -> Track? {
+        return tracks[at]
+    }
 }

@@ -39,7 +39,6 @@ func setButtonColor(button: NSButton, color: NSColor) {
 
 class ViewController: NSViewController {
 
-    @IBOutlet var _tableView: NSTableView!
     @IBOutlet var _title: NSTextField!
     @IBOutlet var _subtitle: NSTextField!
     
@@ -51,10 +50,10 @@ class ViewController: NSViewController {
     @IBOutlet var _spectrumView: TrackSpectrumView!
     
     var database: [Int: Track]! = [:]
-    var playlist: Playlist!
     var playlistDatabase: [String: Playlist]! = [:]
     var playlists: [Playlist]! = []
 
+    var playlist: Playlist!
     var player: AKPlayer!
     var playing: Track?
     var playingIndex: Int?
@@ -62,7 +61,8 @@ class ViewController: NSViewController {
     var visualTimer: Timer!
     
     @IBOutlet var playlistController: PlaylistController!
-
+    @IBOutlet var trackController: TrackController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -102,6 +102,7 @@ class ViewController: NSViewController {
             self.database[Int(id as! String)!] = track
         }
         
+        var mainPlaylist: Playlist? = nil
         for playlistData in nsdict.object(forKey: "Playlists") as! NSArray {
             let playlistData = playlistData as! NSDictionary
             let playlist = Playlist()
@@ -116,7 +117,7 @@ class ViewController: NSViewController {
             }
             
             if playlistData.object(forKey: "Master") as? Bool ?? false {
-                self.playlist = playlist
+                mainPlaylist = playlist
             }
             
             self.playlistDatabase[playlist.id] = playlist
@@ -129,15 +130,22 @@ class ViewController: NSViewController {
             }
         }
         
-        self.playlistController.setObserver(block: self.playlistSelected)
+        self.playlistController.selectionDidChange = { [unowned self] in
+            self.playlistSelected($0)
+        }
         self.playlistController.playlists = self.playlists
+
+        self.trackController.playTrack = { [unowned self] in
+            self.play($0, at: $1)
+        }
+        self.trackController.playlist = mainPlaylist!
 
         self.updatePlaying()
         
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             return self.keyDown(with: $0)
         }
-        
+
         self.visualTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true ) { [unowned self] (timer) in
             self._spectrumView.setBy(player: self.player)
             
@@ -151,38 +159,37 @@ class ViewController: NSViewController {
     var _fetchingMetadata: Bool = false
     
     func fetchOneMetadata() {
-        if let visibleRect = self._tableView.enclosingScrollView?.contentView.visibleRect {
-            let visibleRows = self._tableView.rows(in: visibleRect)
-            
-            for row in visibleRows.lowerBound...visibleRows.upperBound {
-                if self.playlist.tracks.count > row, let view = self._tableView.view(atColumn: 0, row: row, makeIfNecessary: false) as? TrackCellView {
-                    if let track = view.track, !track.metadataFetched {
-                        
-                        self._fetchingMetadata = true
-                        DispatchQueue.global(qos: .userInitiated).async {
-                            track.fetchMetadata()
-                            
-                            // Update on main thread
-                            DispatchQueue.main.async {
-                                view.imageView?.image = track.rArtwork
-                                view.keyTextField?.attributedStringValue = track.rKey
-                                view.bpmTextField?.stringValue = track.bpm?.description ?? ""
-                            }
-                            
-                            self._fetchingMetadata = false
-                        }
-                        
-                        return
+        for view in trackController.visibleTracks {
+            if let track = view.track, !track.metadataFetched  {
+                self._fetchingMetadata = true
+                
+                DispatchQueue.global(qos: .userInitiated).async {
+                    track.fetchMetadata()
+                    
+                    // Update on main thread
+                    DispatchQueue.main.async {
+                        view.imageView?.image = track.rArtwork
+                        view.keyTextField?.attributedStringValue = track.rKey
+                        view.bpmTextField?.stringValue = track.bpm?.description ?? ""
                     }
+                    
+                    self._fetchingMetadata = false
                 }
+                
+                return
             }
         }
     }
     
-    override var representedObject: Any? {
-        didSet {
-            
+    func keyDown(with event: NSEvent) -> NSEvent? {
+        if let keyString = event.charactersIgnoringModifiers, keyString == " " {
+            self._play.performClick(self)
         }
+        else {
+            return event
+        }
+        
+        return nil
     }
     
     func isPlaying() -> Bool {
@@ -191,10 +198,6 @@ class ViewController: NSViewController {
 
     func isPaused() -> Bool {
         return !self.isPlaying()
-    }
-    
-    func track(at: Int) -> Track? {
-        return self.playlist.tracks[at]
     }
 
     func updatePlaying() {
@@ -246,20 +249,7 @@ class ViewController: NSViewController {
         
         self.updatePlaying()
     }
-    
-    @IBAction func doubleClick(_ sender: Any) {
-        self.playingIndex = self._tableView.clickedRow
-        self.play(track: self.track(at: self.playingIndex!))
-    }
-    
-    func playCurrentTrack() {
-        let selectedRow = self._tableView.selectedRow
-        if selectedRow >= 0 {
-            self.playingIndex = selectedRow
-            self.play(track: self.track(at: selectedRow))
-        }
-    }
-    
+            
     @IBAction func play(_ sender: Any) {
         if self.playing != nil {
             if self.isPaused() {
@@ -271,7 +261,7 @@ class ViewController: NSViewController {
             }
         }
         else {
-            self.playCurrentTrack()
+            self.trackController.playCurrentTrack()
         }
         
         self.updatePlaying()
@@ -295,7 +285,7 @@ class ViewController: NSViewController {
             return
         }
         
-        let track = self.track(at: self.playingIndex!)
+        let track = self.playlist.track(at: self.playingIndex!)
         self.play(track: track)
         
         if track == nil {
@@ -310,21 +300,7 @@ class ViewController: NSViewController {
     @IBAction func previousTrack(_ sender: Any) {
         self.play(moved: -1)
     }
-    
-    func keyDown(with event: NSEvent) -> NSEvent? {
-        if let keyString = event.charactersIgnoringModifiers, keyString == " " {
-            self._play.performClick(self)
-        }
-        else if Keycodes.enterKey.matches(event: event) || Keycodes.returnKey.matches(event: event) {
-            self.playCurrentTrack()
-        }
-        else {
-            return event
-        }
-
-        return nil
-    }
-    
+        
     @IBAction func clickSpectrumView(_ sender: Any) {
         if self.player.isPlaying {
             self.player.stop()
@@ -336,55 +312,14 @@ class ViewController: NSViewController {
         }
     }
     
+    func play(_ track: Track, at: Int) {
+        self.playlist = trackController.playlist
+        self.playingIndex = at
+        self.play(track: track)
+    }
+    
     func playlistSelected(_ playlist: Playlist) {
-        self.playlist = playlist
-        self._tableView.reloadData()
-    }
-}
-
-extension ViewController: NSTableViewDelegate {
-    
-    fileprivate enum CellIdentifiers {
-        static let NameCell = NSUserInterfaceItemIdentifier(rawValue: "nameCell")
-    }
-    
-    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .long
-        
-        let track = self.playlist.tracks[row]
-        
-        if tableColumn == tableView.tableColumns[0] {
-            if let view = tableView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? TrackCellView {
-                let artist = track.rAuthor
-                let title = track.rTitle
-                let album = track.rAlbum
-
-                view.track = track
-                view.textField?.stringValue = title
-                view.subtitleTextField?.stringValue = "\(artist) - (\(album))"
-                view.lengthTextField?.stringValue = track.rLength
-                view.imageView?.image = track.rArtwork
-                view.key = track.rKey
-                view.bpmTextField?.stringValue = track.bpm?.description ?? ""
-
-                return view
-            }
-        } else if tableColumn == tableView.tableColumns[1] {
-            
-        } else if tableColumn == tableView.tableColumns[2] {
-            
-        }
-        
-        return nil
-    }
-}
-
-extension ViewController: NSTableViewDataSource {
-    
-    func numberOfRows(in tableView: NSTableView) -> Int {
-        return self.playlist.tracks.count;
+        trackController.playlist = playlist
     }
 }
 

@@ -1,0 +1,117 @@
+//
+//  TrackController.swift
+//  TenTunes
+//
+//  Created by Lukas Tenbrink on 23.02.18.
+//  Copyright © 2018 ivorius. All rights reserved.
+//
+
+import Cocoa
+
+import AVFoundation
+
+class TrackController: NSObject {
+    @IBOutlet var _tableView: NSTableView!
+
+    var playTrack: ((Track, Int) -> Swift.Void)?
+    
+    var playlist: Playlist! {
+        didSet {
+            _tableView.reloadData()
+        }
+    }
+    
+    override func awakeFromNib() {
+        NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
+            return self.keyDown(with: $0)
+        }
+    }
+    
+    var visibleTracks: [TrackCellView] {
+        var tracks: [TrackCellView] = []
+        
+        if let visibleRect = self._tableView.enclosingScrollView?.contentView.visibleRect {
+            let visibleRows = self._tableView.rows(in: visibleRect)
+            
+            for row in visibleRows.lowerBound...visibleRows.upperBound {
+                if self.playlist.tracks.count > row, let view = self._tableView.view(atColumn: 0, row: row, makeIfNecessary: false) as? TrackCellView {
+                    tracks.append(view)
+                }
+            }
+        }
+        
+        return tracks
+    }
+    
+    func playCurrentTrack() {
+        let row = self._tableView.selectedRow
+        
+        if let playTrack = playTrack {
+            playTrack(self.playlist.track(at: row)!, row)
+        }
+    }
+    
+    @IBAction func doubleClick(_ sender: Any) {
+        let row = self._tableView.clickedRow
+        
+        if let playTrack = playTrack {
+            playTrack(self.playlist.track(at: row)!, row)
+        }
+    }
+    
+    func keyDown(with event: NSEvent) -> NSEvent? {
+        if Keycodes.enterKey.matches(event: event) || Keycodes.returnKey.matches(event: event) {
+            self.playCurrentTrack()
+        }
+        else {
+            return event
+        }
+        
+        return nil
+    }
+}
+
+extension TrackController: NSTableViewDelegate {
+    fileprivate enum CellIdentifiers {
+        static let NameCell = NSUserInterfaceItemIdentifier(rawValue: "nameCell")
+    }
+    
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .long
+        
+        let track = self.playlist.tracks[row]
+        
+        if tableColumn == tableView.tableColumns[0] {
+            if let view = tableView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? TrackCellView {
+                let artist = track.rAuthor
+                let title = track.rTitle
+                let album = track.rAlbum
+                
+                view.track = track
+                view.textField?.stringValue = title
+                view.subtitleTextField?.stringValue = "\(artist) - (\(album))"
+                view.lengthTextField?.stringValue = track.rLength
+                view.imageView?.image = track.rArtwork
+                view.key = track.rKey
+                view.bpmTextField?.stringValue = track.bpm?.description ?? ""
+                
+                return view
+            }
+        } else if tableColumn == tableView.tableColumns[1] {
+            
+        } else if tableColumn == tableView.tableColumns[2] {
+            
+        }
+        
+        return nil
+    }
+}
+
+extension TrackController: NSTableViewDataSource {
+    
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return self.playlist.tracks.count;
+    }
+}

@@ -1081,9 +1081,9 @@
                                                                                 </tableColumn>
                                                                             </tableColumns>
                                                                             <connections>
-                                                                                <action trigger="doubleAction" selector="doubleClick:" target="XfG-lQ-9wD" id="OV6-6b-Tbg"/>
-                                                                                <outlet property="dataSource" destination="XfG-lQ-9wD" id="4UM-K7-cQu"/>
-                                                                                <outlet property="delegate" destination="XfG-lQ-9wD" id="Hwz-4p-afD"/>
+                                                                                <action trigger="doubleAction" selector="doubleClick:" target="3PX-Ck-UDg" id="cHA-FR-t7n"/>
+                                                                                <outlet property="dataSource" destination="3PX-Ck-UDg" id="alo-O9-COc"/>
+                                                                                <outlet property="delegate" destination="3PX-Ck-UDg" id="cty-Mj-tsc"/>
                                                                             </connections>
                                                                         </tableView>
                                                                     </subviews>
@@ -1144,15 +1144,20 @@
                         <outlet property="_previous" destination="vGp-jR-JQ9" id="9Ln-gY-j8Q"/>
                         <outlet property="_spectrumView" destination="TnY-8S-uno" id="4GH-DY-Vz2"/>
                         <outlet property="_subtitle" destination="dQc-no-5jm" id="E1J-HT-CTw"/>
-                        <outlet property="_tableView" destination="oIp-LF-46S" id="ftF-35-gcd"/>
                         <outlet property="_title" destination="2zM-Qn-bbU" id="eJC-sn-d25"/>
                         <outlet property="playlistController" destination="8ts-DO-v2q" id="qGH-ba-5Ms"/>
+                        <outlet property="trackController" destination="3PX-Ck-UDg" id="lwm-mA-HOa"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <customObject id="8ts-DO-v2q" customClass="PlaylistController" customModule="TenTunes" customModuleProvider="target">
                     <connections>
                         <outlet property="_outlineView" destination="1LK-qS-x1i" id="03j-92-u3P"/>
+                    </connections>
+                </customObject>
+                <customObject id="3PX-Ck-UDg" customClass="TrackController" customModule="TenTunes" customModuleProvider="target">
+                    <connections>
+                        <outlet property="_tableView" destination="oIp-LF-46S" id="SeX-qm-h4w"/>
                     </connections>
                 </customObject>
             </objects>

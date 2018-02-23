@@ -14,13 +14,9 @@ import Cocoa
             self._outlineView.reloadData()
         }
     }
-    var _playlistSelected: ((Playlist) -> Swift.Void)? = nil
+    var selectionDidChange: ((Playlist) -> Swift.Void)? = nil
     
     @IBOutlet var _outlineView: NSOutlineView!
-    
-    func setObserver(block: @escaping (Playlist) -> Swift.Void) {
-        self._playlistSelected = block
-    }
     
     @IBAction func didClick(_ sender: Any) {
     }
@@ -69,7 +65,7 @@ extension PlaylistController : NSOutlineViewDataSource {
 extension PlaylistController : NSOutlineViewDelegate {
     func outlineViewSelectionDidChange(_ notification: Notification) {
         if let selected = _outlineView.selectedRowIndexes.first {
-            if let observer = self._playlistSelected {
+            if let observer = self.selectionDidChange {
                 observer(_outlineView.item(atRow: selected) as! Playlist)
             }
         }

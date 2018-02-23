@@ -115,7 +115,6 @@ class Track {
             do {
                 let img = try imgGenerator.copyCGImage(at: CMTimeMake(0, 60), actualTime: nil)
                 self.artwork = NSImage(cgImage: img, size: NSZeroSize)
-                print("Generated thumbnail for " + path!)
             }
             catch {
                 // print(err.localizedDescription)

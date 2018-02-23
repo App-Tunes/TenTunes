@@ -174,13 +174,13 @@ class ViewController: NSViewController {
         
         for track in self.trackController.playlist.tracks {
             if !track.metadataFetched  {
-                fetchMetadata(for: track, updating: nil)
+                fetchMetadata(for: track, wait: true)
                 return
             }
         }
     }
     
-    func fetchMetadata(for track: Track, updating: TrackCellView? = nil) {
+    func fetchMetadata(for track: Track, updating: TrackCellView? = nil, wait: Bool = false) {
         self._fetchingMetadata = true
         
         DispatchQueue.global(qos: .userInitiated).async {
@@ -191,6 +191,10 @@ class ViewController: NSViewController {
                 self.trackController.update(view: updating, with: track)
             }
             
+            if wait {
+                sleep(1)
+            }
+
             self._fetchingMetadata = false
         }
         

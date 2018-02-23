@@ -50,7 +50,7 @@ class Track {
     
     var rLength: String {
         guard let duration = duration else {
-            return "??:??"
+            return ""
         }
         let (h, m, s) = secondsToHoursMinutesSeconds(seconds: Int(CMTimeGetSeconds(duration)))
         return String(format: "\(m):%02d", s)

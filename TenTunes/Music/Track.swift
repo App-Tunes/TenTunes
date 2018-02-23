@@ -78,20 +78,20 @@ class Track {
         bpm = nil
         artwork = nil
         
-        // TODO Author, Album, Length
+        // TODO Length
 
         let importer = JUKImporter.init(url: self.url!)
         do {
             try importer?.import()
-            if let img = importer?.image {
-                self.artwork = img
-            }
-            if let key = importer?.initialKey {
-                self.key = Key.parse(key)
-            }
-            if let bpm = importer?.bpm {
-                self.bpm = Int(bpm)
-            }
+            
+            self.title = importer?.title
+            self.album = importer?.album
+            self.author = importer?.artist
+
+            self.artwork = importer?.image
+            
+            self.key = Key.parse(importer?.initialKey ?? "")
+            self.bpm = Int(importer?.bpm ?? "")
         }
         catch let error {
             print(error)
@@ -100,11 +100,10 @@ class Track {
         let avImporter = AVFoundationImporter(url: self.url!)
         
         title = title ?? avImporter.string(withKey: .commonKeyTitle, keySpace: .common)
-        title = title ?? avImporter.string(withKey: .id3MetadataKeyTitleDescription, keySpace: .id3)
-        
-        key = key ?? Key.parse(avImporter.string(withKey: .id3MetadataKeyInitialKey, keySpace: .id3) ?? "")
-        
-        bpm = bpm ?? Int(avImporter.string(withKey: .id3MetadataKeyBeatsPerMinute, keySpace: .id3) ?? "")
+        title = title ?? avImporter.string(withKey: .iTunesMetadataKeySongName, keySpace: .iTunes)
+
+        album = album ?? avImporter.string(withKey: .iTunesMetadataKeyAlbum, keySpace: .iTunes)
+        author = author ?? avImporter.string(withKey: .iTunesMetadataKeyArtist, keySpace: .iTunes)
 
         artwork = artwork ?? avImporter.image(withKey: .commonKeyArtwork, keySpace: .common)
         artwork = artwork ?? avImporter.image(withKey: .iTunesMetadataKeyCoverArt, keySpace: .iTunes)

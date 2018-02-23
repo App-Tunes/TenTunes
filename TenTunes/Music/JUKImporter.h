@@ -17,7 +17,12 @@
 
 @property(readonly) NSURL *url;
 
+@property NSString *title;
+@property NSString *artist;
+@property NSString *album;
+
 @property NSImage *image;
+
 @property NSString *initialKey;
 @property NSString *bpm;
 

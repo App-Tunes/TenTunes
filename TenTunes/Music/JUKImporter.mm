@@ -161,12 +161,6 @@ inline NSString *JUKTagLibCommentFrameToNS(const TagLib::ID3v2::CommentsFrame *f
 		} else if(auto text_frame = dynamic_cast<TagLib::ID3v2::TextIdentificationFrame *>(frame)) {
             auto frame_id = text_frame->frameID();
             NSString *textString = JUKTagLibTextFrameToNS(text_frame);
-//            if(frame_id == AVMetadataID3MetadataKeyTitleDescription.UTF8String) {
-//                self.track.name = textString;
-//            } else if(frame_id == AVMetadataID3MetadataKeyLeadPerformer.UTF8String) {
-//                [self setTrackArtists:textString];
-//            } else if(frame_id == AVMetadataID3MetadataKeyAlbumTitle.UTF8String) {
-//                [self setTrackAlbum:textString];
 //            } else if(frame_id == AVMetadataID3MetadataKeyRecordingTime.UTF8String) {
 //                [self setTrackYearReleased:textString overwrite:NO];
 //            } else if(frame_id == AVMetadataID3MetadataKeyReleaseTime.UTF8String) {
@@ -178,7 +172,13 @@ inline NSString *JUKTagLibCommentFrameToNS(const TagLib::ID3v2::CommentsFrame *f
 //            } else if(frame_id == AVMetadataID3MetadataKeyTrackNumber.UTF8String) {
 //                self.track.position = textString;
 //            }
-            if(frame_id == AVMetadataID3MetadataKeyInitialKey.UTF8String) {
+            if (frame_id == AVMetadataID3MetadataKeyTitleDescription.UTF8String) {
+                [self setTitle: textString];
+            } else if(frame_id == AVMetadataID3MetadataKeyLeadPerformer.UTF8String) {
+                [self setArtist: textString];
+            } else if(frame_id == AVMetadataID3MetadataKeyAlbumTitle.UTF8String) {
+                [self setAlbum: textString];
+            } else if(frame_id == AVMetadataID3MetadataKeyInitialKey.UTF8String) {
                 [self setInitialKey: textString];
             } else if(frame_id == AVMetadataID3MetadataKeyBeatsPerMinute.UTF8String) {
                 [self setBpm: textString];

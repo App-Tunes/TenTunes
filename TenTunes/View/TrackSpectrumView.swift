@@ -10,49 +10,56 @@ import Cocoa
 
 let sampleCount = 200
 
-func analyze(file: AVAudioFile?, shift: Int, values: [CGFloat]?) -> [CGFloat]? {
-    guard let file = file, var values = values else {
-        return nil
+class Analysis {
+    var file: AVAudioFile
+    
+    var amplitudes: [CGFloat]
+    var turns: [Int]
+    
+    init(file: AVAudioFile, samples: Int) {
+        self.file = file
+        amplitudes = Array(repeating: CGFloat(0), count: samples)
+        turns = []
     }
     
-    let startPos = file.framePosition
-    
-    let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: file.fileFormat.sampleRate, channels: file.fileFormat.channelCount, interleaved: false)!
-    
-    let readSamples = AVAudioFrameCount(1)
-    let skipSamples = AVAudioFrameCount(Int(file.length) / values.count - 1)
-    
-    let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: UInt32(readSamples))!
-    
-    // Shuffle order to hopefully speed up result accuracy
-    42.seed()
-    var order = Array(0...skipSamples)
-    order.shuffle()
-    file.framePosition = Int64(order[shift])
-
-    for i in 0..<values.count {
-        do {
-            try file.read(into: buf, frameCount: readSamples)
-        }
-        catch let error {
-            print(error.localizedDescription)
-            return nil
+    func analyze(shift: Int) {
+        let startPos = file.framePosition
+        
+        let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: file.fileFormat.sampleRate, channels: file.fileFormat.channelCount, interleaved: false)!
+        
+        let readSamples = AVAudioFrameCount(1)
+        let skipSamples = AVAudioFrameCount(Int(file.length) / amplitudes.count - 1)
+        
+        let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: UInt32(readSamples))!
+        
+        // Shuffle order to hopefully speed up result accuracy
+        42.seed()
+        var order = Array(0...skipSamples)
+        order.shuffle()
+        file.framePosition = Int64(order[shift])
+        
+        for i in 0..<amplitudes.count {
+            do {
+                try file.read(into: buf, frameCount: readSamples)
+            }
+            catch let error {
+                print(error.localizedDescription)
+                return
+            }
+            
+            let floatValues = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
+            file.framePosition += Int64(skipSamples)
+            
+            let val = CGFloat(floatValues.map(abs).reduce(0, +)) / CGFloat(floatValues.count)
+            
+            if shift > 0 {
+                amplitudes[i] = amplitudes[i] / CGFloat(shift + 1) * CGFloat(shift)
+            }
+            amplitudes[i] += val / CGFloat(shift + 1)
         }
         
-        let floatValues = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
-        file.framePosition += Int64(skipSamples)
-        
-        let val = CGFloat(floatValues.map(abs).reduce(0, +)) / CGFloat(floatValues.count)
-        
-        if shift > 0 {
-            values[i] = values[i] / CGFloat(shift + 1) * CGFloat(shift)
-        }
-        values[i] += val / CGFloat(shift + 1)
+        file.framePosition = startPos
     }
-    
-    file.framePosition = startPos
-    
-    return values
 }
 
 class TrackSpectrumView: NSControl {
@@ -187,10 +194,10 @@ extension TrackSpectrumView {
         if let file = file {
             // Run Async
             DispatchQueue.global(qos: .userInitiated).async {
-                var samples: [CGFloat]? = Array(repeating: CGFloat(0), count: sampleCount)
+                let analysis: Analysis = Analysis(file: file, samples: sampleCount)
                 
                 for i in 0..<sampleCount {
-                    samples = TenTunes.analyze(file: file, shift: i, values: samples)
+                    analysis.analyze(shift: i)
                     
                     if self.audioFile != file {
                         return
@@ -198,7 +205,7 @@ extension TrackSpectrumView {
                     
                     // Update on main thread
                     DispatchQueue.main.async {
-                        self.samples = samples
+                        self.samples = analysis.amplitudes
                     }
                 }
             }

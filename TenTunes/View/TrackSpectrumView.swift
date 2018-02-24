@@ -22,6 +22,12 @@ class Analysis {
         turns = []
     }
     
+    init(from: Analysis) {
+        file = from.file
+        amplitudes = from.amplitudes
+        turns = from.turns
+    }
+    
     func analyze(shift: Int) {
         let startPos = file.framePosition
         
@@ -50,6 +56,15 @@ class Analysis {
             let floatValues = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
             file.framePosition += Int64(skipSamples)
             
+            var prev = floatValues[0]
+            for idx in 1..<floatValues.count {
+                let next = floatValues[idx]
+                if (next < 0) != (prev < 0) {
+                    turns.append(idx)
+                }
+                prev = next
+            }
+            
             let val = CGFloat(floatValues.map(abs).reduce(0, +)) / CGFloat(floatValues.count)
             
             if shift > 0 {
@@ -60,10 +75,23 @@ class Analysis {
         
         file.framePosition = startPos
     }
+    
+    var frequencies: [CGFloat] {
+        var result: [CGFloat] = []
+        for i in 0..<amplitudes.count {
+            result.append(CGFloat(0.0))
+        }
+        return result
+    }
+}
+
+func lerp(_ left: [CGFloat], _ right: [CGFloat], _ amount: CGFloat) -> [CGFloat] {
+    return zip(left, right).map { (cur, sam) in
+        return cur * (CGFloat(1.0) - amount) + sam * amount
+    }
 }
 
 class TrackSpectrumView: NSControl {
-
     var location: Double? {
         didSet {
             self.setNeedsDisplay()
@@ -75,24 +103,23 @@ class TrackSpectrumView: NSControl {
             self.setNeedsDisplay()
         }
     }
-    
-    var _drawSamples: [CGFloat] { return self.samples ?? Array(repeating: CGFloat(0), count: sampleCount) }
-    
-    var samples: [CGFloat]? = nil
-    
-    var audioFile: AVAudioFile? = nil
+    var curFrequencies: [CGFloat] = Array(repeating: CGFloat(0), count: sampleCount) {
+        didSet {
+            self.setNeedsDisplay()
+        }
+    }
+
+    var _drawSamples: [CGFloat] { return self.analysis?.amplitudes ?? Array(repeating: CGFloat(0), count: sampleCount) }
+    var _drawFrequencies: [CGFloat] { return self.analysis?.frequencies ?? Array(repeating: CGFloat(0), count: sampleCount) }
+
+    var analysis: Analysis? = nil
     
     var timer: Timer? = nil
     
     override func awakeFromNib() {
         self.timer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true) { _ in
-            let drawSamples = self._drawSamples
-            
-            self.curSamples = zip(self.curSamples, drawSamples).map { (cur, sam) in
-                return cur * CGFloat(29.0 / 30.0) + sam / CGFloat(30.0) // .5 second lerp
-            }
-
-            self.setNeedsDisplay()
+            self.curSamples = lerp(self.curSamples, self._drawSamples, CGFloat(1.0 / 30.0))
+            self.curFrequencies = lerp(self.curFrequencies, self._drawFrequencies, CGFloat(1.0 / 30.0))
         }
     }
     
@@ -188,10 +215,9 @@ extension TrackSpectrumView {
     }
     
     func analyze(file: AVAudioFile?) {
-        self.audioFile = file
-        self.samples = nil
-        
         if let file = file {
+            self.analysis = Analysis(file: file, samples: sampleCount)
+
             // Run Async
             DispatchQueue.global(qos: .userInitiated).async {
                 let analysis: Analysis = Analysis(file: file, samples: sampleCount)
@@ -199,16 +225,19 @@ extension TrackSpectrumView {
                 for i in 0..<sampleCount {
                     analysis.analyze(shift: i)
                     
-                    if self.audioFile != file {
+                    if self.analysis?.file != analysis.file {
                         return
                     }
                     
                     // Update on main thread
                     DispatchQueue.main.async {
-                        self.samples = analysis.amplitudes
+                        self.analysis = Analysis(from: analysis)
                     }
                 }
             }
+        }
+        else {
+            self.analysis = nil
         }
     }    
 }

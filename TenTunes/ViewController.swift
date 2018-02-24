@@ -53,6 +53,7 @@ class ViewController: NSViewController {
     
     var database: [Int: Track]! = [:]
     var playlistDatabase: [String: Playlist]! = [:]
+    var masterPlaylist: Playlist!
     var playlists: [Playlist]! = []
 
     var history: PlayHistory! {
@@ -115,7 +116,6 @@ class ViewController: NSViewController {
             self.database[Int(id as! String)!] = track
         }
         
-        var mainPlaylist: Playlist? = nil
         for playlistData in nsdict.object(forKey: "Playlists") as! NSArray {
             let playlistData = playlistData as! NSDictionary
             let playlist = Playlist()
@@ -130,17 +130,18 @@ class ViewController: NSViewController {
             }
             
             if playlistData.object(forKey: "Master") as? Bool ?? false {
-                mainPlaylist = playlist
+                masterPlaylist = playlist
+            }
+            else {
+                if let parent = playlistData.object(forKey: "Parent Persistent ID") as? String {
+                    self.playlistDatabase[parent]?.children.append(playlist)
+                }
+                else {
+                    self.playlists.append(playlist)
+                }
             }
             
             self.playlistDatabase[playlist.id] = playlist
-            
-            if let parent = playlistData.object(forKey: "Parent Persistent ID") as? String {
-                self.playlistDatabase[parent]?.children.append(playlist)
-            }
-            else {
-                self.playlists.append(playlist)
-            }
         }
         
         self.playlistController.selectionDidChange = { [unowned self] in
@@ -156,7 +157,7 @@ class ViewController: NSViewController {
         self.trackController.playTrack = { [unowned self] in
             self.play($0, at: $1)
         }
-        self.trackController.history = PlayHistory(playlist: mainPlaylist!)
+        self.trackController.history = PlayHistory(playlist: masterPlaylist)
 
         self.updatePlaying()
         
@@ -358,6 +359,10 @@ class ViewController: NSViewController {
     
     func playlistSelected(_ playlist: Playlist) {
         trackController.history = PlayHistory(playlist: playlist)
+    }
+    
+    @IBAction func selectMasterPlaylist(_ sender: Any) {
+        playlistSelected(masterPlaylist)
     }
 }
 

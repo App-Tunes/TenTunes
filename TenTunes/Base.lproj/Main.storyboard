@@ -931,7 +931,7 @@ IA
                                                                 </scroller>
                                                             </scrollView>
                                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="e5r-wm-TBz">
-                                                                <rect key="frame" x="54" y="415" width="20" height="20"/>
+                                                                <rect key="frame" x="79" y="415" width="20" height="20"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="20" id="Bvg-Xf-488"/>
                                                                     <constraint firstAttribute="width" secondItem="e5r-wm-TBz" secondAttribute="height" multiplier="1:1" id="LlP-pX-ug0"/>
@@ -941,8 +941,22 @@ IA
                                                                     <font key="font" metaFont="system"/>
                                                                 </buttonCell>
                                                             </button>
+                                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Lid-8O-9oY">
+                                                                <rect key="frame" x="32" y="415" width="20" height="20"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" secondItem="Lid-8O-9oY" secondAttribute="height" multiplier="1:1" id="1S7-Cx-2jw"/>
+                                                                    <constraint firstAttribute="width" constant="20" id="IFQ-lc-IVL"/>
+                                                                </constraints>
+                                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSHomeTemplate" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="6BB-Vk-n5J">
+                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                                <connections>
+                                                                    <action selector="selectMasterPlaylist:" target="XfG-lQ-9wD" id="LQF-wg-erS"/>
+                                                                </connections>
+                                                            </button>
                                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ki5-b8-hqg">
-                                                                <rect key="frame" x="104" y="415" width="20" height="20"/>
+                                                                <rect key="frame" x="126" y="415" width="20" height="20"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="ki5-b8-hqg" secondAttribute="height" multiplier="1:1" id="2tD-Pt-aMQ"/>
                                                                     <constraint firstAttribute="width" constant="20" id="ltq-n0-bT5"/>
@@ -954,16 +968,21 @@ IA
                                                             </button>
                                                         </subviews>
                                                         <constraints>
-                                                            <constraint firstItem="e5r-wm-TBz" firstAttribute="centerX" secondItem="rPD-z5-E1p" secondAttribute="centerX" priority="20" constant="-25" id="1ZJ-na-A3m"/>
+                                                            <constraint firstItem="e5r-wm-TBz" firstAttribute="centerX" secondItem="rPD-z5-E1p" secondAttribute="centerX" priority="20" id="1ZJ-na-A3m"/>
                                                             <constraint firstItem="5vh-kh-MXn" firstAttribute="leading" secondItem="rPD-z5-E1p" secondAttribute="leading" id="FWI-I4-HiT"/>
                                                             <constraint firstItem="e5r-wm-TBz" firstAttribute="top" secondItem="rPD-z5-E1p" secondAttribute="top" constant="3" id="I0N-MW-wQa"/>
                                                             <constraint firstAttribute="bottom" secondItem="5vh-kh-MXn" secondAttribute="bottom" id="LFm-ol-wBY"/>
+                                                            <constraint firstItem="Lid-8O-9oY" firstAttribute="top" secondItem="rPD-z5-E1p" secondAttribute="top" constant="3" id="Ldd-ke-iGz"/>
                                                             <constraint firstItem="ki5-b8-hqg" firstAttribute="top" secondItem="rPD-z5-E1p" secondAttribute="top" constant="3" id="NfU-hz-Z0I"/>
-                                                            <constraint firstItem="ki5-b8-hqg" firstAttribute="leading" secondItem="e5r-wm-TBz" secondAttribute="trailing" constant="30" id="UEH-lT-76x"/>
+                                                            <constraint firstItem="ki5-b8-hqg" firstAttribute="leading" secondItem="e5r-wm-TBz" secondAttribute="trailing" constant="27" id="UEH-lT-76x"/>
                                                             <constraint firstAttribute="trailing" secondItem="5vh-kh-MXn" secondAttribute="trailing" id="UQE-xq-Cyg"/>
                                                             <constraint firstItem="5vh-kh-MXn" firstAttribute="top" secondItem="e5r-wm-TBz" secondAttribute="bottom" constant="4" id="Y6K-Zw-Zfd"/>
                                                             <constraint firstItem="e5r-wm-TBz" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rPD-z5-E1p" secondAttribute="leading" constant="20" id="cSH-rT-Uu4"/>
+                                                            <constraint firstItem="e5r-wm-TBz" firstAttribute="leading" secondItem="Lid-8O-9oY" secondAttribute="trailing" constant="27" id="eNm-uZ-64P"/>
                                                             <constraint firstItem="5vh-kh-MXn" firstAttribute="top" secondItem="ki5-b8-hqg" secondAttribute="bottom" constant="4" id="frs-Lh-mMw"/>
+                                                            <constraint firstItem="5vh-kh-MXn" firstAttribute="top" secondItem="Lid-8O-9oY" secondAttribute="bottom" constant="4" id="hSe-Uf-T52"/>
+                                                            <constraint firstItem="Lid-8O-9oY" firstAttribute="width" secondItem="Lid-8O-9oY" secondAttribute="height" multiplier="1:1" id="plV-Ye-f20"/>
+                                                            <constraint firstItem="Lid-8O-9oY" firstAttribute="leading" secondItem="rPD-z5-E1p" secondAttribute="leading" constant="32" id="yEs-Yw-JQf"/>
                                                         </constraints>
                                                     </customView>
                                                     <customView id="wx1-Jg-18R">
@@ -1254,6 +1273,7 @@ Gw
         </scene>
     </scenes>
     <resources>
+        <image name="NSHomeTemplate" width="14" height="14"/>
         <image name="NSUserGuest" width="32" height="32"/>
         <image name="folder" width="125" height="125"/>
         <image name="playlist" width="125" height="125"/>

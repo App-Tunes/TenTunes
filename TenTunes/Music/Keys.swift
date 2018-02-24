@@ -18,27 +18,27 @@ enum Note {
         switch string.lowercased() {
         case "a":
             return .A
-        case "bb":
+        case "a#", "bb":
             return .Bb
         case "b":
             return .B
         case "c":
             return .C
-        case "db":
+        case "c#", "db":
             return .Db
         case "d":
             return .D
-        case "eb":
+        case "d#", "eb":
             return .Eb
         case "e":
             return .E
         case "f":
             return .F
-        case "gb":
+        case "f#", "gb":
             return .Gb
         case "g":
             return .G
-        case "ab":
+        case "g#", "ab":
             return .Ab
         default:
             break
@@ -97,10 +97,21 @@ class Key {
         if string.count == 0 {
             return nil
         }
+        var noteString = string
         
-        let isMinor = string.last == "m"
-        let noteString: String = isMinor ? String(string.dropLast()) : string
-        
+        var isMinor = false
+        if string.last == "m" {
+            noteString = String(string.dropLast())
+            isMinor = true
+        }
+        else if string.hasSuffix("min") {
+            noteString = String(string.dropLast(3))
+            isMinor = true
+        }
+        else if string.hasSuffix("maj") {
+            noteString = String(string.dropLast(3))
+        }
+
         guard let note = Note.parse(noteString, isMinor: isMinor) else {
             print("Failed to parse key: \(string)")
             return nil

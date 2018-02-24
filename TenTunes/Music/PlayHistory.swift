@@ -46,7 +46,13 @@ class PlayHistory {
     }
     
     func move(to: Int) {
-        self.playingIndex = order?.index(of: to) ?? to
+        if let to = order?.index(of: to) {
+            order?.swapAt(to, 0)
+            self.playingIndex = 0
+        }
+        else {
+            self.playingIndex = to
+        }
     }
     
     func move(_ by: Int) -> Track? {

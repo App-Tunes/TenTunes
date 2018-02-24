@@ -912,6 +912,7 @@
                                                                                 <action trigger="doubleAction" selector="didDoubleClick:" target="8ts-DO-v2q" id="jzE-WW-QZg"/>
                                                                                 <outlet property="dataSource" destination="8ts-DO-v2q" id="kCw-Ix-Crj"/>
                                                                                 <outlet property="delegate" destination="8ts-DO-v2q" id="Dio-rb-tJL"/>
+                                                                                <outlet property="menu" destination="TIT-RH-nbh" id="DHg-3y-rQZ"/>
                                                                             </connections>
                                                                         </outlineView>
                                                                     </subviews>

@@ -1110,9 +1110,12 @@
                                                             </scrollView>
                                                             <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0SU-GT-xfg">
                                                                 <rect key="frame" x="587" y="409" width="23" height="19"/>
-                                                                <buttonCell key="cell" type="recessed" title="X" bezelStyle="recessed" alignment="center" borderStyle="border" inset="2" id="Vpu-L7-qS0">
-                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                                                <buttonCell key="cell" type="recessed" title="X" bezelStyle="recessed" alignment="center" state="on" borderStyle="border" inset="2" id="Vpu-L7-qS0">
+                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                     <font key="font" metaFont="systemBold" size="12"/>
+                                                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
                                                                 </buttonCell>
                                                             </button>
                                                             <searchField wantsLayer="YES" verticalHuggingPriority="750" ambiguous="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRK-8m-Bpk">
@@ -1125,6 +1128,9 @@
                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                 </searchFieldCell>
+                                                                <connections>
+                                                                    <outlet property="delegate" destination="3PX-Ck-UDg" id="Suz-SO-fQX"/>
+                                                                </connections>
                                                             </searchField>
                                                         </subviews>
                                                         <constraints>
@@ -1187,6 +1193,7 @@
                 </customObject>
                 <customObject id="3PX-Ck-UDg" customClass="TrackController" customModule="TenTunes" customModuleProvider="target">
                     <connections>
+                        <outlet property="_searchField" destination="lRK-8m-Bpk" id="Caq-CC-ucZ"/>
                         <outlet property="_tableView" destination="oIp-LF-46S" id="SeX-qm-h4w"/>
                     </connections>
                 </customObject>

@@ -12,7 +12,8 @@ import AVFoundation
 
 class TrackController: NSObject {
     @IBOutlet var _tableView: NSTableView!
-
+    @IBOutlet weak var _searchField: NSSearchField!
+    
     var playTrack: ((Track, Int) -> Swift.Void)?
     
     var history: PlayHistory! {
@@ -139,5 +140,17 @@ extension TrackController: NSTableViewDataSource {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         return history.size;
+    }
+}
+
+extension TrackController: NSSearchFieldDelegate {
+    override func controlTextDidChange(_ obj: Notification) {
+        history.textFilter = _searchField.stringValue
+        _tableView.reloadData()
+    }
+    
+    func searchFieldDidEndSearching(_ sender: NSSearchField) {
+        history.textFilter = nil
+        _tableView.reloadData()
     }
 }

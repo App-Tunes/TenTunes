@@ -10,9 +10,18 @@ import Cocoa
 
 class PlayHistory {
     var playlist: Playlist
+    
     var order: [Int] = []
     var viewOrder: [Int] = []
+    var shuffledOrder: [Int] = []
+
     var playingIndex: Int? = nil
+    
+    var textFilter: String? = nil {
+        didSet {
+            filter(textFilter)
+        }
+    }
 
     init(playlist: Playlist, shuffle: Bool = false) {
         self.playlist = playlist
@@ -27,17 +36,48 @@ class PlayHistory {
         let prev = playingIndex != nil ? order[playingIndex!] : nil
         
         viewOrder = Array(0..<playlist.size)
-        order = viewOrder
+        shuffledOrder = viewOrder
 
         if shuffle {
-            order.shuffle()
+            shuffledOrder.shuffle()
         }
-        
+
+        order = shuffledOrder
+
         if keepCurrent, let prev = prev {
             move(to: prev, swap: shuffle)
         }
         else {
             playingIndex = nil
+        }
+        
+        filter(textFilter)
+    }
+    
+    func filter(_ text: String?) {
+        viewOrder = Array(0..<playlist.size)
+        order = shuffledOrder
+        
+        guard let text = text, text.count > 0 else {
+            return
+        }
+
+        let prev = playingIndex != nil ? order[playingIndex!] : nil
+        let terms = text.components(separatedBy: .whitespacesAndNewlines)
+        
+        let filter: (Int) -> Bool = { (index) -> Bool in
+            return terms.filter({ (term) -> Bool in
+                return self.playlist.tracks[index].searchable.filter({ (key) -> Bool in
+                    return key.lowercased().contains(term.lowercased())
+                }).first == nil
+            }).first == nil
+        }
+        
+        order = order.filter(filter)
+        viewOrder = viewOrder.filter(filter)
+
+        if let prev = prev {
+            move(to: prev)
         }
     }
     
@@ -54,6 +94,9 @@ class PlayHistory {
             if let to = order.index(of: to) {
                 order.swapAt(to, 0)
                 self.playingIndex = 0
+            }
+            else {
+                self.playingIndex = 0 // Didn't find it,.. start anew
             }
         }
         else {

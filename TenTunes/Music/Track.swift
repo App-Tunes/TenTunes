@@ -66,6 +66,10 @@ class Track {
         }
     }
     
+    var searchable: [String] {
+        return [rTitle, rAuthor, rAlbum]
+    }
+    
     var metadataFetched: Bool = false
     var artwork: NSImage? = nil
 

@@ -14,6 +14,7 @@
 
 #import <rifffile.h>
 #import <aifffile.h>
+#include <mpegfile.h>
 
 #include <id3v2tag.h>
 #include <id3v2frame.h>
@@ -32,6 +33,8 @@
 #import <AVFoundation/AVFoundation.h>
 
 inline NSString *JUKTagLibStringToNS(const TagLib::String &tagString) {
+    if (tagString == TagLib::ByteVector::null)
+        return nil;
 	return [NSString stringWithUTF8String:tagString.toCString()];
 }
 
@@ -63,14 +66,29 @@ inline NSString *JUKTagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationF
 
 -(void)parseID3 {
 	TagLib::FileRef f(_url.fileSystemRepresentation);
-	
-	if(TagLib::ID3v2::Tag *tag = dynamic_cast<TagLib::ID3v2::Tag *>(f.tag())) {
-		[self importID3v2:tag];
-	} else if(TagLib::ID3v1::Tag *tag = dynamic_cast<TagLib::ID3v1::Tag *>(f.tag())) {
-//        std::cout << tag->artist() << std::endl;
-	} else if(TagLib::MP4::Tag *tag = dynamic_cast<TagLib::MP4::Tag *>(f.tag())) {
-		[self importMP4:tag];
-	}
+    
+    if (!f.isNull()) {
+        TagLib::Tag *tag = f.tag();
+        
+        [self setTitle: JUKTagLibStringToNS(tag->title())];
+        [self setArtist: JUKTagLibStringToNS(tag->artist())];
+        [self setAlbum: JUKTagLibStringToNS(tag->album())];
+        // Comment
+        // Genre
+        // Year
+        // Tracknumber
+
+        if (TagLib::MPEG::File *file = dynamic_cast<TagLib::MPEG::File *>(f.file())) {
+            if (file->hasID3v2Tag()) {
+                [self importID3v2:file->ID3v2Tag()];
+            }
+        }
+        else if (TagLib::RIFF::AIFF::File *file = dynamic_cast<TagLib::RIFF::AIFF::File *>(f.file())) {
+            if (file->hasID3v2Tag()) {
+                [self importID3v2:file->tag()];
+            }
+        }
+    }
 }
 
 -(void)setTrackArtists:(NSString*)artists {
@@ -110,8 +128,7 @@ inline NSString *JUKTagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationF
 #pragma mark ID3v2
 
 -(void)importID3v2:(TagLib::ID3v2::Tag *)tag {
-	// iterate over frame list
-	TagLib::ID3v2::FrameList::ConstIterator it = tag->frameList().begin();
+    TagLib::ID3v2::FrameList::ConstIterator it = tag->frameList().begin();
 	for(; it != tag->frameList().end(); it++) {
 		auto frame = (*it);
 		if(auto picture_frame = dynamic_cast<TagLib::ID3v2::AttachedPictureFrame *>(frame)) {
@@ -123,13 +140,7 @@ inline NSString *JUKTagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationF
 		} else if(auto text_frame = dynamic_cast<TagLib::ID3v2::TextIdentificationFrame *>(frame)) {
             auto frame_id = text_frame->frameID();
             NSString *textString = JUKTagLibTextFrameToNS(text_frame);
-            if (frame_id == AVMetadataID3MetadataKeyTitleDescription.UTF8String) {
-                [self setTitle: textString];
-            } else if(frame_id == AVMetadataID3MetadataKeyOriginalArtist.UTF8String) {
-                [self setArtist: textString];
-            } else if(frame_id == AVMetadataID3MetadataKeyAlbumTitle.UTF8String) {
-                [self setAlbum: textString];
-            } else if(frame_id == AVMetadataID3MetadataKeyInitialKey.UTF8String) {
+            if (frame_id == AVMetadataID3MetadataKeyInitialKey.UTF8String) {
                 [self setInitialKey: textString];
             } else if(frame_id == AVMetadataID3MetadataKeyBeatsPerMinute.UTF8String) {
                 [self setBpm: textString];

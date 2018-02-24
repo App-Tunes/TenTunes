@@ -32,9 +32,13 @@ class PlayHistory {
         return order.count
     }
     
+    var rawPlayingIndex: Int? {
+        return playingIndex != nil ? order[safe: playingIndex ?? -1] : nil
+    }
+    
     func reorder(shuffle: Bool, keepCurrent: Bool = false) {
-        let prev = playingIndex != nil ? order[playingIndex!] : nil
-        
+        let prev = rawPlayingIndex
+
         viewOrder = Array(0..<playlist.size)
         shuffledOrder = viewOrder
 
@@ -55,6 +59,8 @@ class PlayHistory {
     }
     
     func filter(_ text: String?) {
+        let prev = rawPlayingIndex
+
         viewOrder = Array(0..<playlist.size)
         order = shuffledOrder
         
@@ -62,7 +68,6 @@ class PlayHistory {
             return
         }
 
-        let prev = playingIndex != nil ? order[playingIndex!] : nil
         let terms = text.components(separatedBy: .whitespacesAndNewlines)
         
         let filter: (Int) -> Bool = { (index) -> Bool in

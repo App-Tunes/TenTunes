@@ -28,7 +28,7 @@ class Analysis {
     init(from: Analysis) {
         file = from.file
         amplitudes = from.amplitudes
-        frequencies = amplitudes
+        frequencies = from.frequencies
         aboveZero = from.aboveZero
     }
     

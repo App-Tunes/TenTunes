@@ -33,10 +33,9 @@ class Analysis {
         
         let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: file.fileFormat.sampleRate, channels: file.fileFormat.channelCount, interleaved: false)!
         
-        let readSamples = AVAudioFrameCount(1)
         let skipSamples = AVAudioFrameCount(Int(file.length) / amplitudes.count - 1)
         
-        let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: UInt32(readSamples))!
+        let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: UInt32(1))!
         
         // Shuffle order to hopefully speed up result accuracy
         42.seed()
@@ -46,26 +45,15 @@ class Analysis {
         
         for i in 0..<amplitudes.count {
             do {
-                try file.read(into: buf, frameCount: readSamples)
+                try file.read(into: buf, frameCount: AVAudioFrameCount(1))
             }
             catch let error {
                 print(error.localizedDescription)
                 return
             }
             
-            let floatValues = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
+            let val = abs(CGFloat(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:1).first!))
             file.framePosition += Int64(skipSamples)
-            
-            var prev = floatValues[0]
-            for idx in 1..<floatValues.count {
-                let next = floatValues[idx]
-                if (next < 0) != (prev < 0) {
-                    turns.append(idx)
-                }
-                prev = next
-            }
-            
-            let val = CGFloat(floatValues.map(abs).reduce(0, +)) / CGFloat(floatValues.count)
             
             if shift > 0 {
                 amplitudes[i] = amplitudes[i] / CGFloat(shift + 1) * CGFloat(shift)

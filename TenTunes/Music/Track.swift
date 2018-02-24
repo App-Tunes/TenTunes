@@ -18,7 +18,7 @@ class Track {
 
     var path: String? = nil
     var key: Key? = nil
-    var bpm: Int? = nil
+    var bpm: Double? = nil
 
     var rTitle: String {
         return title ?? "Unknown Title"
@@ -100,7 +100,7 @@ class Track {
             self.artwork = importer?.image
             
             self.key = Key.parse(importer?.initialKey ?? "")
-            self.bpm = Int(importer?.bpm ?? "")
+            self.bpm = Double(importer?.bpm ?? "")
         }
         catch let error {
             print(error)
@@ -124,7 +124,7 @@ class Track {
         artwork = artwork ?? avImporter.image(withKey: .commonKeyArtwork, keySpace: .common)
         artwork = artwork ?? avImporter.image(withKey: .iTunesMetadataKeyCoverArt, keySpace: .iTunes)
 
-        bpm = bpm ?? Int(avImporter.string(withKey: .iTunesMetadataKeyBeatsPerMin, keySpace: .iTunes) ?? "")
+        bpm = bpm ?? Double(avImporter.string(withKey: .iTunesMetadataKeyBeatsPerMin, keySpace: .iTunes) ?? "")
 
         // For videos, generate thumbnails
         if self.artwork == nil {

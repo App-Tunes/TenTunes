@@ -94,10 +94,15 @@ class Key {
     var isMinor: Bool
 
     static func parse(_ string: String) -> Key? {
+        if string.count == 0 {
+            return nil
+        }
+        
         let isMinor = string.last == "m"
         let noteString: String = isMinor ? String(string.dropLast()) : string
         
         guard let note = Note.parse(noteString, isMinor: isMinor) else {
+            print("Failed to parse key: \(string)")
             return nil
         }
         

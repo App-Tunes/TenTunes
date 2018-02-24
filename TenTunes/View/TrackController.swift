@@ -110,7 +110,7 @@ class TrackController: NSObject {
         view.lengthTextField?.stringValue = track.rLength
         view.imageView?.image = track.rArtwork
         view.key = track.rKey
-        view.bpmTextField?.stringValue = track.bpm?.description ?? ""
+        view.bpmTextField?.stringValue = track.bpm != nil ? Int(track.bpm!).description : nil ?? ""
     }
 }
 

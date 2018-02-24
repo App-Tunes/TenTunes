@@ -43,6 +43,7 @@ class Analysis {
         order.shuffle()
         file.framePosition = Int64(order[shift])
         
+        let oldMultiplier = shift > 0 ? CGFloat(shift) / CGFloat(shift + 1) : CGFloat(1.0)
         for i in 0..<amplitudes.count {
             do {
                 try file.read(into: buf, frameCount: AVAudioFrameCount(1))
@@ -55,10 +56,7 @@ class Analysis {
             let val = abs(CGFloat(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:1).first!))
             file.framePosition += Int64(skipSamples)
             
-            if shift > 0 {
-                amplitudes[i] = amplitudes[i] / CGFloat(shift + 1) * CGFloat(shift)
-            }
-            amplitudes[i] += val / CGFloat(shift + 1)
+            amplitudes[i] = amplitudes[i] * oldMultiplier + val / CGFloat(shift + 1)
         }
         
         file.framePosition = startPos

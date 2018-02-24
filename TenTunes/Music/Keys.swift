@@ -100,9 +100,12 @@ class Key {
         var noteString = string
         
         var isMinor = false
-        if string.last == "m" {
+        if string.last == "m" && string.count >= 2 {
             noteString = String(string.dropLast())
             isMinor = true
+        }
+        else if string.last == "d" && string.count >= 2 {
+            noteString = String(string.dropLast())
         }
         else if string.hasSuffix("min") {
             noteString = String(string.dropLast(3))

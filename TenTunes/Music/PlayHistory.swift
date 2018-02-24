@@ -10,7 +10,8 @@ import Cocoa
 
 class PlayHistory {
     var playlist: Playlist
-    var order: [Int]? = nil
+    var order: [Int] = []
+    var viewOrder: [Int] = []
     var playingIndex: Int? = nil
 
     init(playlist: Playlist, shuffle: Bool) {
@@ -18,15 +19,18 @@ class PlayHistory {
         reorder(shuffle: shuffle)
     }
     
+    var size: Int {
+        return order.count
+    }
+    
     func reorder(shuffle: Bool, keepCurrent: Bool = false) {
         let prev = playingIndex != nil ? trackIndex(playingIndex!) : nil
         
+        viewOrder = Array(0..<playlist.size)
+        order = viewOrder
+
         if shuffle {
-            order = Array(0..<playlist.size)
-            order!.shuffle()
-        }
-        else {
-            order = nil
+            order.shuffle()
         }
         
         if keepCurrent, let prev = prev {
@@ -38,7 +42,7 @@ class PlayHistory {
     }
     
     func trackIndex(_ at: Int) -> Int {
-        return order?[at] ?? at
+        return order[at]
     }
     
     func track(at: Int) -> Track? {
@@ -46,8 +50,8 @@ class PlayHistory {
     }
     
     func move(to: Int) {
-        if let to = order?.index(of: to) {
-            order?.swapAt(to, 0)
+        if let to = order.index(of: to) {
+            order.swapAt(to, 0)
             self.playingIndex = 0
         }
         else {
@@ -56,7 +60,7 @@ class PlayHistory {
     }
     
     func move(_ by: Int) -> Track? {
-        if playlist.size == 0 {
+        if size == 0 {
             self.playingIndex = nil
             return nil
         }
@@ -65,10 +69,10 @@ class PlayHistory {
             self.playingIndex = playingIndex + by
         }
         else {
-            self.playingIndex = by >= 0 ? 0 : playlist.size - 1
+            self.playingIndex = by >= 0 ? 0 : size - 1
         }
         
-        if self.playingIndex! >= playlist.size || self.playingIndex! < 0 {
+        if self.playingIndex! >= size || self.playingIndex! < 0 {
             self.playingIndex = nil
             return nil
         }

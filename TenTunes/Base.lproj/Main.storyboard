@@ -967,9 +967,9 @@
                                                         <rect key="frame" x="187" y="0.0" width="630" height="438"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
-                                                            <scrollView verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="QEo-kJ-TZV">
+                                                            <scrollView verticalCompressionResistancePriority="300" ambiguous="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="QEo-kJ-TZV">
                                                                 <rect key="frame" x="0.0" y="0.0" width="630" height="399"/>
-                                                                <clipView key="contentView" id="Ic4-1D-uPe">
+                                                                <clipView key="contentView" ambiguous="YES" id="Ic4-1D-uPe">
                                                                     <rect key="frame" x="0.0" y="0.0" width="630" height="399"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
@@ -1108,14 +1108,14 @@
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                 </scroller>
                                                             </scrollView>
-                                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0SU-GT-xfg">
-                                                                <rect key="frame" x="589" y="409" width="21" height="17"/>
-                                                                <buttonCell key="cell" type="inline" title="X" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="Vpu-L7-qS0">
-                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                    <font key="font" metaFont="smallSystemBold"/>
+                                                            <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0SU-GT-xfg">
+                                                                <rect key="frame" x="587" y="409" width="23" height="19"/>
+                                                                <buttonCell key="cell" type="recessed" title="X" bezelStyle="recessed" alignment="center" borderStyle="border" inset="2" id="Vpu-L7-qS0">
+                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                                                    <font key="font" metaFont="systemBold" size="12"/>
                                                                 </buttonCell>
                                                             </button>
-                                                            <searchField wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRK-8m-Bpk">
+                                                            <searchField wantsLayer="YES" verticalHuggingPriority="750" ambiguous="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRK-8m-Bpk">
                                                                 <rect key="frame" x="381" y="408" width="200" height="22"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="200" id="R26-AS-BJ8"/>

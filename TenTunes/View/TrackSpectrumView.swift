@@ -14,18 +14,22 @@ class Analysis {
     var file: AVAudioFile
     
     var amplitudes: [CGFloat]
-    var turns: [Int]
+    var aboveZero: [Int: Bool]
     
+    var frequencies: [CGFloat]
+
     init(file: AVAudioFile, samples: Int) {
         self.file = file
         amplitudes = Array(repeating: CGFloat(0), count: samples)
-        turns = []
+        frequencies = amplitudes
+        aboveZero = [:]
     }
     
     init(from: Analysis) {
         file = from.file
         amplitudes = from.amplitudes
-        turns = from.turns
+        frequencies = amplitudes
+        aboveZero = from.aboveZero
     }
     
     func analyze(shift: Int) {
@@ -53,19 +57,28 @@ class Analysis {
                 return
             }
             
-            let val = abs(CGFloat(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:1).first!))
-            file.framePosition += Int64(skipSamples)
+            let val = CGFloat(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:1).first!)
             
-            amplitudes[i] = amplitudes[i] * oldMultiplier + val / CGFloat(shift + 1)
+            amplitudes[i] = amplitudes[i] * oldMultiplier + abs(val) / CGFloat(shift + 1)
+            aboveZero[Int(file.framePosition)] = val > 0
+
+            file.framePosition += Int64(skipSamples)
         }
         
         file.framePosition = startPos
+        self.frequencies = _frequencies
     }
     
-    var frequencies: [CGFloat] {
-        var result: [CGFloat] = []
-        for i in 0..<amplitudes.count {
-            result.append(CGFloat(0.0))
+    // More like business... But hey :D
+    var _frequencies: [CGFloat] {
+        var result: [CGFloat] = Array(repeating: CGFloat(0.0), count: amplitudes.count)
+        var prev = false
+        let sorted = self.aboveZero.sorted { $0.key < $1.key }
+        for (idx, aboveZero) in sorted {
+            if prev != aboveZero {
+                result[idx * sampleCount / Int(file.length)] += 1
+            }
+            prev = aboveZero
         }
         return result
     }
@@ -75,6 +88,14 @@ func lerp(_ left: [CGFloat], _ right: [CGFloat], _ amount: CGFloat) -> [CGFloat]
     return zip(left, right).map { (cur, sam) in
         return cur * (CGFloat(1.0) - amount) + sam * amount
     }
+}
+
+func get(_ left: [CGFloat], at: Int, max: Int) -> CGFloat {
+    let trackPosStart = Double(at) / Double(max + 1)
+    let trackPosEnd = Double(at + 1) / Double(max + 1)
+    let trackRange = Int(trackPosStart * Double(left.count))...Int(trackPosEnd * Double(left.count))
+    
+    return left[trackRange].reduce(0, +) / CGFloat(trackRange.count)
 }
 
 class TrackSpectrumView: NSControl {
@@ -111,30 +132,20 @@ class TrackSpectrumView: NSControl {
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
-
-        NSColor.lightGray.set() // choose color
         
-        let samples = self.curSamples
-    
-        var bars: [CGFloat] = []
-
         let numBars = Int(self.bounds.width / 5)
-        for bar in 0..<Int(self.bounds.width / 5) {
-            let trackPosStart = Double(bar) / Double(numBars + 1)
-            let trackPosEnd = Double(bar + 1) / Double(numBars + 1)
-            let trackRange = Int(trackPosStart * Double(samples.count))...Int(trackPosEnd * Double(samples.count))
-            
-            bars.append(samples[trackRange].reduce(0, +) / CGFloat(trackRange.count))
-        }
         
-        let samplesMax = max(samples.max()!, 0.2) // Make sure if it goes against 0 it does go
-        bars = bars.map {$0 / samplesMax}
+        var frequencies: [CGFloat] = Array(0..<numBars).map { get(self.curFrequencies, at: $0, max: numBars) }
+            .normalized(min: self.curFrequencies.min()!, max: self.curFrequencies.max()!)
+        let bars = Array(0..<numBars).map { get(self.curSamples, at: $0, max: numBars) }
+            .normalized(min: 0.0, max: max(self.curSamples.max()!, 0.2))
 
         for bar in 0..<Int(self.bounds.width / 5) {
             let val = bars[bar]
 
             let figure = NSBezierPath()
 
+            NSColor(hue: frequencies[bar], saturation: 0.25, brightness: 0.8, alpha: 1.0).set()
             figure.move(to: NSMakePoint(CGFloat(bar * 5), val * self.bounds.minY))
             figure.line(to: NSMakePoint(CGFloat(bar * 5), val * self.bounds.maxY))
             

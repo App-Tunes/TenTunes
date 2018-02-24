@@ -73,3 +73,16 @@ extension NSImage {
         return tinted
     }
 }
+
+extension NSButton {
+    func set(text: String) {
+        self.attributedTitle = NSAttributedString(string: text, attributes: self.attributedTitle.attributes(at: 0, effectiveRange: nil))
+    }
+    
+    func set(color: NSColor) {
+        if let mutableAttributedTitle = self.attributedTitle.mutableCopy() as? NSMutableAttributedString {
+            mutableAttributedTitle.addAttribute(.foregroundColor, value: color, range: NSRange(location: 0, length: mutableAttributedTitle.length))
+            self.attributedTitle = mutableAttributedTitle
+        }
+    }
+}

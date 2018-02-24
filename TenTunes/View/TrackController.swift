@@ -14,7 +14,8 @@ class TrackController: NSObject {
     @IBOutlet var _tableView: NSTableView!
     @IBOutlet weak var _searchField: NSSearchField!
     @IBOutlet var _searchBarHeight: NSLayoutConstraint!
-
+    @IBOutlet weak var _searchBarClose: NSButton!
+    
     var playTrack: ((Track, Int) -> Swift.Void)?
     
     var history: PlayHistory! {
@@ -26,6 +27,8 @@ class TrackController: NSObject {
     
     override func awakeFromNib() {
         _searchBarHeight.constant = CGFloat(0)
+        _searchField.appearance = NSAppearance(named: NSAppearance.Name.vibrantDark)
+        _searchBarClose.set(color: NSColor.white)
 
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             return self.keyDown(with: $0)

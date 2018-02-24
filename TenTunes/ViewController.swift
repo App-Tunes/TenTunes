@@ -26,17 +26,6 @@ func synced(_ lock: Any, closure: () -> ()) {
     objc_sync_exit(lock)
 }
 
-func setButtonText(button: NSButton, text: String) {
-    button.attributedTitle = NSAttributedString(string: text, attributes: button.attributedTitle.attributes(at: 0, effectiveRange: nil))
-}
-
-func setButtonColor(button: NSButton, color: NSColor) {
-    if let mutableAttributedTitle = button.attributedTitle.mutableCopy() as? NSMutableAttributedString {
-        mutableAttributedTitle.addAttribute(.foregroundColor, value: color, range: NSRange(location: 0, length: mutableAttributedTitle.length))
-        button.attributedTitle = mutableAttributedTitle
-    }
-}
-
 class ViewController: NSViewController {
 
     @IBOutlet var _title: NSTextField!
@@ -80,9 +69,9 @@ class ViewController: NSViewController {
         self.view.wantsLayer = true
         self.view.layer!.backgroundColor = NSColor.darkGray.cgColor
         
-        setButtonColor(button: _play, color: NSColor.white)
-        setButtonColor(button: _previous, color: NSColor.white)
-        setButtonColor(button: _next, color: NSColor.white)
+        _play.set(color: NSColor.white)
+        _previous.set(color: NSColor.white)
+        _next.set(color: NSColor.white)
                 
         self.player = AKPlayer()
         self.player.completionHandler = { [unowned self] in
@@ -203,7 +192,7 @@ class ViewController: NSViewController {
         guard let track = self.playing else {
             self.player.stop()
 
-            setButtonText(button: self._play, text: playString)
+            _play.set(text: playString)
             
             self._title.stringValue = ""
             self._subtitle.stringValue = ""
@@ -211,7 +200,7 @@ class ViewController: NSViewController {
             return
         }
         
-        setButtonText(button: self._play, text: self.isPaused() ? playString : pauseString)
+        _play.set(text: self.isPaused() ? playString : pauseString)
         
         self._title.stringValue = track.rTitle
         self._subtitle.stringValue = track.rSource

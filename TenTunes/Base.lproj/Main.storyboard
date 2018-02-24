@@ -1150,7 +1150,7 @@ Gw
                                                                         <rect key="frame" x="20" y="9" width="559" height="22"/>
                                                                         <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="Filter" usesSingleLineMode="YES" bezelStyle="round" id="Y5i-4v-xPm">
                                                                             <font key="font" metaFont="system"/>
-                                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <color key="backgroundColor" red="0.99019607843137258" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         </searchFieldCell>
                                                                         <connections>
@@ -1226,6 +1226,7 @@ Gw
                 </customObject>
                 <customObject id="3PX-Ck-UDg" customClass="TrackController" customModule="TenTunes" customModuleProvider="target">
                     <connections>
+                        <outlet property="_searchBarClose" destination="0SU-GT-xfg" id="6Ux-56-9Ma"/>
                         <outlet property="_searchBarHeight" destination="LQn-3A-FTs" id="Bbq-bF-GtX"/>
                         <outlet property="_searchField" destination="lRK-8m-Bpk" id="Caq-CC-ucZ"/>
                         <outlet property="_tableView" destination="oIp-LF-46S" id="SeX-qm-h4w"/>

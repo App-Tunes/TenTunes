@@ -215,9 +215,8 @@ class ViewController: NSViewController {
     func keyDown(with event: NSEvent) -> NSEvent? {
         let keyString = event.charactersIgnoringModifiers
         
-        if keyString == " " {
-            self._play.performClick(self)
-        } else if keyString == "f" && NSEvent.modifierFlags.contains(.command) {
+        // TODO Handle space bar press but only last (after all other responders)
+        if keyString == "f" && NSEvent.modifierFlags.contains(.command) {
             trackController.openSearchBar(self)
         }
         else {

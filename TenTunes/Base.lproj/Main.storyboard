@@ -761,6 +761,9 @@
                                                 <buttonCell key="cell" type="bevel" title="▶" bezelStyle="regularSquare" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="3am-G2-ql0">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system" size="20"/>
+                                                    <string key="keyEquivalent" base64-UTF8="YES">
+IA
+</string>
                                                 </buttonCell>
                                                 <connections>
                                                     <action selector="play:" target="XfG-lQ-9wD" id="T0L-Lv-wjP"/>
@@ -794,7 +797,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="9Xs-lc-aS8" secondAttribute="height" multiplier="1:1" id="O0P-AH-Reg"/>
                                                 </constraints>
-                                                <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="tag" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="MpE-xy-Nl5">
+                                                <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="tag" imagePosition="only" alignment="center" enabled="NO" state="on" imageScaling="proportionallyDown" inset="2" id="MpE-xy-Nl5">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system" size="20"/>
                                                 </buttonCell>
@@ -933,7 +936,7 @@
                                                                     <constraint firstAttribute="width" constant="20" id="Bvg-Xf-488"/>
                                                                     <constraint firstAttribute="width" secondItem="e5r-wm-TBz" secondAttribute="height" multiplier="1:1" id="LlP-pX-ug0"/>
                                                                 </constraints>
-                                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="folder" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="dOT-aV-4fA">
+                                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="folder" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="dOT-aV-4fA">
                                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                     <font key="font" metaFont="system"/>
                                                                 </buttonCell>
@@ -944,7 +947,7 @@
                                                                     <constraint firstAttribute="width" secondItem="ki5-b8-hqg" secondAttribute="height" multiplier="1:1" id="2tD-Pt-aMQ"/>
                                                                     <constraint firstAttribute="width" constant="20" id="ltq-n0-bT5"/>
                                                                 </constraints>
-                                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="playlist" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="nDb-ZF-046">
+                                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="playlist" imagePosition="overlaps" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="nDb-ZF-046">
                                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                     <font key="font" metaFont="system"/>
                                                                 </buttonCell>

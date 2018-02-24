@@ -25,3 +25,7 @@ DerivedData/
 # Carthage
 /Carthage
 /Cartfile.resolved
+
+.idea/
+.DS_Store
+

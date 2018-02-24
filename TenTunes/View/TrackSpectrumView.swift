@@ -8,79 +8,17 @@
 
 import Cocoa
 
-let sampleCount = 200
+let sampleCount = 500
 
 class Analysis {
     var file: AVAudioFile
-    
-    var amplitudes: [CGFloat]
-    var aboveZero: [Int: Bool]
-    
-    var frequencies: [CGFloat]
 
-    init(file: AVAudioFile, samples: Int) {
+    var lows: [CGFloat]?
+    var mids: [CGFloat]?
+    var highs: [CGFloat]?
+    
+    init(file: AVAudioFile) {
         self.file = file
-        amplitudes = Array(repeating: CGFloat(0), count: samples)
-        frequencies = amplitudes
-        aboveZero = [:]
-    }
-    
-    init(from: Analysis) {
-        file = from.file
-        amplitudes = from.amplitudes
-        frequencies = from.frequencies
-        aboveZero = from.aboveZero
-    }
-    
-    func analyze(shift: Int) {
-        let startPos = file.framePosition
-        
-        let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: file.fileFormat.sampleRate, channels: file.fileFormat.channelCount, interleaved: false)!
-        
-        let skipSamples = AVAudioFrameCount(Int(file.length) / amplitudes.count - 1)
-        
-        let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: UInt32(1))!
-        
-        // Shuffle order to hopefully speed up result accuracy
-        42.seed()
-        var order = Array(0...skipSamples)
-        order.shuffle()
-        file.framePosition = Int64(order[shift])
-        
-        let oldMultiplier = shift > 0 ? CGFloat(shift) / CGFloat(shift + 1) : CGFloat(1.0)
-        for i in 0..<amplitudes.count {
-            do {
-                try file.read(into: buf, frameCount: AVAudioFrameCount(1))
-            }
-            catch let error {
-                print(error.localizedDescription)
-                return
-            }
-            
-            let val = CGFloat(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:1).first!)
-            
-            amplitudes[i] = amplitudes[i] * oldMultiplier + abs(val) / CGFloat(shift + 1)
-            aboveZero[Int(file.framePosition)] = val > 0
-
-            file.framePosition += Int64(skipSamples)
-        }
-        
-        file.framePosition = startPos
-        self.frequencies = _frequencies
-    }
-    
-    // More like business... But hey :D
-    var _frequencies: [CGFloat] {
-        var result: [CGFloat] = Array(repeating: CGFloat(0.0), count: amplitudes.count)
-        var prev = false
-        let sorted = self.aboveZero.sorted { $0.key < $1.key }
-        for (idx, aboveZero) in sorted {
-            if prev != aboveZero {
-                result[idx * sampleCount / Int(file.length)] += 1
-            }
-            prev = aboveZero
-        }
-        return result
     }
 }
 
@@ -105,19 +43,13 @@ class TrackSpectrumView: NSControl {
         }
     }
     
-    var curSamples: [CGFloat] = Array(repeating: CGFloat(0), count: sampleCount) {
-        didSet {
-            self.setNeedsDisplay()
-        }
-    }
-    var curFrequencies: [CGFloat] = Array(repeating: CGFloat(0), count: sampleCount) {
-        didSet {
-            self.setNeedsDisplay()
-        }
-    }
+    var _curLows: [CGFloat] = Array(repeating: CGFloat(0), count: sampleCount)
+    var _curMids: [CGFloat] = Array(repeating: CGFloat(0), count: sampleCount)
+    var _curHighs: [CGFloat] = Array(repeating: CGFloat(0), count: sampleCount)
 
-    var _drawSamples: [CGFloat] { return self.analysis?.amplitudes ?? Array(repeating: CGFloat(0), count: sampleCount) }
-    var _drawFrequencies: [CGFloat] { return self.analysis?.frequencies ?? Array(repeating: CGFloat(0), count: sampleCount) }
+    var _drawLows: [CGFloat] { return self.analysis?.lows ?? Array(repeating: CGFloat(0), count: sampleCount) }
+    var _drawMids: [CGFloat] { return self.analysis?.mids ?? Array(repeating: CGFloat(0), count: sampleCount) }
+    var _drawHighs: [CGFloat] { return self.analysis?.highs ?? Array(repeating: CGFloat(0), count: sampleCount) }
 
     var analysis: Analysis? = nil
     
@@ -125,33 +57,37 @@ class TrackSpectrumView: NSControl {
     
     override func awakeFromNib() {
         self.timer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true) { _ in
-            self.curSamples = lerp(self.curSamples, self._drawSamples, CGFloat(1.0 / 30.0))
-            self.curFrequencies = lerp(self.curFrequencies, self._drawFrequencies, CGFloat(1.0 / 30.0))
+            self._curLows = lerp(self._curLows, self._drawLows, CGFloat(1.0 / 30.0))
+            self._curMids = lerp(self._curMids, self._drawMids, CGFloat(1.0 / 30.0))
+            self._curHighs = lerp(self._curHighs, self._drawHighs, CGFloat(1.0 / 30.0))
         }
     }
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
-        let numBars = Int(self.bounds.width / 5)
-        
-        var frequencies: [CGFloat] = Array(0..<numBars).map { get(self.curFrequencies, at: $0, max: numBars) }
-            .normalized(min: self.curFrequencies.min()!, max: self.curFrequencies.max()!)
-        let bars = Array(0..<numBars).map { get(self.curSamples, at: $0, max: numBars) }
-            .normalized(min: 0.0, max: max(self.curSamples.max()!, 0.2))
+        let barWidth = 2
+        let segmentWidth = barWidth + 2
 
-        for bar in 0..<Int(self.bounds.width / 5) {
-            let val = bars[bar]
+        let numBars = Int(self.bounds.width / CGFloat(segmentWidth))
+
+        let lows = Array(0..<numBars).map { get(self._curLows, at: $0, max: numBars) }
+        let mids = Array(0..<numBars).map { get(self._curMids, at: $0, max: numBars) }
+        let highs = Array(0..<numBars).map { get(self._curHighs, at: $0, max: numBars) }
+
+        for bar in 0..<Int(self.bounds.width / CGFloat(segmentWidth)) {
+            let low = lows[bar] * lows[bar], mid = mids[bar] * mids[bar], high = highs[bar] * highs[bar]
+            let val = low + mid + high
+            
+            let h = lows[bar] + mids[bar] + highs[bar]
 
             let figure = NSBezierPath()
-
-            // Hue * 0.7 so we have a gap between min and max
-            NSColor(hue: (1.0 - frequencies[bar]) * 0.7, saturation: 0.25, brightness: 0.8, alpha: 1.0).set()
-            figure.move(to: NSMakePoint(CGFloat(bar * 5), val * self.bounds.minY))
-            figure.line(to: NSMakePoint(CGFloat(bar * 5), val * self.bounds.maxY))
             
-            figure.lineWidth = 3
-            figure.stroke()
+            NSColor(hue: (mid / val / 2 + high / val) * 0.6, saturation: CGFloat(0.3), brightness: CGFloat(0.8), alpha: CGFloat(1.0)).set()
+
+            figure.appendRect(NSMakeRect(self.bounds.minX + CGFloat(bar * segmentWidth + 1), self.bounds.minY, CGFloat(barWidth), CGFloat(h * self.bounds.height)))
+            
+            figure.fill()
         }
         
         if let location = self.location {
@@ -214,23 +150,34 @@ extension TrackSpectrumView {
     
     func analyze(file: AVAudioFile?) {
         if let file = file {
-            self.analysis = Analysis(file: file, samples: sampleCount)
+
+            self.analysis = Analysis(file: file)
 
             // Run Async
             DispatchQueue.global(qos: .userInitiated).async {
-                let analysis: Analysis = Analysis(file: file, samples: sampleCount)
+                let analyzer = SPAnalyzer()
+                analyzer.analyze(file.url)
                 
-                for i in 0..<sampleCount {
-                    analysis.analyze(shift: i)
-                    
-                    if self.analysis?.file != analysis.file {
+                let waveformLength: Int = Int(analyzer.waveformSize())
+                
+                func waveform(start: UnsafeMutablePointer<UInt8>) -> [CGFloat] {
+                    let raw = Array(UnsafeBufferPointer(start: start, count: waveformLength)).toUInt.toCGFloat
+                    return Array(0..<sampleCount).map { get(raw, at: $0, max: sampleCount) }
+                        .normalized(min: 0.0, max: 255.0)
+                }
+                
+                let lows = waveform(start: analyzer.lowWaveform())
+                let mids = waveform(start: analyzer.midWaveform())
+                let highs = waveform(start: analyzer.highWaveform())
+
+                DispatchQueue.main.async {
+                    if self.analysis?.file != file {
                         return
                     }
-                    
-                    // Update on main thread
-                    DispatchQueue.main.async {
-                        self.analysis = Analysis(from: analysis)
-                    }
+
+                    self.analysis!.lows = lows
+                    self.analysis!.mids = mids
+                    self.analysis!.highs = highs
                 }
             }
         }

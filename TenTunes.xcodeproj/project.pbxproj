@@ -11,13 +11,20 @@
 		8013720F203F7C9C00CA9036 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720D203F7C9C00CA9036 /* AudioKitUI.framework */; };
 		806AC1332040D7C700857B1B /* PlayHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AC1322040D7C700857B1B /* PlayHistory.swift */; };
 		806AC136204174F300857B1B /* ITunesImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AC135204174F300857B1B /* ITunesImporter.swift */; };
+		806AC1382041EC8400857B1B /* libSuperpoweredAudioOSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 806AC1372041EC8400857B1B /* libSuperpoweredAudioOSX.a */; };
+		806AC13A2041EDD900857B1B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806AC1392041EDD900857B1B /* AVFoundation.framework */; };
+		806AC13C2041EDE500857B1B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806AC13B2041EDE500857B1B /* CoreMedia.framework */; };
+		806AC13E2041EDEE00857B1B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806AC13D2041EDEE00857B1B /* AudioToolbox.framework */; };
+		806AC1432041EF1900857B1B /* SPAnalyzer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 806AC1422041EF1900857B1B /* SPAnalyzer.mm */; };
+		806AC1452041F1D900857B1B /* Superpowered in Resources */ = {isa = PBXBuildFile; fileRef = 806AC1442041F1D800857B1B /* Superpowered */; };
+		806AC1472041F72000857B1B /* taglib-src in Resources */ = {isa = PBXBuildFile; fileRef = 806AC1462041F72000857B1B /* taglib-src */; };
+		806AC1482041F73300857B1B /* libtaglib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C0C2A4203F6DCA00FA6083 /* libtaglib.a */; };
 		80802586203EFCC0008D4168 /* Cocoa+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802585203EFCC0008D4168 /* Cocoa+TT.swift */; };
 		80802588203F0399008D4168 /* PlaylistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802587203F0399008D4168 /* PlaylistController.swift */; };
 		8080258A203F03B3008D4168 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802589203F03B3008D4168 /* Playlist.swift */; };
 		808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808161CE2040520900AEA64F /* AVFoundationImporter.swift */; };
 		808161D2204059FE00AEA64F /* TrackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808161D1204059FE00AEA64F /* TrackController.swift */; };
 		8084AA51203B5CF400064B11 /* TrackCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8084AA50203B5CF400064B11 /* TrackCellView.swift */; };
-		80C0C307203F6EDE00FA6083 /* libtaglib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C0C2A4203F6DCA00FA6083 /* libtaglib.a */; };
 		80CFDA0A203C4E2300C7A506 /* LazyVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CFDA09203C4E2300C7A506 /* LazyVar.swift */; };
 		80DCA9B3203F636F00B1E9B1 /* JUKImporter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80DCA9B2203F636E00B1E9B1 /* JUKImporter.mm */; };
 		80E937592039C2850014C835 /* Keycodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E937582039C2850014C835 /* Keycodes.swift */; };
@@ -59,6 +66,14 @@
 		8013720D203F7C9C00CA9036 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = Carthage/Build/Mac/AudioKitUI.framework; sourceTree = SOURCE_ROOT; };
 		806AC1322040D7C700857B1B /* PlayHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayHistory.swift; sourceTree = "<group>"; };
 		806AC135204174F300857B1B /* ITunesImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesImporter.swift; sourceTree = "<group>"; };
+		806AC1372041EC8400857B1B /* libSuperpoweredAudioOSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSuperpoweredAudioOSX.a; path = ../../../SuperpoweredSDK/Superpowered/libSuperpoweredAudioOSX.a; sourceTree = "<group>"; };
+		806AC1392041EDD900857B1B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		806AC13B2041EDE500857B1B /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		806AC13D2041EDEE00857B1B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		806AC1412041EF1900857B1B /* SPAnalyzer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPAnalyzer.h; sourceTree = "<group>"; };
+		806AC1422041EF1900857B1B /* SPAnalyzer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SPAnalyzer.mm; sourceTree = "<group>"; };
+		806AC1442041F1D800857B1B /* Superpowered */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Superpowered; path = ../../../SuperpoweredSDK/Superpowered; sourceTree = "<group>"; };
+		806AC1462041F72000857B1B /* taglib-src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "taglib-src"; path = "../../../taglib-src"; sourceTree = "<group>"; };
 		80802585203EFCC0008D4168 /* Cocoa+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocoa+TT.swift"; sourceTree = "<group>"; };
 		80802587203F0399008D4168 /* PlaylistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistController.swift; sourceTree = "<group>"; };
 		80802589203F03B3008D4168 /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
@@ -89,9 +104,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				806AC1482041F73300857B1B /* libtaglib.a in Frameworks */,
+				806AC13E2041EDEE00857B1B /* AudioToolbox.framework in Frameworks */,
+				806AC13C2041EDE500857B1B /* CoreMedia.framework in Frameworks */,
+				806AC13A2041EDD900857B1B /* AVFoundation.framework in Frameworks */,
+				806AC1382041EC8400857B1B /* libSuperpoweredAudioOSX.a in Frameworks */,
 				8013720F203F7C9C00CA9036 /* AudioKitUI.framework in Frameworks */,
 				8013720E203F7C9C00CA9036 /* AudioKit.framework in Frameworks */,
-				80C0C307203F6EDE00FA6083 /* libtaglib.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,6 +139,8 @@
 				80F77BF4203D8B35001E397F /* Keys.swift */,
 				806AC1322040D7C700857B1B /* PlayHistory.swift */,
 				806AC135204174F300857B1B /* ITunesImporter.swift */,
+				806AC1412041EF1900857B1B /* SPAnalyzer.h */,
+				806AC1422041EF1900857B1B /* SPAnalyzer.mm */,
 			);
 			path = Music;
 			sourceTree = "<group>";
@@ -135,6 +156,12 @@
 		80DCA9B6203F645400B1E9B1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				806AC1462041F72000857B1B /* taglib-src */,
+				806AC1442041F1D800857B1B /* Superpowered */,
+				806AC13D2041EDEE00857B1B /* AudioToolbox.framework */,
+				806AC13B2041EDE500857B1B /* CoreMedia.framework */,
+				806AC1392041EDD900857B1B /* AVFoundation.framework */,
+				806AC1372041EC8400857B1B /* libSuperpoweredAudioOSX.a */,
 				8013720C203F7C9C00CA9036 /* AudioKit.framework */,
 				8013720D203F7C9C00CA9036 /* AudioKitUI.framework */,
 				80C0C29F203F6DCA00FA6083 /* taglib.xcodeproj */,
@@ -262,6 +289,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				80F2C5812038808000212739 /* Assets.xcassets in Resources */,
+				806AC1452041F1D900857B1B /* Superpowered in Resources */,
+				806AC1472041F72000857B1B /* taglib-src in Resources */,
 				80F2C5842038808000212739 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -281,6 +310,7 @@
 				80DCA9B3203F636F00B1E9B1 /* JUKImporter.mm in Sources */,
 				80802586203EFCC0008D4168 /* Cocoa+TT.swift in Sources */,
 				80F2C5912038A80D00212739 /* Track.swift in Sources */,
+				806AC1432041EF1900857B1B /* SPAnalyzer.mm in Sources */,
 				80E937592039C2850014C835 /* Keycodes.swift in Sources */,
 				80F2C58F20389B9B00212739 /* TrackSpectrumView.swift in Sources */,
 				808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */,
@@ -417,6 +447,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -424,9 +455,16 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
-				HEADER_SEARCH_PATHS = "${SRCROOT}/../../taglib-src/taglib/**";
+				HEADER_SEARCH_PATHS = (
+					"${SRCROOT}/../../taglib-src/taglib/**",
+					"${SRCROOT}/../../SuperpoweredSDK/Superpowered",
+				);
 				INFOPLIST_FILE = TenTunes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../../SuperpoweredSDK/Superpowered",
+					"$(PROJECT_DIR)/../../taglib-src/taglib",
+				);
 				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = ivorius.TenTunes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -440,6 +478,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -447,9 +486,16 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
-				HEADER_SEARCH_PATHS = "${SRCROOT}/../../taglib-src/taglib/**";
+				HEADER_SEARCH_PATHS = (
+					"${SRCROOT}/../../taglib-src/taglib/**",
+					"${SRCROOT}/../../SuperpoweredSDK/Superpowered",
+				);
 				INFOPLIST_FILE = TenTunes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../../SuperpoweredSDK/Superpowered",
+					"$(PROJECT_DIR)/../../taglib-src/taglib",
+				);
 				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = ivorius.TenTunes;
 				PRODUCT_NAME = "$(TARGET_NAME)";

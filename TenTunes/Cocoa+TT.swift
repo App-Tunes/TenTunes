@@ -18,9 +18,23 @@ extension Collection {
     subscript (safe index: Index) -> Element? {
         return indices.contains(index) ? self[index] : nil
     }
-    
+}
+
+extension Collection where Iterator.Element == UInt8 {
+    var toUInt: [UInt]  {
+        return flatMap{ UInt($0) }
+    }
+}
+
+extension Collection where Iterator.Element == UInt {
+    var toCGFloat: [CGFloat]  {
+        return flatMap{ CGFloat($0) }
+    }
+}
+
+extension Collection where Iterator.Element == CGFloat {
     func normalized(min: CGFloat, max: CGFloat) -> [CGFloat] {
-        return map { (($0 as! CGFloat) - min) / (max - min) }
+        return map { ($0 - min) / (max - min) }
     }
 }
 

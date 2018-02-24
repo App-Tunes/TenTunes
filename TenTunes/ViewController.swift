@@ -118,7 +118,7 @@ class ViewController: NSViewController {
         self.playlistController.library = library
 
         self.trackController.playTrack = { [unowned self] in
-            self.play($0, at: $1)
+            self.play($0, at: $1, in: self.trackController.history)
         }
         self.trackController.history = PlayHistory(playlist: library)
 

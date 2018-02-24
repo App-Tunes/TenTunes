@@ -145,7 +145,8 @@ class TrackSpectrumView: NSControl {
 
             let figure = NSBezierPath()
 
-            NSColor(hue: frequencies[bar], saturation: 0.25, brightness: 0.8, alpha: 1.0).set()
+            // Hue * 0.7 so we have a gap between min and max
+            NSColor(hue: (1.0 - frequencies[bar]) * 0.7, saturation: 0.25, brightness: 0.8, alpha: 1.0).set()
             figure.move(to: NSMakePoint(CGFloat(bar * 5), val * self.bounds.minY))
             figure.line(to: NSMakePoint(CGFloat(bar * 5), val * self.bounds.maxY))
             

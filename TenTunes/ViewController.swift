@@ -120,14 +120,27 @@ class ViewController: NSViewController {
         self.visualTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true ) { [unowned self] (timer) in
             self._spectrumView.setBy(player: self.player) // TODO Apparently this loops back when the track is done (or rather just before)
             
+            if !self._working {
+                if self.trackController.history._filterChanged {
+                    self._working = true
+                    self.trackController.history._filterChanged = false
+
+                    self.trackController.history.updated(completion: { (copy) in
+                        self.trackController.history.update(from: copy)
+                        self.trackController._tableView.reloadData()
+                        self._working = false
+                    })
+                }
+            }
+            
             // Only fetch one at once
-            if !self._fetchingMetadata {
+            if !self._working {
                 self.fetchOneMetadata()
             }
         }
     }
     
-    var _fetchingMetadata: Bool = false
+    var _working: Bool = false
     
     func fetchOneMetadata() {
         for view in trackController.visibleTracks {
@@ -146,7 +159,7 @@ class ViewController: NSViewController {
     }
     
     func fetchMetadata(for track: Track, updating: TrackCellView? = nil, wait: Bool = false) {
-        self._fetchingMetadata = true
+        self._working = true
         
         DispatchQueue.global(qos: .userInitiated).async {
             track.fetchMetadata()
@@ -160,7 +173,7 @@ class ViewController: NSViewController {
                 sleep(1)
             }
 
-            self._fetchingMetadata = false
+            self._working = false
         }
         
     }

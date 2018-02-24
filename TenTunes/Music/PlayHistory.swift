@@ -19,13 +19,22 @@ class PlayHistory {
     
     var textFilter: String? = nil {
         didSet {
-            filter(textFilter)
+            if oldValue != textFilter {
+                _filterChanged = true
+            }
         }
     }
-
+    
+    var _filterChanged = false
+    
     init(playlist: Playlist, shuffle: Bool = false) {
         self.playlist = playlist
         reorder(shuffle: shuffle)
+    }
+    
+    init(from: PlayHistory) {
+        playlist = Playlist(folder: true)
+        update(from: from)
     }
     
     var size: Int {
@@ -34,6 +43,18 @@ class PlayHistory {
     
     var rawPlayingIndex: Int? {
         return playingIndex != nil ? order[safe: playingIndex ?? -1] : nil
+    }
+    
+    func update(from: PlayHistory) {
+        playlist = from.playlist
+
+        order = from.order
+        viewOrder = from.viewOrder
+        shuffledOrder = from.shuffledOrder
+
+        playingIndex = from.playingIndex
+
+        textFilter = from.textFilter
     }
     
     func reorder(shuffle: Bool, keepCurrent: Bool = false) {
@@ -54,21 +75,35 @@ class PlayHistory {
         else {
             playingIndex = nil
         }
-        
-        filter(textFilter)
     }
     
-    func filter(_ text: String?) {
+    func updated(completion: @escaping (PlayHistory) -> Swift.Void) {
+        let copy = PlayHistory(from: self)
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            copy._filter()
+
+            DispatchQueue.main.async {
+                completion(copy)
+            }
+        }
+    }
+
+    func _filter() {
         let prev = rawPlayingIndex
 
         viewOrder = Array(0..<playlist.size)
         order = shuffledOrder
-        
-        guard let text = text, text.count > 0 else {
+
+        guard let text = textFilter, text.count > 0 else {
+            if let prev = prev {
+                self.move(to: prev)
+            }
+
             return
         }
 
-        let terms = text.components(separatedBy: .whitespacesAndNewlines)
+        let terms = text.components(separatedBy: .whitespacesAndNewlines).filter { !$0.isEmpty }
         
         let filter: (Int) -> Bool = { (index) -> Bool in
             return terms.filter({ (term) -> Bool in
@@ -80,9 +115,9 @@ class PlayHistory {
         
         order = order.filter(filter)
         viewOrder = viewOrder.filter(filter)
-
+        
         if let prev = prev {
-            move(to: prev)
+            self.move(to: prev)
         }
     }
     

@@ -21,7 +21,6 @@ class TrackController: NSObject {
     var history: PlayHistory! {
         didSet {
             history.textFilter = _searchField.stringValue.count > 0 ? _searchField.stringValue : nil
-            _tableView.reloadData()
         }
     }
     
@@ -153,6 +152,10 @@ extension TrackController: NSTableViewDataSource {
 }
 
 extension TrackController: NSSearchFieldDelegate {
+    func filterComplete() {
+        _tableView.reloadData()
+    }
+    
     override func controlTextDidChange(_ obj: Notification) {
         history.textFilter = _searchField.stringValue
         _tableView.reloadData()

@@ -15,7 +15,7 @@ class TrackController: NSObject {
 
     var playTrack: ((Track, Int) -> Swift.Void)?
     
-    var playlist: Playlist! {
+    var history: PlayHistory! {
         didSet {
             _tableView.reloadData()
         }
@@ -34,7 +34,7 @@ class TrackController: NSObject {
             let visibleRows = self._tableView.rows(in: visibleRect)
             
             for row in visibleRows.lowerBound...visibleRows.upperBound {
-                if self.playlist.tracks.count > row, let view = self._tableView.view(atColumn: 0, row: row, makeIfNecessary: false) as? TrackCellView {
+                if history.size > row, let view = self._tableView.view(atColumn: 0, row: row, makeIfNecessary: false) as? TrackCellView {
                     tracks.append(view)
                 }
             }
@@ -45,7 +45,7 @@ class TrackController: NSObject {
     
     var selectedTrack: Track? {
         let row = self._tableView.selectedRow
-        return row >= 0 ? self.playlist.track(at: row) : nil
+        return row >= 0 ? history.viewed(at: row) : nil
     }
     
     func playCurrentTrack() {
@@ -58,7 +58,7 @@ class TrackController: NSObject {
         let row = self._tableView.clickedRow
         
         if let playTrack = playTrack {
-            playTrack(self.playlist.track(at: row)!, row)
+            playTrack(history.viewed(at: row)!, row)
         }
     }
     
@@ -68,7 +68,7 @@ class TrackController: NSObject {
     
     @IBAction func menuShowInFinder(_ sender: Any) {
         let row = self._tableView.clickedRow
-        let track = self.playlist.track(at: row)!
+        let track = history.viewed(at: row)!
         NSWorkspace.shared.activateFileViewerSelecting([track.url!])
     }
     
@@ -118,7 +118,7 @@ extension TrackController: NSTableViewDelegate {
         dateFormatter.dateStyle = .long
         dateFormatter.timeStyle = .long
         
-        let track = self.playlist.tracks[row]
+        let track = history.viewed(at: row)!
 
         if tableColumn == tableView.tableColumns[0] {
             if let view = tableView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? TrackCellView {
@@ -138,6 +138,6 @@ extension TrackController: NSTableViewDelegate {
 extension TrackController: NSTableViewDataSource {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return self.playlist.tracks.count;
+        return history.size;
     }
 }

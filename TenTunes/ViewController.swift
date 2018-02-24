@@ -55,13 +55,21 @@ class ViewController: NSViewController {
     var playlistDatabase: [String: Playlist]! = [:]
     var playlists: [Playlist]! = []
 
-    var history: PlayHistory!
+    var history: PlayHistory! {
+        didSet {
+            self.history.reorder(shuffle: self.shuffle)
+        }
+    }
     var player: AKPlayer!
     var playing: Track?
     
     var visualTimer: Timer!
     
-    var shuffle = true
+    var shuffle = true {
+        didSet {
+            self.history.reorder(shuffle: self.shuffle, keepCurrent: true)
+        }
+    }
     
     @IBOutlet var playlistController: PlaylistController!
     @IBOutlet var trackController: TrackController!
@@ -140,16 +148,15 @@ class ViewController: NSViewController {
         }
         self.playlistController.playPlaylist = { [unowned self] in
             self.playlistSelected($0)
-            self.history = nil // Reset History
+            self.history = self.trackController.history
             self.play(moved: 0)
         }
         self.playlistController.playlists = self.playlists
 
         self.trackController.playTrack = { [unowned self] in
-            self.history = nil // Reset History
             self.play($0, at: $1)
         }
-        self.trackController.playlist = mainPlaylist!
+        self.trackController.history = PlayHistory(playlist: mainPlaylist!)
 
         self.updatePlaying()
         
@@ -177,7 +184,7 @@ class ViewController: NSViewController {
             }
         }
         
-        for track in self.trackController.playlist.tracks {
+        for track in trackController.history.playlist.tracks {
             if !track.metadataFetched  {
                 fetchMetadata(for: track, wait: true)
                 return
@@ -285,7 +292,7 @@ class ViewController: NSViewController {
         }
         else {
             if let track = trackController.selectedTrack {
-                play(track, at: trackController._tableView.selectedRow, in: trackController.playlist)
+                play(track, at: trackController._tableView.selectedRow, in: trackController.history)
             }
             else {
                 play(moved: 0)
@@ -297,9 +304,9 @@ class ViewController: NSViewController {
     
     func play(moved: Int) {
         if history == nil {
-            history = PlayHistory(playlist: trackController.playlist, shuffle: shuffle)
+            history = trackController.history
         }
-        if shuffle, moved == 0 {
+        else if moved == 0 {
             history.reorder(shuffle: shuffle)
         }
         
@@ -331,21 +338,22 @@ class ViewController: NSViewController {
         shuffle = !shuffle
         let img = NSImage(named: NSImage.Name(rawValue: "shuffle"))
         _shuffle.image = shuffle ? img : img?.tinted(in: NSColor.gray)
-        
-        history?.reorder(shuffle: shuffle, keepCurrent: true)
     }
     
-    func play(_ track: Track, at: Int, in playlist: Playlist? = nil) {
-        if let playlist = playlist ?? (history == nil ? trackController.playlist : nil) {
-            history = PlayHistory(playlist: playlist, shuffle: shuffle)
+    func play(_ track: Track, at: Int, in history: PlayHistory? = nil) {
+        if let history = history {
+            self.history = history
+        }
+        else if self.history == nil {
+            self.history = trackController.history
         }
         
-        history.move(to: at)
+        self.history.move(to: at, swap: shuffle)
         self.play(track: track)
     }
     
     func playlistSelected(_ playlist: Playlist) {
-        trackController.playlist = playlist
+        trackController.history = PlayHistory(playlist: playlist)
     }
 }
 

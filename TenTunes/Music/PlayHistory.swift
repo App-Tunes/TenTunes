@@ -14,7 +14,7 @@ class PlayHistory {
     var viewOrder: [Int] = []
     var playingIndex: Int? = nil
 
-    init(playlist: Playlist, shuffle: Bool) {
+    init(playlist: Playlist, shuffle: Bool = false) {
         self.playlist = playlist
         reorder(shuffle: shuffle)
     }
@@ -24,7 +24,7 @@ class PlayHistory {
     }
     
     func reorder(shuffle: Bool, keepCurrent: Bool = false) {
-        let prev = playingIndex != nil ? trackIndex(playingIndex!) : nil
+        let prev = playingIndex != nil ? order[playingIndex!] : nil
         
         viewOrder = Array(0..<playlist.size)
         order = viewOrder
@@ -34,25 +34,27 @@ class PlayHistory {
         }
         
         if keepCurrent, let prev = prev {
-            move(to: prev)
+            move(to: prev, swap: shuffle)
         }
         else {
             playingIndex = nil
         }
     }
     
-    func trackIndex(_ at: Int) -> Int {
-        return order[at]
-    }
-    
     func track(at: Int) -> Track? {
-        return playlist.tracks[trackIndex(at)]
+        return playlist.tracks[order[at]]
     }
     
-    func move(to: Int) {
-        if let to = order.index(of: to) {
-            order.swapAt(to, 0)
-            self.playingIndex = 0
+    func viewed(at: Int) -> Track? {
+        return playlist.tracks[viewOrder[at]]
+    }
+    
+    func move(to: Int, swap: Bool = false) {
+        if swap {
+            if let to = order.index(of: to) {
+                order.swapAt(to, 0)
+                self.playingIndex = 0
+            }
         }
         else {
             self.playingIndex = to

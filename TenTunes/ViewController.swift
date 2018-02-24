@@ -215,8 +215,9 @@ class ViewController: NSViewController {
     func keyDown(with event: NSEvent) -> NSEvent? {
         let keyString = event.charactersIgnoringModifiers
         
-        // TODO Handle space bar press but only last (after all other responders)
-        if keyString == "f" && NSEvent.modifierFlags.contains(.command) {
+        if keyString == " ", trackController._tableView.window?.firstResponder == trackController._tableView {
+            self._play.performClick(self) // Grab the spaces from the table since it takes forever for those
+        } else if keyString == "f" && NSEvent.modifierFlags.contains(.command) {
             trackController.openSearchBar(self)
         }
         else {

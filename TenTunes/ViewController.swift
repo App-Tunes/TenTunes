@@ -337,7 +337,7 @@ class ViewController: NSViewController {
         
     @IBAction func clickSpectrumView(_ sender: Any) {
         if let position = self._spectrumView.getBy(player: self.player) {
-            self.player.setPosition()
+            self.player.setPosition(position)
         }
     }
     

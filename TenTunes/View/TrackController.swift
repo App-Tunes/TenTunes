@@ -21,6 +21,7 @@ class TrackController: NSObject {
     var history: PlayHistory! {
         didSet {
             history.textFilter = _searchField.stringValue.count > 0 ? _searchField.stringValue : nil
+            self.trackController._tableView.reloadData()
         }
     }
     

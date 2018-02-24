@@ -336,7 +336,9 @@ class ViewController: NSViewController {
     }
         
     @IBAction func clickSpectrumView(_ sender: Any) {
-        self.player.setPosition(self._spectrumView.getBy(player: self.player)!)
+        if let position = self._spectrumView.getBy(player: self.player) {
+            self.player.setPosition()
+        }
     }
     
     @IBAction func toggleShuffle(_ sender: Any) {

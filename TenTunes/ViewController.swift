@@ -83,7 +83,7 @@ class ViewController: NSViewController {
         setButtonColor(button: _play, color: NSColor.white)
         setButtonColor(button: _previous, color: NSColor.white)
         setButtonColor(button: _next, color: NSColor.white)
-        
+                
         self.player = AKPlayer()
         self.player.completionHandler = { [unowned self] in
             self.play(moved: 1)
@@ -213,8 +213,12 @@ class ViewController: NSViewController {
     }
     
     func keyDown(with event: NSEvent) -> NSEvent? {
-        if let keyString = event.charactersIgnoringModifiers, keyString == " " {
+        let keyString = event.charactersIgnoringModifiers
+        
+        if keyString == " " {
             self._play.performClick(self)
+        } else if keyString == "f" && NSEvent.modifierFlags.contains(.command) {
+            trackController.openSearchBar(self)
         }
         else {
             return event

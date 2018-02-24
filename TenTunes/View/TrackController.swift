@@ -13,7 +13,8 @@ import AVFoundation
 class TrackController: NSObject {
     @IBOutlet var _tableView: NSTableView!
     @IBOutlet weak var _searchField: NSSearchField!
-    
+    @IBOutlet var _searchBarHeight: NSLayoutConstraint!
+
     var playTrack: ((Track, Int) -> Swift.Void)?
     
     var history: PlayHistory! {
@@ -23,6 +24,8 @@ class TrackController: NSObject {
     }
     
     override func awakeFromNib() {
+        _searchBarHeight.constant = CGFloat(0)
+
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             return self.keyDown(with: $0)
         }
@@ -152,5 +155,23 @@ extension TrackController: NSSearchFieldDelegate {
     func searchFieldDidEndSearching(_ sender: NSSearchField) {
         history.textFilter = nil
         _tableView.reloadData()
+        
+        closeSearchBar(self)
+    }
+    
+    @IBAction func openSearchBar(_ sender: Any) {
+        NSAnimationContext.runAnimationGroup({_ in
+            NSAnimationContext.current.duration = 0.2
+            _searchBarHeight.animator().constant = CGFloat(40)
+        })
+        _searchField.window?.makeFirstResponder(_searchField)
+    }
+    
+    @IBAction func closeSearchBar(_ sender: Any) {
+        _searchField.resignFirstResponder()
+        NSAnimationContext.runAnimationGroup({_ in
+            NSAnimationContext.current.duration = 0.2
+            _searchBarHeight.animator().constant = CGFloat(0)
+        })
     }
 }

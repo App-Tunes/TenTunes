@@ -155,9 +155,6 @@ extension TrackController: NSSearchFieldDelegate {
     }
     
     func searchFieldDidEndSearching(_ sender: NSSearchField) {
-        history.textFilter = nil
-        _tableView.reloadData()
-        
         closeSearchBar(self)
     }
     
@@ -170,6 +167,9 @@ extension TrackController: NSSearchFieldDelegate {
     }
     
     @IBAction func closeSearchBar(_ sender: Any) {
+        history.textFilter = nil
+        _tableView.reloadData()
+
         _searchField.resignFirstResponder()
         NSAnimationContext.runAnimationGroup({_ in
             NSAnimationContext.current.duration = 0.2

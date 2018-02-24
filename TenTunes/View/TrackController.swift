@@ -62,7 +62,9 @@ class TrackController: NSObject {
         let row = self._tableView.clickedRow
         
         if let playTrack = playTrack {
-            playTrack(history.viewed(at: row)!, row)
+            if let track = history.viewed(at: row) {
+                playTrack(track, row)
+            }
         }
     }
     

@@ -86,7 +86,7 @@ class PlayHistory {
     }
     
     func viewed(at: Int) -> Track? {
-        return playlist.tracks[viewOrder[at]]
+        return playlist.tracks[safe: viewOrder[safe: at] ?? -1]
     }
     
     func move(to: Int, swap: Bool = false) {

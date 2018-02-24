@@ -947,7 +947,7 @@ IA
                                                                     <constraint firstAttribute="width" secondItem="Lid-8O-9oY" secondAttribute="height" multiplier="1:1" id="1S7-Cx-2jw"/>
                                                                     <constraint firstAttribute="width" constant="20" id="IFQ-lc-IVL"/>
                                                                 </constraints>
-                                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSHomeTemplate" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="6BB-Vk-n5J">
+                                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSHomeTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="6BB-Vk-n5J">
                                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                     <font key="font" metaFont="system"/>
                                                                 </buttonCell>

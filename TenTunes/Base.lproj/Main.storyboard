@@ -1189,7 +1189,7 @@
                         <outlet property="_tableView" destination="oIp-LF-46S" id="SeX-qm-h4w"/>
                     </connections>
                 </customObject>
-                <menu id="DxB-Nb-Sgp">
+                <menu title="Track" id="DxB-Nb-Sgp" userLabel="Track">
                     <items>
                         <menuItem title="Play" id="x3W-k6-oqA">
                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -1205,6 +1205,22 @@
                             <connections>
                                 <action selector="menuShowInFinder:" target="3PX-Ck-UDg" id="2dE-Nb-7zn"/>
                             </connections>
+                        </menuItem>
+                    </items>
+                </menu>
+                <menu title="Playlist" id="TIT-RH-nbh" userLabel="Playlist">
+                    <items>
+                        <menuItem title="Play" id="okV-ly-XHb">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="didDoubleClick:" target="8ts-DO-v2q" id="rtJ-d1-BC7"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Duplicate" enabled="NO" id="wN6-rV-u43">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                        </menuItem>
+                        <menuItem title="Delete" enabled="NO" id="Ci1-fQ-U99">
+                            <modifierMask key="keyEquivalentModifierMask"/>
                         </menuItem>
                     </items>
                 </menu>

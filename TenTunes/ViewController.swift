@@ -55,10 +55,9 @@ class ViewController: NSViewController {
     var playlistDatabase: [String: Playlist]! = [:]
     var playlists: [Playlist]! = []
 
-    var playlist: Playlist!
+    var history: PlayHistory!
     var player: AKPlayer!
     var playing: Track?
-    var playingIndex: Int?
     
     var visualTimer: Timer!
     
@@ -141,12 +140,13 @@ class ViewController: NSViewController {
         }
         self.playlistController.playPlaylist = { [unowned self] in
             self.playlistSelected($0)
-            self.playlist = $0
-            self.playAny()
+            self.history = nil // Reset History
+            self.play(moved: 0)
         }
         self.playlistController.playlists = self.playlists
 
         self.trackController.playTrack = { [unowned self] in
+            self.history = nil // Reset History
             self.play($0, at: $1)
         }
         self.trackController.playlist = mainPlaylist!
@@ -284,20 +284,26 @@ class ViewController: NSViewController {
             }
         }
         else {
-            self.playlist = trackController.playlist
-            playAny()
+            if let track = trackController.selectedTrack {
+                play(track, at: trackController._tableView.selectedRow, in: trackController.playlist)
+            }
+            else {
+                play(moved: 0)
+            }
         }
         
         self.updatePlaying()
     }
     
-    func playAny() {
-        if trackController.selectedTrack != nil {
-            trackController.playCurrentTrack()
+    func play(moved: Int) {
+        if history == nil {
+            history = PlayHistory(playlist: trackController.playlist, shuffle: shuffle)
         }
-        else {
-            play(moved: 0)
+        if shuffle, moved == 0 {
+            history.reorder(shuffle: shuffle)
         }
+        
+        self.play(track: self.history.move(moved))
     }
     
     func pause() {
@@ -307,41 +313,6 @@ class ViewController: NSViewController {
     
     @IBAction func stop(_ sender: Any) {
         self.play(track: nil)
-    }
-    
-    func play(moved: Int) {
-        if playlist.size == 0 {
-            self.playingIndex = nil
-            self.play(track: nil)
-            return
-        }
-        
-        if shuffle {
-            self.playingIndex = Int(arc4random_uniform(UInt32(playlist.size)))
-            let track = self.playlist.track(at: self.playingIndex!)
-            self.play(track: track)
-            return
-        }
-        
-        if let playingIndex = self.playingIndex {
-            self.playingIndex = playingIndex + moved
-        }
-        else {
-            self.playingIndex = moved > 0 ? 0 : playlist.size - 1
-        }
-        
-        if self.playingIndex! >= playlist.size || self.playingIndex! < 0 {
-            self.playingIndex = nil
-            self.play(track: nil)
-            return
-        }
-        
-        let track = self.playlist.track(at: self.playingIndex!)
-        self.play(track: track)
-        
-        if track == nil {
-            self.playingIndex = nil
-        }
     }
     
     @IBAction func nextTrack(_ sender: Any) {
@@ -360,11 +331,16 @@ class ViewController: NSViewController {
         shuffle = !shuffle
         let img = NSImage(named: NSImage.Name(rawValue: "shuffle"))
         _shuffle.image = shuffle ? img : img?.tinted(in: NSColor.gray)
+        
+        history?.reorder(shuffle: shuffle, keepCurrent: true)
     }
     
-    func play(_ track: Track, at: Int) {
-        self.playlist = trackController.playlist
-        self.playingIndex = at
+    func play(_ track: Track, at: Int, in playlist: Playlist? = nil) {
+        if let playlist = playlist ?? (history == nil ? trackController.playlist : nil) {
+            history = PlayHistory(playlist: playlist, shuffle: shuffle)
+        }
+        
+        history.move(to: at)
         self.play(track: track)
     }
     

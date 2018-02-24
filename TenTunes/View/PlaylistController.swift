@@ -24,10 +24,8 @@ import Cocoa
     }
     
     @IBAction func didDoubleClick(_ sender: Any) {
-        if let selected = _outlineView.selectedRowIndexes.first {
-            if let observer = self.playPlaylist {
-                observer(_outlineView.item(atRow: selected) as! Playlist)
-            }
+        if let observer = self.playPlaylist {
+            observer(_outlineView.item(atRow: _outlineView.clickedRow) as! Playlist)
         }
     }
 }

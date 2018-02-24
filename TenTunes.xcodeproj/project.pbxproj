@@ -10,6 +10,7 @@
 		8013720E203F7C9C00CA9036 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720C203F7C9C00CA9036 /* AudioKit.framework */; };
 		8013720F203F7C9C00CA9036 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720D203F7C9C00CA9036 /* AudioKitUI.framework */; };
 		806AC1332040D7C700857B1B /* PlayHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AC1322040D7C700857B1B /* PlayHistory.swift */; };
+		806AC136204174F300857B1B /* ITunesImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AC135204174F300857B1B /* ITunesImporter.swift */; };
 		80802586203EFCC0008D4168 /* Cocoa+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802585203EFCC0008D4168 /* Cocoa+TT.swift */; };
 		80802588203F0399008D4168 /* PlaylistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802587203F0399008D4168 /* PlaylistController.swift */; };
 		8080258A203F03B3008D4168 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802589203F03B3008D4168 /* Playlist.swift */; };
@@ -57,6 +58,7 @@
 		8013720C203F7C9C00CA9036 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = Carthage/Build/Mac/AudioKit.framework; sourceTree = SOURCE_ROOT; };
 		8013720D203F7C9C00CA9036 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = Carthage/Build/Mac/AudioKitUI.framework; sourceTree = SOURCE_ROOT; };
 		806AC1322040D7C700857B1B /* PlayHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayHistory.swift; sourceTree = "<group>"; };
+		806AC135204174F300857B1B /* ITunesImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesImporter.swift; sourceTree = "<group>"; };
 		80802585203EFCC0008D4168 /* Cocoa+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocoa+TT.swift"; sourceTree = "<group>"; };
 		80802587203F0399008D4168 /* PlaylistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistController.swift; sourceTree = "<group>"; };
 		80802589203F03B3008D4168 /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				80802589203F03B3008D4168 /* Playlist.swift */,
 				80F77BF4203D8B35001E397F /* Keys.swift */,
 				806AC1322040D7C700857B1B /* PlayHistory.swift */,
+				806AC135204174F300857B1B /* ITunesImporter.swift */,
 			);
 			path = Music;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 				808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */,
 				808161D2204059FE00AEA64F /* TrackController.swift in Sources */,
 				80F2C57F2038808000212739 /* TenTunes.xcdatamodeld in Sources */,
+				806AC136204174F300857B1B /* ITunesImporter.swift in Sources */,
 				80F77BF5203D8B35001E397F /* Keys.swift in Sources */,
 				80F2C57A2038808000212739 /* AppDelegate.swift in Sources */,
 				8080258A203F03B3008D4168 /* Playlist.swift in Sources */,

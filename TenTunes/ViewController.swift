@@ -51,10 +51,9 @@ class ViewController: NSViewController {
     
     @IBOutlet var _shuffle: NSButton!
     
-    var database: [Int: Track]! = [:]
-    var playlistDatabase: [String: Playlist]! = [:]
-    var masterPlaylist: Playlist!
-    var playlists: [Playlist]! = []
+    var database: [Int: Track] = [:]
+    var masterPlaylist: Playlist = Playlist(folder: true)
+    var library: Playlist = Playlist(folder: false)
 
     var history: PlayHistory! {
         didSet {
@@ -95,53 +94,16 @@ class ViewController: NSViewController {
 
         let path = "/Volumes/Lukebox/iTunes/iTunes Library.xml"
         
-        if !FileManager.default.fileExists(atPath: path) {
+        if let (pdatabase, pmasterPlaylist) = ITunesImporter.parse(path: path) {
+            database = pdatabase
+            masterPlaylist = pmasterPlaylist
+        }
+        else {
             print("FILE UNAVAILABLE")
-            exit(1)
-        }
-
-        let nsdict = NSDictionary(contentsOfFile: path)!
-        
-        for (id, trackData) in nsdict.object(forKey: "Tracks") as! NSDictionary {
-            let trackData = trackData as! NSDictionary
-            
-            let track = Track()
-            
-            track.id = Int(id as! String)!
-            track.title = trackData["Name"] as? String
-            track.author = trackData["Artist"] as? String
-            track.album = trackData["Album"] as? String
-            track.path = trackData["Location"] as? String
-            
-            self.database[Int(id as! String)!] = track
         }
         
-        for playlistData in nsdict.object(forKey: "Playlists") as! NSArray {
-            let playlistData = playlistData as! NSDictionary
-            let playlist = Playlist()
-
-            playlist.name = playlistData.object(forKey: "Name") as! String
-            playlist.id = playlistData.object(forKey: "Playlist Persistent ID") as! String
-
-            for trackData in playlistData.object(forKey: "Playlist Items") as? NSArray ?? [] {
-                let trackData = trackData as! NSDictionary
-                let id = trackData["Track ID"] as! Int
-                playlist.tracks.append(self.database[id]!)
-            }
-            
-            if playlistData.object(forKey: "Master") as? Bool ?? false {
-                masterPlaylist = playlist
-            }
-            else {
-                if let parent = playlistData.object(forKey: "Parent Persistent ID") as? String {
-                    self.playlistDatabase[parent]?.children.append(playlist)
-                }
-                else {
-                    self.playlists.append(playlist)
-                }
-            }
-            
-            self.playlistDatabase[playlist.id] = playlist
+        for (_, track) in database {
+            library.tracks.append(track)
         }
         
         self.playlistController.selectionDidChange = { [unowned self] in
@@ -152,12 +114,13 @@ class ViewController: NSViewController {
             self.history = self.trackController.history
             self.play(moved: 0)
         }
-        self.playlistController.playlists = self.playlists
+        self.playlistController.masterPlaylist = masterPlaylist
+        self.playlistController.library = library
 
         self.trackController.playTrack = { [unowned self] in
             self.play($0, at: $1)
         }
-        self.trackController.history = PlayHistory(playlist: masterPlaylist)
+        self.trackController.history = PlayHistory(playlist: library)
 
         self.updatePlaying()
         
@@ -361,10 +324,6 @@ class ViewController: NSViewController {
     
     func playlistSelected(_ playlist: Playlist) {
         trackController.history = PlayHistory(playlist: playlist)
-    }
-    
-    @IBAction func selectMasterPlaylist(_ sender: Any) {
-        playlistSelected(masterPlaylist)
-    }
+    }    
 }
 

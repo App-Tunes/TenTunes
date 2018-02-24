@@ -952,7 +952,7 @@ IA
                                                                     <font key="font" metaFont="system"/>
                                                                 </buttonCell>
                                                                 <connections>
-                                                                    <action selector="selectMasterPlaylist:" target="XfG-lQ-9wD" id="LQF-wg-erS"/>
+                                                                    <action selector="selectLibrary:" target="8ts-DO-v2q" id="uoJ-N4-CLt"/>
                                                                 </connections>
                                                             </button>
                                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ki5-b8-hqg">
@@ -1147,14 +1147,11 @@ Gw
                                                                         </connections>
                                                                     </button>
                                                                     <searchField wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRK-8m-Bpk">
-                                                                        <rect key="frame" x="379" y="9" width="200" height="22"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="width" constant="200" id="R26-AS-BJ8"/>
-                                                                        </constraints>
+                                                                        <rect key="frame" x="20" y="9" width="559" height="22"/>
                                                                         <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="Filter" usesSingleLineMode="YES" bezelStyle="round" id="Y5i-4v-xPm">
                                                                             <font key="font" metaFont="system"/>
-                                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="backgroundColor" red="0.99019607843137258" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         </searchFieldCell>
                                                                         <connections>
                                                                             <outlet property="delegate" destination="3PX-Ck-UDg" id="Suz-SO-fQX"/>
@@ -1165,6 +1162,7 @@ Gw
                                                                     <constraint firstAttribute="trailing" secondItem="0SU-GT-xfg" secondAttribute="trailing" constant="20" symbolic="YES" id="1eF-oc-301"/>
                                                                     <constraint firstAttribute="height" constant="40" id="LQn-3A-FTs"/>
                                                                     <constraint firstItem="0SU-GT-xfg" firstAttribute="top" secondItem="lRK-8m-Bpk" secondAttribute="top" constant="2" id="MSA-rk-Efu"/>
+                                                                    <constraint firstItem="lRK-8m-Bpk" firstAttribute="leading" secondItem="tKM-VE-41L" secondAttribute="leading" constant="20" id="Rt2-Ef-RTG"/>
                                                                     <constraint firstItem="0SU-GT-xfg" firstAttribute="leading" secondItem="lRK-8m-Bpk" secondAttribute="trailing" constant="8" symbolic="YES" id="b5K-5q-rYW"/>
                                                                     <constraint firstAttribute="bottom" secondItem="lRK-8m-Bpk" secondAttribute="bottom" constant="9" id="wlf-ZG-5a3"/>
                                                                 </constraints>

@@ -9,11 +9,12 @@
 import Cocoa
 
 @objc class PlaylistController: NSObject {
-    var playlists: [Playlist] = [] {
+    var masterPlaylist: Playlist = Playlist(folder: true) {
         didSet {
             self._outlineView.reloadData()
         }
     }
+    var library: Playlist = Playlist(folder: true)
 
     var selectionDidChange: ((Playlist) -> Swift.Void)? = nil
     var playPlaylist: ((Playlist) -> Swift.Void)? = nil
@@ -24,9 +25,16 @@ import Cocoa
     }
     
     @IBAction func didDoubleClick(_ sender: Any) {
-        if let observer = self.playPlaylist {
-            observer(_outlineView.item(atRow: _outlineView.clickedRow) as! Playlist)
+        if let playPlaylist = playPlaylist {
+            playPlaylist(_outlineView.item(atRow: _outlineView.clickedRow) as! Playlist)
         }
+    }
+    
+    @IBAction func selectLibrary(_ sender: Any) {
+        if let selectionDidChange = selectionDidChange {
+            selectionDidChange(library)
+        }
+        _outlineView.deselectAll(self)
     }
 }
 
@@ -37,9 +45,9 @@ extension PlaylistController : NSOutlineViewDataSource {
 
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
         guard let item = item as? Playlist else {
-            return self.playlists.count
+            return masterPlaylist.children!.count
         }
-        return item.children.count
+        return item.children!.count
     }
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
@@ -47,7 +55,7 @@ extension PlaylistController : NSOutlineViewDataSource {
         
         if let view = outlineView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? NSTableCellView {
             view.textField?.stringValue = playlist.name
-            view.imageView?.image = NSImage(named: NSImage.Name(rawValue: playlist.children.count > 0 ? "folder" : "playlist"))!
+            view.imageView?.image = NSImage(named: NSImage.Name(rawValue: playlist.isFolder ? "folder" : "playlist"))!
             return view
         }
         
@@ -55,7 +63,7 @@ extension PlaylistController : NSOutlineViewDataSource {
     }
     
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
-        let playlists = ((item as? Playlist)?.children) ?? self.playlists
+        let playlists = ((item as? Playlist)?.children!) ?? masterPlaylist.children!
         
         return playlists[index]
     }
@@ -66,15 +74,15 @@ extension PlaylistController : NSOutlineViewDataSource {
     
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
         let playlist = item as! Playlist
-        return playlist.children.count > 0
+        return playlist.isFolder
     }
 }
 
 extension PlaylistController : NSOutlineViewDelegate {
     func outlineViewSelectionDidChange(_ notification: Notification) {
         if let selected = _outlineView.selectedRowIndexes.first {
-            if let observer = self.selectionDidChange {
-                observer(_outlineView.item(atRow: selected) as! Playlist)
+            if let selectionDidChange = selectionDidChange {
+                selectionDidChange(_outlineView.item(atRow: selected) as! Playlist)
             }
         }
     }

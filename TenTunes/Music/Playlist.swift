@@ -13,7 +13,13 @@ class Playlist {
     var name: String = "Unnamed Playlist"
     
     var tracks: [Track] = []
-    var children: [Playlist] = []
+    var children: [Playlist]? = nil
+    
+    init(folder: Bool) {
+        if folder {
+            children = []
+        }
+    }
     
     func track(at: Int) -> Track? {
         return tracks[at]
@@ -21,5 +27,17 @@ class Playlist {
     
     var size: Int {
         return tracks.count
+    }
+    
+    var isFolder: Bool {
+        return children != nil
+    }
+        
+    func add(child: Playlist) {
+        if !isFolder {
+            fatalError("Not a folder!") 
+        }
+        children!.append(child)
+        tracks.append(contentsOf: child.tracks)
     }
 }

@@ -75,7 +75,8 @@ class TrackSpectrumView: NSControl {
 
             let figure = NSBezierPath()
             
-            NSColor(hue: (mid / val / 2 + high / val) * 0.6, saturation: CGFloat(0.3), brightness: CGFloat(0.8), alpha: CGFloat(1.0)).set()
+            // Don't go the full way so we don't loop back to red
+            NSColor(hue: (mid / val / 2 + high / val) * 0.8, saturation: CGFloat(0.3), brightness: CGFloat(0.8), alpha: CGFloat(1.0)).set()
 
             figure.appendRect(NSMakeRect(self.bounds.minX + CGFloat(bar * segmentWidth + 1), self.bounds.minY, CGFloat(barWidth), CGFloat(h * self.bounds.height)))
             

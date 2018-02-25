@@ -79,7 +79,9 @@ class TrackController: NSObject {
     @IBAction func menuShowInFinder(_ sender: Any) {
         let row = self._tableView.clickedRow
         let track = history.viewed(at: row)!
-        NSWorkspace.shared.activateFileViewerSelecting([track.url!])
+        if let url = track.url { // TODO Disable Button if we can't find the url
+            NSWorkspace.shared.activateFileViewerSelecting([url])
+        }
     }
     
     func keyDown(with event: NSEvent) -> NSEvent? {
@@ -142,6 +144,15 @@ extension TrackController: NSTableViewDelegate {
         }
         
         return nil
+    }
+    
+    func tableView(_ tableView: NSTableView, didAdd rowView: NSTableRowView, forRow row: Int) {
+        if let track = history.viewed(at: row) {
+            let exists = track.url != nil
+            if !exists {
+                rowView.backgroundColor = NSColor.black
+            }
+        }
     }
 }
 

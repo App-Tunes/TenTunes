@@ -64,7 +64,10 @@ class Track {
     
     var url: URL? {
         get {
-            return path != nil ? URL(string: path!) : nil
+            if let url = path != nil ? URL(string: path!) : nil {
+                return FileManager.default.fileExists(atPath: url.path) ? url : nil
+            }
+            return nil
         }
     }
     
@@ -91,7 +94,7 @@ class Track {
         
         // TODO Length
 
-        let importer = TagLibImporter.init(url: self.url!)
+        let importer = TagLibImporter.init(url: url)
         do {
             try importer?.import()
             
@@ -108,7 +111,7 @@ class Track {
             print(error)
         }
         
-        let avImporter = AVFoundationImporter(url: self.url!)
+        let avImporter = AVFoundationImporter(url: url)
         
         title = title ?? avImporter.string(withKey: .commonKeyTitle, keySpace: .common)
         title = title ?? avImporter.string(withKey: .iTunesMetadataKeySongName, keySpace: .iTunes)
@@ -143,7 +146,7 @@ class Track {
         duration = duration ?? avImporter.duration
 
 //        var fileID: AudioFileID?
-//        if AudioFileOpenURL(self.url! as CFURL, AudioFilePermissions.readPermission, 0, &fileID) == 0 {
+//        if AudioFileOpenURL(url as CFURL, AudioFilePermissions.readPermission, 0, &fileID) == 0 {
 //            var size: UInt32 = 0
 //            var data: CFData? = nil
 //            let err = AudioFileGetProperty(fileID!, kAudioFilePropertyAlbumArtwork, &size, &data)

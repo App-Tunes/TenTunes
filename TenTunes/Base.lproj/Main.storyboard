@@ -999,7 +999,7 @@ IA
                                                         <subviews>
                                                             <scrollView verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="QEo-kJ-TZV">
                                                                 <rect key="frame" x="0.0" y="0.0" width="630" height="372"/>
-                                                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Ic4-1D-uPe">
+                                                                <clipView key="contentView" copiesOnScroll="NO" id="Ic4-1D-uPe">
                                                                     <rect key="frame" x="0.0" y="0.0" width="630" height="372"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
@@ -1007,7 +1007,7 @@ IA
                                                                             <rect key="frame" x="0.0" y="0.0" width="630" height="372"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <size key="intercellSpacing" width="3" height="2"/>
-                                                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                             <tableColumns>
                                                                                 <tableColumn identifier="" width="627" minWidth="40" maxWidth="10000" id="NLH-lo-Ujw">
@@ -1123,7 +1123,7 @@ IA
                                                                             </connections>
                                                                         </tableView>
                                                                     </subviews>
-                                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.19788099315068494" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <color key="backgroundColor" red="0.054563667948143747" green="0.055103902284263984" blue="0.055103902284263984" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </clipView>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="500" id="TSy-pY-aPO"/>
@@ -1158,8 +1158,8 @@ Gw
                                                                         <rect key="frame" x="20" y="9" width="559" height="22"/>
                                                                         <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="Filter" usesSingleLineMode="YES" bezelStyle="round" id="Y5i-4v-xPm">
                                                                             <font key="font" metaFont="system"/>
-                                                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                            <color key="backgroundColor" red="0.99019607843137258" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </searchFieldCell>
                                                                         <connections>
                                                                             <outlet property="delegate" destination="3PX-Ck-UDg" id="Suz-SO-fQX"/>

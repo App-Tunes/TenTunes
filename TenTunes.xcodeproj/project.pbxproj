@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8013720E203F7C9C00CA9036 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720C203F7C9C00CA9036 /* AudioKit.framework */; };
 		8013720F203F7C9C00CA9036 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720D203F7C9C00CA9036 /* AudioKitUI.framework */; };
+		803717292043629800DB9EAA /* ViewController+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803717282043629700DB9EAA /* ViewController+Background.swift */; };
 		8058FA8F204317080086FF8A /* libSuperpoweredAudioOSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8058FA8E204317080086FF8A /* libSuperpoweredAudioOSX.a */; };
 		8058FAB5204317330086FF8A /* SuperpoweredOSXAudioIO.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8058FA9E2043172D0086FF8A /* SuperpoweredOSXAudioIO.mm */; };
 		8058FAB7204317330086FF8A /* SuperpoweredNBandEQ.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8058FAA62043172F0086FF8A /* SuperpoweredNBandEQ.cpp */; };
@@ -70,6 +71,7 @@
 /* Begin PBXFileReference section */
 		8013720C203F7C9C00CA9036 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = Carthage/Build/Mac/AudioKit.framework; sourceTree = SOURCE_ROOT; };
 		8013720D203F7C9C00CA9036 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = Carthage/Build/Mac/AudioKitUI.framework; sourceTree = SOURCE_ROOT; };
+		803717282043629700DB9EAA /* ViewController+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Background.swift"; sourceTree = "<group>"; };
 		8058FA8E204317080086FF8A /* libSuperpoweredAudioOSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSuperpoweredAudioOSX.a; path = ../../../../SuperpoweredSDK/Superpowered/libSuperpoweredAudioOSX.a; sourceTree = "<group>"; };
 		8058FA902043172A0086FF8A /* SuperpoweredLimiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SuperpoweredLimiter.h; path = ../../../../SuperpoweredSDK/Superpowered/SuperpoweredLimiter.h; sourceTree = "<group>"; };
 		8058FA922043172B0086FF8A /* SuperpoweredGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SuperpoweredGate.h; path = ../../../../SuperpoweredSDK/Superpowered/SuperpoweredGate.h; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 				805901C020404CDF00B97D84 /* Music */,
 				80F2C5792038808000212739 /* AppDelegate.swift */,
 				80F2C57B2038808000212739 /* ViewController.swift */,
+				803717282043629700DB9EAA /* ViewController+Background.swift */,
 				80CFDA09203C4E2300C7A506 /* LazyVar.swift */,
 				80E937582039C2850014C835 /* Keycodes.swift */,
 				80802585203EFCC0008D4168 /* Cocoa+TT.swift */,
@@ -396,6 +399,7 @@
 				806C5B2620423AC000C34F49 /* SPInterpreter.swift in Sources */,
 				808161D2204059FE00AEA64F /* TrackController.swift in Sources */,
 				80F2C57F2038808000212739 /* TenTunes.xcdatamodeld in Sources */,
+				803717292043629800DB9EAA /* ViewController+Background.swift in Sources */,
 				806AC136204174F300857B1B /* ITunesImporter.swift in Sources */,
 				8058FAC02043409F0086FF8A /* VibrantTableRowView.swift in Sources */,
 				80F77BF5203D8B35001E397F /* Keys.swift in Sources */,

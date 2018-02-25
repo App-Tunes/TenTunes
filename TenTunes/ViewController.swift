@@ -54,7 +54,7 @@ class ViewController: NSViewController {
     
     var visualTimer: Timer!
     
-    var _workerSemaphore = DispatchSemaphore(value: 2)
+    var _workerSemaphore = DispatchSemaphore(value: 3)
 
     var shuffle = true {
         didSet {

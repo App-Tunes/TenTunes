@@ -105,6 +105,15 @@ extension NSImage {
     }
 }
 
+extension NSTextField {
+    func setStringColor(_ color: NSColor) {
+        if let mutableAttributedTitle = self.attributedStringValue.mutableCopy() as? NSMutableAttributedString {
+            mutableAttributedTitle.addAttribute(.foregroundColor, value: color, range: NSRange(location: 0, length: mutableAttributedTitle.length))
+            self.attributedStringValue = mutableAttributedTitle
+        }
+    }
+}
+
 extension NSButton {
     func set(text: String) {
         self.attributedTitle = NSAttributedString(string: text, attributes: self.attributedTitle.attributes(at: 0, effectiveRange: nil))

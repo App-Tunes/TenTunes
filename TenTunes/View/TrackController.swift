@@ -147,7 +147,9 @@ class TrackController: NSObject {
         view.track = track
         view.textField?.stringValue = track.rTitle
         view.subtitleTextField?.stringValue = track.rSource
-        view.subtitleTextField?.textColor = NSColor.secondaryLabelColor // Is reset from the xib for some reason
+//        view.subtitleTextField?.textColor = NSColor.secondaryLabelColor
+        // Is reset for some reason
+        view.subtitleTextField?.setStringColor(NSColor.secondaryLabelColor)
         view.lengthTextField?.stringValue = track.rLength
         view.imageView?.image = track.rArtwork
         view.key = track.rKey

@@ -11,6 +11,8 @@ import Foundation
 import AudioKit
 import AudioKitUI
 
+import MediaKeyTap
+
 let playString = "▶"
 let pauseString = "||"
 
@@ -62,6 +64,8 @@ class ViewController: NSViewController {
             self.history?.reorder(shuffle: self.shuffle)
         }
     }
+    
+    var mediaKeyTap: MediaKeyTap?
     
     @IBOutlet var playlistController: PlaylistController!
     @IBOutlet var trackController: TrackController!
@@ -119,6 +123,9 @@ class ViewController: NSViewController {
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             return self.keyDown(with: $0)
         }
+        
+        mediaKeyTap = MediaKeyTap(delegate: self)
+        mediaKeyTap?.start()
 
         self.visualTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true ) { [unowned self] (timer) in
             self._spectrumView.setBy(player: self.player) // TODO Apparently this loops back when the track is done (or rather just before)
@@ -332,6 +339,18 @@ class ViewController: NSViewController {
     
     func playlistSelected(_ playlist: Playlist) {
         trackController.history = PlayHistory(playlist: playlist)
-    }    
+    }
 }
 
+extension ViewController: MediaKeyTapDelegate {
+    func handle(mediaKey: MediaKey, event: KeyEvent) {
+        switch mediaKey {
+        case .playPause:
+            _play.performClick(self)
+        case .previous, .rewind:
+            _previous.performClick(self)
+        case .next, .fastForward:
+            _next.performClick(self)
+        }
+    }
+}

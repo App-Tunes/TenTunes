@@ -934,7 +934,7 @@ IA
                                                                 <rect key="frame" x="0.0" y="412" width="178" height="26"/>
                                                                 <subviews>
                                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ki5-b8-hqg">
-                                                                        <rect key="frame" x="130" y="3" width="20" height="20"/>
+                                                                        <rect key="frame" x="80" y="3" width="20" height="20"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="ki5-b8-hqg" secondAttribute="height" multiplier="1:1" id="2tD-Pt-aMQ"/>
                                                                         </constraints>
@@ -957,7 +957,7 @@ IA
                                                                         </connections>
                                                                     </button>
                                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="e5r-wm-TBz">
-                                                                        <rect key="frame" x="80" y="3" width="20" height="20"/>
+                                                                        <rect key="frame" x="130" y="3" width="20" height="20"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="e5r-wm-TBz" secondAttribute="height" multiplier="1:1" id="LlP-pX-ug0"/>
                                                                         </constraints>
@@ -968,12 +968,12 @@ IA
                                                                     </button>
                                                                 </subviews>
                                                                 <constraints>
-                                                                    <constraint firstItem="e5r-wm-TBz" firstAttribute="leading" secondItem="Lid-8O-9oY" secondAttribute="trailing" constant="30" id="2AA-Ac-Mh7"/>
-                                                                    <constraint firstItem="e5r-wm-TBz" firstAttribute="leading" secondItem="Lid-8O-9oY" secondAttribute="trailing" constant="30" id="7KA-Ry-tUg"/>
+                                                                    <constraint firstItem="e5r-wm-TBz" firstAttribute="leading" secondItem="ki5-b8-hqg" secondAttribute="trailing" constant="30" id="2AA-Ac-Mh7"/>
                                                                     <constraint firstAttribute="height" constant="26" id="EPQ-sE-RgX"/>
                                                                     <constraint firstAttribute="bottom" secondItem="ki5-b8-hqg" secondAttribute="bottom" constant="3" id="IVA-3y-x0b"/>
+                                                                    <constraint firstItem="ki5-b8-hqg" firstAttribute="centerX" secondItem="WqW-PP-cVP" secondAttribute="centerX" priority="50" id="Kre-cG-HgR"/>
                                                                     <constraint firstItem="e5r-wm-TBz" firstAttribute="centerX" secondItem="WqW-PP-cVP" secondAttribute="centerX" priority="50" id="NGz-I1-wBE"/>
-                                                                    <constraint firstItem="ki5-b8-hqg" firstAttribute="leading" secondItem="e5r-wm-TBz" secondAttribute="trailing" constant="30" id="ea2-o8-thL"/>
+                                                                    <constraint firstItem="ki5-b8-hqg" firstAttribute="leading" secondItem="Lid-8O-9oY" secondAttribute="trailing" constant="30" id="ea2-o8-thL"/>
                                                                     <constraint firstAttribute="bottom" secondItem="Lid-8O-9oY" secondAttribute="bottom" constant="3" id="fh5-Kn-3iA"/>
                                                                     <constraint firstItem="ki5-b8-hqg" firstAttribute="top" secondItem="WqW-PP-cVP" secondAttribute="top" constant="3" id="gJe-kK-ZRQ"/>
                                                                     <constraint firstItem="e5r-wm-TBz" firstAttribute="top" secondItem="WqW-PP-cVP" secondAttribute="top" constant="3" id="lza-zJ-hd2"/>
@@ -1130,7 +1130,7 @@ IA
                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="250" id="YdU-A3-nOJ"/>
                                                                 </constraints>
                                                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="Bni-zo-AjV">
-                                                                    <rect key="frame" x="0.0" y="356" width="628" height="16"/>
+                                                                    <rect key="frame" x="0.0" y="356" width="528" height="16"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                 </scroller>
                                                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="DLS-bc-jz7">

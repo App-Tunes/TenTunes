@@ -19,6 +19,7 @@ class TrackController: NSObject {
     @IBOutlet weak var _sortLabel: NSTextField!
     @IBOutlet weak var _sortBar: NSView!
     
+    var _sortButtons: [NSButton] = []
     var _sortTitle: NSButton!
     var _sortKey: NSButton!
     var _sortBPM: NSButton!
@@ -35,12 +36,13 @@ class TrackController: NSObject {
     func addSearchBarItem(title: String, previous: NSView) -> NSButton {
         let button = NSButton()
         button.title = title
-        button.bezelStyle = .recessed
-        button.set(color: NSColor.white)
+        button.bezelStyle = .rounded
+        button.appearance = NSAppearance(named: NSAppearance.Name.vibrantDark)
+
         button.translatesAutoresizingMaskIntoConstraints = false // !!!!!!!!!!
         
-        button.setButtonType(.pushOnPushOff)
-        button.state = .off
+        button.setButtonType(.onOff)
+//        button.state = .off
         
         button.target = self
         button.action = #selector(TrackController.filterPressed)
@@ -51,13 +53,15 @@ class TrackController: NSObject {
         button.leadingAnchor.constraint(equalTo: previous.trailingAnchor, constant: 8.0).isActive = true
         button.centerYAnchor.constraint(equalTo: _sortBar.centerYAnchor, constant: 0.0).isActive = true
         
+        _sortButtons.append(button)
+        
         return button
     }
     
     override func awakeFromNib() {
         _searchBarHeight.constant = CGFloat(0)
         _searchField.appearance = NSAppearance(named: NSAppearance.Name.vibrantDark)
-        _searchBarClose.set(color: NSColor.white)
+        _searchBarClose.appearance = NSAppearance(named: NSAppearance.Name.vibrantDark)
         
         _sortTitle = addSearchBarItem(title: "Title", previous: _sortLabel)
         _sortKey = addSearchBarItem(title: "Key", previous: _sortTitle)
@@ -153,7 +157,18 @@ class TrackController: NSObject {
     }
     
     @IBAction func filterPressed(_ sender: Any?) {
-        switch sender as! NSButton {
+        guard let sender = sender as? NSButton else {
+            return
+        }
+        
+        if sender.state == .off {
+            history.reorder(sort: nil)
+            _tableView.reloadData()
+            
+            return
+        }
+        
+        switch sender {
         case _sortTitle:
             history.reorder { $0.rTitle < $1.rTitle }
         case _sortKey:
@@ -165,6 +180,10 @@ class TrackController: NSObject {
         }
         
         _tableView.reloadData()
+
+        for other in _sortButtons where other !== sender {
+            other.state = .off
+        }
     }
 }
 

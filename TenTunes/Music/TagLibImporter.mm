@@ -43,8 +43,11 @@ inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFram
 }
 
 
-@interface TagLibImporter()
+@interface TagLibImporter() {
+    TagLib::ID3v2::AttachedPictureFrame::Type currentPictureType;
+}
 
++ (int) priority:(TagLib::ID3v2::AttachedPictureFrame::Type) type;
 
 @end
 
@@ -56,6 +59,23 @@ inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFram
         _url = url;
     }
     return self;
+}
+
++ (int) priority:(TagLib::ID3v2::AttachedPictureFrame::Type) type {
+    switch (type) {
+        case TagLib::ID3v2::AttachedPictureFrame::FrontCover:
+            return 0;
+        case TagLib::ID3v2::AttachedPictureFrame::FileIcon:
+            return 1;
+        case TagLib::ID3v2::AttachedPictureFrame::OtherFileIcon:
+            return 2;
+        case TagLib::ID3v2::AttachedPictureFrame::Illustration:
+            return 3;
+        case TagLib::ID3v2::AttachedPictureFrame::PublisherLogo:
+            return 4;
+        default:
+            return 100;
+    }
 }
 
 -(BOOL)import:(NSError *__autoreleasing *)error {
@@ -98,10 +118,12 @@ inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFram
 	for(; it != tag->frameList().end(); it++) {
 		auto frame = (*it);
 		if(auto picture_frame = dynamic_cast<TagLib::ID3v2::AttachedPictureFrame *>(frame)) {
-			if(picture_frame->type() == TagLib::ID3v2::AttachedPictureFrame::Type::FrontCover) {
+            if([self image] == nil || ([TagLibImporter priority: picture_frame->type()] < [TagLibImporter priority: currentPictureType])) {
+                
                 TagLib::ByteVector imgVector = picture_frame->picture();
                 NSData *data = [NSData dataWithBytes:imgVector.data() length:imgVector.size()];
                 [self setImage: [[NSImage alloc] initWithData: data]];
+                currentPictureType = picture_frame->type();
 			}
 		} else if(auto text_frame = dynamic_cast<TagLib::ID3v2::TextIdentificationFrame *>(frame)) {
             auto frame_id = text_frame->frameID();

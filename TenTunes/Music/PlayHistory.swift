@@ -87,11 +87,14 @@ class PlayHistory {
         move(to: prev)
     }
     
-    func reorder(sort: ((Track, Track) -> Bool)) {
+    func reorder(sort: ((Track, Track) -> Bool)?) {
         let prev = rawPlayingIndex
         
         _playlistOrder = Array(0..<playlist.size)
-            .sorted { sort(playlist.track(at: $0)!, playlist.track(at: $1)!) }
+        
+        if let sort = sort {
+            _playlistOrder = _playlistOrder.sorted { sort(playlist.track(at: $0)!, playlist.track(at: $1)!) }
+        }
         
         if order.count != playlist.size { // We're filtered
             order = _playlistOrder.filter { order.contains($0) }

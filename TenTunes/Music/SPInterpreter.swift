@@ -26,12 +26,7 @@ class SPInterpreter {
         
         var lastUpdate: Float = 0.0
         
-        analyzer.analyze((file.url)) { (progress) in
-            if progress - lastUpdate < (1.0 / 50) {
-                return
-            }
-            lastUpdate = progress
-            
+        let setProgress: (Float) -> Swift.Void = { (progress) in
             var values: [[CGFloat]] = Array(0..<Int(3)).map { (idx) in
                 return Array(0..<Analysis.sampleCount).map { sample in
                     let pos = Float(sample) / Float(Analysis.sampleCount)
@@ -47,16 +42,21 @@ class SPInterpreter {
             }
             
             values.insert(Array(0..<Analysis.sampleCount).map(createWave), at: 0)
-
+            
             DispatchQueue.main.async {
                 analysis.values = values
             }
         }
         
-        // So the wave resets
-        DispatchQueue.main.async {
-            analysis.values = nil
+        analyzer.analyze(file.url) {
+            if $0 - lastUpdate < (1.0 / 50) {
+                return
+            }
+            lastUpdate = $0
+            
+            setProgress($0)
         }
+        setProgress(1.0)
         
         let waveformLength: Int = Int(analyzer.waveformSize())
         
@@ -66,11 +66,16 @@ class SPInterpreter {
                 .normalized(min: 0.0, max: 255.0)
         }
         
+        // This may take a while too
         let wf = waveform(start: analyzer.waveform())
         let lows = waveform(start: analyzer.lowWaveform())
+
+        setProgress(2.0) // Move the wave out of screen
+
         let mids = waveform(start: analyzer.midWaveform())
         let highs = waveform(start: analyzer.highWaveform())
         
+
         DispatchQueue.main.async {
             // Normalize waveform but only a little bit
             analysis.values = [wf.normalized(min: 0.0, max: (1.0 + wf.max()!) / 2.0), lows, mids, highs]

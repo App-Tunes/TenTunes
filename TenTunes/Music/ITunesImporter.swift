@@ -38,6 +38,9 @@ class ITunesImporter {
             if playlistData.object(forKey: "Master") as? Bool ?? false {
                 continue
             }
+            if playlistData.object(forKey: "Distinguished Kind") as? Int != nil {
+                continue // TODO At least give the option
+            }
             
             let isFolder = playlistData.object(forKey: "Folder") as? Bool ?? false
             let playlist = Playlist(folder: isFolder)

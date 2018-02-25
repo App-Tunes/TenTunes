@@ -11,7 +11,7 @@ import Cocoa
 import AVFoundation
 
 func simulateWave(_ pos: Float, _ size: Float, _ speed: Float, progress: Float) -> Float {
-    return pos > progress ? (sin(pos * size + progress * speed) + 1.0) * 0.3 : 0.0
+    return pos > progress ? (sin(pos * size + progress * speed) + 1.0) * 0.3 : 0.1
 }
 
 class Analysis {
@@ -27,7 +27,7 @@ class SPInterpreter {
         var lastUpdate: Float = 0.0
         
         analyzer.analyze((file.url)) { (progress) in
-            if progress - lastUpdate < (1.0 / 30) {
+            if progress - lastUpdate < (1.0 / 50) {
                 return
             }
             lastUpdate = progress
@@ -35,7 +35,7 @@ class SPInterpreter {
             var values: [[CGFloat]] = Array(0..<Int(3)).map { (idx) in
                 return Array(0..<Analysis.sampleCount).map { sample in
                     let pos = Float(sample) / Float(Analysis.sampleCount)
-                    return CGFloat(simulateWave(pos, Float(idx * 15), -23.0 + Float(idx) * 3.0, progress: progress) + 0.1)
+                    return CGFloat(simulateWave(pos, Float(idx * 15), -23.0 + Float(idx) * 3.0, progress: progress))
                 }
             }
             

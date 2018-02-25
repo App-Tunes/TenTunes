@@ -91,7 +91,7 @@ class Track {
         
         // TODO Length
 
-        let importer = JUKImporter.init(url: self.url!)
+        let importer = TagLibImporter.init(url: self.url!)
         do {
             try importer?.import()
             

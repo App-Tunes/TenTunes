@@ -6,7 +6,7 @@
 //  Copyright © 2017 Thomas Günzel. All rights reserved.
 //
 
-#import "JUKImporter.h"
+#import "TagLibImporter.h"
 
 #import <fileref.h>
 #import <tag.h>
@@ -32,23 +32,23 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-inline NSString *JUKTagLibStringToNS(const TagLib::String &tagString) {
+inline NSString *TagLibStringToNS(const TagLib::String &tagString) {
     if (tagString == TagLib::ByteVector::null)
         return nil;
 	return [NSString stringWithUTF8String:tagString.toCString()];
 }
 
-inline NSString *JUKTagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFrame *frame) {
+inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFrame *frame) {
     return [NSString stringWithUTF8String:frame->toString().toCString(true)];
 }
 
 
-@interface JUKImporter()
+@interface TagLibImporter()
 
 
 @end
 
-@implementation JUKImporter
+@implementation TagLibImporter
 
 -(instancetype)initWithURL:(NSURL *)url {
     self = [super init];
@@ -70,9 +70,9 @@ inline NSString *JUKTagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationF
     if (!f.isNull()) {
         TagLib::Tag *tag = f.tag();
         
-        [self setTitle: JUKTagLibStringToNS(tag->title())];
-        [self setArtist: JUKTagLibStringToNS(tag->artist())];
-        [self setAlbum: JUKTagLibStringToNS(tag->album())];
+        [self setTitle: TagLibStringToNS(tag->title())];
+        [self setArtist: TagLibStringToNS(tag->artist())];
+        [self setAlbum: TagLibStringToNS(tag->album())];
         // Comment
         // Genre
         // Year
@@ -91,40 +91,6 @@ inline NSString *JUKTagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationF
     }
 }
 
--(void)setTrackArtists:(NSString*)artists {
-	NSArray<NSString*> *split = [artists componentsSeparatedByString:@","];
-	for (NSString *component in split) {
-		[self addTrackArtist:component];
-	}
-}
-
--(void)addTrackArtist:(NSString*)artistName {
-//    NSString *sanitizedArtist = [artistName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//    JUKArtist *artist = [JUKArtist artistNamed:sanitizedArtist inRealm:self.manager.realm createIfNeeded:YES];
-//    [self.track.artists addObject:artist];
-}
-
--(void)setTrackAlbum:(NSString*)albumName {
-//    NSString *sanitizedAlbum = [albumName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//    JUKAlbum *album = [JUKAlbum albumNamed:sanitizedAlbum inRealm:self.manager.realm createIfNeeded:YES];
-//    self.track.album = album;
-}
-
--(void)setTrackGenre:(NSString*)genreName {
-//    NSString *sanitizedGenre = [genreName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//    JUKGenre *genre = [JUKGenre genreNamed:sanitizedGenre inRealm:self.manager.realm createIfNeeded:YES];
-//    [self.track.genres addObject:genre];
-}
-
--(void)setTrackYearReleased:(NSString*)releaseDate overwrite:(BOOL)overwrite {
-	if(releaseDate.length > 4) {
-		releaseDate = [releaseDate substringToIndex:4];
-	}
-//    if(self.track.yearReleased == nil || overwrite) {
-//        self.track.yearReleased = releaseDate;
-//    }
-}
-
 #pragma mark ID3v2
 
 -(void)importID3v2:(TagLib::ID3v2::Tag *)tag {
@@ -139,7 +105,7 @@ inline NSString *JUKTagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationF
 			}
 		} else if(auto text_frame = dynamic_cast<TagLib::ID3v2::TextIdentificationFrame *>(frame)) {
             auto frame_id = text_frame->frameID();
-            NSString *textString = JUKTagLibTextFrameToNS(text_frame);
+            NSString *textString = TagLibTextFrameToNS(text_frame);
             if (frame_id == AVMetadataID3MetadataKeyInitialKey.UTF8String) {
                 [self setInitialKey: textString];
             } else if(frame_id == AVMetadataID3MetadataKeyBeatsPerMinute.UTF8String) {

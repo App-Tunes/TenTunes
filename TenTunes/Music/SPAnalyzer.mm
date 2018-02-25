@@ -56,7 +56,7 @@
     return waveformSize;
 }
 
-- (void)analyze:(NSURL *)url {
+- (void)analyze:(NSURL *)url progressHandler: (void(^)(float))progressHandler {
     // Open the input file.
     SuperpoweredDecoder *decoder = new SuperpoweredDecoder();
     const char *openError = decoder->open([url fileSystemRepresentation], false, 0, 0);
@@ -89,6 +89,7 @@
         
         // Update the progress indicator.
         progress = (double)decoder->samplePosition / (double)decoder->durationSamples;
+        progressHandler(progress);
     };
     
     // Get the result.

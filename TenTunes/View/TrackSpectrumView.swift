@@ -8,8 +8,6 @@
 
 import Cocoa
 
-let sampleCount = 500
-
 func lerp(_ left: [CGFloat], _ right: [CGFloat], _ amount: CGFloat) -> [CGFloat] {
     return zip(left, right).map { (cur, sam) in
         return cur * (CGFloat(1.0) - amount) + sam * amount
@@ -31,8 +29,8 @@ class TrackSpectrumView: NSControl {
         }
     }
     
-    var _curValues: [[CGFloat]] = Array(repeating: Array(repeating: CGFloat(0), count: sampleCount), count: 4)
-    var _drawValues: [[CGFloat]] { return self.analysis?.values ?? Array(repeating: Array(repeating: CGFloat(0), count: sampleCount), count: 4) }
+    var _curValues: [[CGFloat]] = Array(repeating: Array(repeating: CGFloat(0), count: Analysis.sampleCount), count: 4)
+    var _drawValues: [[CGFloat]] { return self.analysis?.values ?? Array(repeating: Array(repeating: CGFloat(0), count: Analysis.sampleCount), count: 4) }
 
     var analysis: Analysis? = nil
     

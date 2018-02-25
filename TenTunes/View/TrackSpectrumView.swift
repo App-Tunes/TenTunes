@@ -14,14 +14,6 @@ func lerp(_ left: [CGFloat], _ right: [CGFloat], _ amount: CGFloat) -> [CGFloat]
     }
 }
 
-func get(_ left: [CGFloat], at: Int, max: Int) -> CGFloat {
-    let trackPosStart = Double(at) / Double(max + 1)
-    let trackPosEnd = Double(at + 1) / Double(max + 1)
-    let trackRange = Int(trackPosStart * Double(left.count))...Int(trackPosEnd * Double(left.count))
-    
-    return left[trackRange].reduce(0, +) / CGFloat(trackRange.count)
-}
-
 class TrackSpectrumView: NSControl {
     var location: Double? {
         didSet {
@@ -50,12 +42,12 @@ class TrackSpectrumView: NSControl {
 
         let numBars = Int(self.bounds.width / CGFloat(segmentWidth))
 
-        let values = (0..<4).map { (idx) in
-            return Array(0..<numBars).map { get(self._curValues[idx], at: $0, max: numBars) }
-        }
+        let values = _curValues.map { wf in wf.remap(toSize: numBars) }
         let waveform = values[0], lows = values[1], mids = values[2], highs = values[3]
+        
+        let start = bounds.minX + (bounds.width - CGFloat(numBars * segmentWidth)) / 2
 
-        for bar in 0..<Int(self.bounds.width / CGFloat(segmentWidth)) {
+        for bar in 0..<numBars {
             let low = lows[bar] * lows[bar], mid = mids[bar] * mids[bar], high = highs[bar] * highs[bar]
             let val = low + mid + high
             
@@ -66,7 +58,7 @@ class TrackSpectrumView: NSControl {
             // Don't go the full way so we don't loop back to red
             NSColor(hue: (mid / val / 2 + high / val) * 0.8, saturation: CGFloat(0.3), brightness: CGFloat(0.8), alpha: CGFloat(1.0)).set()
 
-            figure.appendRect(NSMakeRect(self.bounds.minX + CGFloat(bar * segmentWidth + 1), self.bounds.minY, CGFloat(barWidth), CGFloat(h * self.bounds.height)))
+            figure.appendRect(NSMakeRect(start + CGFloat(bar * segmentWidth) + 1, self.bounds.minY, CGFloat(barWidth), CGFloat(h * self.bounds.height)))
             
             figure.fill()
         }

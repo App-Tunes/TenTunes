@@ -44,9 +44,9 @@ class ViewController: NSViewController {
     var masterPlaylist: Playlist = Playlist(folder: true)
     var library: Playlist = Playlist(folder: false)
 
-    var history: PlayHistory! {
+    var history: PlayHistory? {
         didSet {
-            self.history.reorder(shuffle: self.shuffle)
+            self.history?.reorder(shuffle: self.shuffle)
         }
     }
     var player: AKPlayer!
@@ -59,7 +59,7 @@ class ViewController: NSViewController {
 
     var shuffle = true {
         didSet {
-            self.history.reorder(shuffle: self.shuffle, keepCurrent: true)
+            self.history?.reorder(shuffle: self.shuffle)
         }
     }
     
@@ -289,10 +289,11 @@ class ViewController: NSViewController {
             history = trackController.history
         }
         else if moved == 0 {
-            history.reorder(shuffle: shuffle)
+            history!.reorder(shuffle: shuffle)
+            history!.move(to: nil) // Select random track next
         }
         
-        self.play(track: self.history.move(moved))
+        self.play(track: self.history!.move(moved))
     }
     
     func pause() {
@@ -332,7 +333,7 @@ class ViewController: NSViewController {
             self.history = trackController.history
         }
         
-        self.history.move(to: at, swap: shuffle)
+        self.history!.move(to: at, swap: shuffle)
         self.play(track: track)
     }
     

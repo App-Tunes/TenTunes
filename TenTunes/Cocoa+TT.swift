@@ -38,29 +38,29 @@ extension Collection where Iterator.Element == CGFloat {
     }
 }
 
+extension UInt32 {
+    public static func random() -> UInt32 {
+        return arc4random_uniform(UInt32.max)
+    }
+}
+
 extension Int {
     public static func random() -> Int {
-        return Int(drand48() * Double(Int.max))
-    }
-
-    public func seed() {
-        srand48(self)
+        return Int(arc4random_uniform(UInt32(Int.max)))
     }
 }
 
-extension ClosedRange {
+extension ClosedRange where Bound == CGFloat {
     public func random() -> Bound {
-        let range = (self.upperBound as! CGFloat) - (self.lowerBound as! CGFloat)
-        let randomValue = CGFloat(drand48()) * range + (self.lowerBound as! CGFloat)
-        return randomValue as! Bound
+        let range = self.upperBound - self.lowerBound
+        return self.upperBound + (CGFloat(arc4random_uniform(UInt32.max)) / CGFloat(UInt32.max)) * range
     }
 }
 
-extension CountableRange {
+extension CountableRange where Bound == Int {
     public func random() -> Bound {
-        let range = (self.upperBound as! Int) - (self.lowerBound as! Int)
-        let randomValue = Int(drand48() * Double(range)) + (self.lowerBound as! Int)
-        return randomValue as! Bound
+        let range = self.upperBound - self.lowerBound
+        return self.lowerBound + Int(arc4random_uniform(UInt32(range)))
     }
 }
 
@@ -71,7 +71,7 @@ extension MutableCollection {
         guard c > 1 else { return }
         
         for (firstUnshuffled, unshuffledCount) in zip(indices, stride(from: c, to: 1, by: -1)) {
-            let d: IndexDistance = numericCast(Int(drand48() * Double(Int(unshuffledCount))))
+            let d: IndexDistance = numericCast((0..<Int(unshuffledCount)).random())
             let i = index(firstUnshuffled, offsetBy: d)
             swapAt(firstUnshuffled, i)
         }

@@ -9,11 +9,15 @@
 import Cocoa
 
 class PlayHistory {
-    var playlist: Playlist
+    let playlist: Playlist
     
     var order: [Int] = []
-    var viewOrder: [Int] = []
     var shuffledOrder: [Int] = []
+    
+    var _playlistOrder: [Int] {
+        return Array(0..<playlist.size)
+    }
+    var _shuffledPlaylistOrder: [Int] = []
 
     var playingIndex: Int? = nil
     
@@ -29,11 +33,12 @@ class PlayHistory {
     
     init(playlist: Playlist, shuffle: Bool = false) {
         self.playlist = playlist
+        order = _playlistOrder
         reorder(shuffle: shuffle)
     }
     
     init(from: PlayHistory) {
-        playlist = Playlist(folder: true)
+        playlist = from.playlist
         textFilter = from.textFilter
         update(from: from)
     }
@@ -43,37 +48,39 @@ class PlayHistory {
     }
     
     var rawPlayingIndex: Int? {
-        return playingIndex != nil ? order[safe: playingIndex ?? -1] : nil
+        return playingIndex != nil ? shuffledOrder[safe: playingIndex ?? -1] : nil
     }
     
     func update(from: PlayHistory) {
-        playlist = from.playlist
+        guard playlist === from.playlist else {
+            fatalError("Wrong playlist")
+        }
 
-        order = from.order
-        viewOrder = from.viewOrder
         shuffledOrder = from.shuffledOrder
+        order = from.order
+        _shuffledPlaylistOrder = from._shuffledPlaylistOrder
 
         playingIndex = from.playingIndex
     }
     
-    func reorder(shuffle: Bool, keepCurrent: Bool = false) {
+    func reorder(shuffle: Bool) {
         let prev = rawPlayingIndex
 
-        viewOrder = Array(0..<playlist.size)
-        shuffledOrder = viewOrder
+        _shuffledPlaylistOrder = _playlistOrder
 
         if shuffle {
-            shuffledOrder.shuffle()
-        }
-
-        order = shuffledOrder
-
-        if keepCurrent, let prev = prev {
-            move(to: prev, swap: shuffle)
+            _shuffledPlaylistOrder.shuffle()
+            shuffledOrder = _shuffledPlaylistOrder
+            
+            if shuffledOrder.count != order.count { // We're filtered
+                shuffledOrder = shuffledOrder.filter { order.contains($0) }
+            }
         }
         else {
-            playingIndex = nil
+            shuffledOrder = order
         }
+
+        move(to: prev, swap: shuffle)
     }
     
     func updated(completion: @escaping (PlayHistory) -> Swift.Void) {
@@ -91,8 +98,8 @@ class PlayHistory {
     func _filter() {
         let prev = rawPlayingIndex
 
-        viewOrder = Array(0..<playlist.size)
-        order = shuffledOrder
+        order = _playlistOrder
+        shuffledOrder = _shuffledPlaylistOrder
 
         guard let text = textFilter, text.count > 0 else {
             if let prev = prev {
@@ -104,7 +111,7 @@ class PlayHistory {
 
         let terms = text.components(separatedBy: .whitespacesAndNewlines).filter { !$0.isEmpty }
         
-        let filter: (Int) -> Bool = { (index) -> Bool in
+        order = order.filter  { (index) -> Bool in
             return terms.filter({ (term) -> Bool in
                 return self.playlist.tracks[index].searchable.filter({ (key) -> Bool in
                     return key.lowercased().contains(term.lowercased())
@@ -112,26 +119,28 @@ class PlayHistory {
             }).first == nil
         }
         
-        order = order.filter(filter)
-        viewOrder = viewOrder.filter(filter)
+        shuffledOrder = shuffledOrder.filter { order.contains($0) } // Don't do the heavy lifting twice
         
-        if let prev = prev {
-            self.move(to: prev)
-        }
+        self.move(to: prev)
     }
     
     func track(at: Int) -> Track? {
-        return playlist.tracks[order[at]]
+        return playlist.tracks[shuffledOrder[at]]
     }
     
     func viewed(at: Int) -> Track? {
-        return playlist.tracks[safe: viewOrder[safe: at] ?? -1]
+        return playlist.tracks[safe: order[safe: at] ?? -1]
     }
     
-    func move(to: Int, swap: Bool = false) {
+    func move(to: Int?, swap: Bool = false) {
+        guard let to = to else {
+            self.playingIndex = nil
+            return
+        }
+        
         if swap {
-            if let to = order.index(of: to) {
-                order.swapAt(to, 0)
+            if let to = shuffledOrder.index(of: to) {
+                shuffledOrder.swapAt(to, 0)
                 self.playingIndex = 0
             }
             else {

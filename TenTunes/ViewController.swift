@@ -60,7 +60,8 @@ class ViewController: NSViewController {
     var playing: Track?
     
     var visualTimer: Timer!
-    
+    var completionTimer: Timer?
+
     var _workerSemaphore = DispatchSemaphore(value: 3)
     var _filterSemaphore = DispatchSemaphore(value: 1)
 
@@ -79,9 +80,11 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         
         self.player = AKPlayer()
-        self.player.completionHandler = { [unowned self] in
-            self.play(moved: 1)
-        }
+        // The completion handler sucks...
+        // TODO When it stops sucking, replace our completion timer hack
+//        self.player.completionHandler = { [unowned self] in
+//            self.play(moved: 1)
+//        }
 
         AudioKit.output = self.player
         try! AudioKit.start()

@@ -11,6 +11,15 @@ import Cocoa
 
 extension ViewController {
     func startBackgroundTasks() {
+        self.completionTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 300.0, repeats: true ) { [unowned self] (timer) in
+            // Kids, don't try this at home
+            // Really
+            // Holy shit
+            if self.isPlaying() && Int64(self.player.frameCount) - self.player.currentFrame < 100 {
+                self.play(moved: 1)
+            }
+        }
+
         self.visualTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true ) { [unowned self] (timer) in
             self._spectrumView.setBy(player: self.player) // TODO Apparently this loops back when the track is done (or rather just before)
             

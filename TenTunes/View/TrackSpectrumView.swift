@@ -10,16 +10,6 @@ import Cocoa
 
 let sampleCount = 500
 
-class Analysis {
-    var file: AVAudioFile
-
-    var values: [[CGFloat]]?
-    
-    init(file: AVAudioFile) {
-        self.file = file
-    }
-}
-
 func lerp(_ left: [CGFloat], _ right: [CGFloat], _ amount: CGFloat) -> [CGFloat] {
     return zip(left, right).map { (cur, sam) in
         return cur * (CGFloat(1.0) - amount) + sam * amount
@@ -140,42 +130,4 @@ extension TrackSpectrumView {
     func getBy(max: Double) -> Double? {
         return self.location != nil ? self.location! * max : nil
     }
-    
-    func analyze(file: AVAudioFile?) {
-        if let file = file {
-
-            self.analysis = Analysis(file: file)
-
-            // Run Async
-            DispatchQueue.global(qos: .userInitiated).async {
-                let analyzer = SPAnalyzer()
-                analyzer.analyze(file.url)
-                
-                let waveformLength: Int = Int(analyzer.waveformSize())
-                
-                func waveform(start: UnsafeMutablePointer<UInt8>) -> [CGFloat] {
-                    let raw = Array(UnsafeBufferPointer(start: start, count: waveformLength)).toUInt.toCGFloat
-                    return Array(0..<sampleCount).map { get(raw, at: $0, max: sampleCount) }
-                        .normalized(min: 0.0, max: 255.0)
-                }
-                
-                let wf = waveform(start: analyzer.waveform())
-                let lows = waveform(start: analyzer.lowWaveform())
-                let mids = waveform(start: analyzer.midWaveform())
-                let highs = waveform(start: analyzer.highWaveform())
-
-                DispatchQueue.main.async {
-                    if self.analysis?.file != file {
-                        return
-                    }
-
-                    // Normalize waveform but only a little bit
-                    self.analysis!.values = [wf.normalized(min: 0.0, max: (1.0 + wf.max()!) / 2.0), lows, mids, highs]
-                }
-            }
-        }
-        else {
-            self.analysis = nil
-        }
-    }    
 }

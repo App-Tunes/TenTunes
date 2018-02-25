@@ -19,6 +19,7 @@
 		806AC1452041F1D900857B1B /* Superpowered in Resources */ = {isa = PBXBuildFile; fileRef = 806AC1442041F1D800857B1B /* Superpowered */; };
 		806AC1472041F72000857B1B /* taglib-src in Resources */ = {isa = PBXBuildFile; fileRef = 806AC1462041F72000857B1B /* taglib-src */; };
 		806AC1482041F73300857B1B /* libtaglib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C0C2A4203F6DCA00FA6083 /* libtaglib.a */; };
+		806C5B2620423AC000C34F49 /* SPInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806C5B2520423AC000C34F49 /* SPInterpreter.swift */; };
 		80802586203EFCC0008D4168 /* Cocoa+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802585203EFCC0008D4168 /* Cocoa+TT.swift */; };
 		80802588203F0399008D4168 /* PlaylistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802587203F0399008D4168 /* PlaylistController.swift */; };
 		8080258A203F03B3008D4168 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802589203F03B3008D4168 /* Playlist.swift */; };
@@ -74,6 +75,7 @@
 		806AC1422041EF1900857B1B /* SPAnalyzer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SPAnalyzer.mm; sourceTree = "<group>"; };
 		806AC1442041F1D800857B1B /* Superpowered */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Superpowered; path = ../../../SuperpoweredSDK/Superpowered; sourceTree = "<group>"; };
 		806AC1462041F72000857B1B /* taglib-src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "taglib-src"; path = "../../../taglib-src"; sourceTree = "<group>"; };
+		806C5B2520423AC000C34F49 /* SPInterpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPInterpreter.swift; sourceTree = "<group>"; };
 		80802585203EFCC0008D4168 /* Cocoa+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocoa+TT.swift"; sourceTree = "<group>"; };
 		80802587203F0399008D4168 /* PlaylistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistController.swift; sourceTree = "<group>"; };
 		80802589203F03B3008D4168 /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				806AC135204174F300857B1B /* ITunesImporter.swift */,
 				806AC1412041EF1900857B1B /* SPAnalyzer.h */,
 				806AC1422041EF1900857B1B /* SPAnalyzer.mm */,
+				806C5B2520423AC000C34F49 /* SPInterpreter.swift */,
 			);
 			path = Music;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				80E937592039C2850014C835 /* Keycodes.swift in Sources */,
 				80F2C58F20389B9B00212739 /* TrackSpectrumView.swift in Sources */,
 				808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */,
+				806C5B2620423AC000C34F49 /* SPInterpreter.swift in Sources */,
 				808161D2204059FE00AEA64F /* TrackController.swift in Sources */,
 				80F2C57F2038808000212739 /* TenTunes.xcdatamodeld in Sources */,
 				806AC136204174F300857B1B /* ITunesImporter.swift in Sources */,

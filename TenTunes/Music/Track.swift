@@ -19,6 +19,8 @@ class Track {
     var path: String? = nil
     var key: Key? = nil
     var bpm: Double? = nil
+    
+    var analysis: Analysis? = nil
 
     var rTitle: String {
         return title ?? "Unknown Title"

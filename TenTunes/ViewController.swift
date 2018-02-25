@@ -229,7 +229,11 @@ class ViewController: NSViewController {
                 let akfile = try AKAudioFile(forReading: url)
                 
                 // Async anyway so run first
-                self._spectrumView.analyze(file: akfile)
+                if track.analysis == nil {
+                    track.analysis = Analysis()
+                    SPInterpreter.analyze(file: akfile, analysis: track.analysis!)
+                }
+                self._spectrumView.analysis = track.analysis
                 
                 self.player.load(audioFile: akfile)
                 
@@ -239,13 +243,13 @@ class ViewController: NSViewController {
                 print(error.localizedDescription)
                 self.player.stop()
                 self.playing = nil
-                self._spectrumView.analyze(file: nil)
+                self._spectrumView.analysis = nil
             }
         }
         else {
             self.player.stop()
             self.playing = nil
-            self._spectrumView.analyze(file: nil)
+            self._spectrumView.analysis = nil
         }
         
         self.updatePlaying()

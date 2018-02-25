@@ -221,6 +221,10 @@ extension TrackController: NSTableViewDelegate {
             }
         }
     }
+    
+    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
+        return VibrantTableRowView()
+    }
 }
 
 extension TrackController: NSTableViewDataSource {

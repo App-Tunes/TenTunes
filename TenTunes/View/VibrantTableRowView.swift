@@ -21,7 +21,7 @@ class VibrantTableRowView: NSTableRowView {
                 NSColor(hue: 0.6, saturation: 0.0, brightness: 0.7, alpha: 0.25).setFill()
             }
             
-            let selectionPath = NSBezierPath(rect: selectionRect)
+            let selectionPath = NSBezierPath(rect: selectionRect.insetBy(dx: 0, dy: -2))
             selectionPath.fill()
         }
     }

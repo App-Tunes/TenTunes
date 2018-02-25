@@ -42,6 +42,9 @@ class ViewController: NSViewController {
     
     @IBOutlet var _shuffle: NSButton!
     
+    @IBOutlet var _timePlayed: NSTextField!
+    @IBOutlet var _timeLeft: NSTextField!
+    
     var database: [Int: Track] = [:]
     var masterPlaylist: Playlist = Playlist(folder: true)
     var library: Playlist = Playlist(folder: false)
@@ -123,6 +126,18 @@ class ViewController: NSViewController {
         self.visualTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true ) { [unowned self] (timer) in
             self._spectrumView.setBy(player: self.player) // TODO Apparently this loops back when the track is done (or rather just before)
             
+            if self.playing != nil && self._spectrumView.bounds.height > 30 {
+                self._timePlayed.isHidden = false
+                self._timeLeft.isHidden = false
+
+                self._timePlayed.stringValue = Int(self.player.currentTime).timeString
+                self._timeLeft.stringValue = Int(self.player.duration - self.player.currentTime).timeString
+            }
+            else {
+                self._timePlayed.isHidden = true
+                self._timeLeft.isHidden = true
+            }
+
             if self._workerSemaphore.wait(timeout: DispatchTime.now()) == .success {
                 // Update the playlist filter
                 

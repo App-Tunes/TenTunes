@@ -50,16 +50,11 @@ class Track {
         return self.artwork ?? NSImage(named: NSImage.Name(rawValue: "music_missing"))!
     }
     
-    func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
-        return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
-    }
-    
     var rLength: String {
         guard let duration = duration else {
             return ""
         }
-        let (h, m, s) = secondsToHoursMinutesSeconds(seconds: Int(CMTimeGetSeconds(duration)))
-        return String(format: "\(m):%02d", s)
+        return Int(CMTimeGetSeconds(duration)).timeString
     }
     
     var url: URL? {

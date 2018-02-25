@@ -720,8 +720,36 @@
                                         <subviews>
                                             <customView verticalHuggingPriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="TnY-8S-uno" customClass="TrackSpectrumView" customModule="TenTunes" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="817" height="41"/>
+                                                <subviews>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Bx-lC-97p">
+                                                        <rect key="frame" x="739" y="17" width="70" height="22"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="70" id="ybL-NU-qiE"/>
+                                                        </constraints>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" title="0:00" bezelStyle="round" id="LUM-Lj-2DO">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" red="0.46460580583756339" green="0.46460580583756339" blue="0.46460580583756339" alpha="0.30492829623287671" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1Xa-l4-VRg">
+                                                        <rect key="frame" x="8" y="17" width="70" height="22"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="70" id="DqK-c4-H9k"/>
+                                                        </constraints>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" title="0:00" bezelStyle="round" id="EWJ-aJ-SlK">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" red="0.46460580579999999" green="0.46460580579999999" blue="0.46460580579999999" alpha="0.3049282962" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
                                                 <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="9Bx-lC-97p" secondAttribute="trailing" constant="8" id="3H9-9D-3A1"/>
+                                                    <constraint firstItem="1Xa-l4-VRg" firstAttribute="top" secondItem="TnY-8S-uno" secondAttribute="top" constant="2" id="Wwq-BO-wng"/>
                                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="100" id="baI-h5-Y4G"/>
+                                                    <constraint firstItem="9Bx-lC-97p" firstAttribute="top" secondItem="TnY-8S-uno" secondAttribute="top" constant="2" id="dbD-Ic-YNJ"/>
+                                                    <constraint firstItem="1Xa-l4-VRg" firstAttribute="leading" secondItem="TnY-8S-uno" secondAttribute="leading" constant="8" id="mBg-Qf-gBM"/>
                                                 </constraints>
                                                 <connections>
                                                     <action selector="clickSpectrumView:" target="XfG-lQ-9wD" id="8oE-Da-U9p"/>
@@ -775,7 +803,7 @@ IA
                                                     <constraint firstAttribute="height" constant="18" id="X5c-jl-9Lj"/>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="c2J-Hs-F5N"/>
                                                 </constraints>
-                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Title" usesSingleLineMode="YES" id="UBg-9P-sre">
+                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="center" title="Title" usesSingleLineMode="YES" id="UBg-9P-sre">
                                                     <font key="font" metaFont="system" size="14"/>
                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -786,7 +814,7 @@ IA
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="17" id="Ham-mw-7Lf"/>
                                                 </constraints>
-                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Artist - Album" usesSingleLineMode="YES" id="2Pr-68-qwV">
+                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="center" title="Artist - Album" usesSingleLineMode="YES" id="2Pr-68-qwV">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1244,6 +1272,8 @@ Gw
                         <outlet property="_shuffle" destination="7Y2-7h-2Y4" id="znx-qG-XRl"/>
                         <outlet property="_spectrumView" destination="TnY-8S-uno" id="4GH-DY-Vz2"/>
                         <outlet property="_subtitle" destination="dQc-no-5jm" id="E1J-HT-CTw"/>
+                        <outlet property="_timeLeft" destination="9Bx-lC-97p" id="NbD-28-VlR"/>
+                        <outlet property="_timePlayed" destination="1Xa-l4-VRg" id="RJx-GO-IGU"/>
                         <outlet property="_title" destination="2zM-Qn-bbU" id="eJC-sn-d25"/>
                         <outlet property="playlistController" destination="8ts-DO-v2q" id="qGH-ba-5Ms"/>
                         <outlet property="trackController" destination="3PX-Ck-UDg" id="lwm-mA-HOa"/>

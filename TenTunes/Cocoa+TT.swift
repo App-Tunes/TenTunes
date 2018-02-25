@@ -61,6 +61,15 @@ extension Int {
     public static func random() -> Int {
         return Int(arc4random_uniform(UInt32(Int.max)))
     }
+    
+    var minutesSeconds: (Int, Int) {
+        return (self / 60, self % 60)
+    }
+    
+    var timeString: String {
+        let (m, s) = minutesSeconds
+        return String(format: "\(m):%02d", s)
+    }
 }
 
 extension ClosedRange where Bound == CGFloat {

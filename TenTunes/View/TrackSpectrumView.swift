@@ -80,7 +80,7 @@ class TrackSpectrumView: NSControl {
     }
 
     func click(at: NSPoint) {
-        self.location = Float(at.x) / Float(self.bounds.width)
+        self.location = (0.0...1.0).clamp(Float(at.x) / Float(self.bounds.width))
         
         if let action = self.action, let target = self.target {
             NSApp.sendAction(action, to: target, from: self)

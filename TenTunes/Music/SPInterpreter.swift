@@ -11,7 +11,7 @@ import Cocoa
 import AVFoundation
 
 func simulateWave(_ pos: Float, _ size: Float, _ speed: Float, progress: Float) -> Float {
-    return pos > progress ? (sin(pos * size + progress * speed) + 1.0) * 0.3 : 0.1
+    return pos > progress ? (sin(pos * size + progress * speed) + 1.0) * 0.3 : 0.2
 }
 
 class Analysis {

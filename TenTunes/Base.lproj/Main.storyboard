@@ -777,7 +777,7 @@ IA
                                                 </constraints>
                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Title" usesSingleLineMode="YES" id="UBg-9P-sre">
                                                     <font key="font" metaFont="system" size="14"/>
-                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
@@ -788,7 +788,7 @@ IA
                                                 </constraints>
                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Artist - Album" usesSingleLineMode="YES" id="2Pr-68-qwV">
                                                     <font key="font" metaFont="system"/>
-                                                    <color key="textColor" red="0.45906446341743029" green="0.71385556724227395" blue="0.78009993654822329" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
@@ -897,7 +897,7 @@ IA
                                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="iBD-gj-n2D">
                                                                                                         <font key="font" metaFont="system"/>
-                                                                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                                     </textFieldCell>
                                                                                                 </textField>
@@ -1007,7 +1007,7 @@ IA
                                                                             <rect key="frame" x="0.0" y="0.0" width="630" height="372"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <size key="intercellSpacing" width="3" height="2"/>
-                                                                            <color key="backgroundColor" red="0.16468328237533569" green="0.16471883654594421" blue="0.16468104720115662" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                             <tableColumns>
                                                                                 <tableColumn identifier="" width="627" minWidth="40" maxWidth="10000" id="NLH-lo-Ujw">
@@ -1049,7 +1049,7 @@ IA
                                                                                                     </constraints>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Subtitle View" id="Irk-Xl-maj">
                                                                                                         <font key="font" metaFont="smallSystem"/>
-                                                                                                        <color key="textColor" red="0.294826009" green="0.45938436599999999" blue="0.5" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                     </textFieldCell>
                                                                                                 </textField>
@@ -1123,7 +1123,7 @@ IA
                                                                             </connections>
                                                                         </tableView>
                                                                     </subviews>
-                                                                    <color key="backgroundColor" red="0.16468328237533569" green="0.16471883654594421" blue="0.16468104720115662" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.19788099315068494" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </clipView>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="500" id="TSy-pY-aPO"/>

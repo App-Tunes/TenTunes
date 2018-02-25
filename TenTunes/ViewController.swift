@@ -183,9 +183,7 @@ class ViewController: NSViewController {
                 self.trackController.update(view: updating, with: track)
             }
             
-            if wait {
-                Thread.sleep(forTimeInterval: TimeInterval(0.2))
-            }
+            Thread.sleep(forTimeInterval: TimeInterval(wait ? 0.2 : 0.02))
 
             self._workerSemaphore.signal()
         }

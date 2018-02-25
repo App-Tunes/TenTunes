@@ -184,7 +184,7 @@ class ViewController: NSViewController {
             }
             
             if wait {
-                sleep(1)
+                Thread.sleep(forTimeInterval: TimeInterval(0.2))
             }
 
             self._workerSemaphore.signal()

@@ -37,7 +37,6 @@ class TrackController: NSObject {
         let button = NSButton()
         button.title = title
         button.bezelStyle = .rounded
-        button.appearance = NSAppearance(named: NSAppearance.Name.vibrantDark)
 
         button.translatesAutoresizingMaskIntoConstraints = false // !!!!!!!!!!
         
@@ -60,13 +59,11 @@ class TrackController: NSObject {
     
     override func awakeFromNib() {
         _searchBarHeight.constant = CGFloat(0)
-        _searchField.appearance = NSAppearance(named: NSAppearance.Name.vibrantDark)
-        _searchBarClose.appearance = NSAppearance(named: NSAppearance.Name.vibrantDark)
         
         _sortTitle = addSearchBarItem(title: "Title", previous: _sortLabel)
         _sortKey = addSearchBarItem(title: "Key", previous: _sortTitle)
         _sortBPM = addSearchBarItem(title: "BPM", previous: _sortKey)
-
+        
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             return self.keyDown(with: $0)
         }

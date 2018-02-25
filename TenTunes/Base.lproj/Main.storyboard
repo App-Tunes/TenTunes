@@ -867,7 +867,7 @@ IA
                                                                             <rect key="frame" x="0.0" y="0.0" width="178" height="412"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <size key="intercellSpacing" width="2" height="3"/>
-                                                                            <color key="backgroundColor" red="0.14899864792823792" green="0.14903163909912109" blue="0.14899659156799316" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="backgroundColor" red="0.14899864792823792" green="0.14903163909912109" blue="0.14899659156799316" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                             <tableColumns>
                                                                                 <tableColumn identifier="" width="175" minWidth="40" maxWidth="1000" id="nFD-7F-dmi">
@@ -999,7 +999,7 @@ IA
                                                         <subviews>
                                                             <scrollView verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="QEo-kJ-TZV">
                                                                 <rect key="frame" x="0.0" y="0.0" width="630" height="372"/>
-                                                                <clipView key="contentView" id="Ic4-1D-uPe">
+                                                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Ic4-1D-uPe">
                                                                     <rect key="frame" x="0.0" y="0.0" width="630" height="372"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
@@ -1007,7 +1007,7 @@ IA
                                                                             <rect key="frame" x="0.0" y="0.0" width="630" height="372"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <size key="intercellSpacing" width="3" height="2"/>
-                                                                            <color key="backgroundColor" red="0.16468328237533569" green="0.16471883654594421" blue="0.16468104720115662" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="backgroundColor" red="0.16468328237533569" green="0.16471883654594421" blue="0.16468104720115662" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                             <tableColumns>
                                                                                 <tableColumn identifier="" width="627" minWidth="40" maxWidth="10000" id="NLH-lo-Ujw">

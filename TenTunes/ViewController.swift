@@ -73,13 +73,6 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.wantsLayer = true
-        self.view.layer!.backgroundColor = NSColor.darkGray.cgColor
-        
-        _play.set(color: NSColor.white)
-        _previous.set(color: NSColor.white)
-        _next.set(color: NSColor.white)
-                
         self.player = AKPlayer()
         self.player.completionHandler = { [unowned self] in
             self.play(moved: 1)
@@ -160,6 +153,14 @@ class ViewController: NSViewController {
                 }
             }
         }
+    }
+    
+    override func viewDidAppear() {
+        self.view.window!.appearance = NSAppearance(named: NSAppearance.Name.vibrantDark)
+        
+        _play.set(color: NSColor.lightGray)
+        _previous.set(color: NSColor.lightGray)
+        _next.set(color: NSColor.lightGray)
     }
     
     func fetchOneMetadata() {

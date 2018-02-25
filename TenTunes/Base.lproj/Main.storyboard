@@ -1039,13 +1039,13 @@ IA
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <scrollView verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="QEo-kJ-TZV">
-                                                                <rect key="frame" x="0.0" y="0.0" width="630" height="372"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="630" height="368"/>
                                                                 <clipView key="contentView" copiesOnScroll="NO" id="Ic4-1D-uPe">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="630" height="372"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="630" height="368"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" autosaveColumns="NO" rowHeight="30" usesAutomaticRowHeights="YES" viewBased="YES" id="oIp-LF-46S">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="630" height="372"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="630" height="368"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <size key="intercellSpacing" width="3" height="2"/>
                                                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1179,7 +1179,7 @@ IA
                                                                 </scroller>
                                                             </scrollView>
                                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="tKM-VE-41L">
-                                                                <rect key="frame" x="0.0" y="398" width="630" height="40"/>
+                                                                <rect key="frame" x="0.0" y="368" width="630" height="40"/>
                                                                 <subviews>
                                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0SU-GT-xfg">
                                                                         <rect key="frame" x="587" y="10" width="23" height="19"/>
@@ -1216,10 +1216,10 @@ Gw
                                                                 </constraints>
                                                             </customView>
                                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="S2O-51-XcK">
-                                                                <rect key="frame" x="0.0" y="372" width="630" height="26"/>
+                                                                <rect key="frame" x="0.0" y="408" width="630" height="30"/>
                                                                 <subviews>
                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ctv-85-JMt">
-                                                                        <rect key="frame" x="8" y="5" width="104" height="17"/>
+                                                                        <rect key="frame" x="8" y="7" width="104" height="17"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="100" id="7qz-3N-Tmc"/>
                                                                         </constraints>
@@ -1233,20 +1233,20 @@ Gw
                                                                 <constraints>
                                                                     <constraint firstItem="ctv-85-JMt" firstAttribute="centerY" secondItem="S2O-51-XcK" secondAttribute="centerY" id="Cmu-II-dFz"/>
                                                                     <constraint firstItem="ctv-85-JMt" firstAttribute="leading" secondItem="S2O-51-XcK" secondAttribute="leading" constant="10" id="JSE-xO-YZe"/>
-                                                                    <constraint firstAttribute="height" constant="26" id="JhA-42-V5p"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="JhA-42-V5p"/>
                                                                 </constraints>
                                                             </customView>
                                                         </subviews>
                                                         <constraints>
-                                                            <constraint firstItem="S2O-51-XcK" firstAttribute="top" secondItem="tKM-VE-41L" secondAttribute="bottom" id="3LU-ed-FFr"/>
+                                                            <constraint firstItem="S2O-51-XcK" firstAttribute="bottom" secondItem="tKM-VE-41L" secondAttribute="top" id="3LU-ed-FFr"/>
                                                             <constraint firstItem="tKM-VE-41L" firstAttribute="leading" secondItem="wx1-Jg-18R" secondAttribute="leading" id="4YL-Sp-BSo"/>
+                                                            <constraint firstItem="QEo-kJ-TZV" firstAttribute="top" secondItem="tKM-VE-41L" secondAttribute="bottom" id="6J8-HE-VuR"/>
                                                             <constraint firstAttribute="bottom" secondItem="QEo-kJ-TZV" secondAttribute="bottom" id="GKf-9m-X8Y"/>
                                                             <constraint firstItem="S2O-51-XcK" firstAttribute="leading" secondItem="wx1-Jg-18R" secondAttribute="leading" id="ICd-gK-4Hn"/>
                                                             <constraint firstItem="QEo-kJ-TZV" firstAttribute="leading" secondItem="wx1-Jg-18R" secondAttribute="leading" id="MN6-e8-BIh"/>
                                                             <constraint firstAttribute="trailing" secondItem="tKM-VE-41L" secondAttribute="trailing" id="NT7-Zt-qPC"/>
-                                                            <constraint firstItem="tKM-VE-41L" firstAttribute="top" secondItem="wx1-Jg-18R" secondAttribute="top" id="NpU-Gg-XoP"/>
-                                                            <constraint firstItem="QEo-kJ-TZV" firstAttribute="top" secondItem="S2O-51-XcK" secondAttribute="bottom" id="aNF-JC-3eS"/>
                                                             <constraint firstAttribute="trailing" secondItem="S2O-51-XcK" secondAttribute="trailing" id="hSY-gy-5wt"/>
+                                                            <constraint firstItem="S2O-51-XcK" firstAttribute="top" secondItem="wx1-Jg-18R" secondAttribute="top" id="oTn-dH-2Xe"/>
                                                             <constraint firstAttribute="trailing" secondItem="QEo-kJ-TZV" secondAttribute="trailing" id="y1r-UF-5su"/>
                                                         </constraints>
                                                     </customView>

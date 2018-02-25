@@ -29,6 +29,10 @@ class TrackController: NSObject {
     var history: PlayHistory! {
         didSet {
             history.textFilter = _searchField.stringValue.count > 0 ? _searchField.stringValue : nil
+            if let sortButton = (_sortButtons.filter { $0.state == .on }).first {
+                sort(byButton: sortButton)
+            }
+            
             _tableView.reloadData()
         }
     }
@@ -168,7 +172,17 @@ class TrackController: NSObject {
             return
         }
         
-        switch sender {
+        sort(byButton: sender)
+        
+        _tableView.reloadData()
+
+        for other in _sortButtons where other !== sender {
+            other.state = .off
+        }
+    }
+    
+    func sort(byButton: NSButton) {
+        switch byButton {
         case _sortTitle:
             history.reorder { $0.rTitle < $1.rTitle }
         case _sortKey:
@@ -177,12 +191,6 @@ class TrackController: NSObject {
             history.reorder { ($0.bpm ?? 500) < ($1.bpm ?? 500)  }
         default:
             break
-        }
-        
-        _tableView.reloadData()
-
-        for other in _sortButtons where other !== sender {
-            other.state = .off
         }
     }
 }

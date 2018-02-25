@@ -173,6 +173,9 @@ class ViewController: NSViewController {
     override func viewDidAppear() {
         self.view.window!.appearance = NSAppearance(named: NSAppearance.Name.vibrantDark)
         
+        _timePlayed.alphaValue = 0.5
+        _timeLeft.alphaValue = 0.5
+        
         _play.set(color: NSColor.lightGray)
         _previous.set(color: NSColor.lightGray)
         _next.set(color: NSColor.lightGray)

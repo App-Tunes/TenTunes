@@ -90,6 +90,7 @@ class PlayHistory {
     func reorder(sort: ((Track, Track) -> Bool)?) {
         let prev = rawPlayingIndex
         
+        // Always start from scratch since we can't do sub-sorts easily anyway
         _playlistOrder = Array(0..<playlist.size)
         
         if let sort = sort {

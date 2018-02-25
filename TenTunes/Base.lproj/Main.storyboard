@@ -904,14 +904,14 @@ IA
                                                                     <rect key="frame" x="0.0" y="0.0" width="178" height="412"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="nFD-7F-dmi" id="1LK-qS-x1i">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="178" height="412"/>
+                                                                        <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="Playlists" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autosaveExpandedItems="YES" outlineTableColumn="nFD-7F-dmi" id="1LK-qS-x1i">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="181" height="412"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <size key="intercellSpacing" width="2" height="3"/>
                                                                             <color key="backgroundColor" red="0.14899864792823792" green="0.14903163909912109" blue="0.14899659156799316" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                             <tableColumns>
-                                                                                <tableColumn identifier="" width="175" minWidth="40" maxWidth="1000" id="nFD-7F-dmi">
+                                                                                <tableColumn identifier="" editable="NO" width="179" maxWidth="10000" id="nFD-7F-dmi">
                                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                                         <font key="font" metaFont="smallSystem"/>
                                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -922,10 +922,10 @@ IA
                                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                         <color key="backgroundColor" red="0.38378410532994922" green="0.38378410532994922" blue="0.38378410532994922" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     </textFieldCell>
-                                                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                                     <prototypeCellViews>
                                                                                         <tableCellView identifier="nameCell" id="4U2-Jb-BcZ">
-                                                                                            <rect key="frame" x="1" y="1" width="175" height="17"/>
+                                                                                            <rect key="frame" x="1" y="1" width="179" height="17"/>
                                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                             <subviews>
                                                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g0W-7X-Zje">
@@ -934,7 +934,7 @@ IA
                                                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="playlist" id="H03-mv-TD1"/>
                                                                                                 </imageView>
                                                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qLz-2l-I8r">
-                                                                                                    <rect key="frame" x="25" y="0.0" width="150" height="17"/>
+                                                                                                    <rect key="frame" x="25" y="0.0" width="154" height="17"/>
                                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="iBD-gj-n2D">
                                                                                                         <font key="font" metaFont="system"/>
@@ -962,8 +962,8 @@ IA
                                                                     </subviews>
                                                                     <nil key="backgroundColor"/>
                                                                 </clipView>
-                                                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="FSr-qS-CEI">
-                                                                    <rect key="frame" x="0.0" y="377" width="110" height="16"/>
+                                                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="FSr-qS-CEI">
+                                                                    <rect key="frame" x="0.0" y="396" width="178" height="16"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                 </scroller>
                                                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="OOJ-cM-ugO">
@@ -1044,21 +1044,21 @@ IA
                                                                     <rect key="frame" x="0.0" y="0.0" width="630" height="382"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" autosaveColumns="NO" rowHeight="30" usesAutomaticRowHeights="YES" viewBased="YES" id="oIp-LF-46S">
+                                                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" autosaveColumns="NO" rowHeight="30" usesAutomaticRowHeights="YES" viewBased="YES" id="oIp-LF-46S">
                                                                             <rect key="frame" x="0.0" y="0.0" width="630" height="382"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <size key="intercellSpacing" width="3" height="2"/>
                                                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                             <tableColumns>
-                                                                                <tableColumn identifier="" width="627" minWidth="40" maxWidth="10000" id="NLH-lo-Ujw">
+                                                                                <tableColumn identifier="" editable="NO" width="627" minWidth="40" maxWidth="10000" id="NLH-lo-Ujw">
                                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Title">
                                                                                         <font key="font" metaFont="smallSystem"/>
                                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                     </tableHeaderCell>
                                                                                     <customCell key="dataCell" alignment="left" id="qS3-og-zwB"/>
-                                                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                                     <prototypeCellViews>
                                                                                         <tableCellView identifier="nameCell" misplaced="YES" id="hLR-5P-QRF" customClass="TrackCellView" customModule="TenTunes" customModuleProvider="target">
                                                                                             <rect key="frame" x="1" y="1" width="627" height="30"/>

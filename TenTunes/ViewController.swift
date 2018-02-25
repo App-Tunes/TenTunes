@@ -217,8 +217,6 @@ class ViewController: NSViewController {
 
     func updatePlaying() {
         guard let track = self.playing else {
-            self.player.stop()
-
             _play.set(text: playString)
             
             self._title.stringValue = ""
@@ -242,22 +240,22 @@ class ViewController: NSViewController {
             do {
                 let akfile = try AKAudioFile(forReading: url)
                 
-                self._spectrumView.analysis = track.analysis // If it's not analyzed, our worker threads will handle
+                _spectrumView.analysis = track.analysis // If it's not analyzed, our worker threads will handle
                 
-                self.player.load(audioFile: akfile)
+                player.load(audioFile: akfile)
                 player.play()
-                self.playing = track
+                playing = track
             } catch let error {
                 print(error.localizedDescription)
-                self.player.stop()
-                self.playing = nil
-                self._spectrumView.analysis = nil
+                player.stop()
+                playing = nil
+                _spectrumView.analysis = nil
             }
         }
         else {
-            self.player.stop()
-            self.playing = nil
-            self._spectrumView.analysis = nil
+            player.stop()
+            playing = nil
+            _spectrumView.analysis = nil
         }
         
         self.updatePlaying()
@@ -297,12 +295,9 @@ class ViewController: NSViewController {
     }
     
     func pause() {
+        // The set position is reset when we play again
         self.player.play(from: self.player.currentTime, to: self.player.duration)
         self.player.stop()
-    }
-    
-    @IBAction func stop(_ sender: Any) {
-        self.play(track: nil)
     }
     
     @IBAction func nextTrack(_ sender: Any) {

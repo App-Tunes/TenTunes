@@ -55,6 +55,7 @@ class ViewController: NSViewController {
     var visualTimer: Timer!
     
     var _workerSemaphore = DispatchSemaphore(value: 3)
+    var _filterSemaphore = DispatchSemaphore(value: 1)
 
     var shuffle = true {
         didSet {
@@ -122,16 +123,18 @@ class ViewController: NSViewController {
         self.visualTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true ) { [unowned self] (timer) in
             self._spectrumView.setBy(player: self.player) // TODO Apparently this loops back when the track is done (or rather just before)
             
-            if self._workerSemaphore.wait(timeout: DispatchTime(uptimeNanoseconds: 100)) == .success {
+            if self._workerSemaphore.wait(timeout: DispatchTime.now()) == .success {
                 // Update the playlist filter
                 
-                if self.trackController.history._filterChanged {
+                if self.trackController.history._filterChanged, self._filterSemaphore.wait(timeout: DispatchTime.now()) == .success {
                     self.trackController.history._filterChanged = false
                     
                     self.trackController.history.updated(completion: { (copy) in
                         self.trackController.history.update(from: copy)
                         self.trackController._tableView.reloadData()
+
                         self._workerSemaphore.signal()
+                        self._filterSemaphore.signal()
                     })
                 }
                 else if let playing = self.playing, playing.analysis == nil {

@@ -34,6 +34,7 @@ class PlayHistory {
     
     init(from: PlayHistory) {
         playlist = Playlist(folder: true)
+        textFilter = from.textFilter
         update(from: from)
     }
     
@@ -53,8 +54,6 @@ class PlayHistory {
         shuffledOrder = from.shuffledOrder
 
         playingIndex = from.playingIndex
-
-        textFilter = from.textFilter
     }
     
     func reorder(shuffle: Bool, keepCurrent: Bool = false) {

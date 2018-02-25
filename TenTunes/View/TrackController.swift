@@ -153,13 +153,8 @@ extension TrackController: NSTableViewDataSource {
 }
 
 extension TrackController: NSSearchFieldDelegate {
-    func filterComplete() {
-        _tableView.reloadData()
-    }
-    
     override func controlTextDidChange(_ obj: Notification) {
-        history.textFilter = _searchField.stringValue
-        _tableView.reloadData()
+        history.textFilter = _searchField.stringValue // Filtering is done in worker thread so reloading the data is too
     }
     
     func searchFieldDidEndSearching(_ sender: NSSearchField) {

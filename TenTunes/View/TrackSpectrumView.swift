@@ -50,7 +50,7 @@ class TrackSpectrumView: NSControl {
     
     override func awakeFromNib() {
         self.timer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true) { _ in
-            self._curValues = (0..<4).map { lerp(self._curValues[$0], self._drawValues[$0], CGFloat(1.0 / 30.0)) }
+            self._curValues = (0..<4).map { lerp(self._curValues[$0], self._drawValues[$0], CGFloat(1.0 / 5.0)) }
         }
     }
     

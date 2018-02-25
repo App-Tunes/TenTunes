@@ -13,9 +13,7 @@ let sampleCount = 500
 class Analysis {
     var file: AVAudioFile
 
-    var lows: [CGFloat]?
-    var mids: [CGFloat]?
-    var highs: [CGFloat]?
+    var values: [[CGFloat]]?
     
     init(file: AVAudioFile) {
         self.file = file
@@ -43,13 +41,8 @@ class TrackSpectrumView: NSControl {
         }
     }
     
-    var _curLows: [CGFloat] = Array(repeating: CGFloat(0), count: sampleCount)
-    var _curMids: [CGFloat] = Array(repeating: CGFloat(0), count: sampleCount)
-    var _curHighs: [CGFloat] = Array(repeating: CGFloat(0), count: sampleCount)
-
-    var _drawLows: [CGFloat] { return self.analysis?.lows ?? Array(repeating: CGFloat(0), count: sampleCount) }
-    var _drawMids: [CGFloat] { return self.analysis?.mids ?? Array(repeating: CGFloat(0), count: sampleCount) }
-    var _drawHighs: [CGFloat] { return self.analysis?.highs ?? Array(repeating: CGFloat(0), count: sampleCount) }
+    var _curValues: [[CGFloat]] = Array(repeating: Array(repeating: CGFloat(0), count: sampleCount), count: 4)
+    var _drawValues: [[CGFloat]] { return self.analysis?.values ?? Array(repeating: Array(repeating: CGFloat(0), count: sampleCount), count: 4) }
 
     var analysis: Analysis? = nil
     
@@ -57,9 +50,7 @@ class TrackSpectrumView: NSControl {
     
     override func awakeFromNib() {
         self.timer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true) { _ in
-            self._curLows = lerp(self._curLows, self._drawLows, CGFloat(1.0 / 30.0))
-            self._curMids = lerp(self._curMids, self._drawMids, CGFloat(1.0 / 30.0))
-            self._curHighs = lerp(self._curHighs, self._drawHighs, CGFloat(1.0 / 30.0))
+            self._curValues = (0..<4).map { lerp(self._curValues[$0], self._drawValues[$0], CGFloat(1.0 / 30.0)) }
         }
     }
     
@@ -71,15 +62,16 @@ class TrackSpectrumView: NSControl {
 
         let numBars = Int(self.bounds.width / CGFloat(segmentWidth))
 
-        let lows = Array(0..<numBars).map { get(self._curLows, at: $0, max: numBars) }
-        let mids = Array(0..<numBars).map { get(self._curMids, at: $0, max: numBars) }
-        let highs = Array(0..<numBars).map { get(self._curHighs, at: $0, max: numBars) }
+        let values = (0..<4).map { (idx) in
+            return Array(0..<numBars).map { get(self._curValues[idx], at: $0, max: numBars) }
+        }
+        let waveform = values[0], lows = values[1], mids = values[2], highs = values[3]
 
         for bar in 0..<Int(self.bounds.width / CGFloat(segmentWidth)) {
             let low = lows[bar] * lows[bar], mid = mids[bar] * mids[bar], high = highs[bar] * highs[bar]
             let val = low + mid + high
             
-            let h = lows[bar] + mids[bar] + highs[bar]
+            let h = waveform[bar]
 
             let figure = NSBezierPath()
             
@@ -166,6 +158,7 @@ extension TrackSpectrumView {
                         .normalized(min: 0.0, max: 255.0)
                 }
                 
+                let wf = waveform(start: analyzer.waveform())
                 let lows = waveform(start: analyzer.lowWaveform())
                 let mids = waveform(start: analyzer.midWaveform())
                 let highs = waveform(start: analyzer.highWaveform())
@@ -175,9 +168,8 @@ extension TrackSpectrumView {
                         return
                     }
 
-                    self.analysis!.lows = lows
-                    self.analysis!.mids = mids
-                    self.analysis!.highs = highs
+                    // Normalize waveform but only a little bit
+                    self.analysis!.values = [wf.normalized(min: 0.0, max: (1.0 + wf.max()!) / 2.0), lows, mids, highs]
                 }
             }
         }

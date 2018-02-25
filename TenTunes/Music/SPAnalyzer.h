@@ -12,6 +12,7 @@
 
 - (void)analyze:(NSURL *)url;
 
+- (unsigned char *)waveform;
 - (unsigned char *)lowWaveform;
 - (unsigned char *)midWaveform;
 - (unsigned char *)highWaveform;

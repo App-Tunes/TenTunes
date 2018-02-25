@@ -36,6 +36,10 @@
     if (overviewWaveform) free(overviewWaveform);
 }
 
+- (unsigned char *)waveform {
+    return averageWaveform;
+}
+
 - (unsigned char *)lowWaveform {
     return lowWaveform;
 }

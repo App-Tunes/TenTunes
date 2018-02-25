@@ -159,7 +159,7 @@ class TrackController: NSObject {
         case _sortKey:
             history.reorder { ($0.key?.camelot ?? 50) < ($1.key?.camelot ?? 50)  }
         case _sortBPM:
-            history.reorder { ($0.bpm? ?? 500) < ($1.bpm ?? 500)  }
+            history.reorder { ($0.bpm ?? 500) < ($1.bpm ?? 500)  }
         default:
             break
         }

@@ -246,7 +246,7 @@ extension TrackController: NSSearchFieldDelegate {
     @IBAction func openSearchBar(_ sender: Any) {
         NSAnimationContext.runAnimationGroup({_ in
             NSAnimationContext.current.duration = 0.2
-            _searchBarHeight.animator().constant = CGFloat(40)
+            _searchBarHeight.animator().constant = CGFloat(26)
         })
         _searchField.window?.makeFirstResponder(_searchField)
     }

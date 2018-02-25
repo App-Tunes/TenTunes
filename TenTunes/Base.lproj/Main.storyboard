@@ -1039,13 +1039,13 @@ IA
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <scrollView verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="QEo-kJ-TZV">
-                                                                <rect key="frame" x="0.0" y="0.0" width="630" height="368"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="630" height="382"/>
                                                                 <clipView key="contentView" copiesOnScroll="NO" id="Ic4-1D-uPe">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="630" height="368"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="630" height="382"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" autosaveColumns="NO" rowHeight="30" usesAutomaticRowHeights="YES" viewBased="YES" id="oIp-LF-46S">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="630" height="368"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="630" height="382"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <size key="intercellSpacing" width="3" height="2"/>
                                                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1179,10 +1179,10 @@ IA
                                                                 </scroller>
                                                             </scrollView>
                                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="tKM-VE-41L">
-                                                                <rect key="frame" x="0.0" y="368" width="630" height="40"/>
+                                                                <rect key="frame" x="0.0" y="382" width="630" height="26"/>
                                                                 <subviews>
                                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0SU-GT-xfg">
-                                                                        <rect key="frame" x="587" y="10" width="23" height="19"/>
+                                                                        <rect key="frame" x="587" y="3" width="23" height="19"/>
                                                                         <buttonCell key="cell" type="recessed" title="X" bezelStyle="recessed" alignment="center" state="on" borderStyle="border" inset="2" id="Vpu-L7-qS0">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="systemBold" size="12"/>
@@ -1194,8 +1194,8 @@ Gw
                                                                             <action selector="closeSearchBar:" target="3PX-Ck-UDg" id="Zg4-hR-GO7"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <searchField wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRK-8m-Bpk">
-                                                                        <rect key="frame" x="20" y="9" width="559" height="22"/>
+                                                                    <searchField wantsLayer="YES" verticalHuggingPriority="750" misplaced="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRK-8m-Bpk">
+                                                                        <rect key="frame" x="6" y="2" width="573" height="22"/>
                                                                         <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="Filter" usesSingleLineMode="YES" bezelStyle="round" id="Y5i-4v-xPm">
                                                                             <font key="font" metaFont="system"/>
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1208,11 +1208,11 @@ Gw
                                                                 </subviews>
                                                                 <constraints>
                                                                     <constraint firstAttribute="trailing" secondItem="0SU-GT-xfg" secondAttribute="trailing" constant="20" symbolic="YES" id="1eF-oc-301"/>
-                                                                    <constraint firstAttribute="height" constant="40" id="LQn-3A-FTs"/>
+                                                                    <constraint firstAttribute="height" constant="26" id="LQn-3A-FTs"/>
                                                                     <constraint firstItem="0SU-GT-xfg" firstAttribute="top" secondItem="lRK-8m-Bpk" secondAttribute="top" constant="2" id="MSA-rk-Efu"/>
-                                                                    <constraint firstItem="lRK-8m-Bpk" firstAttribute="leading" secondItem="tKM-VE-41L" secondAttribute="leading" constant="20" id="Rt2-Ef-RTG"/>
+                                                                    <constraint firstItem="lRK-8m-Bpk" firstAttribute="leading" secondItem="tKM-VE-41L" secondAttribute="leading" constant="2" id="Rt2-Ef-RTG"/>
                                                                     <constraint firstItem="0SU-GT-xfg" firstAttribute="leading" secondItem="lRK-8m-Bpk" secondAttribute="trailing" constant="8" symbolic="YES" id="b5K-5q-rYW"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="lRK-8m-Bpk" secondAttribute="bottom" constant="9" id="wlf-ZG-5a3"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="lRK-8m-Bpk" secondAttribute="bottom" constant="2" id="wlf-ZG-5a3"/>
                                                                 </constraints>
                                                             </customView>
                                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="S2O-51-XcK">

@@ -16,6 +16,13 @@ class TrackController: NSObject {
     @IBOutlet var _searchBarHeight: NSLayoutConstraint!
     @IBOutlet weak var _searchBarClose: NSButton!
     
+    @IBOutlet weak var _sortLabel: NSTextField!
+    @IBOutlet weak var _sortBar: NSView!
+    
+    var _sortTitle: NSButton!
+    var _sortKey: NSButton!
+    var _sortBPM: NSButton!
+
     var playTrack: ((Track, Int) -> Swift.Void)?
     
     var history: PlayHistory! {
@@ -25,10 +32,36 @@ class TrackController: NSObject {
         }
     }
     
+    func addSearchBarItem(title: String, previous: NSView) -> NSButton {
+        let button = NSButton()
+        button.title = title
+        button.bezelStyle = .recessed
+        button.set(color: NSColor.white)
+        button.translatesAutoresizingMaskIntoConstraints = false // !!!!!!!!!!
+        
+        button.setButtonType(.pushOnPushOff)
+        button.state = .off
+        
+        button.target = self
+        button.action = #selector(TrackController.filterPressed)
+        
+        _sortBar.addSubview(button)
+
+        button.widthAnchor.constraint(equalToConstant: 100.0).isActive = true
+        button.leadingAnchor.constraint(equalTo: previous.trailingAnchor, constant: 8.0).isActive = true
+        button.centerYAnchor.constraint(equalTo: _sortBar.centerYAnchor, constant: 0.0).isActive = true
+        
+        return button
+    }
+    
     override func awakeFromNib() {
         _searchBarHeight.constant = CGFloat(0)
         _searchField.appearance = NSAppearance(named: NSAppearance.Name.vibrantDark)
         _searchBarClose.set(color: NSColor.white)
+        
+        _sortTitle = addSearchBarItem(title: "Title", previous: _sortLabel)
+        _sortKey = addSearchBarItem(title: "Key", previous: _sortTitle)
+        _sortBPM = addSearchBarItem(title: "BPM", previous: _sortKey)
 
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             return self.keyDown(with: $0)
@@ -117,6 +150,21 @@ class TrackController: NSObject {
         view.imageView?.image = track.rArtwork
         view.key = track.rKey
         view.bpmTextField?.stringValue = track.bpm != nil ? Int(track.bpm!).description : nil ?? ""
+    }
+    
+    @IBAction func filterPressed(_ sender: Any?) {
+        switch sender as! NSButton {
+        case _sortTitle:
+            history.reorder { $0.rTitle < $1.rTitle }
+        case _sortKey:
+            history.reorder { ($0.key?.camelot ?? 50) < ($1.key?.camelot ?? 50)  }
+        case _sortBPM:
+            history.reorder { ($0.bpm? ?? 500) < ($1.bpm ?? 500)  }
+        default:
+            break
+        }
+        
+        _tableView.reloadData()
     }
 }
 

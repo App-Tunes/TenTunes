@@ -326,7 +326,7 @@ class ViewController: NSViewController {
             self.history = trackController.history
         }
         
-        self.history!.move(to: at, swap: shuffle)
+        self.history!.move(to: at)
         self.play(track: track)
     }
     

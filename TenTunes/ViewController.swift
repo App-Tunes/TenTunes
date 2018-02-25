@@ -54,6 +54,8 @@ class ViewController: NSViewController {
     
     var visualTimer: Timer!
     
+    var _workerSemaphore = DispatchSemaphore(value: 2)
+
     var shuffle = true {
         didSet {
             self.history.reorder(shuffle: self.shuffle, keepCurrent: true)
@@ -120,27 +122,35 @@ class ViewController: NSViewController {
         self.visualTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true ) { [unowned self] (timer) in
             self._spectrumView.setBy(player: self.player) // TODO Apparently this loops back when the track is done (or rather just before)
             
-            if !self._working {
+            if self._workerSemaphore.wait(timeout: DispatchTime(uptimeNanoseconds: 100)) == .success {
+                // Update the playlist filter
+                
                 if self.trackController.history._filterChanged {
-                    self._working = true
                     self.trackController.history._filterChanged = false
-
+                    
                     self.trackController.history.updated(completion: { (copy) in
                         self.trackController.history.update(from: copy)
                         self.trackController._tableView.reloadData()
-                        self._working = false
+                        self._workerSemaphore.signal()
                     })
                 }
-            }
-            
-            // Only fetch one at once
-            if !self._working {
-                self.fetchOneMetadata()
+                else if let playing = self.playing, playing.analysis == nil {
+                    // Analyze the current file
+
+                    playing.analysis = Analysis()
+                    self._spectrumView.analysis = playing.analysis
+                    
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        SPInterpreter.analyze(file: self.player.audioFile!, analysis: playing.analysis!)
+                        self._workerSemaphore.signal()
+                    }
+                }
+                else {
+                    self.fetchOneMetadata()
+                }
             }
         }
     }
-    
-    var _working: Bool = false
     
     func fetchOneMetadata() {
         for view in trackController.visibleTracks {
@@ -156,11 +166,12 @@ class ViewController: NSViewController {
                 return
             }
         }
+        
+        // Else we're done
+        self._workerSemaphore.signal()
     }
     
     func fetchMetadata(for track: Track, updating: TrackCellView? = nil, wait: Bool = false) {
-        self._working = true
-        
         DispatchQueue.global(qos: .userInitiated).async {
             track.fetchMetadata()
 
@@ -173,7 +184,7 @@ class ViewController: NSViewController {
                 sleep(1)
             }
 
-            self._working = false
+            self._workerSemaphore.signal()
         }
         
     }
@@ -228,15 +239,9 @@ class ViewController: NSViewController {
             do {
                 let akfile = try AKAudioFile(forReading: url)
                 
-                // Async anyway so run first
-                if track.analysis == nil {
-                    track.analysis = Analysis()
-                    SPInterpreter.analyze(file: akfile, analysis: track.analysis!)
-                }
-                self._spectrumView.analysis = track.analysis
+                self._spectrumView.analysis = track.analysis // If it's not analyzed, our worker threads will handle
                 
                 self.player.load(audioFile: akfile)
-                
                 player.play()
                 self.playing = track
             } catch let error {

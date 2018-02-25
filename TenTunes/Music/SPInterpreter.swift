@@ -16,28 +16,25 @@ class Analysis {
 
 class SPInterpreter {
     static func analyze(file: AVAudioFile, analysis: Analysis) {
-        // Run Async
-        DispatchQueue.global(qos: .userInitiated).async {
-            let analyzer = SPAnalyzer()
-            analyzer.analyze(file.url)
-            
-            let waveformLength: Int = Int(analyzer.waveformSize())
-            
-            func waveform(start: UnsafeMutablePointer<UInt8>) -> [CGFloat] {
-                let raw = Array(UnsafeBufferPointer(start: start, count: waveformLength)).toUInt.toCGFloat
-                return Array(0..<sampleCount).map { get(raw, at: $0, max: sampleCount) }
-                    .normalized(min: 0.0, max: 255.0)
-            }
-            
-            let wf = waveform(start: analyzer.waveform())
-            let lows = waveform(start: analyzer.lowWaveform())
-            let mids = waveform(start: analyzer.midWaveform())
-            let highs = waveform(start: analyzer.highWaveform())
-            
-            DispatchQueue.main.async {
-                // Normalize waveform but only a little bit
-                analysis.values = [wf.normalized(min: 0.0, max: (1.0 + wf.max()!) / 2.0), lows, mids, highs]
-            }
+        let analyzer = SPAnalyzer()
+        analyzer.analyze(file.url)
+        
+        let waveformLength: Int = Int(analyzer.waveformSize())
+        
+        func waveform(start: UnsafeMutablePointer<UInt8>) -> [CGFloat] {
+            let raw = Array(UnsafeBufferPointer(start: start, count: waveformLength)).toUInt.toCGFloat
+            return Array(0..<sampleCount).map { get(raw, at: $0, max: sampleCount) }
+                .normalized(min: 0.0, max: 255.0)
+        }
+        
+        let wf = waveform(start: analyzer.waveform())
+        let lows = waveform(start: analyzer.lowWaveform())
+        let mids = waveform(start: analyzer.midWaveform())
+        let highs = waveform(start: analyzer.highWaveform())
+        
+        DispatchQueue.main.async {
+            // Normalize waveform but only a little bit
+            analysis.values = [wf.normalized(min: 0.0, max: (1.0 + wf.max()!) / 2.0), lows, mids, highs]
         }
     }
 }

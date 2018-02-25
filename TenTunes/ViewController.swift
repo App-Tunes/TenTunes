@@ -45,6 +45,8 @@ class ViewController: NSViewController {
     @IBOutlet var _timePlayed: NSTextField!
     @IBOutlet var _timeLeft: NSTextField!
     
+    @IBOutlet var _volume: NSSlider!
+    
     var database: [Int: Track] = [:]
     var masterPlaylist: Playlist = Playlist(folder: true)
     var library: Playlist = Playlist(folder: false)
@@ -358,6 +360,10 @@ class ViewController: NSViewController {
     
     func playlistSelected(_ playlist: Playlist) {
         trackController.history = PlayHistory(playlist: playlist)
+    }
+    
+    @IBAction func volumeChanged(_ sender: Any) {
+        player.volume = Float(_volume.intValue) / 100
     }
 }
 

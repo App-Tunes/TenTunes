@@ -831,7 +831,7 @@ IA
                                                 </buttonCell>
                                             </button>
                                             <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Y2-7h-2Y4">
-                                                <rect key="frame" x="743" y="55" width="23" height="23"/>
+                                                <rect key="frame" x="735" y="55" width="23" height="23"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="7Y2-7h-2Y4" secondAttribute="height" multiplier="1:1" id="jRx-Wh-ukj"/>
                                                 </constraints>
@@ -843,16 +843,29 @@ IA
                                                     <action selector="toggleShuffle:" target="XfG-lQ-9wD" id="PPw-wd-bDy"/>
                                                 </connections>
                                             </button>
+                                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="weN-hW-VXM">
+                                                <rect key="frame" x="637" y="57" width="84" height="19"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="80" id="IaB-e8-PZM"/>
+                                                </constraints>
+                                                <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="100" tickMarkPosition="above" sliderType="linear" id="MSi-om-pFM"/>
+                                                <connections>
+                                                    <action selector="volumeChanged:" target="XfG-lQ-9wD" id="Jly-b8-AQw"/>
+                                                </connections>
+                                            </slider>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="vGp-jR-JQ9" firstAttribute="centerY" secondItem="4Fc-0r-wVE" secondAttribute="centerY" id="2ny-ao-zVy"/>
                                             <constraint firstItem="dQc-no-5jm" firstAttribute="centerX" secondItem="TnY-8S-uno" secondAttribute="centerX" id="44i-zy-a4I"/>
-                                            <constraint firstItem="9Xs-lc-aS8" firstAttribute="leading" secondItem="7Y2-7h-2Y4" secondAttribute="trailing" constant="8" id="5N5-Tv-tpk"/>
+                                            <constraint firstItem="9Xs-lc-aS8" firstAttribute="leading" secondItem="7Y2-7h-2Y4" secondAttribute="trailing" constant="16" id="5N5-Tv-tpk"/>
+                                            <constraint firstItem="weN-hW-VXM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2zM-Qn-bbU" secondAttribute="trailing" constant="30" id="5uQ-Iv-W2e"/>
                                             <constraint firstItem="dQc-no-5jm" firstAttribute="top" secondItem="2zM-Qn-bbU" secondAttribute="bottom" id="8k4-ie-vp7"/>
                                             <constraint firstItem="vGp-jR-JQ9" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" constant="97" id="Ak8-DA-NJT"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="dQc-no-5jm" secondAttribute="bottom" constant="8" id="Cex-7e-oPf"/>
+                                            <constraint firstItem="7Y2-7h-2Y4" firstAttribute="leading" secondItem="weN-hW-VXM" secondAttribute="trailing" constant="16" id="DSC-bJ-QKK"/>
                                             <constraint firstItem="4Fc-0r-wVE" firstAttribute="leading" secondItem="vGp-jR-JQ9" secondAttribute="trailing" constant="8" symbolic="YES" id="F1p-Yh-tF4"/>
                                             <constraint firstItem="vGp-jR-JQ9" firstAttribute="bottom" secondItem="4Fc-0r-wVE" secondAttribute="bottom" id="Hdu-CG-TQ4"/>
+                                            <constraint firstItem="weN-hW-VXM" firstAttribute="centerY" secondItem="7Y2-7h-2Y4" secondAttribute="centerY" id="JOg-1S-jWD"/>
                                             <constraint firstItem="9Xs-lc-aS8" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="14" id="MVV-2g-mOg"/>
                                             <constraint firstItem="2zM-Qn-bbU" firstAttribute="leading" secondItem="dQc-no-5jm" secondAttribute="leading" id="OZ4-ng-XYP"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="9Xs-lc-aS8" secondAttribute="bottom" constant="14" id="Pqa-Co-VB3"/>
@@ -1275,6 +1288,7 @@ Gw
                         <outlet property="_timeLeft" destination="9Bx-lC-97p" id="NbD-28-VlR"/>
                         <outlet property="_timePlayed" destination="1Xa-l4-VRg" id="RJx-GO-IGU"/>
                         <outlet property="_title" destination="2zM-Qn-bbU" id="eJC-sn-d25"/>
+                        <outlet property="_volume" destination="weN-hW-VXM" id="Uaz-1g-emt"/>
                         <outlet property="playlistController" destination="8ts-DO-v2q" id="qGH-ba-5Ms"/>
                         <outlet property="trackController" destination="3PX-Ck-UDg" id="lwm-mA-HOa"/>
                     </connections>

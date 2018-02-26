@@ -47,6 +47,11 @@ class TrackSpectrumView: NSControl {
         
         let start = bounds.minX + (bounds.width - CGFloat(numBars * segmentWidth)) / 2
 
+        let bg = NSBezierPath()
+        bg.appendRect(self.bounds)
+        let bgGradient = NSGradient(starting: NSColor.black.withAlphaComponent(0.4), ending: NSColor.clear)
+        bgGradient?.draw(in: bg, angle: 90)
+
         for bar in 0..<numBars {
             let low = lows[bar] * lows[bar], mid = mids[bar] * mids[bar], high = highs[bar] * highs[bar]
             let val = low + mid + high

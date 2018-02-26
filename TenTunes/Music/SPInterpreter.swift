@@ -38,7 +38,7 @@ class SPInterpreter {
             
             let createWave: (Int) -> CGFloat = { (sample) in
                 // Move the wave out of screen at the end and start
-                let pos = Float(sample) / Float(Analysis.sampleCount) * 0.9 + 0.05
+                let pos = Float(sample) / Float(Analysis.sampleCount) * 0.95 + 0.025
                 let distance = abs(progress - pos)
                 let water = simulateWave(pos, 100.0, 5.0, progress: progress, time: time)
                 return CGFloat(max(0.7 - distance * 20.0, 0.0) + water * 0.3)

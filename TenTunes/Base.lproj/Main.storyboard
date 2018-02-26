@@ -1072,8 +1072,8 @@ IA
                                                                                                     </constraints>
                                                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSUserGuest" id="FjQ-sJ-1eE"/>
                                                                                                 </imageView>
-                                                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="200" misplaced="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nuD-Ig-Zac">
-                                                                                                    <rect key="frame" x="37" y="14" width="469" height="17"/>
+                                                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="200" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nuD-Ig-Zac">
+                                                                                                    <rect key="frame" x="37" y="15" width="402" height="17"/>
                                                                                                     <constraints>
                                                                                                         <constraint firstAttribute="height" constant="17" id="seD-AX-rU2"/>
                                                                                                     </constraints>
@@ -1137,6 +1137,7 @@ IA
                                                                                                 <constraint firstItem="pa8-29-GdI" firstAttribute="centerY" secondItem="hLR-5P-QRF" secondAttribute="centerY" id="ZkE-ac-DyA"/>
                                                                                                 <constraint firstItem="D9T-Ey-BdL" firstAttribute="leading" secondItem="cLu-uz-yCD" secondAttribute="trailing" constant="23" id="bnv-sZ-f0X"/>
                                                                                                 <constraint firstItem="nuD-Ig-Zac" firstAttribute="leading" secondItem="dcr-Xq-1GD" secondAttribute="trailing" constant="7" id="evg-he-D0n"/>
+                                                                                                <constraint firstItem="cLu-uz-yCD" firstAttribute="leading" secondItem="nuD-Ig-Zac" secondAttribute="trailing" constant="8" id="khC-vL-dvP"/>
                                                                                                 <constraint firstItem="xLA-Bm-OYD" firstAttribute="top" secondItem="nuD-Ig-Zac" secondAttribute="bottom" constant="-1" id="n1X-c5-pM2"/>
                                                                                                 <constraint firstItem="pa8-29-GdI" firstAttribute="leading" secondItem="cLu-uz-yCD" secondAttribute="trailing" constant="35" id="oR5-uv-hBZ"/>
                                                                                                 <constraint firstItem="cLu-uz-yCD" firstAttribute="leading" secondItem="xLA-Bm-OYD" secondAttribute="trailing" constant="8" id="paw-VU-0Gx"/>

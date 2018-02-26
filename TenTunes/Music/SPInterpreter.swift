@@ -60,7 +60,7 @@ class SPInterpreter {
             floats += newFloats.toCGFloat.map(abs).map { $0 * 1.4 } // About this makes most things more accurate apparently
 
             let thisUpdate = NSDate().timeIntervalSince1970
-            if thisUpdate - lastUpdate < (1.0 / 10.0) { // 10 fps
+            if thisUpdate - lastUpdate < (1.0 / 20.0) { // 20 fps
                 return
             }
             lastUpdate = thisUpdate

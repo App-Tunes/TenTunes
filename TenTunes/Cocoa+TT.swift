@@ -59,6 +59,14 @@ extension Array where Element: Equatable {
         return false
     }
     
+    public mutating func remove(all: [Element]) {
+        self = removing(all: all)
+    }
+    
+    public func removing(all: [Element]) -> [Element] {
+        return filter { !all.contains($0) }
+    }
+    
     static func path(of: Element, by: (Element) -> [Element]?) -> [Element]? {
         var searching = [[of]]
         

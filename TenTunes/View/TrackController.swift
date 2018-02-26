@@ -228,12 +228,6 @@ class TrackController: NSObject {
             fatalError("Unknown Button")
         }
     }
-    
-    @IBAction func removeTrack(_ sender: Any) {
-        let row = self._tableView.clickedRow
-        Library.shared.remove(track: history.track(at: row)!, from: history.playlist)
-        _tableView.reloadData()
-    }
 }
 
 extension TrackController: NSTableViewDelegate {
@@ -328,5 +322,10 @@ extension TrackController: NSMenuDelegate {
         if menuItem == _menuRemoveFromPlaylist { return Library.shared.isEditable(playlist: history.playlist) }
         
         return true
+    }
+    
+    @IBAction func removeTrack(_ sender: Any) {
+        Library.shared.remove(tracks: menuTracks, from: history.playlist)
+        // Don't reload data, we'll be updated in async
     }
 }

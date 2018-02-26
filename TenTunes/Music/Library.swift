@@ -66,22 +66,34 @@ class Library {
         to.tracks += playlist.tracks
     }
 
-    func remove(track: Track, from: Playlist) {
+    func remove(tracks: [Track], from: Playlist) {
         guard isEditable(playlist: from) else {
             fatalError("Is not editable!")
         }
         
         for parent in path(of: from)! {
-            parent.tracks.remove(element: track)
+            parent.tracks.remove(all: tracks)
         }
         
-        allTracks.tracks.remove(element: track)
+        allTracks.tracks.remove(all: tracks)
 
         // Should find a way for histories to check themselves? Or something
         // Might use lastChanged index and on every query check for sanity
-        ViewController.shared.history?.filter { $0 != track }
+        ViewController.shared.history?.filter { !tracks.contains($0) }
         
         // We can calcuate the view async
         ViewController.shared.trackController.desired._changed = true
+    }
+    
+    func delete(playlists: [Playlist]) {
+        guard !(playlists.map { isPlaylist(playlist: $0) }).contains(false) else {
+            fatalError("Not a playlist!")
+        }
+        
+        for playlist in playlists {
+            parent(of: playlist)?.children!.remove(element: playlist)
+        }
+        
+        ViewController.shared.playlistController._outlineView.reloadData()
     }
 }

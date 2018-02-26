@@ -80,6 +80,7 @@ extension PlaylistController : NSOutlineViewDataSource {
 
 extension PlaylistController : NSOutlineViewDelegate {
     func outlineViewSelectionDidChange(_ notification: Notification) {
+        // TODO If we select multiple, show all at once?
         if let selected = _outlineView.selectedRowIndexes.first {
             if let selectionDidChange = selectionDidChange {
                 selectionDidChange(_outlineView.item(atRow: selected) as! Playlist)
@@ -101,5 +102,9 @@ extension PlaylistController: NSMenuDelegate {
         if menuPlaylists.count < 1 {
             menu.cancelTrackingWithoutAnimation()
         }
+    }
+    
+    @IBAction func deletePlaylist(_ sender: Any) {
+        Library.shared.delete(playlists: menuPlaylists)
     }
 }

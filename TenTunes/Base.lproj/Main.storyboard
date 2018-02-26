@@ -904,7 +904,7 @@ IA
                                                                     <rect key="frame" x="0.0" y="0.0" width="178" height="412"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="Playlists" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autosaveExpandedItems="YES" outlineTableColumn="nFD-7F-dmi" id="1LK-qS-x1i">
+                                                                        <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" emptySelection="NO" autosaveColumns="NO" autosaveName="Playlists" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autosaveExpandedItems="YES" outlineTableColumn="nFD-7F-dmi" id="1LK-qS-x1i">
                                                                             <rect key="frame" x="0.0" y="0.0" width="178" height="412"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <size key="intercellSpacing" width="2" height="3"/>
@@ -1354,6 +1354,9 @@ Gw
                         </menuItem>
                         <menuItem title="Delete" enabled="NO" id="Ci1-fQ-U99">
                             <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="deletePlaylist:" target="8ts-DO-v2q" id="ixK-Hf-SQi"/>
+                            </connections>
                         </menuItem>
                     </items>
                     <connections>

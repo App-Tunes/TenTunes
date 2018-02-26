@@ -214,17 +214,17 @@
 		805901C020404CDF00B97D84 /* Music */ = {
 			isa = PBXGroup;
 			children = (
-				80DCA9B1203F636D00B1E9B1 /* TagLibImporter.h */,
-				80DCA9B2203F636E00B1E9B1 /* TagLibImporter.mm */,
-				808161CE2040520900AEA64F /* AVFoundationImporter.swift */,
+				80ADCD4920442E1200AA9A89 /* Library.swift */,
 				80F2C5902038A80D00212739 /* Track.swift */,
 				80802589203F03B3008D4168 /* Playlist.swift */,
 				80F77BF4203D8B35001E397F /* Keys.swift */,
 				806AC1322040D7C700857B1B /* PlayHistory.swift */,
+				806C5B2520423AC000C34F49 /* SPInterpreter.swift */,
+				808161CE2040520900AEA64F /* AVFoundationImporter.swift */,
 				806AC1412041EF1900857B1B /* SPAnalyzer.h */,
 				806AC1422041EF1900857B1B /* SPAnalyzer.mm */,
-				806C5B2520423AC000C34F49 /* SPInterpreter.swift */,
-				80ADCD4920442E1200AA9A89 /* Library.swift */,
+				80DCA9B1203F636D00B1E9B1 /* TagLibImporter.h */,
+				80DCA9B2203F636E00B1E9B1 /* TagLibImporter.mm */,
 				806AC135204174F300857B1B /* ITunesImporter.swift */,
 			);
 			path = Music;

@@ -51,19 +51,23 @@ class SPInterpreter {
             }
         }
         
-        var lastUpdate: Float = 0.0
+        var lastUpdate: TimeInterval = NSDate().timeIntervalSince1970
+        
+        setProgress(0.0)
 
         analyzer.analyze(file.url) { (progress, buffer, count) in
             let newFloats = Array(UnsafeBufferPointer(start: buffer, count: Int(count / 2000 + 1)))
             floats += newFloats.toCGFloat.map(abs).map { $0 * 1.4 } // About this makes most things more accurate apparently
 
-            if progress - lastUpdate < (1.0 / 50) {
+            let thisUpdate = NSDate().timeIntervalSince1970
+            if thisUpdate - lastUpdate < (1.0 / 10.0) { // 10 fps
                 return
             }
-            lastUpdate = progress
+            lastUpdate = thisUpdate
 
             setProgress(progress)
         }
+        
         setProgress(1.0)
         
         let waveformLength: Int = Int(analyzer.waveformSize())

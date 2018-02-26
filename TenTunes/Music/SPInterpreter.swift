@@ -10,8 +10,8 @@ import Cocoa
 
 import AVFoundation
 
-func simulateWave(_ pos: Float, _ size: Float, _ speed: Float, progress: Float) -> Float {
-    return (sin(pos * size + progress * speed) + 1.0) * (pos > progress ? 0.3 : 0.05) + (pos > progress ? 0.1 : 0.35)
+func simulateWave(_ pos: Float, _ size: Float, _ speed: Float, progress: Float, time: Float) -> Float {
+    return (sin(pos * size + time * speed) + 1.0) * (pos > progress ? 0.3 : 0.05) + (pos > progress ? 0.1 : 0.35)
 }
 
 class Analysis {
@@ -27,10 +27,12 @@ class SPInterpreter {
         var floats: [CGFloat] = []
         
         let setProgress: (Float) -> Swift.Void = { (progress) in
+            let time = Float(CACurrentMediaTime().truncatingRemainder(dividingBy: 1000)) // Allow for accuracy
+            
             var values: [[CGFloat]] = Array(0..<Int(3)).map { (idx) in
                 return Array(0..<Analysis.sampleCount).map { sample in
                     let pos = Float(sample) / Float(Analysis.sampleCount)
-                    return CGFloat(simulateWave(pos, Float(idx * 15), -23.0 + Float(idx) * 3.0, progress: progress))
+                    return CGFloat(simulateWave(pos, Float(idx * 10), -8.0 + Float(idx), progress: progress, time: time))
                 }
             }
             
@@ -38,7 +40,7 @@ class SPInterpreter {
                 // Move the wave out of screen at the end and start
                 let pos = Float(sample) / Float(Analysis.sampleCount) * 0.9 + 0.05
                 let distance = abs(progress - pos)
-                let water = simulateWave(pos, 150.0, 10.0, progress: progress)
+                let water = simulateWave(pos, 100.0, 5.0, progress: progress, time: time)
                 return CGFloat(max(0.7 - distance * 20.0, 0.0) + water * 0.3)
             }
             
@@ -51,7 +53,7 @@ class SPInterpreter {
             }
         }
         
-        var lastUpdate: TimeInterval = NSDate().timeIntervalSince1970
+        var lastUpdate: CFTimeInterval = CACurrentMediaTime()
         
         setProgress(0.0)
 
@@ -59,7 +61,7 @@ class SPInterpreter {
             let newFloats = Array(UnsafeBufferPointer(start: buffer, count: Int(count / 2000 + 1)))
             floats += newFloats.toCGFloat.map(abs).map { $0 * 1.4 } // About this makes most things more accurate apparently
 
-            let thisUpdate = NSDate().timeIntervalSince1970
+            let thisUpdate = CACurrentMediaTime()
             if thisUpdate - lastUpdate < (1.0 / 20.0) { // 20 fps
                 return
             }

@@ -898,20 +898,20 @@ IA
                                                         <rect key="frame" x="0.0" y="0.0" width="178" height="438"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
-                                                            <scrollView horizontalHuggingPriority="750" horizontalCompressionResistancePriority="25" verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="5vh-kh-MXn">
+                                                            <scrollView horizontalHuggingPriority="750" horizontalCompressionResistancePriority="25" verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="5vh-kh-MXn">
                                                                 <rect key="frame" x="0.0" y="0.0" width="178" height="412"/>
                                                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="TTJ-cs-lhc">
                                                                     <rect key="frame" x="0.0" y="0.0" width="178" height="412"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="Playlists" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autosaveExpandedItems="YES" outlineTableColumn="nFD-7F-dmi" id="1LK-qS-x1i">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="181" height="412"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="178" height="412"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <size key="intercellSpacing" width="2" height="3"/>
                                                                             <color key="backgroundColor" red="0.14899864792823792" green="0.14903163909912109" blue="0.14899659156799316" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                             <tableColumns>
-                                                                                <tableColumn identifier="" editable="NO" width="179" maxWidth="10000" id="nFD-7F-dmi">
+                                                                                <tableColumn identifier="" editable="NO" width="176" maxWidth="10000" id="nFD-7F-dmi">
                                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                                         <font key="font" metaFont="smallSystem"/>
                                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -925,7 +925,7 @@ IA
                                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                                     <prototypeCellViews>
                                                                                         <tableCellView identifier="nameCell" id="4U2-Jb-BcZ">
-                                                                                            <rect key="frame" x="1" y="1" width="179" height="17"/>
+                                                                                            <rect key="frame" x="1" y="1" width="176" height="17"/>
                                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                             <subviews>
                                                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g0W-7X-Zje">
@@ -934,7 +934,7 @@ IA
                                                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="playlist" id="H03-mv-TD1"/>
                                                                                                 </imageView>
                                                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qLz-2l-I8r">
-                                                                                                    <rect key="frame" x="25" y="0.0" width="154" height="17"/>
+                                                                                                    <rect key="frame" x="25" y="0.0" width="151" height="17"/>
                                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="iBD-gj-n2D">
                                                                                                         <font key="font" metaFont="system"/>

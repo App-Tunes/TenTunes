@@ -848,7 +848,7 @@ IA
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="80" id="IaB-e8-PZM"/>
                                                 </constraints>
-                                                <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="100" tickMarkPosition="above" sliderType="linear" id="MSi-om-pFM"/>
+                                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="100" tickMarkPosition="above" sliderType="linear" id="MSi-om-pFM"/>
                                                 <connections>
                                                     <action selector="volumeChanged:" target="XfG-lQ-9wD" id="Jly-b8-AQw"/>
                                                 </connections>

@@ -35,7 +35,8 @@ class SPInterpreter {
             }
             
             let createWave: (Int) -> CGFloat = { (sample) in
-                let pos = Float(sample) / Float(Analysis.sampleCount)
+                // Move the wave out of screen at the end and start
+                let pos = Float(sample) / Float(Analysis.sampleCount) * 0.9 + 0.05
                 let distance = abs(progress - pos)
                 let water = simulateWave(pos, 150.0, 10.0, progress: progress)
                 return CGFloat(max(0.7 - distance * 20.0, 0.0) + water * 0.3)
@@ -54,7 +55,7 @@ class SPInterpreter {
 
         analyzer.analyze(file.url) { (progress, buffer, count) in
             let newFloats = Array(UnsafeBufferPointer(start: buffer, count: Int(count / 2000 + 1)))
-            floats += newFloats.toCGFloat.map(abs).map { $0 * 1.6 } // About this makes most things more accurate apparently
+            floats += newFloats.toCGFloat.map(abs).map { $0 * 1.4 } // About this makes most things more accurate apparently
 
             if progress - lastUpdate < (1.0 / 50) {
                 return
@@ -76,7 +77,7 @@ class SPInterpreter {
         let wf = waveform(start: analyzer.waveform())
         let lows = waveform(start: analyzer.lowWaveform())
 
-        setProgress(2.0) // Move the wave out of screen
+        setProgress(1.1) // Move the wave out of screen
 
         let mids = waveform(start: analyzer.midWaveform())
         let highs = waveform(start: analyzer.highWaveform())

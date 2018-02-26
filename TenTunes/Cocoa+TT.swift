@@ -196,6 +196,15 @@ extension NSButton {
     }
 }
 
+extension NSTableView {
+    var clickedRows: [Int] {
+        if isRowSelected(clickedRow) {
+            return Array(selectedRowIndexes)
+        }
+        return [clickedRow]
+    }
+}
+
 infix operator ?=> : NilCoalescingPrecedence
 
 extension Optional {

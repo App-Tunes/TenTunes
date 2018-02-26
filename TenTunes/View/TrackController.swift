@@ -312,9 +312,15 @@ extension TrackController: NSSearchFieldDelegate {
 }
 
 extension TrackController: NSMenuDelegate {
-    var menuTrack: Track { return history.track(at: self._tableView.clickedRow)! }
+    var menuTracks: [Track] {
+        return _tableView.clickedRows.flatMap { history.track(at: $0) }
+    }
     
-    func menuWillOpen(_ menu: NSMenu) {
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        if menuTracks.count < 1 {
+            menu.cancelTrackingWithoutAnimation()
+        }
+
         _menuRemoveFromPlaylist.isHidden = !Library.shared.isPlaylist(playlist: history.playlist)
     }
     

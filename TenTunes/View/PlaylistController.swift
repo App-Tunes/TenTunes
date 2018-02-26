@@ -93,7 +93,13 @@ extension PlaylistController : NSOutlineViewDelegate {
 }
 
 extension PlaylistController: NSMenuDelegate {
-    func menuWillOpen(_ menu: NSMenu) {
-//        let playlist = _outlineView.item(atRow: _outlineView.clickedRow) as! Playlist
+    var menuPlaylists: [Playlist] {
+        return _outlineView.clickedRows.flatMap { _outlineView.item(atRow: $0) as? Playlist }
+    }
+    
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        if menuPlaylists.count < 1 {
+            menu.cancelTrackingWithoutAnimation()
+        }
     }
 }

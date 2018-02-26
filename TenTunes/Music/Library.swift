@@ -29,6 +29,10 @@ class Library {
         return playlistDatabase[byId]
     }
     
+    var allPlaylists: [Playlist] {
+        return Array.flattened(root: masterPlaylist) { $0.children }
+    }
+    
     func parent(of: Playlist) -> Playlist? {
         return playlistParents[of.id]
     }
@@ -66,23 +70,38 @@ class Library {
         to.tracks += playlist.tracks
     }
 
-    func remove(tracks: [Track], from: Playlist) {
-        guard isEditable(playlist: from) else {
+    func remove(tracks: [Track], from: Playlist, force: Bool = false) {
+        guard force || isEditable(playlist: from) else {
             fatalError("Is not editable!")
         }
         
-        for parent in path(of: from)! {
-            parent.tracks.remove(all: tracks)
+        from.tracks.remove(all: tracks)
+
+        for parent in path(of: from)!.dropLast().reversed() {
+            // Only remove tracks if other children don't have it
+            parent.tracks = parent.tracks.filter { !tracks.contains($0) || (parent.children!.flatMap { $0.tracks }).contains($0) }
         }
         
-        allTracks.tracks.remove(all: tracks)
-
         // Should find a way for histories to check themselves? Or something
         // Might use lastChanged index and on every query check for sanity
-        ViewController.shared.history?.filter { !tracks.contains($0) }
+        if ViewController.shared.history?.playlist == from {
+            ViewController.shared.history?.filter { !tracks.contains($0) }
+        }
         
         // We can calcuate the view async
-        ViewController.shared.trackController.desired._changed = true
+        if ViewController.shared.trackController.history.playlist == from {
+            ViewController.shared.trackController.desired._changed = true
+        }
+    }
+    
+    func delete(tracks: [Track]) {
+        let relevant = allPlaylists.filter { $0.tracks.contains { tracks.contains($0) } }
+        
+        for playlist in relevant where isEditable(playlist: playlist) {
+            remove(tracks: tracks, from: playlist)
+        }
+        
+        remove(tracks: tracks, from: allTracks, force: true)
     }
     
     func delete(playlists: [Playlist]) {

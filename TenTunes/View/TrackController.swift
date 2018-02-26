@@ -328,4 +328,8 @@ extension TrackController: NSMenuDelegate {
         Library.shared.remove(tracks: menuTracks, from: history.playlist)
         // Don't reload data, we'll be updated in async
     }
+    
+    @IBAction func deleteTrack(_ sender: Any) {
+        Library.shared.delete(tracks: menuTracks)
+    }
 }

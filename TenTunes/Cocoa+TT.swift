@@ -67,8 +67,21 @@ extension Array where Element: Equatable {
         return filter { !all.contains($0) }
     }
     
-    static func path(of: Element, by: (Element) -> [Element]?) -> [Element]? {
-        var searching = [[of]]
+    static func flattened(root: Element, by: (Element) -> [Element]?) -> [Element] {
+        var all = [root]
+        var idx = 0
+        
+        while idx < all.count {
+            if let children = by(all[idx]) {
+                all += children
+            }
+            idx += 1
+        }
+        return all
+    }
+    
+    static func path(of: Element, in root: Element, by: (Element) -> [Element]?) -> [Element]? {
+        var searching = [[root]]
         
         while searching.count > 0 {
             let path = searching.removeFirst()

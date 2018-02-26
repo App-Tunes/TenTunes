@@ -42,7 +42,11 @@ class Library {
     }
     
     // Editing
-    
+
+    func isPlaylist(playlist: Playlist) -> Bool {
+        return playlist != allTracks
+    }
+
     func isEditable(playlist: Playlist) -> Bool {
         return !playlist.isFolder && playlist != allTracks
     }

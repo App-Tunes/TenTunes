@@ -314,6 +314,10 @@ extension TrackController: NSSearchFieldDelegate {
 extension TrackController: NSMenuDelegate {
     var menuTrack: Track { return history.track(at: self._tableView.clickedRow)! }
     
+    func menuWillOpen(_ menu: NSMenu) {
+        _menuRemoveFromPlaylist.isHidden = !Library.shared.isPlaylist(playlist: history.playlist)
+    }
+    
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         if menuItem == _menuRemoveFromPlaylist { return Library.shared.isEditable(playlist: history.playlist) }
         

@@ -898,7 +898,7 @@ IA
                                                         <rect key="frame" x="0.0" y="0.0" width="178" height="438"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
-                                                            <scrollView horizontalHuggingPriority="750" horizontalCompressionResistancePriority="25" verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5vh-kh-MXn">
+                                                            <scrollView horizontalHuggingPriority="750" horizontalCompressionResistancePriority="25" verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="5vh-kh-MXn">
                                                                 <rect key="frame" x="0.0" y="0.0" width="178" height="412"/>
                                                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="TTJ-cs-lhc">
                                                                     <rect key="frame" x="0.0" y="0.0" width="178" height="412"/>
@@ -962,8 +962,8 @@ IA
                                                                     </subviews>
                                                                     <nil key="backgroundColor"/>
                                                                 </clipView>
-                                                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="FSr-qS-CEI">
-                                                                    <rect key="frame" x="0.0" y="396" width="178" height="16"/>
+                                                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="FSr-qS-CEI">
+                                                                    <rect key="frame" x="-100" y="-100" width="178" height="16"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                 </scroller>
                                                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="OOJ-cM-ugO">
@@ -1038,7 +1038,7 @@ IA
                                                         <rect key="frame" x="187" y="0.0" width="630" height="438"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
-                                                            <scrollView verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="QEo-kJ-TZV">
+                                                            <scrollView verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="QEo-kJ-TZV">
                                                                 <rect key="frame" x="0.0" y="0.0" width="630" height="382"/>
                                                                 <clipView key="contentView" copiesOnScroll="NO" id="Ic4-1D-uPe">
                                                                     <rect key="frame" x="0.0" y="0.0" width="630" height="382"/>
@@ -1170,7 +1170,7 @@ IA
                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="250" id="YdU-A3-nOJ"/>
                                                                 </constraints>
                                                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="Bni-zo-AjV">
-                                                                    <rect key="frame" x="0.0" y="356" width="528" height="16"/>
+                                                                    <rect key="frame" x="-100" y="-100" width="528" height="16"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                 </scroller>
                                                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="DLS-bc-jz7">

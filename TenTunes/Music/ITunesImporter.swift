@@ -9,12 +9,12 @@
 import Cocoa
 
 class ITunesImporter {
-    static func parse(path: String) -> ([Int: Track], Playlist)? {
+    static func parse(path: String) -> Library? {
         guard let nsdict = NSDictionary(contentsOfFile: path) else {
             return nil
         }
         
-        var database: [Int: Track] = [:]
+        let library = Library()
         
         for (id, trackData) in nsdict.object(forKey: "Tracks") as! NSDictionary {
             let trackData = trackData as! NSDictionary
@@ -27,12 +27,9 @@ class ITunesImporter {
             track.album = trackData["Album"] as? String
             track.path = trackData["Location"] as? String
             
-            database[Int(id as! String)!] = track
+            library.add(track: track)
         }
         
-        var playlistDatabase: [String: Playlist]! = [:]
-        let masterPlaylist = Playlist(folder: true)
-
         for playlistData in nsdict.object(forKey: "Playlists") as! NSArray {
             let playlistData = playlistData as! NSDictionary
             if playlistData.object(forKey: "Master") as? Bool ?? false {
@@ -52,20 +49,18 @@ class ITunesImporter {
                 for trackData in playlistData.object(forKey: "Playlist Items") as? NSArray ?? [] {
                     let trackData = trackData as! NSDictionary
                     let id = trackData["Track ID"] as! Int
-                    playlist.tracks.append(database[id]!)
+                    playlist.tracks.append(library.track(byId: id)!)
                 }
             }
             
             if let parent = playlistData.object(forKey: "Parent Persistent ID") as? String {
-                playlistDatabase[parent]?.add(child: playlist)
+                library.add(playlist: playlist, to: library.playlist(byId: parent)!)
             }
             else {
-                masterPlaylist.add(child: playlist)
+                library.add(playlist: playlist)
             }
-            
-            playlistDatabase[playlist.id] = playlist
         }
         
-        return (database, masterPlaylist)
+        return library
     }
 }

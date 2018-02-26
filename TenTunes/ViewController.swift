@@ -46,10 +46,6 @@ class ViewController: NSViewController {
     @IBOutlet var _timeLeft: NSTextField!
     
     @IBOutlet var _volume: NSSlider!
-    
-    var database: [Int: Track] = [:]
-    var masterPlaylist: Playlist = Playlist(folder: true)
-    var library: Playlist = Playlist(folder: false)
 
     var history: PlayHistory? {
         didSet {
@@ -91,18 +87,13 @@ class ViewController: NSViewController {
 
         let path = "/Volumes/Lukebox/iTunes/iTunes Library.xml"
         
-        if let (pdatabase, pmasterPlaylist) = ITunesImporter.parse(path: path) {
-            database = pdatabase
-            masterPlaylist = pmasterPlaylist
+        if let library = ITunesImporter.parse(path: path) {
+            Library.shared = library
         }
         else {
             print("FILE UNAVAILABLE")
         }
-        
-        for (_, track) in database {
-            library.tracks.append(track)
-        }
-        
+                
         self.playlistController.selectionDidChange = { [unowned self] in
             self.playlistSelected($0)
         }
@@ -111,13 +102,13 @@ class ViewController: NSViewController {
             self.history = self.trackController.history
             self.play(moved: 0)
         }
-        self.playlistController.masterPlaylist = masterPlaylist
-        self.playlistController.library = library
+        self.playlistController.masterPlaylist = Library.shared.masterPlaylist
+        self.playlistController.library = Library.shared.allTracks
 
         self.trackController.playTrack = { [unowned self] in
             self.play($0, at: $1, in: self.trackController.history)
         }
-        self.trackController.history = PlayHistory(playlist: library)
+        self.trackController.history = PlayHistory(playlist: Library.shared.allTracks)
 
         self.updatePlaying()
         

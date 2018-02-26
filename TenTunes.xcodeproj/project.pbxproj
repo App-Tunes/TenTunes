@@ -31,6 +31,7 @@
 		808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808161CE2040520900AEA64F /* AVFoundationImporter.swift */; };
 		808161D2204059FE00AEA64F /* TrackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808161D1204059FE00AEA64F /* TrackController.swift */; };
 		8084AA51203B5CF400064B11 /* TrackCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8084AA50203B5CF400064B11 /* TrackCellView.swift */; };
+		80ADCD4A20442E1200AA9A89 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ADCD4920442E1200AA9A89 /* Library.swift */; };
 		80CFDA0A203C4E2300C7A506 /* LazyVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CFDA09203C4E2300C7A506 /* LazyVar.swift */; };
 		80DCA9B3203F636F00B1E9B1 /* TagLibImporter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80DCA9B2203F636E00B1E9B1 /* TagLibImporter.mm */; };
 		80E937592039C2850014C835 /* Keycodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E937582039C2850014C835 /* Keycodes.swift */; };
@@ -120,6 +121,7 @@
 		808161CE2040520900AEA64F /* AVFoundationImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVFoundationImporter.swift; sourceTree = "<group>"; };
 		808161D1204059FE00AEA64F /* TrackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackController.swift; sourceTree = "<group>"; };
 		8084AA50203B5CF400064B11 /* TrackCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCellView.swift; sourceTree = "<group>"; };
+		80ADCD4920442E1200AA9A89 /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		80C0C29F203F6DCA00FA6083 /* taglib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = taglib.xcodeproj; path = ../../taglib.xcodeproj; sourceTree = "<group>"; };
 		80CFDA09203C4E2300C7A506 /* LazyVar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyVar.swift; sourceTree = "<group>"; };
 		80DCA9B0203F636900B1E9B1 /* TenTunes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TenTunes-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -219,10 +221,11 @@
 				80802589203F03B3008D4168 /* Playlist.swift */,
 				80F77BF4203D8B35001E397F /* Keys.swift */,
 				806AC1322040D7C700857B1B /* PlayHistory.swift */,
-				806AC135204174F300857B1B /* ITunesImporter.swift */,
 				806AC1412041EF1900857B1B /* SPAnalyzer.h */,
 				806AC1422041EF1900857B1B /* SPAnalyzer.mm */,
 				806C5B2520423AC000C34F49 /* SPInterpreter.swift */,
+				80ADCD4920442E1200AA9A89 /* Library.swift */,
+				806AC135204174F300857B1B /* ITunesImporter.swift */,
 			);
 			path = Music;
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 				80802588203F0399008D4168 /* PlaylistController.swift in Sources */,
 				8084AA51203B5CF400064B11 /* TrackCellView.swift in Sources */,
 				806AC1332040D7C700857B1B /* PlayHistory.swift in Sources */,
+				80ADCD4A20442E1200AA9A89 /* Library.swift in Sources */,
 				80DCA9B3203F636F00B1E9B1 /* TagLibImporter.mm in Sources */,
 				80802586203EFCC0008D4168 /* Cocoa+TT.swift in Sources */,
 				80F2C5912038A80D00212739 /* Track.swift in Sources */,

@@ -1326,6 +1326,15 @@ Gw
                                 <action selector="menuShowInFinder:" target="3PX-Ck-UDg" id="2dE-Nb-7zn"/>
                             </connections>
                         </menuItem>
+                        <menuItem title="Remove from Playlist" enabled="NO" id="b9S-AC-54f">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="removeTrack:" target="3PX-Ck-UDg" id="08M-z6-Z79"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Delete from Library" enabled="NO" id="1Iq-SX-mPx">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                        </menuItem>
                     </items>
                 </menu>
                 <menu title="Playlist" id="TIT-RH-nbh" userLabel="Playlist">

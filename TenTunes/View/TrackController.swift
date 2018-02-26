@@ -200,6 +200,12 @@ class TrackController: NSObject {
             break
         }
     }
+    
+    @IBAction func removeTrack(_ sender: Any) {
+//        let row = self._tableView.clickedRow
+//        history.remove(at: row)
+//        _tableView.reloadData()
+    }
 }
 
 extension TrackController: NSTableViewDelegate {
@@ -248,6 +254,8 @@ extension TrackController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
         return history.size;
     }
+    
+    
 }
 
 extension TrackController: NSSearchFieldDelegate {

@@ -68,6 +68,10 @@ class TrackController: NSObject {
         _sortKey = addSearchBarItem(title: "Key", previous: _sortTitle)
         _sortBPM = addSearchBarItem(title: "BPM", previous: _sortKey)
         
+        // Table views don't support transparent bg colors, otherwise the labels background color add to it
+        // Also it can't be too dark??
+        _tableView.backgroundColor = NSColor(white: 0.07, alpha: 1.0)
+        
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             return self.keyDown(with: $0)
         }
@@ -149,13 +153,17 @@ class TrackController: NSObject {
         }
         
         view.textField?.stringValue = track.rTitle
+        
         view.subtitleTextField?.stringValue = track.rSource
 //        view.subtitleTextField?.textColor = NSColor.secondaryLabelColor
         // Is reset for some reason
         view.subtitleTextField?.setStringColor(NSColor.secondaryLabelColor)
+        
         view.lengthTextField?.stringValue = track.rLength
+        
         view.imageView?.image = track.rArtwork
         view.key = track.rKey
+        
         view.bpmTextField?.stringValue = track.bpm != nil ? Int(track.bpm!).description : nil ?? ""
     }
     
@@ -225,7 +233,7 @@ extension TrackController: NSTableViewDelegate {
         if let track = history.viewed(at: row) {
             let exists = track.url != nil
             if !exists {
-                rowView.backgroundColor = NSColor.black
+                rowView.backgroundColor = NSColor(white: 0.03, alpha: 1.0)
             }
         }
     }

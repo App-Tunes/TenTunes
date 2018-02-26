@@ -22,6 +22,10 @@ class Track {
     
     var analysis: Analysis? = nil
 
+    var artwork: NSImage? = nil
+
+    var metadataFetched: Bool = false
+
     var rTitle: String {
         return title ?? "Unknown Title"
     }
@@ -69,14 +73,13 @@ class Track {
     var searchable: [String] {
         return [rTitle, rAuthor, rAlbum]
     }
-    
-    var metadataFetched: Bool = false
-    var artwork: NSImage? = nil
+}
 
+extension Track {
     func fetchMetadata() {
         self.metadataFetched = true
         self.artwork = nil
-
+        
         guard let url = self.url else {
             return
         }
@@ -88,7 +91,7 @@ class Track {
         duration = nil
         
         // TODO Length
-
+        
         let importer = TagLibImporter.init(url: url)
         do {
             try importer?.import()
@@ -96,7 +99,7 @@ class Track {
             self.title = importer?.title
             self.album = importer?.album
             self.author = importer?.artist
-
+            
             self.artwork = importer?.image
             
             self.key = Key.parse(importer?.initialKey ?? "")
@@ -110,22 +113,22 @@ class Track {
         
         title = title ?? avImporter.string(withKey: .commonKeyTitle, keySpace: .common)
         title = title ?? avImporter.string(withKey: .iTunesMetadataKeySongName, keySpace: .iTunes)
-
+        
         album = album ?? avImporter.string(withKey: .commonKeyAlbumName, keySpace: .common)
         album = album ?? avImporter.string(withKey: .iTunesMetadataKeyAlbum, keySpace: .iTunes)
-
+        
         author = author ?? avImporter.string(withKey: .commonKeyArtist, keySpace: .common)
         author = author ?? avImporter.string(withKey: .commonKeyCreator, keySpace: .common)
         author = author ?? avImporter.string(withKey: .commonKeyAuthor, keySpace: .common)
         author = author ?? avImporter.string(withKey: .iTunesMetadataKeyOriginalArtist, keySpace: .iTunes)
         author = author ?? avImporter.string(withKey: .iTunesMetadataKeyArtist, keySpace: .iTunes)
         author = author ?? avImporter.string(withKey: .iTunesMetadataKeySoloist, keySpace: .iTunes)
-
+        
         artwork = artwork ?? avImporter.image(withKey: .commonKeyArtwork, keySpace: .common)
         artwork = artwork ?? avImporter.image(withKey: .iTunesMetadataKeyCoverArt, keySpace: .iTunes)
-
+        
         bpm = bpm ?? Double(avImporter.string(withKey: .iTunesMetadataKeyBeatsPerMin, keySpace: .iTunes) ?? "")
-
+        
         // For videos, generate thumbnails
         if self.artwork == nil {
             let imgGenerator = AVAssetImageGenerator(asset: AVURLAsset(url: url))
@@ -139,32 +142,38 @@ class Track {
         }
         
         duration = duration ?? avImporter.duration
-
-//        var fileID: AudioFileID?
-//        if AudioFileOpenURL(url as CFURL, AudioFilePermissions.readPermission, 0, &fileID) == 0 {
-//            var size: UInt32 = 0
-//            var data: CFData? = nil
-//            let err = AudioFileGetProperty(fileID!, kAudioFilePropertyAlbumArtwork, &size, &data)
-//            if err != 0 {
-//                print(err)
-//            }
-//            else {
-//                print("Sucks ass")
-//            }
-//            AudioFileClose(fileID!)
-//        }
-
-//        for track in asset.tracks {
-//            print(track)
-//            for desc in track.formatDescriptions {
-//                print(desc)
-//            }
-//        }
-//
-//        for track in asset.allMediaSelections {
-//            print(track)
-//        }
-
+        
+        //        var fileID: AudioFileID?
+        //        if AudioFileOpenURL(url as CFURL, AudioFilePermissions.readPermission, 0, &fileID) == 0 {
+        //            var size: UInt32 = 0
+        //            var data: CFData? = nil
+        //            let err = AudioFileGetProperty(fileID!, kAudioFilePropertyAlbumArtwork, &size, &data)
+        //            if err != 0 {
+        //                print(err)
+        //            }
+        //            else {
+        //                print("Sucks ass")
+        //            }
+        //            AudioFileClose(fileID!)
+        //        }
+        
+        //        for track in asset.tracks {
+        //            print(track)
+        //            for desc in track.formatDescriptions {
+        //                print(desc)
+        //            }
+        //        }
+        //
+        //        for track in asset.allMediaSelections {
+        //            print(track)
+        //        }
+        
         return
+    }
+}
+
+extension Track : Equatable {
+    static func ==(lhs: Track, rhs: Track) -> Bool {
+        return lhs.id == rhs.id
     }
 }

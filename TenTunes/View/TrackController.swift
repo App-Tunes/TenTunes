@@ -10,6 +10,29 @@ import Cocoa
 
 import AVFoundation
 
+class PlayHistorySetup {
+    var completion: (PlayHistory) -> Swift.Void
+    
+    init(completion: @escaping (PlayHistory) -> Swift.Void) {
+        self.completion = completion
+    }
+    
+    var semaphore = DispatchSemaphore(value: 1)
+    var _changed = false
+    
+    var filter: ((Track) -> Bool)? {
+        didSet {
+            _changed = true
+        }
+    }
+    
+    var sort: ((Track, Track) -> Bool)? {
+        didSet {
+            _changed = true
+        }
+    }
+}
+
 class TrackController: NSObject {
     @IBOutlet var _tableView: NSTableView!
     @IBOutlet weak var _searchField: NSSearchField!
@@ -28,14 +51,10 @@ class TrackController: NSObject {
     
     var history: PlayHistory! {
         didSet {
-            history.textFilter = _searchField.stringValue.count > 0 ? _searchField.stringValue : nil
-            if let sortButton = (_sortButtons.filter { $0.state == .on }).first {
-                sort(byButton: sortButton)
-            }
-            
             _tableView.reloadData()
         }
     }
+    var desired: PlayHistorySetup!
     
     func addSearchBarItem(title: String, previous: NSView) -> NSButton {
         let button = NSButton()
@@ -62,6 +81,8 @@ class TrackController: NSObject {
     }
     
     override func awakeFromNib() {
+        desired = PlayHistorySetup { self.history = $0 }
+        
         _searchBarHeight.constant = CGFloat(0)
         
         _sortTitle = addSearchBarItem(title: "Title", previous: _sortLabel)
@@ -75,6 +96,11 @@ class TrackController: NSObject {
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             return self.keyDown(with: $0)
         }
+    }
+    
+    func set(playlist: Playlist) {
+        self.history = PlayHistory(playlist: playlist)
+        self.desired._changed = true // The new history doesn't yet have our desireds applied
     }
     
     var visibleTracks: [TrackCellView] {
@@ -95,7 +121,7 @@ class TrackController: NSObject {
     
     var selectedTrack: Track? {
         let row = self._tableView.selectedRow
-        return row >= 0 ? history.viewed(at: row) : nil
+        return row >= 0 ? history.track(at: row) : nil
     }
     
     func playCurrentTrack() {
@@ -108,7 +134,7 @@ class TrackController: NSObject {
         let row = self._tableView.clickedRow
         
         if let playTrack = playTrack {
-            if let track = history.viewed(at: row) {
+            if let track = history.track(at: row) {
                 playTrack(track, row)
             }
         }
@@ -120,7 +146,7 @@ class TrackController: NSObject {
     
     @IBAction func menuShowInFinder(_ sender: Any) {
         let row = self._tableView.clickedRow
-        let track = history.viewed(at: row)!
+        let track = history.track(at: row)!
         if let url = track.url { // TODO Disable Button if we can't find the url
             NSWorkspace.shared.activateFileViewerSelecting([url])
         }
@@ -173,38 +199,38 @@ class TrackController: NSObject {
         }
         
         if sender.state == .off {
-            history.reorder(sort: nil)
-            _tableView.reloadData()
-            
+            desired.sort = nil
             return
         }
         
-        sort(byButton: sender)
+        desired.sort = sorter(byButton: sender)
         
-        _tableView.reloadData()
-
         for other in _sortButtons where other !== sender {
             other.state = .off
         }
     }
     
-    func sort(byButton: NSButton) {
-        switch byButton {
+    func sorter(byButton button: NSButton?) -> ((Track, Track) -> Bool)? {
+        guard let button = button else {
+            return nil
+        }
+        
+        switch button {
         case _sortTitle:
-            history.reorder { $0.rTitle < $1.rTitle }
+            return { $0.rTitle < $1.rTitle }
         case _sortKey:
-            history.reorder { ($0.key?.camelot ?? 50) < ($1.key?.camelot ?? 50)  }
+            return { ($0.key?.camelot ?? 50) < ($1.key?.camelot ?? 50)  }
         case _sortBPM:
-            history.reorder { ($0.bpm ?? 500) < ($1.bpm ?? 500)  }
+            return { ($0.bpm ?? 500) < ($1.bpm ?? 500)  }
         default:
-            break
+            fatalError("Unknown Button")
         }
     }
     
     @IBAction func removeTrack(_ sender: Any) {
-//        let row = self._tableView.clickedRow
-//        history.remove(at: row)
-//        _tableView.reloadData()
+        let row = self._tableView.clickedRow
+        Library.shared.remove(track: history.track(at: row)!, from: history.playlist)
+        _tableView.reloadData()
     }
 }
 
@@ -218,7 +244,7 @@ extension TrackController: NSTableViewDelegate {
         dateFormatter.dateStyle = .long
         dateFormatter.timeStyle = .long
         
-        let track = history.viewed(at: row)!
+        let track = history.track(at: row)!
 
         if tableColumn == tableView.tableColumns[0] {
             if let view = tableView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? TrackCellView {
@@ -236,7 +262,7 @@ extension TrackController: NSTableViewDelegate {
     }
     
     func tableView(_ tableView: NSTableView, didAdd rowView: NSTableRowView, forRow row: Int) {
-        if let track = history.viewed(at: row) {
+        if let track = history.track(at: row) {
             let exists = track.url != nil
             if !exists {
                 rowView.backgroundColor = NSColor(white: 0.03, alpha: 1.0)
@@ -250,17 +276,14 @@ extension TrackController: NSTableViewDelegate {
 }
 
 extension TrackController: NSTableViewDataSource {
-    
     func numberOfRows(in tableView: NSTableView) -> Int {
         return history.size;
     }
-    
-    
 }
 
 extension TrackController: NSSearchFieldDelegate {
     override func controlTextDidChange(_ obj: Notification) {
-        history.textFilter = _searchField.stringValue // Filtering is done in worker thread so reloading the data is too
+        desired.filter = PlayHistory.filter(findText: _searchField.stringValue)
     }
     
     func searchFieldDidEndSearching(_ sender: NSSearchField) {
@@ -276,8 +299,7 @@ extension TrackController: NSSearchFieldDelegate {
     }
     
     @IBAction func closeSearchBar(_ sender: Any) {
-        history.textFilter = nil
-        _tableView.reloadData()
+        desired.filter = nil
 
         _searchField.resignFirstResponder()
         NSAnimationContext.runAnimationGroup({_ in

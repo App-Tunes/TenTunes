@@ -36,18 +36,24 @@ extension ViewController {
             }
             
             if self._workerSemaphore.wait(timeout: DispatchTime.now()) == .success {
-                // Update the playlist filter
+                // Update the current playlist, top priority
+                let desired = self.trackController.desired!
                 
-                if self.trackController.history._filterChanged, self._filterSemaphore.wait(timeout: DispatchTime.now()) == .success {
-                    self.trackController.history._filterChanged = false
+                let copy = PlayHistory(playlist: self.trackController.history.playlist)
+                
+                if desired._changed, desired.semaphore.wait(timeout: DispatchTime.now()) == .success {
+                    desired._changed = false
                     
-                    self.trackController.history.updated(completion: { (copy) in
-                        self.trackController.history.update(from: copy)
-                        self.trackController._tableView.reloadData()
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        desired.filter ?=> copy.filter
+                        desired.sort ?=> copy.sort
                         
-                        self._workerSemaphore.signal()
-                        self._filterSemaphore.signal()
-                    })
+                        DispatchQueue.main.async {
+                            self.trackController.history = copy
+                            self._workerSemaphore.signal()
+                            desired.semaphore.signal()
+                        }
+                    }
                 }
                 else if let playing = self.playing, playing.analysis == nil {
                     // Analyze the current file

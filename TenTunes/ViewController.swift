@@ -30,6 +30,8 @@ func synced(_ lock: Any, closure: () -> ()) {
 
 class ViewController: NSViewController {
 
+    static var shared: ViewController!
+    
     @IBOutlet var _title: NSTextField!
     @IBOutlet var _subtitle: NSTextField!
     
@@ -47,11 +49,7 @@ class ViewController: NSViewController {
     
     @IBOutlet var _volume: NSSlider!
 
-    var history: PlayHistory? {
-        didSet {
-            self.history?.reorder(shuffle: self.shuffle)
-        }
-    }
+    var history: PlayHistory?
     var player: AKPlayer!
     var playing: Track?
     
@@ -59,11 +57,10 @@ class ViewController: NSViewController {
     var completionTimer: Timer?
 
     var _workerSemaphore = DispatchSemaphore(value: 3)
-    var _filterSemaphore = DispatchSemaphore(value: 1)
 
     var shuffle = true {
         didSet {
-            self.history?.reorder(shuffle: self.shuffle)
+            (shuffle ? self.history?.shuffle() : self.history?.unshuffle())
         }
     }
     
@@ -74,6 +71,8 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        ViewController.shared = self
         
         self.player = AKPlayer()
         // The completion handler sucks...
@@ -99,16 +98,15 @@ class ViewController: NSViewController {
         }
         self.playlistController.playPlaylist = { [unowned self] in
             self.playlistSelected($0)
-            self.history = self.trackController.history
-            self.play(moved: 0)
+            self.play(at: nil, in: self.trackController.history)
         }
         self.playlistController.masterPlaylist = Library.shared.masterPlaylist
         self.playlistController.library = Library.shared.allTracks
 
         self.trackController.playTrack = { [unowned self] in
-            self.play($0, at: $1, in: self.trackController.history)
+            self.play(at: $1, in: self.trackController.history)
         }
-        self.trackController.history = PlayHistory(playlist: Library.shared.allTracks)
+        self.trackController.set(playlist: Library.shared.allTracks)
 
         self.updatePlaying()
         
@@ -136,8 +134,8 @@ class ViewController: NSViewController {
     func keyDown(with event: NSEvent) -> NSEvent? {
         let keyString = event.charactersIgnoringModifiers
         
-        if keyString == " ", trackController._tableView.window?.firstResponder == trackController._tableView {
-            self._play.performClick(self) // Grab the spaces from the table since it takes forever for those
+        if keyString == " ", trackController._tableView.window?.firstResponder is NSTableView {
+            self._play.performClick(self) // Grab the spaces from the tables since it takes forever for those
         } else if keyString == "f" && NSEvent.modifierFlags.contains(.command) {
             trackController.openSearchBar(self)
         }
@@ -212,8 +210,8 @@ class ViewController: NSViewController {
             }
         }
         else {
-            if let track = trackController.selectedTrack {
-                play(track, at: trackController._tableView.selectedRow, in: trackController.history)
+            if trackController.selectedTrack != nil {
+                play(at: trackController._tableView.selectedRow, in: trackController.history)
             }
             else {
                 play(moved: 0)
@@ -225,14 +223,14 @@ class ViewController: NSViewController {
     
     func play(moved: Int) {
         if history == nil {
-            history = trackController.history
+            play(at: nil, in: trackController.history)
         }
         else if moved == 0 {
-            history!.reorder(shuffle: shuffle)
-            history!.move(to: nil) // Select random track next
+            history!.shuffle()
+            history!.move(to: 0) // Select random track next
         }
         
-        self.play(track: self.history!.move(moved))
+        self.play(track: self.history!.move(by: moved))
     }
     
     func pause() {
@@ -261,20 +259,18 @@ class ViewController: NSViewController {
         _shuffle.image = shuffle ? img : img?.tinted(in: NSColor.gray)
     }
     
-    func play(_ track: Track, at: Int, in history: PlayHistory? = nil) {
-        if let history = history {
-            self.history = history
-        }
-        else if self.history == nil {
-            self.history = trackController.history
-        }
+    func play(at: Int?, in history: PlayHistory) {
+        self.history = PlayHistory(from: history)
+
+        self.history!.move(to: at ?? -1)
+        if shuffle { self.history!.shuffle() } // Move there before shuffling so the position is retained
+        if at == nil { self.history!.move(to: 0) }
         
-        self.history!.move(to: at)
-        self.play(track: track)
+        self.play(track: self.history!.playingTrack)
     }
     
     func playlistSelected(_ playlist: Playlist) {
-        trackController.history = PlayHistory(playlist: playlist)
+        trackController.set(playlist: playlist)
     }
     
     @IBAction func volumeChanged(_ sender: Any) {

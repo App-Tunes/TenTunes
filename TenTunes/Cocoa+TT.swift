@@ -13,11 +13,16 @@ extension String {
 }
 
 extension Collection {
-    
     /// Returns the element at the specified index iff it is within bounds, otherwise nil.
     subscript (safe index: Index) -> Element? {
         return indices.contains(index) ? self[index] : nil
     }
+    
+    func allMatch(_ filter: (Element) -> Bool) -> Bool { return self.filter(filter).count == count }
+
+    func noneMatch(_ filter: (Element) -> Bool) -> Bool { return self.filter(filter).count == 0 }
+
+    func anyMatch(_ filter: (Element) -> Bool) -> Bool { return self.filter(filter).first != nil }
 }
 
 extension Collection where Iterator.Element == UInt8 {
@@ -44,7 +49,42 @@ extension Collection where Iterator.Element == CGFloat {
     }
 }
 
+extension Array where Element: Equatable {
+    @discardableResult
+    public mutating func remove(element: Element) -> Bool {
+        if let idx = self.index(of: element) {
+            remove(at: idx)
+            return true
+        }
+        return false
+    }
+    
+    static func path(of: Element, by: (Element) -> [Element]?) -> [Element]? {
+        var searching = [[of]]
+        
+        while searching.count > 0 {
+            let path = searching.removeFirst()
+            
+            if let children = by(path.last!) {
+                if children.contains(of) {
+                    return path + [of]
+                }
+                
+                searching += children.map { path + [$0] }
+            }
+        }
+        
+        return nil
+    }
+}
+
 extension Array where Iterator.Element == CGFloat {
+    mutating func remap(by: (Element) -> Element) {
+        for i in 0..<count {
+            self[i] = by(self[i])
+        }
+    }
+    
     func remap(toSize: Int) -> [CGFloat] {
         return Array<Int>(0..<toSize).map { idx in
             let count = Int(self.count)
@@ -155,3 +195,15 @@ extension NSButton {
         }
     }
 }
+
+infix operator ?=> : NilCoalescingPrecedence
+
+extension Optional {
+    static func ?=> <T>(left: Wrapped?, right: (Wrapped) -> T) -> T? {
+        if let left = left {
+            return right(left)
+        }
+        return nil
+    }
+}
+

@@ -10,6 +10,7 @@ import Cocoa
 
 class Playlist {
     var id: String = ""
+    
     var name: String = "Unnamed Playlist"
     
     var tracks: [Track] = []
@@ -39,5 +40,11 @@ class Playlist {
         }
         children!.append(child)
         tracks.append(contentsOf: child.tracks)
+    }
+}
+
+extension Playlist : Equatable {
+    static func ==(lhs: Playlist, rhs: Playlist) -> Bool {
+        return lhs.id == rhs.id
     }
 }

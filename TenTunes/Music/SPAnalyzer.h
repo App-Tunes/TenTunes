@@ -10,7 +10,7 @@
 
 @interface SPAnalyzer : NSObject
 
-- (void)analyze:(NSURL *)url progressHandler: (void(^)(float))progressHandler;
+- (void)analyze:(NSURL *)url progressHandler: (void(^)(float, float*, int))progressHandler;
 
 - (unsigned char *)waveform;
 - (unsigned char *)lowWaveform;

@@ -24,7 +24,7 @@ class SPInterpreter {
     static func analyze(file: AVAudioFile, analysis: Analysis) {
         let analyzer = SPAnalyzer()
         
-        var lastUpdate: Float = 0.0
+        var floats: [CGFloat] = []
         
         let setProgress: (Float) -> Swift.Void = { (progress) in
             var values: [[CGFloat]] = Array(0..<Int(3)).map { (idx) in
@@ -41,20 +41,27 @@ class SPInterpreter {
                 return CGFloat(max(0.7 - distance * 20.0, 0.0) + water * 0.3)
             }
             
-            values.insert(Array(0..<Analysis.sampleCount).map(createWave), at: 0)
+            let waveIndex = min(Int(progress * Float(Analysis.sampleCount)), Analysis.sampleCount)
+            let approxWave = floats.remap(toSize: waveIndex)
+            values.insert(Array(0..<Analysis.sampleCount).map {createWave($0) + ($0 < waveIndex ? approxWave[$0] : 0.0)}, at: 0)
             
             DispatchQueue.main.async {
                 analysis.values = values
             }
         }
         
-        analyzer.analyze(file.url) {
-            if $0 - lastUpdate < (1.0 / 50) {
+        var lastUpdate: Float = 0.0
+
+        analyzer.analyze(file.url) { (progress, buffer, count) in
+            let newFloats = Array(UnsafeBufferPointer(start: buffer, count: Int(count / 2000 + 1)))
+            floats += newFloats.toCGFloat.map(abs).map { $0 * 1.6 } // About this makes most things more accurate apparently
+
+            if progress - lastUpdate < (1.0 / 50) {
                 return
             }
-            lastUpdate = $0
-            
-            setProgress($0)
+            lastUpdate = progress
+
+            setProgress(progress)
         }
         setProgress(1.0)
         
@@ -74,7 +81,6 @@ class SPInterpreter {
         let mids = waveform(start: analyzer.midWaveform())
         let highs = waveform(start: analyzer.highWaveform())
         
-
         DispatchQueue.main.async {
             // Normalize waveform but only a little bit
             analysis.values = [wf.normalized(min: 0.0, max: (1.0 + wf.max()!) / 2.0), lows, mids, highs]

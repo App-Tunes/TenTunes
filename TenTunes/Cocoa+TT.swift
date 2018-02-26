@@ -32,6 +32,12 @@ extension Collection where Iterator.Element == UInt {
     }
 }
 
+extension Collection where Iterator.Element == Float {
+    var toCGFloat: [CGFloat]  {
+        return flatMap{ CGFloat($0) }
+    }
+}
+
 extension Collection where Iterator.Element == CGFloat {
     func normalized(min: CGFloat, max: CGFloat) -> [CGFloat] {
         return map { ($0 - min) / (max - min) }

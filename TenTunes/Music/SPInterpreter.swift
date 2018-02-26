@@ -62,7 +62,7 @@ class SPInterpreter {
 
         analyzer.analyze(file.url) { (progress, buffer, count) in
             // Sometimes this can get called with progress > 1
-            let desiredAmount = min(min(Int(progress * Float(previewSamplesTotal), previewSamplesTotal)) - currentSamples, Int(count))
+            let desiredAmount = min(min(Int(progress * Float(previewSamplesTotal)), previewSamplesTotal) - currentSamples, Int(count))
             if desiredAmount > 0 {
                 let newFloats = Array(UnsafeBufferPointer(start: buffer, count: desiredAmount))
                 for i in 0..<desiredAmount {

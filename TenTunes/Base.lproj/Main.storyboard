@@ -1301,6 +1301,7 @@ Gw
                 </customObject>
                 <customObject id="3PX-Ck-UDg" customClass="TrackController" customModule="TenTunes" customModuleProvider="target">
                     <connections>
+                        <outlet property="_menuRemoveFromPlaylist" destination="b9S-AC-54f" id="E2p-Z0-W4k"/>
                         <outlet property="_searchBarClose" destination="0SU-GT-xfg" id="6Ux-56-9Ma"/>
                         <outlet property="_searchBarHeight" destination="LQn-3A-FTs" id="Bbq-bF-GtX"/>
                         <outlet property="_searchField" destination="lRK-8m-Bpk" id="Caq-CC-ucZ"/>
@@ -1326,7 +1327,7 @@ Gw
                                 <action selector="menuShowInFinder:" target="3PX-Ck-UDg" id="2dE-Nb-7zn"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Remove from Playlist" enabled="NO" id="b9S-AC-54f">
+                        <menuItem title="Remove from Playlist" id="b9S-AC-54f">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="removeTrack:" target="3PX-Ck-UDg" id="08M-z6-Z79"/>
@@ -1336,6 +1337,9 @@ Gw
                             <modifierMask key="keyEquivalentModifierMask"/>
                         </menuItem>
                     </items>
+                    <connections>
+                        <outlet property="delegate" destination="3PX-Ck-UDg" id="aDu-NW-Q0w"/>
+                    </connections>
                 </menu>
                 <menu title="Playlist" id="TIT-RH-nbh" userLabel="Playlist">
                     <items>
@@ -1352,6 +1356,9 @@ Gw
                             <modifierMask key="keyEquivalentModifierMask"/>
                         </menuItem>
                     </items>
+                    <connections>
+                        <outlet property="delegate" destination="8ts-DO-v2q" id="zlJ-CJ-NPF"/>
+                    </connections>
                 </menu>
             </objects>
             <point key="canvasLocation" x="73.5" y="786.5"/>

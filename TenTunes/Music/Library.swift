@@ -18,21 +18,8 @@ class Library {
     var playlistDatabase: [String: Playlist] = [:]
     var masterPlaylist: Playlist = Playlist(folder: true)
     var playlistParents: [String: Playlist] = [:]
-
-    func add(track: Track) {
-        database[track.id] = track
-        allTracks.tracks.append(track)
-    }
-
-    func add(playlist: Playlist, to: Playlist? = nil) {
-        playlistDatabase[playlist.id] = playlist
-        
-        let to = to ?? masterPlaylist
-        to.children?.append(playlist)
-        playlistParents[playlist.id] = to
-        
-        to.tracks += playlist.tracks
-    }
+    
+    // Querying
     
     func track(byId: Int) -> Track? {
         return database[byId]
@@ -54,9 +41,30 @@ class Library {
         return path
     }
     
+    // Editing
+    
+    func isEditable(playlist: Playlist) -> Bool {
+        return !playlist.isFolder && playlist != allTracks
+    }
+    
+    func add(track: Track) {
+        database[track.id] = track
+        allTracks.tracks.append(track)
+    }
+    
+    func add(playlist: Playlist, to: Playlist? = nil) {
+        playlistDatabase[playlist.id] = playlist
+        
+        let to = to ?? masterPlaylist
+        to.children?.append(playlist)
+        playlistParents[playlist.id] = to
+        
+        to.tracks += playlist.tracks
+    }
+
     func remove(track: Track, from: Playlist) {
-        guard !from.isFolder && from != allTracks else {
-            fatalError("Is folder!")
+        guard isEditable(playlist: from) else {
+            fatalError("Is not editable!")
         }
         
         for parent in path(of: from)! {

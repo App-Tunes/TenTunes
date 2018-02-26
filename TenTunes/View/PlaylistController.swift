@@ -92,3 +92,8 @@ extension PlaylistController : NSOutlineViewDelegate {
     }
 }
 
+extension PlaylistController: NSMenuDelegate {
+    func menuWillOpen(_ menu: NSMenu) {
+//        let playlist = _outlineView.item(atRow: _outlineView.clickedRow) as! Playlist
+    }
+}

@@ -49,6 +49,8 @@ class TrackController: NSObject {
 
     var playTrack: ((Track, Int) -> Swift.Void)?
     
+    @IBOutlet weak var _menuRemoveFromPlaylist: NSMenuItem!
+    
     var history: PlayHistory! {
         didSet {
             _tableView.reloadData()
@@ -306,5 +308,15 @@ extension TrackController: NSSearchFieldDelegate {
             NSAnimationContext.current.duration = 0.2
             _searchBarHeight.animator().constant = CGFloat(0)
         })
+    }
+}
+
+extension TrackController: NSMenuDelegate {
+    var menuTrack: Track { return history.track(at: self._tableView.clickedRow)! }
+    
+    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        if menuItem == _menuRemoveFromPlaylist { return Library.shared.isEditable(playlist: history.playlist) }
+        
+        return true
     }
 }

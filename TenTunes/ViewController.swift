@@ -83,15 +83,6 @@ class ViewController: NSViewController {
 
         AudioKit.output = self.player
         try! AudioKit.start()
-
-        let path = "/Volumes/Lukebox/iTunes/iTunes Library.xml"
-        
-        if let library = ITunesImporter.parse(path: path) {
-            Library.shared = library
-        }
-        else {
-            print("FILE UNAVAILABLE")
-        }
                 
         self.playlistController.selectionDidChange = { [unowned self] in
             self.playlistSelected($0)

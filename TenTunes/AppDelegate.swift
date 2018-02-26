@@ -118,5 +118,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return .terminateNow
     }
 
+    @IBAction func importFromITunes(_ sender: Any) {
+        let dialog = NSOpenPanel()
+        
+        dialog.title                   = "Select an iTunes Library"
+        dialog.allowsMultipleSelection = false
+        dialog.allowedFileTypes        = ["xml"]
+        
+        if dialog.runModal() == NSApplication.ModalResponse.OK {
+            guard let url = dialog.url else {
+                return
+            }
+            
+            if let library = ITunesImporter.parse(url: url) {
+                Library.shared.add(from: library)
+            }
+            else {
+                let alert: NSAlert = NSAlert()
+                alert.messageText = "Invalid File"
+                alert.informativeText = "The selected file is not a valid iTunes library file."
+                alert.alertStyle = .warning
+                alert.addButton(withTitle: "OK")
+                alert.runModal()
+            }
+        }
+    }
 }
 

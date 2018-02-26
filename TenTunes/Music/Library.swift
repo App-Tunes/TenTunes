@@ -55,7 +55,27 @@ class Library {
         return !playlist.isFolder && playlist != allTracks
     }
     
+    func add(from: Library) {
+        for (_, track) in from.database {
+            add(track: track)
+        }
+        
+        from.masterPlaylist.name = "iTunes Library"
+        masterPlaylist.add(child: from.masterPlaylist)
+        
+        // TODO Make up new IDs
+        playlistParents.merge(from.playlistParents, uniquingKeysWith: { _,_ in fatalError("Duplicate playlist parents??") })
+        playlistDatabase.merge(from.playlistDatabase, uniquingKeysWith: { _,_ in fatalError("Duplicate playlist IDs") })
+
+        ViewController.shared.playlistController._outlineView.reloadData()
+        ViewController.shared.trackController.desired._changed = true
+    }
+
     func add(track: Track) {
+        if database.keys.contains(track.id) {
+            fatalError("Duplicate track ID")
+        }
+        
         database[track.id] = track
         allTracks.tracks.append(track)
     }
@@ -67,7 +87,9 @@ class Library {
         to.children?.append(playlist)
         playlistParents[playlist.id] = to
         
-        to.tracks += playlist.tracks
+        if let path = path(of: to) {
+            recalculate(playlists: path)
+        }
     }
 
     func remove(tracks: [Track], from: Playlist, force: Bool = false) {
@@ -76,20 +98,21 @@ class Library {
         }
         
         from.tracks.remove(all: tracks)
-
-        for parent in path(of: from)!.dropLast().reversed() {
+        
+        let path = self.path(of: from)!
+        for parent in path.dropLast().reversed() {
             // Only remove tracks if other children don't have it
             parent.tracks = parent.tracks.filter { !tracks.contains($0) || (parent.children!.flatMap { $0.tracks }).contains($0) }
         }
         
         // Should find a way for histories to check themselves? Or something
         // Might use lastChanged index and on every query check for sanity
-        if ViewController.shared.history?.playlist == from {
+        if (ViewController.shared.history?.playlist ?=> path.contains) ?? false {
             ViewController.shared.history?.filter { !tracks.contains($0) }
         }
         
         // We can calcuate the view async
-        if ViewController.shared.trackController.history.playlist == from {
+        if path.contains(ViewController.shared.trackController.history.playlist) {
             ViewController.shared.trackController.desired._changed = true
         }
     }
@@ -105,14 +128,29 @@ class Library {
     }
     
     func delete(playlists: [Playlist]) {
-        guard !(playlists.map { isPlaylist(playlist: $0) }).contains(false) else {
+        guard (playlists.allMatch { isPlaylist(playlist: $0) }) else {
             fatalError("Not a playlist!")
         }
         
         for playlist in playlists {
+            // Clear it so the parents are updated
+            remove(tracks: playlist.tracks, from: playlist)
+            
+            // Remove from parents
             parent(of: playlist)?.children!.remove(element: playlist)
         }
         
         ViewController.shared.playlistController._outlineView.reloadData()
+    }
+    
+    // Must be in descending order
+    func recalculate(playlists: [Playlist]) {
+        guard (playlists.allMatch { $0.isFolder }) else {
+            fatalError("Not a folder!")
+        }
+        
+        for playlist in playlists.reversed() {
+            playlist.tracks = Array(Set<Track>(playlist.children!.flatMap { $0.tracks }))
+        }
     }
 }

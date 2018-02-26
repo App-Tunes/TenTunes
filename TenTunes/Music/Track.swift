@@ -177,3 +177,10 @@ extension Track : Equatable {
         return lhs.id == rhs.id
     }
 }
+
+extension Track : Hashable {
+    var hashValue: Int {
+        return id.hashValue
+    }
+}
+

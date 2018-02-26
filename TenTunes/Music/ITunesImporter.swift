@@ -9,8 +9,8 @@
 import Cocoa
 
 class ITunesImporter {
-    static func parse(path: String) -> Library? {
-        guard let nsdict = NSDictionary(contentsOfFile: path) else {
+    static func parse(url: URL) -> Library? {
+        guard let nsdict = NSDictionary(contentsOf: url) else {
             return nil
         }
         

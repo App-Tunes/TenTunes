@@ -24,8 +24,11 @@ class SPInterpreter {
     static func analyze(file: AVAudioFile, analysis: Analysis) {
         let analyzer = SPAnalyzer()
         
-        var floats: [CGFloat] = []
-        
+        let previewSamplesTotal = 20000
+        var currentSamples = 0
+        // Pre-init for performance
+        var floats: [CGFloat] = Array(repeating: CGFloat(0), count: previewSamplesTotal)
+
         let setProgress: (Float) -> Swift.Void = { (progress) in
             let time = Float(CACurrentMediaTime().truncatingRemainder(dividingBy: 1000)) // Allow for accuracy
             
@@ -45,7 +48,7 @@ class SPInterpreter {
             }
             
             let waveIndex = min(Int(progress * Float(Analysis.sampleCount)), Analysis.sampleCount)
-            let approxWave = floats.remap(toSize: waveIndex)
+            let approxWave = floats[0..<currentSamples].remap(toSize: waveIndex)
             values.insert(Array(0..<Analysis.sampleCount).map {createWave($0) + ($0 < waveIndex ? approxWave[$0] : 0.0)}, at: 0)
             
             DispatchQueue.main.async {
@@ -58,8 +61,14 @@ class SPInterpreter {
         setProgress(0.0)
 
         analyzer.analyze(file.url) { (progress, buffer, count) in
-            let newFloats = Array(UnsafeBufferPointer(start: buffer, count: Int(count / 2000 + 1)))
-            floats += newFloats.toCGFloat.map(abs).map { $0 * 1.4 } // About this makes most things more accurate apparently
+            let desiredAmount = min(Int(progress * Float(previewSamplesTotal)) - currentSamples, Int(count))
+            if desiredAmount > 0 {
+                let newFloats = Array(UnsafeBufferPointer(start: buffer, count: desiredAmount))
+                for i in 0..<desiredAmount {
+                    floats[i + currentSamples] = abs(CGFloat(newFloats[i])) * 1.4 // Roughly this value makes most things more accurate apparently
+                }
+                currentSamples += desiredAmount
+            }
 
             let thisUpdate = CACurrentMediaTime()
             if thisUpdate - lastUpdate < (1.0 / 20.0) { // 20 fps

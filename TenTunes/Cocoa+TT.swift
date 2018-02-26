@@ -57,6 +57,20 @@ extension Array where Iterator.Element == CGFloat {
     }
 }
 
+// Apparently these two can't be merged
+extension ArraySlice where Iterator.Element == CGFloat {
+    func remap(toSize: Int) -> [CGFloat] {
+        return Array<Int>(0..<toSize).map { idx in
+            let count = Int(self.count)
+            let trackPosStart = Double(idx) / Double(toSize)
+            let trackPosEnd = Double(idx + 1) / Double(toSize)
+            let trackRange = Int(trackPosStart * Double(count))..<Int(trackPosEnd * Double(count))
+            
+            return self[trackRange].reduce(0, +) / CGFloat(trackRange.count)
+        }
+    }
+}
+
 extension UInt32 {
     public static func random() -> UInt32 {
         return arc4random_uniform(UInt32.max)

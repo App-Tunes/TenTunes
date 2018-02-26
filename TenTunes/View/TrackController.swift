@@ -144,11 +144,10 @@ class TrackController: NSObject {
     }
     
     func update(view: TrackCellView?, with track: Track) {
-        guard let view = view ?? visibleView(to: track) else {
+        guard let view = view ?? visibleView(to: track), view.track === track else {
             return
         }
         
-        view.track = track
         view.textField?.stringValue = track.rTitle
         view.subtitleTextField?.stringValue = track.rSource
 //        view.subtitleTextField?.textColor = NSColor.secondaryLabelColor
@@ -209,6 +208,7 @@ extension TrackController: NSTableViewDelegate {
 
         if tableColumn == tableView.tableColumns[0] {
             if let view = tableView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? TrackCellView {
+                view.track = track
                 update(view: view, with: track)
                 return view
             }

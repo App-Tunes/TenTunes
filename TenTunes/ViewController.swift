@@ -179,30 +179,34 @@ class ViewController: NSViewController {
             player.stop()
         }
         
-        if let track = track, let url = track.url {
-            do {
-                let akfile = try AKAudioFile(forReading: url)
-                
-                _spectrumView.analysis = track.analysis // If it's not analyzed, our worker threads will handle
-                
-                player.load(audioFile: akfile)
-                player.play()
-                playing = track
-            } catch let error {
-                print(error.localizedDescription)
-                player.stop()
-                playing = nil
-                _spectrumView.analysis = nil
+        if let track = track {
+            if let url = track.url {
+                do {
+                    let akfile = try AKAudioFile(forReading: url)
+                    
+                    _spectrumView.analysis = track.analysis // If it's not analyzed, our worker threads will handle
+                    
+                    player.load(audioFile: akfile)
+                    player.play()
+                    playing = track
+                } catch let error {
+                    print(error.localizedDescription)
+                    player.stop()
+                    playing = nil
+                    _spectrumView.analysis = nil
+                }
+            }
+            else {
+                // We are at a track but it's not playable :<
+                print("Skipped unplayable track \(track.id): \(String(describing: track.path))")
+                play(moved: 1)
             }
         }
         else {
-            if history!.playingIndex < history!.size {
-                play(moved: 1)
-            }
-            else {
-                playing = nil
-                _spectrumView.analysis = nil
-            }
+            // Somebody decided we should stop playing
+            // Or we're at start / end of list
+            playing = nil
+            _spectrumView.analysis = nil
         }
         
         self.updatePlaying()

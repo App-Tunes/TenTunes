@@ -12,20 +12,20 @@ import Cocoa
 class Library {
     static var shared: Library = Library()
     
-    var database: [Int: Track] = [:]
+    var database: [UUID: Track] = [:]
     var allTracks: Playlist = Playlist(folder: false)
 
-    var playlistDatabase: [String: Playlist] = [:]
+    var playlistDatabase: [UUID: Playlist] = [:]
     var masterPlaylist: Playlist = Playlist(folder: true)
-    var playlistParents: [String: Playlist] = [:]
+    var playlistParents: [UUID: Playlist] = [:]
     
     // Querying
     
-    func track(byId: Int) -> Track? {
+    func track(byId: UUID) -> Track? {
         return database[byId]
     }
 
-    func playlist(byId: String) -> Playlist? {
+    func playlist(byId: UUID) -> Playlist? {
         return playlistDatabase[byId]
     }
     
@@ -236,22 +236,22 @@ class Library {
 
 extension Library {
     func writeTrack(_ track: Track, toPasteboarditem item: NSPasteboardItem) {
-        item.setString(String(track.id), forType: Track.pasteboardType)
+        item.setString(track.id.uuidString, forType: Track.pasteboardType)
     }
     
     func readTrack(fromPasteboardItem item: NSPasteboardItem) -> Track? {
-        if let id = item.string(forType: Track.pasteboardType) ?=> Int.init {
+        if let idString = item.string(forType: Track.pasteboardType), let id = UUID(uuidString: idString) {
             return track(byId: id)
         }
         return nil
     }
 
     func writePlaylist(_ playlist: Playlist, toPasteboarditem item: NSPasteboardItem) {
-        item.setString(String(playlist.id), forType: Playlist.pasteboardType)
+        item.setString(playlist.id.uuidString, forType: Playlist.pasteboardType)
     }
     
     func readPlaylist(fromPasteboardItem item: NSPasteboardItem) -> Playlist? {
-        if let id = item.string(forType: Playlist.pasteboardType) {
+        if let idString = item.string(forType: Playlist.pasteboardType), let id = UUID(uuidString: idString) {
             return playlist(byId: id)
         }
         return nil

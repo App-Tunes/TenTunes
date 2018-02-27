@@ -12,7 +12,7 @@ import AudioKit
 class Track {
     static let pasteboardType = NSPasteboard.PasteboardType(rawValue: "tentunes.track")
     
-    var id: Int = 0 // TODO Use proper UUIDs, save iTunes ID somewhere else
+    var id: UUID = UUID()
     var title: String? = nil
     var author: String? = nil
     var album: String? = nil

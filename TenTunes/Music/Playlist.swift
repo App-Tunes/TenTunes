@@ -11,8 +11,8 @@ import Cocoa
 class Playlist {
     static let pasteboardType = NSPasteboard.PasteboardType(rawValue: "tentunes.playlist")
 
-    var id: String
-    
+    var id: UUID = UUID()
+
     var name: String = "Unnamed Playlist"
     
     var tracks: [Track] = []
@@ -22,7 +22,6 @@ class Playlist {
         if folder {
             children = []
         }
-        id = UUID().uuidString // TODO Use proper UUIDs
     }
     
     func track(at: Int) -> Track? {

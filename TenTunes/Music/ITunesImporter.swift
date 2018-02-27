@@ -14,20 +14,27 @@ class ITunesImporter {
             return nil
         }
         
+        // TODO Store persistent IDs for playlists and tracks so we can automatically update them
+        // i.e. We have a non-editable 'iTunes' folder that has a right click update and cannot be edit
+        // Though it needs to be duplicatable into an editable copy
+        
         let library = Library()
         
-        for (id, trackData) in nsdict.object(forKey: "Tracks") as! NSDictionary {
+        var iTunesTracks: [Int:Track] = [:]
+        var iTunesPlaylists: [String:Playlist] = [:]
+
+        for (_, trackData) in nsdict.object(forKey: "Tracks") as! NSDictionary {
             let trackData = trackData as! NSDictionary
             
             let track = Track()
             
-            track.id = Int(id as! String)!
             track.title = trackData["Name"] as? String
             track.author = trackData["Artist"] as? String
             track.album = trackData["Album"] as? String
             track.path = trackData["Location"] as? String
             
             library.addTrackToLibrary(track)
+            iTunesTracks[trackData["Track ID"] as! Int] = track
         }
         
         for playlistData in nsdict.object(forKey: "Playlists") as! NSArray {
@@ -43,22 +50,23 @@ class ITunesImporter {
             let playlist = Playlist(folder: isFolder)
             
             playlist.name = playlistData.object(forKey: "Name") as! String
-            playlist.id = playlistData.object(forKey: "Playlist Persistent ID") as! String
             
             if !isFolder {
                 for trackData in playlistData.object(forKey: "Playlist Items") as? NSArray ?? [] {
                     let trackData = trackData as! NSDictionary
                     let id = trackData["Track ID"] as! Int
-                    playlist.tracks.append(library.track(byId: id)!)
+                    playlist.tracks.append(iTunesTracks[id]!)
                 }
             }
             
             if let parent = playlistData.object(forKey: "Parent Persistent ID") as? String {
-                library.addPlaylist(playlist, to: library.playlist(byId: parent)!)
+                library.addPlaylist(playlist, to: iTunesPlaylists[parent]!)
             }
             else {
                 library.addPlaylist(playlist)
             }
+            
+            iTunesPlaylists[playlistData.object(forKey: "Playlist Persistent ID") as! String] = playlist
         }
         
         return library

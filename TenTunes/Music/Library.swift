@@ -113,9 +113,13 @@ class Library {
         let above = above ?? to.children!.count
 
         var copy: Playlist? = nil
+        let position = self.position(of: playlist)
         
         // If we're still in another playlist
-        if let (parent, idx) = position(of: playlist) {
+        if let position = position {
+            let parent = position.0
+            let idx = position.1
+            
             // Add a hollow copy of this playlist
             copy = Playlist(folder: false)
             copy!.tracks.append(contentsOf: playlist.tracks)
@@ -129,14 +133,20 @@ class Library {
         to.children?.insert(playlist, at: above)
         playlistParents[playlist.id] = to
         
-        // Delete the copy so all tracks update
-        // Do this after adding the new one so we don't have to recalculate indices
         if let copy = copy {
-            delete(playlists: [copy])
+            if let position = position, position.0 === to {
+                // If we move within the same parent, just remove our copy
+                position.0.children!.remove(element: copy)
+            }
+            else {
+                // Delete the copy so all tracks update
+                // Do this after adding the new one so we don't have to recalculate indices
+                delete(playlists: [copy])
+            }
         }
         
-        // TODO Do a change add
-        if playlist.size > 0, let path = path(of: to) {
+        if position?.0 !== to, playlist.size > 0, let path = path(of: to) {
+            // TODO Do a change add
             recalculate(playlists: path)
         }
         

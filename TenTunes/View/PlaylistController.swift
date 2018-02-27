@@ -172,11 +172,9 @@ extension PlaylistController : NSOutlineViewDelegate {
         let pasteboard = info.draggingPasteboard()
         let playlists = (pasteboard.pasteboardItems ?? []).flatMap(Library.shared.readPlaylist)
         let parent = item as? Playlist ?? masterPlaylist
-        // If dropped onto a folder, add at the end
-        let index = index >= 0 ? index : parent.size
         
         for playlist in playlists {
-            Library.shared.addPlaylist(playlist, to: parent, above: index)
+            Library.shared.addPlaylist(playlist, to: parent, above: index >= 0 ? index : nil)
         }
         
         return true

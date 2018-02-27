@@ -148,16 +148,14 @@ class Library {
         
         from.tracks.remove(all: tracks)
         
-        let path = self.path(of: from)!
-        
         // Should find a way for histories to check themselves? Or something
         // Might use lastChanged index and on every query check for sanity
-        if (ViewController.shared.history?.playlist ?=> path.contains) ?? false {
+        if from == ViewController.shared.history?.playlist {
             ViewController.shared.history?.filter { !tracks.contains($0) }
         }
         
         // We can calcuate the view async
-        if path.contains(ViewController.shared.trackController.history.playlist) {
+        if from == ViewController.shared.trackController.history.playlist {
             ViewController.shared.trackController.desired._changed = true
         }
     }
@@ -165,8 +163,8 @@ class Library {
     func delete(tracks: [Track]) {
         let relevant = allPlaylists.filter { $0.tracks.contains { tracks.contains($0) } }
         
-        for playlist in relevant where isEditable(playlist: playlist) {
-            remove(tracks: tracks, from: playlist)
+        for playlist in relevant {
+            remove(tracks: tracks, from: playlist, force: true)
         }
         
         // Remove from database

@@ -182,6 +182,13 @@ class Library {
         }
         
         for playlist in playlists {
+            if !playlistDatabase.keys.contains(playlist.id) {
+                // Already deleted
+                // Happens when folders are deleted at the same with their children
+                continue
+            }
+
+            
             // Delete the children first
             if playlist.isFolder {
                 delete(playlists: playlist.children!)

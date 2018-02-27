@@ -83,13 +83,14 @@ class Library {
     }
     
     func addTracks(_ tracks: [Track], to: Playlist, above: Int? = nil) {
-        // TODO Allow duplicates after asking
-        let above = above ?? to.size
-        
         // Add the tracks we're missing
+        // TODO Allow duplicates after asking
         to.tracks.append(contentsOf: tracks.filter { !to.tracks.contains($0) })
-        // Rearrange the tracks
-        to.tracks.rearrange(elements: tracks, to: above)
+
+        if let above = above {
+            // Rearrange the tracks if we specified a position
+            to.tracks.rearrange(elements: tracks, to: above)
+        }
         
         // TODO Adjust parents' order? I mean, it sucks anyway
         // TODO Add to playing playlists? Meh

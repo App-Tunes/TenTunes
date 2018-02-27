@@ -103,6 +103,7 @@ class TrackController: NSViewController {
     }
     
     func set(playlist: Playlist) {
+        playlist.calculateTracks() // For folders this is essential
         self.history = PlayHistory(playlist: playlist)
         self.desired._changed = true // The new history doesn't yet have our desireds applied
     }

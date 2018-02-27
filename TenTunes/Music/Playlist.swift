@@ -24,6 +24,8 @@ class Playlist {
         }
     }
     
+    // Querying
+    
     func track(at: Int) -> Track? {
         return tracks[at]
     }
@@ -41,7 +43,16 @@ class Playlist {
             fatalError("Not a folder!") 
         }
         children!.append(child)
-        tracks.append(contentsOf: child.tracks)
+    }
+    
+    // Folders
+    
+    func calculateTracks() {
+        if !isFolder {
+            return
+        }
+        
+        tracks = Array(Set((Array.flattened(root: self) { $0.children }).flatMap { $0.tracks }))
     }
 }
 

@@ -115,11 +115,8 @@ class Library {
             let parent = position.0
             let idx = position.1
             
-            // Add a hollow copy of this playlist
+            // Replace our playlist with a dummy so indices stay the same
             copy = Playlist(folder: false)
-            copy!.tracks.append(contentsOf: playlist.tracks)
-            
-            // Replace our playlist with the hollow copy
             parent.children![idx] = copy!
             playlistParents[copy!.id] = parent
         }
@@ -140,11 +137,6 @@ class Library {
             }
         }
         
-        if position?.0 !== to, playlist.size > 0, let path = path(of: to) {
-            // TODO Do a change add
-            recalculate(playlists: path)
-        }
-        
         ViewController.shared.playlistController._outlineView.reloadData()
     }
 
@@ -156,10 +148,6 @@ class Library {
         from.tracks.remove(all: tracks)
         
         let path = self.path(of: from)!
-        for parent in path.dropLast().reversed() {
-            // Only remove tracks if other children don't have it
-            parent.tracks = parent.tracks.filter { !tracks.contains($0) || (parent.children!.flatMap { $0.tracks }).contains($0) }
-        }
         
         // Should find a way for histories to check themselves? Or something
         // Might use lastChanged index and on every query check for sanity
@@ -213,17 +201,6 @@ class Library {
         playlistParents.removeValues(forKeys: keys)
         
         ViewController.shared.playlistController._outlineView.reloadData()
-    }
-    
-    // Must be in descending order
-    func recalculate(playlists: [Playlist]) {
-        guard (playlists.allMatch { $0.isFolder }) else {
-            fatalError("Not a folder!")
-        }
-        
-        for playlist in playlists.reversed() {
-            playlist.tracks = Array(Set<Track>(playlist.children!.flatMap { $0.tracks }))
-        }
     }
 }
 

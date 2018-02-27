@@ -186,6 +186,14 @@ class Library {
         }
         
         for playlist in playlists {
+            // Delete the children first
+            if playlist.isFolder {
+                delete(playlists: playlist.children!)
+                
+                // Convert to a regular ol playlist
+                playlist.children = nil
+            }
+
             // Clear it so the parents are updated
             remove(tracks: playlist.tracks, from: playlist)
             

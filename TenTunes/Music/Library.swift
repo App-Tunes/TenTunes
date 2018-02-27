@@ -52,7 +52,7 @@ class Library {
         return nil
     }
     
-    func playlists(containing: [Track]) {
+    func playlists(containing tracks: [Track]) -> [Playlist] {
         return allPlaylists.filter { $0.tracks.contains { tracks.contains($0) } }
     }
 
@@ -185,13 +185,7 @@ class Library {
             // Delete the children first
             if playlist.isFolder {
                 delete(playlists: playlist.children!)
-                
-                // Convert to a regular ol playlist
-                playlist.children = nil
             }
-
-            // Clear it so the parents are updated
-            remove(tracks: playlist.tracks, from: playlist)
             
             // Remove from parents
             let (parent, idx) = position(of: playlist)!

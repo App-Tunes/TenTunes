@@ -27,7 +27,7 @@ class ITunesImporter {
             track.album = trackData["Album"] as? String
             track.path = trackData["Location"] as? String
             
-            library.add(track: track)
+            library.addTrackToLibrary(track)
         }
         
         for playlistData in nsdict.object(forKey: "Playlists") as! NSArray {
@@ -54,10 +54,10 @@ class ITunesImporter {
             }
             
             if let parent = playlistData.object(forKey: "Parent Persistent ID") as? String {
-                library.add(playlist: playlist, to: library.playlist(byId: parent)!)
+                library.addPlaylist(playlist, to: library.playlist(byId: parent)!)
             }
             else {
-                library.add(playlist: playlist)
+                library.addPlaylist(playlist)
             }
         }
         

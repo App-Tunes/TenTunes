@@ -64,7 +64,7 @@ class Library {
     
     func add(from: Library) {
         for (_, track) in from.database {
-            add(track: track)
+            addTrackToLibrary(track)
         }
         
         from.masterPlaylist.name = "iTunes Library"
@@ -78,7 +78,7 @@ class Library {
         ViewController.shared.trackController.desired._changed = true
     }
 
-    func add(track: Track) {
+    func addTrackToLibrary(_ track: Track) {
         if database.keys.contains(track.id) {
             fatalError("Duplicate track ID")
         }
@@ -87,15 +87,33 @@ class Library {
         allTracks.tracks.append(track)
     }
     
-    func add(playlist: Playlist, to: Playlist? = nil, at: Int? = nil) {
+    func addTracks(_ tracks: [Track], to: Playlist, above: Int? = nil) {
+        // TODO Allow duplicates after asking
+        let above = above ?? to.size
+        
+        // Add the tracks we're missing
+        to.tracks.append(contentsOf: tracks.filter { !to.tracks.contains($0) })
+        // Rearrange the tracks
+        to.tracks.rearrange(elements: tracks, to: above)
+        
+        // TODO Adjust parents' order? I mean, it sucks anyway
+        // TODO Add to playing playlists? Meh
+        let path = self.path(of: to)!
+
+        if path.contains(ViewController.shared.trackController.history.playlist) {
+            ViewController.shared.trackController.desired._changed = true
+        }
+    }
+    
+    func addPlaylist(_ playlist: Playlist, to: Playlist? = nil, above: Int? = nil) {
         let to = to ?? masterPlaylist
         guard to.isFolder else {
             fatalError("Parent not a folder")
         }
-        let at = at ?? to.children!.count
+        let above = above ?? to.children!.count
 
         playlistDatabase[playlist.id] = playlist
-        to.children?.insert(playlist, at: at)
+        to.children?.insert(playlist, at: above)
         playlistParents[playlist.id] = to
         
         if playlist.size > 0, let path = path(of: to) {
@@ -165,5 +183,20 @@ class Library {
         for playlist in playlists.reversed() {
             playlist.tracks = Array(Set<Track>(playlist.children!.flatMap { $0.tracks }))
         }
+    }
+}
+
+// Pasteboard
+
+extension Library {
+    func writeTrack(_ track: Track, toPasteboarditem item: NSPasteboardItem) {
+        item.setString(String(track.id), forType: Track.pasteboardType)
+    }
+    
+    func readTrack(fromPasteboardItem item: NSPasteboardItem) -> Track? {
+        if let id = item.string(forType: Track.pasteboardType) ?=> Int.init {
+            return track(byId: id)
+        }
+        return nil
     }
 }

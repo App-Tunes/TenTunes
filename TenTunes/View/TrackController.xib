@@ -269,7 +269,7 @@ Gw
             <connections>
                 <outlet property="delegate" destination="-2" id="ZWV-bi-LLD"/>
             </connections>
-            <point key="canvasLocation" x="50" y="21"/>
+            <point key="canvasLocation" x="644" y="134"/>
         </menu>
     </objects>
     <resources>

@@ -27,6 +27,14 @@ class PlayHistory {
         playingIndex = from.playingIndex
     }
     
+    var isUntouched: Bool {
+        return order == playlist.tracks
+    }
+    
+    var isUnsorted: Bool {
+        return order.sharesOrder(with: playlist.tracks)
+    }
+    
     // Order, Filter
     
     func filter(by filter: @escaping (Track) -> Bool) {

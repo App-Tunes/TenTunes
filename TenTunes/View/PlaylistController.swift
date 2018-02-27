@@ -25,8 +25,9 @@ import Cocoa
     }
     
     @IBAction func didDoubleClick(_ sender: Any) {
-        if let playPlaylist = playPlaylist {
-            playPlaylist(_outlineView.item(atRow: _outlineView.clickedRow) as! Playlist)
+        let clicked = _outlineView.clickedRow
+        if let playPlaylist = playPlaylist, clicked > 0 {
+            playPlaylist(_outlineView.item(atRow: clicked) as! Playlist)
         }
     }
     
@@ -72,7 +73,7 @@ import Cocoa
         let createPlaylist = Playlist(folder: false)
         let (parent, idx) = playlistInsertionPosition
         
-        Library.shared.add(playlist: createPlaylist, to: parent, at: idx)
+        Library.shared.addPlaylist(createPlaylist, to: parent, above: idx)
         select(playlist: createPlaylist, editTitle: true)
     }
     
@@ -81,7 +82,7 @@ import Cocoa
         let (parent, idx) = playlistInsertionPosition
         
         // TODO If we select multiple playlists at once, put them in the newly created one
-        Library.shared.add(playlist: createPlaylist, to: parent, at: idx)
+        Library.shared.addPlaylist(createPlaylist, to: parent, above: idx)
         select(playlist: createPlaylist, editTitle: true)
     }
     

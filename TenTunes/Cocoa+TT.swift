@@ -49,6 +49,26 @@ extension Collection where Iterator.Element == CGFloat {
     }
 }
 
+extension Array {
+    mutating func remove(at indexes: [Int]) {
+        for index in indexes.sorted(by: >) {
+            remove(at: index)
+        }
+    }
+
+    public mutating func rearrange(from: [Int], to: Int) {
+        // First get the elements
+        let elements = from.map { self[$0] }
+        // Calculate by how much our index is going to be bumped down
+        let toAfter = to - (from.filter { $0 < to }).count
+        
+        // Remove at indices
+        remove(at: from)
+        // Insert to new position
+        insert(contentsOf: elements, at: toAfter)
+    }
+}
+
 extension Array where Element: Equatable {
     @discardableResult
     public mutating func remove(element: Element) -> Bool {
@@ -65,6 +85,10 @@ extension Array where Element: Equatable {
     
     public func removing(all: [Element]) -> [Element] {
         return filter { !all.contains($0) }
+    }
+    
+    public mutating func rearrange(elements: [Element], to: Int) {
+        rearrange(from: elements.map { self.index(of: $0)! }, to: to)
     }
     
     static func flattened(root: Element, by: (Element) -> [Element]?) -> [Element] {
@@ -96,6 +120,24 @@ extension Array where Element: Equatable {
         }
         
         return nil
+    }
+    
+    func sharesOrder(with: [Element]) -> Bool {
+        let (left, right) = self.count < with.count ? (self, with) : (with, self)
+        
+        var rightIdx = -1
+        
+        for (idx, item) in left.enumerated() {
+            repeat {
+                rightIdx += 1
+                if rightIdx >= right.count {
+                    return false
+                }
+            }
+                while right[rightIdx] != item
+        }
+        
+        return true
     }
 }
 
@@ -229,7 +271,7 @@ extension NSTableView {
 infix operator ?=> : NilCoalescingPrecedence
 
 extension Optional {
-    static func ?=> <T>(left: Wrapped?, right: (Wrapped) -> T) -> T? {
+    static func ?=> <T>(left: Wrapped?, right: (Wrapped) -> T?) -> T? {
         if let left = left {
             return right(left)
         }

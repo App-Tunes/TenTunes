@@ -85,6 +85,8 @@ class TrackController: NSViewController {
     override func awakeFromNib() {
         desired = PlayHistorySetup { self.history = $0 }
         
+        _tableView.registerForDraggedTypes([Track.pasteboardType])
+
         _searchBarHeight.constant = CGFloat(0)
         
         _sortTitle = addSearchBarItem(title: "Title", previous: _sortLabel)
@@ -275,6 +277,30 @@ extension TrackController: NSTableViewDelegate {
     
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
         return VibrantTableRowView()
+    }
+    
+    // Pasteboard, Dragging
+    
+    func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
+        let item = NSPasteboardItem()
+        Library.shared.writeTrack(history.track(at: row)!, toPasteboarditem: item)
+        return item
+    }
+    
+    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+        if dropOperation == .above, Library.shared.isEditable(playlist: history.playlist), history.isUnsorted {
+            return .move
+        }
+        return []
+    }
+    
+    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
+        let pasteboard = info.draggingPasteboard()
+        let tracks = (pasteboard.pasteboardItems ?? []).flatMap(Library.shared.readTrack)
+        
+        Library.shared.addTracks(tracks, to: history.playlist, above: row)
+
+        return true
     }
 }
 

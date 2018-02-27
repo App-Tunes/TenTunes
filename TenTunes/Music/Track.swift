@@ -10,6 +10,8 @@ import Cocoa
 import AudioKit
 
 class Track {
+    static let pasteboardType = NSPasteboard.PasteboardType(rawValue: "tentues.track")
+    
     var id: Int = 0 // TODO Use proper UUIDs, save iTunes ID somewhere else
     var title: String? = nil
     var author: String? = nil
@@ -74,6 +76,8 @@ class Track {
         return [rTitle, rAuthor, rAlbum]
     }
 }
+
+// Metadata
 
 extension Track {
     func fetchMetadata() {

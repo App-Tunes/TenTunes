@@ -63,12 +63,17 @@ import Cocoa
     
     func select(playlist: Playlist, editTitle: Bool = false) {
         // Select
-        // TODO Expand Parent
         // TODO Edit Title
         // If we created in a closed folder it might not exist
         
-        let idx = _outlineView.row(forItem: playlist)
-        if idx >= 0 {
+        if let path = Library.shared.path(of: playlist) {
+            for parent in path.dropLast() {
+                _outlineView.expandItem(parent)
+            }
+            
+            let idx = _outlineView.row(forItem: playlist)
+            if idx < 0 { fatalError("Playlist does not exist in view even though it must!") }
+            
             _outlineView.selectRowIndexes(IndexSet(integer: idx), byExtendingSelection: false)
         }
     }

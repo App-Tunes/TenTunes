@@ -51,6 +51,10 @@ class Library {
         }
         return nil
     }
+    
+    func playlists(containing: [Track]) {
+        return allPlaylists.filter { $0.tracks.contains { tracks.contains($0) } }
+    }
 
     // Editing
 
@@ -161,7 +165,7 @@ class Library {
     }
     
     func delete(tracks: [Track]) {
-        let relevant = allPlaylists.filter { $0.tracks.contains { tracks.contains($0) } }
+        let relevant = playlists(containing: tracks)
         
         for playlist in relevant {
             remove(tracks: tracks, from: playlist, force: true)

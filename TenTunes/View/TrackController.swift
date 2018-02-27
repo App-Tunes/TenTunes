@@ -292,24 +292,6 @@ extension TrackController: NSSearchFieldDelegate {
     func searchFieldDidEndSearching(_ sender: NSSearchField) {
         closeSearchBar(self)
     }
-    
-    @IBAction func openSearchBar(_ sender: Any) {
-        NSAnimationContext.runAnimationGroup({_ in
-            NSAnimationContext.current.duration = 0.2
-            _searchBarHeight.animator().constant = CGFloat(26)
-        })
-        _searchField.window?.makeFirstResponder(_searchField)
-    }
-    
-    @IBAction func closeSearchBar(_ sender: Any) {
-        desired.filter = nil
-
-        _searchField.resignFirstResponder()
-        NSAnimationContext.runAnimationGroup({_ in
-            NSAnimationContext.current.duration = 0.2
-            _searchBarHeight.animator().constant = CGFloat(0)
-        })
-    }
 }
 
 extension TrackController: NSMenuDelegate {
@@ -356,12 +338,33 @@ extension TrackController: NSUserInterfaceValidations {
         if action == #selector(delete as (AnyObject) -> Swift.Void) {
             return Library.shared.isEditable(playlist: history.playlist)
         }
-        
+
+        if action == #selector(performFindPanelAction) { return true }
+
         return false
     }
     
     @IBAction func delete(_ sender: AnyObject) {
         remove(indices: Array(_tableView.selectedRowIndexes))
+    }
+    
+    @IBAction func performFindPanelAction(_ sender: AnyObject) {
+        NSAnimationContext.runAnimationGroup({_ in
+            NSAnimationContext.current.duration = 0.2
+            _searchBarHeight.animator().constant = CGFloat(26)
+        })
+        _searchField.window?.makeFirstResponder(_searchField)
+    }
+    
+    @IBAction func closeSearchBar(_ sender: Any) {
+        desired.filter = nil
+        
+        _searchField.resignFirstResponder()
+        NSAnimationContext.runAnimationGroup({_ in
+            NSAnimationContext.current.duration = 0.2
+            _searchBarHeight.animator().constant = CGFloat(0)
+        })
+        view.window?.makeFirstResponder(view)
     }
 }
 

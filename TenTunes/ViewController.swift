@@ -139,9 +139,7 @@ class ViewController: NSViewController {
         
         if keyString == " ", trackController._tableView.window?.firstResponder is NSTableView {
             self._play.performClick(self) // Grab the spaces from the tables since it takes forever for those
-        } else if keyString == "f" && NSEvent.modifierFlags.contains(.command) {
-            trackController.openSearchBar(self)
-        }
+        } 
         else {
             return event
         }

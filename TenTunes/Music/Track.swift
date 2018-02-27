@@ -10,7 +10,7 @@ import Cocoa
 import AudioKit
 
 class Track {
-    var id: Int = 0 // TODO Good IDs
+    var id: Int = 0 // TODO Use proper UUIDs, save iTunes ID somewhere else
     var title: String? = nil
     var author: String? = nil
     var album: String? = nil

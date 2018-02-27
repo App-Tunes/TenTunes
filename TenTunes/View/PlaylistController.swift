@@ -36,6 +36,41 @@ import Cocoa
         }
         _outlineView.deselectAll(self)
     }
+    
+    @IBAction func createPlaylist(_ sender: Any) {
+        let idx = _outlineView.selectedRowIndexes.last
+        let createPlaylist = Playlist(folder: false)
+        
+        // Add to parent
+        if let idx = idx {
+            let selectedPlaylist = _outlineView.item(atRow: idx) as! Playlist
+            
+            if selectedPlaylist.isFolder {
+                // Insert as first
+                Library.shared.add(playlist: createPlaylist, to: selectedPlaylist)
+            }
+            else {
+                // Add below
+                let (parent, idx) = Library.shared.position(of: selectedPlaylist)!
+                Library.shared.add(playlist: createPlaylist, to: parent, at: idx + 1)
+            }
+        }
+        else {
+            Library.shared.add(playlist: createPlaylist)
+        }
+        
+        // Select
+        // TODO Expand
+        // TODO Edit Title 
+        // If we created in a closed folder it might not exist
+        let createdIndex = _outlineView.row(forItem: createPlaylist)
+        if createdIndex >= 0 {
+            _outlineView.selectRowIndexes(IndexSet(integer: createdIndex), byExtendingSelection: false)
+        }
+    }
+    
+    @IBAction func createGroup(_ sender: Any) {
+    }
 }
 
 extension PlaylistController : NSOutlineViewDataSource {

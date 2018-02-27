@@ -9,7 +9,7 @@
 import Cocoa
 
 class Playlist {
-    var id: String = ""
+    var id: String
     
     var name: String = "Unnamed Playlist"
     
@@ -20,6 +20,7 @@ class Playlist {
         if folder {
             children = []
         }
+        id = UUID().uuidString // TODO Use proper UUIDs
     }
     
     func track(at: Int) -> Track? {

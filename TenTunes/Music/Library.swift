@@ -36,7 +36,7 @@ class Library {
     func parent(of: Playlist) -> Playlist? {
         return playlistParents[of.id]
     }
-    
+
     func path(of: Playlist) -> [Playlist]? {
         var path = [of]
         while let prev = parent(of: path.first!) {
@@ -45,6 +45,13 @@ class Library {
         return path
     }
     
+    func position(of: Playlist) -> (Playlist, Int)? {
+        if let parent = parent(of: of) {
+            return (parent, parent.children!.index(of: of)!)
+        }
+        return nil
+    }
+
     // Editing
 
     func isPlaylist(playlist: Playlist) -> Bool {
@@ -80,16 +87,22 @@ class Library {
         allTracks.tracks.append(track)
     }
     
-    func add(playlist: Playlist, to: Playlist? = nil) {
-        playlistDatabase[playlist.id] = playlist
-        
+    func add(playlist: Playlist, to: Playlist? = nil, at: Int? = nil) {
         let to = to ?? masterPlaylist
-        to.children?.append(playlist)
+        guard to.isFolder else {
+            fatalError("Parent not a folder")
+        }
+        let at = at ?? to.children!.count
+
+        playlistDatabase[playlist.id] = playlist
+        to.children?.insert(playlist, at: at)
         playlistParents[playlist.id] = to
         
-        if let path = path(of: to) {
+        if playlist.size > 0, let path = path(of: to) {
             recalculate(playlists: path)
         }
+        
+        ViewController.shared.playlistController._outlineView.reloadData()
     }
 
     func remove(tracks: [Track], from: Playlist, force: Bool = false) {

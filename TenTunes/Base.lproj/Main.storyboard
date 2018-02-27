@@ -994,10 +994,13 @@ IA
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="ki5-b8-hqg" secondAttribute="height" multiplier="1:1" id="2tD-Pt-aMQ"/>
                                                                         </constraints>
-                                                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="playlist" imagePosition="overlaps" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="nDb-ZF-046">
+                                                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="playlist" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="nDb-ZF-046">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                         </buttonCell>
+                                                                        <connections>
+                                                                            <action selector="createPlaylist:" target="8ts-DO-v2q" id="M8C-yp-Q1S"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <button toolTip="Library" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Lid-8O-9oY">
                                                                         <rect key="frame" x="30" y="3" width="20" height="20"/>
@@ -1021,6 +1024,9 @@ IA
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                         </buttonCell>
+                                                                        <connections>
+                                                                            <action selector="createGroup:" target="8ts-DO-v2q" id="whi-sx-v1C"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <constraints>

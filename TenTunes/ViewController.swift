@@ -129,9 +129,11 @@ class ViewController: NSViewController {
         _timePlayed.alphaValue = 0.5
         _timeLeft.alphaValue = 0.5
         
-        _play.set(color: NSColor.lightGray)
-        _previous.set(color: NSColor.lightGray)
-        _next.set(color: NSColor.lightGray)
+        if self.view.window!.appearance?.name == NSAppearance.Name.vibrantDark {
+            _play.set(color: NSColor.lightGray)
+            _previous.set(color: NSColor.lightGray)
+            _next.set(color: NSColor.lightGray)
+        }
     }
         
     func keyDown(with event: NSEvent) -> NSEvent? {

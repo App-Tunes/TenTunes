@@ -93,12 +93,20 @@ class TrackController: NSViewController {
         _sortKey = addSearchBarItem(title: "Key", previous: _sortTitle)
         _sortBPM = addSearchBarItem(title: "BPM", previous: _sortKey)
         
-        // Table views don't support transparent bg colors, otherwise the labels background color add to it
-        // Also it can't be too dark??
-        _tableView.backgroundColor = NSColor(white: 0.07, alpha: 1.0)
-        
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             return self.keyDown(with: $0)
+        }
+    }
+    
+    override func viewDidAppear() {
+        // Appearance is not yet set in willappear
+        if self.view.window!.appearance?.name == NSAppearance.Name.vibrantDark {
+            // Table views don't support transparent bg colors, otherwise the labels background color add to it
+            // Also it can't be too dark??
+            _tableView.backgroundColor = NSColor(white: 0.07, alpha: 1.0)
+        }
+        else {
+            _tableView.backgroundColor = NSColor(white: 0.73, alpha: 1.0)
         }
     }
     

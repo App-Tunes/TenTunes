@@ -63,19 +63,14 @@ class Library {
     }
     
     func add(from: Library) {
-        for (_, track) in from.database {
-            addTrackToLibrary(track)
-        }
-        
-        from.masterPlaylist.name = "iTunes Library"
-        masterPlaylist.add(child: from.masterPlaylist)
-        
-        // TODO Make up new IDs
+        // Add stuff to library
+        for (_, track) in from.database { addTrackToLibrary(track) }
         playlistParents.merge(from.playlistParents, uniquingKeysWith: { _,_ in fatalError("Duplicate playlist parents??") })
         playlistDatabase.merge(from.playlistDatabase, uniquingKeysWith: { _,_ in fatalError("Duplicate playlist IDs") })
 
-        ViewController.shared.playlistController._outlineView.reloadData()
-        ViewController.shared.trackController.desired._changed = true
+        // Import as playlist
+        from.masterPlaylist.name = "iTunes Library"
+        addPlaylist(from.masterPlaylist, to: masterPlaylist, above: nil)
     }
 
     func addTrackToLibrary(_ track: Track) {

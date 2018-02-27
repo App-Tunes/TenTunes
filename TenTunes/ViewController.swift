@@ -183,9 +183,13 @@ class ViewController: NSViewController {
             }
         }
         else {
-            player.stop()
-            playing = nil
-            _spectrumView.analysis = nil
+            if history!.playingIndex < history!.size {
+                play(moved: 1)
+            }
+            else {
+                playing = nil
+                _spectrumView.analysis = nil
+            }
         }
         
         self.updatePlaying()

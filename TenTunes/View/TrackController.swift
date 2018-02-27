@@ -33,7 +33,7 @@ class PlayHistorySetup {
     }
 }
 
-class TrackController: NSObject {
+class TrackController: NSViewController {
     @IBOutlet var _tableView: NSTableView!
     @IBOutlet weak var _searchField: NSSearchField!
     @IBOutlet var _searchBarHeight: NSLayoutConstraint!
@@ -228,6 +228,13 @@ class TrackController: NSObject {
             fatalError("Unknown Button")
         }
     }
+    
+    func remove(indices: [Int]?) {
+        if let indices = indices {
+            Library.shared.remove(tracks: indices.flatMap { history.track(at: $0) }, from: history.playlist)
+            // Don't reload data, we'll be updated in async
+        }
+    }
 }
 
 extension TrackController: NSTableViewDelegate {
@@ -319,17 +326,42 @@ extension TrackController: NSMenuDelegate {
     }
     
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        // Probably the main Application menu
+        if menuItem.menu?.delegate !== self {
+            return validateUserInterfaceItem(menuItem)
+        }
+
+        // Right Click Menu
         if menuItem == _menuRemoveFromPlaylist { return Library.shared.isEditable(playlist: history.playlist) }
         
         return true
     }
     
     @IBAction func removeTrack(_ sender: Any) {
-        Library.shared.remove(tracks: menuTracks, from: history.playlist)
-        // Don't reload data, we'll be updated in async
+        remove(indices: _tableView.clickedRows)
     }
     
     @IBAction func deleteTrack(_ sender: Any) {
         Library.shared.delete(tracks: menuTracks)
     }
 }
+
+extension TrackController: NSUserInterfaceValidations {
+    
+    func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
+        guard let action = item.action else {
+            return false
+        }
+
+        if action == #selector(delete as (AnyObject) -> Swift.Void) {
+            return Library.shared.isEditable(playlist: history.playlist)
+        }
+        
+        return false
+    }
+    
+    @IBAction func delete(_ sender: AnyObject) {
+        remove(indices: Array(_tableView.selectedRowIndexes))
+    }
+}
+

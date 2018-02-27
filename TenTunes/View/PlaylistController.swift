@@ -8,7 +8,7 @@
 
 import Cocoa
 
-@objc class PlaylistController: NSObject {
+@objc class PlaylistController: NSViewController {
     var masterPlaylist: Playlist = Playlist(folder: true) {
         didSet {
             self._outlineView.reloadData()
@@ -84,6 +84,12 @@ import Cocoa
         Library.shared.add(playlist: createPlaylist, to: parent, at: idx)
         select(playlist: createPlaylist, editTitle: true)
     }
+    
+    func delete(indices: [Int]?) {
+        if let indices = indices {
+            Library.shared.delete(playlists: indices.flatMap { _outlineView.item(atRow: $0) as? Playlist })
+        }
+    }
 }
 
 extension PlaylistController : NSOutlineViewDataSource {
@@ -153,6 +159,22 @@ extension PlaylistController: NSMenuDelegate {
     }
     
     @IBAction func deletePlaylist(_ sender: Any) {
-        Library.shared.delete(playlists: menuPlaylists)
+        delete(indices: _outlineView.clickedRows)
+    }
+}
+
+extension PlaylistController: NSUserInterfaceValidations {
+    func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
+        guard let action = item.action else {
+            return false
+        }
+        
+        if action == #selector(delete as (AnyObject) -> Swift.Void) { return true }
+        
+        return false
+    }
+    
+    @IBAction func delete(_ sender: AnyObject) {
+        delete(indices: Array(_outlineView.selectedRowIndexes))
     }
 }

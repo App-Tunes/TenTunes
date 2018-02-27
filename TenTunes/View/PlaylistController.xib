@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PlaylistController" customModule="TenTunes" customModuleProvider="target">
+            <connections>
+                <outlet property="_outlineView" destination="jaf-cH-DJt" id="sJF-Dr-Ogf"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="178" height="480"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Ry6-zg-Muz">
+                    <rect key="frame" x="0.0" y="454" width="178" height="26"/>
+                    <subviews>
+                        <button toolTip="Create Playlist" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8Z0-Gt-dbf">
+                            <rect key="frame" x="80" y="3" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="8Z0-Gt-dbf" secondAttribute="height" multiplier="1:1" id="A68-Nx-MH3"/>
+                            </constraints>
+                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="playlist" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="FUC-fH-z3B">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="createPlaylist:" target="-2" id="gMt-Co-cDw"/>
+                            </connections>
+                        </button>
+                        <button toolTip="Library" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="58Y-ON-eOB">
+                            <rect key="frame" x="30" y="3" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="58Y-ON-eOB" secondAttribute="height" multiplier="1:1" id="aOu-Qx-Mt4"/>
+                            </constraints>
+                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="home" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="0k3-qA-AOw">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="selectLibrary:" target="-2" id="avt-wY-yA7"/>
+                            </connections>
+                        </button>
+                        <button toolTip="Create Group" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2x8-2J-xWJ">
+                            <rect key="frame" x="130" y="3" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="2x8-2J-xWJ" secondAttribute="height" multiplier="1:1" id="mnd-Sa-TuN"/>
+                            </constraints>
+                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="folder" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="qKK-Uj-lbi">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="createGroup:" target="-2" id="32f-1f-BOe"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="26" id="355-FS-4Sk"/>
+                        <constraint firstItem="58Y-ON-eOB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ry6-zg-Muz" secondAttribute="leading" constant="30" id="7Ti-1T-pvO"/>
+                        <constraint firstAttribute="bottom" secondItem="2x8-2J-xWJ" secondAttribute="bottom" constant="3" id="9TS-az-geL"/>
+                        <constraint firstItem="8Z0-Gt-dbf" firstAttribute="leading" secondItem="58Y-ON-eOB" secondAttribute="trailing" constant="30" id="H7d-O7-IeD"/>
+                        <constraint firstItem="2x8-2J-xWJ" firstAttribute="centerX" secondItem="Ry6-zg-Muz" secondAttribute="centerX" priority="50" id="HQB-43-gtb"/>
+                        <constraint firstAttribute="bottom" secondItem="58Y-ON-eOB" secondAttribute="bottom" constant="3" id="KI7-ah-jSp"/>
+                        <constraint firstAttribute="bottom" secondItem="8Z0-Gt-dbf" secondAttribute="bottom" constant="3" id="Mms-sj-lfo"/>
+                        <constraint firstItem="2x8-2J-xWJ" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" constant="3" id="gaB-NS-QlM"/>
+                        <constraint firstItem="8Z0-Gt-dbf" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" constant="3" id="n8w-KQ-BOl"/>
+                        <constraint firstItem="58Y-ON-eOB" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" constant="3" id="uXQ-Yq-ad4"/>
+                        <constraint firstItem="8Z0-Gt-dbf" firstAttribute="centerX" secondItem="Ry6-zg-Muz" secondAttribute="centerX" priority="50" id="vUY-63-FyJ"/>
+                        <constraint firstItem="2x8-2J-xWJ" firstAttribute="leading" secondItem="8Z0-Gt-dbf" secondAttribute="trailing" constant="30" id="wVo-1e-b95"/>
+                    </constraints>
+                </customView>
+                <scrollView horizontalHuggingPriority="750" horizontalCompressionResistancePriority="25" verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="IaV-BJ-2N9">
+                    <rect key="frame" x="0.0" y="0.0" width="178" height="454"/>
+                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="lbM-WH-AFJ">
+                        <rect key="frame" x="0.0" y="0.0" width="178" height="454"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" autosaveName="Playlists" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autosaveExpandedItems="YES" outlineTableColumn="y9Z-8l-kxU" id="jaf-cH-DJt">
+                                <rect key="frame" x="0.0" y="0.0" width="178" height="454"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <size key="intercellSpacing" width="2" height="3"/>
+                                <color key="backgroundColor" red="0.1489986479" green="0.1490316391" blue="0.14899659160000001" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                <tableColumns>
+                                    <tableColumn identifier="" editable="NO" width="176" minWidth="16" maxWidth="10000" id="y9Z-8l-kxU">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                        </tableHeaderCell>
+                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="3iB-rE-9Ei">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" red="0.38378410530000001" green="0.38378410530000001" blue="0.38378410530000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
+                                        <prototypeCellViews>
+                                            <tableCellView identifier="nameCell" id="asv-Nf-2xS">
+                                                <rect key="frame" x="1" y="1" width="176" height="17"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I85-vY-J6p">
+                                                        <rect key="frame" x="3" y="0.0" width="17" height="17"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="playlist" id="pJx-EJ-XRV"/>
+                                                    </imageView>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fv7-FW-mKj">
+                                                        <rect key="frame" x="25" y="0.0" width="151" height="17"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="C8d-Y8-Trs">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                                <connections>
+                                                    <outlet property="imageView" destination="I85-vY-J6p" id="BbY-iS-yDu"/>
+                                                    <outlet property="textField" destination="fv7-FW-mKj" id="cDe-R4-Igq"/>
+                                                </connections>
+                                            </tableCellView>
+                                        </prototypeCellViews>
+                                    </tableColumn>
+                                </tableColumns>
+                                <connections>
+                                    <action selector="didClick:" target="-2" id="lgE-cS-8hn"/>
+                                    <action trigger="doubleAction" selector="didDoubleClick:" target="-2" id="XaR-1e-HbA"/>
+                                    <outlet property="dataSource" destination="-2" id="ejm-Pp-MDl"/>
+                                    <outlet property="delegate" destination="-2" id="InO-rf-nk7"/>
+                                    <outlet property="menu" destination="5YT-Yc-AOa" id="lc1-Pk-tdm"/>
+                                </connections>
+                            </outlineView>
+                        </subviews>
+                        <nil key="backgroundColor"/>
+                    </clipView>
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="Qjg-1t-Etv">
+                        <rect key="frame" x="-100" y="-100" width="178" height="16"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="ISm-aY-tvn">
+                        <rect key="frame" x="224" y="17" width="15" height="102"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="IaV-BJ-2N9" secondAttribute="trailing" id="4Id-gU-a9O"/>
+                <constraint firstItem="IaV-BJ-2N9" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="bottom" id="94p-SO-1gK"/>
+                <constraint firstItem="Ry6-zg-Muz" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="NAq-Mn-pRx"/>
+                <constraint firstItem="Ry6-zg-Muz" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="OYG-go-Q4q"/>
+                <constraint firstItem="IaV-BJ-2N9" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="T88-TC-6fw"/>
+                <constraint firstAttribute="trailing" secondItem="Ry6-zg-Muz" secondAttribute="trailing" id="a3m-hS-Ygf"/>
+                <constraint firstItem="IaV-BJ-2N9" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="bottom" id="ocP-mR-FOd"/>
+                <constraint firstAttribute="bottom" secondItem="IaV-BJ-2N9" secondAttribute="bottom" id="pFY-Az-mgl"/>
+            </constraints>
+            <point key="canvasLocation" x="-12" y="64"/>
+        </customView>
+        <menu title="Playlist" id="5YT-Yc-AOa" userLabel="Playlist">
+            <items>
+                <menuItem title="Play" id="DWl-hq-9u6">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="didDoubleClick:" target="-2" id="jv2-W8-IGW"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Duplicate" enabled="NO" id="xYA-qX-gKO">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Delete" id="ZLK-fo-c9h">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="deletePlaylist:" target="-2" id="QRZ-1B-Zjq"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <connections>
+                <outlet property="delegate" destination="-2" id="Guf-Rv-dhm"/>
+            </connections>
+            <point key="canvasLocation" x="278" y="51"/>
+        </menu>
+    </objects>
+    <resources>
+        <image name="folder" width="125" height="125"/>
+        <image name="home" width="140" height="140"/>
+        <image name="playlist" width="125" height="125"/>
+    </resources>
+</document>

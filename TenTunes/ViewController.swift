@@ -49,6 +49,10 @@ class ViewController: NSViewController {
     
     @IBOutlet var _volume: NSSlider!
 
+    @IBOutlet var _playlistView: NSView!
+    @IBOutlet var _trackView: NSView!
+    @IBOutlet var _splitView: NSSplitView!
+    
     var history: PlayHistory?
     var player: AKPlayer!
     var playing: Track?
@@ -66,12 +70,20 @@ class ViewController: NSViewController {
     
     var mediaKeyTap: MediaKeyTap?
     
-    @IBOutlet var playlistController: PlaylistController!
-    @IBOutlet var trackController: TrackController!
+    var playlistController: PlaylistController!
+    var trackController: TrackController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        trackController = TrackController(nibName: NSNib.Name(rawValue: "TrackController"), bundle: nil)
+        trackController.view.frame = _trackView.frame
+        _splitView.replaceSubview(_trackView, with: trackController.view)
         
+        playlistController = PlaylistController(nibName: NSNib.Name(rawValue: "PlaylistController"), bundle: nil)
+        playlistController.view.frame = _playlistView.frame
+        _splitView.replaceSubview(_playlistView, with: playlistController.view)
+
         ViewController.shared = self
         
         self.player = AKPlayer()

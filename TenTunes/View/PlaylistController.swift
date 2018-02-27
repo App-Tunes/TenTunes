@@ -22,7 +22,7 @@ import Cocoa
     @IBOutlet var _outlineView: NSOutlineView!
     
     override func awakeFromNib() {
-        _outlineView.registerForDraggedTypes([Playlist.pasteboardType])
+        _outlineView.registerForDraggedTypes([Playlist.pasteboardType, Track.pasteboardType])
     }
     
     @IBAction func didClick(_ sender: Any) {
@@ -160,21 +160,50 @@ extension PlaylistController : NSOutlineViewDelegate {
     }
 
     func outlineView(_ outlineView: NSOutlineView, validateDrop info: NSDraggingInfo, proposedItem item: Any?, proposedChildIndex index: Int) -> NSDragOperation {
-        // We can always rearrange, except into playlists
-        let playlist = item as? Playlist ?? masterPlaylist
-        if !playlist.isFolder {
+        guard let type = info.draggingPasteboard().availableType(from: outlineView.registeredDraggedTypes) else {
             return []
         }
-        return .move
+        
+        switch type {
+        case Track.pasteboardType:
+            let playlist = item as? Playlist ?? masterPlaylist
+            return Library.shared.isEditable(playlist: playlist) ? .move : []
+        case Playlist.pasteboardType:
+            // We can always rearrange, except into playlists
+            let playlist = item as? Playlist ?? masterPlaylist
+            if !playlist.isFolder {
+                return []
+            }
+            return .move
+        default:
+            fatalError("Unhandled, but registered pasteboard type")
+        }
     }
     
     func outlineView(_ outlineView: NSOutlineView, acceptDrop info: NSDraggingInfo, item: Any?, childIndex index: Int) -> Bool {
         let pasteboard = info.draggingPasteboard()
-        let playlists = (pasteboard.pasteboardItems ?? []).flatMap(Library.shared.readPlaylist)
-        let parent = item as? Playlist ?? masterPlaylist
         
-        for playlist in playlists {
-            Library.shared.addPlaylist(playlist, to: parent, above: index >= 0 ? index : nil)
+        guard let type = pasteboard.availableType(from: outlineView.registeredDraggedTypes) else {
+            return false
+        }
+        
+        let parent = item as? Playlist ?? masterPlaylist
+
+        switch type {
+        case Track.pasteboardType:
+            let tracks = (pasteboard.pasteboardItems ?? []).flatMap(Library.shared.readTrack)
+
+            Library.shared.addTracks(tracks, to: parent)
+            return true
+        case Playlist.pasteboardType:
+            let playlists = (pasteboard.pasteboardItems ?? []).flatMap(Library.shared.readPlaylist)
+            
+            for playlist in playlists {
+                Library.shared.addPlaylist(playlist, to: parent, above: index >= 0 ? index : nil)
+            }
+            break
+        default:
+            fatalError("Unhandled, but registered pasteboard type")
         }
         
         return true

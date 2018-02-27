@@ -150,3 +150,15 @@ class Key {
         return NSAttributedString(string: description, attributes: [.foregroundColor: color])
     }
 }
+
+extension Key : Comparable {    
+    static func <(lhs: Key, rhs: Key) -> Bool {
+        // Sort by note, then minorness
+        return lhs.camelot < rhs.camelot ? true
+            : rhs.camelot < lhs.camelot ? false : lhs.isMinor
+    }
+    
+    static func ==(lhs: Key, rhs: Key) -> Bool {
+        return lhs.note == rhs.note && lhs.isMinor == rhs.isMinor
+    }
+}

@@ -8,8 +8,13 @@
 
 import Cocoa
 
-extension String {
-    
+extension Optional {
+    // Simply puts the nils at the end
+    static func compare(_ lhs: Key?, _ rhs: Key?) -> Bool {
+        if lhs == nil { return false }
+        if rhs == nil { return true }
+        return lhs! < rhs!
+    }
 }
 
 extension Collection {

@@ -224,7 +224,7 @@ class TrackController: NSViewController {
         case _sortTitle:
             return { $0.rTitle < $1.rTitle }
         case _sortKey:
-            return { ($0.key?.camelot ?? 50) < ($1.key?.camelot ?? 50)  }
+            return { Optional<Key>.compare($0.key, $1.key) }
         case _sortBPM:
             return { ($0.bpm ?? 500) < ($1.bpm ?? 500)  }
         default:

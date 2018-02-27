@@ -19,10 +19,10 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="Ry6-zg-Muz">
-                    <rect key="frame" x="0.0" y="454" width="178" height="26"/>
+                    <rect key="frame" x="0.0" y="450" width="178" height="30"/>
                     <subviews>
                         <button toolTip="Create Playlist" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8Z0-Gt-dbf">
-                            <rect key="frame" x="80" y="3" width="20" height="20"/>
+                            <rect key="frame" x="80" y="5" width="20" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="8Z0-Gt-dbf" secondAttribute="height" multiplier="1:1" id="A68-Nx-MH3"/>
                             </constraints>
@@ -35,7 +35,7 @@
                             </connections>
                         </button>
                         <button toolTip="Library" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="58Y-ON-eOB">
-                            <rect key="frame" x="30" y="3" width="20" height="20"/>
+                            <rect key="frame" x="30" y="5" width="20" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="58Y-ON-eOB" secondAttribute="height" multiplier="1:1" id="aOu-Qx-Mt4"/>
                             </constraints>
@@ -48,7 +48,7 @@
                             </connections>
                         </button>
                         <button toolTip="Create Group" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2x8-2J-xWJ">
-                            <rect key="frame" x="130" y="3" width="20" height="20"/>
+                            <rect key="frame" x="130" y="5" width="20" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="2x8-2J-xWJ" secondAttribute="height" multiplier="1:1" id="mnd-Sa-TuN"/>
                             </constraints>
@@ -62,28 +62,28 @@
                         </button>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" constant="26" id="355-FS-4Sk"/>
+                        <constraint firstAttribute="height" constant="30" id="355-FS-4Sk"/>
                         <constraint firstItem="58Y-ON-eOB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ry6-zg-Muz" secondAttribute="leading" constant="30" id="7Ti-1T-pvO"/>
-                        <constraint firstAttribute="bottom" secondItem="2x8-2J-xWJ" secondAttribute="bottom" constant="3" id="9TS-az-geL"/>
+                        <constraint firstAttribute="bottom" secondItem="2x8-2J-xWJ" secondAttribute="bottom" constant="5" id="9TS-az-geL"/>
                         <constraint firstItem="8Z0-Gt-dbf" firstAttribute="leading" secondItem="58Y-ON-eOB" secondAttribute="trailing" constant="30" id="H7d-O7-IeD"/>
                         <constraint firstItem="2x8-2J-xWJ" firstAttribute="centerX" secondItem="Ry6-zg-Muz" secondAttribute="centerX" priority="50" id="HQB-43-gtb"/>
-                        <constraint firstAttribute="bottom" secondItem="58Y-ON-eOB" secondAttribute="bottom" constant="3" id="KI7-ah-jSp"/>
-                        <constraint firstAttribute="bottom" secondItem="8Z0-Gt-dbf" secondAttribute="bottom" constant="3" id="Mms-sj-lfo"/>
-                        <constraint firstItem="2x8-2J-xWJ" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" constant="3" id="gaB-NS-QlM"/>
-                        <constraint firstItem="8Z0-Gt-dbf" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" constant="3" id="n8w-KQ-BOl"/>
-                        <constraint firstItem="58Y-ON-eOB" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" constant="3" id="uXQ-Yq-ad4"/>
+                        <constraint firstAttribute="bottom" secondItem="58Y-ON-eOB" secondAttribute="bottom" constant="5" id="KI7-ah-jSp"/>
+                        <constraint firstAttribute="bottom" secondItem="8Z0-Gt-dbf" secondAttribute="bottom" constant="5" id="Mms-sj-lfo"/>
+                        <constraint firstItem="2x8-2J-xWJ" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" constant="5" id="gaB-NS-QlM"/>
+                        <constraint firstItem="8Z0-Gt-dbf" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" constant="5" id="n8w-KQ-BOl"/>
+                        <constraint firstItem="58Y-ON-eOB" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" constant="5" id="uXQ-Yq-ad4"/>
                         <constraint firstItem="8Z0-Gt-dbf" firstAttribute="centerX" secondItem="Ry6-zg-Muz" secondAttribute="centerX" priority="50" id="vUY-63-FyJ"/>
                         <constraint firstItem="2x8-2J-xWJ" firstAttribute="leading" secondItem="8Z0-Gt-dbf" secondAttribute="trailing" constant="30" id="wVo-1e-b95"/>
                     </constraints>
                 </customView>
                 <scrollView horizontalHuggingPriority="750" horizontalCompressionResistancePriority="25" verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="IaV-BJ-2N9">
-                    <rect key="frame" x="0.0" y="0.0" width="178" height="454"/>
+                    <rect key="frame" x="0.0" y="0.0" width="178" height="450"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="lbM-WH-AFJ">
-                        <rect key="frame" x="0.0" y="0.0" width="178" height="454"/>
+                        <rect key="frame" x="0.0" y="0.0" width="178" height="450"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" autosaveName="Playlists" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autosaveExpandedItems="YES" outlineTableColumn="y9Z-8l-kxU" id="jaf-cH-DJt">
-                                <rect key="frame" x="0.0" y="0.0" width="178" height="454"/>
+                                <rect key="frame" x="0.0" y="0.0" width="178" height="450"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="2" height="3"/>
                                 <color key="backgroundColor" red="0.1489986479" green="0.1490316391" blue="0.14899659160000001" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>

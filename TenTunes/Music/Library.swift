@@ -112,10 +112,30 @@ class Library {
         }
         let above = above ?? to.children!.count
 
+        var copy: Playlist? = nil
+        
+        // If we're still in another playlist
+        if let (parent, idx) = position(of: playlist) {
+            // Add a hollow copy of this playlist
+            copy = Playlist(folder: false)
+            copy!.tracks.append(contentsOf: playlist.tracks)
+            
+            // Replace our playlist with the hollow copy
+            parent.children![idx] = copy!
+            playlistParents[copy!.id] = parent
+        }
+        
         playlistDatabase[playlist.id] = playlist
         to.children?.insert(playlist, at: above)
         playlistParents[playlist.id] = to
         
+        // Delete the copy so all tracks update
+        // Do this after adding the new one so we don't have to recalculate indices
+        if let copy = copy {
+            delete(playlists: [copy])
+        }
+        
+        // TODO Do a change add
         if playlist.size > 0, let path = path(of: to) {
             recalculate(playlists: path)
         }
@@ -155,7 +175,9 @@ class Library {
             remove(tracks: tracks, from: playlist)
         }
         
+        // Remove from database
         remove(tracks: tracks, from: allTracks, force: true)
+        database.removeValues(forKeys: tracks.map { $0.id })
     }
     
     func delete(playlists: [Playlist]) {
@@ -168,8 +190,14 @@ class Library {
             remove(tracks: playlist.tracks, from: playlist)
             
             // Remove from parents
-            parent(of: playlist)?.children!.remove(element: playlist)
+            let (parent, idx) = position(of: playlist)!
+            parent.children!.remove(at: idx)
         }
+        
+        // Remove from database
+        let keys = playlists.map { $0.id }
+        playlistDatabase.removeValues(forKeys: keys)
+        playlistParents.removeValues(forKeys: keys)
         
         ViewController.shared.playlistController._outlineView.reloadData()
     }
@@ -196,6 +224,17 @@ extension Library {
     func readTrack(fromPasteboardItem item: NSPasteboardItem) -> Track? {
         if let id = item.string(forType: Track.pasteboardType) ?=> Int.init {
             return track(byId: id)
+        }
+        return nil
+    }
+
+    func writePlaylist(_ playlist: Playlist, toPasteboarditem item: NSPasteboardItem) {
+        item.setString(String(playlist.id), forType: Playlist.pasteboardType)
+    }
+    
+    func readPlaylist(fromPasteboardItem item: NSPasteboardItem) -> Playlist? {
+        if let id = item.string(forType: Playlist.pasteboardType) {
+            return playlist(byId: id)
         }
         return nil
     }

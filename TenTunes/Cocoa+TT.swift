@@ -279,3 +279,10 @@ extension Optional {
     }
 }
 
+extension Dictionary {
+    public mutating func removeValues(forKeys keys: [Key]) {
+        for key in keys {
+            removeValue(forKey: key)
+        }
+    }
+}

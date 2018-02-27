@@ -9,6 +9,8 @@
 import Cocoa
 
 class Playlist {
+    static let pasteboardType = NSPasteboard.PasteboardType(rawValue: "tentunes.playlist")
+
     var id: String
     
     var name: String = "Unnamed Playlist"

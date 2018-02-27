@@ -21,6 +21,10 @@ import Cocoa
     
     @IBOutlet var _outlineView: NSOutlineView!
     
+    override func awakeFromNib() {
+        _outlineView.registerForDraggedTypes([Playlist.pasteboardType])
+    }
+    
     @IBAction func didClick(_ sender: Any) {
     }
     
@@ -145,6 +149,37 @@ extension PlaylistController : NSOutlineViewDelegate {
     
     func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
         return VibrantTableRowView()
+    }
+    
+    // Pasteboard, Dragging
+    
+    func outlineView(_ outlineView: NSOutlineView, pasteboardWriterForItem item: Any) -> NSPasteboardWriting? {
+        let pbitem = NSPasteboardItem()
+        Library.shared.writePlaylist(item as! Playlist, toPasteboarditem: pbitem)
+        return pbitem
+    }
+
+    func outlineView(_ outlineView: NSOutlineView, validateDrop info: NSDraggingInfo, proposedItem item: Any?, proposedChildIndex index: Int) -> NSDragOperation {
+        // We can always rearrange, except into playlists
+        let playlist = item as? Playlist ?? masterPlaylist
+        if !playlist.isFolder {
+            return []
+        }
+        return .move
+    }
+    
+    func outlineView(_ outlineView: NSOutlineView, acceptDrop info: NSDraggingInfo, item: Any?, childIndex index: Int) -> Bool {
+        let pasteboard = info.draggingPasteboard()
+        let playlists = (pasteboard.pasteboardItems ?? []).flatMap(Library.shared.readPlaylist)
+        let parent = item as? Playlist ?? masterPlaylist
+        // If dropped onto a folder, add at the end
+        let index = index >= 0 ? index : parent.size
+        
+        for playlist in playlists {
+            Library.shared.addPlaylist(playlist, to: parent, above: index)
+        }
+        
+        return true
     }
 }
 

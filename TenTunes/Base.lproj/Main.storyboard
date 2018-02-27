@@ -727,7 +727,7 @@
                                             <customView verticalHuggingPriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="TnY-8S-uno" customClass="TrackSpectrumView" customModule="TenTunes" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="867" height="41"/>
                                                 <subviews>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Bx-lC-97p">
+                                                    <textField toolTip="Duration Left" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Bx-lC-97p">
                                                         <rect key="frame" x="789" y="17" width="70" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="70" id="ybL-NU-qiE"/>
@@ -738,7 +738,7 @@
                                                             <color key="backgroundColor" red="0.46460580583756339" green="0.46460580583756339" blue="0.46460580583756339" alpha="0.30492829623287671" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1Xa-l4-VRg">
+                                                    <textField toolTip="Duration Played" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1Xa-l4-VRg">
                                                         <rect key="frame" x="8" y="17" width="70" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="70" id="DqK-c4-H9k"/>
@@ -761,12 +761,12 @@
                                                     <action selector="clickSpectrumView:" target="XfG-lQ-9wD" id="8oE-Da-U9p"/>
                                                 </connections>
                                             </customView>
-                                            <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ws9-gx-fi8">
+                                            <button toolTip="Next" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ws9-gx-fi8">
                                                 <rect key="frame" x="168" y="45" width="25" height="45"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="25" id="elU-UP-N0X"/>
                                                 </constraints>
-                                                <buttonCell key="cell" type="bevel" title="⇥" bezelStyle="rounded" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="ZGz-kB-7P5">
+                                                <buttonCell key="cell" type="bevel" title="⇥" bezelStyle="rounded" alignment="center" state="on" toolTip="Next Title" imageScaling="proportionallyDown" inset="2" id="ZGz-kB-7P5">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
@@ -774,7 +774,7 @@
                                                     <action selector="nextTrack:" target="XfG-lQ-9wD" id="tib-HN-e55"/>
                                                 </connections>
                                             </button>
-                                            <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vGp-jR-JQ9">
+                                            <button toolTip="Previous" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vGp-jR-JQ9">
                                                 <rect key="frame" x="97" y="45" width="25" height="45"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="25" id="l85-XI-Vhi"/>
@@ -787,7 +787,7 @@
                                                     <action selector="previousTrack:" target="XfG-lQ-9wD" id="Pk1-jA-gYo"/>
                                                 </connections>
                                             </button>
-                                            <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Fc-0r-wVE">
+                                            <button toolTip="Play / Pause" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Fc-0r-wVE">
                                                 <rect key="frame" x="130" y="45" width="30" height="45"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="30" id="U0M-9e-hwV"/>
@@ -803,7 +803,7 @@ IA
                                                     <action selector="play:" target="XfG-lQ-9wD" id="T0L-Lv-wjP"/>
                                                 </connections>
                                             </button>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="2zM-Qn-bbU">
+                                            <textField toolTip="Title" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="2zM-Qn-bbU">
                                                 <rect key="frame" x="415" y="66" width="37" height="18"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="18" id="X5c-jl-9Lj"/>
@@ -814,7 +814,7 @@ IA
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="dQc-no-5jm">
+                                            <textField toolTip="Artist / Album" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="dQc-no-5jm">
                                                 <rect key="frame" x="387" y="49" width="93" height="17"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="17" id="Ham-mw-7Lf"/>
@@ -835,7 +835,7 @@ IA
                                                     <font key="font" metaFont="system" size="20"/>
                                                 </buttonCell>
                                             </button>
-                                            <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Y2-7h-2Y4">
+                                            <button toolTip="Shuffle" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Y2-7h-2Y4">
                                                 <rect key="frame" x="785" y="55" width="23" height="23"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="7Y2-7h-2Y4" secondAttribute="height" multiplier="1:1" id="jRx-Wh-ukj"/>
@@ -848,7 +848,7 @@ IA
                                                     <action selector="toggleShuffle:" target="XfG-lQ-9wD" id="PPw-wd-bDy"/>
                                                 </connections>
                                             </button>
-                                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="weN-hW-VXM">
+                                            <slider toolTip="Volume" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="weN-hW-VXM">
                                                 <rect key="frame" x="687" y="57" width="84" height="19"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="80" id="IaB-e8-PZM"/>
@@ -989,7 +989,7 @@ IA
                                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="WqW-PP-cVP">
                                                                 <rect key="frame" x="0.0" y="412" width="178" height="26"/>
                                                                 <subviews>
-                                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ki5-b8-hqg">
+                                                                    <button toolTip="Create Playlist" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ki5-b8-hqg">
                                                                         <rect key="frame" x="80" y="3" width="20" height="20"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="ki5-b8-hqg" secondAttribute="height" multiplier="1:1" id="2tD-Pt-aMQ"/>
@@ -999,12 +999,12 @@ IA
                                                                             <font key="font" metaFont="system"/>
                                                                         </buttonCell>
                                                                     </button>
-                                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Lid-8O-9oY">
+                                                                    <button toolTip="Library" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Lid-8O-9oY">
                                                                         <rect key="frame" x="30" y="3" width="20" height="20"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="Lid-8O-9oY" secondAttribute="height" multiplier="1:1" id="1S7-Cx-2jw"/>
                                                                         </constraints>
-                                                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="home" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="6BB-Vk-n5J">
+                                                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="home" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="6BB-Vk-n5J">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                         </buttonCell>
@@ -1012,7 +1012,7 @@ IA
                                                                             <action selector="selectLibrary:" target="8ts-DO-v2q" id="uoJ-N4-CLt"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="e5r-wm-TBz">
+                                                                    <button toolTip="Create Group" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="e5r-wm-TBz">
                                                                         <rect key="frame" x="130" y="3" width="20" height="20"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="e5r-wm-TBz" secondAttribute="height" multiplier="1:1" id="LlP-pX-ug0"/>

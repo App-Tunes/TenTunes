@@ -183,6 +183,11 @@
                                                             <action selector="performFindPanelAction:" target="Ady-hI-5gd" id="cD7-Qs-BN4"/>
                                                         </connections>
                                                     </menuItem>
+                                                    <menuItem title="Find Everywhere..." keyEquivalent="F" id="lAH-by-kbZ">
+                                                        <connections>
+                                                            <action selector="performFindEverywherePanelAction:" target="Ady-hI-5gd" id="5Rk-ry-jYV"/>
+                                                        </connections>
+                                                    </menuItem>
                                                     <menuItem title="Find and Replace…" tag="12" keyEquivalent="f" id="YEy-JH-Tfz">
                                                         <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                                         <connections>

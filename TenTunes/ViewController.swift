@@ -147,6 +147,7 @@ class ViewController: NSViewController {
         return nil
     }
     
+    
     func isPlaying() -> Bool {
         return self.player.isPlaying
     }
@@ -280,6 +281,23 @@ class ViewController: NSViewController {
     
     @IBAction func volumeChanged(_ sender: Any) {
         player.volume = Float(_volume.intValue) / 100
+    }
+}
+
+extension ViewController: NSUserInterfaceValidations {
+    func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
+        guard let action = item.action else {
+            return false
+        }
+        
+        if action == #selector(performFindEverywherePanelAction) { return true }
+        
+        return false
+    }
+    
+    @IBAction func performFindEverywherePanelAction(_ sender: AnyObject) {
+        playlistController.selectLibrary(self)
+        trackController.performFindPanelAction(self)
     }
 }
 

@@ -90,13 +90,15 @@ class SPInterpreter {
         }
         
         // This may take a while too
+        // So move the wave a little further
         let wf = waveform(start: analyzer.waveform())
+        setProgress(1.03)
         let lows = waveform(start: analyzer.lowWaveform())
-
-        setProgress(1.1) // Move the wave out of screen
-
+        setProgress(1.06)
         let mids = waveform(start: analyzer.midWaveform())
+        setProgress(1.09)
         let highs = waveform(start: analyzer.highWaveform())
+        setProgress(1.12)
         
         DispatchQueue.main.async {
             // Normalize waveform but only a little bit

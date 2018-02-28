@@ -58,6 +58,7 @@ class ViewController: NSViewController {
     var playing: Track?
     
     var visualTimer: Timer!
+    var backgroundTimer: Timer!
     var completionTimer: Timer?
 
     var _workerSemaphore = DispatchSemaphore(value: 3)
@@ -113,6 +114,9 @@ class ViewController: NSViewController {
 
         self.updatePlaying()
         
+        _spectrumView.postsFrameChangedNotifications = true
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTimesHidden), name: NSView.frameDidChangeNotification, object: _spectrumView)
+        
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             return self.keyDown(with: $0)
         }
@@ -159,6 +163,8 @@ class ViewController: NSViewController {
     }
 
     func updatePlaying() {
+        self.updateTimesHidden(self)
+        
         guard let track = self.playing else {
             _play.set(text: playString)
             
@@ -304,6 +310,17 @@ extension ViewController: NSUserInterfaceValidations {
     @IBAction func performFindEverywherePanelAction(_ sender: AnyObject) {
         playlistController.selectLibrary(self)
         trackController.performFindPanelAction(self)
+    }
+    
+    @IBAction func updateTimesHidden(_ sender: AnyObject) {
+        if self.playing != nil, self._spectrumView.bounds.height > 30, !self.player.currentTime.isNaN {
+            self._timePlayed.isHidden = false
+            self._timeLeft.isHidden = false            
+        }
+        else {
+            self._timePlayed.isHidden = true
+            self._timeLeft.isHidden = true
+        }
     }
 }
 

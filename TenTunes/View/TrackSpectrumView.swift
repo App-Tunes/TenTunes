@@ -22,6 +22,20 @@ class BarsLayer: CALayer {
         }
     }
     
+    override init() {
+        super.init()
+        needsDisplayOnBoundsChange = true
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override init(layer: Any) {
+        super.init(layer: layer)
+        needsDisplayOnBoundsChange = true
+    }
+    
     override func draw(in ctx: CGContext) {
         let barWidth = 2
         let segmentWidth = barWidth + 2
@@ -64,16 +78,23 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
         }
     }
     
+    static var updateTime = 1.0 / 30.0
+    static var lerpRatio = CGFloat(1.0 / 5.0)
+    static var completeTransitionSteps = 120
+    
     var _barsLayer: BarsLayer!
     var _positionLayer: CALayer!
     var _bgLayer: CAGradientLayer!
 
-    var analysis: Analysis? = nil
+    var analysis: Analysis? = nil {
+        didSet {
+            transitionSteps = TrackSpectrumView.completeTransitionSteps
+        }
+    }
     
     var timer: Timer? = nil
     
-    var updateTime = 1.0 / 30.0
-    var lerpRatio = CGFloat(1.0 / 5.0)
+    var transitionSteps = 0
 
     override func awakeFromNib() {
         self.wantsLayer = true
@@ -97,12 +118,17 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
         _positionLayer.backgroundColor = CGColor.white
         self.layer!.addSublayer(_positionLayer)
         
-        self.timer = Timer.scheduledTimer(withTimeInterval: updateTime, repeats: true) { _ in
-            let drawValues = self.analysis?.values ?? Array(repeating: Array(repeating: CGFloat(0), count: Analysis.sampleCount), count: 4)
-            self._barsLayer.values = (0..<4).map { lerp(self._barsLayer.values[$0], drawValues[$0], self.lerpRatio) }
+        self.timer = Timer.scheduledTimer(withTimeInterval: TrackSpectrumView.updateTime, repeats: true) { _ in
+            if self.analysis?.complete ?? true { self.transitionSteps -= 1}
             
+            // Only update the bars for x steps after transition
+            if self.transitionSteps > 0 {
+                let drawValues = self.analysis?.values ?? Array(repeating: Array(repeating: CGFloat(0), count: Analysis.sampleCount), count: 4)
+                self._barsLayer.values = (0..<4).map { lerp(self._barsLayer.values[$0], drawValues[$0], TrackSpectrumView.lerpRatio) }
+            }
+
             CATransaction.begin()
-            CATransaction.setAnimationDuration(self.updateTime)
+            CATransaction.setAnimationDuration(TrackSpectrumView.updateTime)
             if let location = self.location {
                 self._positionLayer.frame.origin.x = CGFloat(location) * self.bounds.width
                 self._positionLayer.isHidden = false

@@ -18,6 +18,7 @@ class Analysis {
     static let sampleCount: Int = 500
 
     var values: [[CGFloat]]?
+    var complete = false
 }
 
 class SPInterpreter {
@@ -103,6 +104,7 @@ class SPInterpreter {
         DispatchQueue.main.async {
             // Normalize waveform but only a little bit
             analysis.values = [wf.normalized(min: 0.0, max: (1.0 + wf.max()!) / 2.0), lows, mids, highs]
+            analysis.complete = true
         }
     }
 }

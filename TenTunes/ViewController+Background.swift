@@ -21,7 +21,11 @@ extension ViewController {
         }
 
         self.visualTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true ) { [unowned self] (timer) in
-            self._spectrumView.setBy(player: self.player) // TODO Apparently this loops back when the track is done (or rather just before)
+            guard self.view.window?.isVisible ?? false else {
+                return
+            }
+            
+            self._spectrumView.setBy(player: self.player)
             
             if !self._timePlayed.isHidden, !self._timeLeft.isHidden {
                 self._timePlayed.stringValue = Int(self.player.currentTime).timeString
@@ -29,7 +33,7 @@ extension ViewController {
             }
         }
         
-        self.backgroundTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 10.0, repeats: true ) { [unowned self] (timer) in
+        self.backgroundTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 5.0, repeats: true ) { [unowned self] (timer) in
             if self._workerSemaphore.wait(timeout: DispatchTime.now()) == .success {
                 // Update the current playlist, top priority
                 let desired = self.trackController.desired!
@@ -69,17 +73,20 @@ extension ViewController {
     }
     
     func fetchOneMetadata() {
-        for view in trackController.visibleTracks {
-            if let track = view.track, !track.metadataFetched  {
-                fetchMetadata(for: track, updating: view)
-                return
+        if view.window?.isVisible ?? false {
+            for view in trackController.visibleTracks {
+                if let track = view.track, !track.metadataFetched  {
+                    fetchMetadata(for: track, updating: view)
+                    return
+                }
             }
-        }
-        
-        for track in trackController.history.playlist.tracks {
-            if !track.metadataFetched  {
-                fetchMetadata(for: track, wait: true)
-                return
+            
+            // TODO Replace this with a library-caused search
+            for track in trackController.history.playlist.tracks {
+                if !track.metadataFetched  {
+                    fetchMetadata(for: track, wait: true)
+                    return
+                }
             }
         }
         

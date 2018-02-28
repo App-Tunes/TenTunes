@@ -33,7 +33,7 @@ extension ViewController {
             }
         }
         
-        self.backgroundTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 5.0, repeats: true ) { [unowned self] (timer) in
+        self.backgroundTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 10.0, repeats: true ) { [unowned self] (timer) in
             if self._workerSemaphore.wait(timeout: DispatchTime.now()) == .success {
                 // Update the current playlist, top priority
                 let desired = self.trackController.desired!

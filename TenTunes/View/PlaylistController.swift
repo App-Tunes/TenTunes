@@ -30,7 +30,7 @@ import Cocoa
     
     @IBAction func didDoubleClick(_ sender: Any) {
         let clicked = _outlineView.clickedRow
-        if let playPlaylist = playPlaylist, clicked > 0 {
+        if let playPlaylist = playPlaylist, clicked >= 0 {
             playPlaylist(_outlineView.item(atRow: clicked) as! Playlist)
         }
     }

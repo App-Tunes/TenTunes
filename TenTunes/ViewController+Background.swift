@@ -22,9 +22,7 @@ extension ViewController {
 
         self.visualTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true ) { [unowned self] (timer) in
             self._spectrumView.setBy(player: self.player) // TODO Apparently this loops back when the track is done (or rather just before)
-        }
-        
-        self.visualTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 10.0, repeats: true ) { [unowned self] (timer) in
+            
             if self.playing != nil, self._spectrumView.bounds.height > 30, !self.player.currentTime.isNaN {
                 self._timePlayed.isHidden = false
                 self._timeLeft.isHidden = false
@@ -36,7 +34,9 @@ extension ViewController {
                 self._timePlayed.isHidden = true
                 self._timeLeft.isHidden = true
             }
-            
+        }
+        
+        self.visualTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 10.0, repeats: true ) { [unowned self] (timer) in
             if self._workerSemaphore.wait(timeout: DispatchTime.now()) == .success {
                 // Update the current playlist, top priority
                 let desired = self.trackController.desired!

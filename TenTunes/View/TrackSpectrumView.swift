@@ -188,6 +188,10 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
 
         self.timer?.invalidate()
         self.timer = Timer.scheduledTimer(withTimeInterval: updateTime, repeats: true) { timer in
+            guard self.visibleRect != NSZeroRect else {
+                return // Not visible, why update?
+            }
+            
             // Only update the bars for x steps after transition
             if self.transitionSteps > 0 {
                 let drawValues = self.analysis?.values ?? BarsLayer.defaultValues

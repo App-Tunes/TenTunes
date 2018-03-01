@@ -23,6 +23,15 @@ class BarsLayer: CALayer {
         return Array(repeating: Array(repeating: 0.1, count: Analysis.sampleCount), count: 4)
     }
     
+    static var barColorLookup: [CGColor] = Array(1..<100).map {
+        // Don't go the full way so we don't loop back to red
+        NSColor(hue: CGFloat($0) / 100 * 0.8, saturation: CGFloat(0.3), brightness: CGFloat(0.8), alpha: CGFloat(1.0)).cgColor
+    }
+    
+    static func barColor(_ value: CGFloat) -> CGColor {
+        return barColorLookup[Int(value * CGFloat(barColorLookup.count))]
+    }
+    
     var values: [[CGFloat]] = defaultValues {
         didSet {
             setNeedsDisplay()
@@ -71,10 +80,7 @@ class BarsLayer: CALayer {
             let low = lows[idx] * lows[idx], mid = mids[idx] * mids[idx], high = highs[idx] * highs[idx]
             let val = low + mid + high
             
-            // Don't go the full way so we don't loop back to red
-            let color = NSColor(hue: (mid / val / 2 + high / val) * 0.8, saturation: CGFloat(0.3), brightness: CGFloat(0.8), alpha: CGFloat(1.0)).cgColor
-
-            ctx.setFillColor(color)
+            ctx.setFillColor(BarsLayer.barColor((mid / val / 2 + high / val)))
             ctx.fill(rect)
         }
     }
@@ -106,7 +112,9 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
     
     var updateTime = 1.0 / 30.0 {
         didSet {
-            updateTimer()
+            if updateTime != oldValue {
+                updateTimer()
+            }
         }
     }
     var lerpRatio = CGFloat(1.0 / 5.0)
@@ -164,8 +172,11 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
     func reset() {
         CATransaction.begin()
         CATransaction.setValue(true, forKey:kCATransactionDisableActions)
+        
         self.analysis = nil
         self._barsLayer.values = BarsLayer.defaultValues
+        transitionSteps = 0
+        
         CATransaction.commit()
     }
     

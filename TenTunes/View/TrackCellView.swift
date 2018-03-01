@@ -38,10 +38,10 @@ class TrackCellView: NSTableCellView {
         spectrumView?.barWidth = 1
         spectrumView?.spaceWidth = 1
 
-        // For performance, screw animation for now
-        spectrumView?.updateTime = 1.0
-        spectrumView?.lerpRatio = 1.0
-        spectrumView?.completeTransitionSteps = 1
+        // For the small previews, half performance is enough
+        spectrumView?.updateTime = 1 / 15
+        spectrumView?.lerpRatio = 1 / 15
+        spectrumView?.completeTransitionSteps = 60
     }
     
     @IBAction func spectrumViewClicked(_ sender: Any?) {

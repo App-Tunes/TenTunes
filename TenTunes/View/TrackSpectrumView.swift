@@ -87,6 +87,7 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
     
     var _barsLayer: BarsLayer!
     var _positionLayer: CALayer!
+    var _mousePositionLayer: CALayer!
     var _bgLayer: CAGradientLayer!
 
     var analysis: Analysis? = nil {
@@ -121,10 +122,20 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
         _barsLayer.zPosition = -1
         self.layer!.addSublayer(_barsLayer)
 
+        _mousePositionLayer = CALayer()
+        _mousePositionLayer.backgroundColor = NSColor.gray.cgColor
+        _mousePositionLayer.isHidden = true
+        self.layer!.addSublayer(_mousePositionLayer)
+
         _positionLayer = CALayer()
         _positionLayer.backgroundColor = CGColor.white
         self.layer!.addSublayer(_positionLayer)
         
+        let trackingArea = NSTrackingArea(rect: self.bounds,
+                                          options: [.activeInActiveApp, .inVisibleRect, .assumeInside, .mouseEnteredAndExited, .mouseMoved],
+                                          owner: self, userInfo: nil)
+        self.addTrackingArea(trackingArea)
+
         self.timer = Timer.scheduledTimer(withTimeInterval: updateTime, repeats: true) { _ in
             // Only update the bars for x steps after transition
             if self.transitionSteps > 0 {
@@ -166,6 +177,7 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
             width: 1,
             height: layer.bounds.height
         )
+        _mousePositionLayer.frame = _positionLayer.frame
     }
     
     override func acceptsFirstMouse(for event: NSEvent?) -> Bool {
@@ -186,6 +198,21 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
     
     override func mouseDown(with event: NSEvent) {
         self.click(at: self.convert(event.locationInWindow, from: nil))
+    }
+    
+    override func mouseEntered(with event: NSEvent) {
+        _mousePositionLayer.isHidden = false
+    }
+    
+    override func mouseExited(with event: NSEvent) {
+        _mousePositionLayer.isHidden = true
+    }
+    
+    override func mouseMoved(with event: NSEvent) {
+        CATransaction.begin()
+        CATransaction.setValue(true, forKey:kCATransactionDisableActions)
+        _mousePositionLayer.frame.origin.x = self.convert(event.locationInWindow, from:nil).x
+        CATransaction.commit()
     }
 }
 

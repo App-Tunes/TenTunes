@@ -212,9 +212,9 @@
 				80802587203F0399008D4168 /* PlaylistController.swift */,
 				80074CFB204584980055B87E /* PlaylistController.xib */,
 				80F2C58E20389B9B00212739 /* TrackSpectrumView.swift */,
-				8084AA50203B5CF400064B11 /* TrackCellView.swift */,
 				808161D1204059FE00AEA64F /* TrackController.swift */,
 				80074CF7204583CF0055B87E /* TrackController.xib */,
+				8084AA50203B5CF400064B11 /* TrackCellView.swift */,
 				8058FABF2043409F0086FF8A /* VibrantTableRowView.swift */,
 			);
 			path = View;

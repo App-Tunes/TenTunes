@@ -93,8 +93,8 @@ inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFram
         [self setTitle: TagLibStringToNS(tag->title())];
         [self setArtist: TagLibStringToNS(tag->artist())];
         [self setAlbum: TagLibStringToNS(tag->album())];
+        [self setGenre: TagLibStringToNS(tag->genre())];
         // Comment
-        // Genre
         // Year
         // Tracknumber
 

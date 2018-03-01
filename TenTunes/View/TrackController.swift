@@ -197,7 +197,9 @@ class TrackController: NSViewController {
 //        view.subtitleTextField?.textColor = NSColor.secondaryLabelColor
         // Is reset for some reason
         view.subtitleTextField?.setStringColor(NSColor.secondaryLabelColor)
-        
+
+        view.genreTextField?.stringValue = track.genre ?? ""
+
         view.lengthTextField?.stringValue = track.rLength
         
         view.imageView?.image = track.rArtwork

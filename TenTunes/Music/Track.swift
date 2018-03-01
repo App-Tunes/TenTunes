@@ -16,6 +16,8 @@ class Track {
     var title: String? = nil
     var author: String? = nil
     var album: String? = nil
+    var genre: String? = nil
+
     var duration: CMTime? = nil
 
     var path: String? = nil
@@ -79,6 +81,10 @@ class Track {
 
 // Metadata
 
+func parseGenre(_ genre: String?) -> String? {
+    return genre == "Unknown" ? nil : genre
+}
+
 extension Track {
     func fetchMetadata() {
         self.metadataFetched = true
@@ -103,7 +109,8 @@ extension Track {
             self.title = importer?.title
             self.album = importer?.album
             self.author = importer?.artist
-            
+            self.genre = parseGenre(importer?.genre)
+
             self.artwork = importer?.image
             
             self.key = Key.parse(importer?.initialKey ?? "")
@@ -127,7 +134,10 @@ extension Track {
         author = author ?? avImporter.string(withKey: .iTunesMetadataKeyOriginalArtist, keySpace: .iTunes)
         author = author ?? avImporter.string(withKey: .iTunesMetadataKeyArtist, keySpace: .iTunes)
         author = author ?? avImporter.string(withKey: .iTunesMetadataKeySoloist, keySpace: .iTunes)
-        
+
+        genre = genre ?? parseGenre(avImporter.string(withKey: .iTunesMetadataKeyUserGenre, keySpace: .iTunes))
+        genre = genre ?? parseGenre(avImporter.string(withKey: .iTunesMetadataKeyPredefinedGenre, keySpace: .iTunes))
+
         artwork = artwork ?? avImporter.image(withKey: .commonKeyArtwork, keySpace: .common)
         artwork = artwork ?? avImporter.image(withKey: .iTunesMetadataKeyCoverArt, keySpace: .iTunes)
         

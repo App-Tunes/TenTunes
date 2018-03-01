@@ -14,7 +14,8 @@ class TrackCellView: NSTableCellView {
     @IBOutlet var lengthTextField: NSTextField?
     @IBOutlet var keyTextField: NSTextField?
     @IBOutlet var bpmTextField: NSTextField?
-    
+    @IBOutlet var genreTextField: NSTextField?
+
     var track: Track?
     
     override func draw(_ dirtyRect: NSRect) {

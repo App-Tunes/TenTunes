@@ -58,8 +58,8 @@
                                                         </constraints>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSUserGuest" id="Ab3-NH-XfP"/>
                                                     </imageView>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="200" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g6S-UM-czT">
-                                                        <rect key="frame" x="37" y="15" width="445" height="17"/>
+                                                    <textField horizontalHuggingPriority="300" verticalHuggingPriority="750" horizontalCompressionResistancePriority="300" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g6S-UM-czT">
+                                                        <rect key="frame" x="37" y="15" width="96" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="17" id="deP-U9-htI"/>
                                                         </constraints>
@@ -69,8 +69,8 @@
                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="ahh-1l-6w3">
-                                                        <rect key="frame" x="49" y="2" width="433" height="14"/>
+                                                    <textField horizontalHuggingPriority="300" verticalHuggingPriority="750" horizontalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="ahh-1l-6w3">
+                                                        <rect key="frame" x="49" y="2" width="84" height="14"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="14" id="58q-hd-peG"/>
                                                         </constraints>
@@ -111,18 +111,27 @@
                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </textFieldCell>
                                                     </textField>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="150" translatesAutoresizingMaskIntoConstraints="NO" id="VYZ-eq-qWb">
+                                                        <rect key="frame" x="137" y="8" width="330" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Genre" id="ikD-Wf-zS0">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </textFieldCell>
+                                                    </textField>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="m2H-Gl-8iv" secondAttribute="trailing" constant="20" id="4W8-vO-X9A"/>
-                                                    <constraint firstItem="mDZ-wo-p3m" firstAttribute="leading" secondItem="g6S-UM-czT" secondAttribute="trailing" constant="8" id="6f7-vg-K24"/>
+                                                    <constraint firstItem="VYZ-eq-qWb" firstAttribute="leading" secondItem="g6S-UM-czT" secondAttribute="trailing" constant="8" id="6f7-vg-K24"/>
                                                     <constraint firstItem="g6S-UM-czT" firstAttribute="leading" secondItem="Re8-IA-fjU" secondAttribute="trailing" constant="7" id="FJx-eU-aKq"/>
                                                     <constraint firstItem="Re8-IA-fjU" firstAttribute="leading" secondItem="xqd-FE-j2Z" secondAttribute="leading" constant="2" id="Fz3-tN-XhJ"/>
+                                                    <constraint firstItem="VYZ-eq-qWb" firstAttribute="centerY" secondItem="xqd-FE-j2Z" secondAttribute="centerY" id="GJ8-HS-Xzr"/>
                                                     <constraint firstItem="mDZ-wo-p3m" firstAttribute="centerY" secondItem="m2H-Gl-8iv" secondAttribute="centerY" id="J14-wk-bXf"/>
-                                                    <constraint firstItem="mDZ-wo-p3m" firstAttribute="leading" secondItem="ahh-1l-6w3" secondAttribute="trailing" constant="8" id="KSo-Ud-36z"/>
+                                                    <constraint firstItem="VYZ-eq-qWb" firstAttribute="leading" secondItem="ahh-1l-6w3" secondAttribute="trailing" constant="8" id="KSo-Ud-36z"/>
                                                     <constraint firstItem="Re8-IA-fjU" firstAttribute="bottom" secondItem="ahh-1l-6w3" secondAttribute="bottom" constant="1" id="MVr-r7-Rzx"/>
                                                     <constraint firstItem="ykw-OA-afZ" firstAttribute="leading" secondItem="mDZ-wo-p3m" secondAttribute="trailing" constant="23" id="T1C-ed-xwi"/>
                                                     <constraint firstItem="Re8-IA-fjU" firstAttribute="bottom" secondItem="xqd-FE-j2Z" secondAttribute="bottom" constant="-1" id="TZz-vG-FOJ"/>
                                                     <constraint firstItem="m2H-Gl-8iv" firstAttribute="leading" secondItem="ykw-OA-afZ" secondAttribute="trailing" constant="8" id="Y6y-8z-o4c"/>
+                                                    <constraint firstItem="mDZ-wo-p3m" firstAttribute="leading" secondItem="VYZ-eq-qWb" secondAttribute="trailing" constant="23" id="aLc-U3-zh6"/>
                                                     <constraint firstItem="ahh-1l-6w3" firstAttribute="leading" secondItem="Re8-IA-fjU" secondAttribute="trailing" constant="19" id="bUF-bH-BJX"/>
                                                     <constraint firstItem="ahh-1l-6w3" firstAttribute="top" secondItem="g6S-UM-czT" secondAttribute="bottom" constant="-1" id="ch4-Bf-5Sv"/>
                                                     <constraint firstItem="Re8-IA-fjU" firstAttribute="top" secondItem="xqd-FE-j2Z" secondAttribute="top" constant="1" id="tSB-gE-Vmm"/>
@@ -131,6 +140,7 @@
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="bpmTextField" destination="mDZ-wo-p3m" id="dFf-W3-cOx"/>
+                                                    <outlet property="genreTextField" destination="VYZ-eq-qWb" id="Arg-3e-Fdz"/>
                                                     <outlet property="imageView" destination="Re8-IA-fjU" id="ib5-vu-TMt"/>
                                                     <outlet property="keyTextField" destination="ykw-OA-afZ" id="HLI-Od-MpY"/>
                                                     <outlet property="lengthTextField" destination="m2H-Gl-8iv" id="Uwv-GV-3hL"/>

@@ -20,6 +20,7 @@
 @property NSString *title;
 @property NSString *artist;
 @property NSString *album;
+@property NSString *genre;
 
 @property NSImage *image;
 

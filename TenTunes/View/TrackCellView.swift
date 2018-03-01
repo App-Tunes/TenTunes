@@ -34,6 +34,11 @@ class TrackCellView: NSTableCellView {
             view.layer!.cornerRadius = 3.0
             view.layer!.masksToBounds = true
         }
+        
+        // For performance, screw animation for now
+        spectrumView?.updateTime = 1.0
+        spectrumView?.lerpRatio = 1.0
+        spectrumView?.completeTransitionSteps = 1
     }
     
     @IBAction func spectrumViewClicked(_ sender: Any?) {

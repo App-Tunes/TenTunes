@@ -78,23 +78,23 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
         }
     }
     
-    static var updateTime = 1.0 / 30.0
-    static var lerpRatio = CGFloat(1.0 / 5.0)
-    static var completeTransitionSteps = 120
-    
     var _barsLayer: BarsLayer!
     var _positionLayer: CALayer!
     var _bgLayer: CAGradientLayer!
 
     var analysis: Analysis? = nil {
         didSet {
-            transitionSteps = TrackSpectrumView.completeTransitionSteps
+            transitionSteps = self.completeTransitionSteps
         }
     }
     
     var timer: Timer? = nil
     
     var transitionSteps = 0
+    
+    var updateTime = 1.0 / 30.0
+    var lerpRatio = CGFloat(1.0 / 5.0)
+    var completeTransitionSteps = 120
 
     override func awakeFromNib() {
         self.wantsLayer = true
@@ -118,17 +118,17 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
         _positionLayer.backgroundColor = CGColor.white
         self.layer!.addSublayer(_positionLayer)
         
-        self.timer = Timer.scheduledTimer(withTimeInterval: TrackSpectrumView.updateTime, repeats: true) { _ in
+        self.timer = Timer.scheduledTimer(withTimeInterval: updateTime, repeats: true) { _ in
             if self.analysis?.complete ?? true { self.transitionSteps -= 1}
             
             // Only update the bars for x steps after transition
             if self.transitionSteps > 0 {
                 let drawValues = self.analysis?.values ?? Array(repeating: Array(repeating: CGFloat(0), count: Analysis.sampleCount), count: 4)
-                self._barsLayer.values = (0..<4).map { lerp(self._barsLayer.values[$0], drawValues[$0], TrackSpectrumView.lerpRatio) }
+                self._barsLayer.values = (0..<4).map { lerp(self._barsLayer.values[$0], drawValues[$0], self.lerpRatio) }
             }
 
             CATransaction.begin()
-            CATransaction.setAnimationDuration(TrackSpectrumView.updateTime)
+            CATransaction.setAnimationDuration(self.updateTime)
             if let location = self.location {
                 self._positionLayer.frame.origin.x = CGFloat(location) * self.bounds.width
                 self._positionLayer.isHidden = false

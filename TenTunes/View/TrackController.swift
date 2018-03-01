@@ -201,7 +201,7 @@ class TrackController: NSViewController {
 
         view.lengthTextField?.stringValue = track.rLength
         
-        view.imageView?.image = track.rArtwork
+        view.imageView?.image = track.rPreview
         view.key = track.rKey
         
         view.bpmTextField?.stringValue = track.bpm != nil ? Int(track.bpm!).description : nil ?? ""

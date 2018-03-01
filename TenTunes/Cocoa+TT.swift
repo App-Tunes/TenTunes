@@ -240,6 +240,16 @@ extension NSImage {
         tinted.unlockFocus()
         return tinted
     }
+    
+    func resized(w: Int, h: Int) -> NSImage {
+        let destSize = NSMakeSize(CGFloat(w), CGFloat(h))
+        let newImage = NSImage(size: destSize)
+        newImage.lockFocus()
+        draw(in: NSMakeRect(0, 0, destSize.width, destSize.height), from: NSMakeRect(0, 0, size.width, size.height), operation: .sourceOver, fraction: CGFloat(1))
+        newImage.unlockFocus()
+        newImage.size = destSize
+        return NSImage(data: newImage.tiffRepresentation!)!
+    }
 }
 
 extension NSTextField {

@@ -27,6 +27,7 @@ class Track {
     var analysis: Analysis? = nil
 
     var artwork: NSImage? = nil
+    var artworkPreview: NSImage? = nil
 
     var metadataFetched: Bool = false
 
@@ -56,6 +57,10 @@ class Track {
     
     var rArtwork: NSImage {
         return self.artwork ?? NSImage(named: NSImage.Name(rawValue: "music_missing"))!
+    }
+    
+    var rPreview: NSImage {
+        return self.artworkPreview ?? NSImage(named: NSImage.Name(rawValue: "music_missing"))!
     }
     
     var rLength: String {
@@ -144,15 +149,19 @@ extension Track {
         bpm = bpm ?? Double(avImporter.string(withKey: .iTunesMetadataKeyBeatsPerMin, keySpace: .iTunes) ?? "")
         
         // For videos, generate thumbnails
-        if self.artwork == nil {
+        if artwork == nil {
             let imgGenerator = AVAssetImageGenerator(asset: AVURLAsset(url: url))
             do {
                 let img = try imgGenerator.copyCGImage(at: CMTimeMake(0, 60), actualTime: nil)
-                self.artwork = NSImage(cgImage: img, size: NSZeroSize)
+                artwork = NSImage(cgImage: img, size: NSZeroSize)
             }
             catch {
                 // print(err.localizedDescription)
             }
+        }
+        
+        if let artwork = artwork {
+            self.artworkPreview = artwork.resized(w: 64, h: 64)
         }
         
         duration = duration ?? avImporter.duration

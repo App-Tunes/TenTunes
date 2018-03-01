@@ -19,7 +19,11 @@ func lerp(_ left: [CGFloat], _ right: [CGFloat], _ amount: CGFloat) -> [CGFloat]
 }
 
 class BarsLayer: CALayer {
-    var values: [[CGFloat]] = Array(repeating: Array(repeating: 0.0, count: Analysis.sampleCount), count: 4) {
+    static var defaultValues: [[CGFloat]] {
+        return Array(repeating: Array(repeating: 0.0, count: Analysis.sampleCount), count: 4)
+    }
+    
+    var values: [[CGFloat]] = defaultValues {
         didSet {
             setNeedsDisplay()
         }
@@ -141,6 +145,16 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
             }
             CATransaction.commit()
         }
+    }
+    
+    func reset() {
+        CATransaction.begin()
+        CATransaction.setValue(true, forKey:kCATransactionDisableActions)
+        self._positionLayer.isHidden = true
+        CATransaction.commit()
+
+        location = nil
+        self._barsLayer.values = BarsLayer.defaultValues
     }
     
     func layoutSublayers(of layer: CALayer) {

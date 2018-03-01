@@ -29,7 +29,6 @@ class BarsLayer: CALayer {
     }
     
     static func barColor(_ value: CGFloat) -> CGColor {
-        if value.isNaN { return CGColor.black } // Probably all 3 were 0
         return barColorLookup[(0...barColorLookup.count - 1).clamp(Int(value * CGFloat(barColorLookup.count)))]
     }
     
@@ -69,20 +68,23 @@ class BarsLayer: CALayer {
         for idx in 0..<numBars {
             // Frame
             let h = waveform[idx]
-
-            let rect = CGRect(
-                x: start + CGFloat(idx * segmentWidth) + 1,
-                y: frame.minY,
-                width: CGFloat(barWidth),
-                height: CGFloat(h * frame.height)
-            )
             
             // Color
             let low = lows[idx] * lows[idx], mid = mids[idx] * mids[idx], high = highs[idx] * highs[idx]
             let val = low + mid + high
             
-            ctx.setFillColor(BarsLayer.barColor((mid / val / 2 + high / val)))
-            ctx.fill(rect)
+            if val > 0, h > 0 {
+                let rect = CGRect(
+                    x: start + CGFloat(idx * segmentWidth) + 1,
+                    y: frame.minY,
+                    width: CGFloat(barWidth),
+                    height: CGFloat(h * frame.height)
+                )
+
+                ctx.setFillColor(BarsLayer.barColor((mid / val / 2 + high / val)))
+                ctx.fill(rect)
+            }
+            // Else bar doesn't exist
         }
     }
 }

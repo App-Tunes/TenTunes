@@ -96,7 +96,6 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
         didSet {
             if analysis !== oldValue {
                 transitionSteps = self.completeTransitionSteps
-                timer?.fire() // If we're at a high frame rate nobody will notice, but at a low this will make us update faster
             }
         }
     }

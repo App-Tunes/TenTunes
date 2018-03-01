@@ -29,7 +29,7 @@ class BarsLayer: CALayer {
     }
     
     static func barColor(_ value: CGFloat) -> CGColor {
-        return barColorLookup[Int(value * CGFloat(barColorLookup.count))]
+        return barColorLookup[(0...barColorLookup.count - 1).clamp(Int(value * CGFloat(barColorLookup.count)))]
     }
     
     var values: [[CGFloat]] = defaultValues {

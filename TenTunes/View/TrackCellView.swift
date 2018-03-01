@@ -15,8 +15,11 @@ class TrackCellView: NSTableCellView {
     @IBOutlet var keyTextField: NSTextField?
     @IBOutlet var bpmTextField: NSTextField?
     @IBOutlet var genreTextField: NSTextField?
+    @IBOutlet var spectrumView: TrackSpectrumView?
 
     var track: Track?
+    
+    var playAt: ((Double) -> Swift.Void)?
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
@@ -31,6 +34,13 @@ class TrackCellView: NSTableCellView {
             view.layer!.cornerRadius = 3.0
             view.layer!.masksToBounds = true
         }
+    }
+    
+    @IBAction func spectrumViewClicked(_ sender: Any?) {
+        if let playAt = playAt {
+            playAt(spectrumView!.location!)
+        }
+        spectrumView?.location = nil
     }
     
     override var backgroundStyle: NSView.BackgroundStyle {

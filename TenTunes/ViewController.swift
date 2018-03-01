@@ -109,6 +109,9 @@ class ViewController: NSViewController {
 
         self.trackController.playTrack = { [unowned self] in
             self.play(at: $1, in: self.trackController.history)
+            if let position = $2 {
+                self.player.setPosition(position * self.player.duration)
+            }
         }
         self.trackController.set(playlist: Library.shared.allTracks)
 

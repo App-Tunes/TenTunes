@@ -48,7 +48,7 @@ class TrackController: NSViewController {
     var _sortKey: NSButton!
     var _sortBPM: NSButton!
 
-    var playTrack: ((Track, Int) -> Swift.Void)?
+    var playTrack: ((Track, Int, Double?) -> Swift.Void)?
     
     @IBOutlet weak var _menuRemoveFromPlaylist: NSMenuItem!
     
@@ -140,8 +140,8 @@ class TrackController: NSViewController {
     }
     
     func playCurrentTrack() {
-        if let selectedTrack = selectedTrack, let observer = playTrack {
-            observer(selectedTrack, self._tableView.selectedRow)
+        if let selectedTrack = selectedTrack, let playTrack = playTrack {
+            playTrack(selectedTrack, self._tableView.selectedRow, nil)
         }
     }
     
@@ -150,7 +150,7 @@ class TrackController: NSViewController {
         
         if let playTrack = playTrack {
             if let track = history.track(at: row) {
-                playTrack(track, row)
+                playTrack(track, row, nil)
             }
         }
     }
@@ -178,18 +178,12 @@ class TrackController: NSViewController {
         return nil
     }
     
-    func visibleView(to: Track) -> TrackCellView? {
-        for visible in visibleTracks {
-            if visible.track != nil && visible.track === to {
-                return visible
-            }
-        }
-        
-        return nil
+    func viewFor(track: Track) -> TrackCellView? {
+        return _tableView.view(atColumn: 0, row: history.indexOf(track: track) ?? -1, makeIfNecessary: false) as? TrackCellView
     }
     
     func update(view: TrackCellView?, with track: Track) {
-        guard let view = view ?? visibleView(to: track), view.track === track else {
+        guard let view = view ?? viewFor(track: track), view.track === track else {
             return
         }
         
@@ -208,6 +202,17 @@ class TrackController: NSViewController {
         view.key = track.rKey
         
         view.bpmTextField?.stringValue = track.bpm != nil ? Int(track.bpm!).description : nil ?? ""
+        
+        view.spectrumView?.analysis = track.analysis
+        view.playAt = { loc in
+            if let playTrack = self.playTrack {
+                playTrack(track, self._tableView.row(for: view), loc)
+            }
+        }
+    }
+    
+    @IBAction func spectrumViewClicked(_ sender: Any?) {
+        
     }
     
     @IBAction func filterPressed(_ sender: Any?) {

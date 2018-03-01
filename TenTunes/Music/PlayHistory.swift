@@ -110,6 +110,10 @@ class PlayHistory {
         return (shuffled ?? order)[safe: at]
     }
     
+    func indexOf(track: Track) -> Int? {
+        return (shuffled ?? order).index(of: track)
+    }
+    
     func move(to: Int) {
         playingIndex = (-1...order.count).clamp(to)
     }

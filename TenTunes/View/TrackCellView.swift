@@ -39,9 +39,9 @@ class TrackCellView: NSTableCellView {
         spectrumView?.spaceWidth = 1
 
         // For the small previews, half performance is enough
-        spectrumView?.updateTime = 1 / 15
-        spectrumView?.lerpRatio = 1 / 15
-        spectrumView?.completeTransitionSteps = 60
+        spectrumView?.updateTime = 1 / 8
+        spectrumView?.lerpRatio = 1 / 5
+        spectrumView?.completeTransitionSteps = 30
     }
     
     @IBAction func spectrumViewClicked(_ sender: Any?) {

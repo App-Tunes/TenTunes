@@ -75,9 +75,7 @@ class Library {
     }
 
     func addTrackToLibrary(_ track: Track) {
-        if database.keys.contains(track.id) {
-            fatalError("Duplicate track ID")
-        }
+        guard database.insertNewValue(value: track, forKey: track.id) else { return }
         
         database[track.id] = track
         allTracks.tracks.append(track)
@@ -108,6 +106,9 @@ class Library {
         guard to.isFolder else {
             fatalError("Parent not a folder")
         }
+        
+        playlistDatabase.insertNewValue(value: playlist, forKey: playlist.id)
+        
         let above = above ?? to.children!.count
 
         var copy: Playlist? = nil
@@ -127,7 +128,6 @@ class Library {
         // Add all tracks to possibly adjust views
         addTracks(playlist.tracks, to: to)
         
-        playlistDatabase[playlist.id] = playlist
         to.children?.insert(playlist, at: above)
         playlistParents[playlist.id] = to
         
@@ -210,6 +210,12 @@ class Library {
         playlistParents.removeValues(forKeys: keys)
         
         ViewController.shared.playlistController._outlineView.reloadData()
+    }
+    
+    // iTunes
+    
+    func findTrack(byITunesID: String) -> Track? {
+        return database.values.first { $0.iTunesPersistentID == byITunesID }
     }
 }
 

@@ -27,13 +27,15 @@ class ITunesImporter {
 
         for (_, trackData) in nsdict.object(forKey: "Tracks") as! NSDictionary {
             let trackData = trackData as! NSDictionary
+            let persistentID =  trackData["Persistent ID"] as! String
             
-            let track = Track()
+            let track = library.findTrack(byITunesID: persistentID) ?? Track()
             
-            track.title = trackData["Name"] as? String
-            track.author = trackData["Artist"] as? String
-            track.album = trackData["Album"] as? String
-            track.path = trackData["Location"] as? String
+            track.iTunesPersistentID = persistentID
+            track.title = track.title ?? trackData["Name"] as? String
+            track.author = track.author ?? trackData["Artist"] as? String
+            track.album = track.album ?? trackData["Album"] as? String
+            track.path = track.path ?? trackData["Location"] as? String
             
             library.addTrackToLibrary(track)
             iTunesTracks[trackData["Track ID"] as! Int] = track
@@ -54,11 +56,12 @@ class ITunesImporter {
             playlist.name = playlistData.object(forKey: "Name") as! String
             
             if !isFolder {
-                for trackData in playlistData.object(forKey: "Playlist Items") as? NSArray ?? [] {
+                let tracks: [Track] = (playlistData.object(forKey: "Playlist Items") as? NSArray ?? []).map { trackData in
                     let trackData = trackData as! NSDictionary
                     let id = trackData["Track ID"] as! Int
-                    playlist.tracks.append(iTunesTracks[id]!)
+                    return iTunesTracks[id]!
                 }
+                library.addTracks(tracks, to: playlist)
             }
             
             if let parent = playlistData.object(forKey: "Parent Persistent ID") as? String {

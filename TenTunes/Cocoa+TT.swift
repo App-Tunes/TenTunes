@@ -27,7 +27,7 @@ extension Collection {
 
     func noneMatch(_ filter: (Element) -> Bool) -> Bool { return self.filter(filter).count == 0 }
 
-    func anyMatch(_ filter: (Element) -> Bool) -> Bool { return self.filter(filter).first != nil }
+    func anyMatch(_ filter: (Element) -> Bool) -> Bool { return self.first(where: filter) != nil }
 }
 
 extension Collection where Iterator.Element == UInt8 {
@@ -299,5 +299,16 @@ extension Dictionary {
         for key in keys {
             removeValue(forKey: key)
         }
+    }
+}
+
+extension Dictionary where Value : AnyObject {
+    @discardableResult
+    public mutating func insertNewValue(value: Value, forKey key: Key) -> Bool {
+        let existing = self[key]
+        if existing != nil && existing! === value { return false }
+        else if existing != nil { fatalError("Duplicate ID") }
+        self[key] = value
+        return true
     }
 }

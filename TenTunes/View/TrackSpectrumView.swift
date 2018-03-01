@@ -20,7 +20,7 @@ func lerp(_ left: [CGFloat], _ right: [CGFloat], _ amount: CGFloat) -> [CGFloat]
 
 class BarsLayer: CALayer {
     static var defaultValues: [[CGFloat]] {
-        return Array(repeating: Array(repeating: 0.0, count: Analysis.sampleCount), count: 4)
+        return Array(repeating: Array(repeating: 0.1, count: Analysis.sampleCount), count: 4)
     }
     
     var values: [[CGFloat]] = defaultValues {
@@ -28,6 +28,9 @@ class BarsLayer: CALayer {
             setNeedsDisplay()
         }
     }
+    
+    var barWidth = 2
+    var spaceWidth = 2
     
     override init() {
         super.init()
@@ -44,8 +47,7 @@ class BarsLayer: CALayer {
     }
     
     override func draw(in ctx: CGContext) {
-        let barWidth = 2
-        let segmentWidth = barWidth + 2
+        let segmentWidth = barWidth + spaceWidth
 
         let numBars = Int(frame.width / CGFloat(segmentWidth))
         
@@ -92,7 +94,10 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
 
     var analysis: Analysis? = nil {
         didSet {
-            transitionSteps = self.completeTransitionSteps
+            if analysis !== oldValue {
+                transitionSteps = self.completeTransitionSteps
+                timer?.fire() // If we're at a high frame rate nobody will notice, but at a low this will make us update faster
+            }
         }
     }
     
@@ -100,9 +105,24 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
     
     var transitionSteps = 0
     
-    var updateTime = 1.0 / 30.0
+    var updateTime = 1.0 / 30.0 {
+        didSet {
+            updateTimer()
+        }
+    }
     var lerpRatio = CGFloat(1.0 / 5.0)
     var completeTransitionSteps = 120
+
+    var barWidth = 2 {
+        didSet {
+            _barsLayer?.barWidth = barWidth
+        }
+    }
+    var spaceWidth = 2 {
+        didSet {
+            _barsLayer?.spaceWidth = spaceWidth
+        }
+    }
 
     override func awakeFromNib() {
         self.wantsLayer = true
@@ -112,14 +132,16 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
 
         _bgLayer = CAGradientLayer()
         _bgLayer.colors = [
-            NSColor.black.withAlphaComponent(0.4),
-            NSColor.clear
+            NSColor.black.withAlphaComponent(0.4).cgColor,
+            NSColor.clear.cgColor
         ]
         _bgLayer.zPosition = -2
         self.layer!.addSublayer(_bgLayer)
         
         _barsLayer = BarsLayer()
         _barsLayer.zPosition = -1
+        _barsLayer.barWidth = barWidth
+        _barsLayer.spaceWidth = spaceWidth
         self.layer!.addSublayer(_barsLayer)
 
         _mousePositionLayer = CALayer()
@@ -137,15 +159,30 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
                                           owner: self, userInfo: nil)
         self.addTrackingArea(trackingArea)
 
-        self.timer = Timer.scheduledTimer(withTimeInterval: updateTime, repeats: true) { _ in
+        updateTimer()
+    }
+    
+    func reset() {
+        CATransaction.begin()
+        CATransaction.setValue(true, forKey:kCATransactionDisableActions)
+        self.analysis = nil
+        self._barsLayer.values = BarsLayer.defaultValues
+        CATransaction.commit()
+    }
+    
+    func updateTimer() {
+        transitionSteps = self.completeTransitionSteps
+
+        self.timer?.invalidate()
+        self.timer = Timer.scheduledTimer(withTimeInterval: updateTime, repeats: true) { timer in
             // Only update the bars for x steps after transition
             if self.transitionSteps > 0 {
-                let drawValues = self.analysis?.values ?? Array(repeating: Array(repeating: CGFloat(0), count: Analysis.sampleCount), count: 4)
+                let drawValues = self.analysis?.values ?? BarsLayer.defaultValues
                 self._barsLayer.values = (0..<4).map { lerp(self._barsLayer.values[$0], drawValues[$0], self.lerpRatio) }
             }
             
             if self.analysis?.complete ?? true { self.transitionSteps -= 1}
-
+            
             CATransaction.begin()
             CATransaction.setAnimationDuration(self.updateTime)
             if let location = self.location {
@@ -157,16 +194,6 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
             }
             CATransaction.commit()
         }
-    }
-    
-    func reset() {
-        CATransaction.begin()
-        CATransaction.setValue(true, forKey:kCATransactionDisableActions)
-        self._positionLayer.isHidden = true
-        CATransaction.commit()
-
-        location = nil
-        self._barsLayer.values = BarsLayer.defaultValues
     }
     
     func layoutSublayers(of layer: CALayer) {

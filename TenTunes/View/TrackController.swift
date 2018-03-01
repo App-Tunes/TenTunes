@@ -179,7 +179,10 @@ class TrackController: NSViewController {
     }
     
     func viewFor(track: Track) -> TrackCellView? {
-        return _tableView.view(atColumn: 0, row: history.indexOf(track: track) ?? -1, makeIfNecessary: false) as? TrackCellView
+        if let index = history.indexOf(track: track) {
+            return _tableView.view(atColumn: 0, row: index, makeIfNecessary: false) as? TrackCellView
+        }
+        return nil
     }
     
     func update(view: TrackCellView?, with track: Track) {
@@ -273,6 +276,8 @@ extension TrackController: NSTableViewDelegate {
 
         if tableColumn == tableView.tableColumns[0] {
             if let view = tableView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? TrackCellView {
+                view.spectrumView?.reset()
+                
                 view.track = track
                 update(view: view, with: track)
                 return view

@@ -35,6 +35,9 @@ class TrackCellView: NSTableCellView {
             view.layer!.masksToBounds = true
         }
         
+        spectrumView?.barWidth = 1
+        spectrumView?.spaceWidth = 1
+
         // For performance, screw animation for now
         spectrumView?.updateTime = 1.0
         spectrumView?.lerpRatio = 1.0
@@ -63,3 +66,4 @@ class TrackCellView: NSTableCellView {
         }
     }
 }
+

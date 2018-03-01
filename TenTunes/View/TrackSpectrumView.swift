@@ -11,6 +11,9 @@ import QuartzCore
 
 func lerp(_ left: [CGFloat], _ right: [CGFloat], _ amount: CGFloat) -> [CGFloat] {
     return zip(left, right).map { (cur, dest) in
+        if amount >= 1 { return dest }
+        else if amount <= 0 { return cur }
+        
         return cur * (CGFloat(1.0) - amount) + dest * amount
     }
 }
@@ -119,13 +122,13 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
         self.layer!.addSublayer(_positionLayer)
         
         self.timer = Timer.scheduledTimer(withTimeInterval: updateTime, repeats: true) { _ in
-            if self.analysis?.complete ?? true { self.transitionSteps -= 1}
-            
             // Only update the bars for x steps after transition
             if self.transitionSteps > 0 {
                 let drawValues = self.analysis?.values ?? Array(repeating: Array(repeating: CGFloat(0), count: Analysis.sampleCount), count: 4)
                 self._barsLayer.values = (0..<4).map { lerp(self._barsLayer.values[$0], drawValues[$0], self.lerpRatio) }
             }
+            
+            if self.analysis?.complete ?? true { self.transitionSteps -= 1}
 
             CATransaction.begin()
             CATransaction.setAnimationDuration(self.updateTime)

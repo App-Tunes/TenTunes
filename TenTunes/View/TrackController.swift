@@ -279,7 +279,8 @@ extension TrackController: NSTableViewDelegate {
 
         if tableColumn == tableView.tableColumns[0] {
             if let view = tableView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? TrackCellView {
-                view.spectrumView?.reset()
+                // We reuse the cell from somewhere else so don't take their value
+                view.spectrumView?.setInstantly(analysis: track.analysis)
                 
                 view.track = track
                 update(view: view, with: track)

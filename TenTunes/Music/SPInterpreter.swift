@@ -41,11 +41,19 @@ class Analysis {
         writeCGFloats(values[3], to: url.appendingPathComponent("high"))
     }
     
+    static func readWave(from: URL) -> [CGFloat]? {
+        let wave = readCGFloats(from: from)
+        if let wave = wave {
+            return wave.count == sampleCount && wave.allMatch { $0 >= 0 && $0 <= 1 } ? wave : nil
+        }
+        return nil
+    }
+    
     static func read(url: URL) -> Analysis? {
-        let wave = readCGFloats(from: url.appendingPathComponent("wave"))
-        let low = readCGFloats(from: url.appendingPathComponent("low"))
-        let mid = readCGFloats(from: url.appendingPathComponent("mid"))
-        let high = readCGFloats(from: url.appendingPathComponent("high"))
+        let wave = readWave(from: url.appendingPathComponent("wave"))
+        let low = readWave(from: url.appendingPathComponent("low"))
+        let mid = readWave(from: url.appendingPathComponent("mid"))
+        let high = readWave(from: url.appendingPathComponent("high"))
 
         if let wave = wave, let low = low, let mid = mid, let high = high {
             let analysis = Analysis()

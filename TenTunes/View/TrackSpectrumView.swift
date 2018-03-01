@@ -29,6 +29,7 @@ class BarsLayer: CALayer {
     }
     
     static func barColor(_ value: CGFloat) -> CGColor {
+        if value.isNaN { return CGColor.black } // Probably all 3 were 0
         return barColorLookup[(0...barColorLookup.count - 1).clamp(Int(value * CGFloat(barColorLookup.count)))]
     }
     
@@ -169,12 +170,12 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
         updateTimer()
     }
     
-    func reset() {
+    func setInstantly(analysis: Analysis?) {
         CATransaction.begin()
         CATransaction.setValue(true, forKey:kCATransactionDisableActions)
         
-        self.analysis = nil
-        self._barsLayer.values = BarsLayer.defaultValues
+        self.analysis = analysis
+        self._barsLayer.values = analysis?.values ?? BarsLayer.defaultValues
         transitionSteps = 0
         
         CATransaction.commit()

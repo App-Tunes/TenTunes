@@ -228,7 +228,9 @@ extension Track {
     @discardableResult
     func readAnalysis() -> Bool {
         if let read = Analysis.read(url: analysisURL) {
-            analysis = read
+            // If someone set it already, just update
+            if let analysis = analysis { analysis.values = read.values }
+            else { analysis = read }
             return true
         }
         return false

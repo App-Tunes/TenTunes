@@ -71,9 +71,6 @@ class Library {
         for (_, track) in from.database { addTrackToLibrary(track) }
         playlistParents.merge(from.playlistParents, uniquingKeysWith: { _,_ in fatalError("Duplicate playlist parents??") })
         playlistDatabase.merge(from.playlistDatabase, uniquingKeysWith: { _,_ in fatalError("Duplicate playlist IDs") })
-
-        // Import as playlist
-        from.masterPlaylist.name = "iTunes Library"
         addPlaylist(from.masterPlaylist, to: masterPlaylist, above: nil)
     }
 

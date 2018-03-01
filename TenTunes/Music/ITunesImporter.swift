@@ -9,17 +9,19 @@
 import Cocoa
 
 class ITunesImporter {
-    static func parse(url: URL) -> Library? {
+    static func importFrom(url: URL, to library: Library) -> Bool {
         guard let nsdict = NSDictionary(contentsOf: url) else {
-            return nil
+            return false
         }
         
         // TODO Store persistent IDs for playlists and tracks so we can automatically update them
         // i.e. We have a non-editable 'iTunes' folder that has a right click update and cannot be edit
         // Though it needs to be duplicatable into an editable copy
         
-        let library = Library()
-        
+        let masterPlaylist = Playlist(folder: true)
+        masterPlaylist.name = "iTunes Library"
+        library.addPlaylist(masterPlaylist)
+
         var iTunesTracks: [Int:Track] = [:]
         var iTunesPlaylists: [String:Playlist] = [:]
 
@@ -63,12 +65,12 @@ class ITunesImporter {
                 library.addPlaylist(playlist, to: iTunesPlaylists[parent]!)
             }
             else {
-                library.addPlaylist(playlist)
+                library.addPlaylist(playlist, to: masterPlaylist)
             }
             
             iTunesPlaylists[playlistData.object(forKey: "Playlist Persistent ID") as! String] = playlist
         }
         
-        return library
+        return true
     }
 }

@@ -130,10 +130,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 return
             }
             
-            if let library = ITunesImporter.parse(url: url) {
-                Library.shared.add(from: library)
-            }
-            else {
+            if !ITunesImporter.importFrom(url: url, to: Library.shared) {
                 let alert: NSAlert = NSAlert()
                 alert.messageText = "Invalid File"
                 alert.informativeText = "The selected file is not a valid iTunes library file."

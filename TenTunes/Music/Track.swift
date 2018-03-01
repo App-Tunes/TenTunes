@@ -30,6 +30,8 @@ class Track {
     var artworkPreview: NSImage? = nil
 
     var metadataFetched: Bool = false
+    
+    var iTunesPersistentID: String?
 
     var rTitle: String {
         return title ?? "Unknown Title"

@@ -100,7 +100,8 @@ class Library {
         // TODO Add to playing playlists? Meh
         let path = self.path(of: to)!
 
-        if path.contains(ViewController.shared.trackController.history.playlist) {
+        let current = ViewController.shared.trackController.history.playlist
+        if path.contains(current) || current == allTracks {
             ViewController.shared.trackController.desired._changed = true
         }
     }
@@ -125,6 +126,9 @@ class Library {
             parent.children![idx] = copy!
             playlistParents[copy!.id] = parent
         }
+        
+        // Add all tracks to possibly adjust views
+        addTracks(playlist.tracks, to: to)
         
         playlistDatabase[playlist.id] = playlist
         to.children?.insert(playlist, at: above)
@@ -154,12 +158,16 @@ class Library {
         
         // Should find a way for histories to check themselves? Or something
         // Might use lastChanged index and on every query check for sanity
-        if from == ViewController.shared.history?.playlist {
+        let path = self.path(of: from)!
+
+        let listening = ViewController.shared.history?.playlist
+        if let listening = listening, path.contains(listening) || listening == allTracks {
             ViewController.shared.history?.filter { !tracks.contains($0) }
         }
         
-        // We can calcuate the view async
-        if from == ViewController.shared.trackController.history.playlist {
+        let current = ViewController.shared.trackController.history.playlist
+        if path.contains(current) || current == allTracks {
+            // We can calcuate the view async
             ViewController.shared.trackController.desired._changed = true
         }
     }

@@ -129,6 +129,7 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
 
         _positionLayer = CALayer()
         _positionLayer.backgroundColor = CGColor.white
+        _positionLayer.isHidden = true
         self.layer!.addSublayer(_positionLayer)
         
         let trackingArea = NSTrackingArea(rect: self.bounds,

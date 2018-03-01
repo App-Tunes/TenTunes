@@ -19,6 +19,17 @@ class Library {
     var masterPlaylist: Playlist = Playlist(folder: true)
     var playlistParents: [UUID: Playlist] = [:]
     
+    var url: URL
+    
+    init() {
+        masterPlaylist.name = "Master"
+        allTracks.name = "Library"
+        
+        url = FileManager.default.urls(for: .musicDirectory, in: .userDomainMask).first!.appendingPathComponent("Ten Tunes")
+        
+        try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: false, attributes: nil)
+    }
+    
     // Querying
     
     func track(byId: UUID) -> Track? {

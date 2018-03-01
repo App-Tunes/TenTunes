@@ -62,7 +62,12 @@ extension ViewController {
                     self.trackController.update(view: nil, with: playing) // Get the analysis inside the cell
                     
                     DispatchQueue.global(qos: .userInitiated).async {
-                        SPInterpreter.analyze(file: self.player.audioFile!, analysis: playing.analysis!)
+                        // May exist on disk
+                        if !playing.readAnalysis() {
+                            SPInterpreter.analyze(file: self.player.audioFile!, analysis: playing.analysis!)
+                            playing.writeAnalysis()
+                        }
+                        
                         self._workerSemaphore.signal()
                     }
                 }

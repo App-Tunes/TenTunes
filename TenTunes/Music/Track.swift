@@ -168,6 +168,10 @@ extension Track {
         
         duration = duration ?? avImporter.duration
         
+        if analysis == nil {
+            readAnalysis()
+        }
+        
         //        var fileID: AudioFileID?
         //        if AudioFileOpenURL(url as CFURL, AudioFilePermissions.readPermission, 0, &fileID) == 0 {
         //            var size: UInt32 = 0
@@ -206,6 +210,28 @@ extension Track : Equatable {
 extension Track : Hashable {
     var hashValue: Int {
         return id.hashValue
+    }
+}
+
+// Saving, Loading
+extension Track {
+    var analysisURL: URL {
+        // TODO When saving tracks etc., use id instead of iTunes ID
+        return Library.shared.url.appendingPathComponent("analysis").appendingPathComponent(iTunesPersistentID!)
+    }
+    
+    func writeAnalysis() {
+        try! FileManager.default.createDirectory(at: analysisURL, withIntermediateDirectories: true, attributes: nil)
+        analysis!.write(url: analysisURL)
+    }
+    
+    @discardableResult
+    func readAnalysis() -> Bool {
+        if let read = Analysis.read(url: analysisURL) {
+            analysis = read
+            return true
+        }
+        return false
     }
 }
 

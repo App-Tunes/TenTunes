@@ -312,3 +312,13 @@ extension Dictionary where Value : AnyObject {
         return true
     }
 }
+
+extension String {
+    subscript (r: CountableClosedRange<Int>) -> String {
+        get {
+            let startIndex =  self.index(self.startIndex, offsetBy: r.lowerBound)
+            let endIndex = self.index(startIndex, offsetBy: r.upperBound - r.lowerBound)
+            return String(self[startIndex...endIndex])
+        }
+    }
+}

@@ -14,11 +14,46 @@ func simulateWave(_ pos: Float, _ size: Float, _ speed: Float, progress: Float, 
     return (sin(pos * size + time * speed) + 1.0) * (pos > progress ? 0.3 : 0.05) + (pos > progress ? 0.1 : 0.35)
 }
 
+func writeCGFloats(_ array: [CGFloat], to url: URL) {
+    let wData = Data(bytes: array, count: array.count * MemoryLayout<CGFloat>.stride)
+    try! wData.write(to: url)
+}
+
+func readCGFloats(from: URL) -> [CGFloat]? {
+    if let data = try? Data(contentsOf: from) {
+        return data.withUnsafeBytes { (bytes: UnsafePointer<CGFloat>) in
+            return Array(UnsafeBufferPointer(start: bytes, count: data.count / MemoryLayout<CGFloat>.size))
+        }
+    }
+    return nil
+}
+
 class Analysis {
     static let sampleCount: Int = 500
 
-    var values: [[CGFloat]]?
+    var values: [[CGFloat]] = Array(repeating: Array(repeating: 0.0, count: sampleCount), count: 4)
     var complete = false
+    
+    func write(url: URL) {
+        writeCGFloats(values[0], to: url.appendingPathComponent("wave"))
+        writeCGFloats(values[1], to: url.appendingPathComponent("low"))
+        writeCGFloats(values[2], to: url.appendingPathComponent("mid"))
+        writeCGFloats(values[3], to: url.appendingPathComponent("high"))
+    }
+    
+    static func read(url: URL) -> Analysis? {
+        let wave = readCGFloats(from: url.appendingPathComponent("wave"))
+        let low = readCGFloats(from: url.appendingPathComponent("low"))
+        let mid = readCGFloats(from: url.appendingPathComponent("mid"))
+        let high = readCGFloats(from: url.appendingPathComponent("high"))
+
+        if let wave = wave, let low = low, let mid = mid, let high = high {
+            let analysis = Analysis()
+            analysis.values = [wave, low, mid, high]
+            return analysis
+        }
+        return nil
+    }
 }
 
 class SPInterpreter {

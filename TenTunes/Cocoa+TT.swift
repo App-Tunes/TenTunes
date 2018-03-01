@@ -8,9 +8,9 @@
 
 import Cocoa
 
-extension Optional {
+extension Optional where Wrapped : Comparable {
     // Simply puts the nils at the end
-    static func compare(_ lhs: Key?, _ rhs: Key?) -> Bool {
+    static func compare(_ lhs: Wrapped?, _ rhs: Wrapped?) -> Bool {
         if lhs == nil { return false }
         if rhs == nil { return true }
         return lhs! < rhs!

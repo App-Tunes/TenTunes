@@ -44,6 +44,7 @@ class TrackController: NSViewController {
     
     var _sortButtons: [NSButton] = []
     var _sortTitle: NSButton!
+    var _sortGenre: NSButton!
     var _sortKey: NSButton!
     var _sortBPM: NSButton!
 
@@ -90,9 +91,10 @@ class TrackController: NSViewController {
         _searchBarHeight.constant = CGFloat(0)
         
         _sortTitle = addSearchBarItem(title: "Title", previous: _sortLabel)
-        _sortKey = addSearchBarItem(title: "Key", previous: _sortTitle)
+        _sortGenre = addSearchBarItem(title: "Genre", previous: _sortTitle)
+        _sortKey = addSearchBarItem(title: "Key", previous: _sortGenre)
         _sortBPM = addSearchBarItem(title: "BPM", previous: _sortKey)
-        
+
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             return self.keyDown(with: $0)
         }
@@ -233,6 +235,8 @@ class TrackController: NSViewController {
         switch button {
         case _sortTitle:
             return { $0.rTitle < $1.rTitle }
+        case _sortGenre:
+            return { Optional<String>.compare($0.genre, $1.genre) }
         case _sortKey:
             return { Optional<Key>.compare($0.key, $1.key) }
         case _sortBPM:

@@ -58,6 +58,7 @@ class Analysis {
         if let wave = wave, let low = low, let mid = mid, let high = high {
             let analysis = Analysis()
             analysis.values = [wave, low, mid, high]
+            analysis.complete = true
             return analysis
         }
         return nil

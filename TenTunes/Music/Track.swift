@@ -229,7 +229,10 @@ extension Track {
     func readAnalysis() -> Bool {
         if let read = Analysis.read(url: analysisURL) {
             // If someone set it already, just update
-            if let analysis = analysis { analysis.values = read.values }
+            if let analysis = analysis {
+                analysis.values = read.values
+                analysis.complete = true
+            }
             else { analysis = read }
             return true
         }

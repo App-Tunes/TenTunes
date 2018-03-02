@@ -235,6 +235,10 @@ class Library {
 extension Library {
     func writeTrack(_ track: Track, toPasteboarditem item: NSPasteboardItem) {
         item.setString(track.id.uuidString, forType: Track.pasteboardType)
+        
+        if let url = track.url {
+            item.setString(url.absoluteString, forType: .fileURL)
+        }
     }
     
     func readTrack(fromPasteboardItem item: NSPasteboardItem) -> Track? {

@@ -87,6 +87,7 @@ class TrackController: NSViewController {
         desired = PlayHistorySetup { self.history = $0 }
         
         _tableView.registerForDraggedTypes([Track.pasteboardType])
+        _tableView.setDraggingSourceOperationMask(.every, forLocal: false) // ESSENTIAL
 
         _searchBarHeight.constant = CGFloat(0)
         

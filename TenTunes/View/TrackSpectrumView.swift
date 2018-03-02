@@ -41,20 +41,6 @@ class BarsLayer: CALayer {
     var barWidth = 2
     var spaceWidth = 2
     
-    override init() {
-        super.init()
-        needsDisplayOnBoundsChange = true
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override init(layer: Any) {
-        super.init(layer: layer)
-        needsDisplayOnBoundsChange = true
-    }
-    
     override func draw(in ctx: CGContext) {
         let segmentWidth = barWidth + spaceWidth
 
@@ -89,24 +75,101 @@ class BarsLayer: CALayer {
     }
 }
 
-class TrackSpectrumView: NSControl, CALayerDelegate {
+class SpectrumLayer : CALayer {
+    var _barsLayer = BarsLayer()
+    var _positionLayer = CALayer()
+    var _mousePositionLayer = CALayer()
+    var _bgLayer = CAGradientLayer()
+    
     var location: Double? {
         didSet {
-            self.setNeedsDisplay()
+            _updateLocation(layer: _positionLayer, to: location)
+        }
+    }
+    var mouseLocation: Double? {
+        didSet {
+            _updateLocation(layer: _mousePositionLayer, to: mouseLocation)
         }
     }
     
-    var _barsLayer: BarsLayer!
-    var _positionLayer: CALayer!
-    var _mousePositionLayer: CALayer!
-    var _bgLayer: CAGradientLayer!
+    override init() {
+        super.init()
+        
+        needsDisplayOnBoundsChange = true
+        actions = ["onOrderOut": NSNull()] // Disable fade outs
 
+        _bgLayer.colors = [
+            NSColor.black.withAlphaComponent(0.4).cgColor,
+            NSColor.clear.cgColor
+        ]
+        _bgLayer.zPosition = -2
+        addSublayer(_bgLayer)
+        
+        _barsLayer.zPosition = -1
+        _barsLayer.barWidth = 2
+        _barsLayer.spaceWidth = 2
+        addSublayer(_barsLayer)
+        
+        _mousePositionLayer.backgroundColor = NSColor.gray.cgColor
+        _mousePositionLayer.isHidden = true
+        addSublayer(_mousePositionLayer)
+        
+        _positionLayer.backgroundColor = CGColor.white
+        _positionLayer.isHidden = true
+        addSublayer(_positionLayer)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func layoutSublayers() {
+        _barsLayer.frame = bounds
+        _bgLayer.frame = bounds
+        _positionLayer.frame = CGRect(
+            x: _positionLayer.frame.origin.x,
+            y: _positionLayer.frame.origin.y,
+            width: 1,
+            height: bounds.height
+        )
+        _mousePositionLayer.frame = _positionLayer.frame
+        
+        _updateLocation(layer: _positionLayer, to: location)
+        _updateLocation(layer: _mousePositionLayer, to: mouseLocation)
+    }
+    
+    func _updateLocation(layer: CALayer, to: Double?) {
+        CATransaction.begin()
+        CATransaction.setAnimationDuration(1 / 30) // Make this quick
+
+        if let location = to {
+            layer.frame.origin.x = CGFloat(location) * self.bounds.width
+            layer.isHidden = false
+        }
+        else {
+            layer.isHidden = true
+        }
+        
+        CATransaction.commit()
+    }
+}
+
+class TrackSpectrumView: NSControl, CALayerDelegate {
+    var location: Double? {
+        set(location) { spectrumLayer.location = location }
+        get { return spectrumLayer.location }
+    }
+    
     var analysis: Analysis? = nil {
         didSet {
             if analysis !== oldValue {
                 transitionSteps = self.completeTransitionSteps
             }
         }
+    }
+    
+    var spectrumLayer : SpectrumLayer {
+        return layer as! SpectrumLayer
     }
     
     var timer: Timer? = nil
@@ -123,52 +186,36 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
     var lerpRatio = CGFloat(1.0 / 5.0)
     var completeTransitionSteps = 120
 
-    var barWidth = 2 {
-        didSet {
-            _barsLayer?.barWidth = barWidth
-        }
+    var barWidth: Int {
+        set(barWidth) { spectrumLayer._barsLayer.barWidth = barWidth }
+        get { return spectrumLayer._barsLayer.barWidth }
     }
-    var spaceWidth = 2 {
-        didSet {
-            _barsLayer?.spaceWidth = spaceWidth
-        }
+    var spaceWidth: Int {
+        set(spaceWidth) { spectrumLayer._barsLayer.spaceWidth = spaceWidth }
+        get { return spectrumLayer._barsLayer.spaceWidth }
     }
-
-    override func awakeFromNib() {
-        self.wantsLayer = true
-        self.layer = CALayer()
-        self.layer!.delegate = self
-        self.layer!.needsDisplayOnBoundsChange = true
-
-        _bgLayer = CAGradientLayer()
-        _bgLayer.colors = [
-            NSColor.black.withAlphaComponent(0.4).cgColor,
-            NSColor.clear.cgColor
-        ]
-        _bgLayer.zPosition = -2
-        self.layer!.addSublayer(_bgLayer)
-        
-        _barsLayer = BarsLayer()
-        _barsLayer.zPosition = -1
-        _barsLayer.barWidth = barWidth
-        _barsLayer.spaceWidth = spaceWidth
-        self.layer!.addSublayer(_barsLayer)
-
-        _mousePositionLayer = CALayer()
-        _mousePositionLayer.backgroundColor = NSColor.gray.cgColor
-        _mousePositionLayer.isHidden = true
-        self.layer!.addSublayer(_mousePositionLayer)
-
-        _positionLayer = CALayer()
-        _positionLayer.backgroundColor = CGColor.white
-        _positionLayer.isHidden = true
-        self.layer!.addSublayer(_positionLayer)
+    
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        _setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        _setup()
+    }
+    
+    func _setup() {
+        wantsLayer = true
+        layer = SpectrumLayer()
+        spectrumLayer._barsLayer.barWidth = barWidth
+        spectrumLayer._barsLayer.spaceWidth = spaceWidth
         
         let trackingArea = NSTrackingArea(rect: self.bounds,
                                           options: [.activeInActiveApp, .inVisibleRect, .assumeInside, .mouseEnteredAndExited, .mouseMoved],
                                           owner: self, userInfo: nil)
         self.addTrackingArea(trackingArea)
-
+        
         updateTimer()
     }
     
@@ -177,7 +224,7 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
         CATransaction.setValue(true, forKey:kCATransactionDisableActions)
         
         self.analysis = analysis
-        self._barsLayer.values = analysis?.values ?? BarsLayer.defaultValues
+        spectrumLayer._barsLayer.values = analysis?.values ?? BarsLayer.defaultValues
         transitionSteps = 0
         
         CATransaction.commit()
@@ -194,35 +241,17 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
             
             // Only update the bars for x steps after transition
             if self.transitionSteps > 0 {
+                CATransaction.begin()
+                CATransaction.setAnimationDuration(self.updateTime)
+
                 let drawValues = self.analysis?.values ?? BarsLayer.defaultValues
-                self._barsLayer.values = (0..<4).map { lerp(self._barsLayer.values[$0], drawValues[$0], self.lerpRatio) }
+                self.spectrumLayer._barsLayer.values = (0..<4).map { lerp(self.spectrumLayer._barsLayer.values[$0], drawValues[$0], self.lerpRatio) }
+
+                CATransaction.commit()
             }
             
             if self.analysis?.complete ?? true { self.transitionSteps -= 1}
-            
-            CATransaction.begin()
-            CATransaction.setAnimationDuration(self.updateTime)
-            if let location = self.location {
-                self._positionLayer.frame.origin.x = CGFloat(location) * self.bounds.width
-                self._positionLayer.isHidden = false
-            }
-            else {
-                self._positionLayer.isHidden = true
-            }
-            CATransaction.commit()
         }
-    }
-    
-    func layoutSublayers(of layer: CALayer) {
-        _barsLayer.frame = layer.bounds
-        _bgLayer.frame = layer.bounds
-        _positionLayer.frame = CGRect(
-            x: _positionLayer.frame.origin.x,
-            y: _positionLayer.frame.origin.y,
-            width: 1,
-            height: layer.bounds.height
-        )
-        _mousePositionLayer.frame = _positionLayer.frame
     }
     
     override func acceptsFirstMouse(for event: NSEvent?) -> Bool {
@@ -245,18 +274,14 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
         self.click(at: self.convert(event.locationInWindow, from: nil))
     }
     
-    override func mouseEntered(with event: NSEvent) {
-        _mousePositionLayer.isHidden = false
-    }
-    
     override func mouseExited(with event: NSEvent) {
-        _mousePositionLayer.isHidden = true
+        spectrumLayer.mouseLocation = nil
     }
     
     override func mouseMoved(with event: NSEvent) {
         CATransaction.begin()
         CATransaction.setValue(true, forKey:kCATransactionDisableActions)
-        _mousePositionLayer.frame.origin.x = self.convert(event.locationInWindow, from:nil).x
+        spectrumLayer.mouseLocation = Double(self.convert(event.locationInWindow, from:nil).x / bounds.size.width)
         CATransaction.commit()
     }
 }

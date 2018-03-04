@@ -110,17 +110,14 @@ class Library {
     
     func addPlaylist(_ playlist: Playlist, to: PlaylistFolder? = nil, above: Int? = nil) {
         let to = to ?? masterPlaylist
-
-        // TODO
-//        playlistDatabase.insertNewValue(value: playlist, forKey: playlist.id)
         
-        let above = above ?? to.children.count
-
-        let position = self.position(of: playlist)
-        
-        // TODO
         to.addToChildren(playlist)
-//        to.children?.insert(playlist, at: above)
+
+        if let above = above {
+            let changed = to.children.mutableCopy() as! NSMutableOrderedSet
+            changed.rearrange(from: [changed.index(of: playlist)], to: above)
+            to.children = changed
+        }
         
         editedTracks(of: to)
         ViewController.shared.playlistController._outlineView.reloadData()
@@ -183,8 +180,7 @@ class Library {
 
 extension Library {
     func writeTrack(_ track: Track, toPasteboarditem item: NSPasteboardItem) {
-        // TODO
-//        item.setString(track.objectID.uriRepresentation().absoluteString, forType: Track.pasteboardType)
+        item.setString(track.objectID.uriRepresentation().absoluteString, forType: Track.pasteboardType)
         
         if let url = track.url {
             item.setString(url.absoluteString, forType: .fileURL)
@@ -192,20 +188,20 @@ extension Library {
     }
     
     func readTrack(fromPasteboardItem item: NSPasteboardItem) -> Track? {
-//        if let idString = item.string(forType: Track.pasteboardType), let id = UUID(uuidString: idString) {
-//            return track(byId: id)
-//        }
+        if let idString = item.string(forType: Track.pasteboardType), let url = URL(string: idString), let id = persistentContainer.persistentStoreCoordinator.managedObjectID(forURIRepresentation: url) {
+            return track(byId: id)
+        }
         return nil
     }
 
     func writePlaylist(_ playlist: Playlist, toPasteboarditem item: NSPasteboardItem) {
-//        item.setString(playlist.id.uuidString, forType: Playlist.pasteboardType)
+        item.setString(playlist.objectID.uriRepresentation().absoluteString, forType: Playlist.pasteboardType)
     }
     
     func readPlaylist(fromPasteboardItem item: NSPasteboardItem) -> Playlist? {
-//        if let idString = item.string(forType: Playlist.pasteboardType), let id = UUID(uuidString: idString) {
-//            return playlist(byId: id)
-//        }
+        if let idString = item.string(forType: Playlist.pasteboardType), let url = URL(string: idString), let id = persistentContainer.persistentStoreCoordinator.managedObjectID(forURIRepresentation: url) {
+            return playlist(byId: id)
+        }
         return nil
     }
 }

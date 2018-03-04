@@ -74,6 +74,27 @@ extension Array {
     }
 }
 
+extension NSMutableOrderedSet {
+    public func insert(all: [Any], at: Int) {
+        // Reverse because it reverses again on insertion
+        for element in all.reversed() {
+            insert(element, at: at)
+        }
+    }
+    
+    public func rearrange(from: [Int], to: Int) {
+        // First get the elements
+        let elements = from.map { self[$0] }
+        // Calculate by how much our index is going to be bumped down
+        let toAfter = to - (from.filter { $0 < to }).count
+        
+        // Remove at indices
+        self.removeObjects(at: IndexSet(from))
+        // Insert to new position
+        self.insert(all: elements, at: toAfter)
+    }
+}
+
 extension Array where Element: Equatable {
     @discardableResult
     public mutating func remove(element: Element) -> Bool {

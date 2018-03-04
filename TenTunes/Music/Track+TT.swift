@@ -9,30 +9,29 @@
 import Cocoa
 import AudioKit
 
-class Track {
+extension Track {
     static let pasteboardType = NSPasteboard.PasteboardType(rawValue: "tentunes.track")
+
+    convenience init() {
+        let mox = Library.shared.persistentContainer.viewContext
+        self.init(entity: NSEntityDescription.entity(forEntityName: "Track", in:mox)!, insertInto: mox)
+    }
+
+    var duration: CMTime? {
+        get { return durationR > 0 ? CMTime(value: durationR, timescale: 1000) : nil }
+        set(duration) { durationR = duration?.convertScale(1000, method: .roundHalfAwayFromZero).value ?? 0 }
+    }
     
-    var id: UUID = UUID()
-    var title: String? = nil
-    var author: String? = nil
-    var album: String? = nil
-    var genre: String? = nil
-
-    var duration: CMTime? = nil
-
-    var path: String? = nil
-    var key: Key? = nil
-    var bpm: Double? = nil
+    var bpm: Double? {
+        get { return bpmR > 0 ? bpmR : nil }
+        set(bpm) { bpmR = bpm ?? 0 }
+    }
     
-    var analysis: Analysis? = nil
-
-    var artwork: NSImage? = nil
-    var artworkPreview: NSImage? = nil
-
-    var metadataFetched: Bool = false
+    var key: Key? {
+        get { return keyString ?=> Key.parse }
+        set(key) { keyString = key?.write }
+    }
     
-    var iTunesPersistentID: String?
-
     var rTitle: String {
         return title ?? "Unknown Title"
     }
@@ -56,7 +55,7 @@ class Track {
         
         return key.description
     }
-    
+       
     var rArtwork: NSImage {
         return self.artwork ?? NSImage(named: NSImage.Name(rawValue: "music_missing"))!
     }
@@ -201,41 +200,30 @@ extension Track {
     }
 }
 
-extension Track : Equatable {
-    static func ==(lhs: Track, rhs: Track) -> Bool {
-        return lhs.id == rhs.id
-    }
-}
-
-extension Track : Hashable {
-    var hashValue: Int {
-        return id.hashValue
-    }
-}
-
 // Saving, Loading
 extension Track {
-    var analysisURL: URL {
-        // TODO When saving tracks etc., use id instead of iTunes ID
-        return Library.shared.url.appendingPathComponent("analysis").appendingPathComponent(iTunesPersistentID!)
-    }
+    // TODO
+//    var analysisURL: URL {
+//        // TODO When saving tracks etc., use id instead of iTunes ID
+//        return Library.shared.url.appendingPathComponent("analysis").appendingPathComponent(iTunesID!)
+//    }
     
     func writeAnalysis() {
-        try! FileManager.default.createDirectory(at: analysisURL, withIntermediateDirectories: true, attributes: nil)
-        analysis!.write(url: analysisURL)
+//        try! FileManager.default.createDirectory(at: analysisURL, withIntermediateDirectories: true, attributes: nil)
+//        analysis!.write(url: analysisURL)
     }
     
     @discardableResult
     func readAnalysis() -> Bool {
-        if let read = Analysis.read(url: analysisURL) {
-            // If someone set it already, just update
-            if let analysis = analysis {
-                analysis.values = read.values
-                analysis.complete = true
-            }
-            else { analysis = read }
-            return true
-        }
+//        if let read = Analysis.read(url: analysisURL) {
+//            // If someone set it already, just update
+//            if let analysis = analysis {
+//                analysis.values = read.values
+//                analysis.complete = true
+//            }
+//            else { analysis = read }
+//            return true
+//        }
         return false
     }
 }

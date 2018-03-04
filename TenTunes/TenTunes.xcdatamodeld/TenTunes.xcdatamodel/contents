@@ -1,4 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17D47" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Playlist" representedClassName="Playlist" isAbstract="YES" syncable="YES">
+        <attribute name="name" attributeType="String" minValueString="0" syncable="YES"/>
+        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="PlaylistFolder" inverseName="children" inverseEntity="PlaylistFolder" syncable="YES"/>
+    </entity>
+    <entity name="PlaylistFolder" representedClassName="PlaylistFolder" parentEntity="Playlist" syncable="YES">
+        <relationship name="children" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Playlist" inverseName="parent" inverseEntity="Playlist" syncable="YES"/>
+    </entity>
+    <entity name="PlaylistManual" representedClassName="PlaylistManual" parentEntity="Playlist" syncable="YES">
+        <relationship name="tracks" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Track" inverseName="containingPlaylists" inverseEntity="Track" syncable="YES"/>
+    </entity>
+    <entity name="Track" representedClassName="Track" syncable="YES">
+        <attribute name="album" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="analysisData" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="artworkData" optional="YES" transient="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="artworkPreviewData" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bpmR" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="durationR" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="genre" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="iTunesID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="keyString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="metadataFetched" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="path" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="containingPlaylists" toMany="YES" deletionRule="Nullify" destinationEntity="PlaylistManual" inverseName="tracks" inverseEntity="PlaylistManual" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Playlist" positionX="-416" positionY="159" width="128" height="73"/>
+        <element name="PlaylistFolder" positionX="-218" positionY="171" width="128" height="58"/>
+        <element name="PlaylistManual" positionX="-218" positionY="252" width="128" height="58"/>
+        <element name="Track" positionX="-414" positionY="261" width="128" height="253"/>
+    </elements>
 </model>

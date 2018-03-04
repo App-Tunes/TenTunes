@@ -113,8 +113,7 @@ class TrackController: NSViewController {
         }
     }
     
-    func set(playlist: Playlist) {
-        playlist.calculateTracks() // For folders this is essential
+    func set(playlist: PlaylistProtocol) {
         self.history = PlayHistory(playlist: playlist)
         
         if self.desired.filter != nil || self.desired.sort != nil {
@@ -260,7 +259,7 @@ class TrackController: NSViewController {
     
     func remove(indices: [Int]?) {
         if let indices = indices {
-            Library.shared.remove(tracks: indices.flatMap { history.track(at: $0) }, from: history.playlist)
+            Library.shared.remove(tracks: indices.flatMap { history.track(at: $0) }, from: history.playlist as! PlaylistManual)
             // Don't reload data, we'll be updated in async
         }
     }
@@ -328,7 +327,7 @@ extension TrackController: NSTableViewDelegate {
         let pasteboard = info.draggingPasteboard()
         let tracks = (pasteboard.pasteboardItems ?? []).flatMap(Library.shared.readTrack)
         
-        Library.shared.addTracks(tracks, to: history.playlist, above: row)
+        Library.shared.addTracks(tracks, to: history.playlist as! PlaylistManual, above: row)
 
         return true
     }

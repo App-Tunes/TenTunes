@@ -38,9 +38,8 @@ extension ViewController {
                 // Update the current playlist, top priority
                 let desired = self.trackController.desired!
                 
-                let copy = PlayHistory(playlist: self.trackController.history.playlist)
-                
                 if desired._changed, desired.semaphore.wait(timeout: DispatchTime.now()) == .success {
+                    let copy = PlayHistory(playlist: self.trackController.history.playlist)
                     desired._changed = false
                     
                     DispatchQueue.global(qos: .userInitiated).async {
@@ -88,7 +87,7 @@ extension ViewController {
             }
             
             // TODO Replace this with a library-caused search
-            for track in trackController.history.playlist.tracks {
+            for track in trackController.history.playlist.tracksList {
                 if !track.metadataFetched  {
                     fetchMetadata(for: track, wait: true)
                     return

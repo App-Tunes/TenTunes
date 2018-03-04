@@ -84,7 +84,38 @@ enum Note {
         case .Ab:
             return "A♭"
         default:
-            return ""
+            fatalError("Unknown Key!")
+        }
+    }
+
+    var write: String {
+        switch self {
+        case .A:
+            return "a"
+        case .Bb:
+            return "bb"
+        case .B:
+            return "b"
+        case .C:
+            return "c"
+        case .Db:
+            return "db"
+        case .D:
+            return "d"
+        case .Eb:
+            return "eb"
+        case .E:
+            return "e"
+        case .F:
+            return "f"
+        case .Gb:
+            return "gb"
+        case .G:
+            return "g"
+        case .Ab:
+            return "ab"
+        default:
+            fatalError("Unknown Key!")
         }
     }
 }
@@ -142,6 +173,10 @@ class Key {
     
     var minor: Key {
         return Key(note: self.note, isMinor: true)
+    }
+    
+    var write: String {
+        return note.write + (isMinor ? "m" : "d")
     }
     
     var description: NSAttributedString {

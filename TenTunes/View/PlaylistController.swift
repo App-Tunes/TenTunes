@@ -9,15 +9,11 @@
 import Cocoa
 
 @objc class PlaylistController: NSViewController {
-    var masterPlaylist: Playlist = Playlist(folder: true) {
-        didSet {
-            self._outlineView.reloadData()
-        }
-    }
-    var library: Playlist = Playlist(folder: true)
+    var masterPlaylist: PlaylistFolder?
+    var library: PlaylistLibrary?
 
-    var selectionDidChange: ((Playlist) -> Swift.Void)? = nil
-    var playPlaylist: ((Playlist) -> Swift.Void)? = nil
+    var selectionDidChange: ((PlaylistProtocol) -> Swift.Void)? = nil
+    var playPlaylist: ((PlaylistProtocol) -> Swift.Void)? = nil
     
     @IBOutlet var _outlineView: NSOutlineView!
     
@@ -36,17 +32,17 @@ import Cocoa
     }
     
     @IBAction func selectLibrary(_ sender: Any) {
-        if let selectionDidChange = selectionDidChange {
+        if let selectionDidChange = selectionDidChange, let library = library {
             selectionDidChange(library)
         }
         _outlineView.deselectAll(self)
     }
     
-    var playlistInsertionPosition: (Playlist, Int?) {
+    var playlistInsertionPosition: (PlaylistFolder, Int?) {
         if let idx = _outlineView.selectedRowIndexes.last {
             let selectedPlaylist = _outlineView.item(atRow: idx) as! Playlist
             
-            if selectedPlaylist.isFolder {
+            if let selectedPlaylist = selectedPlaylist as? PlaylistFolder {
                 // Add inside, as last
                 return (selectedPlaylist, nil)
             }
@@ -57,8 +53,12 @@ import Cocoa
             }
         }
         else {
-            return (masterPlaylist, nil)
+            return (masterPlaylist!, nil)
         }
+    }
+    
+    func playlist(fromItem: Any?) -> PlaylistProtocol? {
+        return (fromItem ?? (masterPlaylist as Any?)) as? PlaylistProtocol
     }
     
     func select(playlist: Playlist, editTitle: Bool = false) {
@@ -66,20 +66,19 @@ import Cocoa
         // TODO Edit Title
         // If we created in a closed folder it might not exist
         
-        if let path = Library.shared.path(of: playlist) {
-            for parent in path.dropLast() {
-                _outlineView.expandItem(parent)
-            }
-            
-            let idx = _outlineView.row(forItem: playlist)
-            if idx < 0 { fatalError("Playlist does not exist in view even though it must!") }
-            
-            _outlineView.selectRowIndexes(IndexSet(integer: idx), byExtendingSelection: false)
+        let path = Library.shared.path(of: playlist)
+        for parent in path.dropLast() {
+            _outlineView.expandItem(parent)
         }
+        
+        let idx = _outlineView.row(forItem: playlist)
+        if idx < 0 { fatalError("Playlist does not exist in view even though it must!") }
+        
+        _outlineView.selectRowIndexes(IndexSet(integer: idx), byExtendingSelection: false)
     }
     
     @IBAction func createPlaylist(_ sender: Any) {
-        let createPlaylist = Playlist(folder: false)
+        let createPlaylist = PlaylistManual()
         let (parent, idx) = playlistInsertionPosition
         
         Library.shared.addPlaylist(createPlaylist, to: parent, above: idx)
@@ -87,7 +86,7 @@ import Cocoa
     }
     
     @IBAction func createGroup(_ sender: Any) {
-        let createPlaylist = Playlist(folder: true)
+        let createPlaylist = PlaylistFolder()
         let (parent, idx) = playlistInsertionPosition
         
         // TODO If we select multiple playlists at once, put them in the newly created one
@@ -108,10 +107,11 @@ extension PlaylistController : NSOutlineViewDataSource {
     }
 
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
-        guard let item = item as? Playlist else {
-            return masterPlaylist.children!.count
+        guard let playlist = self.playlist(fromItem: item) else {
+            return 0  // Not initialized yet
         }
-        return item.children!.count
+        
+        return (playlist as! PlaylistFolder).childrenList.count
     }
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
@@ -119,7 +119,7 @@ extension PlaylistController : NSOutlineViewDataSource {
         
         if let view = outlineView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? NSTableCellView {
             view.textField?.stringValue = playlist.name
-            view.imageView?.image = NSImage(named: NSImage.Name(rawValue: playlist.isFolder ? "folder" : "playlist"))!
+            view.imageView?.image = playlist.icon
             return view
         }
         
@@ -127,9 +127,9 @@ extension PlaylistController : NSOutlineViewDataSource {
     }
     
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
-        let playlists = ((item as? Playlist)?.children!) ?? masterPlaylist.children!
+        let playlist = self.playlist(fromItem: item)!
         
-        return playlists[index]
+        return (playlist as! PlaylistFolder).childrenList[index]
     }
     
     func outlineView(_ outlineView: NSOutlineView, objectValueFor tableColumn: NSTableColumn?, byItem item: Any?) -> Any? {
@@ -137,8 +137,7 @@ extension PlaylistController : NSOutlineViewDataSource {
     }
     
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
-        let playlist = item as! Playlist
-        return playlist.isFolder
+        return item is PlaylistFolder
     }
 }
 
@@ -171,12 +170,12 @@ extension PlaylistController : NSOutlineViewDelegate {
         
         switch type {
         case Track.pasteboardType:
-            let playlist = item as? Playlist ?? masterPlaylist
+            let playlist = item as? Playlist ?? masterPlaylist!
             return Library.shared.isEditable(playlist: playlist) ? .move : []
         case Playlist.pasteboardType:
             // We can always rearrange, except into playlists
             let playlist = item as? Playlist ?? masterPlaylist
-            if !playlist.isFolder {
+            if !(playlist is PlaylistFolder) {
                 return []
             }
             return .move
@@ -198,13 +197,13 @@ extension PlaylistController : NSOutlineViewDelegate {
         case Track.pasteboardType:
             let tracks = (pasteboard.pasteboardItems ?? []).flatMap(Library.shared.readTrack)
 
-            Library.shared.addTracks(tracks, to: parent)
+            Library.shared.addTracks(tracks, to: parent as! PlaylistManual)
             return true
         case Playlist.pasteboardType:
             let playlists = (pasteboard.pasteboardItems ?? []).flatMap(Library.shared.readPlaylist)
             
             for playlist in playlists {
-                Library.shared.addPlaylist(playlist, to: parent, above: index >= 0 ? index : nil)
+                Library.shared.addPlaylist(playlist, to: parent as! PlaylistFolder, above: index >= 0 ? index : nil)
             }
             break
         default:

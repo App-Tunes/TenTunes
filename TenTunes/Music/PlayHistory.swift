@@ -9,15 +9,15 @@
 import Cocoa
 
 class PlayHistory {
-    let playlist: Playlist
+    let playlist: PlaylistProtocol
 
     var order: [Track]
     var shuffled: [Track]?
     var playingIndex: Int = 0
     
-    init(playlist: Playlist) {
+    init(playlist: PlaylistProtocol) {
         self.playlist = playlist
-        self.order = playlist.tracks
+        self.order = Array(playlist.tracksList)
     }
     
     init(from: PlayHistory) {
@@ -28,11 +28,11 @@ class PlayHistory {
     }
     
     var isUntouched: Bool {
-        return order == playlist.tracks
+        return order == Array(playlist.tracksList)
     }
     
     var isUnsorted: Bool {
-        return order.sharesOrder(with: playlist.tracks)
+        return order.sharesOrder(with: playlist.tracksList)
     }
     
     // Order, Filter

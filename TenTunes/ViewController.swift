@@ -76,6 +76,8 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Library.shared = Library()
 
         trackController = TrackController(nibName: NSNib.Name(rawValue: "TrackController"), bundle: nil)
         trackController.view.frame = _trackView.frame
@@ -207,7 +209,7 @@ class ViewController: NSViewController {
             }
             else {
                 // We are at a track but it's not playable :<
-                print("Skipped unplayable track \(track.id): \(String(describing: track.path))")
+                print("Skipped unplayable track \(track.objectID.description): \(String(describing: track.path))")
                 play(moved: 1)
             }
         }
@@ -290,7 +292,7 @@ class ViewController: NSViewController {
         self.play(track: self.history!.playingTrack)
     }
     
-    func playlistSelected(_ playlist: Playlist) {
+    func playlistSelected(_ playlist: PlaylistProtocol) {
         trackController.set(playlist: playlist)
     }
     

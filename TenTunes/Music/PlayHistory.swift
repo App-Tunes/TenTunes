@@ -35,6 +35,11 @@ class PlayHistory {
         return order.sharesOrder(with: playlist.tracksList)
     }
     
+    func convert(to mox: NSManagedObjectContext) {
+        order = order.map(mox.convert)
+        shuffled = shuffled?.map(mox.convert)
+    }
+    
     // Order, Filter
     
     func filter(by filter: @escaping (Track) -> Bool) {

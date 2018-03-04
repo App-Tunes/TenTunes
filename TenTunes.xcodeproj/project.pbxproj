@@ -241,11 +241,11 @@
 		805901C020404CDF00B97D84 /* Music */ = {
 			isa = PBXGroup;
 			children = (
+				80ADCD4920442E1200AA9A89 /* Library.swift */,
 				80E2C9E3204B3D5C00298E81 /* Playlist */,
 				80E2C9DC204AE18E00298E81 /* Track+CoreDataClass.swift */,
 				80E2C9DD204AE18E00298E81 /* Track+CoreDataProperties.swift */,
 				80F2C5902038A80D00212739 /* Track+TT.swift */,
-				80ADCD4920442E1200AA9A89 /* Library.swift */,
 				80F77BF4203D8B35001E397F /* Keys.swift */,
 				806AC1322040D7C700857B1B /* PlayHistory.swift */,
 				808161CE2040520900AEA64F /* AVFoundationImporter.swift */,

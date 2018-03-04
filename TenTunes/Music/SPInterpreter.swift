@@ -14,54 +14,39 @@ func simulateWave(_ pos: Float, _ size: Float, _ speed: Float, progress: Float, 
     return (sin(pos * size + time * speed) + 1.0) * (pos > progress ? 0.3 : 0.05) + (pos > progress ? 0.1 : 0.35)
 }
 
-func writeCGFloats(_ array: [CGFloat], to url: URL) {
-    let wData = Data(bytes: array, count: array.count * MemoryLayout<CGFloat>.stride)
-    try! wData.write(to: url)
-}
-
-func readCGFloats(from: URL) -> [CGFloat]? {
-    if let data = try? Data(contentsOf: from) {
-        return data.withUnsafeBytes { (bytes: UnsafePointer<CGFloat>) in
-            return Array(UnsafeBufferPointer(start: bytes, count: data.count / MemoryLayout<CGFloat>.size))
-        }
-    }
-    return nil
-}
-
-class Analysis {
+class Analysis : NSObject, NSCoding {
     static let sampleCount: Int = 500
-
-    var values: [[CGFloat]] = Array(repeating: Array(repeating: 0.0, count: sampleCount), count: 4)
+    
+    var values: [[CGFloat]]
     var complete = false
-    
-    func write(url: URL) {
-        writeCGFloats(values[0], to: url.appendingPathComponent("wave"))
-        writeCGFloats(values[1], to: url.appendingPathComponent("low"))
-        writeCGFloats(values[2], to: url.appendingPathComponent("mid"))
-        writeCGFloats(values[3], to: url.appendingPathComponent("high"))
-    }
-    
-    static func readWave(from: URL) -> [CGFloat]? {
-        let wave = readCGFloats(from: from)
-        if let wave = wave {
-            return wave.count == sampleCount && wave.allMatch { $0 >= 0 && $0 <= 1 } ? wave : nil
-        }
-        return nil
-    }
-    
-    static func read(url: URL) -> Analysis? {
-        let wave = readWave(from: url.appendingPathComponent("wave"))
-        let low = readWave(from: url.appendingPathComponent("low"))
-        let mid = readWave(from: url.appendingPathComponent("mid"))
-        let high = readWave(from: url.appendingPathComponent("high"))
 
-        if let wave = wave, let low = low, let mid = mid, let high = high {
-            let analysis = Analysis()
-            analysis.values = [wave, low, mid, high]
-            analysis.complete = true
-            return analysis
+    required init?(coder aDecoder: NSCoder) {
+        values = aDecoder.decodeObject() as! [[CGFloat]]
+        complete = true
+        
+        if values.count != 4 { return nil }
+        for wave in values {
+            if !(wave.count == Analysis.sampleCount && wave.allMatch { $0 >= 0 && $0 <= 1 }) {
+                 return nil
+            }
         }
-        return nil
+    }
+    
+    override init() {
+        values = Array(repeating: Array(repeating: 0.0, count: Analysis.sampleCount), count: 4)
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        if !complete {
+            fatalError("Not complete yet")
+        }
+        
+        aCoder.encode(values)
+    }
+    
+    func set(from: Analysis) {
+        values = from.values
+        complete = from.complete
     }
 }
 
@@ -96,9 +81,7 @@ class SPInterpreter {
             let approxWave = floats[0..<currentSamples].remap(toSize: waveIndex)
             values.insert(Array(0..<Analysis.sampleCount).map {createWave($0) + ($0 < waveIndex ? approxWave[$0] : 0.0)}, at: 0)
             
-            DispatchQueue.main.async {
-                analysis.values = values
-            }
+            analysis.values = values
         }
         
         var lastUpdate: CFTimeInterval = CACurrentMediaTime()
@@ -145,10 +128,8 @@ class SPInterpreter {
         let highs = waveform(start: analyzer.highWaveform())
         setProgress(1.12)
         
-        DispatchQueue.main.async {
-            // Normalize waveform but only a little bit
-            analysis.values = [wf.normalized(min: 0.0, max: (1.0 + wf.max()!) / 2.0), lows, mids, highs]
-            analysis.complete = true
-        }
+        // Normalize waveform but only a little bit
+        analysis.values = [wf.normalized(min: 0.0, max: (1.0 + wf.max()!) / 2.0), lows, mids, highs]
+        analysis.complete = true
     }
 }

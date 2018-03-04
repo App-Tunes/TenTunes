@@ -33,6 +33,10 @@ class Library {
         return _masterPlaylist
     }
     
+    func performInBackground(task: @escaping (NSManagedObjectContext) -> Swift.Void) {
+        persistentContainer.performBackgroundTask(task)
+    }
+
     // Querying
     
     func track(byId: NSManagedObjectID) -> Track? {

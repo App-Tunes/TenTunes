@@ -9,7 +9,11 @@
 
 import Cocoa
 
-extension ViewController {
+extension ViewController {    
+    func endTask() {
+        self._workerSemaphore.signal()
+    }
+    
     func startBackgroundTasks() {
         self.completionTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 300.0, repeats: true ) { [unowned self] (timer) in
             // Kids, don't try this at home
@@ -35,18 +39,19 @@ extension ViewController {
         
         self.backgroundTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 10.0, repeats: true ) { [unowned self] (timer) in
             if self._workerSemaphore.wait(timeout: DispatchTime.now()) == .success {
-                // Update the current playlist, top priority
-                let desired = self.trackController.desired!
                 
-                if desired._changed, desired.semaphore.wait(timeout: DispatchTime.now()) == .success {
+                // Update the current playlist, top priority
+                if let desired = self.trackController.desired, desired._changed, desired.semaphore.wait(timeout: DispatchTime.now()) == .success {
                     let copy = PlayHistory(playlist: self.trackController.history.playlist)
                     desired._changed = false
                     
-                    DispatchQueue.global(qos: .userInitiated).async {
+                    Library.shared.performInBackground { mox in
+                        copy.convert(to: mox)
                         desired.filter ?=> copy.filter
                         desired.sort ?=> copy.sort
                         
                         DispatchQueue.main.async {
+                            copy.convert(to: Library.shared.viewMox)
                             self.trackController.history = copy
                             self._workerSemaphore.signal()
                             desired.semaphore.signal()
@@ -60,11 +65,14 @@ extension ViewController {
                     self._spectrumView.analysis = playing.analysis
                     self.trackController.update(view: nil, with: playing) // Get the analysis inside the cell
                     
-                    DispatchQueue.global(qos: .userInitiated).async {
+                    Library.shared.performInBackground { mox in
+                        let asyncTrack = mox.convert(playing)
+                        asyncTrack.analysis = playing.analysis
+                        
                         // May exist on disk
-                        if !playing.readAnalysis() {
-                            SPInterpreter.analyze(file: self.player.audioFile!, analysis: playing.analysis!)
-                            playing.writeAnalysis()
+                        if !asyncTrack.readAnalysis() {
+                            SPInterpreter.analyze(file: self.player.audioFile!, analysis: asyncTrack.analysis!)
+                            asyncTrack.writeAnalysis()
                         }
                         
                         self._workerSemaphore.signal()
@@ -100,12 +108,14 @@ extension ViewController {
     }
     
     func fetchMetadata(for track: Track, updating: TrackCellView? = nil, wait: Bool = false) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            track.fetchMetadata()
+        Library.shared.performInBackground { mox in
+            let asyncTrack = mox.convert(track)
+            
+            asyncTrack.fetchMetadata()
             
             // Update on main thread
             DispatchQueue.main.async {
-                self.trackController.update(view: updating, with: track)
+                self.trackController.update(view: updating, with: Library.shared.viewMox.convert(asyncTrack))
             }
             
             Thread.sleep(forTimeInterval: TimeInterval(wait ? 0.2 : 0.02))

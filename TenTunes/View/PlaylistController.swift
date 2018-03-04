@@ -225,6 +225,15 @@ extension PlaylistController: NSMenuDelegate {
         }
     }
     
+    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        // Probably the main Application menu
+        if menuItem.menu?.delegate !== self {
+            return validateUserInterfaceItem(menuItem)
+        }
+        
+        return true
+    }
+    
     @IBAction func deletePlaylist(_ sender: Any) {
         delete(indices: _outlineView.clickedRows)
     }

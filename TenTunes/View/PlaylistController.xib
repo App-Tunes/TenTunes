@@ -167,7 +167,7 @@
                 <menuItem title="Play" id="DWl-hq-9u6">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="didDoubleClick:" target="-2" id="jv2-W8-IGW"/>
+                        <action selector="didDoubleClick:" target="-2" id="ilf-kI-BUX"/>
                     </connections>
                 </menuItem>
                 <menuItem title="Duplicate" enabled="NO" id="xYA-qX-gKO">
@@ -176,7 +176,7 @@
                 <menuItem title="Delete" id="ZLK-fo-c9h">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="deletePlaylist:" target="-2" id="QRZ-1B-Zjq"/>
+                        <action selector="deletePlaylist:" target="-2" id="r33-Gy-IRd"/>
                     </connections>
                 </menuItem>
             </items>

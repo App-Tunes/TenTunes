@@ -200,31 +200,3 @@ extension Track {
     }
 }
 
-// Saving, Loading
-extension Track {
-    // TODO
-//    var analysisURL: URL {
-//        // TODO When saving tracks etc., use id instead of iTunes ID
-//        return Library.shared.url.appendingPathComponent("analysis").appendingPathComponent(iTunesID!)
-//    }
-    
-    func writeAnalysis() {
-//        try! FileManager.default.createDirectory(at: analysisURL, withIntermediateDirectories: true, attributes: nil)
-//        analysis!.write(url: analysisURL)
-    }
-    
-    @discardableResult
-    func readAnalysis() -> Bool {
-//        if let read = Analysis.read(url: analysisURL) {
-//            // If someone set it already, just update
-//            if let analysis = analysis {
-//                analysis.values = read.values
-//                analysis.complete = true
-//            }
-//            else { analysis = read }
-//            return true
-//        }
-        return false
-    }
-}
-

@@ -355,3 +355,9 @@ extension String {
         }
     }
 }
+
+extension NSManagedObjectContext {
+    public func convert<T : NSManagedObject>(_ t: T) -> T {
+        return object(with: t.objectID) as! T
+    }
+}

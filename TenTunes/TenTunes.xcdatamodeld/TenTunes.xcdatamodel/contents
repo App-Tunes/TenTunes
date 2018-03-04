@@ -12,7 +12,7 @@
     </entity>
     <entity name="Track" representedClassName="Track" syncable="YES">
         <attribute name="album" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="analysisData" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="analysisData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="artworkData" optional="YES" transient="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="artworkPreviewData" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>

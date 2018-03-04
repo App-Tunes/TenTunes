@@ -112,15 +112,15 @@ extension Track {
         do {
             try importer?.import()
             
-            self.title = importer?.title
-            self.album = importer?.album
-            self.author = importer?.artist
-            self.genre = parseGenre(importer?.genre)
+            title = importer?.title
+            album = importer?.album
+            author = importer?.artist
+            genre = parseGenre(importer?.genre)
 
-            self.artwork = importer?.image
+            artwork = importer?.image
             
-            self.key = Key.parse(importer?.initialKey ?? "")
-            self.bpm = Double(importer?.bpm ?? "")
+            key = Key.parse(importer?.initialKey ?? "")
+            bpm = Double(importer?.bpm ?? "")
         }
         catch let error {
             print(error)

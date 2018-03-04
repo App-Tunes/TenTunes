@@ -74,6 +74,7 @@ extension ViewController {
                             SPInterpreter.analyze(file: self.player.audioFile!, analysis: asyncTrack.analysis!)
                             asyncTrack.writeAnalysis()
                         }
+                        try! mox.save()
                         
                         self._workerSemaphore.signal()
                     }
@@ -108,14 +109,24 @@ extension ViewController {
     }
     
     func fetchMetadata(for track: Track, updating: TrackCellView? = nil, wait: Bool = false) {
+        track.metadataFetched = true // So no other thread tries to enter
+        
         Library.shared.performInBackground { mox in
             let asyncTrack = mox.convert(track)
             
             asyncTrack.fetchMetadata()
             
+            do {
+                try mox.save()
+            }
+            catch let error {
+                print(error)
+            }
+            
             // Update on main thread
             DispatchQueue.main.async {
-                self.trackController.update(view: updating, with: Library.shared.viewMox.convert(asyncTrack))
+                track.refresh()
+                self.trackController.update(view: updating, with: track)
             }
             
             Thread.sleep(forTimeInterval: TimeInterval(wait ? 0.2 : 0.02))

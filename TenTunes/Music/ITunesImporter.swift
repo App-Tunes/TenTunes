@@ -18,6 +18,7 @@ class ITunesImporter {
         // i.e. We have a non-editable 'iTunes' folder that has a right click update and cannot be edit
         // Though it needs to be duplicatable into an editable copy
         
+        let mox = Library.shared.viewMox
         
         // TODO Async
         let masterPlaylist = PlaylistFolder()
@@ -48,6 +49,8 @@ class ITunesImporter {
             track.author = track.author ?? trackData["Artist"] as? String
             track.album = track.album ?? trackData["Album"] as? String
             track.path = track.path ?? trackData["Location"] as? String
+            
+            mox.insert(track)
         }
         
         for playlistData in nsdict.object(forKey: "Playlists") as! NSArray {
@@ -74,6 +77,7 @@ class ITunesImporter {
                 }
             }
             
+            mox.insert(playlist)
             iTunesPlaylists[playlistData.object(forKey: "Playlist Persistent ID") as! String] = playlist
             
             if let playlist = playlist as? PlaylistManual, let tracks = tracks {
@@ -87,7 +91,13 @@ class ITunesImporter {
                 library.addPlaylist(playlist, to: masterPlaylist)
             }
         }
-
+        
+        do {
+            try mox.save()
+        }
+        catch let error {
+            print(error)
+        }
         
         return true
     }

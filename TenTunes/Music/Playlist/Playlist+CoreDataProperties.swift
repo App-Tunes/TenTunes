@@ -19,8 +19,4 @@ extension Playlist {
 
     @NSManaged public var name: String
     @NSManaged public var parent: PlaylistFolder?
-
-    public override func awakeFromInsert() {
-        setPrimitiveValue("", forKey: #keyPath(Playlist.name))
-    }
 }

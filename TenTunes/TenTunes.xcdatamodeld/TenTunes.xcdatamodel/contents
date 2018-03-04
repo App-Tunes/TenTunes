@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17D47" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Playlist" representedClassName="Playlist" isAbstract="YES" syncable="YES">
-        <attribute name="name" attributeType="String" minValueString="0" syncable="YES"/>
+        <attribute name="name" attributeType="String" minValueString="0" defaultValueString="Unnamed Playlist" syncable="YES"/>
         <relationship name="parent" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="PlaylistFolder" inverseName="children" inverseEntity="PlaylistFolder" syncable="YES"/>
     </entity>
     <entity name="PlaylistFolder" representedClassName="PlaylistFolder" parentEntity="Playlist" syncable="YES">

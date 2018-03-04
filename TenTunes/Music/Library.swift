@@ -15,8 +15,17 @@ class Library {
     static var shared: Library!
 
     init() {
-        let mox = (NSApp.delegate as! AppDelegate).persistentContainer.viewContext
-        _masterPlaylist = PlaylistFolder(mox: mox)
+        if !fetchMaster() {
+            _masterPlaylist = PlaylistFolder(mox: viewMox)
+            
+            do {
+                viewMox.insert(_masterPlaylist)
+                try viewMox.save()
+            }
+            catch let error {
+                print(error)
+            }
+        }
     }
     
     var persistentContainer: NSPersistentContainer {
@@ -25,6 +34,19 @@ class Library {
     
     var viewMox: NSManagedObjectContext {
         return persistentContainer.viewContext
+    }
+    
+    @discardableResult
+    func fetchMaster() -> Bool {
+        let request: NSFetchRequest = PlaylistFolder.fetchRequest()
+        request.predicate = NSPredicate(format: "parent = nil")
+        do {
+            _masterPlaylist = (try viewMox.fetch(request)).first
+        }
+        catch let error {
+            print(error)
+        }
+        return _masterPlaylist != nil
     }
     
     var allTracks = PlaylistLibrary()

@@ -201,6 +201,17 @@ class Library {
 // Pasteboard
 
 extension Library {
+    func writePlaylistID(of: Playlist) -> Any? {
+        return of.objectID.uriRepresentation().absoluteString
+    }
+    
+    func restoreFrom(playlistID: Any) -> Playlist? {
+        if let string = playlistID as? String, let uri = URL(string: string), let id = persistentContainer.persistentStoreCoordinator.managedObjectID(forURIRepresentation: uri) {
+            return playlist(byId: id)
+        }
+        return nil
+    }
+    
     func writeTrack(_ track: Track, toPasteboarditem item: NSPasteboardItem) {
         item.setString(track.objectID.uriRepresentation().absoluteString, forType: Track.pasteboardType)
         

@@ -143,6 +143,14 @@ extension PlaylistController : NSOutlineViewDataSource {
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
         return item is PlaylistFolder
     }
+    
+    func outlineView(_ outlineView: NSOutlineView, persistentObjectForItem item: Any?) -> Any? {
+        return Library.shared.writePlaylistID(of: item as! Playlist)
+    }
+    
+    func outlineView(_ outlineView: NSOutlineView, itemForPersistentObject object: Any) -> Any? {
+        return Library.shared.restoreFrom(playlistID: object)
+    }
 }
 
 extension PlaylistController : NSOutlineViewDelegate {

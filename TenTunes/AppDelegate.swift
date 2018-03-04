@@ -20,6 +20,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     // MARK: - Core Data stack
+    
+    var dataLocation: URL {
+        let musicDir = FileManager.default.urls(for: .musicDirectory, in: .userDomainMask).first!
+        return musicDir.appendingPathComponent("Ten Tunes")
+    }
 
     lazy var persistentContainer: NSPersistentContainer = {
         /*
@@ -29,6 +34,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
          error conditions that could cause the creation of the store to fail.
         */
         let container = NSPersistentContainer(name: "TenTunes")
+        
+        let url = dataLocation.appendingPathComponent("Library")
+        try! FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
+        
+        let description = NSPersistentStoreDescription(url: url.appendingPathComponent("library.sqlite"))
+        description.shouldInferMappingModelAutomatically = true
+        description.shouldMigrateStoreAutomatically = true
+
+        container.persistentStoreDescriptions = [description]
+
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error {
                 // Replace this implementation with code to handle the error appropriately.

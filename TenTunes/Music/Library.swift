@@ -96,14 +96,12 @@ class Library {
     func addTracks(_ tracks: [Track], to: PlaylistManual, above: Int? = nil) {
         // Add the tracks we're missing
         // TODO Allow duplicates after asking
-        to.removeFromTracks(NSOrderedSet(array: tracks))
+        // Is set so by default not allowed
         to.addToTracks(NSOrderedSet(array: tracks))
 
-        // TODO
-//        if let above = above {
-//            // Rearrange the tracks if we specified a position
-//            to.tracks.rearrange(elements: tracks, to: above)
-//        }
+        if let above = above {
+            to.tracks = to.tracks.rearranged(elements: tracks, to: above)
+        }
         
         editedTracks(of: to)
     }
@@ -114,9 +112,7 @@ class Library {
         to.addToChildren(playlist)
 
         if let above = above {
-            let changed = to.children.mutableCopy() as! NSMutableOrderedSet
-            changed.rearrange(from: [changed.index(of: playlist)], to: above)
-            to.children = changed
+            to.children = to.children.rearranged(elements: [playlist], to: above)
         }
         
         editedTracks(of: to)

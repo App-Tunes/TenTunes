@@ -93,6 +93,18 @@ extension NSMutableOrderedSet {
         // Insert to new position
         self.insert(all: elements, at: toAfter)
     }
+
+    public func rearrange(elements: [Any], to: Int) {
+        rearrange(from: (elements.map { self.index(of: $0) }), to: to)
+    }
+}
+
+extension NSOrderedSet {
+    public func rearranged(elements: [Any], to: Int) -> NSOrderedSet {
+        let copy = mutableCopy() as! NSMutableOrderedSet
+        copy.rearrange(elements: elements, to: to)
+        return copy
+    }
 }
 
 extension Array where Element: Equatable {

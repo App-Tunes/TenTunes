@@ -225,7 +225,7 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
         
         self.analysis = analysis
         spectrumLayer._barsLayer.values = analysis?.values ?? BarsLayer.defaultValues
-        transitionSteps = 0
+        transitionSteps = analysis?.complete ?? true ? 0 : completeTransitionSteps
         
         CATransaction.commit()
     }

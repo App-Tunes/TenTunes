@@ -71,6 +71,7 @@ extension ViewController {
                         
                         // May exist on disk
                         if !asyncTrack.readAnalysis() {
+                            // TODO Merge with metadata fetch etc
                             SPInterpreter.analyze(file: self.player.audioFile!, analysis: asyncTrack.analysis!)
                             asyncTrack.writeAnalysis()
                         }

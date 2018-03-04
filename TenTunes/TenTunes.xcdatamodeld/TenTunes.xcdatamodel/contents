@@ -21,7 +21,6 @@
         <attribute name="genre" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="iTunesID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="keyString" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="metadataFetched" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="path" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="containingPlaylists" toMany="YES" deletionRule="Nullify" destinationEntity="PlaylistManual" inverseName="tracks" inverseEntity="PlaylistManual" syncable="YES"/>
@@ -30,6 +29,6 @@
         <element name="Playlist" positionX="-416" positionY="159" width="128" height="73"/>
         <element name="PlaylistFolder" positionX="-218" positionY="171" width="128" height="58"/>
         <element name="PlaylistManual" positionX="-218" positionY="252" width="128" height="58"/>
-        <element name="Track" positionX="-414" positionY="261" width="128" height="253"/>
+        <element name="Track" positionX="-414" positionY="261" width="128" height="238"/>
     </elements>
 </model>

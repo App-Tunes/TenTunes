@@ -126,6 +126,7 @@ extension ViewController {
             // Update on main thread
             DispatchQueue.main.async {
                 track.refresh()
+                track.analysis = asyncTrack.analysis
                 self.trackController.update(view: updating, with: track)
             }
             

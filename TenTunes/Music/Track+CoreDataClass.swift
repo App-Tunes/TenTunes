@@ -12,8 +12,10 @@ import CoreData
 
 @objc(Track)
 public class Track: NSManagedObject {
+    var metadataFetched: Bool = false
     var analysis: Analysis?
     
+    @discardableResult
     func readAnalysis() -> Bool {
         if let analysisData = analysisData {
             if let decoded = NSKeyedUnarchiver.unarchiveObject(with: analysisData as Data) as? Analysis {

@@ -127,6 +127,11 @@ extension PlaylistController : NSOutlineViewDataSource {
         if let view = outlineView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? NSTableCellView {
             view.textField?.stringValue = playlist.name
             view.imageView?.image = playlist.icon
+
+            // Doesn't work from interface builder
+            view.textField?.delegate = self
+            view.textField?.target = self
+            view.textField?.action = #selector(editPlaylistTitle)
             return view
         }
         
@@ -153,14 +158,6 @@ extension PlaylistController : NSOutlineViewDataSource {
     
     func outlineView(_ outlineView: NSOutlineView, itemForPersistentObject object: Any) -> Any? {
         return Library.shared.restoreFrom(playlistID: object)
-    }
-    
-    // Editing
-    
-    func outlineView(_ outlineView: NSOutlineView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, byItem item: Any?) {
-        let playlist = item as! Playlist
-        playlist.name = object as! String
-        Library.shared.save()
     }
 }
 
@@ -277,5 +274,17 @@ extension PlaylistController: NSUserInterfaceValidations {
     
     @IBAction func delete(_ sender: AnyObject) {
         delete(indices: Array(_outlineView.selectedRowIndexes))
+    }
+}
+
+extension PlaylistController: NSTextFieldDelegate {
+    // Editing
+    
+    @IBAction func editPlaylistTitle(_ sender: Any?) {
+        let textField = sender as! NSTextField
+        let row = _outlineView.row(for: textField.superview!)
+        let playlist = (_outlineView.item(atRow: row)) as! Playlist
+        playlist.name = textField.stringValue
+        Library.shared.save()
     }
 }

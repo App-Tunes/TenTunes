@@ -142,6 +142,7 @@ class Library {
     func addPlaylist(_ playlist: Playlist, to: PlaylistFolder? = nil, above: Int? = nil) {
         let to = to ?? masterPlaylist
         
+        viewMox.insert(playlist)
         to.addToChildren(playlist)
 
         if let above = above {
@@ -184,7 +185,7 @@ class Library {
         }
         
         for playlist in playlists {
-            persistentContainer.viewContext.delete(playlist)
+            viewMox.delete(playlist)
             editedTracks(of: playlist) // Possibly update parents
             
             if let current = ViewController.shared.trackController.history.playlist as? Playlist, current == playlist {

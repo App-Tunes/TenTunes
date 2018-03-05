@@ -87,6 +87,7 @@ import Cocoa
         
         Library.shared.addPlaylist(createPlaylist, to: parent, above: idx)
         select(playlist: createPlaylist, editTitle: true)
+        Library.shared.save()
     }
     
     @IBAction func createGroup(_ sender: Any) {
@@ -96,11 +97,13 @@ import Cocoa
         // TODO If we select multiple playlists at once, put them in the newly created one
         Library.shared.addPlaylist(createPlaylist, to: parent, above: idx)
         select(playlist: createPlaylist, editTitle: true)
+        Library.shared.save()
     }
     
     func delete(indices: [Int]?) {
         if let indices = indices {
             Library.shared.delete(playlists: indices.flatMap { _outlineView.item(atRow: $0) as? Playlist })
+            Library.shared.save()
         }
     }
 }
@@ -150,6 +153,14 @@ extension PlaylistController : NSOutlineViewDataSource {
     
     func outlineView(_ outlineView: NSOutlineView, itemForPersistentObject object: Any) -> Any? {
         return Library.shared.restoreFrom(playlistID: object)
+    }
+    
+    // Editing
+    
+    func outlineView(_ outlineView: NSOutlineView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, byItem item: Any?) {
+        let playlist = item as! Playlist
+        playlist.name = object as! String
+        Library.shared.save()
     }
 }
 
@@ -203,7 +214,7 @@ extension PlaylistController : NSOutlineViewDelegate {
             return false
         }
         
-        let parent = item as? Playlist ?? masterPlaylist
+        let parent = item as? Playlist ?? masterPlaylist!
 
         switch type {
         case Track.pasteboardType:
@@ -221,6 +232,8 @@ extension PlaylistController : NSOutlineViewDelegate {
         default:
             fatalError("Unhandled, but registered pasteboard type")
         }
+        
+        Library.shared.save()
         
         return true
     }

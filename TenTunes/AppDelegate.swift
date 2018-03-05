@@ -65,6 +65,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: - Core Data Saving and Undo support
 
+    // TODO Replace?? We auto-save normally.
     @IBAction func saveAction(_ sender: AnyObject?) {
         // Performs the save action for the application, which is to send the save: message to the application's managed object context. Any encountered errors are presented to the user.
         let context = persistentContainer.viewContext

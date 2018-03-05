@@ -99,12 +99,7 @@ class ITunesImporter {
             }
         }
         
-        do {
-            try mox.save()
-        }
-        catch let error {
-            print(error)
-        }
+        library.save(in: mox)
         
         return true
     }

@@ -18,13 +18,8 @@ class Library {
         if !fetchMaster() {
             _masterPlaylist = PlaylistFolder(mox: viewMox)
             
-            do {
-                viewMox.insert(_masterPlaylist)
-                try viewMox.save()
-            }
-            catch let error {
-                print(error)
-            }
+            viewMox.insert(_masterPlaylist)
+            save()
         }
     }
     
@@ -102,6 +97,18 @@ class Library {
     }
 
     // Editing
+    
+    func save(in mox: NSManagedObjectContext? = nil) {
+        let mox = mox ?? viewMox
+        
+        do {
+            try mox.save()
+        }
+        catch let error {
+            print(error)
+            exit(1)
+        }
+    }
     
     func editedTracks(of: Playlist) {
         // Should find a way for histories to check themselves? Or something

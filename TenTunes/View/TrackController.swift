@@ -328,6 +328,7 @@ extension TrackController: NSTableViewDelegate {
         let tracks = (pasteboard.pasteboardItems ?? []).flatMap(Library.shared.readTrack)
         
         Library.shared.addTracks(tracks, to: history.playlist as! PlaylistManual, above: row)
+        Library.shared.save()
 
         return true
     }

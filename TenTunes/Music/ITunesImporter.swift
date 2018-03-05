@@ -55,12 +55,19 @@ class ITunesImporter {
         
         for playlistData in nsdict.object(forKey: "Playlists") as! NSArray {
             let playlistData = playlistData as! NSDictionary
+            let persistentID = playlistData.object(forKey: "Playlist Persistent ID") as! String
             if playlistData.object(forKey: "Master") as? Bool ?? false {
                 continue
             }
             if playlistData.object(forKey: "Distinguished Kind") as? Int != nil {
                 continue // TODO At least give the option
             }
+
+//            // TODO Seems to be some kind of binary encoding. See Banshee iTunes Smart Playlist parser for impl ref
+//            if let smartInfoData = playlistData.object(forKey: "Smart Info") as? NSData, let smartCriteriaData = playlistData.object(forKey: "Smart Criteria") as? NSData {
+//                let smartInfo = String(data: smartInfoData as Data, encoding: .utf8)
+//                let smartCriteria = NSKeyedUnarchiver.unarchiveObject(with: smartCriteriaData as Data)
+//            }
             
             let isFolder = playlistData.object(forKey: "Folder") as? Bool ?? false
             let playlist = isFolder ? PlaylistFolder() : PlaylistManual()
@@ -78,7 +85,7 @@ class ITunesImporter {
             }
             
             mox.insert(playlist)
-            iTunesPlaylists[playlistData.object(forKey: "Playlist Persistent ID") as! String] = playlist
+            iTunesPlaylists[persistentID] = playlist
             
             if let playlist = playlist as? PlaylistManual, let tracks = tracks {
                 library.addTracks(tracks, to: playlist)

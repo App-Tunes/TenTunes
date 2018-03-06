@@ -63,7 +63,7 @@ extension ViewController {
                     
                     playing.analysis = Analysis()
                     self._spectrumView.analysis = playing.analysis
-                    self.trackController.update(view: nil, with: playing) // Get the analysis inside the cell
+                    self.trackController.reload(track: playing) // Get the analysis inside the cell
                     
                     Library.shared.performInBackground { mox in
                         let asyncTrack = mox.convert(playing)
@@ -89,9 +89,9 @@ extension ViewController {
     
     func fetchOneMetadata() {
         if view.window?.isVisible ?? false {
-            for view in trackController.visibleTracks {
-                if let track = view.track, !track.metadataFetched  {
-                    fetchMetadata(for: track, updating: view)
+            for track in trackController.visibleTracks {
+                if !track.metadataFetched  {
+                    fetchMetadata(for: track)
                     return
                 }
             }
@@ -109,7 +109,7 @@ extension ViewController {
         self._workerSemaphore.signal()
     }
     
-    func fetchMetadata(for track: Track, updating: TrackCellView? = nil, wait: Bool = false) {
+    func fetchMetadata(for track: Track, wait: Bool = false) {
         track.metadataFetched = true // So no other thread tries to enter
         
         Library.shared.performInBackground { mox in
@@ -122,8 +122,8 @@ extension ViewController {
             // Update on main thread
             DispatchQueue.main.async {
                 track.refresh()
-                track.analysis = asyncTrack.analysis
-                self.trackController.update(view: updating, with: track)
+                track.copyTransient(from: asyncTrack)
+                self.trackController.reload(track: track)
             }
             
             Thread.sleep(forTimeInterval: TimeInterval(wait ? 0.2 : 0.02))

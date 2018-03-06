@@ -91,10 +91,10 @@ class TrackController: NSViewController {
 
         _searchBarHeight.constant = CGFloat(0)
         
-        _sortTitle = addSearchBarItem(title: "Title", previous: _sortLabel)
-        _sortGenre = addSearchBarItem(title: "Genre", previous: _sortTitle)
-        _sortKey = addSearchBarItem(title: "Key", previous: _sortGenre)
-        _sortBPM = addSearchBarItem(title: "BPM", previous: _sortKey)
+//        _sortTitle = addSearchBarItem(title: "Title", previous: _sortLabel)
+//        _sortGenre = addSearchBarItem(title: "Genre", previous: _sortTitle)
+//        _sortKey = addSearchBarItem(title: "Key", previous: _sortGenre)
+//        _sortBPM = addSearchBarItem(title: "BPM", previous: _sortKey)
 
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             return self.keyDown(with: $0)
@@ -121,15 +121,15 @@ class TrackController: NSViewController {
         }
     }
     
-    var visibleTracks: [TrackCellView] {
-        var tracks: [TrackCellView] = []
+    var visibleTracks: [Track] {
+        var tracks: [Track] = []
         
         if let visibleRect = self._tableView.enclosingScrollView?.contentView.visibleRect {
             let visibleRows = self._tableView.rows(in: visibleRect)
             
             for row in visibleRows.lowerBound...visibleRows.upperBound {
-                if history.size > row, let view = self._tableView.view(atColumn: 0, row: row, makeIfNecessary: false) as? TrackCellView {
-                    tracks.append(view)
+                if let track = history.track(at: row) {
+                    tracks.append(track)
                 }
             }
         }
@@ -181,44 +181,20 @@ class TrackController: NSViewController {
         return nil
     }
     
-    func viewFor(track: Track) -> TrackCellView? {
-        if let index = history.indexOf(track: track) {
-            return _tableView.view(atColumn: 0, row: index, makeIfNecessary: false) as? TrackCellView
-        }
-        return nil
-    }
-    
-    func update(view: TrackCellView?, with track: Track) {
-        guard let view = view ?? viewFor(track: track), view.track === track else {
-            return
-        }
-        
-        view.textField?.stringValue = track.rTitle
-        
-        view.subtitleTextField?.stringValue = track.rSource
-//        view.subtitleTextField?.textColor = NSColor.secondaryLabelColor
-        // Is reset for some reason
-        view.subtitleTextField?.setStringColor(NSColor.secondaryLabelColor)
-
-        view.genreTextField?.stringValue = track.genre ?? ""
-
-        view.lengthTextField?.stringValue = track.rLength
-        
-        view.imageView?.image = track.rPreview
-        view.key = track.rKey
-        
-        view.bpmTextField?.stringValue = track.bpm != nil ? Int(track.bpm!).description : nil ?? ""
-        
-        view.spectrumView?.analysis = track.analysis
-        view.playAt = { loc in
-            if let playTrack = self.playTrack {
-                playTrack(track, self._tableView.row(for: view), loc)
-            }
+    func reload(track: Track) {
+        if let row = history.indexOf(track: track) {
+            _tableView.reloadData(forRowIndexes: IndexSet(integer: row), columnIndexes: IndexSet(0..<_tableView.numberOfColumns))
         }
     }
     
     @IBAction func spectrumViewClicked(_ sender: Any?) {
-        
+        if let view = sender as? TrackSpectrumView {
+            if let row = view.superview ?=> _tableView.row, let track = history.track(at: row), let playTrack = playTrack {
+                playTrack(track, row, view.location)
+            }
+            
+            view.location = nil
+        }
     }
     
     @IBAction func filterPressed(_ sender: Any?) {
@@ -267,31 +243,81 @@ class TrackController: NSViewController {
 
 extension TrackController: NSTableViewDelegate {
     fileprivate enum CellIdentifiers {
-        static let NameCell = NSUserInterfaceItemIdentifier(rawValue: "nameCell")
+        static let artwork = NSUserInterfaceItemIdentifier(rawValue: "artworkCell")
+        static let waveform = NSUserInterfaceItemIdentifier(rawValue: "waveformCell")
+        static let title = NSUserInterfaceItemIdentifier(rawValue: "titleCell")
+        static let genre = NSUserInterfaceItemIdentifier(rawValue: "genreCell")
+        static let bpm = NSUserInterfaceItemIdentifier(rawValue: "bpmCell")
+        static let key = NSUserInterfaceItemIdentifier(rawValue: "keyCell")
+        static let duration = NSUserInterfaceItemIdentifier(rawValue: "durationCell")
+    }
+    
+    fileprivate enum ColumnIdentifiers {
+        static let artwork = NSUserInterfaceItemIdentifier(rawValue: "artworkColumn")
+        static let waveform = NSUserInterfaceItemIdentifier(rawValue: "waveformColumn")
+        static let title = NSUserInterfaceItemIdentifier(rawValue: "titleColumn")
+        static let genre = NSUserInterfaceItemIdentifier(rawValue: "genreColumn")
+        static let bpm = NSUserInterfaceItemIdentifier(rawValue: "bpmColumn")
+        static let key = NSUserInterfaceItemIdentifier(rawValue: "keyColumn")
+        static let duration = NSUserInterfaceItemIdentifier(rawValue: "durationColumn")
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .long
-        
         let track = history.track(at: row)!
-
-        if tableColumn == tableView.tableColumns[0] {
-            if let view = tableView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? TrackCellView {
-                // We reuse the cell from somewhere else so don't take their value
-                view.spectrumView?.setInstantly(analysis: track.analysis)
-                
-                view.track = track
-                update(view: view, with: track)
-                return view
-            }
-        } else if tableColumn == tableView.tableColumns[1] {
-            
-        } else if tableColumn == tableView.tableColumns[2] {
-            
-        }
         
+        if tableColumn?.identifier == ColumnIdentifiers.artwork, let view = tableView.makeView(withIdentifier: CellIdentifiers.artwork, owner: nil) as? NSImageView {
+            view.wantsLayer = true
+            
+            view.layer!.borderWidth = 1.0
+            view.layer!.borderColor = NSColor.lightGray.cgColor.copy(alpha: CGFloat(0.333))
+            view.layer!.cornerRadius = 3.0
+            view.layer!.masksToBounds = true
+
+            view.image = track.rPreview
+
+            return view
+        }
+        else if tableColumn?.identifier == ColumnIdentifiers.waveform, let view = tableView.makeView(withIdentifier: CellIdentifiers.waveform, owner: nil) as? TrackSpectrumView {
+            
+            // Doesn't work from interface builder
+            view.target = self
+            view.action = #selector(spectrumViewClicked)
+            
+            // More detailed
+            view.barWidth = 1
+            view.spaceWidth = 1
+            
+            // For the small previews, less fps is enough (for performance)
+            view.updateTime = 1 / 10
+            view.lerpRatio = 1 / 2
+            view.completeTransitionSteps = 6
+
+            view.setInstantly(analysis: track.analysis)
+            return view
+        }
+        else if tableColumn?.identifier == ColumnIdentifiers.title, let view = tableView.makeView(withIdentifier: CellIdentifiers.title, owner: nil) as? TitleSubtitleCellView {
+            view.textField?.stringValue = track.rTitle
+            view.subtitleTextField?.stringValue = track.rSource
+            return view
+        }
+        else if tableColumn?.identifier == ColumnIdentifiers.genre, let view = tableView.makeView(withIdentifier: CellIdentifiers.genre, owner: nil) as? NSTableCellView {
+            view.textField?.stringValue = track.genre ?? ""
+            return view
+        }
+        else if tableColumn?.identifier == ColumnIdentifiers.bpm, let view = tableView.makeView(withIdentifier: CellIdentifiers.bpm, owner: nil) as? NSTableCellView {
+            view.textField?.stringValue = (track.bpm ?=> String.init) ?? ""
+            return view
+        }
+        else if tableColumn?.identifier == ColumnIdentifiers.key, let view = tableView.makeView(withIdentifier: CellIdentifiers.key, owner: nil) as? NSTableCellView {
+            view.textField?.attributedStringValue = track.rKey
+            view.textField?.setAlignment(.center) // Is reset when setting attributed string
+            return view
+        }
+        else if tableColumn?.identifier == ColumnIdentifiers.duration, let view = tableView.makeView(withIdentifier: CellIdentifiers.duration, owner: nil) as? NSTableCellView {
+            view.textField?.stringValue = track.rLength 
+            return view
+        }
+
         return nil
     }
     

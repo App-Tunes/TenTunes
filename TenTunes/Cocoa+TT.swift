@@ -285,12 +285,27 @@ extension NSImage {
     }
 }
 
+extension NSAttributedString {
+    func with(_ value: Any, for key: NSAttributedStringKey) -> NSAttributedString {
+        let mutableCopy = self.mutableCopy() as! NSMutableAttributedString
+        mutableCopy.addAttribute(key, value: value, range: NSRange(location: 0, length: mutableCopy.length))
+        return mutableCopy
+    }
+    
+    func with(alignment: NSTextAlignment) -> NSAttributedString {
+        let mutableCopy = self.mutableCopy() as! NSMutableAttributedString
+        mutableCopy.setAlignment(alignment, range: NSRange(location: 0, length: mutableCopy.length))
+        return mutableCopy
+    }
+}
+
 extension NSTextField {
     func setStringColor(_ color: NSColor) {
-        if let mutableAttributedTitle = self.attributedStringValue.mutableCopy() as? NSMutableAttributedString {
-            mutableAttributedTitle.addAttribute(.foregroundColor, value: color, range: NSRange(location: 0, length: mutableAttributedTitle.length))
-            self.attributedStringValue = mutableAttributedTitle
-        }
+        attributedStringValue = attributedStringValue.with(color, for: .foregroundColor)
+    }
+
+    func setAlignment(_ alignment: NSTextAlignment) {
+        attributedStringValue = attributedStringValue.with(alignment: alignment)
     }
 }
 
@@ -300,10 +315,7 @@ extension NSButton {
     }
     
     func set(color: NSColor) {
-        if let mutableAttributedTitle = self.attributedTitle.mutableCopy() as? NSMutableAttributedString {
-            mutableAttributedTitle.addAttribute(.foregroundColor, value: color, range: NSRange(location: 0, length: mutableAttributedTitle.length))
-            self.attributedTitle = mutableAttributedTitle
-        }
+        attributedTitle = attributedTitle.with(color, for: .foregroundColor)
     }
 }
 

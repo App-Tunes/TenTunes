@@ -123,6 +123,10 @@ class SpectrumLayer : CALayer {
         super.init(coder: aDecoder)
     }
     
+    override init(layer: Any) {
+        super.init(layer: layer)
+    }
+    
     override func layoutSublayers() {
         _barsLayer.frame = bounds
         _bgLayer.frame = bounds

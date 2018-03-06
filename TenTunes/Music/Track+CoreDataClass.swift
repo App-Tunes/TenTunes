@@ -15,6 +15,9 @@ public class Track: NSManagedObject {
     var metadataFetched: Bool = false
     var analysis: Analysis?
     
+    var artwork: NSImage?
+    var artworkPreview: NSImage?
+
     @discardableResult
     func readAnalysis() -> Bool {
         if let analysisData = analysisData {
@@ -36,6 +39,10 @@ public class Track: NSManagedObject {
         analysisData = NSKeyedArchiver.archivedData(withRootObject: analysis!) as NSData
     }
     
-    var artwork: NSImage?
-    var artworkPreview: NSImage?
+    func copyTransient(from: Track) {
+        metadataFetched = from.metadataFetched
+        analysis = from.analysis
+        artwork = from.artwork
+        artworkPreview = from.artworkPreview
+    }
 }

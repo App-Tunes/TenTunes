@@ -41,6 +41,7 @@
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
                                         <imageCell key="dataCell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="music_missing" id="EyP-QP-l4R"/>
+                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="none"/>
                                         <prototypeCellViews>
                                             <imageView identifier="artworkCell" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="iaK-Lm-X6C">
                                                 <rect key="frame" x="1" y="1" width="30" height="30"/>
@@ -56,6 +57,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </tableHeaderCell>
                                         <customCell key="dataCell" alignment="left" id="3DE-GQ-cS9"/>
+                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="none"/>
                                         <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <customView identifier="waveformCell" id="po2-en-Xal" customClass="TrackSpectrumView" customModule="TenTunes" customModuleProvider="target">
@@ -78,6 +80,7 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="title"/>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="titleCell" id="MG7-FD-VAR" customClass="TitleSubtitleCellView" customModule="TenTunes" customModuleProvider="target">
@@ -127,6 +130,7 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="genre"/>
                                         <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="genreCell" id="T85-td-EhY">
@@ -164,6 +168,7 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="bpm"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="bpmCell" id="Ium-1Y-zga">
                                                 <rect key="frame" x="527" y="1" width="49" height="30"/>
@@ -200,6 +205,7 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="key"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="keyCell" id="SxX-Gk-R8t">
                                                 <rect key="frame" x="579" y="1" width="42" height="30"/>
@@ -236,6 +242,7 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="duration"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="durationCell" id="yxb-An-zYo">
                                                 <rect key="frame" x="624" y="1" width="54" height="30"/>

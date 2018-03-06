@@ -42,12 +42,6 @@ class TrackController: NSViewController {
     @IBOutlet weak var _sortLabel: NSTextField!
     @IBOutlet weak var _sortBar: NSView!
     
-    var _sortButtons: [NSButton] = []
-    var _sortTitle: NSButton!
-    var _sortGenre: NSButton!
-    var _sortKey: NSButton!
-    var _sortBPM: NSButton!
-
     var playTrack: ((Track, Int, Double?) -> Swift.Void)?
     
     @IBOutlet weak var _menuRemoveFromPlaylist: NSMenuItem!
@@ -59,30 +53,6 @@ class TrackController: NSViewController {
     }
     var desired: PlayHistorySetup!
     
-    func addSearchBarItem(title: String, previous: NSView) -> NSButton {
-        let button = NSButton()
-        button.title = title
-        button.bezelStyle = .rounded
-
-        button.translatesAutoresizingMaskIntoConstraints = false // !!!!!!!!!!
-        
-        button.setButtonType(.onOff)
-//        button.state = .off
-        
-        button.target = self
-        button.action = #selector(TrackController.filterPressed)
-        
-        _sortBar.addSubview(button)
-
-        button.widthAnchor.constraint(equalToConstant: 100.0).isActive = true
-        button.leadingAnchor.constraint(equalTo: previous.trailingAnchor, constant: 8.0).isActive = true
-        button.centerYAnchor.constraint(equalTo: _sortBar.centerYAnchor, constant: 0.0).isActive = true
-        
-        _sortButtons.append(button)
-        
-        return button
-    }
-    
     override func awakeFromNib() {
         desired = PlayHistorySetup { self.history = $0 }
         
@@ -91,11 +61,6 @@ class TrackController: NSViewController {
 
         _searchBarHeight.constant = CGFloat(0)
         
-//        _sortTitle = addSearchBarItem(title: "Title", previous: _sortLabel)
-//        _sortGenre = addSearchBarItem(title: "Genre", previous: _sortTitle)
-//        _sortKey = addSearchBarItem(title: "Key", previous: _sortGenre)
-//        _sortBPM = addSearchBarItem(title: "BPM", previous: _sortKey)
-
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             return self.keyDown(with: $0)
         }
@@ -194,42 +159,6 @@ class TrackController: NSViewController {
             }
             
             view.location = nil
-        }
-    }
-    
-    @IBAction func filterPressed(_ sender: Any?) {
-        guard let sender = sender as? NSButton else {
-            return
-        }
-        
-        if sender.state == .off {
-            desired.sort = nil
-            return
-        }
-        
-        desired.sort = sorter(byButton: sender)
-        
-        for other in _sortButtons where other !== sender {
-            other.state = .off
-        }
-    }
-    
-    func sorter(byButton button: NSButton?) -> ((Track, Track) -> Bool)? {
-        guard let button = button else {
-            return nil
-        }
-        
-        switch button {
-        case _sortTitle:
-            return { $0.rTitle < $1.rTitle }
-        case _sortGenre:
-            return { Optional<String>.compare($0.genre, $1.genre) }
-        case _sortKey:
-            return { Optional<Key>.compare($0.key, $1.key) }
-        case _sortBPM:
-            return { ($0.bpm ?? 500) < ($1.bpm ?? 500)  }
-        default:
-            fatalError("Unknown Button")
         }
     }
     
@@ -357,6 +286,37 @@ extension TrackController: NSTableViewDelegate {
         Library.shared.save()
 
         return true
+    }
+    
+    func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
+        // TODO We only care about the first
+        if let descriptor = tableView.sortDescriptors.first, let key = descriptor.key, key != "none" {
+            switch key {
+            case "title":
+                desired.sort = { $0.rTitle < $1.rTitle }
+            case "genre":
+                desired.sort = { Optional<String>.compare($0.genre, $1.genre) }
+            case "key":
+                desired.sort = { Optional<Key>.compare($0.key, $1.key) }
+            case "bpm":
+                desired.sort = { ($0.bpm ?? 0) < ($1.bpm ?? 0)  }
+            case "duration":
+                desired.sort = { ($0.duration ?? kCMTimeZero) < ($1.duration ?? kCMTimeZero)  }
+            default:
+                fatalError("Unknown Sort Descriptor Key")
+            }
+            
+            // Hax
+            if !descriptor.ascending {
+                let sorter = desired.sort!
+                desired.sort = { !sorter($0, $1) }
+            }
+        }
+        else {
+            desired.sort = nil
+        }
+        
+        desired._changed = true
     }
 }
 

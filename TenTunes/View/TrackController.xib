@@ -57,7 +57,6 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </tableHeaderCell>
                                         <customCell key="dataCell" alignment="left" id="3DE-GQ-cS9"/>
-                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="none"/>
                                         <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <customView identifier="waveformCell" id="po2-en-Xal" customClass="TrackSpectrumView" customModule="TenTunes" customModuleProvider="target">

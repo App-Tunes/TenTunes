@@ -72,7 +72,7 @@ class TrackController: NSViewController {
     
     override func viewDidAppear() {
         // Appearance is not yet set in willappear
-        _tableView.backgroundColor = isDark ? NSColor(white: 0.07, alpha: 1.0) : NSColor(white: 0.73, alpha: 1.0)
+        _tableView.backgroundColor = isDark ? NSColor(white: 0.09, alpha: 1.0) : NSColor(white: 0.73, alpha: 1.0)
     
         // Hide border by painting it in the background color
         // TODO Match window bg color exactly - it returns white by default...

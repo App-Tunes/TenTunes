@@ -53,12 +53,16 @@ class TrackController: NSViewController {
     }
     var desired: PlayHistorySetup!
     
+    var isDark: Bool {
+        return self.view.window!.appearance?.name == NSAppearance.Name.vibrantDark
+    }
+    
     override func awakeFromNib() {
         desired = PlayHistorySetup { self.history = $0 }
         
         _tableView.registerForDraggedTypes([Track.pasteboardType])
         _tableView.setDraggingSourceOperationMask(.every, forLocal: false) // ESSENTIAL
-
+        
         _searchBarHeight.constant = CGFloat(0)
         
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
@@ -68,14 +72,13 @@ class TrackController: NSViewController {
     
     override func viewDidAppear() {
         // Appearance is not yet set in willappear
-        if self.view.window!.appearance?.name == NSAppearance.Name.vibrantDark {
-            // Table views don't support transparent bg colors, otherwise the labels background color add to it
-            // Also it can't be too dark??
-            _tableView.backgroundColor = NSColor(white: 0.07, alpha: 1.0)
-        }
-        else {
-            _tableView.backgroundColor = NSColor(white: 0.73, alpha: 1.0)
-        }
+        _tableView.backgroundColor = isDark ? NSColor(white: 0.07, alpha: 1.0) : NSColor(white: 0.73, alpha: 1.0)
+    
+        // Hide border by painting it in the background color
+        // TODO Match window bg color exactly - it returns white by default...
+        _tableView.headerView!.wantsLayer = true
+        _tableView.headerView!.layer!.borderColor = (isDark ? NSColor(white: 0.12, alpha: 1.0) : NSColor(white: 1, alpha: 1.0)).cgColor
+        _tableView.headerView!.layer!.borderWidth = 1
     }
     
     func set(playlist: PlaylistProtocol) {

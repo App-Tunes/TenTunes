@@ -105,6 +105,11 @@ class SpectrumLayer : CALayer {
         _bgLayer.zPosition = -2
         addSublayer(_bgLayer)
         
+         // So it doesn't blur
+        _barsLayer.shouldRasterize = true
+        _barsLayer.contentsScale = 2
+        _barsLayer.rasterizationScale = 2
+
         _barsLayer.zPosition = -1
         _barsLayer.barWidth = 2
         _barsLayer.spaceWidth = 2

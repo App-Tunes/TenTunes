@@ -266,6 +266,13 @@ extension TrackController: NSTableViewDelegate {
         return VibrantTableRowView()
     }
     
+    func tableViewColumnDidResize(_ notification: Notification) {
+        if let column = (_tableView.tableColumns.index { $0.identifier.rawValue == "waveformColumn" }) {
+            // Redraw the contained waveforms
+            _tableView.reloadData(forRowIndexes: IndexSet(0..<history.size), columnIndexes: IndexSet(integer: column))
+        }
+    }
+    
     // Pasteboard, Dragging
     
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {

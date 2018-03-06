@@ -168,7 +168,7 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="bpm"/>
+                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="bpm" ascending="NO"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="bpmCell" id="Ium-1Y-zga">
                                                 <rect key="frame" x="527" y="1" width="49" height="30"/>
@@ -242,7 +242,7 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="duration"/>
+                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="duration" ascending="NO"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="durationCell" id="yxb-An-zYo">
                                                 <rect key="frame" x="624" y="1" width="54" height="30"/>

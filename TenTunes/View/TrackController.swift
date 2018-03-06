@@ -267,6 +267,7 @@ extension TrackController: NSTableViewDelegate {
     }
     
     func tableViewColumnDidResize(_ notification: Notification) {
+        // TODO Lags a LOT
         if let column = (_tableView.tableColumns.index { $0.identifier.rawValue == "waveformColumn" }) {
             // Redraw the contained waveforms
             _tableView.reloadData(forRowIndexes: IndexSet(0..<history.size), columnIndexes: IndexSet(integer: column))

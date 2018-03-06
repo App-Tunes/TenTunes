@@ -293,7 +293,9 @@ class ViewController: NSViewController {
     }
     
     func playlistSelected(_ playlist: PlaylistProtocol) {
-        trackController.set(playlist: playlist)
+        if trackController.history.playlist !== playlist {
+            trackController.set(playlist: playlist)
+        }
     }
     
     @IBAction func volumeChanged(_ sender: Any) {

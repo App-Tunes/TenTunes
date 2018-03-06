@@ -8,6 +8,6 @@
 
 import Cocoa
 
-protocol PlaylistProtocol {
+protocol PlaylistProtocol : class {
     var tracksList: [Track] { get }
 }

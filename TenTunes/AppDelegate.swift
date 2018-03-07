@@ -154,5 +154,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
     }
+    
+    @IBAction func openDocument(_ sender: Any) {
+        let dialog = NSOpenPanel()
+        
+        // TODO Allow only audiovisual files
+//        dialog.title                   = "Select an iTunes Library"
+//        dialog.allowsMultipleSelection = false
+//        dialog.allowedFileTypes        = ["xml"]
+        
+        if dialog.runModal() == NSApplication.ModalResponse.OK {
+            guard let url = dialog.url else {
+                return
+            }
+            
+            let track = Track()
+            
+            track.path = url.absoluteString
+            track.title = url.lastPathComponent
+            
+            Library.shared.viewMox.insert(track)
+            Library.shared.addedTracks()
+            Library.shared.save()
+        }
+    }
 }
 

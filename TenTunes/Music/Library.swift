@@ -110,6 +110,12 @@ class Library {
         }
     }
     
+    func addedTracks() {
+        if ViewController.shared.trackController.history.playlist is PlaylistLibrary {
+            ViewController.shared.trackController.desired._changed = true
+        }
+    }
+    
     func editedTracks(of: Playlist) {
         // Should find a way for histories to check themselves? Or something
         // Might use lastChanged index and on every query check for sanity

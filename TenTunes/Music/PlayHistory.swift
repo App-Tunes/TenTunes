@@ -39,11 +39,7 @@ class PlayHistory {
         order = order.map(mox.convert)
         shuffled = shuffled?.map(mox.convert)
     }
-    
-    func sharesOrder(with: PlayHistory) -> Bool {
-        return tracks.sharesOrder(with: with.tracks)
-    }
-    
+        
     // Order, Filter
     
     func filter(by filter: @escaping (Track) -> Bool) {

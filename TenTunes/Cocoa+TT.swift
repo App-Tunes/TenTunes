@@ -165,7 +165,7 @@ extension Array where Element: Equatable {
         
         var rightIdx = -1
         
-        for (idx, item) in left.enumerated() {
+        for item in left {
             repeat {
                 rightIdx += 1
                 if rightIdx >= right.count {
@@ -176,6 +176,33 @@ extension Array where Element: Equatable {
         }
         
         return true
+    }
+
+    func difference(from: [Element]) -> ([Int]?, [Int]?)? {
+        let leftSmaller = self.count < from.count
+        let (left, right) = leftSmaller ? (self, from) : (from, self)
+        var difference: [Int] = []
+        difference.reserveCapacity(right.count - left.count)
+        
+        var rightIdx = -1
+        
+        for item in left {
+            repeat {
+                rightIdx += 1
+                if rightIdx >= right.count {
+                    return nil
+                }
+                
+                // Add current item
+                if right[rightIdx] != item { difference.append(rightIdx) }
+            }
+            while right[rightIdx] != item
+        }
+        
+        // Add the rest
+        difference += Array<Int>((rightIdx + 1)..<right.count)
+        
+        return leftSmaller ? (nil, difference) : (difference, nil)
     }
 }
 

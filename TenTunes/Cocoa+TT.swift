@@ -353,6 +353,24 @@ extension NSTableView {
         }
         return [clickedRow]
     }
+    
+    func animateDifference<Element : Equatable>(from: [Element]?, to: [Element]?) {
+        if let from = from, let to = to, let (left, right) = from.difference(from: to) {
+            if (left ?? right!).count > 100 {
+                // Give up, this will look shite anyhow
+                reloadData()
+            }
+            else if let removed = left {
+                removeRows(at: IndexSet(removed), withAnimation: .slideDown)
+            }
+            else if let added = right {
+                insertRows(at: IndexSet(added), withAnimation: .slideUp)
+            }
+        }
+        else {
+            reloadData()
+        }
+    }
 }
 
 infix operator ?=> : NilCoalescingPrecedence

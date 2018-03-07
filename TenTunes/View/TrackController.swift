@@ -48,17 +48,7 @@ class TrackController: NSViewController {
     
     var history: PlayHistory! {
         didSet {
-            if let oldValue = oldValue, let history = history, let (left, right) = oldValue.tracks.difference(from: history.tracks) {
-                if let removed = left {
-                    _tableView.removeRows(at: IndexSet(removed), withAnimation: .slideDown)
-                }
-                else if let added = right {
-                    _tableView.insertRows(at: IndexSet(added), withAnimation: .slideUp)
-                }
-            }
-            else {
-                _tableView.reloadData()
-            }
+            _tableView.animateDifference(from: oldValue?.tracks, to: history?.tracks)
         }
     }
     var desired: PlayHistorySetup!

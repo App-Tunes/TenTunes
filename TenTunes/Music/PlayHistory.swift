@@ -40,6 +40,10 @@ class PlayHistory {
         shuffled = shuffled?.map(mox.convert)
     }
     
+    func sharesOrder(with: PlayHistory) -> Bool {
+        return tracks.sharesOrder(with: with.tracks)
+    }
+    
     // Order, Filter
     
     func filter(by filter: @escaping (Track) -> Bool) {
@@ -111,12 +115,16 @@ class PlayHistory {
     
     var size: Int { return order.count }
     
+    var tracks: [Track] {
+        return shuffled ?? order
+    }
+    
     func track(at: Int) -> Track? {
-        return (shuffled ?? order)[safe: at]
+        return tracks[safe: at]
     }
     
     func indexOf(track: Track) -> Int? {
-        return (shuffled ?? order).index(of: track)
+        return tracks.index(of: track)
     }
     
     func move(to: Int) {

@@ -181,7 +181,7 @@ class Library {
         }
         
         for track in tracks {
-            persistentContainer.viewContext.delete(track)
+            viewMox.delete(track)
         }
     }
     

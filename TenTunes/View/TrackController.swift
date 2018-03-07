@@ -48,7 +48,21 @@ class TrackController: NSViewController {
     
     var history: PlayHistory! {
         didSet {
-            _tableView.reloadData()
+            if let oldValue = oldValue, let history = history, oldValue.sharesOrder(with: history) {
+                if oldValue.size > history.size {
+                    // Remove
+                    let removed = Set(oldValue.tracks).subtracting(history.tracks).map { oldValue.indexOf(track: $0)! }
+                    _tableView.removeRows(at: IndexSet(removed), withAnimation: .slideDown)
+                }
+                else {
+                    // Add
+                    let added = Set(history.tracks).subtracting(oldValue.tracks).map { history.indexOf(track: $0)! }
+                    _tableView.insertRows(at: IndexSet(added), withAnimation: .slideUp)
+                }
+            }
+            else {
+                _tableView.reloadData()
+            }
         }
     }
     var desired: PlayHistorySetup!

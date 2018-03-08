@@ -51,7 +51,10 @@ class Library {
     }
     
     func performInBackground(task: @escaping (NSManagedObjectContext) -> Swift.Void) {
-        persistentContainer.performBackgroundTask(task)
+        persistentContainer.performBackgroundTask { mox in
+            mox.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
+            task(mox)
+        }
     }
 
     // Querying

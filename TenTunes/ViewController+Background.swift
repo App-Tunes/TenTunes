@@ -68,7 +68,7 @@ extension ViewController {
                     Library.shared.performInBackground { mox in
                         let asyncTrack = mox.convert(playing)
                         asyncTrack.analysis = playing.analysis
-                        
+
                         // May exist on disk
                         if !asyncTrack.readAnalysis() {
                             // TODO Merge with metadata fetch etc

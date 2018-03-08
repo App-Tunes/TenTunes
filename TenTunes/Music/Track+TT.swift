@@ -22,6 +22,11 @@ extension Track {
         set(duration) { durationR = duration?.convertScale(1000, method: .roundHalfAwayFromZero).value ?? 0 }
     }
     
+    var durationSeconds: Int? {
+        guard let duration = duration else { return nil }
+        return Int(CMTimeGetSeconds(duration))
+    }
+    
     var bpm: Double? {
         get { return bpmR > 0 ? bpmR : nil }
         set(bpm) { bpmR = bpm ?? 0 }
@@ -65,9 +70,7 @@ extension Track {
     }
     
     var rLength: String {
-        guard let duration = duration else {
-            return ""
-        }
+        guard let duration = duration else { return "" }
         return Int(CMTimeGetSeconds(duration)).timeString
     }
     

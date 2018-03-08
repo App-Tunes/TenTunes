@@ -50,8 +50,7 @@ extension Library {
     
     static func writeM3U(playlist: Playlist, to: URL, absolute: Bool) {
         let tracks: [String] = playlist.tracksList.map { track in
-            // TODO Duration
-            let info = "#EXTINF:0,\(track.rAuthor) - \(track.rTitle)"
+            let info = "#EXTINF:\(track.durationSeconds ?? 0),\(track.rAuthor) - \(track.rTitle)"
             
             // TODO Put in path whether it exists or not
             let url = track.url ?? URL(fileURLWithPath: "unknown")

@@ -42,6 +42,12 @@ import Cocoa
         _outlineView.deselectAll(self)
     }
     
+    @IBAction func performFindPanelAction(_ sender: AnyObject) {
+        // Search the current playlist
+        // TODO A little too omniscient
+        ViewController.shared.trackController.performFindPanelAction(sender)
+    }
+    
     var playlistInsertionPosition: (PlaylistFolder, Int?) {
         if let idx = _outlineView.selectedRowIndexes.last {
             let selectedPlaylist = _outlineView.item(atRow: idx) as! Playlist
@@ -268,7 +274,8 @@ extension PlaylistController: NSUserInterfaceValidations {
         }
         
         if action == #selector(delete as (AnyObject) -> Swift.Void) { return true }
-        
+        if action == #selector(performFindPanelAction) { return true }
+
         return false
     }
     

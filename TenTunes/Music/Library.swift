@@ -91,8 +91,8 @@ class Library {
     }
     
     func playlists(containing tracks: [Track]) -> [PlaylistManual] {
-        let request = NSFetchRequest<PlaylistManual>(entityName: "PlaylistManual")
-        request.predicate = NSPredicate(format: "ANY tracks == %@", tracks.first!) // TODO
+        let request: NSFetchRequest = PlaylistManual.fetchRequest()
+        request.predicate = NSPredicate(format: "ANY tracks IN %@", tracks) // TODO
         return try! persistentContainer.viewContext.fetch(request)
     }
 

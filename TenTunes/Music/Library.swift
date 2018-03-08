@@ -110,7 +110,7 @@ class Library {
         }
     }
     
-    func addedTracks() {
+    func modifiedTrackLibrary() {
         if ViewController.shared.trackController.history.playlist is PlaylistLibrary {
             ViewController.shared.trackController.desired._changed = true
         }

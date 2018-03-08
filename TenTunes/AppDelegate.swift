@@ -174,7 +174,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             track.title = url.lastPathComponent
             
             Library.shared.viewMox.insert(track)
-            Library.shared.addedTracks()
+            Library.shared.modifiedTrackLibrary()
             Library.shared.save()
         }
     }

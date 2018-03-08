@@ -100,13 +100,15 @@ extension Track {
             return
         }
         
-        title = nil
-        key = nil
-        bpm = nil
-        artwork = nil
-        duration = nil
+        var title: String? = nil
+        var album: String? = nil
+        var author: String? = nil
+        var genre: String? = nil
+        var key: Key? = nil
+        var bpm: Double? = nil
+        var artwork: NSImage? = nil
         
-        // TODO Length
+        // TODO Duration
         
         let importer = TagLibImporter.init(url: url)
         do {
@@ -171,30 +173,14 @@ extension Track {
             readAnalysis()
         }
         
-        //        var fileID: AudioFileID?
-        //        if AudioFileOpenURL(url as CFURL, AudioFilePermissions.readPermission, 0, &fileID) == 0 {
-        //            var size: UInt32 = 0
-        //            var data: CFData? = nil
-        //            let err = AudioFileGetProperty(fileID!, kAudioFilePropertyAlbumArtwork, &size, &data)
-        //            if err != 0 {
-        //                print(err)
-        //            }
-        //            else {
-        //                print("Sucks ass")
-        //            }
-        //            AudioFileClose(fileID!)
-        //        }
-        
-        //        for track in asset.tracks {
-        //            print(track)
-        //            for desc in track.formatDescriptions {
-        //                print(desc)
-        //            }
-        //        }
-        //
-        //        for track in asset.allMediaSelections {
-        //            print(track)
-        //        }
+        // Always prefer the data we read if any
+        self.title = title ?? self.title
+        self.album = album ?? self.album
+        self.author = author ?? self.author
+        self.genre = genre ?? self.genre
+        self.key = key ?? self.key
+        self.bpm = bpm ?? self.bpm
+        self.artwork = artwork ?? self.artwork
         
         return
     }

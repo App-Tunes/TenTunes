@@ -17,6 +17,7 @@ extension Track {
         return NSFetchRequest<Track>(entityName: "Track")
     }
 
+    @NSManaged public var creationDate: NSDate
     @NSManaged public var album: String?
     @NSManaged public var analysisData: NSData?
     @NSManaged public var artworkData: NSData?
@@ -31,6 +32,9 @@ extension Track {
     @NSManaged public var title: String?
     @NSManaged public var containingPlaylists: NSSet
 
+    public override func awakeFromInsert() {
+        creationDate = NSDate()
+    }
 }
 
 // MARK: Generated accessors for containingPlaylists

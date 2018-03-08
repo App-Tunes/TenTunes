@@ -14,7 +14,8 @@ class PlaylistLibrary: PlaylistProtocol {
     }
     
     var tracksList: [Track] {
-        let tracks: [Track] = try! Library.shared.viewMox.fetch(Track.fetchRequest())
-        return tracks.sorted { $0.objectID.uriRepresentation().absoluteString < $1.objectID.uriRepresentation().absoluteString }
+        let request: NSFetchRequest = Track.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        return try! Library.shared.viewMox.fetch(request)
     }
 }

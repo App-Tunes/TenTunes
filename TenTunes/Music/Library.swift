@@ -14,7 +14,8 @@ import CoreData
 class Library {
     static var shared: Library!
 
-    init() {
+    init(at: URL) {
+        directory = at
         if !fetchMaster() {
             _masterPlaylist = PlaylistFolder(mox: viewMox)
             
@@ -44,11 +45,16 @@ class Library {
         return _masterPlaylist != nil
     }
     
+    var directory: URL
+    
     var allTracks = PlaylistLibrary()
     var _masterPlaylist: PlaylistFolder!
     var masterPlaylist: PlaylistFolder {
         return _masterPlaylist
     }
+    
+    var _exportsRequireUpdate = false
+    var exportSemaphore = DispatchSemaphore(value: 1)
     
     func performInBackground(task: @escaping (NSManagedObjectContext) -> Swift.Void) {
         persistentContainer.performBackgroundTask { mox in
@@ -104,12 +110,17 @@ class Library {
     func save(in mox: NSManagedObjectContext? = nil) {
         let mox = mox ?? viewMox
         
-        do {
-            try mox.save()
-        }
-        catch let error {
-            print(error)
-            exit(1)
+        if mox.hasChanges {
+            do {
+                
+                try mox.save()
+            }
+            catch let error {
+                print(error)
+                exit(1)
+            }
+            
+            _exportsRequireUpdate = true
         }
     }
     

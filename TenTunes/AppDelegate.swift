@@ -21,7 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: - Core Data stack
     
-    var dataLocation: URL {
+    static var dataLocation: URL {
         let musicDir = FileManager.default.urls(for: .musicDirectory, in: .userDomainMask).first!
         return musicDir.appendingPathComponent("Ten Tunes")
     }
@@ -35,7 +35,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         */
         let container = NSPersistentContainer(name: "TenTunes")
         
-        let url = dataLocation.appendingPathComponent("Library")
+        let url = AppDelegate.dataLocation.appendingPathComponent("Library")
         try! FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
         
         let description = NSPersistentStoreDescription(url: url.appendingPathComponent("library.sqlite"))

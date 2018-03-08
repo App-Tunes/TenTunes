@@ -430,3 +430,9 @@ extension NSMenu {
         return items.filter { $0.action == withAction }.first
     }
 }
+
+extension DispatchSemaphore {
+    func acquireNow() -> Bool {
+        return wait(timeout: DispatchTime.now()) == .success
+    }
+}

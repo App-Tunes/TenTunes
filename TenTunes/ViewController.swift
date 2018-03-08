@@ -77,7 +77,7 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Library.shared = Library()
+        Library.shared = Library(at: AppDelegate.dataLocation)
 
         trackController = TrackController(nibName: NSNib.Name(rawValue: "TrackController"), bundle: nil)
         trackController.view.frame = _trackView.frame

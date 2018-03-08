@@ -38,10 +38,9 @@ extension ViewController {
         }
         
         self.backgroundTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 10.0, repeats: true ) { [unowned self] (timer) in
-            if self._workerSemaphore.wait(timeout: DispatchTime.now()) == .success {
-                
+            if self._workerSemaphore.acquireNow() {
                 // Update the current playlist, top priority
-                if let desired = self.trackController.desired, desired._changed, desired.semaphore.wait(timeout: DispatchTime.now()) == .success {
+                if let desired = self.trackController.desired, desired._changed, desired.semaphore.acquireNow() {
                     let copy = PlayHistory(playlist: self.trackController.history.playlist)
                     desired._changed = false
                     
@@ -80,7 +79,9 @@ extension ViewController {
                         self._workerSemaphore.signal()
                     }
                 }
-                else {
+                else if (!Library.shared.startExport {
+                   self._workerSemaphore.signal()
+                }){
                     self.fetchOneMetadata()
                 }
             }

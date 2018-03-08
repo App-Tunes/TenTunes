@@ -16,6 +16,8 @@ class Library {
 
     init(at: URL) {
         directory = at
+        try! FileManager.default.createDirectory(at: directory.appendingPathComponent("Media"), withIntermediateDirectories: true, attributes: nil)
+        
         if !fetchMaster() {
             _masterPlaylist = PlaylistFolder(mox: viewMox)
             

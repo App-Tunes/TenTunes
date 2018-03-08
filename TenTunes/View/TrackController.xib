@@ -7,7 +7,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TrackController" customModule="TenTunes" customModuleProvider="target">
             <connections>
-                <outlet property="_menuRemoveFromPlaylist" destination="Ko5-yB-rKk" id="6fI-j2-guv"/>
                 <outlet property="_searchBarClose" destination="BeI-cc-vzB" id="5Pj-5J-T9B"/>
                 <outlet property="_searchBarHeight" destination="Sxu-f3-yrD" id="Ubq-yi-vS6"/>
                 <outlet property="_searchField" destination="Vb1-dH-y3M" id="jvB-RL-GBx"/>

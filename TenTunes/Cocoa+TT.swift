@@ -424,3 +424,9 @@ extension NSManagedObjectContext {
         return object(with: t.objectID) as! T
     }
 }
+
+extension NSMenu {
+    func item(withAction: Selector) -> NSMenuItem? {
+        return items.filter { $0.action == withAction }.first
+    }
+}

@@ -44,8 +44,6 @@ class TrackController: NSViewController {
     
     var playTrack: ((Track, Int, Double?) -> Swift.Void)?
     
-    @IBOutlet weak var _menuRemoveFromPlaylist: NSMenuItem!
-    
     var history: PlayHistory! {
         didSet {
             _tableView.animateDifference(from: oldValue?.tracks, to: history?.tracks)
@@ -133,7 +131,7 @@ class TrackController: NSViewController {
     @IBAction func menuShowInFinder(_ sender: Any) {
         let row = self._tableView.clickedRow
         let track = history.track(at: row)!
-        if let url = track.url { // TODO Disable Button if we can't find the url
+        if let url = track.url {
             NSWorkspace.shared.activateFileViewerSelecting([url])
         }
     }
@@ -357,7 +355,7 @@ extension TrackController: NSMenuDelegate {
             menu.cancelTrackingWithoutAnimation()
         }
 
-        _menuRemoveFromPlaylist.isHidden = !Library.shared.isPlaylist(playlist: history.playlist)
+        menu.item(withAction: #selector(removeTrack))?.isHidden = !Library.shared.isPlaylist(playlist: history.playlist)
     }
     
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
@@ -367,8 +365,9 @@ extension TrackController: NSMenuDelegate {
         }
 
         // Right Click Menu
-        if menuItem == _menuRemoveFromPlaylist { return Library.shared.isEditable(playlist: history.playlist) }
-        
+        if menuItem.action == #selector(removeTrack) { return Library.shared.isEditable(playlist: history.playlist) }
+        if menuItem.action == #selector(menuShowInFinder) { return menuTracks.count == 1 && menuTracks.first!.url != nil }
+
         return true
     }
     

@@ -24,9 +24,9 @@ extension Library {
         return true
     }
     
-    func exportURL(title: String, directory: Bool = true) -> URL {
+    func exportURL(title: String?, directory: Bool = true) -> URL {
         let exportsDirectory = self.directory.appendingPathComponent("Exports", isDirectory: true)
-        let url = exportsDirectory.appendingPathComponent(title, isDirectory: true)
+        let url = title != nil ? exportsDirectory.appendingPathComponent(title!, isDirectory: true) : exportsDirectory
         try! FileManager.default.createDirectory(at: directory ? url : exportsDirectory, withIntermediateDirectories: true, attributes: nil)
         return url
     }

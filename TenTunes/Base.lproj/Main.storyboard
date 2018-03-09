@@ -111,6 +111,12 @@
                                                 <action selector="importFromITunes:" target="Voe-Tx-rLC" id="Ku1-Yj-GbZ"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Reveal Exports in Finder..." keyEquivalent="e" id="GPZ-LU-tsu">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="revealExports:" target="Voe-Tx-rLC" id="FqW-s3-psc"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
                                         <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
                                             <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>

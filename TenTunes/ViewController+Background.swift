@@ -127,9 +127,7 @@ extension ViewController {
                 self.trackController.reload(track: track)
             }
             
-            Thread.sleep(forTimeInterval: TimeInterval(wait ? 0.2 : 0.02))
-            
-            self._workerSemaphore.signal()
+            self._workerSemaphore.signalAfter(seconds: wait ? 0.2 : 0.02)
         }
         
     }

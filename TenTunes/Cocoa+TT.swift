@@ -444,6 +444,13 @@ extension DispatchSemaphore {
     func acquireNow() -> Bool {
         return wait(timeout: DispatchTime.now()) == .success
     }
+    
+    func signalAfter(seconds: Double, completion: (() -> Swift.Void)? = nil) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .nanoseconds(Int(seconds * 1000000)), execute: {
+            self.signal()
+            completion?()
+        })
+    }
 }
 
 extension URL {

@@ -10,7 +10,7 @@ import Cocoa
 
 extension Library {
     func startExport(completion: @escaping () -> Swift.Void) -> Bool {
-        guard _exportsRequireUpdate, exportSemaphore.acquireNow() else {
+        guard _exportChanged.count > 0, exportSemaphore.acquireNow() else {
             return false
         }
         
@@ -18,6 +18,11 @@ extension Library {
             self.updateExports(in: mox)
             completion()
         }
+        
+        // Save at most every 30 seconds
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(30), execute: {
+            self.exportSemaphore.signal()
+        })
         
         return true
     }
@@ -30,25 +35,23 @@ extension Library {
     }
     
     func updateExports(in mox: NSManagedObjectContext) {
+        let changed = _exportChanged
+        _exportChanged = Set()
+
         let tracks: [Track] = try! mox.fetch(Track.fetchRequest())
         // TODO Sort playlist by their parent / child tree
         let playlists: [Playlist] = try! mox.fetch(Playlist.fetchRequest())
         
-        writeM3UPlaylists(playlists: playlists)
+        writeM3UPlaylists(playlists: playlists, changed: changed)
         writeiTunesLibraryXML(tracks: tracks, playlists: playlists)
-        
-        _exportsRequireUpdate = false
-        // Set this after fetching so no changes remain unexported
-        
-        exportSemaphore.signal()
     }
     
-    func writeM3UPlaylists(playlists: [Playlist]) {
+    func writeM3UPlaylists(playlists: [Playlist], changed: Set<NSManagedObject>) {
         let m3uRelative = exportURL(title: "M3U (Relative)")
         let m3uAbsolute = exportURL(title: "M3U (Absolute)")
         
         // TODO Clean up old playlists
-        for playlist in playlists {
+        for playlist in playlists where playlist.doesContain(changed) || playlist.tracksList.anyMatch { changed.contains($0) } {
             Library.writeM3U(playlist: playlist, to: m3uRelative.appendingPathComponent(playlist.name.asFileName + ".m3u", isDirectory: false), absolute: false)
             Library.writeM3U(playlist: playlist, to: m3uAbsolute.appendingPathComponent(playlist.name.asFileName + ".m3u", isDirectory: false), absolute: true)
         }

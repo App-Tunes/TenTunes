@@ -6,7 +6,7 @@
 //  Copyright © 2018 ivorius. All rights reserved.
 //
 
-import Cocoa
+import Foundation
 
 extension Optional where Wrapped : Comparable {
     // Simply puts the nils at the end
@@ -28,6 +28,20 @@ extension Collection {
     func noneMatch(_ filter: (Element) -> Bool) -> Bool { return self.filter(filter).count == 0 }
 
     func anyMatch(_ filter: (Element) -> Bool) -> Bool { return self.first(where: filter) != nil }
+}
+
+extension MutableCollection {
+    /// Shuffles the contents of this collection.
+    mutating func shuffle() {
+        let c = count
+        guard c > 1 else { return }
+        
+        for (firstUnshuffled, unshuffledCount) in zip(indices, stride(from: c, to: 1, by: -1)) {
+            let d: IndexDistance = numericCast((0..<Int(unshuffledCount)).random())
+            let i = index(firstUnshuffled, offsetBy: d)
+            swapAt(firstUnshuffled, i)
+        }
+    }
 }
 
 extension Collection where Iterator.Element == UInt8 {
@@ -274,44 +288,6 @@ extension CountableRange where Bound == Int {
     }
 }
 
-extension MutableCollection {
-    /// Shuffles the contents of this collection.
-    mutating func shuffle() {
-        let c = count
-        guard c > 1 else { return }
-        
-        for (firstUnshuffled, unshuffledCount) in zip(indices, stride(from: c, to: 1, by: -1)) {
-            let d: IndexDistance = numericCast((0..<Int(unshuffledCount)).random())
-            let i = index(firstUnshuffled, offsetBy: d)
-            swapAt(firstUnshuffled, i)
-        }
-    }
-}
-
-extension NSImage {
-    func tinted(in tint: NSColor) -> NSImage {
-        guard let tinted = self.copy() as? NSImage else { return self }
-        tinted.lockFocus()
-        tint.set()
-        
-        let imageRect = NSRect(origin: NSZeroPoint, size: self.size)
-        __NSRectFillUsingOperation(imageRect, .sourceAtop)
-        
-        tinted.unlockFocus()
-        return tinted
-    }
-    
-    func resized(w: Int, h: Int) -> NSImage {
-        let destSize = NSMakeSize(CGFloat(w), CGFloat(h))
-        let newImage = NSImage(size: destSize)
-        newImage.lockFocus()
-        draw(in: NSMakeRect(0, 0, destSize.width, destSize.height), from: NSMakeRect(0, 0, size.width, size.height), operation: .sourceOver, fraction: CGFloat(1))
-        newImage.unlockFocus()
-        newImage.size = destSize
-        return NSImage(data: newImage.tiffRepresentation!)!
-    }
-}
-
 extension NSAttributedString {
     func with(_ value: Any, for key: NSAttributedStringKey) -> NSAttributedString {
         let mutableCopy = self.mutableCopy() as! NSMutableAttributedString
@@ -323,64 +299,6 @@ extension NSAttributedString {
         let mutableCopy = self.mutableCopy() as! NSMutableAttributedString
         mutableCopy.setAlignment(alignment, range: NSRange(location: 0, length: mutableCopy.length))
         return mutableCopy
-    }
-}
-
-extension NSTextField {
-    func setStringColor(_ color: NSColor) {
-        attributedStringValue = attributedStringValue.with(color, for: .foregroundColor)
-    }
-
-    func setAlignment(_ alignment: NSTextAlignment) {
-        attributedStringValue = attributedStringValue.with(alignment: alignment)
-    }
-}
-
-extension NSButton {
-    func set(text: String) {
-        self.attributedTitle = NSAttributedString(string: text, attributes: self.attributedTitle.attributes(at: 0, effectiveRange: nil))
-    }
-    
-    func set(color: NSColor) {
-        attributedTitle = attributedTitle.with(color, for: .foregroundColor)
-    }
-}
-
-extension NSTableView {
-    var clickedRows: [Int] {
-        if isRowSelected(clickedRow) {
-            return Array(selectedRowIndexes)
-        }
-        return [clickedRow]
-    }
-    
-    func animateDifference<Element : Equatable>(from: [Element]?, to: [Element]?) {
-        if let from = from, let to = to, let (left, right) = from.difference(from: to) {
-            if (left ?? right!).count > 100 {
-                // Give up, this will look shite anyhow
-                reloadData()
-            }
-            else if let removed = left {
-                removeRows(at: IndexSet(removed), withAnimation: .slideDown)
-            }
-            else if let added = right {
-                insertRows(at: IndexSet(added), withAnimation: .slideUp)
-            }
-        }
-        else {
-            reloadData()
-        }
-    }
-}
-
-infix operator ?=> : NilCoalescingPrecedence
-
-extension Optional {
-    static func ?=> <T>(left: Wrapped?, right: (Wrapped) -> T?) -> T? {
-        if let left = left {
-            return right(left)
-        }
-        return nil
     }
 }
 
@@ -419,24 +337,6 @@ extension String {
     
     static func random16Hex() -> String {
         return String(format:"%08X%08X", arc4random(), arc4random())
-    }
-}
-
-extension NSManagedObject {
-    func refresh(merge: Bool = false) {
-        managedObjectContext!.refresh(self, mergeChanges: false)
-    }
-}
-
-extension NSManagedObjectContext {
-    public func convert<T : NSManagedObject>(_ t: T) -> T {
-        return object(with: t.objectID) as! T
-    }
-}
-
-extension NSMenu {
-    func item(withAction: Selector) -> NSMenuItem? {
-        return items.filter { $0.action == withAction }.first
     }
 }
 

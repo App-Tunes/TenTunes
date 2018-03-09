@@ -331,8 +331,8 @@ extension String {
     }
     
     var asFileName: String {
-        let escaped = replacingOccurrences(of: "/", with: "\\:\\") // Escape
-        return escaped.components(separatedBy: ":").joined(separator: "_") // Remove :
+        return replacingOccurrences(of: ":", with: "_") // Remove :
+            .replacingOccurrences(of: "/", with: "\\:\\") // Escape /
     }
     
     static func random16Hex() -> String {

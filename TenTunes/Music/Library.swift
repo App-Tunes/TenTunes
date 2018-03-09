@@ -56,7 +56,7 @@ class Library {
         return _masterPlaylist
     }
     
-    var _exportChanged: Set<NSManagedObject> = Set()
+    var _exportChanged: Set<NSManagedObjectID> = Set()
     var exportSemaphore = DispatchSemaphore(value: 1)
     
     func performInBackground(task: @escaping (NSManagedObjectContext) -> Swift.Void) {
@@ -123,7 +123,7 @@ class Library {
                 exit(1)
             }
             
-            _exportChanged = _exportChanged.union(mox.registeredObjects)
+            _exportChanged = _exportChanged.union(mox.registeredObjects.map { $0.objectID })
         }
     }
     

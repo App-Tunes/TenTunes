@@ -43,12 +43,12 @@ extension Library {
         writeiTunesLibraryXML(tracks: tracks, playlists: playlists)
     }
     
-    func writeM3UPlaylists(playlists: [Playlist], changed: Set<NSManagedObject>) {
+    func writeM3UPlaylists(playlists: [Playlist], changed: Set<NSManagedObjectID>) {
         let m3uRelative = exportURL(title: "M3U (Relative)")
         let m3uAbsolute = exportURL(title: "M3U (Absolute)")
         
         // TODO Clean up old playlists
-        for playlist in playlists where playlist.doesContain(changed) || playlist.tracksList.anyMatch { changed.contains($0) } {
+        for playlist in playlists where changed.contains(playlist.objectID) || playlist.tracksList.anyMatch { changed.contains($0.objectID) } {
             Library.writeM3U(playlist: playlist, to: m3uRelative.appendingPathComponent(playlist.name.asFileName + ".m3u", isDirectory: false), absolute: false)
             Library.writeM3U(playlist: playlist, to: m3uAbsolute.appendingPathComponent(playlist.name.asFileName + ".m3u", isDirectory: false), absolute: true)
         }

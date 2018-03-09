@@ -20,6 +20,7 @@ class Library {
         
         if !fetchMaster() {
             _masterPlaylist = PlaylistFolder(mox: viewMox)
+            _masterPlaylist.name = "Master Playlist"
             
             viewMox.insert(_masterPlaylist)
             save()

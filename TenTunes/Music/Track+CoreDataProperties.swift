@@ -17,7 +17,9 @@ extension Track {
         return NSFetchRequest<Track>(entityName: "Track")
     }
 
+    @NSManaged public var id: UUID
     @NSManaged public var creationDate: NSDate
+    
     @NSManaged public var album: String?
     @NSManaged public var analysisData: NSData?
     @NSManaged public var artworkData: NSData?
@@ -33,6 +35,7 @@ extension Track {
     @NSManaged public var containingPlaylists: NSSet
 
     public override func awakeFromInsert() {
+        id = UUID()
         creationDate = NSDate()
     }
 }

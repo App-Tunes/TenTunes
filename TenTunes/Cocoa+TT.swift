@@ -416,6 +416,10 @@ extension String {
         let escaped = replacingOccurrences(of: "/", with: "\\:\\") // Escape
         return escaped.components(separatedBy: ":").joined(separator: "_") // Remove :
     }
+    
+    static func random16Hex() -> String {
+        return String(format:"%08X%08X", arc4random(), arc4random())
+    }
 }
 
 extension NSManagedObject {

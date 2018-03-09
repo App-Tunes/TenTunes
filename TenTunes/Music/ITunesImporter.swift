@@ -73,6 +73,7 @@ class ITunesImporter {
             let playlist = isFolder ? PlaylistFolder() : PlaylistManual()
             
             playlist.name = playlistData.object(forKey: "Name") as! String
+            playlist.iTunesID = persistentID
             
             var tracks: [Track]? = nil
             if !isFolder {

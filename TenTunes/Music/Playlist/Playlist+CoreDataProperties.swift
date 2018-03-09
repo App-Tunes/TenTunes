@@ -17,6 +17,16 @@ extension Playlist {
         return NSFetchRequest<Playlist>(entityName: "Playlist")
     }
 
+    @NSManaged public var id: UUID
+    @NSManaged public var creationDate: NSDate
+    
     @NSManaged public var name: String
     @NSManaged public var parent: PlaylistFolder?
+    
+    @NSManaged public var iTunesID: String?
+    
+    public override func awakeFromInsert() {
+        id = UUID()
+        creationDate = NSDate()
+    }
 }

@@ -346,7 +346,7 @@ extension DispatchSemaphore {
     }
     
     func signalAfter(seconds: Double, completion: (() -> Swift.Void)? = nil) {
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .nanoseconds(Int(seconds * 1000000)), execute: {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .microseconds(Int(seconds * 1000000)), execute: {
             self.signal()
             completion?()
         })

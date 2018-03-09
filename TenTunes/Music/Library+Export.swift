@@ -20,7 +20,7 @@ extension Library {
         }
         
         // Save at most every 30 seconds
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(30), execute: {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(60), execute: {
             self.exportSemaphore.signal()
         })
         

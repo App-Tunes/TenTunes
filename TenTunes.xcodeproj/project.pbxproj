@@ -58,7 +58,7 @@
 		80F2C5842038808000212739 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80F2C5822038808000212739 /* Main.storyboard */; };
 		80F2C58F20389B9B00212739 /* TrackSpectrumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C58E20389B9B00212739 /* TrackSpectrumView.swift */; };
 		80F2C5912038A80D00212739 /* Track+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C5902038A80D00212739 /* Track+TT.swift */; };
-		80F77BF5203D8B35001E397F /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F77BF4203D8B35001E397F /* Keys.swift */; };
+		80F77BF5203D8B35001E397F /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F77BF4203D8B35001E397F /* Key.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -170,7 +170,7 @@
 		80F2C5862038808000212739 /* TenTunes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TenTunes.entitlements; sourceTree = "<group>"; };
 		80F2C58E20389B9B00212739 /* TrackSpectrumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSpectrumView.swift; sourceTree = "<group>"; };
 		80F2C5902038A80D00212739 /* Track+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Track+TT.swift"; sourceTree = "<group>"; };
-		80F77BF4203D8B35001E397F /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		80F77BF4203D8B35001E397F /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,6 +242,7 @@
 				80074CF7204583CF0055B87E /* TrackController.xib */,
 				8058FABF2043409F0086FF8A /* VibrantTableRowView.swift */,
 				8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */,
+				80E937582039C2850014C835 /* Keycodes.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -252,18 +253,11 @@
 				80ADCD4920442E1200AA9A89 /* Library.swift */,
 				80CB652B20514E050031A6D7 /* Library+Export.swift */,
 				80E2C9E3204B3D5C00298E81 /* Playlist */,
-				80E2C9DC204AE18E00298E81 /* Track+CoreDataClass.swift */,
-				80E2C9DD204AE18E00298E81 /* Track+CoreDataProperties.swift */,
-				80F2C5902038A80D00212739 /* Track+TT.swift */,
-				80F77BF4203D8B35001E397F /* Keys.swift */,
+				80CB65362052CAEA0031A6D7 /* Track */,
+				80CB65372052CB100031A6D7 /* Analyze */,
+				80CB65382052CB1E0031A6D7 /* Import */,
 				806AC1322040D7C700857B1B /* PlayHistory.swift */,
-				808161CE2040520900AEA64F /* AVFoundationImporter.swift */,
-				806AC1412041EF1900857B1B /* SPAnalyzer.h */,
-				806AC1422041EF1900857B1B /* SPAnalyzer.mm */,
-				806C5B2520423AC000C34F49 /* SPInterpreter.swift */,
-				80DCA9B1203F636D00B1E9B1 /* TagLibImporter.h */,
-				80DCA9B2203F636E00B1E9B1 /* TagLibImporter.mm */,
-				806AC135204174F300857B1B /* ITunesImporter.swift */,
+				80F77BF4203D8B35001E397F /* Key.swift */,
 			);
 			path = Music;
 			sourceTree = "<group>";
@@ -285,6 +279,45 @@
 				80CB65342052C9CC0031A6D7 /* CoreData+TT.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		80CB65362052CAEA0031A6D7 /* Track */ = {
+			isa = PBXGroup;
+			children = (
+				80E2C9DC204AE18E00298E81 /* Track+CoreDataClass.swift */,
+				80E2C9DD204AE18E00298E81 /* Track+CoreDataProperties.swift */,
+				80F2C5902038A80D00212739 /* Track+TT.swift */,
+			);
+			path = Track;
+			sourceTree = "<group>";
+		};
+		80CB65372052CB100031A6D7 /* Analyze */ = {
+			isa = PBXGroup;
+			children = (
+				806AC1412041EF1900857B1B /* SPAnalyzer.h */,
+				806AC1422041EF1900857B1B /* SPAnalyzer.mm */,
+				806C5B2520423AC000C34F49 /* SPInterpreter.swift */,
+			);
+			path = Analyze;
+			sourceTree = "<group>";
+		};
+		80CB65382052CB1E0031A6D7 /* Import */ = {
+			isa = PBXGroup;
+			children = (
+				808161CE2040520900AEA64F /* AVFoundationImporter.swift */,
+				80DCA9B1203F636D00B1E9B1 /* TagLibImporter.h */,
+				80DCA9B2203F636E00B1E9B1 /* TagLibImporter.mm */,
+				806AC135204174F300857B1B /* ITunesImporter.swift */,
+			);
+			path = Import;
+			sourceTree = "<group>";
+		};
+		80CB65392052CB910031A6D7 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				80CFDA09203C4E2300C7A506 /* LazyVar.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 		80DCA9B6203F645400B1E9B1 /* Frameworks */ = {
@@ -343,10 +376,9 @@
 				805901C020404CDF00B97D84 /* Music */,
 				80F2C5792038808000212739 /* AppDelegate.swift */,
 				80F2C57B2038808000212739 /* ViewController.swift */,
-				80F2C5822038808000212739 /* Main.storyboard */,
 				803717282043629700DB9EAA /* ViewController+Background.swift */,
-				80CFDA09203C4E2300C7A506 /* LazyVar.swift */,
-				80E937582039C2850014C835 /* Keycodes.swift */,
+				80F2C5822038808000212739 /* Main.storyboard */,
+				80CB65392052CB910031A6D7 /* Util */,
 				80CB65302052C9180031A6D7 /* Extensions */,
 				80F2C5802038808000212739 /* Assets.xcassets */,
 				80F2C5852038808000212739 /* Info.plist */,
@@ -487,7 +519,7 @@
 				8058FAC02043409F0086FF8A /* VibrantTableRowView.swift in Sources */,
 				80CB652C20514E050031A6D7 /* Library+Export.swift in Sources */,
 				80E2C9F8204B40A000298E81 /* Playlist+CoreDataProperties.swift in Sources */,
-				80F77BF5203D8B35001E397F /* Keys.swift in Sources */,
+				80F77BF5203D8B35001E397F /* Key.swift in Sources */,
 				80F2C57A2038808000212739 /* AppDelegate.swift in Sources */,
 				8058FAB5204317330086FF8A /* SuperpoweredOSXAudioIO.mm in Sources */,
 			);

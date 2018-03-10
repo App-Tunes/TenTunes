@@ -15,8 +15,8 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" id="7My-zQ-daw" customClass="NSPanel">
-            <windowStyleMask key="styleMask" utility="YES" HUD="YES"/>
+        <window title="File Tag Editor" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="7My-zQ-daw" customClass="FileTagEditorWindow" customModule="TenTunes" customModuleProvider="target">
+            <windowStyleMask key="styleMask" utility="YES" HUD="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="139" y="85" width="525" height="202"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
@@ -122,7 +122,7 @@ Gw
                         <constraints>
                             <constraint firstAttribute="width" constant="329" id="RoJ-cA-7S8"/>
                         </constraints>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="mpf-j8-1ns">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="mpf-j8-1ns">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -137,7 +137,7 @@ Gw
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EVF-LM-2Nl">
                         <rect key="frame" x="93" y="158" width="329" height="22"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="tWQ-MQ-wEX">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="tWQ-MQ-wEX">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -152,7 +152,7 @@ Gw
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TBg-2a-aQr">
                         <rect key="frame" x="93" y="133" width="329" height="22"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="JdR-5z-UB8">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="JdR-5z-UB8">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -167,7 +167,7 @@ Gw
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dky-CQ-1kT">
                         <rect key="frame" x="93" y="108" width="329" height="22"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="EXL-o8-LZe">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="EXL-o8-LZe">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -182,13 +182,13 @@ Gw
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f0g-VO-Rf9">
                         <rect key="frame" x="93" y="83" width="329" height="22"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="WEd-Wf-HSF">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="WEd-Wf-HSF">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
-                            <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.bpmR" id="Jga-YA-ux6">
+                            <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.bpmString" id="Gmp-0c-ElK">
                                 <dictionary key="options">
                                     <string key="NSMultipleValuesPlaceholder">Multiple Values</string>
                                 </dictionary>
@@ -197,7 +197,7 @@ Gw
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NYA-mr-kcR">
                         <rect key="frame" x="93" y="56" width="329" height="22"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="gbm-aT-2rZ">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="gbm-aT-2rZ">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -250,7 +250,7 @@ Gw
             <connections>
                 <outlet property="delegate" destination="-2" id="qGX-fM-HAW"/>
             </connections>
-            <point key="canvasLocation" x="108.5" y="274.5"/>
+            <point key="canvasLocation" x="120" y="327"/>
         </window>
         <arrayController mode="entity" entityName="Track" preservesSelection="NO" selectsInsertedObjects="NO" avoidsEmptySelection="NO" clearsFilterPredicateOnInsertion="NO" id="i0G-Xb-2QU">
             <connections>

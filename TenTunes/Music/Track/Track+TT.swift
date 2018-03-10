@@ -28,8 +28,8 @@ extension Track {
     }
     
     var bpm: Double? {
-        get { return bpmR > 0 ? bpmR : nil }
-        set(bpm) { bpmR = bpm ?? 0 }
+        get { return bpmString ?=> Double.init }
+        set(bpm) { bpmString = bpm ?=> String.init }
     }
     
     var key: Key? {

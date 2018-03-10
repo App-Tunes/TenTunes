@@ -32,8 +32,6 @@ class FileTagEditor: NSWindowController {
     
     override func windowDidLoad() {
         super.windowDidLoad()
-        
-        window!.styleMask = [.hudWindow, .utilityWindow]
     }
     
     @IBAction func save(_ sender: Any) {
@@ -42,5 +40,11 @@ class FileTagEditor: NSWindowController {
     
     @IBAction func cancel(_ sender: Any) {
         window?.close()
+    }
+}
+
+class FileTagEditorWindow: NSPanel {
+    override var canBecomeKey: Bool {
+        return true
     }
 }

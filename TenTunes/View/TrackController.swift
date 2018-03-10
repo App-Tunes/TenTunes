@@ -280,7 +280,7 @@ extension TrackController: NSTableViewDelegate {
 
         let tracks = Array(_tableView.selectedRowIndexes).map { history.track(at: $0)! }
         infoEditor.tracks = tracks
-        infoEditor.window!.makeKey()
+        infoEditor.window!.becomeKey()
     }
     
     // Pasteboard, Dragging

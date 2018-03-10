@@ -25,7 +25,7 @@ extension Track {
     @NSManaged public var artworkData: NSData?
     @NSManaged public var artworkPreviewData: NSData?
     @NSManaged public var author: String?
-    @NSManaged public var bpmR: Double
+    @NSManaged public var bpmString: String?
     @NSManaged public var durationR: Int64
     @NSManaged public var genre: String?
     @NSManaged public var iTunesID: String?

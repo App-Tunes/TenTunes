@@ -15,8 +15,8 @@ public class Track: NSManagedObject {
     var metadataFetched: Bool = false
     var analysis: Analysis?
     
-    var artwork: NSImage?
-    var artworkPreview: NSImage?
+    @objc dynamic var artwork: NSImage?
+    @objc dynamic var artworkPreview: NSImage?
 
     @discardableResult
     func readAnalysis() -> Bool {

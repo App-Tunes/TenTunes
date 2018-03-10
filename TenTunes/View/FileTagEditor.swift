@@ -32,6 +32,8 @@ class FileTagEditor: NSWindowController {
     
     override func windowDidLoad() {
         super.windowDidLoad()
+        
+        window!.styleMask = [.hudWindow, .utilityWindow]
     }
     
     @IBAction func save(_ sender: Any) {

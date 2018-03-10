@@ -323,6 +323,7 @@ extension TrackController: NSTableViewDelegate {
         }
         else {
             desired.sort = nil
+            tableView.sortDescriptors = [] // Update the view so it doesn't show an arrow on the affected columns
         }
         
         desired._changed = true

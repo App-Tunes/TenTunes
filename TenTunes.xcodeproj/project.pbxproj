@@ -59,6 +59,8 @@
 		80F2C58F20389B9B00212739 /* TrackSpectrumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C58E20389B9B00212739 /* TrackSpectrumView.swift */; };
 		80F2C5912038A80D00212739 /* Track+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C5902038A80D00212739 /* Track+TT.swift */; };
 		80F77BF5203D8B35001E397F /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F77BF4203D8B35001E397F /* Key.swift */; };
+		80F8F6F32053EA2C004A07D6 /* FileTagEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F8F6F12053EA2C004A07D6 /* FileTagEditor.swift */; };
+		80F8F6F42053EA2C004A07D6 /* FileTagEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80F8F6F22053EA2C004A07D6 /* FileTagEditor.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,6 +173,8 @@
 		80F2C58E20389B9B00212739 /* TrackSpectrumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSpectrumView.swift; sourceTree = "<group>"; };
 		80F2C5902038A80D00212739 /* Track+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Track+TT.swift"; sourceTree = "<group>"; };
 		80F77BF4203D8B35001E397F /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
+		80F8F6F12053EA2C004A07D6 /* FileTagEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTagEditor.swift; sourceTree = "<group>"; };
+		80F8F6F22053EA2C004A07D6 /* FileTagEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileTagEditor.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +244,8 @@
 				80F2C58E20389B9B00212739 /* TrackSpectrumView.swift */,
 				808161D1204059FE00AEA64F /* TrackController.swift */,
 				80074CF7204583CF0055B87E /* TrackController.xib */,
+				80F8F6F12053EA2C004A07D6 /* FileTagEditor.swift */,
+				80F8F6F22053EA2C004A07D6 /* FileTagEditor.xib */,
 				8058FABF2043409F0086FF8A /* VibrantTableRowView.swift */,
 				8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */,
 				80E937582039C2850014C835 /* Keycodes.swift */,
@@ -471,6 +477,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80F8F6F42053EA2C004A07D6 /* FileTagEditor.xib in Resources */,
 				80F2C5812038808000212739 /* Assets.xcassets in Resources */,
 				80074CFD204584980055B87E /* PlaylistController.xib in Resources */,
 				80074CF9204583CF0055B87E /* TrackController.xib in Resources */,
@@ -512,6 +519,7 @@
 				806EFC22204B63620079DBAA /* PlaylistLibrary.swift in Sources */,
 				80F2C57F2038808000212739 /* TenTunes.xcdatamodeld in Sources */,
 				80CB65352052C9CC0031A6D7 /* CoreData+TT.swift in Sources */,
+				80F8F6F32053EA2C004A07D6 /* FileTagEditor.swift in Sources */,
 				803717292043629800DB9EAA /* ViewController+Background.swift in Sources */,
 				806AC136204174F300857B1B /* ITunesImporter.swift in Sources */,
 				806EFC27204B65C10079DBAA /* PlaylistProtocol.swift in Sources */,

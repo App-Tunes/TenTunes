@@ -107,6 +107,7 @@
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="Jcc-mG-UKE"/>
                                         <menuItem title="Import from iTunes..." keyEquivalent="i" id="YKS-7l-PFL">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
                                                 <action selector="importFromITunes:" target="Voe-Tx-rLC" id="Ku1-Yj-GbZ"/>
                                             </connections>
@@ -177,6 +178,12 @@
                                         <menuItem title="Select All" keyEquivalent="a" id="Ruw-6m-B2m">
                                             <connections>
                                                 <action selector="selectAll:" target="Ady-hI-5gd" id="VNm-Mi-diN"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="PGC-nN-qCM"/>
+                                        <menuItem title="Show Info" keyEquivalent="i" id="PEO-hu-QSR">
+                                            <connections>
+                                                <action selector="showInfo:" target="Ady-hI-5gd" id="4Ik-1f-YcQ"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="uyl-h8-XO2"/>

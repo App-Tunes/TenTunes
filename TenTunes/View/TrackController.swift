@@ -39,6 +39,8 @@ class TrackController: NSViewController {
     @IBOutlet var _searchBarHeight: NSLayoutConstraint!
     @IBOutlet weak var _searchBarClose: NSButton!
     
+    var infoEditor : FileTagEditor!
+    
     @IBOutlet weak var _sortLabel: NSTextField!
     @IBOutlet weak var _sortBar: NSView!
     
@@ -57,6 +59,8 @@ class TrackController: NSViewController {
     
     override func awakeFromNib() {
         desired = PlayHistorySetup { self.history = $0 }
+        
+        infoEditor = FileTagEditor()
         
         _tableView.registerForDraggedTypes([Track.pasteboardType])
         _tableView.setDraggingSourceOperationMask(.every, forLocal: false) // ESSENTIAL
@@ -77,6 +81,8 @@ class TrackController: NSViewController {
         _tableView.headerView!.wantsLayer = true
         _tableView.headerView!.layer!.borderColor = (isDark ? NSColor(white: 0.12, alpha: 1.0) : NSColor(white: 1, alpha: 1.0)).cgColor
         _tableView.headerView!.layer!.borderWidth = 1
+        
+        infoEditor.window?.appearance = view.window!.appearance
     }
     
     func set(playlist: PlaylistProtocol) {
@@ -264,6 +270,19 @@ extension TrackController: NSTableViewDelegate {
         return VibrantTableRowView()
     }
     
+    @IBAction func showInfo(_ sender: Any?) {
+        if !infoEditor.window!.isVisible {
+            let rowView = _tableView.rowView(atRow: _tableView.selectedRow, makeIfNecessary: false)!
+            infoEditor.window!.positionNextTo(view: rowView)
+            
+            infoEditor.showWindow(self)
+        }
+
+        let tracks = Array(_tableView.selectedRowIndexes).map { history.track(at: $0)! }
+        infoEditor.tracks = tracks
+        infoEditor.window!.makeKey()
+    }
+    
     // Pasteboard, Dragging
     
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
@@ -386,6 +405,7 @@ extension TrackController: NSUserInterfaceValidations {
         }
 
         if action == #selector(performFindPanelAction) { return true }
+        if action == #selector(showInfo) { return true }
 
         return false
     }

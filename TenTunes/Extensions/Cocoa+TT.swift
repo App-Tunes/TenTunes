@@ -84,3 +84,20 @@ extension NSMenu {
         return items.filter { $0.action == withAction }.first
     }
 }
+
+extension NSWindow {
+    func positionNextTo(view: NSView) {
+        let windowPoint = view.convert(NSPoint(x: view.bounds.width, y: view.bounds.height / 2), to: nil)
+        let screenPoint = view.window!.convertToScreen(NSRect(origin: windowPoint, size: .zero)).origin
+
+        let size = self.frame.size
+        var frame = NSRect(x: screenPoint.x, y: screenPoint.y - size.height / 2, width: size.width, height: size.height)
+
+        let limit = view.window!.screen!.visibleFrame
+        if frame.maxX > limit.maxX {
+            frame.origin.x = limit.maxX - frame.size.width
+        }
+        
+        setFrame(frame, display: true)
+    }
+}

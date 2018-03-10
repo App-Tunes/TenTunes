@@ -110,6 +110,7 @@ class SpectrumLayer : CALayer {
         _barsLayer.rasterizationScale = 2
         // Redraw when resized
         _barsLayer.needsDisplayOnBoundsChange = true
+        _barsLayer.autoresizingMask = [.layerWidthSizable, .layerHeightSizable]
 
         _barsLayer.zPosition = -1
         _barsLayer.barWidth = 2

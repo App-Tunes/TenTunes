@@ -264,14 +264,6 @@ extension TrackController: NSTableViewDelegate {
         return VibrantTableRowView()
     }
     
-    func tableViewColumnDidResize(_ notification: Notification) {
-        // TODO Lags a LOT
-        if let column = notification.userInfo?["NSTableColumn"] as? NSTableColumn, column.identifier.rawValue == "waveformColumn" {
-            // Redraw the contained waveforms
-            _tableView.reloadData(forRowIndexes: IndexSet(0..<history.size), columnIndexes: IndexSet(integer: _tableView.column(withIdentifier: column.identifier)))
-        }
-    }
-    
     // Pasteboard, Dragging
     
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {

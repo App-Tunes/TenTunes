@@ -95,7 +95,6 @@ class SpectrumLayer : CALayer {
     override init() {
         super.init()
         
-        needsDisplayOnBoundsChange = true
         actions = ["onOrderOut": NSNull()] // Disable fade outs
 
         _bgLayer.colors = [
@@ -109,6 +108,8 @@ class SpectrumLayer : CALayer {
         _barsLayer.shouldRasterize = true
         _barsLayer.contentsScale = 2
         _barsLayer.rasterizationScale = 2
+        // Redraw when resized
+        _barsLayer.needsDisplayOnBoundsChange = true
 
         _barsLayer.zPosition = -1
         _barsLayer.barWidth = 2

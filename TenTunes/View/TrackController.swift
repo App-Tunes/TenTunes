@@ -143,7 +143,7 @@ class TrackController: NSViewController {
     }
     
     func keyDown(with event: NSEvent) -> NSEvent? {
-        guard trackController._tableView.window?.isKeyWindow ?? false else {
+        guard view.window?.isKeyWindow ?? false else {
             return event
         }
 

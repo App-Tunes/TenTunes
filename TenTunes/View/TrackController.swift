@@ -143,6 +143,10 @@ class TrackController: NSViewController {
     }
     
     func keyDown(with event: NSEvent) -> NSEvent? {
+        guard trackController._tableView.window?.isKeyWindow ?? false else {
+            return event
+        }
+
         if Keycodes.enterKey.matches(event: event) || Keycodes.returnKey.matches(event: event) {
             self.playCurrentTrack()
         }

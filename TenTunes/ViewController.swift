@@ -146,6 +146,9 @@ class ViewController: NSViewController {
     }
         
     func keyDown(with event: NSEvent) -> NSEvent? {
+        guard trackController._tableView.window?.isKeyWindow ?? false else {
+            return event
+        }
         let keyString = event.charactersIgnoringModifiers
         
         if keyString == " ", trackController._tableView.window?.firstResponder is NSTableView {

@@ -350,8 +350,11 @@ Gw
                         <action selector="doubleClick:" target="-2" id="Ox9-6L-yhQ"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Edit" enabled="NO" id="a0R-ZO-kW2">
+                <menuItem title="Edit" id="a0R-ZO-kW2">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showTrackInfoClicked:" target="-1" id="tZy-ZC-xFh"/>
+                    </connections>
                 </menuItem>
                 <menuItem title="Show in Finder" id="Kft-bu-qTl">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -359,6 +362,7 @@ Gw
                         <action selector="menuShowInFinder:" target="-2" id="g8d-Pz-GdH"/>
                     </connections>
                 </menuItem>
+                <menuItem isSeparatorItem="YES" id="Rd7-Gj-f0d"/>
                 <menuItem title="Remove from Playlist" id="Ko5-yB-rKk">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>

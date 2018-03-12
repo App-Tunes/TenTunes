@@ -11,7 +11,7 @@
 
 @interface TagLibImporter : NSObject
 
--(instancetype)initWithURL:(NSURL*)url;
+-(instancetype)initWithURL:(NSURL* _Nonnull)url;
 
 -(BOOL)import:(NSError *__autoreleasing *)error;
 -(BOOL)write:(NSError *__autoreleasing *)error;

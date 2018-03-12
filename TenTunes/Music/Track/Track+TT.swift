@@ -189,7 +189,12 @@ extension Track {
     }
     
     func writeMetadata() {
-        let importer = TagLibImporter.init(url: url)!
+        guard let url = self.url else {
+            print("Tried to write to track without file!")
+            return
+        }
+
+        let importer = TagLibImporter(url: url)!
         
         do {
             importer.title = title

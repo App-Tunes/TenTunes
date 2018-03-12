@@ -59,7 +59,7 @@ inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFram
 
 @implementation TagLibImporter
 
--(instancetype)initWithURL:(NSURL *)url {
+-(instancetype)initWithURL:(NSURL * _Nonnull)url {
     self = [super init];
     if (self) {
         _url = url;

@@ -185,7 +185,8 @@ class ViewController: NSViewController {
         self._subtitle.stringValue = track.rSource
     }
     
-    func play(track: Track?) -> Void {
+    @discardableResult
+    func play(track: Track?) -> Bool {
         if player.isPlaying {
             player.stop()
         }
@@ -209,8 +210,8 @@ class ViewController: NSViewController {
             }
             else {
                 // We are at a track but it's not playable :<
-                print("Skipped unplayable track \(track.objectID.description): \(String(describing: track.path))")
-                play(moved: 1)
+                playing = nil
+                _spectrumView.analysis = nil
             }
         }
         else {
@@ -221,6 +222,8 @@ class ViewController: NSViewController {
         }
         
         self.updatePlaying()
+        
+        return playing != nil
     }
             
     @IBAction func play(_ sender: Any) {
@@ -253,7 +256,17 @@ class ViewController: NSViewController {
             history!.move(to: 0) // Select random track next
         }
         
-        self.play(track: self.history!.move(by: moved))
+        let didPlay = play(track: history!.move(by: moved))
+        
+        // Should play but didn't
+        // And we are trying to move in some direction
+        if moved != 0, history?.playingTrack != nil, !didPlay {
+            if let playing = playing {
+                print("Skipped unplayable track \(playing.objectID.description): \(String(describing: playing.path))")
+            }
+            
+            play(moved: moved)
+        }
     }
     
     func pause() {

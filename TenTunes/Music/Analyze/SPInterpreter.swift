@@ -119,17 +119,18 @@ class SPInterpreter {
         
         // This may take a while too
         // So move the wave a little further
-        let wf = waveform(start: analyzer.waveform())
+        var wf = waveform(start: analyzer.waveform())
         setProgress(1.03)
-        let lows = waveform(start: analyzer.lowWaveform())
+        wf = wf.normalized(min: 0.0, max: (1.0 + wf.max()!) / 2.0)
         setProgress(1.06)
-        let mids = waveform(start: analyzer.midWaveform())
+        let lows = waveform(start: analyzer.lowWaveform())
         setProgress(1.09)
-        let highs = waveform(start: analyzer.highWaveform())
+        let mids = waveform(start: analyzer.midWaveform())
         setProgress(1.12)
+        let highs = waveform(start: analyzer.highWaveform())
         
         // Normalize waveform but only a little bit
-        analysis.values = [wf.normalized(min: 0.0, max: (1.0 + wf.max()!) / 2.0), lows, mids, highs]
+        analysis.values = [wf, lows, mids, highs]
         analysis.complete = true
     }
 }

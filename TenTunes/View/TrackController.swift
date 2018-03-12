@@ -281,7 +281,7 @@ extension TrackController: NSTableViewDelegate {
     func showTrackInfo(of: [Int], nextTo: NSView?) {
         // TODO Calculate in background
         if !infoEditor.window!.isVisible {
-            infoEditor.window!.positionNextTo(view: nextTo ?? _tableView)
+            infoEditor.window!.positionNextTo(view: (nextTo?.visibleRect != .zero ? nextTo : nil) ?? view)
         }
         
         let tracks = of.map { history.track(at: $0)! }

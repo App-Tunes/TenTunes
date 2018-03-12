@@ -114,7 +114,7 @@ Gw
 </string>
                         </buttonCell>
                         <connections>
-                            <action selector="save:" target="-2" id="D0c-qT-8L9"/>
+                            <action selector="cancel:" target="-2" id="4ll-rS-IKg"/>
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="B8c-Yg-KGx">

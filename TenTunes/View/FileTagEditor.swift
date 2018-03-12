@@ -32,7 +32,7 @@ class FileTagEditor: NSWindowController {
     func show(tracks: [Track]) {
         context = Library.shared.persistentContainer.newBackgroundContext()
         context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy // User is always right
-        self.tracks = tracks.map(context.convert)
+        self.tracks = context.convert(tracks)
         
         showWindow(self)
         window!.becomeKey()
@@ -44,7 +44,7 @@ class FileTagEditor: NSWindowController {
             track.writeMetadata()
         }
         
-        ViewController.shared.reloadFor(tracks: tracks.map(Library.shared.viewMox.convert) )
+        ViewController.shared.reloadFor(tracks: Library.shared.viewMox.convert(tracks) )
         window?.close()
     }
     

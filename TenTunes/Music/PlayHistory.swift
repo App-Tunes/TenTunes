@@ -36,8 +36,8 @@ class PlayHistory {
     }
     
     func convert(to mox: NSManagedObjectContext) {
-        order = order.map(mox.convert)
-        shuffled = shuffled?.map(mox.convert)
+        order = mox.convert(order)
+        shuffled = shuffled ?=> mox.convert
     }
         
     // Order, Filter

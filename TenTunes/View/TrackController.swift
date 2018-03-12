@@ -271,16 +271,17 @@ extension TrackController: NSTableViewDelegate {
     }
     
     @IBAction func showInfo(_ sender: Any?) {
-        showTrackInfo(of: Array(_tableView.selectedRowIndexes), nextTo: _tableView.rowView(atRow: _tableView.selectedRow, makeIfNecessary: false)!)
+        showTrackInfo(of: Array(_tableView.selectedRowIndexes), nextTo: _tableView.rowView(atRow: _tableView.selectedRow, makeIfNecessary: false))
     }
     
     @IBAction func showTrackInfoClicked(_ sender: Any?) {
-        showTrackInfo(of: _tableView.clickedRows, nextTo: _tableView.rowView(atRow: _tableView.selectedRow, makeIfNecessary: false)!)
+        showTrackInfo(of: _tableView.clickedRows, nextTo: _tableView.rowView(atRow: _tableView.selectedRow, makeIfNecessary: false))
     }
     
-    func showTrackInfo(of: [Int], nextTo: NSView) {
+    func showTrackInfo(of: [Int], nextTo: NSView?) {
+        // TODO Calculate in background
         if !infoEditor.window!.isVisible {
-            infoEditor.window!.positionNextTo(view: nextTo)
+            infoEditor.window!.positionNextTo(view: nextTo ?? _tableView)
         }
         
         let tracks = of.map { history.track(at: $0)! }

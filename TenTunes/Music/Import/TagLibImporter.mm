@@ -188,6 +188,17 @@ inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFram
                 [self writeID3v2:file->tag()];
             }
         }
+        
+        if (!f.save()) {
+            @throw [NSException exceptionWithName:@"FileWriteException"
+                                           reason:@"File could not be saved"
+                                         userInfo:nil];
+        }
+    }
+    else {
+        @throw [NSException exceptionWithName:@"FileNotFoundException"
+                            reason:@"File Not Found on System"
+                            userInfo:nil];
     }
     
     return YES;

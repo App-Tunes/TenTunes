@@ -121,7 +121,7 @@ inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFram
 
 -(void)importID3v2:(TagLib::ID3v2::Tag *)tag {
     TagLib::ID3v2::FrameList::ConstIterator it = tag->frameList().begin();
-	for(; it != tag->frameList().end(); it++) {
+    for(; it != tag->frameList().end(); it++) {
 		auto frame = (*it);
 		if(auto picture_frame = dynamic_cast<TagLib::ID3v2::AttachedPictureFrame *>(frame)) {
             if([self image] == nil || ([TagLibImporter priority: picture_frame->type()] < [TagLibImporter priority: currentPictureType])) {
@@ -209,18 +209,7 @@ inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFram
     TagLib::String tText = TagLibStringFromNS(text);
 
     // Remove existing
-    TagLib::ID3v2::FrameList::ConstIterator it = tag->frameList().begin();
-    for(; it != tag->frameList().end(); it++) {
-        auto frame = (*it);
-
-        if(auto text_frame = dynamic_cast<TagLib::ID3v2::TextIdentificationFrame *>(frame)) {
-            auto frame_id = text_frame->frameID();
-            if (frame_id == name.UTF8String) {
-                auto frame = (*it);
-                tag->removeFrame(frame);
-            }
-        }
-    }
+    tag->removeFrames(name.UTF8String);
     
     // Add new
     tag->addFrame(TagLib::ID3v2::Frame::createTextualFrame(tName, tText));

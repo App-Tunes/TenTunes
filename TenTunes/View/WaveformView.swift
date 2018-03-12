@@ -1,5 +1,5 @@
 //
-//  TrackSpectrumView.swift
+//  WaveformView.swift
 //  TenTunes
 //
 //  Created by Lukas Tenbrink on 17.02.18.
@@ -75,7 +75,7 @@ class BarsLayer: CALayer {
     }
 }
 
-class SpectrumLayer : CALayer {
+class WaveformLayer : CALayer {
     var _barsLayer = BarsLayer()
     var _positionLayer = CALayer()
     var _mousePositionLayer = CALayer()
@@ -165,10 +165,10 @@ class SpectrumLayer : CALayer {
     }
 }
 
-class TrackSpectrumView: NSControl, CALayerDelegate {
+class WaveformView: NSControl, CALayerDelegate {
     var location: Double? {
-        set(location) { spectrumLayer.location = location }
-        get { return spectrumLayer.location }
+        set(location) { waveformLayer.location = location }
+        get { return waveformLayer.location }
     }
     
     var analysis: Analysis? = nil {
@@ -179,8 +179,8 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
         }
     }
     
-    var spectrumLayer : SpectrumLayer {
-        return layer as! SpectrumLayer
+    var waveformLayer : WaveformLayer {
+        return layer as! WaveformLayer
     }
     
     var timer: Timer? = nil
@@ -198,12 +198,12 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
     var completeTransitionSteps = 120
 
     var barWidth: Int {
-        set(barWidth) { spectrumLayer._barsLayer.barWidth = barWidth }
-        get { return spectrumLayer._barsLayer.barWidth }
+        set(barWidth) { waveformLayer._barsLayer.barWidth = barWidth }
+        get { return waveformLayer._barsLayer.barWidth }
     }
     var spaceWidth: Int {
-        set(spaceWidth) { spectrumLayer._barsLayer.spaceWidth = spaceWidth }
-        get { return spectrumLayer._barsLayer.spaceWidth }
+        set(spaceWidth) { waveformLayer._barsLayer.spaceWidth = spaceWidth }
+        get { return waveformLayer._barsLayer.spaceWidth }
     }
     
     override init(frame frameRect: NSRect) {
@@ -218,9 +218,9 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
     
     func _setup() {
         wantsLayer = true
-        layer = SpectrumLayer()
-        spectrumLayer._barsLayer.barWidth = barWidth
-        spectrumLayer._barsLayer.spaceWidth = spaceWidth
+        layer = WaveformLayer()
+        waveformLayer._barsLayer.barWidth = barWidth
+        waveformLayer._barsLayer.spaceWidth = spaceWidth
         
         let trackingArea = NSTrackingArea(rect: self.bounds,
                                           options: [.activeInActiveApp, .inVisibleRect, .assumeInside, .mouseEnteredAndExited, .mouseMoved],
@@ -235,7 +235,7 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
         CATransaction.setValue(true, forKey:kCATransactionDisableActions)
         
         self.analysis = analysis
-        spectrumLayer._barsLayer.values = analysis?.values ?? BarsLayer.defaultValues
+        waveformLayer._barsLayer.values = analysis?.values ?? BarsLayer.defaultValues
         transitionSteps = analysis?.complete ?? true ? 0 : completeTransitionSteps
         
         CATransaction.commit()
@@ -256,7 +256,7 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
                 CATransaction.setAnimationDuration(self.updateTime)
 
                 let drawValues = self.analysis?.values ?? BarsLayer.defaultValues
-                self.spectrumLayer._barsLayer.values = (0..<4).map { lerp(self.spectrumLayer._barsLayer.values[$0], drawValues[$0], self.lerpRatio) }
+                self.waveformLayer._barsLayer.values = (0..<4).map { lerp(self.waveformLayer._barsLayer.values[$0], drawValues[$0], self.lerpRatio) }
 
                 CATransaction.commit()
             }
@@ -286,13 +286,13 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
     }
     
     override func mouseExited(with event: NSEvent) {
-        spectrumLayer.mouseLocation = nil
+        waveformLayer.mouseLocation = nil
     }
     
     override func mouseMoved(with event: NSEvent) {
         CATransaction.begin()
         CATransaction.setValue(true, forKey:kCATransactionDisableActions)
-        spectrumLayer.mouseLocation = Double(self.convert(event.locationInWindow, from:nil).x / bounds.size.width)
+        waveformLayer.mouseLocation = Double(self.convert(event.locationInWindow, from:nil).x / bounds.size.width)
         CATransaction.commit()
     }
 }
@@ -300,7 +300,7 @@ class TrackSpectrumView: NSControl, CALayerDelegate {
 import AudioKit
 import AudioKitUI
 
-extension TrackSpectrumView {
+extension WaveformView {
     func setBy(player: AKPlayer) {
         if player.audioFile != nil {
             self.setBy(time: player.currentTime, max: player.duration)

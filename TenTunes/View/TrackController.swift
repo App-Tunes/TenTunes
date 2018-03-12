@@ -163,8 +163,8 @@ class TrackController: NSViewController {
         }
     }
     
-    @IBAction func spectrumViewClicked(_ sender: Any?) {
-        if let view = sender as? TrackSpectrumView {
+    @IBAction func waveformViewClicked(_ sender: Any?) {
+        if let view = sender as? WaveformView {
             if let row = view.superview ?=> _tableView.row, let track = history.track(at: row), let playTrack = playTrack {
                 playTrack(track, row, view.location)
             }
@@ -217,11 +217,11 @@ extension TrackController: NSTableViewDelegate {
 
             return view
         }
-        else if tableColumn?.identifier == ColumnIdentifiers.waveform, let view = tableView.makeView(withIdentifier: CellIdentifiers.waveform, owner: nil) as? TrackSpectrumView {
+        else if tableColumn?.identifier == ColumnIdentifiers.waveform, let view = tableView.makeView(withIdentifier: CellIdentifiers.waveform, owner: nil) as? WaveformView {
             
             // Doesn't work from interface builder
             view.target = self
-            view.action = #selector(spectrumViewClicked)
+            view.action = #selector(waveformViewClicked)
             
             // More detailed
             view.barWidth = 1

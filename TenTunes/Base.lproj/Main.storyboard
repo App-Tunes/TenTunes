@@ -742,7 +742,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="867" height="92"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
-                                            <customView verticalHuggingPriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="TnY-8S-uno" customClass="TrackSpectrumView" customModule="TenTunes" customModuleProvider="target">
+                                            <customView verticalHuggingPriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="TnY-8S-uno" customClass="WaveformView" customModule="TenTunes" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="867" height="41"/>
                                                 <subviews>
                                                     <textField toolTip="Duration Left" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Bx-lC-97p">
@@ -776,7 +776,7 @@
                                                     <constraint firstItem="1Xa-l4-VRg" firstAttribute="leading" secondItem="TnY-8S-uno" secondAttribute="leading" constant="8" id="mBg-Qf-gBM"/>
                                                 </constraints>
                                                 <connections>
-                                                    <action selector="clickSpectrumView:" target="XfG-lQ-9wD" id="8oE-Da-U9p"/>
+                                                    <action selector="waveformViewClicked:" target="XfG-lQ-9wD" id="8oE-Da-U9p"/>
                                                 </connections>
                                             </customView>
                                             <button toolTip="Next" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ws9-gx-fi8">
@@ -969,7 +969,6 @@ IA
                         <outlet property="_playlistView" destination="rPD-z5-E1p" id="b8w-qa-WoA"/>
                         <outlet property="_previous" destination="vGp-jR-JQ9" id="9Ln-gY-j8Q"/>
                         <outlet property="_shuffle" destination="7Y2-7h-2Y4" id="znx-qG-XRl"/>
-                        <outlet property="_spectrumView" destination="TnY-8S-uno" id="4GH-DY-Vz2"/>
                         <outlet property="_splitView" destination="A22-NE-xw5" id="0eO-Fs-b7A"/>
                         <outlet property="_subtitle" destination="dQc-no-5jm" id="E1J-HT-CTw"/>
                         <outlet property="_timeLeft" destination="9Bx-lC-97p" id="NbD-28-VlR"/>
@@ -977,6 +976,7 @@ IA
                         <outlet property="_title" destination="2zM-Qn-bbU" id="eJC-sn-d25"/>
                         <outlet property="_trackView" destination="wx1-Jg-18R" id="DrA-iR-AEj"/>
                         <outlet property="_volume" destination="weN-hW-VXM" id="Uaz-1g-emt"/>
+                        <outlet property="_waveformView" destination="TnY-8S-uno" id="4GH-DY-Vz2"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

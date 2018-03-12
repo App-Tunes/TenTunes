@@ -56,7 +56,7 @@
 		80F2C57F2038808000212739 /* TenTunes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C57D2038808000212739 /* TenTunes.xcdatamodeld */; };
 		80F2C5812038808000212739 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80F2C5802038808000212739 /* Assets.xcassets */; };
 		80F2C5842038808000212739 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80F2C5822038808000212739 /* Main.storyboard */; };
-		80F2C58F20389B9B00212739 /* TrackSpectrumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C58E20389B9B00212739 /* TrackSpectrumView.swift */; };
+		80F2C58F20389B9B00212739 /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C58E20389B9B00212739 /* WaveformView.swift */; };
 		80F2C5912038A80D00212739 /* Track+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C5902038A80D00212739 /* Track+TT.swift */; };
 		80F77BF5203D8B35001E397F /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F77BF4203D8B35001E397F /* Key.swift */; };
 		80F8F6F32053EA2C004A07D6 /* FileTagEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F8F6F12053EA2C004A07D6 /* FileTagEditor.swift */; };
@@ -170,7 +170,7 @@
 		80F2C5832038808000212739 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		80F2C5852038808000212739 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		80F2C5862038808000212739 /* TenTunes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TenTunes.entitlements; sourceTree = "<group>"; };
-		80F2C58E20389B9B00212739 /* TrackSpectrumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSpectrumView.swift; sourceTree = "<group>"; };
+		80F2C58E20389B9B00212739 /* WaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
 		80F2C5902038A80D00212739 /* Track+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Track+TT.swift"; sourceTree = "<group>"; };
 		80F77BF4203D8B35001E397F /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		80F8F6F12053EA2C004A07D6 /* FileTagEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTagEditor.swift; sourceTree = "<group>"; };
@@ -241,7 +241,7 @@
 			children = (
 				80802587203F0399008D4168 /* PlaylistController.swift */,
 				80074CFB204584980055B87E /* PlaylistController.xib */,
-				80F2C58E20389B9B00212739 /* TrackSpectrumView.swift */,
+				80F2C58E20389B9B00212739 /* WaveformView.swift */,
 				808161D1204059FE00AEA64F /* TrackController.swift */,
 				80074CF7204583CF0055B87E /* TrackController.xib */,
 				80F8F6F12053EA2C004A07D6 /* FileTagEditor.swift */,
@@ -511,7 +511,7 @@
 				80CB652F2052C6CD0031A6D7 /* Operators.swift in Sources */,
 				8058FAB7204317330086FF8A /* SuperpoweredNBandEQ.cpp in Sources */,
 				80E2C9F7204B40A000298E81 /* Playlist+CoreDataClass.swift in Sources */,
-				80F2C58F20389B9B00212739 /* TrackSpectrumView.swift in Sources */,
+				80F2C58F20389B9B00212739 /* WaveformView.swift in Sources */,
 				808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */,
 				806C5B2620423AC000C34F49 /* SPInterpreter.swift in Sources */,
 				80E2C9F9204B40A000298E81 /* PlaylistManual+CoreDataClass.swift in Sources */,

@@ -37,7 +37,7 @@ extension ViewController {
                 return
             }
             
-            self._spectrumView.setBy(player: self.player)
+            self._waveformView.setBy(player: self.player)
             
             if !self._timePlayed.isHidden, !self._timeLeft.isHidden {
                 self._timePlayed.stringValue = Int(self.player.currentTime).timeString
@@ -69,7 +69,7 @@ extension ViewController {
                     // Analyze the current file
                     
                     playing.analysis = Analysis()
-                    self._spectrumView.analysis = playing.analysis
+                    self._waveformView.analysis = playing.analysis
                     self.trackController.reload(track: playing) // Get the analysis inside the cell
                     
                     Library.shared.performInBackground { mox in

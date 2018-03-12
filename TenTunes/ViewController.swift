@@ -40,7 +40,7 @@ class ViewController: NSViewController {
     @IBOutlet var _previous: NSButton!
     @IBOutlet var _next: NSButton!
     
-    @IBOutlet var _spectrumView: TrackSpectrumView!
+    @IBOutlet var _waveformView: WaveformView!
     
     @IBOutlet var _shuffle: NSButton!
     
@@ -119,8 +119,8 @@ class ViewController: NSViewController {
 
         self.updatePlaying()
         
-        _spectrumView.postsFrameChangedNotifications = true
-        NotificationCenter.default.addObserver(self, selector: #selector(updateTimesHidden), name: NSView.frameDidChangeNotification, object: _spectrumView)
+        _waveformView.postsFrameChangedNotifications = true
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTimesHidden), name: NSView.frameDidChangeNotification, object: _waveformView)
         
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             return self.keyDown(with: $0)
@@ -199,7 +199,7 @@ class ViewController: NSViewController {
                 do {
                     let akfile = try AKAudioFile(forReading: url)
                     
-                    _spectrumView.analysis = track.analysis // If it's not analyzed, our worker threads will handle
+                    _waveformView.analysis = track.analysis // If it's not analyzed, our worker threads will handle
                     
                     player.load(audioFile: akfile)
                     player.play()
@@ -208,20 +208,20 @@ class ViewController: NSViewController {
                     print(error.localizedDescription)
                     player.stop()
                     playing = nil
-                    _spectrumView.analysis = nil
+                    _waveformView.analysis = nil
                 }
             }
             else {
                 // We are at a track but it's not playable :<
                 playing = nil
-                _spectrumView.analysis = nil
+                _waveformView.analysis = nil
             }
         }
         else {
             // Somebody decided we should stop playing
             // Or we're at start / end of list
             playing = nil
-            _spectrumView.analysis = nil
+            _waveformView.analysis = nil
         }
         
         self.updatePlaying()
@@ -286,8 +286,8 @@ class ViewController: NSViewController {
         self.play(moved: -1)
     }
         
-    @IBAction func clickSpectrumView(_ sender: Any) {
-        if let position = self._spectrumView.getBy(player: self.player) {
+    @IBAction func waveformViewClicked(_ sender: Any) {
+        if let position = self._waveformView.getBy(player: self.player) {
             self.player.setPosition(position)
         }
     }
@@ -336,7 +336,7 @@ extension ViewController: NSUserInterfaceValidations {
     }
     
     @IBAction func updateTimesHidden(_ sender: AnyObject) {
-        if self.playing != nil, self._spectrumView.bounds.height > 30, !self.player.currentTime.isNaN {
+        if self.playing != nil, self._waveformView.bounds.height > 30, !self.player.currentTime.isNaN {
             self._timePlayed.isHidden = false
             self._timeLeft.isHidden = false            
         }

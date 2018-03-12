@@ -30,7 +30,7 @@ class FileTagEditor: NSWindowController {
     }
     
     func show(tracks: [Track]) {
-        context = Library.shared.persistentContainer.newBackgroundContext()
+        context = Library.shared.persistentContainer.newConcurrentContext()
         context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy // User is always right
         self.tracks = context.convert(tracks)
         

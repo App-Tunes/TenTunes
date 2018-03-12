@@ -8,6 +8,14 @@
 
 import CoreData
 
+extension NSPersistentContainer {
+    func newConcurrentContext() -> NSManagedObjectContext {
+        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        context.parent = viewContext
+        return context
+    }
+}
+
 extension NSManagedObject {
     func refresh(merge: Bool = false) {
         managedObjectContext!.refresh(self, mergeChanges: false)

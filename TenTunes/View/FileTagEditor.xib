@@ -128,8 +128,9 @@ Gw
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
-                            <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.title" id="PiW-oF-uRu">
+                            <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.title" id="rYt-MK-Gva">
                                 <dictionary key="options">
+                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                     <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                     <string key="NSMultipleValuesPlaceholder">Multiple Values</string>
                                 </dictionary>

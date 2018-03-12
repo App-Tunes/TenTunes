@@ -14,6 +14,7 @@
 -(instancetype)initWithURL:(NSURL*)url;
 
 -(BOOL)import:(NSError *__autoreleasing *)error;
+-(BOOL)write:(NSError *__autoreleasing *)error;
 
 @property(readonly) NSURL *url;
 

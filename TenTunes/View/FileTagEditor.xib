@@ -18,7 +18,7 @@
         <window title="File Tag Editor" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="7My-zQ-daw" customClass="FileTagEditorWindow" customModule="TenTunes" customModuleProvider="target">
             <windowStyleMask key="styleMask" utility="YES" HUD="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="139" y="85" width="525" height="202"/>
+            <rect key="contentRect" x="139" y="85" width="525" height="223"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
             <view key="contentView" id="w0O-Sh-4DL">
                 <rect key="frame" x="0.0" y="0.0" width="525" height="223"/>
@@ -122,14 +122,15 @@ Gw
                         <constraints>
                             <constraint firstAttribute="width" constant="329" id="RoJ-cA-7S8"/>
                         </constraints>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="mpf-j8-1ns">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="mpf-j8-1ns">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
-                            <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.title" id="u6N-J4-YdU">
+                            <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.title" id="PiW-oF-uRu">
                                 <dictionary key="options">
+                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                     <string key="NSMultipleValuesPlaceholder">Multiple Values</string>
                                 </dictionary>
                             </binding>
@@ -137,14 +138,15 @@ Gw
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EVF-LM-2Nl">
                         <rect key="frame" x="93" y="158" width="329" height="22"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="tWQ-MQ-wEX">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="tWQ-MQ-wEX">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
-                            <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.author" id="41N-ts-HBw">
+                            <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.author" id="bVA-I5-F2Y">
                                 <dictionary key="options">
+                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                     <string key="NSMultipleValuesPlaceholder">Multiple Values</string>
                                 </dictionary>
                             </binding>
@@ -152,14 +154,15 @@ Gw
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TBg-2a-aQr">
                         <rect key="frame" x="93" y="133" width="329" height="22"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="JdR-5z-UB8">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="JdR-5z-UB8">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
-                            <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.album" id="OyR-rU-LAP">
+                            <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.album" id="7c5-c3-Hns">
                                 <dictionary key="options">
+                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                     <string key="NSMultipleValuesPlaceholder">Multiple Values</string>
                                 </dictionary>
                             </binding>
@@ -167,14 +170,15 @@ Gw
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dky-CQ-1kT">
                         <rect key="frame" x="93" y="108" width="329" height="22"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="EXL-o8-LZe">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="EXL-o8-LZe">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
-                            <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.genre" id="uNs-qj-kQe">
+                            <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.genre" id="Eal-9r-6yT">
                                 <dictionary key="options">
+                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                     <string key="NSMultipleValuesPlaceholder">Multiple Values</string>
                                 </dictionary>
                             </binding>
@@ -182,14 +186,15 @@ Gw
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f0g-VO-Rf9">
                         <rect key="frame" x="93" y="83" width="329" height="22"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="WEd-Wf-HSF">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="WEd-Wf-HSF">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
-                            <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.bpmString" id="Gmp-0c-ElK">
+                            <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.bpmString" id="SkJ-CX-9vU">
                                 <dictionary key="options">
+                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                     <string key="NSMultipleValuesPlaceholder">Multiple Values</string>
                                 </dictionary>
                             </binding>
@@ -197,13 +202,18 @@ Gw
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NYA-mr-kcR">
                         <rect key="frame" x="93" y="56" width="329" height="22"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="gbm-aT-2rZ">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="gbm-aT-2rZ">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
-                            <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.keyString" id="01y-t7-b9G"/>
+                            <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.keyString" id="HdA-H4-bHz">
+                                <dictionary key="options">
+                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                    <string key="NSMultipleValuesPlaceholder">Multiple Values</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </textField>
                 </subviews>

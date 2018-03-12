@@ -274,13 +274,10 @@ extension TrackController: NSTableViewDelegate {
         if !infoEditor.window!.isVisible {
             let rowView = _tableView.rowView(atRow: _tableView.selectedRow, makeIfNecessary: false)!
             infoEditor.window!.positionNextTo(view: rowView)
-            
-            infoEditor.showWindow(self)
         }
-
+        
         let tracks = Array(_tableView.selectedRowIndexes).map { history.track(at: $0)! }
-        infoEditor.tracks = tracks
-        infoEditor.window!.becomeKey()
+        infoEditor.show(tracks: tracks)
     }
     
     // Pasteboard, Dragging

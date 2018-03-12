@@ -187,5 +187,25 @@ extension Track {
         
         return
     }
+    
+    func writeMetadata() {
+        let importer = TagLibImporter.init(url: url)!
+        
+        do {
+            importer.title = title
+            importer.album = album
+            importer.artist = author
+            importer.genre = genre
+            
+            importer.initialKey = keyString
+            importer.bpm = bpmString
+            
+            try importer.write()
+            // TODO Artwork
+        }
+        catch let error {
+            print(error)
+        }
+    }
 }
 

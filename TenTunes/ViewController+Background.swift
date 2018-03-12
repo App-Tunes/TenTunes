@@ -14,6 +14,14 @@ extension ViewController {
         self._workerSemaphore.signal()
     }
     
+    func reloadFor(tracks: [Track]) {
+        for track in tracks {
+            track.refresh()
+            track.copyTransient(from: track)
+            self.trackController.reload(track: track)
+        }
+    }
+    
     func startBackgroundTasks() {
         self.completionTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 300.0, repeats: true ) { [unowned self] (timer) in
             // Kids, don't try this at home
@@ -122,9 +130,7 @@ extension ViewController {
             
             // Update on main thread
             DispatchQueue.main.async {
-                track.refresh()
-                track.copyTransient(from: asyncTrack)
-                self.trackController.reload(track: track)
+                self.reloadFor(tracks: [track])
             }
             
             self._workerSemaphore.signalAfter(seconds: wait ? 0.2 : 0.02)

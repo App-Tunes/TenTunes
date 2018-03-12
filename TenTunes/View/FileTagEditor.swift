@@ -9,20 +9,15 @@
 import Cocoa
 
 class FileTagEditor: NSWindowController {
-
-    @IBOutlet var _okButton: NSButton!
-    @IBOutlet var _cancelButton: NSButton!
-    
-    @IBOutlet var _title: NSTextField!
-    @IBOutlet var _artist: NSTextField!
-    @IBOutlet var _album: NSTextField!
-    @IBOutlet var _genre: NSTextField!
-    @IBOutlet var _bpm: NSTextField!
-    @IBOutlet var _key: NSTextField!
-
-    @IBOutlet var _imageView: NSImageView!
-    
-    @objc dynamic var tracks: [Track] = []
+        
+    var context: NSManagedObjectContext!
+    @objc dynamic var tracks: [Track] = [] {
+        didSet {
+            for track in tracks where !track.metadataFetched {
+                track.fetchMetadata()
+            }
+        }
+    }
     @IBOutlet var tracksController: NSArrayController!
     
     convenience init() {
@@ -34,7 +29,21 @@ class FileTagEditor: NSWindowController {
         super.windowDidLoad()
     }
     
+    func show(tracks: [Track]) {
+        context = Library.shared.persistentContainer.newBackgroundContext()
+        self.tracks = tracks.map(context.convert)
+        
+        showWindow(self)
+        window!.becomeKey()
+    }
+    
     @IBAction func save(_ sender: Any) {
+        Library.shared.save(in: context)
+        for track in tracks {
+            track.writeMetadata()
+        }
+        
+        ViewController.shared.reloadFor(tracks: tracks.map(Library.shared.viewMox.convert) )
         window?.close()
     }
     

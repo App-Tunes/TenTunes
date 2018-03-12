@@ -35,7 +35,13 @@
 inline NSString *TagLibStringToNS(const TagLib::String &tagString) {
     if (tagString == TagLib::ByteVector::null)
         return nil;
-	return [NSString stringWithUTF8String:tagString.toCString()];
+    return [NSString stringWithUTF8String:tagString.toCString()];
+}
+
+inline const TagLib::String TagLibStringFromNS(NSString *string) {
+    if (string == nil)
+        return TagLib::ByteVector::null;
+    return TagLib::String([string UTF8String], TagLib::String::UTF8);
 }
 
 inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFrame *frame) {
@@ -150,6 +156,73 @@ inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFram
 //        std::cout << item.first << "\t is actually \t " << item.second.toStringList() << std::endl;
 //    }
 	
+}
+
+-(BOOL)write:(NSError *__autoreleasing *)error {
+    TagLib::FileRef f(_url.fileSystemRepresentation);
+    
+    if (!f.isNull()) {
+        TagLib::Tag *tag = f.tag();
+        
+        if (_title != nil) {
+            tag->setTitle(TagLibStringFromNS(_title));
+        }
+        if (_artist != nil) {
+            tag->setArtist(TagLibStringFromNS(_artist));
+        }
+        if (_album != nil) {
+            tag->setAlbum(TagLibStringFromNS(_album));
+        }
+        if (_genre != nil) {
+            tag->setGenre(TagLibStringFromNS(_genre));
+        }
+        
+        // TODO Insert an id3 tag if none is there yet
+        if (TagLib::MPEG::File *file = dynamic_cast<TagLib::MPEG::File *>(f.file())) {
+            if (file->hasID3v2Tag()) {
+                [self writeID3v2:file->ID3v2Tag()];
+            }
+        }
+        else if (TagLib::RIFF::AIFF::File *file = dynamic_cast<TagLib::RIFF::AIFF::File *>(f.file())) {
+            if (file->hasID3v2Tag()) {
+                [self writeID3v2:file->tag()];
+            }
+        }
+    }
+    
+    return YES;
+}
+
++(void)replaceFrame:(TagLib::ID3v2::Tag *) tag name:(NSString *)name text:(NSString *)text {
+    TagLib::String tName = TagLibStringFromNS(name);
+    TagLib::String tText = TagLibStringFromNS(text);
+
+    // Remove existing
+    TagLib::ID3v2::FrameList::ConstIterator it = tag->frameList().begin();
+    for(; it != tag->frameList().end(); it++) {
+        auto frame = (*it);
+
+        if(auto text_frame = dynamic_cast<TagLib::ID3v2::TextIdentificationFrame *>(frame)) {
+            auto frame_id = text_frame->frameID();
+            if (frame_id == name.UTF8String) {
+                auto frame = (*it);
+                tag->removeFrame(frame);
+            }
+        }
+    }
+    
+    // Add new
+    tag->addFrame(TagLib::ID3v2::Frame::createTextualFrame(tName, tText));
+}
+
+-(void)writeID3v2:(TagLib::ID3v2::Tag *)tag {
+    if (_initialKey != nil) {
+        [TagLibImporter replaceFrame:tag name:AVMetadataID3MetadataKeyInitialKey text:_initialKey];
+    }
+    
+    if (_bpm != nil) {
+        [TagLibImporter replaceFrame:tag name:AVMetadataID3MetadataKeyBeatsPerMinute text:_bpm];
+    }
 }
 
 @end

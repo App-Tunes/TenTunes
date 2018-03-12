@@ -166,10 +166,6 @@ extension Track {
             }
         }
         
-        if let artwork = artwork {
-            self.artworkPreview = artwork.resized(w: 64, h: 64)
-        }
-        
         duration = duration ?? avImporter.duration
         
         if analysis == nil {
@@ -185,6 +181,11 @@ extension Track {
         self.bpm = bpm ?? self.bpm
         self.artwork = artwork ?? self.artwork
         
+        if let artwork = artwork {
+            self.artworkPreview = artwork.resized(w: 64, h: 64)
+            // TODO Write both to data
+        }
+
         return
     }
     

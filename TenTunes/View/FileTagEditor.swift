@@ -44,7 +44,7 @@ class FileTagEditor: NSWindowController {
             track.writeMetadata()
         }
         
-        ViewController.shared.reloadFor(tracks: Library.shared.viewMox.convert(tracks) )
+        ViewController.shared.reloadFor(tracks: Library.shared.viewMox.convert(tracks))
         window?.close()
     }
     

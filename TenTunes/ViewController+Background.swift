@@ -14,10 +14,10 @@ extension ViewController {
         self._workerSemaphore.signal()
     }
     
-    func reloadFor(tracks: [Track]) {
-        for track in tracks {
+    func reloadFor(tracks: [Track], transient: [Track]? = nil) {
+        for (track, transient) in zip(tracks, transient ?? Array(repeating: nil, count: tracks.count)) {
             track.refresh()
-            track.copyTransient(from: track)
+            transient ?=> track.copyTransient
             self.trackController.reload(track: track)
         }
     }
@@ -130,7 +130,7 @@ extension ViewController {
             
             // Update on main thread
             DispatchQueue.main.async {
-                self.reloadFor(tracks: [track])
+                self.reloadFor(tracks: [track], transient: [asyncTrack])
             }
             
             self._workerSemaphore.signalAfter(seconds: wait ? 0.2 : 0.02)

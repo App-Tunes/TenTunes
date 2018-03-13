@@ -15,9 +15,6 @@ class ValueTransformers {
                                                  back: { $0?.write as AnyObject }
         )
 
-        DoubleTransformer.double("Pow2Transformer",
-                                 there: { $0 ?=> curry(pow)(2) },
-                                 back: { $0 ?=> log2 }
-        )
+        DoubleTransformer.double("Pow2Transformer", there: curry(pow)(2), back: log2)
     }
 }

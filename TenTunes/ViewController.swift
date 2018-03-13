@@ -316,7 +316,7 @@ class ViewController: NSViewController {
     }
     
     @IBAction func volumeChanged(_ sender: Any) {
-        player.volume = Float(_volume.intValue) / 100
+        player.volume = pow(2, Float(_volume.intValue) / 100)
     }
 }
 

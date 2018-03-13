@@ -41,7 +41,13 @@ extension SimpleTransformer {
 }
 
 class DoubleTransformer: SimpleTransformer<NSNumber, NSNumber> {
-    class func double(_ name: String, there: @escaping (Double?) -> Double?, back: ((Double?) -> Double?)? = nil) {
+    class func optional(_ name: String, there: @escaping (Double?) -> Double?, back: ((Double?) -> Double?)? = nil) {
+        let there: (NSNumber?) -> NSNumber? = { there($0?.doubleValue) ?=> NSNumber.init }
+        let back: ((NSNumber?) -> NSNumber?)? = back != nil ? { back!($0?.doubleValue) ?=> NSNumber.init } : nil
+        register(name, SimpleTransformer(there: there, back: back))
+    }
+
+    class func double(_ name: String, there: @escaping (Double) -> Double?, back: ((Double) -> Double?)? = nil) {
         let there: (NSNumber?) -> NSNumber? = { ($0?.doubleValue ?=> there) ?=> NSNumber.init }
         let back: ((NSNumber?) -> NSNumber?)? = back != nil ? { ($0?.doubleValue ?=> back!) ?=> NSNumber.init } : nil
         register(name, SimpleTransformer(there: there, back: back))

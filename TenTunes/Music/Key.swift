@@ -198,14 +198,3 @@ extension Key : Comparable {
     }
 }
 
-@objc class MusicKeyTransformer: ValueTransformer {
-    override class func transformedValueClass() -> Swift.AnyClass { return Key.self }
-    
-    override func transformedValue(_ value: Any?) -> Any? {
-        return Key.parse((value as AnyObject).stringValue)
-    }
-    
-    override func reverseTransformedValue(_ value: Any?) -> Any? {
-        return (value as! Key).write
-    }
-}

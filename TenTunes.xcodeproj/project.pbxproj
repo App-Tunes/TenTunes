@@ -50,6 +50,8 @@
 		80E2C9FA204B40A000298E81 /* PlaylistManual+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E2C9F4204B40A000298E81 /* PlaylistManual+CoreDataProperties.swift */; };
 		80E2C9FB204B40A000298E81 /* PlaylistFolder+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E2C9F5204B40A000298E81 /* PlaylistFolder+CoreDataClass.swift */; };
 		80E2C9FC204B40A000298E81 /* PlaylistFolder+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E2C9F6204B40A000298E81 /* PlaylistFolder+CoreDataProperties.swift */; };
+		80E6811B20573DC800DA5702 /* SimpleTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E6811A20573DC800DA5702 /* SimpleTransformer.swift */; };
+		80E6811D2057479B00DA5702 /* ValueTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E6811C2057479B00DA5702 /* ValueTransformers.swift */; };
 		80E937592039C2850014C835 /* Keycodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E937582039C2850014C835 /* Keycodes.swift */; };
 		80F2C57A2038808000212739 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C5792038808000212739 /* AppDelegate.swift */; };
 		80F2C57C2038808000212739 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C57B2038808000212739 /* ViewController.swift */; };
@@ -161,6 +163,8 @@
 		80E2C9F4204B40A000298E81 /* PlaylistManual+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistManual+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		80E2C9F5204B40A000298E81 /* PlaylistFolder+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistFolder+CoreDataClass.swift"; sourceTree = "<group>"; };
 		80E2C9F6204B40A000298E81 /* PlaylistFolder+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistFolder+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		80E6811A20573DC800DA5702 /* SimpleTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTransformer.swift; sourceTree = "<group>"; };
+		80E6811C2057479B00DA5702 /* ValueTransformers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueTransformers.swift; sourceTree = "<group>"; };
 		80E937582039C2850014C835 /* Keycodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keycodes.swift; sourceTree = "<group>"; };
 		80F2C5762038808000212739 /* TenTunes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TenTunes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80F2C5792038808000212739 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -322,6 +326,8 @@
 			isa = PBXGroup;
 			children = (
 				80CFDA09203C4E2300C7A506 /* LazyVar.swift */,
+				80E6811A20573DC800DA5702 /* SimpleTransformer.swift */,
+				80E6811C2057479B00DA5702 /* ValueTransformers.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -492,8 +498,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80E6811B20573DC800DA5702 /* SimpleTransformer.swift in Sources */,
 				80F2C57C2038808000212739 /* ViewController.swift in Sources */,
 				80E2C9E1204AE18E00298E81 /* Track+CoreDataProperties.swift in Sources */,
+				80E6811D2057479B00DA5702 /* ValueTransformers.swift in Sources */,
 				80CFDA0A203C4E2300C7A506 /* LazyVar.swift in Sources */,
 				80E2C9E0204AE18E00298E81 /* Track+CoreDataClass.swift in Sources */,
 				80802588203F0399008D4168 /* PlaylistController.swift in Sources */,

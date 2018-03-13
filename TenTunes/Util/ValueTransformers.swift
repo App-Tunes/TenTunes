@@ -16,7 +16,7 @@ class ValueTransformers {
         )
 
         DoubleTransformer.double("Pow2Transformer",
-                                 there: { pow(2, $0!) },
+                                 there: { $0 ?=> curry(pow)(2) },
                                  back: { $0 ?=> log2 }
         )
     }

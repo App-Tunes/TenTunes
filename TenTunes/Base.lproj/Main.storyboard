@@ -866,7 +866,7 @@ IA
                                                     <action selector="toggleShuffle:" target="XfG-lQ-9wD" id="PPw-wd-bDy"/>
                                                 </connections>
                                             </button>
-                                            <slider toolTip="Volume" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="weN-hW-VXM">
+                                            <slider toolTip="Volume" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="weN-hW-VXM" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
                                                 <rect key="frame" x="687" y="57" width="84" height="19"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="80" id="IaB-e8-PZM"/>

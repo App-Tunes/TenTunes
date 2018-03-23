@@ -73,7 +73,6 @@ import Cocoa
     
     func select(playlist: Playlist, editTitle: Bool = false) {
         // Select
-        // TODO Edit Title
         // If we created in a closed folder it might not exist
         
         let path = Library.shared.path(of: playlist)
@@ -85,6 +84,10 @@ import Cocoa
         if idx < 0 { fatalError("Playlist does not exist in view even though it must!") }
         
         _outlineView.selectRowIndexes(IndexSet(integer: idx), byExtendingSelection: false)
+        
+        if editTitle {
+            _outlineView.editColumn(0, row: idx, with: nil, select: true)
+        }
     }
     
     @IBAction func createPlaylist(_ sender: Any) {

@@ -289,6 +289,8 @@ extension PlaylistController: NSTextFieldDelegate {
     
     @IBAction func editPlaylistTitle(_ sender: Any?) {
         let textField = sender as! NSTextField
+        textField.resignFirstResponder()
+        
         let row = _outlineView.row(for: textField.superview!)
         let playlist = (_outlineView.item(atRow: row)) as! Playlist
         playlist.name = textField.stringValue

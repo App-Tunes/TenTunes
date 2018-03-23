@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0418D7C40668030CCFCB5446 /* Pods_TenTunes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F519690AE56FC5800E060F88 /* Pods_TenTunes.framework */; };
 		80074CF9204583CF0055B87E /* TrackController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80074CF7204583CF0055B87E /* TrackController.xib */; };
 		80074CFD204584980055B87E /* PlaylistController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80074CFB204584980055B87E /* PlaylistController.xib */; };
 		80074CFF2046BB0C0055B87E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80074CFE2046BB0B0055B87E /* QuartzCore.framework */; };
@@ -36,6 +37,7 @@
 		80802588203F0399008D4168 /* PlaylistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802587203F0399008D4168 /* PlaylistController.swift */; };
 		808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808161CE2040520900AEA64F /* AVFoundationImporter.swift */; };
 		808161D2204059FE00AEA64F /* TrackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808161D1204059FE00AEA64F /* TrackController.swift */; };
+		8087A494206597DC00CC9569 /* EnterReturningTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087A493206597DC00CC9569 /* EnterReturningTextField.swift */; };
 		80ADCD4A20442E1200AA9A89 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ADCD4920442E1200AA9A89 /* Library.swift */; };
 		80CB652C20514E050031A6D7 /* Library+Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652B20514E050031A6D7 /* Library+Export.swift */; };
 		80CB652F2052C6CD0031A6D7 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652E2052C6CD0031A6D7 /* Operators.swift */; };
@@ -91,6 +93,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1AF69E4F3445C52AF8BD712B /* Pods-TenTunes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenTunes.release.xcconfig"; path = "Pods/Target Support Files/Pods-TenTunes/Pods-TenTunes.release.xcconfig"; sourceTree = "<group>"; };
 		80074CF7204583CF0055B87E /* TrackController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackController.xib; sourceTree = "<group>"; };
 		80074CFB204584980055B87E /* PlaylistController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistController.xib; sourceTree = "<group>"; };
 		80074CFE2046BB0B0055B87E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -147,6 +150,7 @@
 		80802587203F0399008D4168 /* PlaylistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistController.swift; sourceTree = "<group>"; };
 		808161CE2040520900AEA64F /* AVFoundationImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVFoundationImporter.swift; sourceTree = "<group>"; };
 		808161D1204059FE00AEA64F /* TrackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackController.swift; sourceTree = "<group>"; };
+		8087A493206597DC00CC9569 /* EnterReturningTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterReturningTextField.swift; sourceTree = "<group>"; };
 		80ADCD4920442E1200AA9A89 /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		80C0C29F203F6DCA00FA6083 /* taglib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = taglib.xcodeproj; path = ../../taglib.xcodeproj; sourceTree = "<group>"; };
 		80CB652B20514E050031A6D7 /* Library+Export.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Export.swift"; sourceTree = "<group>"; };
@@ -181,6 +185,8 @@
 		80F77BF4203D8B35001E397F /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		80F8F6F12053EA2C004A07D6 /* FileTagEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTagEditor.swift; sourceTree = "<group>"; };
 		80F8F6F22053EA2C004A07D6 /* FileTagEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileTagEditor.xib; sourceTree = "<group>"; };
+		A38472EDF8C9143024B15892 /* Pods-TenTunes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenTunes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TenTunes/Pods-TenTunes.debug.xcconfig"; sourceTree = "<group>"; };
+		F519690AE56FC5800E060F88 /* Pods_TenTunes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TenTunes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +204,7 @@
 				8013720F203F7C9C00CA9036 /* AudioKitUI.framework in Frameworks */,
 				8013720E203F7C9C00CA9036 /* AudioKit.framework in Frameworks */,
 				8058FABC20432A730086FF8A /* MediaKeyTap.framework in Frameworks */,
+				0418D7C40668030CCFCB5446 /* Pods_TenTunes.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +285,7 @@
 		807E4B44206428050051C028 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				8087A493206597DC00CC9569 /* EnterReturningTextField.swift */,
 				807E4B46206428260051C028 /* ScrollableSlider.swift */,
 			);
 			path = Controls;
@@ -356,6 +364,7 @@
 				8013720C203F7C9C00CA9036 /* AudioKit.framework */,
 				8013720D203F7C9C00CA9036 /* AudioKitUI.framework */,
 				80C0C29F203F6DCA00FA6083 /* taglib.xcodeproj */,
+				F519690AE56FC5800E060F88 /* Pods_TenTunes.framework */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
@@ -381,6 +390,7 @@
 				80DCA9B6203F645400B1E9B1 /* Frameworks */,
 				80F2C5782038808000212739 /* TenTunes */,
 				80F2C5772038808000212739 /* Products */,
+				DC273DCC0A0A84801A5F1416 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -412,6 +422,15 @@
 			path = TenTunes;
 			sourceTree = "<group>";
 		};
+		DC273DCC0A0A84801A5F1416 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A38472EDF8C9143024B15892 /* Pods-TenTunes.debug.xcconfig */,
+				1AF69E4F3445C52AF8BD712B /* Pods-TenTunes.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -419,10 +438,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 80F2C5892038808000212739 /* Build configuration list for PBXNativeTarget "TenTunes" */;
 			buildPhases = (
+				6497D4AEADBECC33FD042B18 /* [CP] Check Pods Manifest.lock */,
 				80F2C5722038808000212739 /* Sources */,
 				80F2C5732038808000212739 /* Frameworks */,
 				80F2C5742038808000212739 /* Resources */,
 				8032A5BA2039FFD200A32D8D /* Embed Frameworks */,
+				5E7B6610CCCF64557D877209 /* [CP] Embed Pods Frameworks */,
+				AB8C975F1459AD1CCE2FCBF8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -504,6 +526,60 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5E7B6610CCCF64557D877209 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TenTunes/Pods-TenTunes-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/FontAwesome.swift/FontAwesome_swift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FontAwesome_swift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TenTunes/Pods-TenTunes-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6497D4AEADBECC33FD042B18 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TenTunes-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AB8C975F1459AD1CCE2FCBF8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TenTunes/Pods-TenTunes-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		80F2C5722038808000212739 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -512,6 +588,7 @@
 				80E6811B20573DC800DA5702 /* SimpleTransformer.swift in Sources */,
 				80F2C57C2038808000212739 /* ViewController.swift in Sources */,
 				80E2C9E1204AE18E00298E81 /* Track+CoreDataProperties.swift in Sources */,
+				8087A494206597DC00CC9569 /* EnterReturningTextField.swift in Sources */,
 				80E6811D2057479B00DA5702 /* ValueTransformers.swift in Sources */,
 				80CFDA0A203C4E2300C7A506 /* LazyVar.swift in Sources */,
 				80E2C9E0204AE18E00298E81 /* Track+CoreDataClass.swift in Sources */,
@@ -675,6 +752,7 @@
 		};
 		80F2C58A2038808000212739 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A38472EDF8C9143024B15892 /* Pods-TenTunes.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -706,6 +784,7 @@
 		};
 		80F2C58B2038808000212739 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1AF69E4F3445C52AF8BD712B /* Pods-TenTunes.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

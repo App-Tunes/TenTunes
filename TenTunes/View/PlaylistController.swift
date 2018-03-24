@@ -86,7 +86,7 @@ import Cocoa
         _outlineView.selectRowIndexes(IndexSet(integer: idx), byExtendingSelection: false)
         
         if editTitle {
-            _outlineView.editColumn(0, row: idx, with: nil, select: true)
+            _outlineView.edit(row: idx, with: nil, select: true)
         }
     }
     

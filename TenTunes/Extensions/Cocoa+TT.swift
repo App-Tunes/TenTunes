@@ -101,3 +101,9 @@ extension NSWindow {
         setFrame(frame, display: true)
     }
 }
+
+extension NSOutlineView {
+    func edit(row: Int, with event: NSEvent?, select: Bool) {
+        editColumn(0, row: row, with: event, select: select)
+    }
+}

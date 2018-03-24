@@ -25,7 +25,7 @@ class BarsLayer: CALayer {
     
     static var barColorLookup: [CGColor] = Array(1..<100).map {
         // Don't go the full way so we don't loop back to red
-        NSColor(hue: CGFloat($0) / 100 * 0.8, saturation: CGFloat(0.4), brightness: CGFloat(0.6), alpha: CGFloat(1.0)).cgColor
+        NSColor(hue: CGFloat($0) / 100 * 0.8, saturation: CGFloat(0.33), brightness: CGFloat(0.8), alpha: CGFloat(1.0)).cgColor
     }
     
     static func barColor(_ value: CGFloat) -> CGColor {

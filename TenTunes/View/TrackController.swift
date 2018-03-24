@@ -99,8 +99,9 @@ class TrackController: NSViewController {
         _tableView.usesAlternatingRowBackgroundColors = false  // TODO In NSPanels, this is solid while everything else isn't
         
         playTrackNext = {
-            self.history?.insert(tracks: [self.history!.track(at: $0)!], before: self.history!.playingIndex + 1)
-            self._tableView.reloadData()
+            let tracksBefore = self.history.tracks
+            self.history.insert(tracks: [self.history.track(at: $0)!], before: self.history.playingIndex + 1)
+            self._tableView.animateDifference(from: tracksBefore, to: self.history.tracks)
         }
         
          // Unintuitive to use in a queue
@@ -193,8 +194,9 @@ class TrackController: NSViewController {
         }
 
         guard !isQueue else {
+            let tracksBefore = history.tracks
             history.remove(indices: indices)
-            _tableView.reloadData()
+            _tableView.animateDifference(from: tracksBefore, to: history.tracks)
             return
         }
 
@@ -334,6 +336,8 @@ extension TrackController: NSTableViewDelegate {
         let tracks = (pasteboard.pasteboardItems ?? []).flatMap(Library.shared.readTrack)
         
         if isQueue {
+            let tracksBefore = history.tracks
+            
             if (info.draggingSource() as AnyObject) === _tableView {
                 history.rearrange(tracks: tracks, before: row)
             }
@@ -341,7 +345,7 @@ extension TrackController: NSTableViewDelegate {
                 history.insert(tracks: tracks, before: row)
             }
             
-            _tableView.reloadData() // TODO Animate this and all other similar changes
+            _tableView.animateDifference(from: tracksBefore, to: history.tracks)
         }
         else {
             Library.shared.addTracks(tracks, to: history.playlist as! PlaylistManual, above: row)

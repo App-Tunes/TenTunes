@@ -50,7 +50,9 @@ class ITunesImporter {
             track.album = track.album ?? trackData["Album"] as? String
             track.path = track.path ?? trackData["Location"] as? String
             
-            mox.insert(track)
+            if existingTracks[persistentID] == nil {
+                mox.insert(track)
+            }
         }
         
         for playlistData in nsdict.object(forKey: "Playlists") as! NSArray {
@@ -85,7 +87,7 @@ class ITunesImporter {
                 }
             }
             
-            mox.insert(playlist)
+            mox.insert(playlist) // Since we don't use existing ones, we don't run into problems inserting every time
             iTunesPlaylists[persistentID] = playlist
             
             if let playlist = playlist as? PlaylistManual, let tracks = tracks {

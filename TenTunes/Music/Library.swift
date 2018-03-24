@@ -165,7 +165,6 @@ class Library {
     func addPlaylist(_ playlist: Playlist, to: PlaylistFolder? = nil, above: Int? = nil) {
         let to = to ?? masterPlaylist
         
-        viewMox.insert(playlist)
         to.addToChildren(playlist)
 
         if let above = above {

@@ -26,6 +26,9 @@ DerivedData/
 /Carthage
 /Cartfile.resolved
 
+#CocoaPods
+Pods/
+
 .idea/
 .DS_Store
 

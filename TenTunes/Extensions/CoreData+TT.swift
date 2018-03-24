@@ -10,7 +10,7 @@ import CoreData
 
 extension NSPersistentContainer {
     func newConcurrentContext() -> NSManagedObjectContext {
-        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         context.parent = viewContext
         return context
     }

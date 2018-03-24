@@ -92,10 +92,6 @@ class ViewController: NSViewController {
         _splitView.replaceSubview(_playlistView, with: playlistController.view)
 
         queueController = TrackController(nibName: NSNib.Name(rawValue: "TrackController"), bundle: nil)
-        queuePopover = NSPopover()
-        queuePopover.contentViewController = queueController
-        queuePopover.animates = true
-        queuePopover.behavior = .transient
 
         ViewController.shared = self
         
@@ -132,6 +128,20 @@ class ViewController: NSViewController {
             self.history?.insert(tracks: [self.history!.track(at: $0)!], before: self.history!.playingIndex + 1)
         }
         self.trackController.set(playlist: Library.shared.allTracks)
+
+        queuePopover = NSPopover()
+        queuePopover.contentViewController = queueController
+        queuePopover.animates = true
+        queuePopover.behavior = .transient
+        queueController.playTrack = { [unowned self] in
+            if self.history === self.queueController.history {
+                self.play(moved: $0 - self.queueController.history.playingIndex)
+
+                if let position = $1 {
+                    self.player.setPosition(position * self.player.duration)
+                }
+            }
+        }
 
         self.updatePlaying()
         

@@ -334,7 +334,7 @@ extension TrackController: NSTableViewDelegate {
         let tracks = (pasteboard.pasteboardItems ?? []).flatMap(Library.shared.readTrack)
         
         if isQueue {
-            if (info.draggingSource() as AnyObject) === self {
+            if (info.draggingSource() as AnyObject) === _tableView {
                 history.rearrange(tracks: tracks, before: row)
             }
             else {

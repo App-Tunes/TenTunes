@@ -99,12 +99,13 @@ class ViewController: NSViewController {
 
         ViewController.shared = self
         
-        self.player = AKPlayer()
+        player = AKPlayer()
         // The completion handler sucks...
         // TODO When it stops sucking, replace our completion timer hack
-//        self.player.completionHandler = { [unowned self] in
-//            self.play(moved: 1)
-//        }
+//        self.player.completionHandler =
+        completionTimer = player.createFakeCompletionHandler { [unowned self] in
+            self.play(moved: 1)
+        }
 
         AudioKit.output = self.player
         try! AudioKit.start()

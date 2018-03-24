@@ -8,6 +8,20 @@
 //
 
 import Cocoa
+import AudioKit
+
+extension AKPlayer {
+    func createFakeCompletionHandler(completion: @escaping () -> Swift.Void) -> Timer {
+        return Timer.scheduledTimer(withTimeInterval: 1.0 / 300.0, repeats: true ) { [unowned self] (timer) in
+            // Kids, don't try this at home
+            // Really
+            // Holy shit
+            if self.isPlaying && Int64(self.frameCount) - self.currentFrame < 100 {
+                completion()
+            }
+        }
+    }
+}
 
 extension ViewController {    
     func endTask() {
@@ -23,15 +37,6 @@ extension ViewController {
     }
     
     func startBackgroundTasks() {
-        self.completionTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 300.0, repeats: true ) { [unowned self] (timer) in
-            // Kids, don't try this at home
-            // Really
-            // Holy shit
-            if self.isPlaying() && Int64(self.player.frameCount) - self.player.currentFrame < 100 {
-                self.play(moved: 1)
-            }
-        }
-
         self.visualTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true ) { [unowned self] (timer) in
             guard self.view.window?.isVisible ?? false else {
                 return

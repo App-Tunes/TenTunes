@@ -258,7 +258,7 @@ extension PlaylistController: NSMenuDelegate {
     
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         // Probably the main Application menu
-        if menuItem.menu?.delegate !== self {
+        if menuItem.target !== self {
             return validateUserInterfaceItem(menuItem)
         }
         

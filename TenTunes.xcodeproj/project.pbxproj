@@ -45,6 +45,7 @@
 		80CB65352052C9CC0031A6D7 /* CoreData+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB65342052C9CC0031A6D7 /* CoreData+TT.swift */; };
 		80CFDA0A203C4E2300C7A506 /* LazyVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CFDA09203C4E2300C7A506 /* LazyVar.swift */; };
 		80DCA9B3203F636F00B1E9B1 /* TagLibImporter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80DCA9B2203F636E00B1E9B1 /* TagLibImporter.mm */; };
+		80E092A12066C42D000CA4D5 /* MediaLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E092A02066C42D000CA4D5 /* MediaLocation.swift */; };
 		80E2C9E0204AE18E00298E81 /* Track+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E2C9DC204AE18E00298E81 /* Track+CoreDataClass.swift */; };
 		80E2C9E1204AE18E00298E81 /* Track+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E2C9DD204AE18E00298E81 /* Track+CoreDataProperties.swift */; };
 		80E2C9F7204B40A000298E81 /* Playlist+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E2C9F1204B40A000298E81 /* Playlist+CoreDataClass.swift */; };
@@ -161,6 +162,7 @@
 		80DCA9B0203F636900B1E9B1 /* TenTunes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TenTunes-Bridging-Header.h"; sourceTree = "<group>"; };
 		80DCA9B1203F636D00B1E9B1 /* TagLibImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagLibImporter.h; sourceTree = "<group>"; };
 		80DCA9B2203F636E00B1E9B1 /* TagLibImporter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TagLibImporter.mm; sourceTree = "<group>"; };
+		80E092A02066C42D000CA4D5 /* MediaLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaLocation.swift; sourceTree = "<group>"; };
 		80E2C9DC204AE18E00298E81 /* Track+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Track+CoreDataClass.swift"; sourceTree = "<group>"; };
 		80E2C9DD204AE18E00298E81 /* Track+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Track+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		80E2C9F1204B40A000298E81 /* Playlist+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Playlist+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 				80E2C9DC204AE18E00298E81 /* Track+CoreDataClass.swift */,
 				80E2C9DD204AE18E00298E81 /* Track+CoreDataProperties.swift */,
 				80F2C5902038A80D00212739 /* Track+TT.swift */,
+				80E092A02066C42D000CA4D5 /* MediaLocation.swift */,
 			);
 			path = Track;
 			sourceTree = "<group>";
@@ -596,6 +599,7 @@
 				806AC1332040D7C700857B1B /* PlayHistory.swift in Sources */,
 				80ADCD4A20442E1200AA9A89 /* Library.swift in Sources */,
 				80DCA9B3203F636F00B1E9B1 /* TagLibImporter.mm in Sources */,
+				80E092A12066C42D000CA4D5 /* MediaLocation.swift in Sources */,
 				80802586203EFCC0008D4168 /* Foundation+TT.swift in Sources */,
 				80F2C5912038A80D00212739 /* Track+TT.swift in Sources */,
 				80E2C9FC204B40A000298E81 /* PlaylistFolder+CoreDataProperties.swift in Sources */,

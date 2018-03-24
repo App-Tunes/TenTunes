@@ -26,13 +26,14 @@ extension Track {
     @NSManaged public var artworkPreviewData: NSData?
     @NSManaged public var author: String?
     @NSManaged public var bpmString: String?
+    @NSManaged public var containingPlaylists: NSSet
     @NSManaged public var durationR: Int64
     @NSManaged public var genre: String?
     @NSManaged public var iTunesID: String?
     @NSManaged public var keyString: String?
     @NSManaged public var path: String?
     @NSManaged public var title: String?
-    @NSManaged public var containingPlaylists: NSSet
+    @NSManaged public var usesMediaDirectory: Bool
 
     public override func awakeFromInsert() {
         id = UUID()

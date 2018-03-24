@@ -60,6 +60,8 @@ class TrackController: NSViewController {
         return self.view.window!.appearance?.name == NSAppearance.Name.vibrantDark
     }
     
+    @IBOutlet var _moveToMediaDirectory: NSMenuItem!
+    
     override func awakeFromNib() {
         desired = PlayHistorySetup { self.history = $0 }
         
@@ -413,6 +415,8 @@ extension TrackController: NSMenuDelegate {
         if menuTracks.count < 1 {
             menu.cancelTrackingWithoutAnimation()
         }
+        
+        _moveToMediaDirectory.isHidden = menuTracks.noneMatch { !$0.usesMediaDirectory }
 
         if isQueue {
             let deleteItem = menu.item(withAction: #selector(removeTrack))
@@ -426,7 +430,7 @@ extension TrackController: NSMenuDelegate {
     
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         // Probably the main Application menu
-        if menuItem.menu?.delegate !== self {
+        if menuItem.target !== self {
             return validateUserInterfaceItem(menuItem)
         }
 
@@ -461,6 +465,22 @@ extension TrackController: NSMenuDelegate {
         if let url = track.url {
             NSWorkspace.shared.activateFileViewerSelecting([url])
         }
+    }
+    
+    @IBAction func manageByMoving(_ sender: Any) {
+        for track in menuTracks {
+            track.usesMediaDirectory = true
+        }
+        
+        Library.shared.mediaLocation.updateLocations(of: menuTracks)
+    }
+    
+    @IBAction func manageByCopying(_ sender: Any) {
+        for track in menuTracks {
+            track.usesMediaDirectory = true
+        }
+        
+        Library.shared.mediaLocation.updateLocations(of: menuTracks)
     }
 
     @IBAction func removeTrack(_ sender: Any) {

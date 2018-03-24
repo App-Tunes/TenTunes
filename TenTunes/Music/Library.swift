@@ -16,7 +16,7 @@ class Library {
 
     init(at: URL) {
         directory = at
-        try! FileManager.default.createDirectory(at: directory.appendingPathComponent("Media"), withIntermediateDirectories: true, attributes: nil)
+        mediaLocation = MediaLocation(directory: directory.appendingPathComponent("Media"))
         
         if !fetchMaster() {
             _masterPlaylist = PlaylistFolder(mox: viewMox)
@@ -49,6 +49,7 @@ class Library {
     }
     
     var directory: URL
+    var mediaLocation: MediaLocation
     
     var allTracks = PlaylistLibrary()
     var _masterPlaylist: PlaylistFolder!
@@ -197,6 +198,7 @@ class Library {
         }
         
         for track in tracks {
+            mediaLocation.delete(track: track)
             viewMox.delete(track)
         }
     }

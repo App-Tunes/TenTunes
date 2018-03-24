@@ -28,12 +28,13 @@
         <attribute name="keyString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="path" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="usesMediaDirectory" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="containingPlaylists" toMany="YES" deletionRule="Nullify" destinationEntity="PlaylistManual" inverseName="tracks" inverseEntity="PlaylistManual" syncable="YES"/>
     </entity>
     <elements>
         <element name="Playlist" positionX="-416" positionY="113" width="128" height="118"/>
         <element name="PlaylistFolder" positionX="-218" positionY="171" width="128" height="58"/>
         <element name="PlaylistManual" positionX="-218" positionY="252" width="128" height="58"/>
-        <element name="Track" positionX="-414" positionY="261" width="128" height="270"/>
+        <element name="Track" positionX="-414" positionY="261" width="128" height="285"/>
     </elements>
 </model>

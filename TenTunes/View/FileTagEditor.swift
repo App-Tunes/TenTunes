@@ -39,7 +39,13 @@ class FileTagEditor: NSWindowController {
     }
     
     @IBAction func save(_ sender: Any) {
+        for track in tracks {
+            // Don't call the collection method since it auto-saves in the wrong context
+            Library.shared.mediaLocation.updateLocation(of: track)
+        }
+        
         Library.shared.save(in: context)
+
         for track in tracks {
             track.writeMetadata()
         }

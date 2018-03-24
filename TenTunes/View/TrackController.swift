@@ -480,7 +480,7 @@ extension TrackController: NSMenuDelegate {
             track.usesMediaDirectory = true
         }
         
-        Library.shared.mediaLocation.updateLocations(of: menuTracks)
+        Library.shared.mediaLocation.updateLocations(of: menuTracks, copy: true)
     }
 
     @IBAction func removeTrack(_ sender: Any) {

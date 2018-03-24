@@ -468,6 +468,7 @@ extension TrackController: NSMenuDelegate {
     }
     
     @IBAction func manageByMoving(_ sender: Any) {
+        // TODO If too many, do in background
         for track in menuTracks {
             track.usesMediaDirectory = true
         }

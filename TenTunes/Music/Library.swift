@@ -69,11 +69,11 @@ class Library {
     // Querying
     
     func track(byId: NSManagedObjectID) -> Track? {
-        return try! persistentContainer.viewContext.existingObject(with: byId) as? Track
+        return (try? persistentContainer.viewContext.existingObject(with: byId)) as? Track
     }
 
     func playlist(byId: NSManagedObjectID) -> Playlist? {
-        return try! persistentContainer.viewContext.existingObject(with: byId) as? Playlist
+        return (try? persistentContainer.viewContext.existingObject(with: byId)) as? Playlist
     }
     
     var allPlaylists: [Playlist] {

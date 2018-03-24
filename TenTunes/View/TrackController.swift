@@ -193,10 +193,18 @@ class TrackController: NSViewController {
     }
     
     func remove(indices: [Int]?) {
-        if let indices = indices {
-            Library.shared.remove(tracks: indices.flatMap { history.track(at: $0) }, from: history.playlist as! PlaylistManual)
-            // Don't reload data, we'll be updated in async
+        guard let indices = indices else {
+            return
         }
+
+        guard !isQueue else {
+            history.remove(indices: indices)
+            _tableView.reloadData()
+            return
+        }
+
+        Library.shared.remove(tracks: indices.flatMap { history.track(at: $0) }, from: history.playlist as! PlaylistManual)
+        // Don't reload data, we'll be updated in async
     }
 }
 
@@ -336,7 +344,7 @@ extension TrackController: NSTableViewDelegate {
         
         if isQueue {
             history.rearrange(tracks: tracks, before: row)
-            _tableView.reloadData() // TODO Animate
+            _tableView.reloadData() // TODO Animate this and all other similar changes
         }
         else {
             Library.shared.addTracks(tracks, to: history.playlist as! PlaylistManual, above: row)
@@ -405,7 +413,14 @@ extension TrackController: NSMenuDelegate {
             menu.cancelTrackingWithoutAnimation()
         }
 
-        menu.item(withAction: #selector(removeTrack))?.isHidden = !Library.shared.isPlaylist(playlist: history.playlist)
+        if isQueue {
+            let deleteItem = menu.item(withAction: #selector(removeTrack))
+            deleteItem?.isHidden = false
+            deleteItem?.title = "Remove from Queue"
+        }
+        else {
+            menu.item(withAction: #selector(removeTrack))?.isHidden = Library.shared.isPlaylist(playlist: history.playlist)
+        }
     }
     
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
@@ -415,7 +430,7 @@ extension TrackController: NSMenuDelegate {
         }
 
         // Right Click Menu
-        if menuItem.action == #selector(removeTrack) { return Library.shared.isEditable(playlist: history.playlist) }
+        if menuItem.action == #selector(removeTrack) { return isQueue || Library.shared.isEditable(playlist: history.playlist) }
         if menuItem.action == #selector(menuShowInFinder) { return menuTracks.count == 1 && menuTracks.first!.url != nil }
 
         return true
@@ -439,7 +454,7 @@ extension TrackController: NSUserInterfaceValidations {
         }
 
         if action == #selector(delete as (AnyObject) -> Swift.Void) {
-            return Library.shared.isEditable(playlist: history.playlist)
+            return isQueue || Library.shared.isEditable(playlist: history.playlist)
         }
 
         if action == #selector(performFindPanelAction) { return true }

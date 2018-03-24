@@ -97,7 +97,7 @@ class MediaLocation {
                 return desired
             }
             
-            desired = desired.deletingPathExtension().appendingPathExtension("." + String(i)).appendingPathExtension(ext)
+            desired = desired.deletingPathExtension().appendingPathExtension( String(i)).appendingPathExtension(ext)
         }
         
         fatalError("Given up trying to find a file! Wtf?") // TODO

@@ -7,8 +7,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FileTagEditor" customModule="TenTunes" customModuleProvider="target">
             <connections>
-                <outlet property="_imageView" destination="59h-y0-DKS" id="Tq9-MG-Obc"/>
-                <outlet property="_okButton" destination="rly-uM-lVM" id="sCC-HF-Fp8"/>
                 <outlet property="tracksController" destination="i0G-Xb-2QU" id="8Xv-73-EVI"/>
                 <outlet property="window" destination="7My-zQ-daw" id="UsZ-cC-f6d"/>
             </connections>

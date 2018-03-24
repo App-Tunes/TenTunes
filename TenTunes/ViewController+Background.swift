@@ -28,7 +28,7 @@ extension ViewController {
         self._workerSemaphore.signal()
     }
     
-    func reloadFor(tracks: [Track], transient: [Track]? = nil) {
+    func reloadFor(tracks: [Track], transient: [Track]?) {
         for (track, transient) in zip(tracks, transient ?? Array(repeating: nil, count: tracks.count)) {
             track.refresh()
             transient ?=> track.copyTransient

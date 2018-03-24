@@ -25,6 +25,8 @@ class Library {
             viewMox.insert(_masterPlaylist)
             save()
         }
+        
+        registerObservers()
     }
     
     var persistentContainer: NSPersistentContainer {

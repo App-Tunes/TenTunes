@@ -121,10 +121,15 @@ class ViewController: NSViewController {
         self.playlistController.library = Library.shared.allTracks
 
         self.trackController.playTrack = { [unowned self] in
-            self.play(at: $1, in: self.trackController.history)
-            if let position = $2 {
+            self.play(at: $0, in: self.trackController.history) // TODO Support for multiple
+            if let position = $1 {
                 self.player.setPosition(position * self.player.duration)
             }
+        }
+        self.trackController.playTrackNext = { [unowned self] in
+            // TODO Support for multiple
+            // TODO What if history doesn't exist? No feedback!!
+            self.history?.insert(tracks: [self.history!.track(at: $0)!], before: self.history!.playingIndex + 1)
         }
         self.trackController.set(playlist: Library.shared.allTracks)
 

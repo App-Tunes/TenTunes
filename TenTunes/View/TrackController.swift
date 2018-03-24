@@ -44,8 +44,9 @@ class TrackController: NSViewController {
     @IBOutlet weak var _sortLabel: NSTextField!
     @IBOutlet weak var _sortBar: NSView!
     
-    var playTrack: ((Track, Int, Double?) -> Swift.Void)?
-    
+    var playTrack: ((Int, Double?) -> Swift.Void)?
+    var playTrackNext: ((Int) -> Swift.Void)?
+
     var history: PlayHistory! {
         didSet {
             _tableView?.animateDifference(from: oldValue?.tracks, to: history?.tracks)
@@ -97,6 +98,11 @@ class TrackController: NSViewController {
         _tableView.headerView = nil
         _tableView.usesAlternatingRowBackgroundColors = false  // TODO In NSPanels, this is solid while everything else isn't
         
+        playTrackNext = {
+            self.history?.insert(tracks: [self.history!.track(at: $0)!], before: self.history!.playingIndex + 1)
+            self._tableView.reloadData()
+        }
+        
         for column in _tableView.tableColumns {
             if column.identifier != ColumnIdentifiers.artwork && column.identifier != ColumnIdentifiers.title {
                 column.isHidden = true
@@ -134,8 +140,8 @@ class TrackController: NSViewController {
     }
     
     func playCurrentTrack() {
-        if let selectedTrack = selectedTrack, let playTrack = playTrack {
-            playTrack(selectedTrack, self._tableView.selectedRow, nil)
+        if selectedTrack != nil, let playTrack = playTrack {
+            playTrack(self._tableView.selectedRow, nil)
         }
     }
     
@@ -143,21 +149,9 @@ class TrackController: NSViewController {
         let row = self._tableView.clickedRow
         
         if let playTrack = playTrack {
-            if let track = history.track(at: row) {
-                playTrack(track, row, nil)
+            if history.track(at: row) != nil {
+                playTrack(row, nil)
             }
-        }
-    }
-    
-    @IBAction func menuPlay(_ sender: Any) {
-        self.doubleClick(sender)
-    }
-    
-    @IBAction func menuShowInFinder(_ sender: Any) {
-        let row = self._tableView.clickedRow
-        let track = history.track(at: row)!
-        if let url = track.url {
-            NSWorkspace.shared.activateFileViewerSelecting([url])
         }
     }
     
@@ -184,8 +178,8 @@ class TrackController: NSViewController {
     
     @IBAction func waveformViewClicked(_ sender: Any?) {
         if let view = sender as? WaveformView {
-            if let row = view.superview ?=> _tableView.row, let track = history.track(at: row), let playTrack = playTrack {
-                playTrack(track, row, view.location)
+            if let row = view.superview ?=> _tableView.row, history.track(at: row) != nil, let playTrack = playTrack {
+                playTrack(row, view.location)
             }
             
             view.location = nil
@@ -303,10 +297,6 @@ extension TrackController: NSTableViewDelegate {
     
     @IBAction func showInfo(_ sender: Any?) {
         showTrackInfo(of: Array(_tableView.selectedRowIndexes), nextTo: _tableView.rowView(atRow: _tableView.selectedRow, makeIfNecessary: false))
-    }
-    
-    @IBAction func showTrackInfoClicked(_ sender: Any?) {
-        showTrackInfo(of: _tableView.clickedRows, nextTo: _tableView.rowView(atRow: _tableView.selectedRow, makeIfNecessary: false))
     }
     
     func showTrackInfo(of: [Int], nextTo: NSView?) {
@@ -442,6 +432,32 @@ extension TrackController: NSMenuDelegate {
         return true
     }
     
+    @IBAction func menuPlay(_ sender: Any) {
+        self.doubleClick(sender)
+    }
+    
+    @IBAction func menuPlayNext(_ sender: Any) {
+        let row = self._tableView.clickedRow
+        
+        if let playTrackNext = playTrackNext {
+            if history.track(at: row) != nil {
+                playTrackNext(row)
+            }
+        }
+    }
+    
+    @IBAction func menuShowTrackInfo(_ sender: Any?) {
+        showTrackInfo(of: _tableView.clickedRows, nextTo: _tableView.rowView(atRow: _tableView.selectedRow, makeIfNecessary: false))
+    }
+
+    @IBAction func menuShowInFinder(_ sender: Any) {
+        let row = self._tableView.clickedRow
+        let track = history.track(at: row)!
+        if let url = track.url {
+            NSWorkspace.shared.activateFileViewerSelecting([url])
+        }
+    }
+
     @IBAction func removeTrack(_ sender: Any) {
         remove(indices: _tableView.clickedRows)
     }

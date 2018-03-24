@@ -347,13 +347,20 @@ Gw
                 <menuItem title="Play" id="dbx-Jx-Btn">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="doubleClick:" target="-2" id="Ox9-6L-yhQ"/>
+                        <action selector="menuPlay:" target="-2" id="hBr-2J-wGB"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Play Next" id="s4d-Rs-rUP">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="menuPlayNext:" target="-2" id="H7R-ad-VKr"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="526-ei-Uns"/>
                 <menuItem title="Edit" id="a0R-ZO-kW2">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="showTrackInfoClicked:" target="-1" id="tZy-ZC-xFh"/>
+                        <action selector="menuShowTrackInfo:" target="-2" id="fZy-ed-d41"/>
                     </connections>
                 </menuItem>
                 <menuItem title="Show in Finder" id="Kft-bu-qTl">

@@ -106,6 +106,13 @@ class PlayHistory {
             playingIndex = 0
         }
     }
+    
+    // Insert (e.g. for queue)
+    
+    func rearrange(tracks: [Track], before: Int) {
+        if shuffled != nil  { shuffled!.rearrange(elements: tracks, to: before) }
+        else                { order.rearrange(elements: tracks, to: before) }
+    }
 
     // Query
     

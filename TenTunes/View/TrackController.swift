@@ -48,10 +48,12 @@ class TrackController: NSViewController {
     
     var history: PlayHistory! {
         didSet {
-            _tableView.animateDifference(from: oldValue?.tracks, to: history?.tracks)
+            _tableView?.animateDifference(from: oldValue?.tracks, to: history?.tracks)
         }
     }
     var desired: PlayHistorySetup!
+    
+    var isQueue = false
     
     var isDark: Bool {
         return self.view.window!.appearance?.name == NSAppearance.Name.vibrantDark
@@ -74,15 +76,32 @@ class TrackController: NSViewController {
     
     override func viewDidAppear() {
         // Appearance is not yet set in willappear
-        _tableView.backgroundColor = isDark ? NSColor(white: 0.09, alpha: 1.0) : NSColor(white: 0.73, alpha: 1.0)
+        if !isQueue {
+            _tableView.backgroundColor = isDark ? NSColor(white: 0.09, alpha: 1.0) : NSColor(white: 0.73, alpha: 1.0)
+        }
     
         // Hide border by painting it in the background color
         // TODO Match window bg color exactly - it returns white by default...
-        _tableView.headerView!.wantsLayer = true
-        _tableView.headerView!.layer!.borderColor = (isDark ? NSColor(white: 0.12, alpha: 1.0) : NSColor(white: 1, alpha: 1.0)).cgColor
-        _tableView.headerView!.layer!.borderWidth = 1
+        if let header = _tableView.headerView {
+            header.wantsLayer = true
+            header.layer!.borderColor = (isDark ? NSColor(white: 0.12, alpha: 1.0) : NSColor(white: 1, alpha: 1.0)).cgColor
+            header.layer!.borderWidth = 1
+        }
         
         infoEditor.window?.appearance = view.window!.appearance
+    }
+        
+    func queueify() {
+        isQueue = true
+        
+        _tableView.headerView = nil
+        _tableView.usesAlternatingRowBackgroundColors = false  // TODO In NSPanels, this is solid while everything else isn't
+        
+        for column in _tableView.tableColumns {
+            if column.identifier != ColumnIdentifiers.artwork && column.identifier != ColumnIdentifiers.title {
+                column.isHidden = true
+            }
+        }
     }
     
     func set(playlist: PlaylistProtocol) {
@@ -301,6 +320,10 @@ extension TrackController: NSTableViewDelegate {
     }
     
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+        guard !isQueue else {
+            return dropOperation == .above ? .move : []
+        }
+        
         if dropOperation == .above, Library.shared.isEditable(playlist: history.playlist), history.isUnsorted {
             return .move
         }
@@ -311,8 +334,14 @@ extension TrackController: NSTableViewDelegate {
         let pasteboard = info.draggingPasteboard()
         let tracks = (pasteboard.pasteboardItems ?? []).flatMap(Library.shared.readTrack)
         
-        Library.shared.addTracks(tracks, to: history.playlist as! PlaylistManual, above: row)
-        Library.shared.save()
+        if isQueue {
+            history.rearrange(tracks: tracks, before: row)
+            _tableView.reloadData() // TODO Animate
+        }
+        else {
+            Library.shared.addTracks(tracks, to: history.playlist as! PlaylistManual, above: row)
+            Library.shared.save()
+        }
 
         return true
     }

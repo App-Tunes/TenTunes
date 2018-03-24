@@ -53,6 +53,8 @@ class ViewController: NSViewController {
     @IBOutlet var _trackView: NSView!
     @IBOutlet var _splitView: NSSplitView!
     
+    var queuePopover: NSPopover!
+    
     var history: PlayHistory?
     var player: AKPlayer!
     var playing: Track?
@@ -73,6 +75,7 @@ class ViewController: NSViewController {
     
     var playlistController: PlaylistController!
     var trackController: TrackController!
+    var queueController: TrackController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,6 +90,12 @@ class ViewController: NSViewController {
         playlistController = PlaylistController(nibName: NSNib.Name(rawValue: "PlaylistController"), bundle: nil)
         playlistController.view.frame = _playlistView.frame
         _splitView.replaceSubview(_playlistView, with: playlistController.view)
+
+        queueController = TrackController(nibName: NSNib.Name(rawValue: "TrackController"), bundle: nil)
+        queuePopover = NSPopover()
+        queuePopover.contentViewController = queueController
+        queuePopover.animates = true
+        queuePopover.behavior = .transient
 
         ViewController.shared = self
         
@@ -317,6 +326,25 @@ class ViewController: NSViewController {
     
     @IBAction func volumeChanged(_ sender: Any) {
         player.volume = pow(Float(_volume.intValue) / 100, 2)
+    }
+    
+    @IBAction func showQueue(_ sender: Any) {
+        let view = sender as! NSView
+        
+        guard let history = history else {
+            return // TODO Disable button
+        }
+        
+        queueController.history = history
+        queueController._tableView?.reloadData() // If it didn't change it doesn't reload automatically
+        queuePopover.appearance = view.window!.appearance
+
+        if !queueController.isViewLoaded {
+            queueController.loadView()
+            queueController.queueify()
+        }
+        
+        queuePopover.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
     }
 }
 

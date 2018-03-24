@@ -77,6 +77,10 @@ extension NSTableView {
             reloadData()
         }
     }
+    
+    func tableColumn(withIdentifier identifier: NSUserInterfaceItemIdentifier) -> NSTableColumn? {
+        return tableColumns[safe: column(withIdentifier: identifier)]
+    }
 }
 
 extension NSMenu {

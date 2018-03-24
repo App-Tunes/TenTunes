@@ -103,11 +103,12 @@ class TrackController: NSViewController {
             self._tableView.reloadData()
         }
         
-        for column in _tableView.tableColumns {
-            if column.identifier != ColumnIdentifiers.artwork && column.identifier != ColumnIdentifiers.title {
-                column.isHidden = true
-            }
-        }
+         // Unintuitive to use in a queue
+        // TODO Make non-interactable?
+        _tableView.tableColumn(withIdentifier: ColumnIdentifiers.waveform)?.isHidden = true
+        
+        // We believe in tags, not genres
+        _tableView.tableColumn(withIdentifier: ColumnIdentifiers.genre)?.isHidden = true
     }
     
     func set(playlist: PlaylistProtocol) {

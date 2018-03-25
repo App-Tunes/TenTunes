@@ -456,7 +456,7 @@ extension TrackController: NSMenuDelegate {
     }
     
     @IBAction func menuShowTrackInfo(_ sender: Any?) {
-        showTrackInfo(of: _tableView.clickedRows, nextTo: _tableView.rowView(atRow: _tableView.selectedRow, makeIfNecessary: false))
+        showTrackInfo(of: _tableView.clickedRows, nextTo: _tableView.rowView(atRow: _tableView.clickedRow, makeIfNecessary: false))
     }
 
     @IBAction func menuShowInFinder(_ sender: Any) {

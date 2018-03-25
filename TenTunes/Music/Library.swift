@@ -198,14 +198,6 @@ class Library : NSPersistentContainer {
         }
     }
     
-    func delete(playlists: [Playlist]) {
-        guard (playlists.allMatch { isPlaylist(playlist: $0) }) else {
-            fatalError("Not a playlist!")
-        }
-        
-        viewContext.delete(all: playlists)
-    }
-    
     // iTunes
     
     func findTrack(byITunesID: String) -> Track? {

@@ -111,7 +111,7 @@ import Cocoa
     
     func delete(indices: [Int]?) {
         if let indices = indices {
-            Library.shared.delete(playlists: indices.flatMap { _outlineView.item(atRow: $0) as? Playlist })
+            Library.shared.viewContext.delete(all: indices.flatMap { _outlineView.item(atRow: $0) as? Playlist })
             Library.shared.save()
         }
     }

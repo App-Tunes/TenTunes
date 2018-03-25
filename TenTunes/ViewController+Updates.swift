@@ -49,10 +49,12 @@ extension ViewController {
         }
         
         // Modified playlists?
-        if inserts.of(type: Playlist.self).count > 0 || deletes.of(type: Playlist.self).count > 0 || updates.of(type: Playlist.self).count > 0 {
-            ViewController.shared.playlistController._outlineView.reloadData() // TODO Animate
+        playlistController._outlineView.animateDelete(elements: Array(deletes.of(type: Playlist.self)))
+        playlistController._outlineView.animateInsert(elements: Array(inserts.of(type: Playlist.self))) {
+            let (parent, idx) = Library.shared.position(of: $0)!
+            return (idx, parent == Library.shared.masterPlaylist ? nil : parent)
         }
-        
+
         if let viewingPlaylist = trackController.history.playlist as? Playlist, deletes.of(type: Playlist.self).contains(viewingPlaylist) {
             
             // Deleted our current playlist! :<

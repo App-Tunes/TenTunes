@@ -115,4 +115,30 @@ extension NSOutlineView {
     func edit(row: Int, with event: NSEvent?, select: Bool) {
         editColumn(0, row: row, with: event, select: select)
     }
+    
+    func animateDelete(elements: [AnyObject]) {
+        guard elements.count < 100 else {
+            reloadData()
+            return
+        }
+        
+        for element in elements {
+            let idx = childIndex(forItem: element)
+            if idx >= 0 {
+                removeItems(at: IndexSet(integer: idx), inParent: parent(forItem: element), withAnimation: .slideDown)
+            }
+        }
+    }
+    
+    func animateInsert<T>(elements: [T], position: (T) -> (Int, T?)) {
+        guard elements.count < 100 else {
+            reloadData()
+            return
+        }
+        
+        for t in elements {
+            let (pos, parent) = position(t)
+            insertItems(at: IndexSet(integer: pos), inParent: parent, withAnimation: .slideUp)
+        }
+    }
 }

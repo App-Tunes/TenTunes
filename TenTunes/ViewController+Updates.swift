@@ -35,10 +35,14 @@ extension ViewController {
             }
         }
 
-        if inserts.count > 0 || deletes.count > 0 {
+        if inserts.of(type: Track.self).count > 0 || deletes.of(type: Track.self).count > 0 {
             if trackController.history.playlist is PlaylistLibrary {
                 trackController.desired._changed = true
             }
+        }
+        
+        if inserts.of(type: Playlist.self).count > 0 || deletes.of(type: Playlist.self).count > 0 {
+            ViewController.shared.playlistController._outlineView.reloadData() // TODO Animate
         }
     }
 }

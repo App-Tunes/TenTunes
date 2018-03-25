@@ -321,6 +321,12 @@ extension Dictionary where Value : AnyObject {
     }
 }
 
+extension Set {
+    func of<T>(type: T.Type) -> Set<T> {
+        return filter { $0 is T } as! Set<T>
+    }
+}
+
 extension String {
     subscript (r: CountableClosedRange<Int>) -> String {
         get {

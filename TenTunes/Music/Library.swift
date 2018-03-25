@@ -183,9 +183,7 @@ class Library : NSPersistentContainer {
 
         if let above = above {
             to.children = to.children.rearranged(elements: [playlist], to: above)
-        }
-        
-        ViewController.shared.playlistController._outlineView.reloadData()
+        }        
     }
 
     func remove(tracks: [Track], from: PlaylistManual, force: Bool = false) {

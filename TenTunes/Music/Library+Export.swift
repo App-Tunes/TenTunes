@@ -14,7 +14,7 @@ extension Library {
             return false
         }
         
-        performInBackground { mox in
+        performBackgroundTask { mox in
             self.updateExports(in: mox)
             completion()
         }

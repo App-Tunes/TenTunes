@@ -28,14 +28,6 @@ extension ViewController {
         self._workerSemaphore.signal()
     }
     
-    func reloadFor(tracks: [Track], transient: [Track]?) {
-        for (track, transient) in zip(tracks, transient ?? Array(repeating: nil, count: tracks.count)) {
-            track.refresh()
-            transient ?=> track.copyTransient
-            self.trackController.reload(track: track)
-        }
-    }
-    
     func startBackgroundTasks() {
         self.visualTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true ) { [unowned self] (timer) in
             guard self.view.window?.isVisible ?? false else {
@@ -57,7 +49,7 @@ extension ViewController {
                     let copy = PlayHistory(playlist: self.trackController.history.playlist)
                     desired._changed = false
                     
-                    Library.shared.performInBackground { mox in
+                    Library.shared.performBackgroundTask { mox in
                         copy.convert(to: mox)
                         desired.filter ?=> copy.filter
                         desired.sort ?=> copy.sort
@@ -77,7 +69,7 @@ extension ViewController {
                     self._waveformView.analysis = playing.analysis
                     self.trackController.reload(track: playing) // Get the analysis inside the cell
                     
-                    Library.shared.performInBackground { mox in
+                    Library.shared.performBackgroundTask { mox in
                         let asyncTrack = mox.convert(playing)
                         asyncTrack.analysis = playing.analysis
 
@@ -126,17 +118,13 @@ extension ViewController {
     func fetchMetadata(for track: Track, wait: Bool = false) {
         track.metadataFetched = true // So no other thread tries to enter
         
-        Library.shared.performInBackground { mox in
+        Library.shared.performBackgroundTask { mox in
             let asyncTrack = mox.convert(track)
             
             asyncTrack.fetchMetadata()
             
             try! mox.save()
-            
-            // Update on main thread
-            DispatchQueue.main.async {
-                self.reloadFor(tracks: [track], transient: [asyncTrack])
-            }
+            track.copyTransient(from: asyncTrack)
             
             self._workerSemaphore.signalAfter(seconds: wait ? 0.2 : 0.02)
         }

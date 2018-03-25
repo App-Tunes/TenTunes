@@ -16,7 +16,6 @@ public class Track: NSManagedObject {
     var analysis: Analysis?
     
     @objc dynamic var artwork: NSImage?
-    @objc dynamic var artworkPreview: NSImage?
 
     @discardableResult
     func readAnalysis() -> Bool {
@@ -43,6 +42,5 @@ public class Track: NSManagedObject {
         metadataFetched = from.metadataFetched
         analysis = from.analysis
         artwork = from.artwork
-        artworkPreview = from.artworkPreview
     }    
 }

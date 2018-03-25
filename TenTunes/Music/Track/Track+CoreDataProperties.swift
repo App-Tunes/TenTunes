@@ -23,7 +23,7 @@ extension Track {
     @NSManaged public var album: String?
     @NSManaged public var analysisData: NSData?
     @NSManaged public var artworkData: NSData?
-    @NSManaged public var artworkPreviewData: NSData?
+    @NSManaged public var artworkPreview: NSImage?
     @NSManaged public var author: String?
     @NSManaged public var bpmString: String?
     @NSManaged public var containingPlaylists: NSSet

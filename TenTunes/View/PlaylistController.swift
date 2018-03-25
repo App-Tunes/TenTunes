@@ -94,9 +94,10 @@ import Cocoa
         let createPlaylist = PlaylistManual()
         let (parent, idx) = playlistInsertionPosition
         
-        Library.shared.addPlaylist(createPlaylist, to: parent, above: idx)
-        select(playlist: createPlaylist, editTitle: true)
+        parent.addPlaylist(createPlaylist, above: idx)
         try! Library.shared.viewContext.save()
+
+        select(playlist: createPlaylist, editTitle: true)
     }
     
     @IBAction func createGroup(_ sender: Any) {
@@ -104,7 +105,7 @@ import Cocoa
         let (parent, idx) = playlistInsertionPosition
         
         // TODO If we select multiple playlists at once, put them in the newly created one
-        Library.shared.addPlaylist(createPlaylist, to: parent, above: idx)
+        parent.addPlaylist(createPlaylist, above: idx)
         select(playlist: createPlaylist, editTitle: true)
         try! Library.shared.viewContext.save()
     }
@@ -232,7 +233,7 @@ extension PlaylistController : NSOutlineViewDelegate {
             let playlists = (pasteboard.pasteboardItems ?? []).flatMap(Library.shared.readPlaylist)
             
             for playlist in playlists {
-                Library.shared.addPlaylist(playlist, to: parent as! PlaylistFolder, above: index >= 0 ? index : nil)
+                (parent as! PlaylistFolder).addPlaylist(playlist, above: index >= 0 ? index : nil)
             }
             break
         default:

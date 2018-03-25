@@ -26,6 +26,14 @@ public class PlaylistFolder: Playlist {
         get { return Array(children) as! [Playlist] }
     }
     
+    func addPlaylist(_ playlist: Playlist, above: Int? = nil) {
+        addToChildren(playlist)
+        
+        if let above = above {
+            children = children.rearranged(elements: [playlist], to: above)
+        }
+    }
+    
     // TODO
     override var tracksList: [Track] {
         get { return childrenList.flatMap { $0.tracksList } }

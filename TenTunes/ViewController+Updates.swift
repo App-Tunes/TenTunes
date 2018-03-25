@@ -45,7 +45,7 @@ extension ViewController {
         }
         
         // Modified playlists?
-        if inserts.of(type: Playlist.self).count > 0 || deletes.of(type: Playlist.self).count > 0 {
+        if inserts.of(type: Playlist.self).count > 0 || deletes.of(type: Playlist.self).count > 0 || updates.of(type: Playlist.self).count > 0 {
             ViewController.shared.playlistController._outlineView.reloadData() // TODO Animate
         }
         

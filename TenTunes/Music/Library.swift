@@ -148,16 +148,6 @@ class Library : NSPersistentContainer {
         return playlist is PlaylistManual
     }
         
-    func addPlaylist(_ playlist: Playlist, to: PlaylistFolder? = nil, above: Int? = nil) {
-        let to = to ?? masterPlaylist
-        
-        to.addToChildren(playlist)
-
-        if let above = above {
-            to.children = to.children.rearranged(elements: [playlist], to: above)
-        }        
-    }
-
     func remove(tracks: [Track], from: PlaylistManual, force: Bool = false) {
         guard force || isEditable(playlist: from) else {
             fatalError("Is not editable!")

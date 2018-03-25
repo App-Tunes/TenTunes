@@ -23,7 +23,7 @@ class ITunesImporter {
         // TODO Async
         let masterPlaylist = PlaylistFolder()
         masterPlaylist.name = "iTunes Library"
-        library.addPlaylist(masterPlaylist)
+        library.masterPlaylist.addPlaylist(masterPlaylist)
         
         var existingTracks: [String:Track] = [:]
         // TODO Request
@@ -95,10 +95,10 @@ class ITunesImporter {
             }
             
             if let parent = playlistData.object(forKey: "Parent Persistent ID") as? String {
-                library.addPlaylist(playlist, to: iTunesPlaylists[parent] as! PlaylistFolder)
+                (iTunesPlaylists[parent] as! PlaylistFolder).addPlaylist(playlist)
             }
             else {
-                library.addPlaylist(playlist, to: masterPlaylist)
+                masterPlaylist.addPlaylist(playlist)
             }
         }
         

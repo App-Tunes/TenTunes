@@ -23,10 +23,12 @@ extension ViewController {
         let deletes = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject> ?? Set()
         
         for update in updates {
+            // Modified track info?
             if let track = update as? Track {
                 trackController.reload(track: track)
             }
             
+            // Modified playlist contents?
             if let playlist = update as? Playlist {
                 // When deleting playlists the parent is updated since it loses a child
                 if Library.shared.isAffected(playlist: trackController.history.playlist, whenChanging: playlist) {
@@ -35,14 +37,23 @@ extension ViewController {
             }
         }
 
+        // Modified library?
         if inserts.of(type: Track.self).count > 0 || deletes.of(type: Track.self).count > 0 {
             if trackController.history.playlist is PlaylistLibrary {
                 trackController.desired._changed = true
             }
         }
         
+        // Modified playlists?
         if inserts.of(type: Playlist.self).count > 0 || deletes.of(type: Playlist.self).count > 0 {
             ViewController.shared.playlistController._outlineView.reloadData() // TODO Animate
+        }
+        
+        if let viewingPlaylist = trackController.history.playlist as? Playlist, deletes.of(type: Playlist.self).contains(viewingPlaylist) {
+            
+            // Deleted our current playlist! :<
+            // TODO What to do when deleting listening playlist?
+            trackController.set(playlist: Library.shared.allTracks)
         }
     }
 }

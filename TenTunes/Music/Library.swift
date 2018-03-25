@@ -203,16 +203,7 @@ class Library : NSPersistentContainer {
             fatalError("Not a playlist!")
         }
         
-        for playlist in playlists {
-            viewContext.delete(playlist)
-            
-            if let current = ViewController.shared.trackController.history.playlist as? Playlist, current == playlist {
-                // Deleted our current playlist! :<
-                ViewController.shared.trackController.set(playlist: allTracks)
-            }
-        }
-        
-        ViewController.shared.playlistController._outlineView.reloadData()
+        viewContext.delete(all: playlists)
     }
     
     // iTunes

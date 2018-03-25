@@ -36,4 +36,8 @@ public class PlaylistManual: Playlist {
             self.tracks = self.tracks.rearranged(elements: tracks, to: above)
         }
     }
+    
+    func removeTracks(_ tracks: [Track]) {
+        removeFromTracks(NSOrderedSet(array: tracks))        
+    }
 }

@@ -147,19 +147,7 @@ class Library : NSPersistentContainer {
     func isEditable(playlist: PlaylistProtocol) -> Bool {
         return playlist is PlaylistManual
     }
-        
-    func remove(tracks: [Track], from: PlaylistManual, force: Bool = false) {
-        guard force || isEditable(playlist: from) else {
-            fatalError("Is not editable!")
-        }
-        
-        from.removeFromTracks(NSOrderedSet(array: tracks))
-        
-        if let listening = ViewController.shared.history?.playlist, isAffected(playlist: listening, whenChanging: from) {
-            ViewController.shared.history?.filter { !tracks.contains($0) }
-        }
-    }
-    
+            
     // iTunes
     
     func findTrack(byITunesID: String) -> Track? {

@@ -202,7 +202,7 @@ class TrackController: NSViewController {
             return
         }
 
-        Library.shared.remove(tracks: indices.flatMap { history.track(at: $0) }, from: history.playlist as! PlaylistManual)
+        (history.playlist as! PlaylistManual).removeTracks(indices.flatMap { history.track(at: $0) })
         // Don't reload data, we'll be updated in async
     }
 }

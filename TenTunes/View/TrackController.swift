@@ -350,7 +350,7 @@ extension TrackController: NSTableViewDelegate {
             _tableView.animateDifference(from: tracksBefore, to: history.tracks)
         }
         else {
-            Library.shared.addTracks(tracks, to: history.playlist as! PlaylistManual, above: row)
+            (history.playlist as! PlaylistManual).addTracks(tracks, above: row)
             try! Library.shared.viewContext.save()
         }
 

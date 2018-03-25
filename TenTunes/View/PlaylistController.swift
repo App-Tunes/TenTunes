@@ -226,7 +226,7 @@ extension PlaylistController : NSOutlineViewDelegate {
         case Track.pasteboardType:
             let tracks = (pasteboard.pasteboardItems ?? []).flatMap(Library.shared.readTrack)
 
-            Library.shared.addTracks(tracks, to: parent as! PlaylistManual)
+            (parent as! PlaylistManual).addTracks(tracks)
             return true
         case Playlist.pasteboardType:
             let playlists = (pasteboard.pasteboardItems ?? []).flatMap(Library.shared.readPlaylist)

@@ -44,5 +44,5 @@ public class Track: NSManagedObject {
         analysis = from.analysis
         artwork = from.artwork
         artworkPreview = from.artworkPreview
-    }
+    }    
 }

@@ -147,18 +147,7 @@ class Library : NSPersistentContainer {
     func isEditable(playlist: PlaylistProtocol) -> Bool {
         return playlist is PlaylistManual
     }
-    
-    func addTracks(_ tracks: [Track], to: PlaylistManual, above: Int? = nil) {
-        // Add the tracks we're missing
-        // TODO Allow duplicates after asking
-        // Is set so by default not allowed
-        to.addToTracks(NSOrderedSet(array: tracks))
-
-        if let above = above {
-            to.tracks = to.tracks.rearranged(elements: tracks, to: above)
-        }
-    }
-    
+        
     func addPlaylist(_ playlist: Playlist, to: PlaylistFolder? = nil, above: Int? = nil) {
         let to = to ?? masterPlaylist
         

@@ -91,7 +91,7 @@ class ITunesImporter {
             iTunesPlaylists[persistentID] = playlist
             
             if let playlist = playlist as? PlaylistManual, let tracks = tracks {
-                library.addTracks(tracks, to: playlist)
+                playlist.addTracks(tracks)
             }
             
             if let parent = playlistData.object(forKey: "Parent Persistent ID") as? String {

@@ -25,4 +25,15 @@ public class PlaylistManual: Playlist {
     override var tracksList: [Track] {
         get { return Array(tracks) as! [Track] }
     }
+    
+    func addTracks(_ tracks: [Track], above: Int? = nil) {
+        // Add the tracks we're missing
+        // TODO Allow duplicates after asking
+        // Is set so by default not allowed
+        addToTracks(NSOrderedSet(array: tracks))
+        
+        if let above = above {
+            self.tracks = self.tracks.rearranged(elements: tracks, to: above)
+        }
+    }
 }

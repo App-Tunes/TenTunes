@@ -101,7 +101,7 @@ extension ViewController {
             Library.shared.performChildBackgroundTask { mox in
                 let request: NSFetchRequest = Track.fetchRequest()
                 request.predicate = NSPredicate(format: "metadataFetched == false")
-                self.metadataToDo = try! mox.fetch(request)
+                self.metadataToDo = Library.shared.viewContext.convert(try! mox.fetch(request))
             }
         }
     }

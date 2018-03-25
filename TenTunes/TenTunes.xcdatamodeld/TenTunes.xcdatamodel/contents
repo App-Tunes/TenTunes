@@ -17,7 +17,7 @@
         <attribute name="album" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="analysisData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="artworkData" optional="YES" transient="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
-        <attribute name="artworkPreview" optional="YES" attributeType="Transformable" valueTransformerName="NSImageTransformer" customClassName="NSImage" syncable="YES"/>
+        <attribute name="artworkPreview" optional="YES" attributeType="Transformable" valueTransformerName="NSImageTransformer" customClassName="NSImage" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="bpmString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="creationDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>

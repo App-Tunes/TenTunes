@@ -490,7 +490,6 @@ extension TrackController: NSMenuDelegate {
     
     @IBAction func deleteTrack(_ sender: Any) {
         Library.shared.delete(tracks: menuTracks)
-        Library.shared.modifiedTrackLibrary()
     }
 }
 

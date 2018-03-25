@@ -18,20 +18,20 @@ extension ViewController {
     @IBAction func managedObjectContextObjectsDidChange(notification: NSNotification) {
         guard let userInfo = notification.userInfo else { return }
         
-        if let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject>, inserts.count > 0 {
-            
-        }
+        let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject> ?? Set()
+        let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject> ?? Set()
+        let deletes = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject> ?? Set()
         
-        if let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject>, updates.count > 0 {
-            for update in updates {
-                if let track = update as? Track {
-                    trackController.reload(track: track)
-                }
+        for update in updates {
+            if let track = update as? Track {
+                trackController.reload(track: track)
             }
         }
-        
-        if let deletes = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject>, deletes.count > 0 {
-            
+
+        if inserts.count > 0 || deletes.count > 0 {
+            if ViewController.shared.trackController.history.playlist is PlaylistLibrary {
+                ViewController.shared.trackController.desired._changed = true
+            }
         }
     }
 }

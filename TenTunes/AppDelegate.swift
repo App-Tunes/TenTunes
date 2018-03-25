@@ -152,7 +152,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             track.path = url.absoluteString
             track.title = url.lastPathComponent
             
-            Library.shared.viewMox.insert(track)
+            Library.shared.viewContext.insert(track)
             Library.shared.modifiedTrackLibrary()
             Library.shared.save()
         }

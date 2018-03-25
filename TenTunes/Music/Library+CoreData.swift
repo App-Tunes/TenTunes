@@ -12,7 +12,7 @@ extension Library {
     func registerObservers() {
         let notificationCenter = NotificationCenter.default
 
-        notificationCenter.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: .NSManagedObjectContextObjectsDidChange, object: viewMox)
+        notificationCenter.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: .NSManagedObjectContextObjectsDidChange, object: viewContext)
     }
     
     @IBAction func managedObjectContextObjectsDidChange(notification: NSNotification) {

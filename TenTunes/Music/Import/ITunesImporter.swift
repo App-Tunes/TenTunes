@@ -18,7 +18,7 @@ class ITunesImporter {
         // i.e. We have a non-editable 'iTunes' folder that has a right click update and cannot be edit
         // Though it needs to be duplicatable into an editable copy
         
-        let mox = Library.shared.viewMox
+        let mox = Library.shared.viewContext
         
         // TODO Async
         let masterPlaylist = PlaylistFolder()

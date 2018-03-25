@@ -49,18 +49,14 @@ class Library : NSPersistentContainer {
         })
 
         if !fetchMaster() {
-            _masterPlaylist = PlaylistFolder(mox: viewMox)
+            _masterPlaylist = PlaylistFolder(mox: viewContext)
             _masterPlaylist.name = "Master Playlist"
             
-            viewMox.insert(_masterPlaylist)
+            viewContext.insert(_masterPlaylist)
             save()
         }
         
         registerObservers()
-    }
-    
-    var viewMox: NSManagedObjectContext {
-        return viewContext
     }
     
     @discardableResult
@@ -68,7 +64,12 @@ class Library : NSPersistentContainer {
         let request: NSFetchRequest = PlaylistFolder.fetchRequest()
         request.predicate = NSPredicate(format: "parent = nil")
         do {
-            _masterPlaylist = (try viewMox.fetch(request)).first
+            let applicable = try viewContext.fetch(request)
+            if applicable.count > 1 {
+                fatalError("Multiple applicable master playlists!")
+            }
+            
+            _masterPlaylist = applicable.first
         }
         catch let error {
             print(error)
@@ -140,7 +141,7 @@ class Library : NSPersistentContainer {
     // Editing
     
     func save(in mox: NSManagedObjectContext? = nil) {
-        let mox = mox ?? viewMox
+        let mox = mox ?? viewContext
         
         if mox.hasChanges {
             do {
@@ -227,7 +228,7 @@ class Library : NSPersistentContainer {
         
         for track in tracks {
             mediaLocation.delete(track: track)
-            viewMox.delete(track)
+            viewContext.delete(track)
         }
     }
     
@@ -237,7 +238,7 @@ class Library : NSPersistentContainer {
         }
         
         for playlist in playlists {
-            viewMox.delete(playlist)
+            viewContext.delete(playlist)
             editedTracks(of: playlist) // Possibly update parents
             
             if let current = ViewController.shared.trackController.history.playlist as? Playlist, current == playlist {

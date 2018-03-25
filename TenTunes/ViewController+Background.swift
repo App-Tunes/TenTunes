@@ -63,7 +63,7 @@ extension ViewController {
                         desired.sort ?=> copy.sort
                         
                         DispatchQueue.main.async {
-                            copy.convert(to: Library.shared.viewMox)
+                            copy.convert(to: Library.shared.viewContext)
                             self.trackController.history = copy
                             self._workerSemaphore.signal()
                             desired.semaphore.signal()

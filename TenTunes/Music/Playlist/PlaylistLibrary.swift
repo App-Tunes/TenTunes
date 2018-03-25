@@ -16,6 +16,6 @@ class PlaylistLibrary: PlaylistProtocol {
     var tracksList: [Track] {
         let request: NSFetchRequest = Track.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        return try! Library.shared.viewMox.fetch(request)
+        return try! Library.shared.viewContext.fetch(request)
     }
 }

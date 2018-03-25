@@ -361,6 +361,8 @@ class ViewController: NSViewController {
             queueController.queueify()
         }
         
+        // TODO Show a divider on top
+        queueController._tableView.scrollRowToTop(history.playingIndex)
         queuePopover.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
     }
 }

@@ -81,6 +81,11 @@ extension NSTableView {
     func tableColumn(withIdentifier identifier: NSUserInterfaceItemIdentifier) -> NSTableColumn? {
         return tableColumns[safe: column(withIdentifier: identifier)]
     }
+    
+    func scrollRowToTop(_ row: Int) {
+        scrollRowToVisible((row) + 100) // Scroll 'down' first so we have to scroll up after
+        scrollRowToVisible(row)
+    }
 }
 
 extension NSMenu {

@@ -55,7 +55,7 @@ class Library : NSPersistentContainer {
             _masterPlaylist.name = "Master Playlist"
             
             viewContext.insert(_masterPlaylist)
-            save()
+            try! viewContext.save()
         }
     }
     
@@ -139,23 +139,6 @@ class Library : NSPersistentContainer {
     }
 
     // Editing
-    
-    func save(in mox: NSManagedObjectContext? = nil) {
-        let mox = mox ?? viewContext
-        
-        if mox.hasChanges {
-            do {
-                
-                try mox.save()
-            }
-            catch let error {
-                print(error)
-                exit(1)
-            }
-            
-            _exportChanged = _exportChanged.union(mox.registeredObjects.map { $0.objectID })
-        }
-    }
 
     func isPlaylist(playlist: PlaylistProtocol) -> Bool {
         return playlist is Playlist
@@ -256,6 +239,8 @@ extension Library {
     @IBAction func managedObjectContextObjectsDidChange(notification: NSNotification) {
         guard let userInfo = notification.userInfo else { return }
 
+        let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject> ?? Set()
+        let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject> ?? Set()
         let deletes = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject> ?? Set()
 
         for delete in deletes {
@@ -269,5 +254,9 @@ extension Library {
                 }
             }
         }
+        
+        _exportChanged = _exportChanged.union(inserts.map { $0.objectID })
+                                        .union(deletes.map { $0.objectID })
+                                        .union(updates.map { $0.objectID })
     }
 }

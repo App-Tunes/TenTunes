@@ -87,7 +87,7 @@ extension ViewController {
                             SPInterpreter.analyze(file: self.player.audioFile!, analysis: asyncTrack.analysis!)
                             asyncTrack.writeAnalysis()
                         }
-                        Library.shared.save(in: mox)
+                        try! mox.save()
                         
                         self._workerSemaphore.signal()
                     }
@@ -131,7 +131,7 @@ extension ViewController {
             
             asyncTrack.fetchMetadata()
             
-            Library.shared.save(in: mox)
+            try! mox.save()
             
             // Update on main thread
             DispatchQueue.main.async {

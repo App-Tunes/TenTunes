@@ -44,7 +44,7 @@ class FileTagEditor: NSWindowController {
             Library.shared.mediaLocation.updateLocation(of: track)
         }
         
-        Library.shared.save(in: context)
+        try! context.save()
 
         for track in tracks {
             track.writeMetadata()

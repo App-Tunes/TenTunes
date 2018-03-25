@@ -102,7 +102,7 @@ class ITunesImporter {
             }
         }
         
-        library.save(in: mox)
+        try! mox.save()
         
         return true
     }

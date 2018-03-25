@@ -153,7 +153,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             track.title = url.lastPathComponent
             
             Library.shared.viewContext.insert(track)
-            Library.shared.save()
+            try! Library.shared.viewContext.save()
         }
     }
 }

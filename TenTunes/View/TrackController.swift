@@ -351,7 +351,7 @@ extension TrackController: NSTableViewDelegate {
         }
         else {
             Library.shared.addTracks(tracks, to: history.playlist as! PlaylistManual, above: row)
-            Library.shared.save()
+            try! Library.shared.viewContext.save()
         }
 
         return true

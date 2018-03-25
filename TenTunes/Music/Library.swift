@@ -88,13 +88,6 @@ class Library : NSPersistentContainer {
     
     var _exportChanged: Set<NSManagedObjectID> = Set()
     var exportSemaphore = DispatchSemaphore(value: 1)
-    
-    override func performBackgroundTask(_ task: @escaping (NSManagedObjectContext) -> Swift.Void) {
-        super.performBackgroundTask { mox in
-            mox.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
-            task(mox)
-        }
-    }
 
     // Querying
     

@@ -14,6 +14,19 @@ extension NSPersistentContainer {
         context.parent = viewContext
         return context
     }
+
+    func newChildBackgroundContext() -> NSManagedObjectContext {
+        let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        context.parent = viewContext
+        return context
+    }
+    
+    func performChildBackgroundTask(_ task: @escaping (NSManagedObjectContext) -> Swift.Void) {
+        let context = newChildBackgroundContext()
+        context.perform {
+            task(context)
+        }
+    }
 }
 
 extension NSManagedObject {

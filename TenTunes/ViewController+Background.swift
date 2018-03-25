@@ -49,7 +49,9 @@ extension ViewController {
                     let copy = PlayHistory(playlist: self.trackController.history.playlist)
                     desired._changed = false
                     
-                    Library.shared.performBackgroundTask { mox in
+                    Library.shared.performChildBackgroundTask { mox in
+                        mox.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
+
                         copy.convert(to: mox)
                         desired.filter ?=> copy.filter
                         desired.sort ?=> copy.sort
@@ -69,7 +71,9 @@ extension ViewController {
                     self._waveformView.analysis = playing.analysis
                     self.trackController.reload(track: playing) // Get the analysis inside the cell
                     
-                    Library.shared.performBackgroundTask { mox in
+                    Library.shared.performChildBackgroundTask { mox in
+                        mox.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
+
                         let asyncTrack = mox.convert(playing)
                         asyncTrack.analysis = playing.analysis
 
@@ -118,7 +122,9 @@ extension ViewController {
     func fetchMetadata(for track: Track, wait: Bool = false) {
         track.metadataFetched = true // So no other thread tries to enter
         
-        Library.shared.performBackgroundTask { mox in
+        Library.shared.performChildBackgroundTask { mox in
+            mox.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
+
             let asyncTrack = mox.convert(track)
             
             asyncTrack.fetchMetadata()

@@ -106,8 +106,9 @@ import Cocoa
         
         // TODO If we select multiple playlists at once, put them in the newly created one
         parent.addPlaylist(createPlaylist, above: idx)
-        select(playlist: createPlaylist, editTitle: true)
         try! Library.shared.viewContext.save()
+
+        select(playlist: createPlaylist, editTitle: true)
     }
     
     func delete(indices: [Int]?) {

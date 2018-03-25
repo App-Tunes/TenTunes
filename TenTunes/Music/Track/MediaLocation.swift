@@ -71,7 +71,8 @@ class MediaLocation {
         var component = url
         
         while component != directory {
-            guard try! FileManager.default.contentsOfDirectory(at: component, includingPropertiesForKeys: nil, options: []).count == 0 else {
+            let children = try! FileManager.default.contentsOfDirectory(at: component, includingPropertiesForKeys: nil, options: [])
+            guard children.count == 0 else {
                 return
             }
             

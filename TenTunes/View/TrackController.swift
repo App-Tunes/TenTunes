@@ -416,7 +416,7 @@ extension TrackController: NSMenuDelegate {
             menu.cancelTrackingWithoutAnimation()
         }
         
-        _moveToMediaDirectory.isHidden = menuTracks.noneMatch { !$0.usesMediaDirectory }
+        _moveToMediaDirectory.isHidden = menuTracks.noneMatch { !$0.usesMediaDirectory && $0.url != nil }
 
         if isQueue {
             let deleteItem = menu.item(withAction: #selector(removeTrack))

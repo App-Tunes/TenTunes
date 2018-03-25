@@ -262,6 +262,12 @@ extension Library {
             if let track = delete as? Track {
                 mediaLocation.delete(track: track)
             }
+            
+            if let playlist = delete as? Playlist {
+                if playlist == masterPlaylist {
+                    fatalError("Attempting to delete the Master Playlist!")
+                }
+            }
         }
     }
 }

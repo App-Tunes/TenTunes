@@ -26,11 +26,18 @@ extension ViewController {
             if let track = update as? Track {
                 trackController.reload(track: track)
             }
+            
+            if let playlist = update as? Playlist {
+                // When deleting playlists the parent is updated since it loses a child
+                if Library.shared.isAffected(playlist: trackController.history.playlist, whenChanging: playlist) {
+                    trackController.desired._changed = true
+                }
+            }
         }
 
         if inserts.count > 0 || deletes.count > 0 {
-            if ViewController.shared.trackController.history.playlist is PlaylistLibrary {
-                ViewController.shared.trackController.desired._changed = true
+            if trackController.history.playlist is PlaylistLibrary {
+                trackController.desired._changed = true
             }
         }
     }

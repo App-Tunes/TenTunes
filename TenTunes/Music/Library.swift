@@ -154,14 +154,6 @@ class Library : NSPersistentContainer {
             _exportChanged = _exportChanged.union(mox.registeredObjects.map { $0.objectID })
         }
     }
-    
-    func editedTracks(of: Playlist) {
-        // Should find a way for histories to check themselves? Or something
-        // Might use lastChanged index and on every query check for sanity
-        if isAffected(playlist: ViewController.shared.trackController.history.playlist, whenChanging: of) {
-            ViewController.shared.trackController.desired._changed = true
-        }
-    }
 
     func isPlaylist(playlist: PlaylistProtocol) -> Bool {
         return playlist is Playlist
@@ -180,8 +172,6 @@ class Library : NSPersistentContainer {
         if let above = above {
             to.tracks = to.tracks.rearranged(elements: tracks, to: above)
         }
-        
-        editedTracks(of: to)
     }
     
     func addPlaylist(_ playlist: Playlist, to: PlaylistFolder? = nil, above: Int? = nil) {
@@ -193,7 +183,6 @@ class Library : NSPersistentContainer {
             to.children = to.children.rearranged(elements: [playlist], to: above)
         }
         
-        editedTracks(of: to)
         ViewController.shared.playlistController._outlineView.reloadData()
     }
 
@@ -207,8 +196,6 @@ class Library : NSPersistentContainer {
         if let listening = ViewController.shared.history?.playlist, isAffected(playlist: listening, whenChanging: from) {
             ViewController.shared.history?.filter { !tracks.contains($0) }
         }
-        
-        editedTracks(of: from)
     }
     
     func delete(tracks: [Track]) {
@@ -231,7 +218,6 @@ class Library : NSPersistentContainer {
         
         for playlist in playlists {
             viewContext.delete(playlist)
-            editedTracks(of: playlist) // Possibly update parents
             
             if let current = ViewController.shared.trackController.history.playlist as? Playlist, current == playlist {
                 // Deleted our current playlist! :<

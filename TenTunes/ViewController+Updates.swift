@@ -36,7 +36,8 @@ extension ViewController {
                 }
                 
                 if let listening = history?.playlist, Library.shared.isAffected(playlist: listening, whenChanging: playlist) {
-                    history!.filter { self.history!.playlist.tracksList.contains($0) }
+                    let left = self.history!.playlist.tracksList
+                    history!.filter { left.contains($0) }
                 }
             }
         }

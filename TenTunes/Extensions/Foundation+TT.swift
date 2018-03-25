@@ -383,3 +383,15 @@ extension URL {
         return relComponents.joined(separator: "/")
     }
 }
+
+extension Timer {
+    static func scheduledAsyncBlock(withTimeInterval interval: TimeInterval, repeats: Bool, block: @escaping () -> Swift.Void) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            repeat {
+                Thread.sleep(forTimeInterval: interval)
+                block()
+            }
+            while(repeats)
+        }
+    }
+}

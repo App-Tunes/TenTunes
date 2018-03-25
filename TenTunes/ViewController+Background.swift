@@ -95,6 +95,13 @@ extension ViewController {
                 }
             }
         }
+        
+        // Requests are freaking slow with many tracks so do it rarely
+        Timer.scheduledAsyncBlock(withTimeInterval: 10, repeats: true) {
+            let request: NSFetchRequest = Track.fetchRequest()
+            request.predicate = NSPredicate(format: "metadataFetched == false")
+            self.metadataToDo = try! Library.shared.viewContext.fetch(request)
+        }
     }
     
     func fetchOneMetadata() {
@@ -106,12 +113,10 @@ extension ViewController {
                 }
             }
             
-            // TODO Replace this with a library-caused search
-            for track in trackController.history.playlist.tracksList {
-                if !track.metadataFetched  {
-                    fetchMetadata(for: track, wait: true)
-                    return
-                }
+            if !metadataToDo.isEmpty {
+                let track = metadataToDo.removeFirst()
+                fetchMetadata(for: track, wait: true) // TODO If we fetched it in the meantime, skip
+                return
             }
         }
         

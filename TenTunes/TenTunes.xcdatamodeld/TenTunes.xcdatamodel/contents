@@ -26,6 +26,7 @@
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="iTunesID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="keyString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="metadataFetched" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="path" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="usesMediaDirectory" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
@@ -35,6 +36,6 @@
         <element name="Playlist" positionX="-416" positionY="113" width="128" height="118"/>
         <element name="PlaylistFolder" positionX="-218" positionY="171" width="128" height="58"/>
         <element name="PlaylistManual" positionX="-218" positionY="252" width="128" height="58"/>
-        <element name="Track" positionX="-414" positionY="261" width="128" height="285"/>
+        <element name="Track" positionX="-414" positionY="261" width="128" height="300"/>
     </elements>
 </model>

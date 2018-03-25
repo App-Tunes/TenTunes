@@ -31,6 +31,7 @@ extension Track {
     @NSManaged public var genre: String?
     @NSManaged public var iTunesID: String?
     @NSManaged public var keyString: String?
+    @NSManaged public var metadataFetched: Bool
     @NSManaged public var path: String?
     @NSManaged public var title: String?
     @NSManaged public var usesMediaDirectory: Bool

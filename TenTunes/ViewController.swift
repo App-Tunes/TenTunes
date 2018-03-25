@@ -64,6 +64,7 @@ class ViewController: NSViewController {
     var completionTimer: Timer?
 
     var _workerSemaphore = DispatchSemaphore(value: 3)
+    var metadataToDo: [Track] = []
 
     var shuffle = true {
         didSet {

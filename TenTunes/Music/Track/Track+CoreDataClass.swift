@@ -12,7 +12,6 @@ import CoreData
 
 @objc(Track)
 public class Track: NSManagedObject {
-    var metadataFetched: Bool = false
     var analysis: Analysis?
     
     @objc dynamic var artwork: NSImage?
@@ -39,7 +38,6 @@ public class Track: NSManagedObject {
     }
     
     func copyTransient(from: Track) {
-        metadataFetched = from.metadataFetched
         analysis = from.analysis
         artwork = from.artwork
     }    

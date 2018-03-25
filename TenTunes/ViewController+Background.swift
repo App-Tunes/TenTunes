@@ -98,9 +98,11 @@ extension ViewController {
         
         // Requests are freaking slow with many tracks so do it rarely
         Timer.scheduledAsyncBlock(withTimeInterval: 10, repeats: true) {
-            let request: NSFetchRequest = Track.fetchRequest()
-            request.predicate = NSPredicate(format: "metadataFetched == false")
-            self.metadataToDo = try! Library.shared.viewContext.fetch(request)
+            Library.shared.performChildBackgroundTask { mox in
+                let request: NSFetchRequest = Track.fetchRequest()
+                request.predicate = NSPredicate(format: "metadataFetched == false")
+                self.metadataToDo = try! mox.fetch(request)
+            }
         }
     }
     

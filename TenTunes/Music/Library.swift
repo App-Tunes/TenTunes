@@ -11,13 +11,43 @@ import Cocoa
 
 import CoreData
 
-class Library {
-    static var shared: Library!
+class Library : NSPersistentContainer {
+    static var shared: Library {
+        return (NSApp.delegate as! AppDelegate).persistentContainer
+    }
 
-    init(at: URL) {
+    init(name: String, at: URL) {
         directory = at
         mediaLocation = MediaLocation(directory: directory.appendingPathComponent("Media"))
+
+        super.init(name: name, managedObjectModel: NSManagedObjectModel(contentsOf: Bundle.main.url(forResource: name, withExtension: "momd")!)!)
         
+        let libraryURL = at.appendingPathComponent("Library")
+        try! FileManager.default.createDirectory(at: libraryURL, withIntermediateDirectories: true, attributes: nil)
+        
+        let description = NSPersistentStoreDescription(url: libraryURL.appendingPathComponent("library.sqlite"))
+        description.shouldInferMappingModelAutomatically = true
+        description.shouldMigrateStoreAutomatically = true
+        
+        persistentStoreDescriptions = [description]
+        
+        loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                
+                /*
+                 Typical reasons for an error here include:
+                 * The parent directory does not exist, cannot be created, or disallows writing.
+                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
+                 * The device is out of space.
+                 * The store could not be migrated to the current model version.
+                 Check the error message to determine what the actual problem was.
+                 */
+                fatalError("Unresolved error \(error)")
+            }
+        })
+
         if !fetchMaster() {
             _masterPlaylist = PlaylistFolder(mox: viewMox)
             _masterPlaylist.name = "Master Playlist"
@@ -29,12 +59,8 @@ class Library {
         registerObservers()
     }
     
-    var persistentContainer: NSPersistentContainer {
-        return (NSApp.delegate as! AppDelegate).persistentContainer
-    }
-    
     var viewMox: NSManagedObjectContext {
-        return persistentContainer.viewContext
+        return viewContext
     }
     
     @discardableResult
@@ -63,7 +89,7 @@ class Library {
     var exportSemaphore = DispatchSemaphore(value: 1)
     
     func performInBackground(task: @escaping (NSManagedObjectContext) -> Swift.Void) {
-        persistentContainer.performBackgroundTask { mox in
+        performBackgroundTask { mox in
             mox.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
             task(mox)
         }
@@ -72,15 +98,15 @@ class Library {
     // Querying
     
     func track(byId: NSManagedObjectID) -> Track? {
-        return (try? persistentContainer.viewContext.existingObject(with: byId)) as? Track
+        return (try? viewContext.existingObject(with: byId)) as? Track
     }
 
     func playlist(byId: NSManagedObjectID) -> Playlist? {
-        return (try? persistentContainer.viewContext.existingObject(with: byId)) as? Playlist
+        return (try? viewContext.existingObject(with: byId)) as? Playlist
     }
     
     var allPlaylists: [Playlist] {
-        return try! persistentContainer.viewContext.fetch(NSFetchRequest<Playlist>(entityName: "Playlist"))
+        return try! viewContext.fetch(NSFetchRequest<Playlist>(entityName: "Playlist"))
     }
     
     func isAffected(playlist: PlaylistProtocol, whenChanging: Playlist) -> Bool {
@@ -108,7 +134,7 @@ class Library {
     func playlists(containing tracks: [Track]) -> [PlaylistManual] {
         let request: NSFetchRequest = PlaylistManual.fetchRequest()
         request.predicate = NSPredicate(format: "ANY tracks IN %@", tracks) // TODO
-        return try! persistentContainer.viewContext.fetch(request)
+        return try! viewContext.fetch(request)
     }
 
     // Editing
@@ -228,7 +254,7 @@ class Library {
     func findTrack(byITunesID: String) -> Track? {
         let request = NSFetchRequest<Track>(entityName: "Track")
         request.predicate = NSPredicate(format: "iTunesID == %@", byITunesID)
-        return try! persistentContainer.viewContext.fetch(request).first
+        return try! viewContext.fetch(request).first
     }
 }
 
@@ -240,7 +266,7 @@ extension Library {
     }
     
     func restoreFrom(playlistID: Any) -> Playlist? {
-        if let string = playlistID as? String, let uri = URL(string: string), let id = persistentContainer.persistentStoreCoordinator.managedObjectID(forURIRepresentation: uri) {
+        if let string = playlistID as? String, let uri = URL(string: string), let id = persistentStoreCoordinator.managedObjectID(forURIRepresentation: uri) {
             return playlist(byId: id)
         }
         return nil
@@ -255,7 +281,7 @@ extension Library {
     }
     
     func readTrack(fromPasteboardItem item: NSPasteboardItem) -> Track? {
-        if let idString = item.string(forType: Track.pasteboardType), let url = URL(string: idString), let id = persistentContainer.persistentStoreCoordinator.managedObjectID(forURIRepresentation: url) {
+        if let idString = item.string(forType: Track.pasteboardType), let url = URL(string: idString), let id = persistentStoreCoordinator.managedObjectID(forURIRepresentation: url) {
             return track(byId: id)
         }
         return nil
@@ -266,7 +292,7 @@ extension Library {
     }
     
     func readPlaylist(fromPasteboardItem item: NSPasteboardItem) -> Playlist? {
-        if let idString = item.string(forType: Playlist.pasteboardType), let url = URL(string: idString), let id = persistentContainer.persistentStoreCoordinator.managedObjectID(forURIRepresentation: url) {
+        if let idString = item.string(forType: Playlist.pasteboardType), let url = URL(string: idString), let id = persistentStoreCoordinator.managedObjectID(forURIRepresentation: url) {
             return playlist(byId: id)
         }
         return nil

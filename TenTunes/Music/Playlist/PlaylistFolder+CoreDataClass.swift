@@ -12,11 +12,11 @@ import CoreData
 
 @objc(PlaylistFolder)
 public class PlaylistFolder: Playlist {
-    convenience init() {
-        self.init(mox: Library.shared.persistentContainer.viewContext)
+    convenience init() { // TODO Remove?
+        self.init(mox: Library.shared.viewContext)
     }
     
-    convenience init(mox: NSManagedObjectContext) {
+    convenience init(mox: NSManagedObjectContext) { // TODO Remove?
         self.init(entity: NSEntityDescription.entity(forEntityName: "PlaylistFolder", in:mox)!, insertInto: mox)
         
         name = "Unnamed Group"

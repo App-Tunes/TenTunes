@@ -12,8 +12,8 @@ import AudioKit
 extension Track {
     static let pasteboardType = NSPasteboard.PasteboardType(rawValue: "tentunes.track")
 
-    convenience init() {
-        let mox = Library.shared.persistentContainer.viewContext
+    convenience init() { // TODO Remove?
+        let mox = Library.shared.viewContext
         self.init(entity: NSEntityDescription.entity(forEntityName: "Track", in:mox)!, insertInto: mox)
     }
 

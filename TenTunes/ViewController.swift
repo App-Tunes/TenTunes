@@ -81,7 +81,6 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         
         ValueTransformers.register()
-        Library.shared = Library(at: AppDelegate.dataLocation)
 
         trackController = TrackController(nibName: NSNib.Name(rawValue: "TrackController"), bundle: nil)
         trackController.view.frame = _trackView.frame

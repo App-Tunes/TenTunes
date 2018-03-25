@@ -47,6 +47,8 @@ class Library : NSPersistentContainer {
                 fatalError("Unresolved error \(error)")
             }
         })
+        
+        registerObservers()
 
         if !fetchMaster() {
             _masterPlaylist = PlaylistFolder(mox: viewContext)
@@ -198,19 +200,6 @@ class Library : NSPersistentContainer {
         }
     }
     
-    func delete(tracks: [Track]) {
-        // First remove them from all current playlists like we did intentionally
-        // This ensures all views etc update properly
-        for relevant in playlists(containing: tracks) {
-            remove(tracks: tracks, from: relevant)
-        }
-        
-        for track in tracks {
-            mediaLocation.delete(track: track)
-            viewContext.delete(track)
-        }
-    }
-    
     func delete(playlists: [Playlist]) {
         guard (playlists.allMatch { isPlaylist(playlist: $0) }) else {
             fatalError("Not a playlist!")
@@ -275,5 +264,23 @@ extension Library {
             return playlist(byId: id)
         }
         return nil
+    }
+}
+
+extension Library {
+    func registerObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: .NSManagedObjectContextObjectsDidChange, object: viewContext)
+    }
+    
+    @IBAction func managedObjectContextObjectsDidChange(notification: NSNotification) {
+        guard let userInfo = notification.userInfo else { return }
+
+        let deletes = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject> ?? Set()
+
+        for delete in deletes {
+            if let track = delete as? Track {
+                mediaLocation.delete(track: track)
+            }
+        }
     }
 }

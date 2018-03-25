@@ -31,4 +31,10 @@ extension NSManagedObjectContext {
         // TODO If many, fetch all at once
         return ts.map(convert)
     }
+    
+    public func delete(all: [NSManagedObject]) {
+        for object in all {
+            delete(object)
+        }
+    }
 }

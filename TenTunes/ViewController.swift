@@ -151,6 +151,8 @@ class ViewController: NSViewController {
             return self.keyDown(with: $0)
         }
         
+        registerObservers()
+        
         mediaKeyTap = MediaKeyTap(delegate: self)
         mediaKeyTap?.start()
 

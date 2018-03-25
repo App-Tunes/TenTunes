@@ -1,24 +1,22 @@
 //
-//  Library+CoreData.swift
+//  ViewController+Updates.swift
 //  TenTunes
 //
-//  Created by Lukas Tenbrink on 24.03.18.
+//  Created by Lukas Tenbrink on 25.03.18.
 //  Copyright © 2018 ivorius. All rights reserved.
 //
 
-import Cocoa
+import Foundation
 
-extension Library {
+extension ViewController {
     func registerObservers() {
         let notificationCenter = NotificationCenter.default
-
-        notificationCenter.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: .NSManagedObjectContextObjectsDidChange, object: viewContext)
+        
+        notificationCenter.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: .NSManagedObjectContextObjectsDidChange, object: Library.shared.viewContext)
     }
     
     @IBAction func managedObjectContextObjectsDidChange(notification: NSNotification) {
         guard let userInfo = notification.userInfo else { return }
-        
-        let vc = ViewController.shared!
         
         if let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject>, inserts.count > 0 {
             
@@ -27,7 +25,7 @@ extension Library {
         if let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject>, updates.count > 0 {
             for update in updates {
                 if let track = update as? Track {
-                    vc.trackController.reload(track: track)
+                    trackController.reload(track: track)
                 }
             }
         }

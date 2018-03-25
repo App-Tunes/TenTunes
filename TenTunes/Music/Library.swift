@@ -55,8 +55,6 @@ class Library : NSPersistentContainer {
             viewContext.insert(_masterPlaylist)
             save()
         }
-        
-        registerObservers()
     }
     
     @discardableResult

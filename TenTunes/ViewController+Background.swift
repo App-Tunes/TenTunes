@@ -66,25 +66,13 @@ extension ViewController {
                 }
                 else if let playing = self.playing, playing.analysis == nil {
                     // Analyze the current file
-                    
-                    playing.analysis = Analysis()
-                    self._waveformView.analysis = playing.analysis
-                    self.trackController.reload(track: playing) // Get the analysis inside the cell
-                    
-                    Library.shared.performChildBackgroundTask { mox in
-                        mox.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
-
-                        let asyncTrack = mox.convert(playing)
-                        asyncTrack.analysis = playing.analysis
-
-                        // May exist on disk
-                        if !asyncTrack.readAnalysis() {
-                            // TODO Merge with metadata fetch etc
-                            SPInterpreter.analyze(file: self.player.audioFile!, analysis: asyncTrack.analysis!)
-                            asyncTrack.writeAnalysis()
-                        }
-                        try! mox.save()
-                        
+                    self.analyze(track: playing, read: true) {
+                        self._workerSemaphore.signal()
+                    }
+                }
+                else if !self.analysisToDo.isEmpty {
+                    // Analyze requested file
+                    self.analyze(track: self.analysisToDo.removeFirst(), read: false) {
                         self._workerSemaphore.signal()
                     }
                 }
@@ -141,6 +129,34 @@ extension ViewController {
             
             self._workerSemaphore.signalAfter(seconds: wait ? 0.2 : 0.02)
         }
+    }
+    
+    func analyze(track: Track, read: Bool, completion: @escaping () -> Swift.Void) {
+        guard let url = track.url else {
+            completion()
+            return
+        }
         
+        track.analysis = Analysis()
+        self._waveformView.analysis = track.analysis
+        self.trackController.reload(track: track) // Get the analysis inside the cell
+        
+        Library.shared.performChildBackgroundTask { mox in
+            mox.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
+            
+            let asyncTrack = mox.convert(track)
+            asyncTrack.analysis = track.analysis
+            
+            // May exist on disk
+            if !read || !asyncTrack.readAnalysis() {
+                // TODO Merge with metadata fetch etc
+                let audioFile = try! AKAudioFile(forReading: url)
+                SPInterpreter.analyze(file: audioFile, analysis: asyncTrack.analysis!)
+                asyncTrack.writeAnalysis()
+            }
+            try! mox.save()
+            
+            completion()
+        }
     }
 }

@@ -417,6 +417,8 @@ extension TrackController: NSMenuDelegate {
         }
         
         _moveToMediaDirectory.isHidden = menuTracks.noneMatch { !$0.usesMediaDirectory && $0.url != nil }
+        
+        menu.item(withAction: #selector(menuAnalyze))?.isHidden = menuTracks.noneMatch { $0.url != nil }
 
         if isQueue {
             let deleteItem = menu.item(withAction: #selector(removeTrack))
@@ -482,6 +484,10 @@ extension TrackController: NSMenuDelegate {
         }
         
         Library.shared.mediaLocation.updateLocations(of: menuTracks, copy: true)
+    }
+    
+    @IBAction func menuAnalyze(_ sender: Any) {
+        ViewController.shared.analysisToDo = ViewController.shared.analysisToDo.union(menuTracks)
     }
 
     @IBAction func removeTrack(_ sender: Any) {

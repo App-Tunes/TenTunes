@@ -65,6 +65,7 @@ class ViewController: NSViewController {
 
     var _workerSemaphore = DispatchSemaphore(value: 3)
     var metadataToDo: [Track] = []
+    var analysisToDo: Set<Track> = Set()
 
     var shuffle = true {
         didSet {

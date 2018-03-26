@@ -393,6 +393,13 @@ Gw
                     </menu>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="Rd7-Gj-f0d"/>
+                <menuItem title="Analyze" id="gdC-UO-cO1">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="menuAnalyze:" target="-2" id="vjc-37-GQ0"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="4aL-aX-gXq"/>
                 <menuItem title="Remove from Playlist" id="Ko5-yB-rKk">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>

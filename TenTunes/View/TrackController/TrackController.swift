@@ -245,6 +245,10 @@ extension TrackController: NSTableViewDelegate {
         }
         else if tableColumn?.identifier == ColumnIdentifiers.waveform, let view = tableView.makeView(withIdentifier: CellIdentifiers.waveform, owner: nil) as? WaveformView {
             
+            if track.analysis == nil {
+                track.readAnalysis()
+            }
+            
             // Doesn't work from interface builder
             view.target = self
             view.action = #selector(waveformViewClicked)

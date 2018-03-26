@@ -50,6 +50,7 @@ class Library : NSPersistentContainer {
         
         registerObservers()
 
+        allTracks = PlaylistLibrary(context: viewContext)
         if !fetchMaster() {
             _masterPlaylist = PlaylistFolder(mox: viewContext)
             _masterPlaylist.name = "Master Playlist"
@@ -80,7 +81,7 @@ class Library : NSPersistentContainer {
     var directory: URL
     var mediaLocation: MediaLocation
     
-    var allTracks = PlaylistLibrary()
+    var allTracks: PlaylistLibrary!
     var _masterPlaylist: PlaylistFolder!
     var masterPlaylist: PlaylistFolder {
         return _masterPlaylist

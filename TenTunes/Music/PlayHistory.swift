@@ -9,7 +9,7 @@
 import Cocoa
 
 class PlayHistory {
-    let playlist: PlaylistProtocol
+    var playlist: PlaylistProtocol
 
     var order: [Track]
     var shuffled: [Track]?
@@ -36,6 +36,7 @@ class PlayHistory {
     }
     
     func convert(to mox: NSManagedObjectContext) {
+        playlist = playlist.convert(to: mox)
         order = mox.convert(order)
         shuffled = shuffled ?=> mox.convert
     }

@@ -46,13 +46,13 @@ extension ViewController {
             if self._workerSemaphore.acquireNow() {
                 // Update the current playlist, top priority
                 if let desired = self.trackController.desired, desired._changed, desired.semaphore.acquireNow() {
-                    let copy = PlayHistory(playlist: self.trackController.history.playlist)
                     desired._changed = false
                     
                     Library.shared.performChildBackgroundTask { mox in
+                        let copy = PlayHistory(playlist: self.trackController.history.playlist.convert(to: mox))
+
                         mox.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
 
-                        copy.convert(to: mox)
                         desired.filter ?=> copy.filter
                         desired.sort ?=> copy.sort
                         

@@ -15,6 +15,10 @@ public class Playlist: NSManagedObject, PlaylistProtocol {
     
     static let pasteboardType = NSPasteboard.PasteboardType(rawValue: "tentunes.playlist")
 
+    func convert(to: NSManagedObjectContext) -> Self {
+        return to.convert(self)
+    }
+    
     var tracksList: [Track] {
         return []
     }

@@ -73,6 +73,11 @@ extension NSTableView {
                 insertRows(at: IndexSet(added), withAnimation: .slideUp)
             }
         }
+        else if let from = from, let to = to, let movement = from.movement(to: to) {
+            for (src, dst) in (movement.sorted { $0.1 > $1.1 }) {
+                moveRow(at: src, to: dst)
+            }
+        }
         else {
             reloadData()
         }

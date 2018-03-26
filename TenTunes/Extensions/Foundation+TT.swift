@@ -218,6 +218,43 @@ extension Array where Element: Equatable {
         
         return leftSmaller ? (nil, difference) : (difference, nil)
     }
+    
+    func movement(to: [Element]) -> [(Int, Int)]? {
+        guard to.count == count else {
+            return nil
+        }
+        
+        let (left, right) = (self, to)
+        
+        var leftIdx = 0
+        var rightIdx = 0
+
+        var bucket: [Int] = []
+        var movements: [(Int, Int)] = []
+
+        // We run through both lists, keeping an irregularity bucket
+        // Whenever the objects aren't the same, we check if we can use the first bucket object -> Movement
+        // Otherwise we put the current objects at the end of the bucket
+        while leftIdx < right.count || rightIdx < right.count {
+            if rightIdx < right.count, leftIdx < left.count, left[leftIdx] == right[rightIdx] {
+                leftIdx += 1
+                rightIdx += 1
+            }
+            else if rightIdx < right.count, let first = bucket.first, left[first] == right[rightIdx] {
+                movements.append((bucket.removeFirst(), rightIdx))
+                rightIdx += 1
+            }
+            else if leftIdx < left.count {
+                bucket.append(leftIdx)
+                leftIdx += 1
+            }
+            else {
+                return nil
+            }
+        }
+
+        return bucket.count == 0 ? movements : nil
+    }
 }
 
 extension Array where Iterator.Element == CGFloat {

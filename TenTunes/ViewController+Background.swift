@@ -138,7 +138,11 @@ extension ViewController {
         }
         
         track.analysis = Analysis()
-        self._waveformView.analysis = track.analysis
+        
+        if self.playing == track {
+            self._waveformView.analysis = track.analysis
+        }
+        
         self.trackController.reload(track: track) // Get the analysis inside the cell
         
         Library.shared.performChildBackgroundTask { mox in

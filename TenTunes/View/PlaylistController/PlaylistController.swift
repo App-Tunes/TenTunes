@@ -247,48 +247,6 @@ extension PlaylistController : NSOutlineViewDelegate {
     }
 }
 
-extension PlaylistController: NSMenuDelegate {
-    var menuPlaylists: [Playlist] {
-        return _outlineView.clickedRows.flatMap { _outlineView.item(atRow: $0) as? Playlist }
-    }
-    
-    func menuNeedsUpdate(_ menu: NSMenu) {
-        if menuPlaylists.count < 1 {
-            menu.cancelTrackingWithoutAnimation()
-        }
-    }
-    
-    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        // Probably the main Application menu
-        if menuItem.target !== self {
-            return validateUserInterfaceItem(menuItem)
-        }
-        
-        return true
-    }
-    
-    @IBAction func deletePlaylist(_ sender: Any) {
-        delete(indices: _outlineView.clickedRows)
-    }
-}
-
-extension PlaylistController: NSUserInterfaceValidations {
-    func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
-        guard let action = item.action else {
-            return false
-        }
-        
-        if action == #selector(delete as (AnyObject) -> Swift.Void) { return true }
-        if action == #selector(performFindPanelAction) { return true }
-
-        return false
-    }
-    
-    @IBAction func delete(_ sender: AnyObject) {
-        delete(indices: Array(_outlineView.selectedRowIndexes))
-    }
-}
-
 extension PlaylistController: NSTextFieldDelegate {
     // Editing
     

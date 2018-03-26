@@ -28,6 +28,17 @@ extension PlaylistController: NSMenuDelegate {
         return true
     }
     
+    @IBAction func duplicatePlaylist(_ sender: Any) {
+        for playlist in menuPlaylists {
+            let copy = playlist.duplicate(except: ["id", "creationDate", "parent"], deep: ["children"]) as! Playlist
+            let idx = playlist.parent!.children.index(of: playlist)
+            
+            playlist.parent!.addPlaylist(copy, above: idx)
+        }
+        
+        try! Library.shared.viewContext.save()
+    }
+    
     @IBAction func deletePlaylist(_ sender: Any) {
         delete(indices: _outlineView.clickedRows)
     }

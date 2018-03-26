@@ -29,9 +29,58 @@ extension NSPersistentContainer {
     }
 }
 
+enum CopyBehavior {
+    case none, copy, deepcopy
+}
+
 extension NSManagedObject {
     func refresh(merge: Bool = false) {
         managedObjectContext!.refresh(self, mergeChanges: false)
+    }
+    
+    func duplicate(only: [String]) -> NSManagedObject {
+        return duplicate { only.contains($0) ? .copy : .none }
+    }
+    
+    func duplicate(except: [String], deep: [String] = []) -> NSManagedObject {
+        return duplicate { deep.contains($0) ? .deepcopy : except.contains($0) ? .none : .copy }
+    }
+    
+    func duplicate(byProperties fun: (String) -> CopyBehavior) -> NSManagedObject {
+        let duplicate = NSEntityDescription.insertNewObject(forEntityName: entity.name!, into: managedObjectContext!)
+        
+        for propertyName in entity.propertiesByName.keys {
+            switch fun(propertyName) {
+            case .copy:
+                let value = self.value(forKey: propertyName)
+                duplicate.setValue(value, forKey: propertyName)
+            case .deepcopy:
+                let value = self.value(forKey: propertyName)
+                if let value = value as? NSSet {
+                    let copy = value.map {
+                        return ($0 as! NSManagedObject).duplicate(byProperties: fun)
+                    }
+                    duplicate.setValue(copy, forKey: propertyName)
+                }
+                else if let value = value as? NSOrderedSet {
+                    let copy = value.map {
+                        return ($0 as! NSManagedObject).duplicate(byProperties: fun)
+                    }
+                    duplicate.setValue(NSOrderedSet(array: copy), forKey: propertyName)
+                }
+                else if let value = value as? NSManagedObject {
+                    let copy = value.duplicate(byProperties: fun)
+                    duplicate.setValue(copy, forKey: propertyName)
+                }
+                else {
+                    fatalError("Unrecognized thing to copy")
+                }
+            case .none:
+                break
+            }
+        }
+        
+        return duplicate
     }
 }
 

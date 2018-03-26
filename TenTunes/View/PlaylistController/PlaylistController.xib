@@ -174,8 +174,11 @@
                         <action selector="didDoubleClick:" target="-2" id="ilf-kI-BUX"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Duplicate" enabled="NO" id="xYA-qX-gKO">
+                <menuItem title="Duplicate" id="xYA-qX-gKO">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="duplicatePlaylist:" target="-2" id="vRz-SN-nhS"/>
+                    </connections>
                 </menuItem>
                 <menuItem title="Delete" id="ZLK-fo-c9h">
                     <modifierMask key="keyEquivalentModifierMask"/>

@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TrackController" customModule="TenTunes" customModuleProvider="target">
             <connections>
+                <outlet property="_analyzeSubmenu" destination="rAL-JR-UxV" id="Vvq-LS-eak"/>
                 <outlet property="_moveToMediaDirectory" destination="e6s-jT-drv" id="Mxx-MY-rhK"/>
                 <outlet property="_searchBarClose" destination="BeI-cc-vzB" id="5Pj-5J-T9B"/>
                 <outlet property="_searchBarHeight" destination="Sxu-f3-yrD" id="Ubq-yi-vS6"/>
@@ -398,6 +399,25 @@ Gw
                     <connections>
                         <action selector="menuAnalyze:" target="-2" id="vjc-37-GQ0"/>
                     </connections>
+                </menuItem>
+                <menuItem title="Analyze" id="rAL-JR-UxV">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Analyze" id="Sb9-5G-cmU">
+                        <items>
+                            <menuItem title="All" id="jXz-Qv-JbR">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="menuAnalyze:" target="-2" id="9T4-L3-3Xi"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Only where Missing" id="fZI-mT-sYC">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="menuAnalyzeWhereMissing:" target="-2" id="3qO-38-o3Y"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="4aL-aX-gXq"/>
                 <menuItem title="Remove from Playlist" id="Ko5-yB-rKk">

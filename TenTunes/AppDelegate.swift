@@ -136,23 +136,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func openDocument(_ sender: Any) {
         let dialog = NSOpenPanel()
-        
+
+        dialog.allowsMultipleSelection = true
+
         // TODO Allow only audiovisual files
 //        dialog.title                   = "Select an iTunes Library"
-//        dialog.allowsMultipleSelection = false
 //        dialog.allowedFileTypes        = ["xml"]
         
         if dialog.runModal() == NSApplication.ModalResponse.OK {
-            guard let url = dialog.url else {
-                return
+            for url in dialog.urls {
+                let track = Track()
+                
+                track.path = url.absoluteString
+                track.title = url.lastPathComponent
+                
+                Library.shared.viewContext.insert(track)
             }
             
-            let track = Track()
-            
-            track.path = url.absoluteString
-            track.title = url.lastPathComponent
-            
-            Library.shared.viewContext.insert(track)
             try! Library.shared.viewContext.save()
         }
     }

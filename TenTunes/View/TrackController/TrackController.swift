@@ -101,7 +101,7 @@ class TrackController: NSViewController {
         _tableView.headerView = nil
         _tableView.usesAlternatingRowBackgroundColors = false  // TODO In NSPanels, this is solid while everything else isn't
         
-        playTrackNext = {
+        playTrackNext = { [unowned self] in
             let tracksBefore = self.history.tracks
             self.history.insert(tracks: [self.history.track(at: $0)!], before: self.history.playingIndex + 1)
             self._tableView.animateDifference(from: tracksBefore, to: self.history.tracks)

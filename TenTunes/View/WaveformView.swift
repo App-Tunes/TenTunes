@@ -265,9 +265,7 @@ class WaveformView: NSControl, CALayerDelegate {
             timer = nil
             return
         }
-        
-        print("Test")
-        
+                
         timer = Timer.scheduledTimer(withTimeInterval: updateTime, repeats: true) { timer in
             guard self.transitionSteps > 0 else {
                 self.timer?.invalidate()

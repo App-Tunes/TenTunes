@@ -14,42 +14,6 @@ func simulateWave(_ pos: Float, _ size: Float, _ speed: Float, progress: Float, 
     return (sin(pos * size + time * speed) + 1.0) * (pos > progress ? 0.3 : 0.05) + (pos > progress ? 0.1 : 0.35)
 }
 
-class Analysis : NSObject, NSCoding {
-    static let sampleCount: Int = 500
-    
-    var values: [[CGFloat]]
-    var complete = false
-
-    required init?(coder aDecoder: NSCoder) {
-        values = aDecoder.decodeObject() as! [[CGFloat]]
-        complete = true
-        
-        if values.count != 4 { return nil }
-        for wave in values {
-            if !(wave.count == Analysis.sampleCount && wave.allMatch { $0 >= 0 && $0 <= 1 }) {
-                 return nil
-            }
-        }
-    }
-    
-    override init() {
-        values = Array(repeating: Array(repeating: 0.0, count: Analysis.sampleCount), count: 4)
-    }
-    
-    func encode(with aCoder: NSCoder) {
-        if !complete {
-            fatalError("Not complete yet")
-        }
-        
-        aCoder.encode(values)
-    }
-    
-    func set(from: Analysis) {
-        values = from.values
-        complete = from.complete
-    }
-}
-
 class SPInterpreter {
     static func analyze(file: AVAudioFile, analysis: Analysis) {
         let analyzer = SPAnalyzer()

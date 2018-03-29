@@ -145,16 +145,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         if dialog.runModal() == NSApplication.ModalResponse.OK {
             for url in dialog.urls {
-                let track = Track()
-                
-                track.path = url.absoluteString
-                track.title = url.lastPathComponent
-                
-                Library.shared.viewContext.insert(track)
+                importFile(url)
             }
             
             try! Library.shared.viewContext.save()
         }
+    }
+    
+    func application(_ sender: NSApplication, openFiles filenames: [String]) {
+        for path in filenames {
+            let url = URL(fileURLWithPath: path)
+            importFile(url)
+        }
+        
+        try! Library.shared.viewContext.save()
+    }
+    
+    func importFile(_ url: URL) {
+        let track = Track()
+        
+        track.path = url.absoluteString
+        track.title = url.lastPathComponent
+        
+        Library.shared.viewContext.insert(track)
     }
 }
 

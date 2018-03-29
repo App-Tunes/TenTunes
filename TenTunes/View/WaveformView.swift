@@ -184,6 +184,7 @@ class WaveformView: NSControl, CALayerDelegate {
         didSet {
             if analysis !== oldValue {
                 transitionSteps = self.completeTransitionSteps
+                updateTimer()
             }
         }
     }
@@ -253,22 +254,30 @@ class WaveformView: NSControl, CALayerDelegate {
     func updateTimer() {
         transitionSteps = self.completeTransitionSteps
 
-        self.timer?.invalidate()
-        self.timer = Timer.scheduledTimer(withTimeInterval: updateTime, repeats: true) { timer in
+        guard timer?.timeInterval != updateTime else {
+            return
+        }
+        
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: updateTime, repeats: true) { timer in
             guard self.visibleRect != NSZeroRect else {
                 return // Not visible, why update?
             }
             
-            // Only update the bars for x steps after transition
-            if self.transitionSteps > 0 {
-                CATransaction.begin()
-                CATransaction.setAnimationDuration(self.updateTime)
-
-                let drawValues = self.analysis?.values ?? BarsLayer.defaultValues
-                self.waveformLayer._barsLayer.values = (0..<4).map { lerp(self.waveformLayer._barsLayer.values[$0], drawValues[$0], self.lerpRatio) }
-
-                CATransaction.commit()
+            guard self.transitionSteps > 0 else {
+                self.timer?.invalidate()
+                self.timer = nil
+                return
             }
+            
+            // Only update the bars for x steps after transition
+            CATransaction.begin()
+            CATransaction.setAnimationDuration(self.updateTime)
+
+            let drawValues = self.analysis?.values ?? BarsLayer.defaultValues
+            self.waveformLayer._barsLayer.values = (0..<4).map { lerp(self.waveformLayer._barsLayer.values[$0], drawValues[$0], self.lerpRatio) }
+
+            CATransaction.commit()
             
             if self.analysis?.complete ?? true { self.transitionSteps -= 1}
         }

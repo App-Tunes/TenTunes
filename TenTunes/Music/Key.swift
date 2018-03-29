@@ -83,8 +83,6 @@ enum Note {
             return "G"
         case .Ab:
             return "A♭"
-        default:
-            fatalError("Unknown Key!")
         }
     }
 
@@ -114,8 +112,6 @@ enum Note {
             return "g"
         case .Ab:
             return "ab"
-        default:
-            fatalError("Unknown Key!")
         }
     }
 }

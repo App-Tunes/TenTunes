@@ -748,7 +748,7 @@
                                                     <textField toolTip="Duration Left" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Bx-lC-97p">
                                                         <rect key="frame" x="789" y="17" width="70" height="22"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="70" id="ybL-NU-qiE"/>
+                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="ybL-NU-qiE"/>
                                                         </constraints>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" title="0:00" bezelStyle="round" id="LUM-Lj-2DO">
                                                             <font key="font" metaFont="system"/>
@@ -759,7 +759,7 @@
                                                     <textField toolTip="Duration Played" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1Xa-l4-VRg">
                                                         <rect key="frame" x="8" y="17" width="70" height="22"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="70" id="DqK-c4-H9k"/>
+                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="DqK-c4-H9k"/>
                                                         </constraints>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" title="0:00" bezelStyle="round" id="EWJ-aJ-SlK">
                                                             <font key="font" metaFont="system"/>
@@ -770,6 +770,7 @@
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="9Bx-lC-97p" secondAttribute="trailing" constant="8" id="3H9-9D-3A1"/>
+                                                    <constraint firstItem="9Bx-lC-97p" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1Xa-l4-VRg" secondAttribute="trailing" constant="10" id="GVY-B5-G3K"/>
                                                     <constraint firstItem="1Xa-l4-VRg" firstAttribute="top" secondItem="TnY-8S-uno" secondAttribute="top" constant="2" id="Wwq-BO-wng"/>
                                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="100" id="baI-h5-Y4G"/>
                                                     <constraint firstItem="9Bx-lC-97p" firstAttribute="top" secondItem="TnY-8S-uno" secondAttribute="top" constant="2" id="dbD-Ic-YNJ"/>

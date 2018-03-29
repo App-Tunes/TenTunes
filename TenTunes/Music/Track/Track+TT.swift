@@ -113,19 +113,19 @@ extension Track {
         
         // TODO Duration
         
-        let importer = TagLibImporter.init(url: url)
+        let importer = TagLibImporter(url: url)
         do {
-            try importer?.import()
+            try importer.import()
             
-            title = importer?.title
-            album = importer?.album
-            author = importer?.artist
-            genre = parseGenre(importer?.genre)
+            title = importer.title
+            album = importer.album
+            author = importer.artist
+            genre = parseGenre(importer.genre)
 
-            artwork = importer?.image
+            artwork = importer.image
             
-            key = Key.parse(importer?.initialKey ?? "")
-            bpm = Double(importer?.bpm ?? "")
+            key = Key.parse(importer.initialKey ?? "")
+            bpm = Double(importer.bpm ?? "")
         }
         catch let error {
             print(error)
@@ -195,7 +195,7 @@ extension Track {
             return
         }
 
-        let importer = TagLibImporter(url: url)!
+        let importer = TagLibImporter(url: url)
         
         do {
             importer.title = title

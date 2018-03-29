@@ -11,21 +11,21 @@
 
 @interface TagLibImporter : NSObject
 
--(instancetype)initWithURL:(NSURL* _Nonnull)url;
+-(instancetype _Nonnull)initWithURL:(NSURL* _Nonnull)url;
 
--(BOOL)import:(NSError *__autoreleasing *)error;
--(BOOL)write:(NSError *__autoreleasing *)error;
+-(BOOL)import:(NSError * _Nullable __autoreleasing * _Nullable)error;
+-(BOOL)write:(NSError * _Nullable __autoreleasing * _Nullable)error;
 
-@property(readonly) NSURL *url;
+@property(readonly, nullable) NSURL *url;
 
-@property NSString *title;
-@property NSString *artist;
-@property NSString *album;
-@property NSString *genre;
+@property(nullable) NSString *title;
+@property(nullable) NSString *artist;
+@property(nullable) NSString *album;
+@property(nullable) NSString *genre;
 
-@property NSImage *image;
+@property(nullable) NSImage *image;
 
-@property NSString *initialKey;
-@property NSString *bpm;
+@property(nullable) NSString *initialKey;
+@property(nullable) NSString *bpm;
 
 @end

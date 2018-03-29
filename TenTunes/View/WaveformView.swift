@@ -180,14 +180,17 @@ class WaveformView: NSControl, CALayerDelegate {
         get { return waveformLayer.location }
     }
     
-    var analysis: Analysis? = nil {
-        didSet {
-            if analysis !== oldValue {
-                transitionSteps = self.completeTransitionSteps
+    var analysis: Analysis? {
+        set(analysis) {
+            if _analysis !== analysis {
+                transitionSteps = completeTransitionSteps
+                _analysis = analysis
                 updateTimer()
             }
         }
+        get { return _analysis }
     }
+    var _analysis: Analysis? = nil
     
     var waveformLayer : WaveformLayer {
         return layer as! WaveformLayer
@@ -236,38 +239,44 @@ class WaveformView: NSControl, CALayerDelegate {
                                           options: [.activeInActiveApp, .inVisibleRect, .assumeInside, .mouseEnteredAndExited, .mouseMoved],
                                           owner: self, userInfo: nil)
         self.addTrackingArea(trackingArea)
-        
-        updateTimer()
     }
     
     func setInstantly(analysis: Analysis?) {
         CATransaction.begin()
         CATransaction.setValue(true, forKey:kCATransactionDisableActions)
         
-        self.analysis = analysis
+        _analysis = analysis
         waveformLayer._barsLayer.values = analysis?.values ?? BarsLayer.defaultValues
         transitionSteps = analysis?.complete ?? true ? 0 : completeTransitionSteps
+        
+        updateTimer()
         
         CATransaction.commit()
     }
     
     func updateTimer() {
-        transitionSteps = self.completeTransitionSteps
-
         guard timer?.timeInterval != updateTime else {
             return
         }
         
         timer?.invalidate()
+
+        guard transitionSteps > 0 else {
+            timer = nil
+            return
+        }
+        
+        print("Test")
+        
         timer = Timer.scheduledTimer(withTimeInterval: updateTime, repeats: true) { timer in
-            guard self.visibleRect != NSZeroRect else {
-                return // Not visible, why update?
-            }
-            
             guard self.transitionSteps > 0 else {
                 self.timer?.invalidate()
                 self.timer = nil
                 return
+            }
+            
+            guard self.visibleRect != NSZeroRect else {
+                return // Not visible, why update?
             }
             
             // Only update the bars for x steps after transition

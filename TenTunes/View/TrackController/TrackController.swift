@@ -245,7 +245,7 @@ extension TrackController: NSTableViewDelegate {
             return view
         }
         else if tableColumn?.identifier == ColumnIdentifiers.waveform, let view = tableView.makeView(withIdentifier: CellIdentifiers.waveform, owner: nil) as? WaveformView {
-            
+            // TODO When an analysis saves this is reloaded (and thus set instantly) rather than letting it animate further
             if track.analysis == nil {
                 track.readAnalysis()
             }

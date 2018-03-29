@@ -8,6 +8,10 @@
 
 #import "SPAnalyzer.h"
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdocumentation-deprecated-sync"
+#pragma GCC diagnostic ignored "-Wdocumentation"
+
 #include "SuperpoweredDecoder.h"
 #include "SuperpoweredSimple.h"
 #include "SuperpoweredRecorder.h"
@@ -15,6 +19,8 @@
 #include "SuperpoweredAudioBuffers.h"
 #include "SuperpoweredFilter.h"
 #include "SuperpoweredAnalyzer.h"
+
+#pragma GCC diagnostic pop
 
 @implementation SPAnalyzer {
     float progress;

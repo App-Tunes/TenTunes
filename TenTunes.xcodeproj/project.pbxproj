@@ -17,8 +17,6 @@
 		803717292043629800DB9EAA /* ViewController+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803717282043629700DB9EAA /* ViewController+Background.swift */; };
 		8046CDA3204EF1ED00E732E7 /* TitleSubtitleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */; };
 		8058FA8F204317080086FF8A /* libSuperpoweredAudioOSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8058FA8E204317080086FF8A /* libSuperpoweredAudioOSX.a */; };
-		8058FAB5204317330086FF8A /* SuperpoweredOSXAudioIO.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8058FA9E2043172D0086FF8A /* SuperpoweredOSXAudioIO.mm */; };
-		8058FAB7204317330086FF8A /* SuperpoweredNBandEQ.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8058FAA62043172F0086FF8A /* SuperpoweredNBandEQ.cpp */; };
 		8058FABC20432A730086FF8A /* MediaKeyTap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8058FABB20432A730086FF8A /* MediaKeyTap.framework */; };
 		8058FABE20432D3D0086FF8A /* MediaKeyTap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8058FABB20432A730086FF8A /* MediaKeyTap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8058FAC02043409F0086FF8A /* VibrantTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058FABF2043409F0086FF8A /* VibrantTableRowView.swift */; };
@@ -644,7 +642,6 @@
 				80E2C9FA204B40A000298E81 /* PlaylistManual+CoreDataProperties.swift in Sources */,
 				8046CDA3204EF1ED00E732E7 /* TitleSubtitleCellView.swift in Sources */,
 				80CB652F2052C6CD0031A6D7 /* Operators.swift in Sources */,
-				8058FAB7204317330086FF8A /* SuperpoweredNBandEQ.cpp in Sources */,
 				80E2C9F7204B40A000298E81 /* Playlist+CoreDataClass.swift in Sources */,
 				80F2C58F20389B9B00212739 /* WaveformView.swift in Sources */,
 				80F854FF2069180A009A8FBE /* TrackController+RightClick.swift in Sources */,
@@ -666,7 +663,6 @@
 				80E2C9F8204B40A000298E81 /* Playlist+CoreDataProperties.swift in Sources */,
 				80F77BF5203D8B35001E397F /* Key.swift in Sources */,
 				80F2C57A2038808000212739 /* AppDelegate.swift in Sources */,
-				8058FAB5204317330086FF8A /* SuperpoweredOSXAudioIO.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

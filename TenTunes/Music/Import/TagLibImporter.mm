@@ -8,6 +8,12 @@
 
 #import "TagLibImporter.h"
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdocumentation-deprecated-sync"
+#pragma GCC diagnostic ignored "-Wdocumentation"
+#pragma GCC diagnostic ignored "-Wmacro-redefined"
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+
 #import <fileref.h>
 #import <tag.h>
 #import <tpropertymap.h>
@@ -31,6 +37,8 @@
 #include <iostream>
 
 #import <AVFoundation/AVFoundation.h>
+
+#pragma GCC diagnostic pop
 
 inline NSString *TagLibStringToNS(const TagLib::String &tagString) {
     if (tagString == TagLib::ByteVector::null)

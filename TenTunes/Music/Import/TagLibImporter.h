@@ -16,7 +16,7 @@
 -(BOOL)import:(NSError * _Nullable __autoreleasing * _Nullable)error;
 -(BOOL)write:(NSError * _Nullable __autoreleasing * _Nullable)error;
 
-@property(readonly, nullable) NSURL *url;
+@property(readonly, nonnull) NSURL *url;
 
 @property(nullable) NSString *title;
 @property(nullable) NSString *artist;

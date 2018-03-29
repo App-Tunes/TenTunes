@@ -95,7 +95,16 @@ class WaveformLayer : CALayer {
     override init() {
         super.init()
         
-        actions = ["onOrderOut": NSNull()] // Disable fade outs
+        actions = [
+            "onOrderOut": NSNull(),
+            "onOrderIn": NSNull(),
+            "sublayers": NSNull(),
+            "contents": NSNull(),
+            "bounds": NSNull(),
+        ] // Disable fade outs
+        
+        _barsLayer.actions = actions
+        _bgLayer.actions = actions
 
         _bgLayer.colors = [
             NSColor.black.withAlphaComponent(0.4).cgColor,

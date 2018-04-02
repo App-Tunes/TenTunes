@@ -35,8 +35,8 @@ extension TrackController: NSMenuDelegate {
         _moveToMediaDirectory.isHidden = menuTracks.noneMatch { !$0.usesMediaDirectory && $0.url != nil }
         
         let someNeedAnalysis = menuTracks.anyMatch { $0.url != nil }
-        _analyzeSubmenu.isHidden = !someNeedAnalysis || (menuTracks.noneMatch { $0.analysis != nil } && !menuTracks.allMatch { $0.analysis != nil })
-        menu.item(withAction: #selector(menuAnalyze))?.isHidden = !someNeedAnalysis || !_analyzeSubmenu.isHidden
+        _analyzeSubmenu.isVisible = someNeedAnalysis && menuTracks.anyMatch { $0.analysis != nil } && menuTracks.anyMatch { $0.analysis == nil }
+        menu.item(withAction: #selector(menuAnalyze))?.isVisible = someNeedAnalysis && _analyzeSubmenu.isHidden
 
         if isQueue {
             let deleteItem = menu.item(withAction: #selector(removeTrack))

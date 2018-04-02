@@ -99,6 +99,13 @@ extension NSMenu {
     }
 }
 
+extension NSMenuItem {
+    var isVisible: Bool {
+        get { return !isHidden }
+        set(visible) { isHidden = !visible }
+    }
+}
+
 extension NSWindow {
     func positionNextTo(view: NSView) {
         let windowPoint = view.convert(NSPoint(x: view.bounds.width, y: view.bounds.height / 2), to: nil)

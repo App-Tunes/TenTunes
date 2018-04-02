@@ -32,7 +32,9 @@ class PlaylistLibrary: PlaylistProtocol {
     }
     
     func convert(to: NSManagedObjectContext) -> Self {
-        return type(of: self).init(context: to)
+        let converted = type(of: self).init(context: to)
+        converted._tracks = _tracks ?=> to.convert // Faster than executing a new fetch request
+        return converted
     }
     
     var childrenList: [Playlist]? {

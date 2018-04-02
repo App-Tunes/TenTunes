@@ -51,8 +51,6 @@ extension ViewController {
                     Library.shared.performChildBackgroundTask { mox in
                         let copy = PlayHistory(playlist: self.trackController.history.playlist.convert(to: mox))
 
-                        mox.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
-
                         desired.filter ?=> copy.filter
                         desired.sort ?=> copy.sort
                         

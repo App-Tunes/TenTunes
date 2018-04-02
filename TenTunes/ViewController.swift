@@ -28,11 +28,6 @@ func synced(_ lock: Any, closure: () -> ()) {
     objc_sync_exit(lock)
 }
 
-enum PlayError : Error {
-    case missing
-    case error
-}
-
 class ViewController: NSViewController {
 
     static var shared: ViewController!
@@ -223,6 +218,11 @@ class ViewController: NSViewController {
         self._subtitle.stringValue = track.rSource
     }
     
+    enum PlayError : Error {
+        case missing
+        case error
+    }
+
     func play(track: Track?) throws {
         defer {
             updatePlaying()

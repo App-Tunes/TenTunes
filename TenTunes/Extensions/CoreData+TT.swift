@@ -29,10 +29,6 @@ extension NSPersistentContainer {
     }
 }
 
-enum CopyBehavior {
-    case none, copy, deepcopy
-}
-
 extension NSManagedObject {
     func refresh(merge: Bool = false) {
         managedObjectContext!.refresh(self, mergeChanges: false)
@@ -46,6 +42,10 @@ extension NSManagedObject {
         return duplicate { deep.contains($0) ? .deepcopy : except.contains($0) ? .none : .copy }
     }
     
+    enum CopyBehavior {
+        case none, copy, deepcopy
+    }
+
     func duplicate(byProperties fun: (String) -> CopyBehavior) -> NSManagedObject {
         let duplicate = NSEntityDescription.insertNewObject(forEntityName: entity.name!, into: managedObjectContext!)
         

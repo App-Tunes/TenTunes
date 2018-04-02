@@ -49,14 +49,16 @@ extension ViewController {
                     desired._changed = false
                     
                     Library.shared.performChildBackgroundTask { mox in
-                        let copy = PlayHistory(playlist: self.trackController.history.playlist.convert(to: mox))
+                        let history = desired.playlist?.convert(to: mox) ?=> PlayHistory.init
 
-                        desired.filter ?=> copy.filter
-                        desired.sort ?=> copy.sort
+                        if let history = history {
+                            desired.filter ?=> history.filter
+                            desired.sort ?=> history.sort
+                        }
                         
                         DispatchQueue.main.async {
-                            copy.convert(to: Library.shared.viewContext)
-                            self.trackController.history = copy
+                            history?.convert(to: Library.shared.viewContext)
+                            self.trackController.history = history
                             self._workerSemaphore.signal()
                             desired.semaphore.signal()
                         }

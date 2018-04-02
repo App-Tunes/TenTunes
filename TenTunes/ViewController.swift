@@ -117,19 +117,19 @@ class ViewController: NSViewController {
         self.playlistController.masterPlaylist = Library.shared.masterPlaylist
         self.playlistController.library = Library.shared.allTracks
 
-        self.trackController.playTrack = { [unowned self] in
+        trackController.playTrack = { [unowned self] in
             self.play(at: $0, in: self.trackController.history) // TODO Support for multiple
             if let position = $1 {
                 self.player.setPosition(position * self.player.duration)
             }
         }
-        self.trackController.playTrackNext = { [unowned self] in
+        trackController.playTrackNext = { [unowned self] in
             // TODO Support for multiple
             // TODO What if history doesn't exist? No feedback!!
             let next = [self.trackController.history!.track(at: $0)!]
             self.history?.insert(tracks: next, before: self.history!.playingIndex + 1)
         }
-        self.trackController.set(playlist: Library.shared.allTracks)
+        trackController.desired.playlist = Library.shared.allTracks
 
         queuePopover = NSPopover()
         queuePopover.contentViewController = queueController
@@ -377,9 +377,7 @@ class ViewController: NSViewController {
     }
     
     func playlistSelected(_ playlist: PlaylistProtocol) {
-        if trackController.history.playlist !== playlist {
-            trackController.set(playlist: playlist)
-        }
+        trackController.desired.playlist = playlist
     }
     
     @IBAction func volumeChanged(_ sender: Any) {

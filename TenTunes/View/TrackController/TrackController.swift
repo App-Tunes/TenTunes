@@ -20,16 +20,16 @@ class PlayHistorySetup {
     var semaphore = DispatchSemaphore(value: 1)
     var _changed = false
     
+    var playlist: PlaylistProtocol? {
+        didSet { if oldValue !== playlist { _changed = true }}
+    }
+
     var filter: ((Track) -> Bool)? {
-        didSet {
-            _changed = true
-        }
+        didSet { _changed = true }
     }
     
     var sort: ((Track, Track) -> Bool)? {
-        didSet {
-            _changed = true
-        }
+        didSet { _changed = true }
     }
 }
 
@@ -114,14 +114,6 @@ class TrackController: NSViewController {
         
         // We believe in tags, not genres
         _tableView.tableColumn(withIdentifier: ColumnIdentifiers.genre)?.isHidden = true
-    }
-    
-    func set(playlist: PlaylistProtocol) {
-        self.history = PlayHistory(playlist: playlist)
-        
-        if self.desired.filter != nil || self.desired.sort != nil {
-            self.desired._changed = true // The new history doesn't yet have our desireds applied
-        }
     }
     
     var visibleTracks: [Track] {
@@ -398,7 +390,7 @@ extension TrackController: NSTableViewDelegate {
 
 extension TrackController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return history.size;
+        return history?.size ?? 0;
     }
 }
 

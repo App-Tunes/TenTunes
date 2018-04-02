@@ -12,6 +12,7 @@
                 <outlet property="_searchBarClose" destination="BeI-cc-vzB" id="5Pj-5J-T9B"/>
                 <outlet property="_searchBarHeight" destination="Sxu-f3-yrD" id="Ubq-yi-vS6"/>
                 <outlet property="_searchField" destination="Vb1-dH-y3M" id="jvB-RL-GBx"/>
+                <outlet property="_showInPlaylistSubmenu" destination="RJZ-UA-3i7" id="RD3-RB-fQe"/>
                 <outlet property="_tableView" destination="4mk-XS-5ci" id="kXR-Tw-wbo"/>
                 <outlet property="view" destination="xJh-CN-pmz" id="a8O-4K-FFG"/>
             </connections>
@@ -394,6 +395,15 @@ Gw
                     </menu>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="Rd7-Gj-f0d"/>
+                <menuItem title="Show in Playlist" id="RJZ-UA-3i7">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Show in Playlist" id="RnA-44-hUX">
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="6c5-75-VgY"/>
+                        </connections>
+                    </menu>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="P8g-M2-vOX"/>
                 <menuItem title="Analyze" id="gdC-UO-cO1">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>

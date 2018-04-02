@@ -14,9 +14,23 @@ extension TrackController: NSMenuDelegate {
     }
     
     func menuNeedsUpdate(_ menu: NSMenu) {
+        guard menu !== _showInPlaylistSubmenu.submenu else {
+            menu.removeAllItems()
+            for case let playlist as Playlist in menuTracks.first!.containingPlaylists {
+                let item = NSMenuItem(title: playlist.name, action: #selector(menuShowInPlaylist), keyEquivalent: "")
+                item.target = self
+                item.representedObject = playlist
+                menu.addItem(item)
+            }
+            
+            return
+        }
+        
         if menuTracks.count < 1 {
             menu.cancelTrackingWithoutAnimation()
         }
+        
+        _showInPlaylistSubmenu.isHidden = menuTracks.count != 1
         
         _moveToMediaDirectory.isHidden = menuTracks.noneMatch { !$0.usesMediaDirectory && $0.url != nil }
         
@@ -65,6 +79,15 @@ extension TrackController: NSMenuDelegate {
         showTrackInfo(of: _tableView.clickedRows, nextTo: _tableView.rowView(atRow: _tableView.clickedRow, makeIfNecessary: false))
     }
     
+    @IBAction func menuShowInPlaylist(_ sender: Any) {
+        guard let item = sender as? NSMenuItem, let playlist = item.representedObject as? Playlist else {
+            return
+        }
+        
+        ViewController.shared.playlistController.select(playlist: playlist)
+        // TODO select track
+    }
+
     @IBAction func menuShowInFinder(_ sender: Any) {
         let row = self._tableView.clickedRow
         let track = history.track(at: row)!

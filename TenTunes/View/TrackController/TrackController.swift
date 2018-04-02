@@ -62,7 +62,8 @@ class TrackController: NSViewController {
     
     @IBOutlet var _moveToMediaDirectory: NSMenuItem!
     @IBOutlet var _analyzeSubmenu: NSMenuItem!
-    
+    @IBOutlet var _showInPlaylistSubmenu: NSMenuItem!
+
     override func awakeFromNib() {
         desired = PlayHistorySetup { self.history = $0 }
         

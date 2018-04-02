@@ -33,7 +33,9 @@ class PlaylistLibrary: PlaylistProtocol {
     
     func convert(to: NSManagedObjectContext) -> Self {
         let converted = type(of: self).init(context: to)
-        converted._tracks = _tracks ?=> to.convert // Faster than executing a new fetch request
+        // Faster than executing a new fetch request
+        // Yes, if it's not calculated yet we do it now since it will likely be reused
+        converted._tracks = to.convert(tracksList)
         return converted
     }
     

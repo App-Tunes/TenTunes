@@ -28,6 +28,11 @@ func synced(_ lock: Any, closure: () -> ()) {
     objc_sync_exit(lock)
 }
 
+enum PlayError : Error {
+    case missing
+    case error
+}
+
 class ViewController: NSViewController {
 
     static var shared: ViewController!
@@ -218,8 +223,11 @@ class ViewController: NSViewController {
         self._subtitle.stringValue = track.rSource
     }
     
-    @discardableResult
-    func play(track: Track?) -> Bool {
+    func play(track: Track?) throws {
+        defer {
+            updatePlaying()
+        }
+
         if player.isPlaying {
             player.stop()
         }
@@ -239,12 +247,16 @@ class ViewController: NSViewController {
                     player.stop()
                     playing = nil
                     _waveformView.analysis = nil
+                    
+                    throw PlayError.error
                 }
             }
             else {
                 // We are at a track but it's not playable :<
                 playing = nil
                 _waveformView.analysis = nil
+                
+                throw PlayError.missing
             }
         }
         else {
@@ -253,10 +265,6 @@ class ViewController: NSViewController {
             playing = nil
             _waveformView.analysis = nil
         }
-        
-        self.updatePlaying()
-        
-        return playing != nil
     }
             
     @IBAction func play(_ sender: Any) {
@@ -289,7 +297,7 @@ class ViewController: NSViewController {
             history!.move(to: 0) // Select random track next
         }
         
-        let didPlay = play(track: history!.move(by: moved))
+        let didPlay = (try? play(track: history!.move(by: moved))) != nil
         
         // Should play but didn't
         // And we are trying to move in some direction
@@ -335,7 +343,37 @@ class ViewController: NSViewController {
         if shuffle { self.history!.shuffle() } // Move there before shuffling so the position is retained
         if at == nil { self.history!.move(to: 0) }
         
-        self.play(track: self.history!.playingTrack)
+        let track = self.history!.playingTrack
+        
+        do {
+            try play(track: track)
+        }
+        catch PlayError.missing {
+            let track = track!
+            let alert: NSAlert = NSAlert()
+            if track.path == nil {
+                alert.messageText = "Invalid File"
+                alert.informativeText = "The file could not be played since no path is provided"
+            }
+            else {
+                alert.messageText = "Missing File"
+                alert.informativeText = "The file could not be played since the file could not be found"
+            }
+            alert.alertStyle = .warning
+            alert.addButton(withTitle: "OK")
+            alert.runModal()
+        }
+        catch {
+            let track = track!
+            let alert: NSAlert = NSAlert()
+            if track.url == nil {
+                alert.messageText = "Error"
+                alert.informativeText = "An unknown error occured when playing the file"
+            }
+            alert.alertStyle = .warning
+            alert.addButton(withTitle: "OK")
+            alert.runModal()
+        }
     }
     
     func playlistSelected(_ playlist: PlaylistProtocol) {

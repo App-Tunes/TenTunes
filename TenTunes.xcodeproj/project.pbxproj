@@ -39,6 +39,7 @@
 		8087A406206D933F003F1821 /* Analysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087A405206D933F003F1821 /* Analysis.swift */; };
 		8087A494206597DC00CC9569 /* EnterReturningTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087A493206597DC00CC9569 /* EnterReturningTextField.swift */; };
 		80ADCD4A20442E1200AA9A89 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ADCD4920442E1200AA9A89 /* Library.swift */; };
+		80B764562072F38D003BD7F8 /* PlaylistEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B764552072F38D003BD7F8 /* PlaylistEmpty.swift */; };
 		80CB652C20514E050031A6D7 /* Library+Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652B20514E050031A6D7 /* Library+Export.swift */; };
 		80CB652F2052C6CD0031A6D7 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652E2052C6CD0031A6D7 /* Operators.swift */; };
 		80CB65332052C9530031A6D7 /* Cocoa+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB65322052C9530031A6D7 /* Cocoa+TT.swift */; };
@@ -159,6 +160,7 @@
 		8087A405206D933F003F1821 /* Analysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analysis.swift; sourceTree = "<group>"; };
 		8087A493206597DC00CC9569 /* EnterReturningTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterReturningTextField.swift; sourceTree = "<group>"; };
 		80ADCD4920442E1200AA9A89 /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
+		80B764552072F38D003BD7F8 /* PlaylistEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistEmpty.swift; sourceTree = "<group>"; };
 		80C0C29F203F6DCA00FA6083 /* taglib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = taglib.xcodeproj; path = ../../taglib.xcodeproj; sourceTree = "<group>"; };
 		80CB652B20514E050031A6D7 /* Library+Export.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Export.swift"; sourceTree = "<group>"; };
 		80CB652E2052C6CD0031A6D7 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
@@ -390,6 +392,7 @@
 				80E2C9F5204B40A000298E81 /* PlaylistFolder+CoreDataClass.swift */,
 				80E2C9F6204B40A000298E81 /* PlaylistFolder+CoreDataProperties.swift */,
 				806EFC21204B63620079DBAA /* PlaylistLibrary.swift */,
+				80B764552072F38D003BD7F8 /* PlaylistEmpty.swift */,
 			);
 			path = Playlist;
 			sourceTree = "<group>";
@@ -651,6 +654,7 @@
 				808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */,
 				801621332067B71B00093B15 /* ViewController+Updates.swift in Sources */,
 				806C5B2620423AC000C34F49 /* SPInterpreter.swift in Sources */,
+				80B764562072F38D003BD7F8 /* PlaylistEmpty.swift in Sources */,
 				80E2C9F9204B40A000298E81 /* PlaylistManual+CoreDataClass.swift in Sources */,
 				808161D2204059FE00AEA64F /* TrackController.swift in Sources */,
 				806EFC22204B63620079DBAA /* PlaylistLibrary.swift in Sources */,

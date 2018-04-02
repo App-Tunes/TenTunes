@@ -47,9 +47,9 @@ class TrackController: NSViewController {
     var playTrack: ((Int, Double?) -> Swift.Void)?
     var playTrackNext: ((Int) -> Swift.Void)?
 
-    var history: PlayHistory! {
+    var history: PlayHistory = PlayHistory(playlist: PlaylistEmpty()) {
         didSet {
-            _tableView?.animateDifference(from: oldValue?.tracks, to: history?.tracks)
+            _tableView?.animateDifference(from: oldValue.tracks, to: history.tracks)
         }
     }
     var desired: PlayHistorySetup!
@@ -390,7 +390,7 @@ extension TrackController: NSTableViewDelegate {
 
 extension TrackController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return history?.size ?? 0;
+        return history.size
     }
 }
 

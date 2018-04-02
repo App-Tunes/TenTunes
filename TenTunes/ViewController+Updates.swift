@@ -66,7 +66,7 @@ extension ViewController {
             
             // Deleted our current playlist! :<
             // TODO What to do when deleting listening playlist?
-            trackController.set(playlist: Library.shared.allTracks)
+            trackController.history = PlayHistory(playlist: Library.shared.allTracks)
         }
     }
 }

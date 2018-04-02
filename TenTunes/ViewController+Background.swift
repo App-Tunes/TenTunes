@@ -58,7 +58,7 @@ extension ViewController {
                         
                         DispatchQueue.main.async {
                             history?.convert(to: Library.shared.viewContext)
-                            self.trackController.history = history
+                            self.trackController.history = history ?? PlayHistory(playlist: Library.shared.allTracks)
                             self._workerSemaphore.signal()
                             desired.semaphore.signal()
                         }

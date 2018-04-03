@@ -224,6 +224,32 @@ extension Array where Element: Equatable {
             return nil
         }
         
+        // Direct approach
+        guard to.count > 10 else {
+            // Any more and it looks shit
+            // Can reasonably do index(of)
+            let indices = flatMap { to.index(of: $0) }
+            // Everything has a unique index
+            guard Set(indices).count == to.count else {
+                return nil
+            }
+            var movement = indices.enumerated().map { ($0.0, $0.1) }
+//                .filter { $0.0 != $0.1 }
+                .sorted { $0.1 < $1.1 }
+                
+            for i in 0..<movement.count {
+                let (src, dst) = movement[i]
+                for (src2, dst2) in movement[dst+1..<movement.count] {
+                    if src2 < src {
+                        movement[dst2] = (src2 + 1, dst2)
+                    }
+                }
+            }
+            
+            return movement
+//                .filter { $0.0 != $0.1 }
+        }
+        
         let (left, right) = (self, to)
         
         var leftIdx = 0
@@ -253,7 +279,7 @@ extension Array where Element: Equatable {
             }
         }
 
-        return bucket.count == 0 ? movements : nil
+        return bucket.count == 0 ? movements.sorted { $0.1 > $1.1 } : nil
     }
 }
 

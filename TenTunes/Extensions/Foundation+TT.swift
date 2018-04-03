@@ -225,7 +225,7 @@ extension Array where Element: Equatable {
         }
         
         // Direct approach
-        guard to.count > 10 else {
+        guard to.count > 50 else {
             // Any more and it looks shit
             // Can reasonably do index(of)
             let indices = flatMap { to.index(of: $0) }

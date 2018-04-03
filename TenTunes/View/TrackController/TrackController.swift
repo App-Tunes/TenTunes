@@ -10,7 +10,7 @@ import Cocoa
 
 import AVFoundation
 
-class PlayHistorySetup {
+@objc class PlayHistorySetup : NSObject {
     var completion: (PlayHistory) -> Swift.Void
     
     init(completion: @escaping (PlayHistory) -> Swift.Void) {
@@ -18,8 +18,11 @@ class PlayHistorySetup {
     }
     
     var semaphore = DispatchSemaphore(value: 1)
-    var _changed = false
-    
+    var _changed = false {
+        didSet { isDone = isDone && !_changed }
+    }
+    @objc dynamic var isDone = false
+
     var playlist: PlaylistProtocol? {
         didSet { if oldValue !== playlist { _changed = true }}
     }
@@ -52,10 +55,11 @@ class TrackController: NSViewController {
             _tableView?.animateDifference(from: oldValue.tracks, to: history.tracks)
         }
     }
-    var desired: PlayHistorySetup!
-    
+    @objc dynamic var desired: PlayHistorySetup!
+    @IBOutlet var _loadingIndicator: NSProgressIndicator!
+
     var isQueue = false
-    
+
     var isDark: Bool {
         return self.view.window!.appearance?.name == NSAppearance.Name.vibrantDark
     }
@@ -64,9 +68,19 @@ class TrackController: NSViewController {
     @IBOutlet var _analyzeSubmenu: NSMenuItem!
     @IBOutlet var _showInPlaylistSubmenu: NSMenuItem!
 
+    var observeHiddenToken: NSKeyValueObservation?
+
     override func awakeFromNib() {
         desired = PlayHistorySetup { self.history = $0 }
-        
+        _loadingIndicator.startAnimation(self)
+        observeHiddenToken = desired.observe(\.isDone, options: [.new]) { [weak self] object, change in
+            let isDone = change.newValue!
+            NSAnimationContext.runAnimationGroup({ context in
+                context.duration = 0.5
+                self?._loadingIndicator.animator().alphaValue = isDone ? 0 : 1
+            }, completionHandler: nil)
+        }
+
         infoEditor = FileTagEditor()
         
         _tableView.registerForDraggedTypes([Track.pasteboardType])

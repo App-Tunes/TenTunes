@@ -10,7 +10,7 @@ import Foundation
 
 extension PlaylistController: NSMenuDelegate {
     var menuPlaylists: [Playlist] {
-        return _outlineView.clickedRows.flatMap { _outlineView.item(atRow: $0) as? Playlist }
+        return _outlineView.clickedRows.compactMap { _outlineView.item(atRow: $0) as? Playlist }
     }
     
     func menuNeedsUpdate(_ menu: NSMenu) {

@@ -10,6 +10,7 @@
                 <outlet property="_analyzeSubmenu" destination="rAL-JR-UxV" id="Vvq-LS-eak"/>
                 <outlet property="_loadingIndicator" destination="Q4S-45-Dyj" id="uIh-jH-P5s"/>
                 <outlet property="_moveToMediaDirectory" destination="e6s-jT-drv" id="Mxx-MY-rhK"/>
+                <outlet property="_playlistTitle" destination="yA3-8B-zr1" id="n1M-oM-Ov1"/>
                 <outlet property="_searchBarClose" destination="BeI-cc-vzB" id="5Pj-5J-T9B"/>
                 <outlet property="_searchBarHeight" destination="Sxu-f3-yrD" id="Ubq-yi-vS6"/>
                 <outlet property="_searchField" destination="Vb1-dH-y3M" id="jvB-RL-GBx"/>
@@ -25,13 +26,13 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <scrollView verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="J4f-bg-DFw">
-                    <rect key="frame" x="0.0" y="0.0" width="680" height="412"/>
+                    <rect key="frame" x="0.0" y="25" width="680" height="387"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="FmM-r7-abk">
-                        <rect key="frame" x="0.0" y="0.0" width="680" height="412"/>
+                        <rect key="frame" x="0.0" y="0.0" width="680" height="387"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnSelection="YES" rowHeight="30" headerView="sMk-yA-QjA" viewBased="YES" floatsGroupRows="NO" id="4mk-XS-5ci">
-                                <rect key="frame" x="0.0" y="0.0" width="680" height="389"/>
+                                <rect key="frame" x="0.0" y="0.0" width="680" height="364"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -338,17 +339,38 @@ Gw
                 <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" doubleValue="2" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Q4S-45-Dyj">
                     <rect key="frame" x="324" y="203" width="32" height="32"/>
                 </progressIndicator>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="no2-Pk-ubw">
+                    <rect key="frame" x="0.0" y="0.0" width="680" height="25"/>
+                    <subviews>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yA3-8B-zr1">
+                            <rect key="frame" x="2" y="4" width="84" height="17"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Playlist Title" id="ort-dC-9bO">
+                                <font key="font" metaFont="systemBold"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="yA3-8B-zr1" firstAttribute="centerY" secondItem="no2-Pk-ubw" secondAttribute="centerY" id="5dD-o0-7Dr"/>
+                        <constraint firstAttribute="height" constant="25" id="uIC-33-LVc"/>
+                        <constraint firstItem="yA3-8B-zr1" firstAttribute="leading" secondItem="no2-Pk-ubw" secondAttribute="leading" constant="4" id="wTP-6K-6yt"/>
+                    </constraints>
+                </customView>
             </subviews>
             <constraints>
-                <constraint firstItem="Hz2-5n-F4a" firstAttribute="top" secondItem="xJh-CN-pmz" secondAttribute="top" id="2C3-cU-KJ1"/>
                 <constraint firstItem="Hz2-5n-F4a" firstAttribute="leading" secondItem="xJh-CN-pmz" secondAttribute="leading" id="5Po-t0-BmR"/>
+                <constraint firstItem="Hz2-5n-F4a" firstAttribute="top" secondItem="xJh-CN-pmz" secondAttribute="top" id="5uy-Dv-Yaz"/>
                 <constraint firstItem="Q4S-45-Dyj" firstAttribute="centerY" secondItem="xJh-CN-pmz" secondAttribute="centerY" id="EY4-LI-S6T"/>
-                <constraint firstAttribute="bottom" secondItem="J4f-bg-DFw" secondAttribute="bottom" id="Gn5-Kt-y3H"/>
                 <constraint firstItem="J4f-bg-DFw" firstAttribute="leading" secondItem="xJh-CN-pmz" secondAttribute="leading" id="Ivw-18-ON1"/>
                 <constraint firstItem="Q4S-45-Dyj" firstAttribute="centerX" secondItem="xJh-CN-pmz" secondAttribute="centerX" id="JkQ-Ie-BTx"/>
+                <constraint firstItem="no2-Pk-ubw" firstAttribute="top" secondItem="J4f-bg-DFw" secondAttribute="bottom" id="P1h-5B-cw9"/>
+                <constraint firstItem="J4f-bg-DFw" firstAttribute="top" secondItem="Hz2-5n-F4a" secondAttribute="bottom" id="Ys0-1e-Rcs"/>
+                <constraint firstAttribute="trailing" secondItem="no2-Pk-ubw" secondAttribute="trailing" id="cu7-TG-cFD"/>
+                <constraint firstAttribute="bottom" secondItem="no2-Pk-ubw" secondAttribute="bottom" id="nj9-83-RAH"/>
+                <constraint firstItem="no2-Pk-ubw" firstAttribute="leading" secondItem="xJh-CN-pmz" secondAttribute="leading" id="sTr-D3-7QQ"/>
                 <constraint firstAttribute="trailing" secondItem="Hz2-5n-F4a" secondAttribute="trailing" id="uSb-rw-OM6"/>
                 <constraint firstAttribute="trailing" secondItem="J4f-bg-DFw" secondAttribute="trailing" id="vGr-VU-bFh"/>
-                <constraint firstItem="J4f-bg-DFw" firstAttribute="top" secondItem="Hz2-5n-F4a" secondAttribute="bottom" id="zgU-FN-snQ"/>
             </constraints>
         </view>
         <menu title="Track" id="lPr-45-xlw" userLabel="Track">

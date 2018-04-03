@@ -52,4 +52,8 @@ class PlaylistLibrary: PlaylistProtocol {
         
         return _tracks!
     }
+    
+    var name: String {
+        return "Library"
+    }
 }

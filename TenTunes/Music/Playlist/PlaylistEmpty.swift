@@ -9,6 +9,10 @@
 import Foundation
 
 class PlaylistEmpty : PlaylistProtocol {
+    var name: String {
+        return ""
+    }
+    
     var tracksList: [Track] {
         return []
     }

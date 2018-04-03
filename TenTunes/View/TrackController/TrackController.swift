@@ -38,9 +38,12 @@ import AVFoundation
 
 class TrackController: NSViewController {
     @IBOutlet var _tableView: NSTableView!
+    
     @IBOutlet weak var _searchField: NSSearchField!
     @IBOutlet var _searchBarHeight: NSLayoutConstraint!
     @IBOutlet weak var _searchBarClose: NSButton!
+    
+    @IBOutlet var _playlistTitle: NSTextField!
     
     var infoEditor : FileTagEditor!
     
@@ -53,6 +56,7 @@ class TrackController: NSViewController {
     var history: PlayHistory = PlayHistory(playlist: PlaylistEmpty()) {
         didSet {
             _tableView?.animateDifference(from: oldValue.tracks, to: history.tracks)
+            _playlistTitle.stringValue = history.playlist.name
         }
     }
     @objc dynamic var desired: PlayHistorySetup!
@@ -87,6 +91,8 @@ class TrackController: NSViewController {
         _tableView.setDraggingSourceOperationMask(.every, forLocal: false) // ESSENTIAL
         
         _searchBarHeight.constant = CGFloat(0)
+        
+        _playlistTitle.stringValue = ""
         
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             return self.keyDown(with: $0)

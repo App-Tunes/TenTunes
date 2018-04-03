@@ -14,6 +14,7 @@
 		8013720E203F7C9C00CA9036 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720C203F7C9C00CA9036 /* AudioKit.framework */; };
 		8013720F203F7C9C00CA9036 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720D203F7C9C00CA9036 /* AudioKitUI.framework */; };
 		801621332067B71B00093B15 /* ViewController+Updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801621322067B71B00093B15 /* ViewController+Updates.swift */; };
+		8017685920743898000DD433 /* NSImageViewAspectFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8017685820743898000DD433 /* NSImageViewAspectFill.swift */; };
 		803717292043629800DB9EAA /* ViewController+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803717282043629700DB9EAA /* ViewController+Background.swift */; };
 		8046CDA3204EF1ED00E732E7 /* TitleSubtitleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */; };
 		8058FA8F204317080086FF8A /* libSuperpoweredAudioOSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8058FA8E204317080086FF8A /* libSuperpoweredAudioOSX.a */; };
@@ -105,6 +106,7 @@
 		8013720C203F7C9C00CA9036 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = Carthage/Build/Mac/AudioKit.framework; sourceTree = SOURCE_ROOT; };
 		8013720D203F7C9C00CA9036 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = Carthage/Build/Mac/AudioKitUI.framework; sourceTree = SOURCE_ROOT; };
 		801621322067B71B00093B15 /* ViewController+Updates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Updates.swift"; sourceTree = "<group>"; };
+		8017685820743898000DD433 /* NSImageViewAspectFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImageViewAspectFill.swift; sourceTree = "<group>"; };
 		803717282043629700DB9EAA /* ViewController+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Background.swift"; sourceTree = "<group>"; };
 		8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSubtitleCellView.swift; sourceTree = "<group>"; };
 		8058FA8E204317080086FF8A /* libSuperpoweredAudioOSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSuperpoweredAudioOSX.a; path = ../../../../SuperpoweredSDK/Superpowered/libSuperpoweredAudioOSX.a; sourceTree = "<group>"; };
@@ -223,6 +225,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8017685720743887000DD433 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8017685820743898000DD433 /* NSImageViewAspectFill.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		8058FA8D204316F50086FF8A /* Superpowered */ = {
 			isa = PBXGroup;
 			children = (
@@ -264,6 +274,7 @@
 		805901BE20404CB900B97D84 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8017685720743887000DD433 /* Views */,
 				807E4B44206428050051C028 /* Controls */,
 				80F8550220691866009A8FBE /* PlaylistController */,
 				80F854FC206917D6009A8FBE /* TrackController */,
@@ -637,6 +648,7 @@
 				80DCA9B3203F636F00B1E9B1 /* TagLibImporter.mm in Sources */,
 				80E092A12066C42D000CA4D5 /* MediaLocation.swift in Sources */,
 				80802586203EFCC0008D4168 /* Foundation+TT.swift in Sources */,
+				8017685920743898000DD433 /* NSImageViewAspectFill.swift in Sources */,
 				80F2C5912038A80D00212739 /* Track+TT.swift in Sources */,
 				80E2C9FC204B40A000298E81 /* PlaylistFolder+CoreDataProperties.swift in Sources */,
 				806AC1432041EF1900857B1B /* SPAnalyzer.mm in Sources */,

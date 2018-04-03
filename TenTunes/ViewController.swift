@@ -34,6 +34,7 @@ class ViewController: NSViewController {
     
     @IBOutlet var _title: NSTextField!
     @IBOutlet var _subtitle: NSTextField!
+    @IBOutlet var _coverImage: NSImageViewAspectFill!
     
     @IBOutlet var _play: NSButton!
     @IBOutlet var _stop: NSButton!
@@ -150,6 +151,8 @@ class ViewController: NSViewController {
         _waveformView.postsFrameChangedNotifications = true
         NotificationCenter.default.addObserver(self, selector: #selector(updateTimesHidden), name: NSView.frameDidChangeNotification, object: _waveformView)
         
+        _coverImage.layer!.opacity = 0.08
+        
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             return self.keyDown(with: $0)
         }
@@ -216,6 +219,7 @@ class ViewController: NSViewController {
         
         self._title.stringValue = track.rTitle
         self._subtitle.stringValue = track.rSource
+        self._coverImage.image = track.artworkPreview
     }
     
     enum PlayError : Error {

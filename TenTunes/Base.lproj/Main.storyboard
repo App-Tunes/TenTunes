@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -742,6 +742,9 @@
                                         <rect key="frame" x="0.0" y="0.0" width="867" height="92"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="o1F-mb-bFA" customClass="NSImageViewAspectFill" customModule="TenTunes" customModuleProvider="target">
+                                                <rect key="frame" x="309" y="0.0" width="250" height="92"/>
+                                            </customView>
                                             <customView verticalHuggingPriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="TnY-8S-uno" customClass="WaveformView" customModule="TenTunes" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="867" height="41"/>
                                                 <subviews>
@@ -893,6 +896,7 @@ IA
                                             <constraint firstItem="dQc-no-5jm" firstAttribute="centerX" secondItem="CJ8-Em-XgG" secondAttribute="centerX" id="44i-zy-a4I"/>
                                             <constraint firstItem="9Xs-lc-aS8" firstAttribute="leading" secondItem="7Y2-7h-2Y4" secondAttribute="trailing" constant="16" id="5N5-Tv-tpk"/>
                                             <constraint firstItem="weN-hW-VXM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="A8h-Er-gl5" secondAttribute="trailing" constant="30" id="5uQ-Iv-W2e"/>
+                                            <constraint firstItem="A8h-Er-gl5" firstAttribute="trailing" secondItem="o1F-mb-bFA" secondAttribute="trailing" id="5yN-yq-65c"/>
                                             <constraint firstItem="dQc-no-5jm" firstAttribute="top" secondItem="2zM-Qn-bbU" secondAttribute="bottom" id="8k4-ie-vp7"/>
                                             <constraint firstItem="vGp-jR-JQ9" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" constant="97" id="Ak8-DA-NJT"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="dQc-no-5jm" secondAttribute="bottom" constant="8" id="Cex-7e-oPf"/>
@@ -905,6 +909,7 @@ IA
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="9Xs-lc-aS8" secondAttribute="bottom" constant="14" id="Pqa-Co-VB3"/>
                                             <constraint firstItem="weN-hW-VXM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dQc-no-5jm" secondAttribute="trailing" constant="30" id="QhM-5A-35M"/>
                                             <constraint firstItem="dQc-no-5jm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ws9-gx-fi8" secondAttribute="trailing" constant="30" id="Rec-wq-b5G"/>
+                                            <constraint firstItem="o1F-mb-bFA" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" id="Tfj-Fh-ooz"/>
                                             <constraint firstItem="2zM-Qn-bbU" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="8" id="Xm3-il-Qdw"/>
                                             <constraint firstItem="2zM-Qn-bbU" firstAttribute="centerX" secondItem="CJ8-Em-XgG" secondAttribute="centerX" id="YHi-XV-qG8"/>
                                             <constraint firstAttribute="trailing" secondItem="TnY-8S-uno" secondAttribute="trailing" id="ZOi-Zw-7Sx"/>
@@ -913,9 +918,11 @@ IA
                                             <constraint firstItem="A8h-Er-gl5" firstAttribute="centerX" secondItem="CJ8-Em-XgG" secondAttribute="centerX" id="cNy-jB-Oel"/>
                                             <constraint firstItem="vGp-jR-JQ9" firstAttribute="firstBaseline" secondItem="Ws9-gx-fi8" secondAttribute="firstBaseline" id="dl3-k3-IVH"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="7Y2-7h-2Y4" secondAttribute="bottom" constant="14" id="eOK-zm-vOj"/>
+                                            <constraint firstItem="o1F-mb-bFA" firstAttribute="leading" secondItem="A8h-Er-gl5" secondAttribute="leading" id="ePa-6c-dVL"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="4Fc-0r-wVE" secondAttribute="bottom" constant="4" id="fxo-uM-5FA"/>
                                             <constraint firstItem="4Fc-0r-wVE" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="2" id="ivH-Kr-erJ"/>
                                             <constraint firstItem="A8h-Er-gl5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ws9-gx-fi8" secondAttribute="trailing" constant="30" id="k55-hO-HVq"/>
+                                            <constraint firstAttribute="bottom" secondItem="o1F-mb-bFA" secondAttribute="bottom" id="lus-gC-hse"/>
                                             <constraint firstAttribute="bottom" secondItem="TnY-8S-uno" secondAttribute="bottom" id="mm5-D9-4tj"/>
                                             <constraint firstItem="2zM-Qn-bbU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ws9-gx-fi8" secondAttribute="trailing" constant="30" id="o33-Uk-GBw"/>
                                             <constraint firstItem="vGp-jR-JQ9" firstAttribute="baseline" secondItem="Ws9-gx-fi8" secondAttribute="baseline" id="p3y-sr-YYy"/>
@@ -968,6 +975,7 @@ IA
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="_coverImage" destination="o1F-mb-bFA" id="tRL-t8-vgn"/>
                         <outlet property="_next" destination="Ws9-gx-fi8" id="l56-Fl-VBO"/>
                         <outlet property="_play" destination="4Fc-0r-wVE" id="DPb-N7-0hb"/>
                         <outlet property="_playlistView" destination="rPD-z5-E1p" id="b8w-qa-WoA"/>
@@ -985,7 +993,7 @@ IA
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="76" y="991"/>
+            <point key="canvasLocation" x="75.5" y="990.5"/>
         </scene>
     </scenes>
     <resources>

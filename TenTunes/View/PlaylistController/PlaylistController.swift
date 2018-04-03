@@ -113,7 +113,7 @@ import Cocoa
     
     func delete(indices: [Int]?) {
         if let indices = indices {
-            Library.shared.viewContext.delete(all: indices.flatMap { _outlineView.item(atRow: $0) as? Playlist })
+            Library.shared.viewContext.delete(all: indices.compactMap { _outlineView.item(atRow: $0) as? Playlist })
             try! Library.shared.viewContext.save()
         }
     }
@@ -226,12 +226,12 @@ extension PlaylistController : NSOutlineViewDelegate {
 
         switch type {
         case Track.pasteboardType:
-            let tracks = (pasteboard.pasteboardItems ?? []).flatMap(Library.shared.readTrack)
+            let tracks = (pasteboard.pasteboardItems ?? []).compactMap(Library.shared.readTrack)
 
             (parent as! PlaylistManual).addTracks(tracks)
             return true
         case Playlist.pasteboardType:
-            let playlists = (pasteboard.pasteboardItems ?? []).flatMap(Library.shared.readPlaylist)
+            let playlists = (pasteboard.pasteboardItems ?? []).compactMap(Library.shared.readPlaylist)
             
             for playlist in playlists {
                 (parent as! PlaylistFolder).addPlaylist(playlist, above: index >= 0 ? index : nil)

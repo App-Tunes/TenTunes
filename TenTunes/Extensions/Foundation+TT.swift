@@ -37,7 +37,7 @@ extension MutableCollection {
         guard c > 1 else { return }
         
         for (firstUnshuffled, unshuffledCount) in zip(indices, stride(from: c, to: 1, by: -1)) {
-            let d: IndexDistance = numericCast((0..<Int(unshuffledCount)).random())
+            let d: Int = numericCast((0..<Int(unshuffledCount)).random())
             let i = index(firstUnshuffled, offsetBy: d)
             swapAt(firstUnshuffled, i)
         }
@@ -46,19 +46,19 @@ extension MutableCollection {
 
 extension Collection where Iterator.Element == UInt8 {
     var toUInt: [UInt]  {
-        return flatMap{ UInt($0) }
+        return compactMap{ UInt($0) }
     }
 }
 
 extension Collection where Iterator.Element == UInt {
     var toCGFloat: [CGFloat]  {
-        return flatMap{ CGFloat($0) }
+        return compactMap { CGFloat($0) }
     }
 }
 
 extension Collection where Iterator.Element == Float {
     var toCGFloat: [CGFloat]  {
-        return flatMap{ CGFloat($0) }
+        return compactMap { CGFloat($0) }
     }
 }
 
@@ -228,7 +228,7 @@ extension Array where Element: Equatable {
         guard to.count > 50 else {
             // Any more and it looks shit
             // Can reasonably do index(of)
-            let indices = flatMap { to.index(of: $0) }
+            let indices = compactMap { to.index(of: $0) }
             // Everything has a unique index
             guard Set(indices).count == to.count else {
                 return nil

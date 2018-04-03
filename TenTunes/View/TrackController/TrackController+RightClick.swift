@@ -10,7 +10,7 @@ import Foundation
 
 extension TrackController: NSMenuDelegate {
     var menuTracks: [Track] {
-        return _tableView.clickedRows.flatMap { history.track(at: $0) }
+        return _tableView.clickedRows.compactMap { history.track(at: $0) }
     }
     
     func menuNeedsUpdate(_ menu: NSMenu) {

@@ -210,7 +210,7 @@ class TrackController: NSViewController {
             return
         }
 
-        (history.playlist as! PlaylistManual).removeTracks(indices.flatMap { history.track(at: $0) })
+        (history.playlist as! PlaylistManual).removeTracks(indices.compactMap { history.track(at: $0) })
         // Don't reload data, we'll be updated in async
     }
 }
@@ -347,7 +347,7 @@ extension TrackController: NSTableViewDelegate {
     
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
         let pasteboard = info.draggingPasteboard()
-        let tracks = (pasteboard.pasteboardItems ?? []).flatMap(Library.shared.readTrack)
+        let tracks = (pasteboard.pasteboardItems ?? []).compactMap(Library.shared.readTrack)
         
         if isQueue {
             let tracksBefore = history.tracks

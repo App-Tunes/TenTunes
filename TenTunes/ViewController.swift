@@ -232,6 +232,10 @@ class ViewController: NSViewController {
             player.stop()
         }
         
+        if !AudioKit.engine.isRunning {
+            try! AudioKit.start()
+        }
+        
         if let track = track {
             if let url = track.url {
                 do {

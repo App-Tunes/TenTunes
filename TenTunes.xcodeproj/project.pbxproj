@@ -22,7 +22,6 @@
 		8058FAC02043409F0086FF8A /* VibrantTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058FABF2043409F0086FF8A /* VibrantTableRowView.swift */; };
 		806AC1332040D7C700857B1B /* PlayHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AC1322040D7C700857B1B /* PlayHistory.swift */; };
 		806AC136204174F300857B1B /* ITunesImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AC135204174F300857B1B /* ITunesImporter.swift */; };
-		806AC1382041EC8400857B1B /* libSuperpoweredAudioOSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 806AC1372041EC8400857B1B /* libSuperpoweredAudioOSX.a */; };
 		806AC13A2041EDD900857B1B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806AC1392041EDD900857B1B /* AVFoundation.framework */; };
 		806AC13C2041EDE500857B1B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806AC13B2041EDE500857B1B /* CoreMedia.framework */; };
 		806AC13E2041EDEE00857B1B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806AC13D2041EDEE00857B1B /* AudioToolbox.framework */; };
@@ -214,7 +213,6 @@
 				806AC13E2041EDEE00857B1B /* AudioToolbox.framework in Frameworks */,
 				806AC13C2041EDE500857B1B /* CoreMedia.framework in Frameworks */,
 				806AC13A2041EDD900857B1B /* AVFoundation.framework in Frameworks */,
-				806AC1382041EC8400857B1B /* libSuperpoweredAudioOSX.a in Frameworks */,
 				8013720F203F7C9C00CA9036 /* AudioKitUI.framework in Frameworks */,
 				8013720E203F7C9C00CA9036 /* AudioKit.framework in Frameworks */,
 				8058FABC20432A730086FF8A /* MediaKeyTap.framework in Frameworks */,
@@ -500,7 +498,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = ivorius;
 				TargetAttributes = {
 					80F2C5752038808000212739 = {
@@ -702,6 +700,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -709,6 +708,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -759,6 +759,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -766,6 +767,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

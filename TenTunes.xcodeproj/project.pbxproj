@@ -183,7 +183,7 @@
 		80E6811A20573DC800DA5702 /* SimpleTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTransformer.swift; sourceTree = "<group>"; };
 		80E6811C2057479B00DA5702 /* ValueTransformers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueTransformers.swift; sourceTree = "<group>"; };
 		80E937582039C2850014C835 /* Keycodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keycodes.swift; sourceTree = "<group>"; };
-		80F2C5762038808000212739 /* Ten Tunes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ten Tunes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		80F2C5762038808000212739 /* TenTunes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TenTunes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80F2C5792038808000212739 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80F2C57B2038808000212739 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		80F2C57E2038808000212739 /* TenTunes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TenTunes.xcdatamodel; sourceTree = "<group>"; };
@@ -419,7 +419,7 @@
 		80F2C5772038808000212739 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				80F2C5762038808000212739 /* Ten Tunes.app */,
+				80F2C5762038808000212739 /* TenTunes.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -481,9 +481,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		80F2C5752038808000212739 /* Ten Tunes */ = {
+		80F2C5752038808000212739 /* TenTunes */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 80F2C5892038808000212739 /* Build configuration list for PBXNativeTarget "Ten Tunes" */;
+			buildConfigurationList = 80F2C5892038808000212739 /* Build configuration list for PBXNativeTarget "TenTunes" */;
 			buildPhases = (
 				6497D4AEADBECC33FD042B18 /* [CP] Check Pods Manifest.lock */,
 				80F2C5722038808000212739 /* Sources */,
@@ -497,9 +497,9 @@
 			);
 			dependencies = (
 			);
-			name = "Ten Tunes";
+			name = TenTunes;
 			productName = TenTunes;
-			productReference = 80F2C5762038808000212739 /* Ten Tunes.app */;
+			productReference = 80F2C5762038808000212739 /* TenTunes.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -543,7 +543,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				80F2C5752038808000212739 /* Ten Tunes */,
+				80F2C5752038808000212739 /* TenTunes */,
 			);
 		};
 /* End PBXProject section */
@@ -883,7 +883,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		80F2C5892038808000212739 /* Build configuration list for PBXNativeTarget "Ten Tunes" */ = {
+		80F2C5892038808000212739 /* Build configuration list for PBXNativeTarget "TenTunes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				80F2C58A2038808000212739 /* Debug */,

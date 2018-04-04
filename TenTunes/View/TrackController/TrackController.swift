@@ -21,7 +21,7 @@ import AVFoundation
     var _changed = false {
         didSet { isDone = isDone && !_changed }
     }
-    @objc dynamic var isDone = false
+    @objc dynamic var isDone = true
 
     var playlist: PlaylistProtocol? {
         didSet { if oldValue !== playlist { _changed = true }}

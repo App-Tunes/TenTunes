@@ -8,19 +8,11 @@
 
 import Cocoa
 import Foundation
-import AudioKit
-import AudioKitUI
 
 import MediaKeyTap
 
 let playString = "▶"
 let pauseString = "||"
-
-extension AVPlayer {
-    var isPlaying: Bool {
-        return rate != 0 && error == nil
-    }
-}
 
 func synced(_ lock: Any, closure: () -> ()) {
     objc_sync_enter(lock)
@@ -55,24 +47,15 @@ class ViewController: NSViewController {
     @IBOutlet var _splitView: NSSplitView!
     
     var queuePopover: NSPopover!
-    
-    var history: PlayHistory?
-    var player: AKPlayer!
-    var playing: Track?
-    
+        
     var visualTimer: Timer!
     var backgroundTimer: Timer!
-    var completionTimer: Timer?
+    
+    let player: Player = Player()
 
     var _workerSemaphore = DispatchSemaphore(value: 3)
     var metadataToDo: [Track] = []
     var analysisToDo: Set<Track> = Set()
-
-    var shuffle = true {
-        didSet {
-            (shuffle ? self.history?.shuffle() : self.history?.unshuffle())
-        }
-    }
     
     var mediaKeyTap: MediaKeyTap?
     
@@ -97,38 +80,35 @@ class ViewController: NSViewController {
 
         ViewController.shared = self
         
-        player = AKPlayer()
-        // The completion handler sucks...
-        // TODO When it stops sucking, replace our completion timer hack
-//        self.player.completionHandler =
-        completionTimer = player.createFakeCompletionHandler { [unowned self] in
-            self.play(moved: 1)
+        player.updatePlaying = { [unowned self] playing in
+            self.updatePlaying()
         }
-
-        AudioKit.output = self.player
-        try! AudioKit.start()
+        player.historyProvider = { [unowned self] in
+            return self.trackController.history
+        }
+        player.start()
                 
         self.playlistController.selectionDidChange = { [unowned self] in
             self.playlistSelected($0)
         }
         self.playlistController.playPlaylist = { [unowned self] in
             self.playlistSelected($0)
-            self.play(at: nil, in: self.trackController.history)
+            self.player.play(at: nil, in: self.trackController.history)
         }
         self.playlistController.masterPlaylist = Library.shared.masterPlaylist
         self.playlistController.library = Library.shared.allTracks
 
         trackController.playTrack = { [unowned self] in
-            self.play(at: $0, in: self.trackController.history) // TODO Support for multiple
+            self.player.play(at: $0, in: self.trackController.history) // TODO Support for multiple
             if let position = $1 {
-                self.player.setPosition(position * self.player.duration)
+                self.player.setPosition(position)
             }
         }
         trackController.playTrackNext = { [unowned self] in
             // TODO Support for multiple
             // TODO What if history doesn't exist? No feedback!!
             let next = [self.trackController.history.track(at: $0)!]
-            self.history?.insert(tracks: next, before: self.history!.playingIndex + 1)
+            self.player.history?.insert(tracks: next, before: self.player.history!.playingIndex + 1)
         }
         trackController.desired.playlist = Library.shared.allTracks
 
@@ -137,11 +117,10 @@ class ViewController: NSViewController {
         queuePopover.animates = true
         queuePopover.behavior = .transient
         queueController.playTrack = { [unowned self] in
-            if self.history === self.queueController.history {
-                self.play(moved: $0 - self.queueController.history.playingIndex)
-
+            if self.player.history === self.queueController.history {
+                self.player.play(moved: $0 - self.queueController.history.playingIndex)
                 if let position = $1 {
-                    self.player.setPosition(position * self.player.duration)
+                    self.player.setPosition(position)
                 }
             }
         }
@@ -194,219 +173,85 @@ class ViewController: NSViewController {
         return nil
     }
     
-    
-    func isPlaying() -> Bool {
-        return self.player.isPlaying
-    }
-
-    func isPaused() -> Bool {
-        return !self.isPlaying()
-    }
-
     func updatePlaying() {
         self.updateTimesHidden(self)
         
-        guard let track = self.playing else {
+        guard let track = player.playing else {
             _play.set(text: playString)
             
             self._title.stringValue = ""
             self._subtitle.stringValue = ""
-            
+            _waveformView.analysis = nil
+
             return
         }
         
-        _play.set(text: self.isPaused() ? playString : pauseString)
+        _play.set(text: player.isPaused() ? playString : pauseString)
         
-        self._title.stringValue = track.rTitle
-        self._subtitle.stringValue = track.rSource
-        self._coverImage.image = track.artworkPreview
+        _title.stringValue = track.rTitle
+        _subtitle.stringValue = track.rSource
+        _coverImage.image = track.artworkPreview
+        _waveformView.analysis = track.analysis
     }
-    
-    enum PlayError : Error {
-        case missing
-        case error
-    }
-
-    func play(track: Track?) throws {
-        defer {
-            updatePlaying()
-        }
-
-        if player.isPlaying {
-            player.stop()
-        }
-        
-        if !AudioKit.engine.isRunning {
-            try! AudioKit.start()
-        }
-        
-        if let track = track {
-            if let url = track.url {
-                do {
-                    let akfile = try AKAudioFile(forReading: url)
-                    
-                    _waveformView.analysis = track.analysis // If it's not analyzed, our worker threads will handle
-                    
-                    player.load(audioFile: akfile)
-                    player.play()
-                    playing = track
-                } catch let error {
-                    print(error.localizedDescription)
-                    player.stop()
-                    playing = nil
-                    _waveformView.analysis = nil
-                    
-                    throw PlayError.error
-                }
-            }
-            else {
-                // We are at a track but it's not playable :<
-                playing = nil
-                _waveformView.analysis = nil
                 
-                throw PlayError.missing
-            }
-        }
-        else {
-            // Somebody decided we should stop playing
-            // Or we're at start / end of list
-            playing = nil
-            _waveformView.analysis = nil
-        }
-    }
-            
     @IBAction func play(_ sender: Any) {
-        if self.playing != nil {
-            if self.isPaused() {
-                self.player.play()
-            }
-            else {
-                self.pause()
-            }
-        }
-        else {
+        guard player.playing != nil else {
             if trackController.selectedTrack != nil {
-                play(at: trackController._tableView.selectedRow, in: trackController.history)
+                player.play(at: trackController._tableView.selectedRow, in: trackController.history)
             }
             else {
-                play(moved: 0)
-            }
-        }
-        
-        self.updatePlaying()
-    }
-    
-    func play(moved: Int) {
-        if history == nil {
-            play(at: nil, in: trackController.history)
-        }
-        else if moved == 0 {
-            history!.shuffle()
-            history!.move(to: 0) // Select random track next
-        }
-        
-        let didPlay = (try? play(track: history!.move(by: moved))) != nil
-        
-        // Should play but didn't
-        // And we are trying to move in some direction
-        if moved != 0, history?.playingTrack != nil, !didPlay {
-            if let playing = playing {
-                print("Skipped unplayable track \(playing.objectID.description): \(String(describing: playing.path))")
+                player.play(moved: 0)
             }
             
-            play(moved: moved)
+            return
         }
-    }
-    
-    func pause() {
-        // The set position is reset when we play again
-        self.player.play(from: self.player.currentTime, to: self.player.duration)
-        self.player.stop()
+
+        player.togglePlay()
     }
     
     @IBAction func nextTrack(_ sender: Any) {
-        self.play(moved: 1)
+        player.play(moved: 1)
     }
     
     @IBAction func previousTrack(_ sender: Any) {
-        self.play(moved: -1)
+        player.play(moved: -1)
     }
         
     @IBAction func waveformViewClicked(_ sender: Any) {
-        if let position = self._waveformView.getBy(player: self.player) {
+        if let position = self._waveformView.getBy(max: 1) {
             self.player.setPosition(position)
         }
     }
     
     @IBAction func toggleShuffle(_ sender: Any) {
-        shuffle = !shuffle
+        player.shuffle = !player.shuffle
         let img = NSImage(named: NSImage.Name(rawValue: "shuffle"))
-        _shuffle.image = shuffle ? img : img?.tinted(in: NSColor.gray)
+        _shuffle.image = player.shuffle ? img : img?.tinted(in: NSColor.gray)
     }
-    
-    func play(at: Int?, in history: PlayHistory) {
-        self.history = PlayHistory(from: history)
-
-        self.history!.move(to: at ?? -1)
-        if shuffle { self.history!.shuffle() } // Move there before shuffling so the position is retained
-        if at == nil { self.history!.move(to: 0) }
         
-        let track = self.history!.playingTrack
-        
-        do {
-            try play(track: track)
-        }
-        catch PlayError.missing {
-            let track = track!
-            let alert: NSAlert = NSAlert()
-            if track.path == nil {
-                alert.messageText = "Invalid File"
-                alert.informativeText = "The file could not be played since no path is provided"
-            }
-            else {
-                alert.messageText = "Missing File"
-                alert.informativeText = "The file could not be played since the file could not be found"
-            }
-            alert.alertStyle = .warning
-            alert.addButton(withTitle: "OK")
-            alert.runModal()
-        }
-        catch {
-            let track = track!
-            let alert: NSAlert = NSAlert()
-            if track.url == nil {
-                alert.messageText = "Error"
-                alert.informativeText = "An unknown error occured when playing the file"
-            }
-            alert.alertStyle = .warning
-            alert.addButton(withTitle: "OK")
-            alert.runModal()
-        }
-    }
-    
     func playlistSelected(_ playlist: PlaylistProtocol) {
         trackController.desired.playlist = playlist
     }
     
     @IBAction func volumeChanged(_ sender: Any) {
-        player.volume = pow(Float(_volume.intValue) / 100, 2)
+        player.player.volume = Double(pow(Float(_volume.intValue) / 100, 2))
     }
     
     @IBAction func showQueue(_ sender: Any) {
         let view = sender as! NSView
         
-        guard let history = history else {
+        guard let history = player.history else {
             return // TODO Disable button
+        }
+        
+        if !queueController.isViewLoaded {
+            queueController.loadView()
+            queueController.queueify()
         }
         
         queueController.history = history
         queueController._tableView?.reloadData() // If it didn't change it doesn't reload automatically
         queuePopover.appearance = view.window!.appearance
-
-        if !queueController.isViewLoaded {
-            queueController.loadView()
-            queueController.queueify()
-        }
         
         // TODO Show a divider on top
         queueController._tableView.scrollRowToTop(history.playingIndex)
@@ -431,13 +276,13 @@ extension ViewController: NSUserInterfaceValidations {
     }
     
     @IBAction func updateTimesHidden(_ sender: AnyObject) {
-        if self.playing != nil, self._waveformView.bounds.height > 30, !self.player.currentTime.isNaN {
-            self._timePlayed.isHidden = false
-            self._timeLeft.isHidden = false            
+        if player.playing != nil, _waveformView.bounds.height > 30, !player.player.currentTime.isNaN {
+            _timePlayed.isHidden = false
+            _timeLeft.isHidden = false
         }
         else {
-            self._timePlayed.isHidden = true
-            self._timeLeft.isHidden = true
+            _timePlayed.isHidden = true
+            _timeLeft.isHidden = true
         }
     }
 }

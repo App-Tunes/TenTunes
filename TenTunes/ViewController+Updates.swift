@@ -35,9 +35,9 @@ extension ViewController {
                     trackController.desired._changed = true
                 }
                 
-                if let listening = history?.playlist, Library.shared.isAffected(playlist: listening, whenChanging: playlist) {
-                    let left = Set(self.history!.playlist.tracksList)
-                    history!.filter { left.contains($0) }
+                if let listening = player.history?.playlist, Library.shared.isAffected(playlist: listening, whenChanging: playlist) {
+                    let left = Set(player.history!.playlist.tracksList)
+                    player.history!.filter { left.contains($0) }
                 }
             }
         }

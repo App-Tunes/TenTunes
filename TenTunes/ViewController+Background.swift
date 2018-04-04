@@ -10,19 +10,6 @@
 import Cocoa
 import AudioKit
 
-extension AKPlayer {
-    func createFakeCompletionHandler(completion: @escaping () -> Swift.Void) -> Timer {
-        return Timer.scheduledTimer(withTimeInterval: 1.0 / 300.0, repeats: true ) { [unowned self] (timer) in
-            // Kids, don't try this at home
-            // Really
-            // Holy shit
-            if self.isPlaying && Int64(self.frameCount) - self.currentFrame < 100 {
-                completion()
-            }
-        }
-    }
-}
-
 extension ViewController {    
     func endTask() {
         self._workerSemaphore.signal()
@@ -34,11 +21,11 @@ extension ViewController {
                 return
             }
             
-            self._waveformView.setBy(player: self.player)
+            self._waveformView.setBy(player: self.player.player)
             
             if !self._timePlayed.isHidden, !self._timeLeft.isHidden {
-                self._timePlayed.stringValue = Int(self.player.currentTime).timeString
-                self._timeLeft.stringValue = Int(self.player.duration - self.player.currentTime).timeString
+                self._timePlayed.stringValue = Int(self.player.player.currentTime).timeString
+                self._timeLeft.stringValue = Int(self.player.player.duration - self.player.player.currentTime).timeString
             }
         }
         
@@ -66,7 +53,7 @@ extension ViewController {
                         }
                     }
                 }
-                else if let playing = self.playing, playing.analysis == nil {
+                else if let playing = self.player.playing, playing.analysis == nil {
                     // Analyze the current file
                     self.analyze(track: playing, read: true) {
                         self._workerSemaphore.signal()
@@ -141,7 +128,7 @@ extension ViewController {
         
         track.analysis = Analysis()
         
-        if self.playing == track {
+        if player.playing == track {
             self._waveformView.analysis = track.analysis
         }
         

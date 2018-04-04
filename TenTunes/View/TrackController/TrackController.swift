@@ -77,6 +77,8 @@ class TrackController: NSViewController {
     override func awakeFromNib() {
         desired = PlayHistorySetup { self.history = $0 }
         _loadingIndicator.startAnimation(self)
+        _loadingIndicator.alphaValue = 0 // By default, nothing is to be loaded
+        
         observeHiddenToken = desired.observe(\.isDone, options: [.new]) { [weak self] object, change in
             let isDone = change.newValue!
             NSAnimationContext.runAnimationGroup({ context in

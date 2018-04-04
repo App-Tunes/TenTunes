@@ -96,12 +96,9 @@ class Player {
             alert.runModal()
         }
         catch {
-            let track = track!
             let alert: NSAlert = NSAlert()
-            if track.url == nil {
-                alert.messageText = "Error"
-                alert.informativeText = "An unknown error occured when playing the file"
-            }
+            alert.messageText = "Error"
+            alert.informativeText = "An unknown error occured when playing the file"
             alert.alertStyle = .warning
             alert.addButton(withTitle: "OK")
             alert.runModal()
@@ -141,8 +138,13 @@ class Player {
             if let url = track.url {
                 do {
                     let akfile = try AKAudioFile(forReading: url)
-                    
                     player.load(audioFile: akfile)
+                    
+                    guard player.duration < 100000 else {
+                        playing = nil
+                        throw PlayError.error // Likely bugged file and we'd crash otherwise
+                    }
+
                     player.play()
                     playing = track
                 } catch let error {

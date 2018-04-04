@@ -28,15 +28,7 @@ extension TrackController: NSUserInterfaceValidations {
     @IBAction func delete(_ sender: AnyObject) {
         remove(indices: Array(_tableView.selectedRowIndexes))
     }
-    
-    @IBAction func performFindPanelAction(_ sender: AnyObject) {
-        NSAnimationContext.runAnimationGroup({_ in
-            NSAnimationContext.current.duration = 0.2
-            _searchBarHeight.animator().constant = CGFloat(26)
-        })
-        _searchField.window?.makeFirstResponder(_searchField)
-    }
-    
+        
     @IBAction func closeSearchBar(_ sender: Any) {
         desired.filter = nil
         

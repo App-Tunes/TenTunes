@@ -181,6 +181,7 @@ class ViewController: NSViewController {
             
             self._title.stringValue = ""
             self._subtitle.stringValue = ""
+            _coverImage.image = nil
             _waveformView.analysis = nil
 
             return

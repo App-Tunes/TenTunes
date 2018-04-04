@@ -142,14 +142,6 @@ class Player {
                 do {
                     let akfile = try AKAudioFile(forReading: url)
                     player.load(audioFile: akfile)
-                    
-                    guard player.duration < 100000 else {
-                        playing = nil
-                        throw PlayError.error(message: "File duration is too long! The file is probably bugged.") // Likely bugged file and we'd crash otherwise
-                    }
-
-                    player.play()
-                    playing = track
                 } catch let error {
                     print(error.localizedDescription)
                     player.stop()
@@ -157,6 +149,14 @@ class Player {
                     
                     throw PlayError.error(message: error.localizedDescription)
                 }
+                
+                guard player.duration < 100000 else {
+                    playing = nil
+                    throw PlayError.error(message: "File duration is too long! The file is probably bugged.") // Likely bugged file and we'd crash otherwise
+                }
+                
+                player.play()
+                playing = track
             }
             else {
                 // We are at a track but it's not playable :<

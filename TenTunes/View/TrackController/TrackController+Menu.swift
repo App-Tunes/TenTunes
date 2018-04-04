@@ -19,10 +19,18 @@ extension TrackController: NSUserInterfaceValidations {
             return isQueue || Library.shared.isEditable(playlist: history.playlist)
         }
         
-        if action == #selector(performFindPanelAction) { return true }
+        if action == #selector(performFindPanelAction) { return !isQueue }
         if action == #selector(showInfo) { return true }
         
         return false
+    }
+    
+    @IBAction func performFindPanelAction(_ sender: AnyObject) {        
+        NSAnimationContext.runAnimationGroup({_ in
+            NSAnimationContext.current.duration = 0.2
+            _searchBarHeight.animator().constant = CGFloat(26)
+        })
+        _searchField.window?.makeFirstResponder(_searchField)
     }
     
     @IBAction func delete(_ sender: AnyObject) {

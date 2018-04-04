@@ -220,19 +220,7 @@ class TrackController: NSViewController {
 
         (history.playlist as! PlaylistManual).removeTracks(indices.compactMap { history.track(at: $0) })
         // Don't reload data, we'll be updated in async
-    }
-    
-    @IBAction func performFindPanelAction(_ sender: AnyObject) {
-        guard !isQueue else {
-            return
-        }
-        
-        NSAnimationContext.runAnimationGroup({_ in
-            NSAnimationContext.current.duration = 0.2
-            _searchBarHeight.animator().constant = CGFloat(26)
-        })
-        _searchField.window?.makeFirstResponder(_searchField)
-    }
+    }    
 }
 
 extension TrackController: NSTableViewDelegate {

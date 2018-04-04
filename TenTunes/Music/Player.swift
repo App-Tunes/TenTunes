@@ -95,13 +95,16 @@ class Player {
             alert.addButton(withTitle: "OK")
             alert.runModal()
         }
-        catch {
+        catch PlayError.error(let message) {
             let alert: NSAlert = NSAlert()
             alert.messageText = "Error"
-            alert.informativeText = "An unknown error occured when playing the file"
+            alert.informativeText = message ?? "An unknown error occured when playing the file"
             alert.alertStyle = .warning
             alert.addButton(withTitle: "OK")
             alert.runModal()
+        }
+        catch let error {
+            fatalError(error.localizedDescription)
         }
     }
     
@@ -116,7 +119,7 @@ class Player {
 
     enum PlayError : Error {
         case missing
-        case error
+        case error(message: String?)
     }
 
     func play(track: Track?) throws {
@@ -142,7 +145,7 @@ class Player {
                     
                     guard player.duration < 100000 else {
                         playing = nil
-                        throw PlayError.error // Likely bugged file and we'd crash otherwise
+                        throw PlayError.error(message: "File duration is too long! The file is probably bugged.") // Likely bugged file and we'd crash otherwise
                     }
 
                     player.play()
@@ -152,7 +155,7 @@ class Player {
                     player.stop()
                     playing = nil
                     
-                    throw PlayError.error
+                    throw PlayError.error(message: error.localizedDescription)
                 }
             }
             else {

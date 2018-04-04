@@ -86,6 +86,10 @@ extension Array {
         // Insert to new position
         insert(contentsOf: elements, at: toAfter)
     }
+    
+    public func fullSlice() -> ArraySlice<Element> {
+        return self[indices]
+    }
 }
 
 extension NSMutableOrderedSet {
@@ -239,15 +243,12 @@ extension Array where Element: Equatable {
                 
             for i in 0..<movement.count {
                 let (src, dst) = movement[i]
-                for (src2, dst2) in movement[dst+1..<movement.count] {
-                    if src2 < src {
-                        movement[dst2] = (src2 + 1, dst2)
-                    }
-                }
+                movement[dst+1..<movement.count] = (movement[dst+1..<movement.count].map { (src2, dst2) in
+                    return (src2 + (src2 < src ? 1 : 0), dst2)
+                }).fullSlice()
             }
             
-            return movement
-//                .filter { $0.0 != $0.1 }
+            return movement.filter { $0.0 != $0.1 }
         }
         
         let (left, right) = (self, to)

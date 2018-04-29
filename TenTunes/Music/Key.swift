@@ -176,7 +176,15 @@ class Key {
     }
     
     var description: NSAttributedString {
-        let description = isMinor ? self.note.description.lowercased() : self.note.description
+        var description = self.note.description
+
+        if InitialKeyDisplay.current == .german {
+            description = isMinor ? description.lowercased() : description
+        }
+        else {
+            description = isMinor ? description + "m" : description
+        }
+
         let color = NSColor(hue: CGFloat(self.camelot - 1) / CGFloat(12), saturation: CGFloat(0.6), brightness: CGFloat(1.0), alpha: CGFloat(1.0))
         return NSAttributedString(string: description, attributes: [.foregroundColor: color])
     }

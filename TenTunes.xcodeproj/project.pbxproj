@@ -75,6 +75,7 @@
 		80F8F6F42053EA2C004A07D6 /* FileTagEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80F8F6F22053EA2C004A07D6 /* FileTagEditor.xib */; };
 		80F97030209625E800A989D8 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F9702E209625E800A989D8 /* PreferencesWindowController.swift */; };
 		80F97031209625E800A989D8 /* PreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80F9702F209625E800A989D8 /* PreferencesWindowController.xib */; };
+		80F9703320962EA200A989D8 /* PopupEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F9703220962EA200A989D8 /* PopupEnum.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -206,6 +207,7 @@
 		80F8F6F22053EA2C004A07D6 /* FileTagEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileTagEditor.xib; sourceTree = "<group>"; };
 		80F9702E209625E800A989D8 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
 		80F9702F209625E800A989D8 /* PreferencesWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferencesWindowController.xib; sourceTree = "<group>"; };
+		80F9703220962EA200A989D8 /* PopupEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupEnum.swift; sourceTree = "<group>"; };
 		A38472EDF8C9143024B15892 /* Pods-TenTunes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenTunes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TenTunes/Pods-TenTunes.debug.xcconfig"; sourceTree = "<group>"; };
 		F519690AE56FC5800E060F88 /* Pods_TenTunes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TenTunes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -315,6 +317,7 @@
 			children = (
 				8087A493206597DC00CC9569 /* EnterReturningTextField.swift */,
 				807E4B46206428260051C028 /* ScrollableSlider.swift */,
+				80F9703220962EA200A989D8 /* PopupEnum.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -661,6 +664,7 @@
 				8017685920743898000DD433 /* NSImageViewAspectFill.swift in Sources */,
 				80F2C5912038A80D00212739 /* Track+TT.swift in Sources */,
 				80B3BE12207514D200B93961 /* Player.swift in Sources */,
+				80F9703320962EA200A989D8 /* PopupEnum.swift in Sources */,
 				80E2C9FC204B40A000298E81 /* PlaylistFolder+CoreDataProperties.swift in Sources */,
 				806AC1432041EF1900857B1B /* SPAnalyzer.mm in Sources */,
 				80F97030209625E800A989D8 /* PreferencesWindowController.swift in Sources */,

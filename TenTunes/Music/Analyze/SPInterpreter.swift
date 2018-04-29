@@ -24,6 +24,11 @@ class SPInterpreter {
         var floats: [CGFloat] = Array(repeating: CGFloat(0), count: previewSamplesTotal)
 
         let setProgress: (Float) -> Swift.Void = { (progress) in
+            guard WaveformAnimation.current != .nothing else {
+                analysis.values = BarsLayer.defaultValues
+                return
+            }
+            
             let time = Float(CACurrentMediaTime().truncatingRemainder(dividingBy: 1000)) // Allow for accuracy
             
             var values: [[CGFloat]] = Array(0..<Int(3)).map { (idx) in

@@ -25,13 +25,33 @@ enum InitialKeyDisplay: String {
     }
 }
 
+enum WaveformAnimation: String {
+    static let key: String = "waveformAnimation"
+    
+    case everything = "everything", nothing = "nothing"
+    
+    var title: String {
+        switch(self) {
+        case .everything: return "Fully Animated"
+        case .nothing: return "Unanimated"
+        }
+    }
+    
+    static var current: WaveformAnimation {
+        return ((UserDefaults.standard.value(forKey: key) as? String) ?=> WaveformAnimation.init) ?? .everything
+    }
+}
+
 class PreferencesWindowController: NSWindowController {
 
     @IBOutlet var initialKeyDisplay: NSPopUpButton!
+    
+    @IBOutlet var waveformAnimation: NSPopUpButton!
     
     override func windowDidLoad() {
         super.windowDidLoad()
 
         PopupEnum<InitialKeyDisplay>.bind(initialKeyDisplay, toUserDefaultsKey: InitialKeyDisplay.key, with: [.german, .english], by: { $0.rawValue }, title: { $0.title })
+        PopupEnum<WaveformAnimation>.bind(waveformAnimation, toUserDefaultsKey: WaveformAnimation.key, with: [.everything, .nothing], by: { $0.rawValue }, title: { $0.title })
     }
 }

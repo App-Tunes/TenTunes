@@ -8,13 +8,14 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PreferencesWindowController" customModule="TenTunes" customModuleProvider="target">
             <connections>
                 <outlet property="initialKeyDisplay" destination="oQS-Mt-2Xw" id="pc3-0j-fwG"/>
+                <outlet property="waveformAnimation" destination="22V-MU-6Qp" id="e9j-Ze-bh0"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="480" height="270"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
@@ -41,6 +42,31 @@
                                 <items>
                                     <menuItem title="German" state="on" id="rN0-sR-rSX"/>
                                     <menuItem title="English" tag="1" id="2ab-Vw-juD"/>
+                                </items>
+                            </menu>
+                        </popUpButtonCell>
+                    </popUpButton>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T84-Jm-TW7">
+                        <rect key="frame" x="18" y="188" width="130" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Waveform Animation" id="HVj-gY-KBb">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22V-MU-6Qp">
+                        <rect key="frame" x="266" y="182" width="197" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <popUpButtonCell key="cell" type="push" title="Fully Animated" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="nyb-AT-mxK" id="w63-aA-96E">
+                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="menu"/>
+                            <menu key="menu" id="ZEN-tN-liD">
+                                <items>
+                                    <menuItem title="Fully Animated" state="on" id="nyb-AT-mxK"/>
+                                    <menuItem title="Progress Only" tag="1" id="VPX-fD-Mq1"/>
+                                    <menuItem title="Indeterminate Only" tag="2" id="koz-U1-CYb"/>
+                                    <menuItem title="None" tag="3" id="I3y-6P-xa8"/>
                                 </items>
                             </menu>
                         </popUpButtonCell>

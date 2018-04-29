@@ -37,6 +37,15 @@ class Analysis : NSObject, NSCoding {
             fatalError("Not complete yet")
         }
         
+        values = values.map { $0.map {
+            guard $0.isNormal else {
+                print(String(format: "Found %f in %s", $0, self))
+                return 0
+            }
+            
+            return $0
+        }}
+        
         aCoder.encode(values.map { $0.map { UInt8($0 * 255) }})
     }
     

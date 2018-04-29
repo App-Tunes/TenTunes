@@ -53,9 +53,20 @@ extension Track {
         return album ?? ""
     }
     
+    var rBPM: NSAttributedString {
+        guard let bpm = bpm else {
+            return NSAttributedString()
+        }
+        
+        let title = (bpm ?=> String.init) ?? ""
+        let color = NSColor(hue: CGFloat(0.5 + (0...0.3).clamp((bpm - 70.0) / 300.0)), saturation: CGFloat(0.3), brightness: CGFloat(0.65), alpha: CGFloat(1.0))
+        
+        return NSAttributedString(string: title, attributes: [.foregroundColor: color])
+    }
+    
     var rKey: NSAttributedString {
         guard let key = self.key else {
-            return NSAttributedString(string: "")
+            return NSAttributedString()
         }
         
         return key.description

@@ -291,7 +291,7 @@ extension TrackController: NSTableViewDelegate {
             return view
         }
         else if tableColumn?.identifier == ColumnIdentifiers.bpm, let view = tableView.makeView(withIdentifier: CellIdentifiers.bpm, owner: nil) as? NSTableCellView {
-            view.textField?.stringValue = (track.bpm ?=> String.init) ?? ""
+            view.textField?.attributedStringValue = track.rBPM
             return view
         }
         else if tableColumn?.identifier == ColumnIdentifiers.key, let view = tableView.makeView(withIdentifier: CellIdentifiers.key, owner: nil) as? NSTableCellView {

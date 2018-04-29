@@ -176,16 +176,19 @@ class Key {
     }
     
     var description: NSAttributedString {
-        var description = self.note.description
-
-        if InitialKeyDisplay.current == .german {
+        var description = note.description
+        
+        switch InitialKeyDisplay.current {
+        case .german:
             description = isMinor ? description.lowercased() : description
-        }
-        else {
+        case .camelot:
+            description = "\(((note.camelot(isMinor: isMinor) + 7) % 12) + 1)\(isMinor ? "A" : "B")"
+        default:
             description = isMinor ? description + "m" : description
         }
 
         let color = NSColor(hue: CGFloat(self.camelot - 1) / CGFloat(12), saturation: CGFloat(0.6), brightness: CGFloat(1.0), alpha: CGFloat(1.0))
+
         return NSAttributedString(string: description, attributes: [.foregroundColor: color])
     }
 }

@@ -11,17 +11,18 @@ import Cocoa
 enum InitialKeyDisplay: String {
     static let key: String = "intialKeyDisplay"
     
-    case german = "german", english = "english"
+    case camelot = "camelot", english = "english", german = "german"
     
     var title: String {
         switch(self) {
         case .german: return "German"
+        case .camelot: return "Camelot"
         case .english: return "English"
         }
     }
     
     static var current: InitialKeyDisplay {
-        return ((UserDefaults.standard.value(forKey: key) as? String) ?=> InitialKeyDisplay.init) ?? .german
+        return ((UserDefaults.standard.value(forKey: key) as? String) ?=> InitialKeyDisplay.init) ?? .camelot
     }
 }
 
@@ -51,7 +52,7 @@ class PreferencesWindowController: NSWindowController {
     override func windowDidLoad() {
         super.windowDidLoad()
 
-        PopupEnum<InitialKeyDisplay>.bind(initialKeyDisplay, toUserDefaultsKey: InitialKeyDisplay.key, with: [.german, .english], by: { $0.rawValue }, title: { $0.title })
+        PopupEnum<InitialKeyDisplay>.bind(initialKeyDisplay, toUserDefaultsKey: InitialKeyDisplay.key, with: [.camelot, .english, .german], by: { $0.rawValue }, title: { $0.title })
         PopupEnum<WaveformAnimation>.bind(waveformAnimation, toUserDefaultsKey: WaveformAnimation.key, with: [.everything, .nothing], by: { $0.rawValue }, title: { $0.title })
     }
 }

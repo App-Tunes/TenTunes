@@ -96,7 +96,7 @@ class TrackController: NSViewController {
         
         _playlistTitle.stringValue = ""
         
-        NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
+        NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [unowned self] in
             return self.keyDown(with: $0)
         }
     }

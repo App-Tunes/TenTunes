@@ -59,24 +59,28 @@ class ViewController: NSViewController {
     
     var mediaKeyTap: MediaKeyTap?
     
+    var preferencesController: PreferencesWindowController!
+
     var playlistController: PlaylistController!
     var trackController: TrackController!
     var queueController: TrackController!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         ValueTransformers.register()
 
-        trackController = TrackController(nibName: NSNib.Name(rawValue: "TrackController"), bundle: nil)
+        preferencesController = PreferencesWindowController(windowNibName: .init(rawValue: "PreferencesWindowController"))
+
+        trackController = TrackController(nibName: .init(rawValue: "TrackController"), bundle: nil)
         trackController.view.frame = _trackView.frame
         _splitView.replaceSubview(_trackView, with: trackController.view)
         
-        playlistController = PlaylistController(nibName: NSNib.Name(rawValue: "PlaylistController"), bundle: nil)
+        playlistController = PlaylistController(nibName: .init(rawValue: "PlaylistController"), bundle: nil)
         playlistController.view.frame = _playlistView.frame
         _splitView.replaceSubview(_playlistView, with: playlistController.view)
 
-        queueController = TrackController(nibName: NSNib.Name(rawValue: "TrackController"), bundle: nil)
+        queueController = TrackController(nibName: .init(rawValue: "TrackController"), bundle: nil)
 
         ViewController.shared = self
         
@@ -173,6 +177,11 @@ class ViewController: NSViewController {
         return nil
     }
     
+    @IBAction
+    func showPreferences(sender: Any?) {
+        preferencesController.showWindow(self)
+    }
+    
     func updatePlaying() {
         self.updateTimesHidden(self)
         
@@ -267,7 +276,8 @@ extension ViewController: NSUserInterfaceValidations {
         }
         
         if action == #selector(performFindEverywherePanelAction) { return true }
-        
+        if action == #selector(showPreferences) { return true }
+
         return false
     }
     

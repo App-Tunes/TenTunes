@@ -73,6 +73,8 @@
 		80F8550620691897009A8FBE /* PlaylistController+RightClick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F8550520691897009A8FBE /* PlaylistController+RightClick.swift */; };
 		80F8F6F32053EA2C004A07D6 /* FileTagEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F8F6F12053EA2C004A07D6 /* FileTagEditor.swift */; };
 		80F8F6F42053EA2C004A07D6 /* FileTagEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80F8F6F22053EA2C004A07D6 /* FileTagEditor.xib */; };
+		80F97030209625E800A989D8 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F9702E209625E800A989D8 /* PreferencesWindowController.swift */; };
+		80F97031209625E800A989D8 /* PreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80F9702F209625E800A989D8 /* PreferencesWindowController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -202,6 +204,8 @@
 		80F8550520691897009A8FBE /* PlaylistController+RightClick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistController+RightClick.swift"; sourceTree = "<group>"; };
 		80F8F6F12053EA2C004A07D6 /* FileTagEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTagEditor.swift; sourceTree = "<group>"; };
 		80F8F6F22053EA2C004A07D6 /* FileTagEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileTagEditor.xib; sourceTree = "<group>"; };
+		80F9702E209625E800A989D8 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
+		80F9702F209625E800A989D8 /* PreferencesWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferencesWindowController.xib; sourceTree = "<group>"; };
 		A38472EDF8C9143024B15892 /* Pods-TenTunes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenTunes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TenTunes/Pods-TenTunes.debug.xcconfig"; sourceTree = "<group>"; };
 		F519690AE56FC5800E060F88 /* Pods_TenTunes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TenTunes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -284,6 +288,8 @@
 				8058FABF2043409F0086FF8A /* VibrantTableRowView.swift */,
 				8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */,
 				80E937582039C2850014C835 /* Keycodes.swift */,
+				80F9702E209625E800A989D8 /* PreferencesWindowController.swift */,
+				80F9702F209625E800A989D8 /* PreferencesWindowController.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -567,6 +573,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80F8F6F42053EA2C004A07D6 /* FileTagEditor.xib in Resources */,
+				80F97031209625E800A989D8 /* PreferencesWindowController.xib in Resources */,
 				80F2C5812038808000212739 /* Assets.xcassets in Resources */,
 				80074CFD204584980055B87E /* PlaylistController.xib in Resources */,
 				80074CF9204583CF0055B87E /* TrackController.xib in Resources */,
@@ -656,6 +663,7 @@
 				80B3BE12207514D200B93961 /* Player.swift in Sources */,
 				80E2C9FC204B40A000298E81 /* PlaylistFolder+CoreDataProperties.swift in Sources */,
 				806AC1432041EF1900857B1B /* SPAnalyzer.mm in Sources */,
+				80F97030209625E800A989D8 /* PreferencesWindowController.swift in Sources */,
 				80E937592039C2850014C835 /* Keycodes.swift in Sources */,
 				80E2C9FB204B40A000298E81 /* PlaylistFolder+CoreDataClass.swift in Sources */,
 				807E4B47206428260051C028 /* ScrollableSlider.swift in Sources */,

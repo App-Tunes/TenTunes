@@ -16,8 +16,16 @@ extension Library {
         // TODO Clean up old playlists
         for playlist in playlists where changed.contains(playlist.objectID) || playlist.tracksList.anyMatch { changed.contains($0.objectID) } {
             let filename = playlist.name.asFileName + ".m3u"
-            Library.writeM3U(playlist: playlist, to: m3uRelative.appendingPathComponent(filename, isDirectory: false), absolute: false)
-            Library.writeM3U(playlist: playlist, to: m3uAbsolute.appendingPathComponent(filename, isDirectory: false), absolute: true)
+            var relative = m3uRelative
+            var absolute = m3uAbsolute
+
+            for component in Library.shared.path(of: playlist).dropLast().dropFirst() {
+                relative = relative.appendingPathComponent(component.name.asFileName)
+                absolute = absolute.appendingPathComponent(component.name.asFileName)
+            }
+            
+            Library.writeM3U(playlist: playlist, to: relative.appendingPathComponent(filename, isDirectory: false), absolute: false)
+            Library.writeM3U(playlist: playlist, to: absolute.appendingPathComponent(filename, isDirectory: false), absolute: true)
         }
     }
     

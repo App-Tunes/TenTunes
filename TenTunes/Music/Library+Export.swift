@@ -10,7 +10,7 @@ import Cocoa
 
 extension Library {
     func startExport(completion: @escaping () -> Swift.Void) -> Bool {
-        guard _exportChanged.count > 0, exportSemaphore.acquireNow() else {
+        guard _exportChanged == nil || _exportChanged!.count > 0, exportSemaphore.acquireNow() else {
             return false
         }
         

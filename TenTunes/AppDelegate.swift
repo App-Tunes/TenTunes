@@ -134,6 +134,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSWorkspace.shared.activateFileViewerSelecting([Library.shared.exportURL(title: nil)])
     }
     
+    @IBAction func refreshExports(_ sender: Any) {
+        Library.shared._exportChanged = nil
+    }
+    
     @IBAction func openDocument(_ sender: Any) {
         let dialog = NSOpenPanel()
 

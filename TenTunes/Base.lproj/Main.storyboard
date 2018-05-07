@@ -122,6 +122,12 @@
                                                 <action selector="revealExports:" target="Voe-Tx-rLC" id="FqW-s3-psc"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Refresh All Exports" id="bPk-l0-Nrf">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="refreshExports:" target="Voe-Tx-rLC" id="VwL-AU-iZR"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
                                         <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
                                             <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>

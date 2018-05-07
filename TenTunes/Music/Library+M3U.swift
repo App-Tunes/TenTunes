@@ -9,12 +9,12 @@
 import Cocoa
 
 extension Library {
-    func writeM3UPlaylists(playlists: [Playlist], changed: Set<NSManagedObjectID>) {
+    func writeM3UPlaylists(playlists: [Playlist], changed: Set<NSManagedObjectID>?) {
         let m3uRelative = exportURL(title: "M3U (Relative)")
         let m3uAbsolute = exportURL(title: "M3U (Absolute)")
         
         // TODO Clean up old playlists
-        for playlist in playlists where changed.contains(playlist.objectID) || playlist.tracksList.anyMatch { changed.contains($0.objectID) } {
+        for playlist in playlists where changed == nil || changed!.contains(playlist.objectID) || playlist.tracksList.anyMatch { changed!.contains($0.objectID) } {
             let filename = playlist.name.asFileName + ".m3u"
             var relative = m3uRelative
             var absolute = m3uAbsolute

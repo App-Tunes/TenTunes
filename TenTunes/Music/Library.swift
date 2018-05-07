@@ -87,7 +87,7 @@ class Library : NSPersistentContainer {
         return _masterPlaylist
     }
     
-    var _exportChanged: Set<NSManagedObjectID> = Set()
+    var _exportChanged: Set<NSManagedObjectID>? = Set()
     var exportSemaphore = DispatchSemaphore(value: 1)
 
     // Querying
@@ -216,7 +216,7 @@ extension Library {
             }
         }
         
-        _exportChanged = _exportChanged.union(inserts.map { $0.objectID })
+        _exportChanged = _exportChanged?.union(inserts.map { $0.objectID })
                                         .union(deletes.map { $0.objectID })
                                         .union(updates.map { $0.objectID })
     }

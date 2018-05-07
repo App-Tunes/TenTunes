@@ -26,9 +26,7 @@ extension Library {
     
     func exportURL(title: String?, directory: Bool = true) -> URL {
         let exportsDirectory = self.directory.appendingPathComponent("Exports", isDirectory: true)
-        let url = title != nil ? exportsDirectory.appendingPathComponent(title!, isDirectory: true) : exportsDirectory
-        try! FileManager.default.createDirectory(at: directory ? url : exportsDirectory, withIntermediateDirectories: true, attributes: nil)
-        return url
+        return title != nil ? exportsDirectory.appendingPathComponent(title!, isDirectory: true) : exportsDirectory
     }
     
     func updateExports(in mox: NSManagedObjectContext) {

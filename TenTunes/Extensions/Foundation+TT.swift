@@ -446,6 +446,10 @@ extension URL {
         relComponents.append(contentsOf: destComponents[i...])
         return relComponents.joined(separator: "/")
     }
+    
+    func ensurePath() throws {
+        try FileManager.default.createDirectory(at: self.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
+    }
 }
 
 extension Timer {

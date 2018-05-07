@@ -15,8 +15,9 @@ extension Library {
         
         // TODO Clean up old playlists
         for playlist in playlists where changed.contains(playlist.objectID) || playlist.tracksList.anyMatch { changed.contains($0.objectID) } {
-            Library.writeM3U(playlist: playlist, to: m3uRelative.appendingPathComponent(playlist.name.asFileName + ".m3u", isDirectory: false), absolute: false)
-            Library.writeM3U(playlist: playlist, to: m3uAbsolute.appendingPathComponent(playlist.name.asFileName + ".m3u", isDirectory: false), absolute: true)
+            let filename = playlist.name.asFileName + ".m3u"
+            Library.writeM3U(playlist: playlist, to: m3uRelative.appendingPathComponent(filename, isDirectory: false), absolute: false)
+            Library.writeM3U(playlist: playlist, to: m3uAbsolute.appendingPathComponent(filename, isDirectory: false), absolute: true)
         }
     }
     
@@ -31,6 +32,7 @@ extension Library {
         }
         let contents = "#EXTM3U\n" + tracks.joined(separator: "\n")
         
+        try! to.ensurePath()
         try! contents.write(to: to, atomically: true, encoding: .utf8)
     }
 }

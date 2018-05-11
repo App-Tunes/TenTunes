@@ -11,6 +11,10 @@ import Foundation
 import AVFoundation
 
 extension TrackController {
+    var pasteboardTypes: [NSPasteboard.PasteboardType] {
+        return [Track.pasteboardType]
+    }
+    
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
         let item = NSPasteboardItem()
         Library.shared.writeTrack(history.track(at: row)!, toPasteboarditem: item)

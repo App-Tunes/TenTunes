@@ -22,7 +22,7 @@ import Cocoa
     @IBOutlet var _outlineView: NSOutlineView!
     
     override func awakeFromNib() {
-        _outlineView.registerForDraggedTypes([Playlist.pasteboardType, Track.pasteboardType])
+        _outlineView.registerForDraggedTypes(pasteboardTypes)
     }
     
     @IBAction func didClick(_ sender: Any) {

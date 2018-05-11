@@ -9,6 +9,10 @@
 import Cocoa
 
 extension PlaylistController {
+    var pasteboardTypes: [NSPasteboard.PasteboardType] {
+        return [Playlist.pasteboardType, Track.pasteboardType, .fileURL]
+    }
+    
     func outlineView(_ outlineView: NSOutlineView, pasteboardWriterForItem item: Any) -> NSPasteboardWriting? {
         let pbitem = NSPasteboardItem()
         Library.shared.writePlaylist(item as! Playlist, toPasteboarditem: pbitem)
@@ -22,6 +26,9 @@ extension PlaylistController {
         
         switch type {
         case Track.pasteboardType:
+            let playlist = item as? Playlist ?? masterPlaylist!
+            return Library.shared.isEditable(playlist: playlist) ? .move : []
+        case .fileURL:
             let playlist = item as? Playlist ?? masterPlaylist!
             return Library.shared.isEditable(playlist: playlist) ? .move : []
         case Playlist.pasteboardType:
@@ -48,7 +55,11 @@ extension PlaylistController {
         switch type {
         case Track.pasteboardType:
             let tracks = (pasteboard.pasteboardItems ?? []).compactMap(Library.shared.readTrack)
-            
+            (parent as! PlaylistManual).addTracks(tracks)
+            return true
+        case .fileURL:
+            let urls = pasteboard.readObjects(forClasses: [NSURL.self], options: [.urlReadingFileURLsOnly: true])
+            let tracks = (urls as! [NSURL]).map {FileImporter.importURL($0 as URL) }
             (parent as! PlaylistManual).addTracks(tracks)
             return true
         case Playlist.pasteboardType:

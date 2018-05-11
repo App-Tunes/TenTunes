@@ -89,7 +89,7 @@ class TrackController: NSViewController {
 
         infoEditor = FileTagEditor()
         
-        _tableView.registerForDraggedTypes([Track.pasteboardType])
+        _tableView.registerForDraggedTypes(pasteboardTypes)
         _tableView.setDraggingSourceOperationMask(.every, forLocal: false) // ESSENTIAL
         
         _searchBarHeight.constant = CGFloat(0)

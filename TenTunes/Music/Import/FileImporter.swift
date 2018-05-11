@@ -10,10 +10,16 @@ import Cocoa
 
 class FileImporter {
     static func importURL(_ url: URL) -> Track {
+        let request = NSFetchRequest<Track>(entityName: "Track")
+        request.predicate = NSPredicate(format: "path == %@", url.absoluteString)
+        if let track = try! Library.shared.viewContext.fetch(request).first {
+            return track
+        }
+
         let track = Track()
         
         track.path = url.absoluteString
-        track.title = url.lastPathComponent
+        track.title = url.lastPathComponent // Temporary title
         
         Library.shared.viewContext.insert(track)
         

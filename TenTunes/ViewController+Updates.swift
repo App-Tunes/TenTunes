@@ -50,7 +50,10 @@ extension ViewController {
         }
         
         // Modified playlists?
-        if deletes.of(type: Playlist.self).count > 0 || inserts.of(type: Playlist.self).count > 0 {
+        if updates.of(type: Playlist.self).count > 0 {
+            playlistController._outlineView.reloadData() // TODO Animate movement?
+        }
+        else if deletes.of(type: Playlist.self).count > 0 || inserts.of(type: Playlist.self).count > 0 {
             // We hope that it's not possible to insert/delete and reorder at once lol
             playlistController._outlineView.animateDelete(elements: Array(deletes.of(type: Playlist.self)))
             playlistController._outlineView.animateInsert(elements: Array(inserts.of(type: Playlist.self))) {
@@ -58,10 +61,7 @@ extension ViewController {
                 return (idx, parent == Library.shared.masterPlaylist ? nil : parent)
             }
         }
-        else {
-            playlistController._outlineView.reloadData() // TODO Animate movement?
-        }
-
+        
         if let viewingPlaylist = trackController.history.playlist as? Playlist, deletes.of(type: Playlist.self).contains(viewingPlaylist) {
             
             // Deleted our current playlist! :<

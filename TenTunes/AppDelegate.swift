@@ -138,6 +138,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         Library.shared._exportChanged = nil
     }
     
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        if !flag {
+            ViewController.shared.view.window?.makeKeyAndOrderFront(self)
+        }
+        
+        return true
+    }
+    
     @IBAction func openDocument(_ sender: Any) {
         let dialog = NSOpenPanel()
 

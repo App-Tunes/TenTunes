@@ -43,12 +43,32 @@ enum WaveformAnimation: String {
     }
 }
 
+enum AnalyzeNewTracks {
+    static let key: String = "dontAutoAnalyzeTracksOnAdd"
+    
+    case analyze, dont
+    
+    static var current: AnalyzeNewTracks {
+        return UserDefaults.standard.bool(forKey: key) ? dont : analyze
+    }
+}
+
+enum PlayOpenedFiles {
+    static let key: String = "dontAutoPlayTracksOnOpen"
+    
+    case play, dont
+    
+    static var current: PlayOpenedFiles {
+        return UserDefaults.standard.bool(forKey: key) ? dont : play
+    }
+}
+
 class PreferencesWindowController: NSWindowController {
 
     @IBOutlet var initialKeyDisplay: NSPopUpButton!
     
     @IBOutlet var waveformAnimation: NSPopUpButton!
-    
+
     override func windowDidLoad() {
         super.windowDidLoad()
 

@@ -121,6 +121,10 @@ class Player {
         case missing
         case error(message: String?)
     }
+    
+    func enqueue(tracks: [Track]) {
+        history?.insert(tracks: tracks, before: history!.playingIndex + 1)
+    }
 
     func play(track: Track?) throws {
         defer {

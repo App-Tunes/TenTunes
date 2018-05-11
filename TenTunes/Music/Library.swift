@@ -204,6 +204,14 @@ extension Library {
         let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject> ?? Set()
         let deletes = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject> ?? Set()
 
+        for insert in inserts {
+            if let track = insert as? Track {
+                if AnalyzeNewTracks.current == .analyze {
+                    ViewController.shared.analysisToDo.insert(track)
+                }
+            }
+        }
+        
         for delete in deletes {
             if let track = delete as? Track {
                 mediaLocation.delete(track: track)

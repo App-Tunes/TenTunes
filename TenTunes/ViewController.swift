@@ -112,7 +112,7 @@ class ViewController: NSViewController {
             // TODO Support for multiple
             // TODO What if history doesn't exist? No feedback!!
             let next = [self.trackController.history.track(at: $0)!]
-            self.player.history?.insert(tracks: next, before: self.player.history!.playingIndex + 1)
+            self.player.enqueue(tracks: next)
         }
         trackController.desired.playlist = Library.shared.allTracks
 

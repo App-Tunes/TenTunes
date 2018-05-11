@@ -148,30 +148,40 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //        dialog.allowedFileTypes        = ["xml"]
         
         if dialog.runModal() == NSApplication.ModalResponse.OK {
-            for url in dialog.urls {
-                importFile(url)
-            }
+            let tracks = dialog.urls.map { self.importFile($0) }
             
             try! Library.shared.viewContext.save()
+            
+            if PlayOpenedFiles.current == .play {
+                ViewController.shared.player.enqueue(tracks: tracks)
+                ViewController.shared.player.play(moved: 1)
+            }
         }
     }
     
     func application(_ sender: NSApplication, openFiles filenames: [String]) {
-        for path in filenames {
+        let tracks: [Track] = filenames.map { path in
             let url = URL(fileURLWithPath: path)
-            importFile(url)
+            return self.importFile(url)
         }
         
         try! Library.shared.viewContext.save()
+        
+        if PlayOpenedFiles.current == .play {
+            ViewController.shared.player.enqueue(tracks: tracks)
+            ViewController.shared.player.play(moved: 1)
+        }
     }
     
-    func importFile(_ url: URL) {
+    func importFile(_ url: URL) -> Track {
         let track = Track()
         
         track.path = url.absoluteString
         track.title = url.lastPathComponent
         
         Library.shared.viewContext.insert(track)
+        
+        return track
     }
 }
 

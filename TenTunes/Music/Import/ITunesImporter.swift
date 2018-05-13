@@ -21,7 +21,7 @@ class ITunesImporter {
         let mox = Library.shared.viewContext
         
         // TODO Async
-        let masterPlaylist = PlaylistFolder()
+        let masterPlaylist = PlaylistFolder(context: mox)
         masterPlaylist.name = "iTunes Library"
         library.masterPlaylist.addPlaylist(masterPlaylist)
         
@@ -40,7 +40,7 @@ class ITunesImporter {
             let trackData = trackData as! NSDictionary
             let persistentID =  trackData["Persistent ID"] as! String
             
-            let track = existingTracks[persistentID] ?? Track()
+            let track = existingTracks[persistentID] ?? Track(context: mox)
             
             iTunesTracks[trackData["Track ID"] as! Int] = track
             
@@ -72,7 +72,7 @@ class ITunesImporter {
 //            }
             
             let isFolder = playlistData.object(forKey: "Folder") as? Bool ?? false
-            let playlist = isFolder ? PlaylistFolder() : PlaylistManual()
+            let playlist = isFolder ? PlaylistFolder(context: mox) : PlaylistManual(context: mox)
             
             playlist.name = playlistData.object(forKey: "Name") as! String
             playlist.iTunesID = persistentID

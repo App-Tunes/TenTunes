@@ -12,11 +12,6 @@ import AudioKit
 extension Track {
     static let pasteboardType = NSPasteboard.PasteboardType(rawValue: "tentunes.track")
 
-    convenience init() { // TODO Remove?
-        let mox = Library.shared.viewContext
-        self.init(entity: NSEntityDescription.entity(forEntityName: "Track", in:mox)!, insertInto: mox)
-    }
-
     var duration: CMTime? {
         get { return durationR > 0 ? CMTime(value: durationR, timescale: 1000) : nil }
         set(duration) { durationR = duration?.convertScale(1000, method: .roundHalfAwayFromZero).value ?? 0 }

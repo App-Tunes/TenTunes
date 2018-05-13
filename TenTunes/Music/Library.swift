@@ -52,7 +52,7 @@ class Library : NSPersistentContainer {
 
         allTracks = PlaylistLibrary(context: viewContext)
         if !fetchMaster() {
-            _masterPlaylist = PlaylistFolder(mox: viewContext)
+            _masterPlaylist = PlaylistFolder(context: viewContext)
             _masterPlaylist.name = "Master Playlist"
             
             viewContext.insert(_masterPlaylist)

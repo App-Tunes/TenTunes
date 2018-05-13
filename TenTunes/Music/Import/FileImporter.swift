@@ -16,7 +16,7 @@ class FileImporter {
             return track
         }
 
-        let track = Track()
+        let track = Track(context: Library.shared.viewContext)
         
         track.path = url.absoluteString // Possibly temporary location
         track.title = url.lastPathComponent // Temporary title

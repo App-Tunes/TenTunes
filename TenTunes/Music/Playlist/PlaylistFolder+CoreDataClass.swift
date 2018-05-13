@@ -11,17 +11,13 @@ import Foundation
 import CoreData
 
 @objc(PlaylistFolder)
-public class PlaylistFolder: Playlist {
-    convenience init() { // TODO Remove?
-        self.init(mox: Library.shared.viewContext)
+public class PlaylistFolder: Playlist {    
+    public override func awakeFromInsert() {
+        if name == "" {
+            name = "Unnamed Group"
+        }
     }
-    
-    convenience init(mox: NSManagedObjectContext) { // TODO Remove?
-        self.init(entity: NSEntityDescription.entity(forEntityName: "PlaylistFolder", in:mox)!, insertInto: mox)
-        
-        name = "Unnamed Group"
-    }
-    
+
     var childrenList: [Playlist] {
         get { return Array(children) as! [Playlist] }
     }

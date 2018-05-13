@@ -22,6 +22,7 @@ class ITunesImporter {
         
         // TODO Async
         let masterPlaylist = PlaylistFolder(context: mox)
+        mox.insert(masterPlaylist)
         masterPlaylist.name = "iTunes Library"
         library.masterPlaylist.addPlaylist(masterPlaylist)
         

@@ -12,12 +12,6 @@ import CoreData
 
 @objc(PlaylistManual)
 public class PlaylistManual: Playlist {
-    public override func awakeFromInsert() {
-        if name == "" {
-            name = "Unnamed Playlist"
-        }
-    }
-    
     override var tracksList: [Track] {
         get { return Array(tracks) as! [Track] }
     }

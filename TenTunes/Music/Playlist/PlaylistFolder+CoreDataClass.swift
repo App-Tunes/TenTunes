@@ -16,6 +16,8 @@ public class PlaylistFolder: Playlist {
         if name == "" {
             name = "Unnamed Group"
         }
+
+        super.awakeFromInsert()
     }
 
     var childrenList: [Playlist] {

@@ -92,6 +92,7 @@ import Cocoa
     
     @IBAction func createPlaylist(_ sender: Any) {
         let createPlaylist = PlaylistManual(context: Library.shared.viewContext)
+        Library.shared.viewContext.insert(createPlaylist)
         let (parent, idx) = playlistInsertionPosition
         
         parent.addPlaylist(createPlaylist, above: idx)
@@ -102,6 +103,7 @@ import Cocoa
     
     @IBAction func createGroup(_ sender: Any) {
         let createPlaylist = PlaylistFolder(context: Library.shared.viewContext)
+        Library.shared.viewContext.insert(createPlaylist)
         let (parent, idx) = playlistInsertionPosition
         
         // TODO If we select multiple playlists at once, put them in the newly created one

@@ -16,6 +16,8 @@ class FileTagEditor: NSWindowController {
             for track in tracks where !track.metadataFetched {
                 track.fetchMetadata()
             }
+            
+            Library.shared.mediaLocation.updateLocations(of: tracks)
         }
     }
     @IBOutlet var tracksController: NSArrayController!

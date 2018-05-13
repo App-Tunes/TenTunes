@@ -112,6 +112,7 @@ extension ViewController {
             let asyncTrack = mox.convert(track)
             
             asyncTrack.fetchMetadata()
+            Library.shared.mediaLocation.updateLocation(of: track)
             
             try! mox.save()
             track.copyTransient(from: asyncTrack)

@@ -53,6 +53,24 @@ enum AnalyzeNewTracks {
     }
 }
 
+enum FileLocationOnAdd: String {
+    static let key: String = "fileLocationOnAdd"
+    
+    case link = "link", copy = "copy", move = "move"
+    
+    var title: String {
+        switch(self) {
+        case .link: return "Link to the file"
+        case .copy: return "Copy to Media Directory"
+        case .move: return "Move to Media Directory"
+        }
+    }
+    
+    static var current: FileLocationOnAdd {
+        return ((UserDefaults.standard.value(forKey: key) as? String) ?=> FileLocationOnAdd.init) ?? .copy
+    }
+}
+
 enum PlayOpenedFiles {
     static let key: String = "dontAutoPlayTracksOnOpen"
     
@@ -69,10 +87,13 @@ class PreferencesWindowController: NSWindowController {
     
     @IBOutlet var waveformAnimation: NSPopUpButton!
 
+    @IBOutlet var fileLocationOnAdd: NSPopUpButton!
+
     override func windowDidLoad() {
         super.windowDidLoad()
 
         PopupEnum<InitialKeyDisplay>.bind(initialKeyDisplay, toUserDefaultsKey: InitialKeyDisplay.key, with: [.camelot, .english, .german], by: { $0.rawValue }, title: { $0.title })
         PopupEnum<WaveformAnimation>.bind(waveformAnimation, toUserDefaultsKey: WaveformAnimation.key, with: [.everything, .nothing], by: { $0.rawValue }, title: { $0.title })
+        PopupEnum<FileLocationOnAdd>.bind(fileLocationOnAdd, toUserDefaultsKey: FileLocationOnAdd.key, with: [.copy, .move, .link], by: { $0.rawValue }, title: { $0.title })
     }
 }

@@ -168,6 +168,13 @@ extension Library {
                 if AnalyzeNewTracks.current == .analyze {
                     ViewController.shared.analysisToDo.insert(track)
                 }
+                
+                if FileLocationOnAdd.current == .copy || FileLocationOnAdd.current == .move {
+                    DispatchQueue.main.async { // Async so we have no save error
+                        track.usesMediaDirectory = true
+                        self.mediaLocation.updateLocations(of: [track], copy: FileLocationOnAdd.current == .copy) // Auto-Saves
+                    }
+                }
             }
         }
         

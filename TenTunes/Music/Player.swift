@@ -123,7 +123,12 @@ class Player {
     }
     
     func enqueue(tracks: [Track]) {
-        history?.insert(tracks: tracks, before: history!.playingIndex + 1)
+        if history == nil {
+            let history = PlayHistory(playlist: PlaylistEmpty())
+            play(at: -1, in: history)
+        }
+        
+        history!.insert(tracks: tracks, before: history!.playingIndex + 1)
     }
 
     func play(track: Track?) throws {

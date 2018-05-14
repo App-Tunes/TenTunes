@@ -160,7 +160,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             try! Library.shared.viewContext.save()
             
-            if PlayOpenedFiles.current == .play {
+            if Preferences.PlayOpenedFiles.current == .play {
                 ViewController.shared.player.enqueue(tracks: tracks)
                 ViewController.shared.player.play(moved: 1)
             }
@@ -175,7 +175,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         try! Library.shared.viewContext.save()
         
-        if PlayOpenedFiles.current == .play {
+        if Preferences.PlayOpenedFiles.current == .play {
             ViewController.shared.player.enqueue(tracks: tracks)
             ViewController.shared.player.play(moved: 1)
         }

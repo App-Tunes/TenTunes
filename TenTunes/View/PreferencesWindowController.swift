@@ -8,106 +8,108 @@
 
 import Cocoa
 
-enum InitialKeyDisplay: String {
-    static let key: String = "intialKeyDisplay"
-    
-    case camelot = "camelot", english = "english", german = "german"
-    
-    var title: String {
-        switch(self) {
-        case .german: return "German"
-        case .camelot: return "Camelot"
-        case .english: return "English"
+class Preferences {
+    enum InitialKeyDisplay: String {
+        static let key: String = "intialKeyDisplay"
+        
+        case camelot = "camelot", english = "english", german = "german"
+        
+        var title: String {
+            switch(self) {
+            case .german: return "German"
+            case .camelot: return "Camelot"
+            case .english: return "English"
+            }
+        }
+        
+        static var current: InitialKeyDisplay {
+            return ((UserDefaults.standard.value(forKey: key) as? String) ?=> InitialKeyDisplay.init) ?? .camelot
         }
     }
     
-    static var current: InitialKeyDisplay {
-        return ((UserDefaults.standard.value(forKey: key) as? String) ?=> InitialKeyDisplay.init) ?? .camelot
-    }
-}
-
-enum AnimateWaveformTransitions {
-    static let key: String = "dontAnimateWaveformTransitions"
-    
-    case animate, dont
-    
-    static var current: AnimateWaveformTransitions {
-        return UserDefaults.standard.bool(forKey: key) ? dont : animate
-    }
-}
-
-enum AnimateWaveformAnalysis {
-    static let key: String = "dontAnimateWaveformAnalysis"
-    
-    case animate, dont
-    
-    static var current: AnimateWaveformAnalysis {
-        return UserDefaults.standard.bool(forKey: key) ? dont : animate
-    }
-}
-
-enum PreviewWaveformAnalysis {
-    static let key: String = "dontPreviewWaveformAnalysis"
-    
-    case preview, dont
-    
-    static var current: PreviewWaveformAnalysis {
-        return UserDefaults.standard.bool(forKey: key) ? dont : preview
-    }
-}
-
-enum WaveformDisplay: String {
-    static let key: String = "waveformDisplay"
-    
-    case bars = "bars", rounded = "hill"
-    
-    var title: String {
-        switch(self) {
-        case .bars: return "Bars"
-        case .rounded: return "Rounded"
+    enum AnimateWaveformTransitions {
+        static let key: String = "dontAnimateWaveformTransitions"
+        
+        case animate, dont
+        
+        static var current: AnimateWaveformTransitions {
+            return UserDefaults.standard.bool(forKey: key) ? dont : animate
         }
     }
     
-    static var current: WaveformDisplay {
-        return ((UserDefaults.standard.value(forKey: key) as? String) ?=> WaveformDisplay.init) ?? .bars
-    }
-}
-
-enum AnalyzeNewTracks {
-    static let key: String = "dontAutoAnalyzeTracksOnAdd"
-    
-    case analyze, dont
-    
-    static var current: AnalyzeNewTracks {
-        return UserDefaults.standard.bool(forKey: key) ? dont : analyze
-    }
-}
-
-enum FileLocationOnAdd: String {
-    static let key: String = "fileLocationOnAdd"
-    
-    case link = "link", copy = "copy", move = "move"
-    
-    var title: String {
-        switch(self) {
-        case .link: return "Link to the file"
-        case .copy: return "Copy to Media Directory"
-        case .move: return "Move to Media Directory"
+    enum AnimateWaveformAnalysis {
+        static let key: String = "dontAnimateWaveformAnalysis"
+        
+        case animate, dont
+        
+        static var current: AnimateWaveformAnalysis {
+            return UserDefaults.standard.bool(forKey: key) ? dont : animate
         }
     }
     
-    static var current: FileLocationOnAdd {
-        return ((UserDefaults.standard.value(forKey: key) as? String) ?=> FileLocationOnAdd.init) ?? .copy
+    enum PreviewWaveformAnalysis {
+        static let key: String = "dontPreviewWaveformAnalysis"
+        
+        case preview, dont
+        
+        static var current: PreviewWaveformAnalysis {
+            return UserDefaults.standard.bool(forKey: key) ? dont : preview
+        }
     }
-}
-
-enum PlayOpenedFiles {
-    static let key: String = "dontAutoPlayTracksOnOpen"
     
-    case play, dont
+    enum WaveformDisplay: String {
+        static let key: String = "waveformDisplay"
+        
+        case bars = "bars", rounded = "hill"
+        
+        var title: String {
+            switch(self) {
+            case .bars: return "Bars"
+            case .rounded: return "Rounded"
+            }
+        }
+        
+        static var current: WaveformDisplay {
+            return ((UserDefaults.standard.value(forKey: key) as? String) ?=> WaveformDisplay.init) ?? .bars
+        }
+    }
     
-    static var current: PlayOpenedFiles {
-        return UserDefaults.standard.bool(forKey: key) ? dont : play
+    enum AnalyzeNewTracks {
+        static let key: String = "dontAutoAnalyzeTracksOnAdd"
+        
+        case analyze, dont
+        
+        static var current: AnalyzeNewTracks {
+            return UserDefaults.standard.bool(forKey: key) ? dont : analyze
+        }
+    }
+    
+    enum FileLocationOnAdd: String {
+        static let key: String = "fileLocationOnAdd"
+        
+        case link = "link", copy = "copy", move = "move"
+        
+        var title: String {
+            switch(self) {
+            case .link: return "Link to the file"
+            case .copy: return "Copy to Media Directory"
+            case .move: return "Move to Media Directory"
+            }
+        }
+        
+        static var current: FileLocationOnAdd {
+            return ((UserDefaults.standard.value(forKey: key) as? String) ?=> FileLocationOnAdd.init) ?? .copy
+        }
+    }
+    
+    enum PlayOpenedFiles {
+        static let key: String = "dontAutoPlayTracksOnOpen"
+        
+        case play, dont
+        
+        static var current: PlayOpenedFiles {
+            return UserDefaults.standard.bool(forKey: key) ? dont : play
+        }
     }
 }
 
@@ -122,8 +124,8 @@ class PreferencesWindowController: NSWindowController {
     override func windowDidLoad() {
         super.windowDidLoad()
 
-        PopupEnum<InitialKeyDisplay>.bind(initialKeyDisplay, toUserDefaultsKey: InitialKeyDisplay.key, with: [.camelot, .english, .german], by: { $0.rawValue }, title: { $0.title })
-        PopupEnum<WaveformDisplay>.bind(waveformDisplay, toUserDefaultsKey: WaveformDisplay.key, with: [.bars, .rounded], by: { $0.rawValue }, title: { $0.title })
-        PopupEnum<FileLocationOnAdd>.bind(fileLocationOnAdd, toUserDefaultsKey: FileLocationOnAdd.key, with: [.copy, .move, .link], by: { $0.rawValue }, title: { $0.title })
+        PopupEnum<Preferences.InitialKeyDisplay>.bind(initialKeyDisplay, toUserDefaultsKey: Preferences.InitialKeyDisplay.key, with: [.camelot, .english, .german], by: { $0.rawValue }, title: { $0.title })
+        PopupEnum<Preferences.WaveformDisplay>.bind(waveformDisplay, toUserDefaultsKey: Preferences.WaveformDisplay.key, with: [.bars, .rounded], by: { $0.rawValue }, title: { $0.title })
+        PopupEnum<Preferences.FileLocationOnAdd>.bind(fileLocationOnAdd, toUserDefaultsKey: Preferences.FileLocationOnAdd.key, with: [.copy, .move, .link], by: { $0.rawValue }, title: { $0.title })
     }
 }

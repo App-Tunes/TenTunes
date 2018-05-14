@@ -165,14 +165,14 @@ extension Library {
 
         for insert in inserts {
             if let track = insert as? Track {
-                if AnalyzeNewTracks.current == .analyze {
+                if Preferences.AnalyzeNewTracks.current == .analyze {
                     ViewController.shared.analysisToDo.insert(track)
                 }
                 
-                if FileLocationOnAdd.current == .copy || FileLocationOnAdd.current == .move {
+                if Preferences.FileLocationOnAdd.current == .copy || Preferences.FileLocationOnAdd.current == .move {
                     DispatchQueue.main.async { // Async so we have no save error
                         track.usesMediaDirectory = true
-                        self.mediaLocation.updateLocations(of: [track], copy: FileLocationOnAdd.current == .copy) // Auto-Saves
+                        self.mediaLocation.updateLocations(of: [track], copy: Preferences.FileLocationOnAdd.current == .copy) // Auto-Saves
                     }
                 }
             }

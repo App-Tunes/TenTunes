@@ -178,7 +178,7 @@ class Key {
     var description: NSAttributedString {
         var description = note.description
         
-        switch InitialKeyDisplay.current {
+        switch Preferences.InitialKeyDisplay.current {
         case .german:
             description = isMinor ? description.lowercased() : description
         case .camelot:

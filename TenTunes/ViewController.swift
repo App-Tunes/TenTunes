@@ -69,6 +69,7 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         
         ValueTransformers.register()
+        UserDefaults.standard.register(defaults: NSDictionary(contentsOf: Bundle.main.url(forResource: "DefaultPreferences", withExtension: "plist")!) as! [String : Any])
 
         preferencesController = PreferencesWindowController(windowNibName: .init(rawValue: "PreferencesWindowController"))
 

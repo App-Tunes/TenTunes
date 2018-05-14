@@ -28,32 +28,32 @@ class Preferences {
     }
     
     enum AnimateWaveformTransitions {
-        static let key: String = "dontAnimateWaveformTransitions"
+        static let key: String = "animateWaveformTransitions"
         
         case animate, dont
         
         static var current: AnimateWaveformTransitions {
-            return UserDefaults.standard.bool(forKey: key) ? dont : animate
+            return UserDefaults.standard.bool(forKey: key) ? animate : dont
         }
     }
     
     enum AnimateWaveformAnalysis {
-        static let key: String = "dontAnimateWaveformAnalysis"
+        static let key: String = "animateWaveformAnalysis"
         
         case animate, dont
         
         static var current: AnimateWaveformAnalysis {
-            return UserDefaults.standard.bool(forKey: key) ? dont : animate
+            return UserDefaults.standard.bool(forKey: key) ? animate : dont
         }
     }
     
     enum PreviewWaveformAnalysis {
-        static let key: String = "dontPreviewWaveformAnalysis"
+        static let key: String = "previewWaveformAnalysis"
         
         case preview, dont
         
         static var current: PreviewWaveformAnalysis {
-            return UserDefaults.standard.bool(forKey: key) ? dont : preview
+            return UserDefaults.standard.bool(forKey: key) ? preview : dont
         }
     }
     
@@ -75,12 +75,12 @@ class Preferences {
     }
     
     enum AnalyzeNewTracks {
-        static let key: String = "dontAutoAnalyzeTracksOnAdd"
+        static let key: String = "autoAnalyzeTracksOnAdd"
         
         case analyze, dont
         
         static var current: AnalyzeNewTracks {
-            return UserDefaults.standard.bool(forKey: key) ? dont : analyze
+            return UserDefaults.standard.bool(forKey: key) ? analyze : dont
         }
     }
     
@@ -103,12 +103,12 @@ class Preferences {
     }
     
     enum PlayOpenedFiles {
-        static let key: String = "dontAutoPlayTracksOnOpen"
+        static let key: String = "autoPlayTracksOnOpen"
         
         case play, dont
         
         static var current: PlayOpenedFiles {
-            return UserDefaults.standard.bool(forKey: key) ? dont : play
+            return UserDefaults.standard.bool(forKey: key) ? play : dont
         }
     }
 }

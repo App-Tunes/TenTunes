@@ -80,11 +80,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <binding destination="JLH-og-fhR" name="value" keyPath="values.dontAnimateWaveformTransitions" id="xXp-Sd-zNe">
-                                <dictionary key="options">
-                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                </dictionary>
-                            </binding>
+                            <binding destination="JLH-og-fhR" name="value" keyPath="values.animateWaveformTransitions" id="OM7-cB-AFC"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cje-gw-Gqa">
@@ -95,16 +91,8 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <binding destination="JLH-og-fhR" name="enabled" keyPath="values.dontAnimateWaveformTransitions" id="xc2-Cf-TVB">
-                                <dictionary key="options">
-                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                </dictionary>
-                            </binding>
-                            <binding destination="JLH-og-fhR" name="value" keyPath="values.dontAnimateWaveformAnalysis" id="Ahe-af-RMK">
-                                <dictionary key="options">
-                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                </dictionary>
-                            </binding>
+                            <binding destination="JLH-og-fhR" name="enabled" keyPath="values.animateWaveformTransitions" id="Vvz-ZA-AlV"/>
+                            <binding destination="JLH-og-fhR" name="value" keyPath="values.animateWaveformAnalysis" id="b2d-9m-0Uy"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VkT-4s-95F">
@@ -115,25 +103,16 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <binding destination="JLH-og-fhR" name="enabled2" keyPath="values.dontAnimateWaveformTransitions" previousBinding="kcV-H1-2rt" id="awq-P7-am3">
+                            <binding destination="JLH-og-fhR" name="enabled2" keyPath="values.animateWaveformTransitions" previousBinding="eSe-F8-l0U" id="7D6-pA-BDA">
                                 <dictionary key="options">
                                     <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                     <integer key="NSNoSelectionPlaceholder" value="-1"/>
                                     <integer key="NSNotApplicablePlaceholder" value="-1"/>
                                     <integer key="NSNullPlaceholder" value="-1"/>
-                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
                                 </dictionary>
                             </binding>
-                            <binding destination="JLH-og-fhR" name="enabled" keyPath="values.dontAnimateWaveformAnalysis" id="kcV-H1-2rt">
-                                <dictionary key="options">
-                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                </dictionary>
-                            </binding>
-                            <binding destination="JLH-og-fhR" name="value" keyPath="values.dontPreviewWaveformAnalysis" id="mpq-gm-dHs">
-                                <dictionary key="options">
-                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                </dictionary>
-                            </binding>
+                            <binding destination="JLH-og-fhR" name="enabled" keyPath="values.animateWaveformAnalysis" id="eSe-F8-l0U"/>
+                            <binding destination="JLH-og-fhR" name="value" keyPath="values.previewWaveformAnalysis" id="kZL-c2-NBW"/>
                         </connections>
                     </button>
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wq1-eW-n9x">
@@ -186,11 +165,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <binding destination="JLH-og-fhR" name="value" keyPath="values.dontAutoPlayTracksOnOpen" id="Szf-ta-2Mo">
-                                <dictionary key="options">
-                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                </dictionary>
-                            </binding>
+                            <binding destination="JLH-og-fhR" name="value" keyPath="values.autoPlayTracksOnOpen" id="bNq-sg-koZ"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oRB-Xv-pse">
@@ -201,11 +176,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <binding destination="JLH-og-fhR" name="value" keyPath="values.dontAutoAnalyzeTracksOnAdd" id="Wxe-h3-NzI">
-                                <dictionary key="options">
-                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                </dictionary>
-                            </binding>
+                            <binding destination="JLH-og-fhR" name="value" keyPath="values.autoAnalyzeTracksOnAdd" id="cdI-VK-Ugd"/>
                         </connections>
                     </button>
                 </subviews>

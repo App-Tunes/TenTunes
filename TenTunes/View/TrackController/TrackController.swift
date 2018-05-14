@@ -333,6 +333,38 @@ extension TrackController: NSTableViewDelegate {
         let tracks = of.map { history.track(at: $0)! }
         infoEditor.show(tracks: tracks)
     }
+    
+    func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
+        // TODO We only care about the first
+        if let descriptor = tableView.sortDescriptors.first, let key = descriptor.key, key != "none" {
+            switch key {
+            case "title":
+                desired.sort = { $0.rTitle < $1.rTitle }
+            case "genre":
+                desired.sort = { Optional<String>.compare($0.genre, $1.genre) }
+            case "key":
+                desired.sort = { Optional<Key>.compare($0.key, $1.key) }
+            case "bpm":
+                desired.sort = { ($0.bpm ?? 0) < ($1.bpm ?? 0)  }
+            case "duration":
+                desired.sort = { ($0.duration ?? kCMTimeZero) < ($1.duration ?? kCMTimeZero)  }
+            default:
+                fatalError("Unknown Sort Descriptor Key")
+            }
+            
+            // Hax
+            if !descriptor.ascending {
+                let sorter = desired.sort!
+                desired.sort = { !sorter($0, $1) }
+            }
+        }
+        else {
+            desired.sort = nil
+            tableView.sortDescriptors = [] // Update the view so it doesn't show an arrow on the affected columns
+        }
+        
+        desired._changed = true
+    }
 }
 
 extension TrackController: NSTableViewDataSource {

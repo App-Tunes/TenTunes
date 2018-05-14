@@ -38,6 +38,7 @@ import AVFoundation
 
 class TrackController: NSViewController {
     @IBOutlet var _tableView: NSTableView!
+    @IBOutlet var _tableViewHeight: NSLayoutConstraint!
     
     @IBOutlet weak var _searchField: NSSearchField!
     @IBOutlet var _searchBarHeight: NSLayoutConstraint!
@@ -148,6 +149,7 @@ class TrackController: NSViewController {
         mode = .title
         
         _playlistInfoBarHeight.constant = 0
+        _tableViewHeight.constant = 0
         _tableView.enclosingScrollView?.hasVerticalScroller = false
         _tableView.enclosingScrollView?.hasHorizontalScroller = false
         _tableView.enclosingScrollView?.verticalScrollElasticity = .none

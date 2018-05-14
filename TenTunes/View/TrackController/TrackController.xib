@@ -17,6 +17,7 @@
                 <outlet property="_searchField" destination="Vb1-dH-y3M" id="jvB-RL-GBx"/>
                 <outlet property="_showInPlaylistSubmenu" destination="RJZ-UA-3i7" id="RD3-RB-fQe"/>
                 <outlet property="_tableView" destination="4mk-XS-5ci" id="kXR-Tw-wbo"/>
+                <outlet property="_tableViewHeight" destination="407-lR-Mkm" id="dW8-YU-sVA"/>
                 <outlet property="view" destination="xJh-CN-pmz" id="a8O-4K-FFG"/>
             </connections>
         </customObject>
@@ -161,7 +162,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="bpmColumn" width="49" minWidth="10" maxWidth="3.4028234663852886e+38" id="gTv-W1-iSh">
+                                    <tableColumn identifier="bpmColumn" width="49" minWidth="49" maxWidth="3.4028234663852886e+38" id="gTv-W1-iSh">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="BPM">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -198,7 +199,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="keyColumn" width="42" minWidth="10" maxWidth="3.4028234663852886e+38" id="h7G-XK-5sv">
+                                    <tableColumn identifier="keyColumn" width="42" minWidth="42" maxWidth="3.4028234663852886e+38" id="h7G-XK-5sv">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Key">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -235,7 +236,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="durationColumn" width="54" minWidth="10" maxWidth="3.4028234663852886e+38" id="2MG-zO-RVS">
+                                    <tableColumn identifier="durationColumn" width="54" minWidth="54" maxWidth="3.4028234663852886e+38" id="2MG-zO-RVS">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Duration">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -284,8 +285,8 @@
                         <color key="backgroundColor" red="0.054563667949999999" green="0.055103902279999999" blue="0.055103902279999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </clipView>
                     <constraints>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="407-lR-Mkm"/>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="500" id="FWw-0K-SmB"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="300" id="407-lR-Mkm"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="FWw-0K-SmB"/>
                     </constraints>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="HkI-Mp-Jrn">
                         <rect key="frame" x="-100" y="-100" width="528" height="16"/>

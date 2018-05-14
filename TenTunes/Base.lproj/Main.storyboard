@@ -881,9 +881,10 @@ IA
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="VMd-f1-c9v" secondAttribute="bottom" id="KFd-Ft-huk"/>
                                                     <constraint firstAttribute="trailing" secondItem="VMd-f1-c9v" secondAttribute="trailing" id="LT6-Ut-UiC"/>
-                                                    <constraint firstAttribute="width" constant="600" id="OOt-Hg-iTD"/>
+                                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="600" id="OOt-Hg-iTD"/>
                                                     <constraint firstItem="VMd-f1-c9v" firstAttribute="top" secondItem="NC3-8V-1wQ" secondAttribute="top" id="VRU-GS-qfC"/>
                                                     <constraint firstAttribute="height" constant="35" id="Zxq-TA-5lm"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="400" id="a0Z-aV-6KB"/>
                                                     <constraint firstItem="VMd-f1-c9v" firstAttribute="leading" secondItem="NC3-8V-1wQ" secondAttribute="leading" id="yMy-d5-FIc"/>
                                                 </constraints>
                                             </customView>
@@ -901,6 +902,7 @@ IA
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="NC3-8V-1wQ" secondAttribute="bottom" constant="10" id="KBD-pX-2GJ"/>
                                             <constraint firstItem="9Xs-lc-aS8" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="14" id="MVV-2g-mOg"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="9Xs-lc-aS8" secondAttribute="bottom" constant="14" id="Pqa-Co-VB3"/>
+                                            <constraint firstItem="weN-hW-VXM" firstAttribute="leading" relation="lessThanOrEqual" secondItem="NC3-8V-1wQ" secondAttribute="trailing" priority="10" constant="10" id="TSE-kL-kgl"/>
                                             <constraint firstItem="o1F-mb-bFA" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" id="Tfj-Fh-ooz"/>
                                             <constraint firstAttribute="trailing" secondItem="TnY-8S-uno" secondAttribute="trailing" id="ZOi-Zw-7Sx"/>
                                             <constraint firstAttribute="trailing" secondItem="9Xs-lc-aS8" secondAttribute="trailing" constant="20" id="ZYS-7e-eWI"/>

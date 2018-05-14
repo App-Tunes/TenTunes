@@ -756,10 +756,10 @@
                                                 <rect key="frame" x="521" y="0.0" width="250" height="92"/>
                                             </customView>
                                             <customView verticalHuggingPriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="TnY-8S-uno" customClass="WaveformView" customModule="TenTunes" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="1292" height="37"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1292" height="43"/>
                                                 <subviews>
                                                     <textField toolTip="Duration Left" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Bx-lC-97p">
-                                                        <rect key="frame" x="1214" y="13" width="70" height="22"/>
+                                                        <rect key="frame" x="1214" y="19" width="70" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="ybL-NU-qiE"/>
                                                         </constraints>
@@ -770,7 +770,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField toolTip="Duration Played" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1Xa-l4-VRg">
-                                                        <rect key="frame" x="8" y="13" width="70" height="22"/>
+                                                        <rect key="frame" x="8" y="19" width="70" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="DqK-c4-H9k"/>
                                                         </constraints>
@@ -794,7 +794,7 @@
                                                 </connections>
                                             </customView>
                                             <button toolTip="Next" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ws9-gx-fi8">
-                                                <rect key="frame" x="168" y="41" width="25" height="49"/>
+                                                <rect key="frame" x="168" y="47" width="25" height="43"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="25" id="elU-UP-N0X"/>
                                                 </constraints>
@@ -807,7 +807,7 @@
                                                 </connections>
                                             </button>
                                             <button toolTip="Previous" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vGp-jR-JQ9">
-                                                <rect key="frame" x="97" y="41" width="25" height="49"/>
+                                                <rect key="frame" x="97" y="47" width="25" height="43"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="25" id="l85-XI-Vhi"/>
                                                 </constraints>
@@ -820,7 +820,7 @@
                                                 </connections>
                                             </button>
                                             <button toolTip="Play / Pause" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Fc-0r-wVE">
-                                                <rect key="frame" x="130" y="41" width="30" height="49"/>
+                                                <rect key="frame" x="130" y="47" width="30" height="43"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="30" id="U0M-9e-hwV"/>
                                                 </constraints>
@@ -836,7 +836,7 @@ IA
                                                 </connections>
                                             </button>
                                             <button horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Xs-lc-aS8">
-                                                <rect key="frame" x="1245" y="51" width="27" height="27"/>
+                                                <rect key="frame" x="1251" y="57" width="21" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="9Xs-lc-aS8" secondAttribute="height" multiplier="1:1" id="O0P-AH-Reg"/>
                                                 </constraints>
@@ -849,7 +849,7 @@ IA
                                                 </connections>
                                             </button>
                                             <button toolTip="Shuffle" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Y2-7h-2Y4">
-                                                <rect key="frame" x="1202" y="51" width="27" height="27"/>
+                                                <rect key="frame" x="1214" y="57" width="21" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="7Y2-7h-2Y4" secondAttribute="height" multiplier="1:1" id="jRx-Wh-ukj"/>
                                                 </constraints>
@@ -862,7 +862,7 @@ IA
                                                 </connections>
                                             </button>
                                             <slider toolTip="Volume" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="weN-hW-VXM" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
-                                                <rect key="frame" x="1104" y="55" width="84" height="19"/>
+                                                <rect key="frame" x="1116" y="59" width="84" height="19"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="80" id="IaB-e8-PZM"/>
                                                 </constraints>
@@ -872,7 +872,7 @@ IA
                                                 </connections>
                                             </slider>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="NC3-8V-1wQ">
-                                                <rect key="frame" x="346" y="47" width="600" height="35"/>
+                                                <rect key="frame" x="346" y="50" width="600" height="35"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="VMd-f1-c9v">
                                                         <rect key="frame" x="0.0" y="0.0" width="600" height="35"/>
@@ -899,7 +899,7 @@ IA
                                             <constraint firstItem="weN-hW-VXM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NC3-8V-1wQ" secondAttribute="trailing" constant="30" id="HQb-Dl-Lp6"/>
                                             <constraint firstItem="vGp-jR-JQ9" firstAttribute="bottom" secondItem="4Fc-0r-wVE" secondAttribute="bottom" id="Hdu-CG-TQ4"/>
                                             <constraint firstItem="weN-hW-VXM" firstAttribute="centerY" secondItem="7Y2-7h-2Y4" secondAttribute="centerY" id="JOg-1S-jWD"/>
-                                            <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="NC3-8V-1wQ" secondAttribute="bottom" constant="10" id="KBD-pX-2GJ"/>
+                                            <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="NC3-8V-1wQ" secondAttribute="bottom" constant="7" id="KBD-pX-2GJ"/>
                                             <constraint firstItem="9Xs-lc-aS8" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="14" id="MVV-2g-mOg"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="9Xs-lc-aS8" secondAttribute="bottom" constant="14" id="Pqa-Co-VB3"/>
                                             <constraint firstItem="weN-hW-VXM" firstAttribute="leading" relation="lessThanOrEqual" secondItem="NC3-8V-1wQ" secondAttribute="trailing" priority="10" constant="10" id="TSE-kL-kgl"/>
@@ -915,7 +915,7 @@ IA
                                             <constraint firstAttribute="bottom" secondItem="o1F-mb-bFA" secondAttribute="bottom" id="lus-gC-hse"/>
                                             <constraint firstAttribute="bottom" secondItem="TnY-8S-uno" secondAttribute="bottom" id="mm5-D9-4tj"/>
                                             <constraint firstItem="vGp-jR-JQ9" firstAttribute="baseline" secondItem="Ws9-gx-fi8" secondAttribute="baseline" id="p3y-sr-YYy"/>
-                                            <constraint firstItem="NC3-8V-1wQ" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="10" id="w9Y-w4-DQt"/>
+                                            <constraint firstItem="NC3-8V-1wQ" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="7" id="w9Y-w4-DQt"/>
                                             <constraint firstItem="Ws9-gx-fi8" firstAttribute="leading" secondItem="4Fc-0r-wVE" secondAttribute="trailing" constant="8" symbolic="YES" id="wEc-11-xbf"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" id="zi4-6q-OKg"/>
                                         </constraints>

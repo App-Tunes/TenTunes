@@ -30,6 +30,8 @@ extension TrackController: NSMenuDelegate {
             menu.cancelTrackingWithoutAnimation()
         }
         
+        menu.item(withAction: #selector(menuPlay))?.isVisible = playTrack != nil
+        
         _showInPlaylistSubmenu.isHidden = menuTracks.count != 1
         
         _moveToMediaDirectory.isHidden = menuTracks.noneMatch { !$0.usesMediaDirectory && $0.url != nil }

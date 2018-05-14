@@ -42,15 +42,20 @@ class BarsLayer: CALayer {
     var spaceWidth = 2
     
     override func draw(in ctx: CGContext) {
+        let barWidth = CGFloat(self.barWidth)
+        let spaceWidth = CGFloat(self.spaceWidth)
+
         let segmentWidth = barWidth + spaceWidth
 
-        let numBars = Int(frame.width / CGFloat(segmentWidth))
+        let numBars = Int(frame.width / segmentWidth)
         
         let values = self.values.map { wf in wf.remap(toSize: numBars) }
         let waveform = values[0], lows = values[1], mids = values[2], highs = values[3]
 
-        let start = frame.minX + (frame.width - CGFloat(numBars * segmentWidth)) / 2
-
+        let start = frame.minX + (frame.width - CGFloat(numBars) * segmentWidth) / 2
+        
+        let display = WaveformDisplay.current
+        
         for idx in 0..<numBars {
             // Frame
             let h = waveform[idx]
@@ -60,15 +65,28 @@ class BarsLayer: CALayer {
             let val = low + mid + high
             
             if val > 0, h > 0 {
-                let rect = CGRect(
-                    x: start + CGFloat(idx * segmentWidth) + 1,
-                    y: frame.minY,
-                    width: CGFloat(barWidth),
-                    height: CGFloat(h * frame.height)
-                )
-
                 ctx.setFillColor(BarsLayer.barColor((mid / val / 2 + high / val)))
-                ctx.fill(rect)
+                
+                let barX = start + CGFloat(idx) * segmentWidth + 1
+                let barHeight = CGFloat(h * frame.height)
+                
+                if display == .bars {
+                    ctx.fill(CGRect(
+                        x: barX,
+                        y: frame.minY,
+                        width: barWidth,
+                        height: barHeight
+                    ))
+                }
+                else if display == .rounded {
+                    let next = CGFloat((waveform[safe: idx + 1] ?? h) * frame.height)
+                    
+                    ctx.move(to: CGPoint(x: barX, y: frame.minY))
+                    ctx.addLine(to: CGPoint(x: barX + barWidth + spaceWidth, y: frame.minY))
+                    ctx.addLine(to: CGPoint(x: barX + barWidth + spaceWidth, y: frame.minY + next))
+                    ctx.addLine(to: CGPoint(x: barX, y: frame.minY + barHeight))
+                    ctx.fillPath()
+                }
             }
             // Else bar doesn't exist
         }

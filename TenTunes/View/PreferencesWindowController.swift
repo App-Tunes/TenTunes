@@ -26,20 +26,33 @@ enum InitialKeyDisplay: String {
     }
 }
 
-enum WaveformAnimation: String {
-    static let key: String = "waveformAnimation"
+enum AnimateWaveformTransitions {
+    static let key: String = "dontAnimateWaveformTransitions"
     
-    case everything = "everything", nothing = "nothing"
+    case animate, dont
     
-    var title: String {
-        switch(self) {
-        case .everything: return "Fully Animated"
-        case .nothing: return "Unanimated"
-        }
+    static var current: AnimateWaveformTransitions {
+        return UserDefaults.standard.bool(forKey: key) ? dont : animate
     }
+}
+
+enum AnimateWaveformAnalysis {
+    static let key: String = "dontAnimateWaveformAnalysis"
     
-    static var current: WaveformAnimation {
-        return ((UserDefaults.standard.value(forKey: key) as? String) ?=> WaveformAnimation.init) ?? .everything
+    case animate, dont
+    
+    static var current: AnimateWaveformAnalysis {
+        return UserDefaults.standard.bool(forKey: key) ? dont : animate
+    }
+}
+
+enum PreviewWaveformAnalysis {
+    static let key: String = "dontPreviewWaveformAnalysis"
+    
+    case preview, dont
+    
+    static var current: PreviewWaveformAnalysis {
+        return UserDefaults.standard.bool(forKey: key) ? dont : preview
     }
 }
 
@@ -102,7 +115,6 @@ class PreferencesWindowController: NSWindowController {
 
     @IBOutlet var initialKeyDisplay: NSPopUpButton!
     
-    @IBOutlet var waveformAnimation: NSPopUpButton!
     @IBOutlet var waveformDisplay: NSPopUpButton!
 
     @IBOutlet var fileLocationOnAdd: NSPopUpButton!
@@ -111,7 +123,6 @@ class PreferencesWindowController: NSWindowController {
         super.windowDidLoad()
 
         PopupEnum<InitialKeyDisplay>.bind(initialKeyDisplay, toUserDefaultsKey: InitialKeyDisplay.key, with: [.camelot, .english, .german], by: { $0.rawValue }, title: { $0.title })
-        PopupEnum<WaveformAnimation>.bind(waveformAnimation, toUserDefaultsKey: WaveformAnimation.key, with: [.everything, .nothing], by: { $0.rawValue }, title: { $0.title })
         PopupEnum<WaveformDisplay>.bind(waveformDisplay, toUserDefaultsKey: WaveformDisplay.key, with: [.bars, .rounded], by: { $0.rawValue }, title: { $0.title })
         PopupEnum<FileLocationOnAdd>.bind(fileLocationOnAdd, toUserDefaultsKey: FileLocationOnAdd.key, with: [.copy, .move, .link], by: { $0.rawValue }, title: { $0.title })
     }

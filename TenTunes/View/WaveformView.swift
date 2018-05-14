@@ -295,16 +295,24 @@ class WaveformView: NSControl, CALayerDelegate {
                 return // Not visible, why update?
             }
             
+            let isComplete = self.analysis?.complete ?? true
+            if isComplete { self.transitionSteps -= 1 }
+
+            guard AnimateWaveformTransitions.current == .animate else {
+                self.waveformLayer._barsLayer.values = (isComplete ? self.analysis?.values : nil) ?? BarsLayer.defaultValues
+
+                return
+            }
+
             // Only update the bars for x steps after transition
             CATransaction.begin()
             CATransaction.setAnimationDuration(self.updateTime)
-
+            
             let drawValues = self.analysis?.values ?? BarsLayer.defaultValues
+
             self.waveformLayer._barsLayer.values = (0..<4).map { lerp(self.waveformLayer._barsLayer.values[$0], drawValues[$0], self.lerpRatio) }
 
             CATransaction.commit()
-            
-            if self.analysis?.complete ?? true { self.transitionSteps -= 1}
         }
     }
     

@@ -9,7 +9,6 @@
             <connections>
                 <outlet property="fileLocationOnAdd" destination="Wq1-eW-n9x" id="ytI-jf-KxW"/>
                 <outlet property="initialKeyDisplay" destination="oQS-Mt-2Xw" id="pc3-0j-fwG"/>
-                <outlet property="waveformAnimation" destination="22V-MU-6Qp" id="e9j-Ze-bh0"/>
                 <outlet property="waveformDisplay" destination="EnB-L7-CUp" id="DOP-bH-6At"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
@@ -19,14 +18,14 @@
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="480" height="271"/>
+            <rect key="contentRect" x="196" y="240" width="480" height="298"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" wantsLayer="YES" id="se5-gp-TjO">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="271"/>
+                <rect key="frame" x="0.0" y="0.0" width="480" height="298"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N25-ue-Ra4">
-                        <rect key="frame" x="18" y="233" width="110" height="17"/>
+                        <rect key="frame" x="18" y="260" width="110" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Initial Key Display" id="ra8-ZU-q15">
                             <font key="font" metaFont="system"/>
@@ -35,7 +34,7 @@
                         </textFieldCell>
                     </textField>
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oQS-Mt-2Xw">
-                        <rect key="frame" x="266" y="227" width="197" height="26"/>
+                        <rect key="frame" x="266" y="254" width="197" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" title="German" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="rN0-sR-rSX" id="5co-ql-jS8">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -48,33 +47,8 @@
                             </menu>
                         </popUpButtonCell>
                     </popUpButton>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T84-Jm-TW7">
-                        <rect key="frame" x="18" y="189" width="130" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Waveform Animation" id="HVj-gY-KBb">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22V-MU-6Qp">
-                        <rect key="frame" x="266" y="183" width="197" height="26"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="push" title="Fully Animated" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="nyb-AT-mxK" id="w63-aA-96E">
-                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
-                            <menu key="menu" id="ZEN-tN-liD">
-                                <items>
-                                    <menuItem title="Fully Animated" state="on" id="nyb-AT-mxK"/>
-                                    <menuItem title="Progress Only" tag="1" id="VPX-fD-Mq1"/>
-                                    <menuItem title="Indeterminate Only" tag="2" id="koz-U1-CYb"/>
-                                    <menuItem title="None" tag="3" id="I3y-6P-xa8"/>
-                                </items>
-                            </menu>
-                        </popUpButtonCell>
-                    </popUpButton>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sjg-fU-sbP">
-                        <rect key="frame" x="18" y="160" width="113" height="17"/>
+                        <rect key="frame" x="18" y="215" width="113" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Waveform Display" id="Vdh-P3-175">
                             <font key="font" metaFont="system"/>
@@ -83,7 +57,7 @@
                         </textFieldCell>
                     </textField>
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EnB-L7-CUp">
-                        <rect key="frame" x="266" y="154" width="197" height="26"/>
+                        <rect key="frame" x="266" y="209" width="197" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" title="Bars" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Bz0-WG-KIO" id="uZs-ee-YDG">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -98,6 +72,70 @@
                             </menu>
                         </popUpButtonCell>
                     </popUpButton>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V4p-yK-HJJ">
+                        <rect key="frame" x="34" y="191" width="202" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Animate waveform transitions" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0oP-yE-0lf">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="JLH-og-fhR" name="value" keyPath="values.dontAnimateWaveformTransitions" id="xXp-Sd-zNe">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                </dictionary>
+                            </binding>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cje-gw-Gqa">
+                        <rect key="frame" x="34" y="171" width="186" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Animate waveform analysis" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="1wA-hE-QAE">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="JLH-og-fhR" name="enabled" keyPath="values.dontAnimateWaveformTransitions" id="xc2-Cf-TVB">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                </dictionary>
+                            </binding>
+                            <binding destination="JLH-og-fhR" name="value" keyPath="values.dontAnimateWaveformAnalysis" id="Ahe-af-RMK">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                </dictionary>
+                            </binding>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VkT-4s-95F">
+                        <rect key="frame" x="34" y="151" width="202" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Preview result during analysis" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="heM-Au-K1X">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="JLH-og-fhR" name="enabled2" keyPath="values.dontAnimateWaveformTransitions" previousBinding="kcV-H1-2rt" id="awq-P7-am3">
+                                <dictionary key="options">
+                                    <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                    <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                    <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                    <integer key="NSNullPlaceholder" value="-1"/>
+                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                </dictionary>
+                            </binding>
+                            <binding destination="JLH-og-fhR" name="enabled" keyPath="values.dontAnimateWaveformAnalysis" id="kcV-H1-2rt">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                </dictionary>
+                            </binding>
+                            <binding destination="JLH-og-fhR" name="value" keyPath="values.dontPreviewWaveformAnalysis" id="mpq-gm-dHs">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                </dictionary>
+                            </binding>
+                        </connections>
+                    </button>
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wq1-eW-n9x">
                         <rect key="frame" x="266" y="37" width="197" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -175,7 +213,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
             </connections>
-            <point key="canvasLocation" x="139" y="162.5"/>
+            <point key="canvasLocation" x="139" y="176"/>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="JLH-og-fhR"/>
     </objects>

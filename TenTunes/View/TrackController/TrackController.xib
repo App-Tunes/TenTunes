@@ -10,6 +10,7 @@
                 <outlet property="_analyzeSubmenu" destination="rAL-JR-UxV" id="Vvq-LS-eak"/>
                 <outlet property="_loadingIndicator" destination="Q4S-45-Dyj" id="uIh-jH-P5s"/>
                 <outlet property="_moveToMediaDirectory" destination="e6s-jT-drv" id="Mxx-MY-rhK"/>
+                <outlet property="_playlistInfoBarHeight" destination="uIC-33-LVc" id="Fyv-rA-ffm"/>
                 <outlet property="_playlistTitle" destination="yA3-8B-zr1" id="n1M-oM-Ov1"/>
                 <outlet property="_searchBarClose" destination="BeI-cc-vzB" id="5Pj-5J-T9B"/>
                 <outlet property="_searchBarHeight" destination="Sxu-f3-yrD" id="Ubq-yi-vS6"/>
@@ -283,7 +284,7 @@
                         <color key="backgroundColor" red="0.054563667949999999" green="0.055103902279999999" blue="0.055103902279999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </clipView>
                     <constraints>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="250" id="407-lR-Mkm"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="407-lR-Mkm"/>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="500" id="FWw-0K-SmB"/>
                     </constraints>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="HkI-Mp-Jrn">

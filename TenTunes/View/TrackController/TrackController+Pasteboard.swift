@@ -22,7 +22,11 @@ extension TrackController {
     }
     
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
-        guard !isQueue else {
+        guard mode != .title else {
+            return []
+        }
+        
+        guard mode != .queue else {
             return dropOperation == .above ? .move : []
         }
         
@@ -51,7 +55,7 @@ extension TrackController {
             return false
         }
         
-        if isQueue {
+        if mode == .queue {
             let tracksBefore = history.tracks
             
             if (info.draggingSource() as AnyObject) === _tableView {
@@ -63,7 +67,7 @@ extension TrackController {
             
             _tableView.animateDifference(from: tracksBefore, to: history.tracks)
         }
-        else {
+        else if mode == .tracksList {
             (history.playlist as! PlaylistManual).addTracks(tracks, above: row)
             try! Library.shared.viewContext.save()
         }

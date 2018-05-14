@@ -16,10 +16,10 @@ extension TrackController: NSUserInterfaceValidations {
         }
         
         if action == #selector(delete as (AnyObject) -> Swift.Void) {
-            return isQueue || Library.shared.isEditable(playlist: history.playlist)
+            return mode == .queue || (mode == .tracksList && Library.shared.isEditable(playlist: history.playlist))
         }
         
-        if action == #selector(performFindPanelAction) { return !isQueue }
+        if action == #selector(performFindPanelAction) { return mode == .tracksList }
         if action == #selector(showInfo) { return true }
         
         return false

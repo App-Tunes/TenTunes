@@ -24,8 +24,6 @@ class ViewController: NSViewController {
 
     static var shared: ViewController!
     
-    @IBOutlet var _title: NSTextField!
-    @IBOutlet var _subtitle: NSTextField!
     @IBOutlet var _coverImage: NSImageViewAspectFill!
     
     @IBOutlet var _play: NSButton!
@@ -44,6 +42,7 @@ class ViewController: NSViewController {
 
     @IBOutlet var _playlistView: NSView!
     @IBOutlet var _trackView: NSView!
+    @IBOutlet var _playingTrackView: NSView!
     @IBOutlet var _splitView: NSSplitView!
     
     var queuePopover: NSPopover!
@@ -63,6 +62,7 @@ class ViewController: NSViewController {
 
     var playlistController: PlaylistController!
     var trackController: TrackController!
+    var playingTrackController: TrackController!
     var queueController: TrackController!
 
     override func viewDidLoad() {
@@ -76,7 +76,12 @@ class ViewController: NSViewController {
         trackController = TrackController(nibName: .init(rawValue: "TrackController"), bundle: nil)
         trackController.view.frame = _trackView.frame
         _splitView.replaceSubview(_trackView, with: trackController.view)
-        
+
+        playingTrackController = TrackController(nibName: .init(rawValue: "TrackController"), bundle: nil)
+        playingTrackController.view.frame = _playingTrackView.frame
+        _playingTrackView.superview!.replaceSubview(_playingTrackView, with: playingTrackController.view)
+        playingTrackController.titleify()
+
         playlistController = PlaylistController(nibName: .init(rawValue: "PlaylistController"), bundle: nil)
         playlistController.view.frame = _playlistView.frame
         _splitView.replaceSubview(_playlistView, with: playlistController.view)
@@ -189,8 +194,8 @@ class ViewController: NSViewController {
         guard let track = player.playing else {
             _play.set(text: playString)
             
-            self._title.stringValue = ""
-            self._subtitle.stringValue = ""
+            playingTrackController.history = PlayHistory(playlist: PlaylistEmpty())
+            
             _coverImage.image = nil
             _waveformView.analysis = nil
 
@@ -198,9 +203,12 @@ class ViewController: NSViewController {
         }
         
         _play.set(text: player.isPaused() ? playString : pauseString)
-        
-        _title.stringValue = track.rTitle
-        _subtitle.stringValue = track.rSource
+
+        let titleHistory = PlayHistory(playlist: PlaylistEmpty())
+        titleHistory.insert(tracks: [track], before: 0)
+        titleHistory.playingIndex = 0
+        playingTrackController.history = titleHistory
+
         _coverImage.image = track.artworkPreview
         _waveformView.analysis = track.analysis
     }

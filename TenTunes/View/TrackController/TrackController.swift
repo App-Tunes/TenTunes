@@ -44,6 +44,7 @@ class TrackController: NSViewController {
     @IBOutlet weak var _searchBarClose: NSButton!
     
     @IBOutlet var _playlistTitle: NSTextField!
+    @IBOutlet var _playlistInfoBarHeight: NSLayoutConstraint!
     
     var infoEditor : FileTagEditor!
     
@@ -62,7 +63,7 @@ class TrackController: NSViewController {
     @objc dynamic var desired: PlayHistorySetup!
     @IBOutlet var _loadingIndicator: NSProgressIndicator!
 
-    var isQueue = false
+    var mode: Mode = .tracksList
 
     var isDark: Bool {
         return self.view.window!.appearance?.name == NSAppearance.Name.vibrantDark
@@ -73,6 +74,10 @@ class TrackController: NSViewController {
     @IBOutlet var _showInPlaylistSubmenu: NSMenuItem!
 
     var observeHiddenToken: NSKeyValueObservation?
+    
+    enum Mode {
+        case tracksList, queue, title
+    }
 
     override func awakeFromNib() {
         desired = PlayHistorySetup { self.history = $0 }
@@ -103,7 +108,7 @@ class TrackController: NSViewController {
     
     override func viewDidAppear() {
         // Appearance is not yet set in willappear
-        if !isQueue {
+        if mode == .tracksList {
             _tableView.backgroundColor = isDark ? NSColor(white: 0.09, alpha: 1.0) : NSColor(white: 0.73, alpha: 1.0)
         }
     
@@ -119,7 +124,7 @@ class TrackController: NSViewController {
     }
         
     func queueify() {
-        isQueue = true
+        mode = .queue
         
         _tableView.headerView = nil
         _tableView.usesAlternatingRowBackgroundColors = false  // TODO In NSPanels, this is solid while everything else isn't
@@ -136,6 +141,17 @@ class TrackController: NSViewController {
         
         // We believe in tags, not genres
         _tableView.tableColumn(withIdentifier: ColumnIdentifiers.genre)?.isHidden = true
+    }
+    
+    func titleify() {
+        queueify()
+        mode = .title
+        
+        _playlistInfoBarHeight.constant = 0
+        _tableView.enclosingScrollView?.hasVerticalScroller = false
+        _tableView.enclosingScrollView?.hasHorizontalScroller = false
+        _tableView.enclosingScrollView?.verticalScrollElasticity = .none
+        _tableView.enclosingScrollView?.horizontalScrollElasticity = .none
     }
     
     var visibleTracks: [Track] {
@@ -211,7 +227,7 @@ class TrackController: NSViewController {
             return
         }
 
-        guard !isQueue else {
+        guard mode == .tracksList else {
             let tracksBefore = history.tracks
             history.remove(indices: indices)
             _tableView.animateDifference(from: tracksBefore, to: history.tracks)
@@ -364,6 +380,10 @@ extension TrackController: NSTableViewDelegate {
         }
         
         desired._changed = true
+    }
+    
+    func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
+        return mode != .title
     }
 }
 

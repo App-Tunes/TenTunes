@@ -38,13 +38,16 @@ extension TrackController: NSMenuDelegate {
         _analyzeSubmenu.isVisible = someNeedAnalysis && menuTracks.anyMatch { $0.analysis != nil } && menuTracks.anyMatch { $0.analysis == nil }
         menu.item(withAction: #selector(menuAnalyze))?.isVisible = someNeedAnalysis && _analyzeSubmenu.isHidden
 
-        if isQueue {
-            let deleteItem = menu.item(withAction: #selector(removeTrack))
+        let deleteItem = menu.item(withAction: #selector(removeTrack))
+        if mode == .queue {
             deleteItem?.isHidden = false
             deleteItem?.title = "Remove from Queue"
         }
+        else if mode == .tracksList {
+            deleteItem?.isHidden = Library.shared.isPlaylist(playlist: history.playlist)
+        }
         else {
-            menu.item(withAction: #selector(removeTrack))?.isHidden = Library.shared.isPlaylist(playlist: history.playlist)
+            deleteItem?.isHidden = true
         }
     }
     
@@ -55,7 +58,7 @@ extension TrackController: NSMenuDelegate {
         }
         
         // Right Click Menu
-        if menuItem.action == #selector(removeTrack) { return isQueue || Library.shared.isEditable(playlist: history.playlist) }
+        if menuItem.action == #selector(removeTrack) { return mode == .queue || (mode == .tracksList && Library.shared.isEditable(playlist: history.playlist)) }
         if menuItem.action == #selector(menuShowInFinder) { return menuTracks.count == 1 && menuTracks.first!.url != nil }
         
         return true

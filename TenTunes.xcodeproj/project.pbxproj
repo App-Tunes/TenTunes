@@ -31,6 +31,8 @@
 		806C5B2620423AC000C34F49 /* SPInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806C5B2520423AC000C34F49 /* SPInterpreter.swift */; };
 		806EFC22204B63620079DBAA /* PlaylistLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806EFC21204B63620079DBAA /* PlaylistLibrary.swift */; };
 		806EFC27204B65C10079DBAA /* PlaylistProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806EFC26204B65C10079DBAA /* PlaylistProtocol.swift */; };
+		807092EB20C69D8F00DFED53 /* ExportPlaylistsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807092E920C69D8F00DFED53 /* ExportPlaylistsController.swift */; };
+		807092EC20C69D8F00DFED53 /* ExportPlaylistsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 807092EA20C69D8F00DFED53 /* ExportPlaylistsController.xib */; };
 		807E4B47206428260051C028 /* ScrollableSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E4B46206428260051C028 /* ScrollableSlider.swift */; };
 		80802586203EFCC0008D4168 /* Foundation+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802585203EFCC0008D4168 /* Foundation+TT.swift */; };
 		80802588203F0399008D4168 /* PlaylistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802587203F0399008D4168 /* PlaylistController.swift */; };
@@ -164,6 +166,8 @@
 		806C5B2520423AC000C34F49 /* SPInterpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPInterpreter.swift; sourceTree = "<group>"; };
 		806EFC21204B63620079DBAA /* PlaylistLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistLibrary.swift; sourceTree = "<group>"; };
 		806EFC26204B65C10079DBAA /* PlaylistProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistProtocol.swift; sourceTree = "<group>"; };
+		807092E920C69D8F00DFED53 /* ExportPlaylistsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPlaylistsController.swift; sourceTree = "<group>"; };
+		807092EA20C69D8F00DFED53 /* ExportPlaylistsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExportPlaylistsController.xib; sourceTree = "<group>"; };
 		807E4B46206428260051C028 /* ScrollableSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableSlider.swift; sourceTree = "<group>"; };
 		80802585203EFCC0008D4168 /* Foundation+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Foundation+TT.swift"; sourceTree = "<group>"; };
 		80802587203F0399008D4168 /* PlaylistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistController.swift; sourceTree = "<group>"; };
@@ -306,6 +310,8 @@
 				80E937582039C2850014C835 /* Keycodes.swift */,
 				80F9702E209625E800A989D8 /* PreferencesWindowController.swift */,
 				80F9702F209625E800A989D8 /* PreferencesWindowController.xib */,
+				807092E920C69D8F00DFED53 /* ExportPlaylistsController.swift */,
+				807092EA20C69D8F00DFED53 /* ExportPlaylistsController.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -597,6 +603,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80F8F6F42053EA2C004A07D6 /* FileTagEditor.xib in Resources */,
+				807092EC20C69D8F00DFED53 /* ExportPlaylistsController.xib in Resources */,
 				80F97031209625E800A989D8 /* PreferencesWindowController.xib in Resources */,
 				8093467720A99112001D15CD /* DefaultPreferences.plist in Resources */,
 				80F2C5812038808000212739 /* Assets.xcassets in Resources */,
@@ -690,6 +697,7 @@
 				80B3BE12207514D200B93961 /* Player.swift in Sources */,
 				80F9703320962EA200A989D8 /* PopupEnum.swift in Sources */,
 				80E2C9FC204B40A000298E81 /* PlaylistFolder+CoreDataProperties.swift in Sources */,
+				807092EB20C69D8F00DFED53 /* ExportPlaylistsController.swift in Sources */,
 				806AC1432041EF1900857B1B /* SPAnalyzer.mm in Sources */,
 				80F97030209625E800A989D8 /* PreferencesWindowController.swift in Sources */,
 				8093467120A62319001D15CD /* TrackController+Pasteboard.swift in Sources */,

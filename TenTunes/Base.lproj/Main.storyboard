@@ -26,7 +26,7 @@
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
                                         <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
                                             <connections>
-                                                <action selector="showPreferencesWithSender:" target="Ady-hI-5gd" id="vra-n7-O4v"/>
+                                                <action selector="showPreferencesWithSender:" target="Voe-Tx-rLC" id="nDa-ap-UDG"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
@@ -126,6 +126,12 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="refreshExports:" target="Voe-Tx-rLC" id="VwL-AU-iZR"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Export Playlists..." id="93p-DO-A8e">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="exportPlaylists:" target="Voe-Tx-rLC" id="Xue-eg-GFr"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
@@ -862,7 +868,7 @@ IA
                                                 </connections>
                                             </button>
                                             <slider toolTip="Volume" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="weN-hW-VXM" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
-                                                <rect key="frame" x="1116" y="59" width="84" height="19"/>
+                                                <rect key="frame" x="1116" y="58" width="84" height="19"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="80" id="IaB-e8-PZM"/>
                                                 </constraints>

@@ -58,8 +58,6 @@ class ViewController: NSViewController {
     
     var mediaKeyTap: MediaKeyTap?
     
-    var preferencesController: PreferencesWindowController!
-
     var playlistController: PlaylistController!
     var trackController: TrackController!
     var playingTrackController: TrackController!
@@ -70,8 +68,6 @@ class ViewController: NSViewController {
         
         ValueTransformers.register()
         UserDefaults.standard.register(defaults: NSDictionary(contentsOf: Bundle.main.url(forResource: "DefaultPreferences", withExtension: "plist")!) as! [String : Any])
-
-        preferencesController = PreferencesWindowController(windowNibName: .init(rawValue: "PreferencesWindowController"))
 
         trackController = TrackController(nibName: .init(rawValue: "TrackController"), bundle: nil)
         trackController.view.frame = _trackView.frame
@@ -182,12 +178,7 @@ class ViewController: NSViewController {
         
         return nil
     }
-    
-    @IBAction
-    func showPreferences(sender: Any?) {
-        preferencesController.showWindow(self)
-    }
-    
+        
     func updatePlaying() {
         self.updateTimesHidden(self)
         
@@ -285,7 +276,6 @@ extension ViewController: NSUserInterfaceValidations {
         }
         
         if action == #selector(performFindEverywherePanelAction) { return true }
-        if action == #selector(showPreferences) { return true }
 
         return false
     }

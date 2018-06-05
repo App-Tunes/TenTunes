@@ -11,12 +11,20 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
+    var preferencesController: PreferencesWindowController!
+    var exportPlaylistsController: ExportPlaylistsController!
 
     func applicationWillFinishLaunching(_ notification: Notification) {
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+    }
+    
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        preferencesController = PreferencesWindowController(windowNibName: .init(rawValue: "PreferencesWindowController"))
+        
+        exportPlaylistsController = ExportPlaylistsController(windowNibName: .init(rawValue: "ExportPlaylistsController"))
     }
 
     // MARK: - Core Data stack
@@ -136,6 +144,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func refreshExports(_ sender: Any) {
         Library.shared._exportChanged = nil
+    }
+    
+    @IBAction func exportPlaylists(_ sender: Any) {
+        exportPlaylistsController.showWindow(self)
+    }
+    
+    @IBAction
+    func showPreferences(sender: Any?) {
+        preferencesController.showWindow(self)
     }
     
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {

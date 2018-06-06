@@ -16,6 +16,7 @@
 		801621332067B71B00093B15 /* ViewController+Updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801621322067B71B00093B15 /* ViewController+Updates.swift */; };
 		8017685920743898000DD433 /* NSImageViewAspectFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8017685820743898000DD433 /* NSImageViewAspectFill.swift */; };
 		803717292043629800DB9EAA /* ViewController+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803717282043629700DB9EAA /* ViewController+Background.swift */; };
+		803E972F20C7EF2C00D46565 /* LazyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803E972E20C7EF2C00D46565 /* LazyMap.swift */; };
 		8046CDA3204EF1ED00E732E7 /* TitleSubtitleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */; };
 		8058FA8F204317080086FF8A /* libSuperpoweredAudioOSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8058FA8E204317080086FF8A /* libSuperpoweredAudioOSX.a */; };
 		8058FABC20432A730086FF8A /* MediaKeyTap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8058FABB20432A730086FF8A /* MediaKeyTap.framework */; };
@@ -40,6 +41,7 @@
 		808161D2204059FE00AEA64F /* TrackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808161D1204059FE00AEA64F /* TrackController.swift */; };
 		8087A406206D933F003F1821 /* Analysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087A405206D933F003F1821 /* Analysis.swift */; };
 		8087A494206597DC00CC9569 /* EnterReturningTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087A493206597DC00CC9569 /* EnterReturningTextField.swift */; };
+		8091B9FF20C6B7E50019CE23 /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8091B9FE20C6B7E50019CE23 /* Hash.swift */; };
 		8093466E20A62249001D15CD /* PlaylistController+Pasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093466D20A62249001D15CD /* PlaylistController+Pasteboard.swift */; };
 		8093467120A62319001D15CD /* TrackController+Pasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093467020A62319001D15CD /* TrackController+Pasteboard.swift */; };
 		8093467320A628E1001D15CD /* FileImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093467220A628E1001D15CD /* FileImporter.swift */; };
@@ -121,6 +123,7 @@
 		801621322067B71B00093B15 /* ViewController+Updates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Updates.swift"; sourceTree = "<group>"; };
 		8017685820743898000DD433 /* NSImageViewAspectFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImageViewAspectFill.swift; sourceTree = "<group>"; };
 		803717282043629700DB9EAA /* ViewController+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Background.swift"; sourceTree = "<group>"; };
+		803E972E20C7EF2C00D46565 /* LazyMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyMap.swift; sourceTree = "<group>"; };
 		8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSubtitleCellView.swift; sourceTree = "<group>"; };
 		8058FA8E204317080086FF8A /* libSuperpoweredAudioOSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSuperpoweredAudioOSX.a; path = ../../../../SuperpoweredSDK/Superpowered/libSuperpoweredAudioOSX.a; sourceTree = "<group>"; };
 		8058FA902043172A0086FF8A /* SuperpoweredLimiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SuperpoweredLimiter.h; path = ../../../../SuperpoweredSDK/Superpowered/SuperpoweredLimiter.h; sourceTree = "<group>"; };
@@ -175,6 +178,7 @@
 		808161D1204059FE00AEA64F /* TrackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackController.swift; sourceTree = "<group>"; };
 		8087A405206D933F003F1821 /* Analysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analysis.swift; sourceTree = "<group>"; };
 		8087A493206597DC00CC9569 /* EnterReturningTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterReturningTextField.swift; sourceTree = "<group>"; };
+		8091B9FE20C6B7E50019CE23 /* Hash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hash.swift; sourceTree = "<group>"; };
 		8093466D20A62249001D15CD /* PlaylistController+Pasteboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistController+Pasteboard.swift"; sourceTree = "<group>"; };
 		8093467020A62319001D15CD /* TrackController+Pasteboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackController+Pasteboard.swift"; sourceTree = "<group>"; };
 		8093467220A628E1001D15CD /* FileImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImporter.swift; sourceTree = "<group>"; };
@@ -402,8 +406,10 @@
 			isa = PBXGroup;
 			children = (
 				80CFDA09203C4E2300C7A506 /* LazyVar.swift */,
+				803E972E20C7EF2C00D46565 /* LazyMap.swift */,
 				80E6811A20573DC800DA5702 /* SimpleTransformer.swift */,
 				80E6811C2057479B00DA5702 /* ValueTransformers.swift */,
+				8091B9FE20C6B7E50019CE23 /* Hash.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -677,6 +683,7 @@
 				80E6811B20573DC800DA5702 /* SimpleTransformer.swift in Sources */,
 				80F2C57C2038808000212739 /* ViewController.swift in Sources */,
 				80E2C9E1204AE18E00298E81 /* Track+CoreDataProperties.swift in Sources */,
+				803E972F20C7EF2C00D46565 /* LazyMap.swift in Sources */,
 				8087A494206597DC00CC9569 /* EnterReturningTextField.swift in Sources */,
 				80F855012069183E009A8FBE /* TrackController+Menu.swift in Sources */,
 				80E6811D2057479B00DA5702 /* ValueTransformers.swift in Sources */,
@@ -699,6 +706,7 @@
 				80E2C9FC204B40A000298E81 /* PlaylistFolder+CoreDataProperties.swift in Sources */,
 				807092EB20C69D8F00DFED53 /* ExportPlaylistsController.swift in Sources */,
 				806AC1432041EF1900857B1B /* SPAnalyzer.mm in Sources */,
+				8091B9FF20C6B7E50019CE23 /* Hash.swift in Sources */,
 				80F97030209625E800A989D8 /* PreferencesWindowController.swift in Sources */,
 				8093467120A62319001D15CD /* TrackController+Pasteboard.swift in Sources */,
 				80E937592039C2850014C835 /* Keycodes.swift in Sources */,

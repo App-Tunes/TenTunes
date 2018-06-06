@@ -29,12 +29,27 @@ extension Library {
         }
     }
     
-    static func writeM3U(playlist: Playlist, to: URL, absolute: Bool) {
+    static func writeRemoteM3UPlaylists(_ playlists: [Playlist], to: URL, pathMapper: @escaping (Track) -> URL?) {
+        for playlist in playlists {
+            let filename = playlist.name.asFileName + ".m3u"
+            var relative = to
+
+            for component in Library.shared.path(of: playlist).dropLast().dropFirst() {
+                relative = relative.appendingPathComponent(component.name.asFileName)
+            }
+            
+            Library.writeM3U(playlist: playlist, to: relative.appendingPathComponent(filename, isDirectory: false), absolute: false, pathMapper: pathMapper)
+        }
+    }
+    
+    static func writeM3U(playlist: Playlist, to: URL, absolute: Bool, pathMapper: ((Track) -> URL?)? = nil) {
+        let pathMapper: (Track) -> URL? = pathMapper ?? { $0.url }
+        
         let tracks: [String] = playlist.tracksList.map { track in
             let info = "#EXTINF:\(track.durationSeconds ?? 0),\(track.rAuthor) - \(track.rTitle)"
             
             // TODO Put in path whether it exists or not
-            let url = track.url ?? URL(fileURLWithPath: "unknown")
+            let url = pathMapper(track) ?? URL(fileURLWithPath: "unknown")
             
             return info + "\n" + (absolute ? url.path : (url.relativePath(from: to) ?? url.path))
         }

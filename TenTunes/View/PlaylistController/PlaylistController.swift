@@ -21,6 +21,12 @@ import Cocoa
     
     @IBOutlet var _outlineView: NSOutlineView!
     
+    var selectedPlaylists: [(Int, Playlist)] {
+        return _outlineView.selectedRowIndexes.map {
+            return ($0, _outlineView.item(atRow: $0) as! Playlist)
+        }
+    }
+    
     override func awakeFromNib() {
         _outlineView.registerForDraggedTypes(pasteboardTypes)
     }

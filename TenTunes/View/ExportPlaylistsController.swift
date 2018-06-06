@@ -16,9 +16,56 @@ class ExportPlaylistsController: NSWindowController {
     override func windowDidLoad() {
         super.windowDidLoad()
 
-        // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+        _trackLibrary.url = Library.shared.mediaLocation.directory
     }
     
     @IBAction func export(_ sender: Any) {
+        let playlists = ViewController.shared.playlistController.selectedPlaylists.map { $0.1 }
+//        let playlists: [Playlist] = try! Library.shared.viewContext.fetch(Playlist.fetchRequest())
+
+        var src: [Data: URL] = [:]
+        let dst: LazyMap<URL, Data?> = LazyMap { return Hash.md5(url: $0) }
+
+        let libraryURL = _trackLibrary.url!
+        let enumerator = FileManager.default.enumerator(at: libraryURL,
+                                                        includingPropertiesForKeys: [ .isRegularFileKey ],
+                                                        options: [.skipsHiddenFiles], errorHandler: { (url, error) -> Bool in
+                                                            print("directoryEnumerator error at \(url): ", error)
+                                                            return true
+        })!
+        
+        var srcFound = 0
+        var srcFailed = 0
+        
+        for case let url as URL in enumerator {
+            let isRegularFile = try? url.resourceValues(forKeys: [ .isRegularFileKey ]).isRegularFile!
+            if isRegularFile ?? false {
+                if let md5 = Hash.md5(url: url) {
+                    src[md5] = url
+                    srcFound += 1
+                    
+                    if srcFound % 100 == 0 {
+                        print("Found \(srcFound)")
+                    }
+                }
+                else {
+                    srcFailed += 1
+                }
+            }
+        }
+        
+        if srcFailed > 0 {
+            print("Failed sources: \(srcFailed)")
+        }
+
+        Library.writeRemoteM3UPlaylists(playlists, to: _destinationDirectory.url!, pathMapper: {
+            guard let url = $0.url, let hash = dst[url] else {
+                return nil
+            }
+            
+            return src[hash]
+        })
+        
+        // TODO Alert if some files were missing
     }
 }

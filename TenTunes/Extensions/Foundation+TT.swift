@@ -18,7 +18,7 @@ extension Optional where Wrapped : Comparable {
 }
 
 extension Collection {
-    /// Returns the element at the specified index iff it is within bounds, otherwise nil.
+    /// Returns the element at the specified index if it is within bounds, otherwise nil.
     subscript (safe index: Index) -> Element? {
         return indices.contains(index) ? self[index] : nil
     }
@@ -442,7 +442,8 @@ extension URL {
         }
         
         // Build relative path:
-        var relComponents = Array(repeating: "..", count: baseComponents.count - i)
+         // -1 since the last component is the file
+        var relComponents = Array(repeating: "..", count: baseComponents.count - i - 1)
         relComponents.append(contentsOf: destComponents[i...])
         return relComponents.joined(separator: "/")
     }

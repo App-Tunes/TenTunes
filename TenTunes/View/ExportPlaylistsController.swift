@@ -10,6 +10,8 @@ import Cocoa
 import AudioKit
 
 class ExportPlaylistsController: NSWindowController {
+    
+    static let maxReadLength: AVAudioFramePosition = 100000
 
     @IBOutlet var _trackLibrary: NSPathControl!
     @IBOutlet var _destinationDirectory: NSPathControl!
@@ -29,8 +31,19 @@ class ExportPlaylistsController: NSWindowController {
                 print("Failed to create audio file for \($0)")
                 return nil
             }
-            let buffer = file.pcmBuffer
-            return buffer.withUnsafePointer(block: Hash.md5)
+            
+            print(file.length)
+            let readLength = AVAudioFrameCount(min(ExportPlaylistsController.maxReadLength, file.length))
+            let buffer = AVAudioPCMBuffer(pcmFormat: file.processingFormat,
+                                          frameCapacity: readLength)
+            
+            do {
+                try file.read(into: buffer!, frameCount: readLength)
+            } catch let error as NSError {
+                print("error cannot readIntBuffer, Error: \(error)")
+            }
+            
+            return buffer!.withUnsafePointer(block: Hash.md5)
         }
         
         var src: [Data: URL] = [:]
@@ -51,6 +64,10 @@ class ExportPlaylistsController: NSWindowController {
             let isRegularFile = try? url.resourceValues(forKeys: [ .isRegularFileKey ]).isRegularFile!
             if isRegularFile ?? false {
                 if let md5 = toHash(url) {
+                    if let existing = src[md5] {
+                        print("Hash collision between urls \(url) and \(existing)")
+                    }
+                    
                     src[md5] = url
                     srcFound += 1
                     

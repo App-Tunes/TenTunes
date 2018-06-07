@@ -32,7 +32,6 @@ class ExportPlaylistsController: NSWindowController {
                 return nil
             }
             
-            print(file.length)
             let readLength = AVAudioFrameCount(min(ExportPlaylistsController.maxReadLength, file.length))
             let buffer = AVAudioPCMBuffer(pcmFormat: file.processingFormat,
                                           frameCapacity: readLength)

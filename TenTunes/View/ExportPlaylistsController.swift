@@ -58,7 +58,13 @@ class ExportPlaylistsController: NSWindowController, USBWatcherDelegate {
     }
     
     @IBAction func export(_ sender: Any) {
-        let playlists = ViewController.shared.playlistController.selectedPlaylists.map { $0.1 }
+        let selected = ViewController.shared.playlistController.selectedPlaylists.map { $0.1 }
+        let playlists = selected.flatten {
+            if let group = $0 as? PlaylistFolder {
+                return group.childrenList
+            }
+            return nil
+        }
 //        let playlists: [Playlist] = try! Library.shared.viewContext.fetch(Playlist.fetchRequest())
 
         let toHash: (URL) -> Data? = {

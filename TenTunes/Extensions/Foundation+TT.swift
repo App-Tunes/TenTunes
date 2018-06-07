@@ -147,8 +147,8 @@ extension Array where Element: Equatable {
         rearrange(from: elements.map { self.index(of: $0)! }, to: to)
     }
     
-    static func flattened(root: Element, by: (Element) -> [Element]?) -> [Element] {
-        var all = [root]
+    func flatten(by: (Element) -> [Element]?) -> [Element] {
+        var all = self
         var idx = 0
         
         while idx < all.count {

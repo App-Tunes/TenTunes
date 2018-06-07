@@ -18,6 +18,7 @@
 		803717292043629800DB9EAA /* ViewController+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803717282043629700DB9EAA /* ViewController+Background.swift */; };
 		803E972F20C7EF2C00D46565 /* LazyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803E972E20C7EF2C00D46565 /* LazyMap.swift */; };
 		8046CDA3204EF1ED00E732E7 /* TitleSubtitleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */; };
+		8055FE7E20C947A300559F45 /* Volumes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8055FE7D20C947A300559F45 /* Volumes.swift */; };
 		8058FA8F204317080086FF8A /* libSuperpoweredAudioOSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8058FA8E204317080086FF8A /* libSuperpoweredAudioOSX.a */; };
 		8058FABC20432A730086FF8A /* MediaKeyTap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8058FABB20432A730086FF8A /* MediaKeyTap.framework */; };
 		8058FABE20432D3D0086FF8A /* MediaKeyTap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8058FABB20432A730086FF8A /* MediaKeyTap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -39,6 +40,7 @@
 		80802588203F0399008D4168 /* PlaylistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802587203F0399008D4168 /* PlaylistController.swift */; };
 		808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808161CE2040520900AEA64F /* AVFoundationImporter.swift */; };
 		808161D2204059FE00AEA64F /* TrackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808161D1204059FE00AEA64F /* TrackController.swift */; };
+		8085DC7020C936D6008F4084 /* ActionStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8085DC6F20C936D6008F4084 /* ActionStub.swift */; };
 		8087A406206D933F003F1821 /* Analysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087A405206D933F003F1821 /* Analysis.swift */; };
 		8087A494206597DC00CC9569 /* EnterReturningTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087A493206597DC00CC9569 /* EnterReturningTextField.swift */; };
 		8091B9FF20C6B7E50019CE23 /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8091B9FE20C6B7E50019CE23 /* Hash.swift */; };
@@ -126,6 +128,7 @@
 		803717282043629700DB9EAA /* ViewController+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Background.swift"; sourceTree = "<group>"; };
 		803E972E20C7EF2C00D46565 /* LazyMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyMap.swift; sourceTree = "<group>"; };
 		8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSubtitleCellView.swift; sourceTree = "<group>"; };
+		8055FE7D20C947A300559F45 /* Volumes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Volumes.swift; sourceTree = "<group>"; };
 		8058FA8E204317080086FF8A /* libSuperpoweredAudioOSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSuperpoweredAudioOSX.a; path = ../../../../SuperpoweredSDK/Superpowered/libSuperpoweredAudioOSX.a; sourceTree = "<group>"; };
 		8058FA902043172A0086FF8A /* SuperpoweredLimiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SuperpoweredLimiter.h; path = ../../../../SuperpoweredSDK/Superpowered/SuperpoweredLimiter.h; sourceTree = "<group>"; };
 		8058FA922043172B0086FF8A /* SuperpoweredGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SuperpoweredGate.h; path = ../../../../SuperpoweredSDK/Superpowered/SuperpoweredGate.h; sourceTree = "<group>"; };
@@ -177,6 +180,7 @@
 		80802587203F0399008D4168 /* PlaylistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistController.swift; sourceTree = "<group>"; };
 		808161CE2040520900AEA64F /* AVFoundationImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVFoundationImporter.swift; sourceTree = "<group>"; };
 		808161D1204059FE00AEA64F /* TrackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackController.swift; sourceTree = "<group>"; };
+		8085DC6F20C936D6008F4084 /* ActionStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionStub.swift; sourceTree = "<group>"; };
 		8087A405206D933F003F1821 /* Analysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analysis.swift; sourceTree = "<group>"; };
 		8087A493206597DC00CC9569 /* EnterReturningTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterReturningTextField.swift; sourceTree = "<group>"; };
 		8091B9FE20C6B7E50019CE23 /* Hash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hash.swift; sourceTree = "<group>"; };
@@ -413,6 +417,8 @@
 				80E6811A20573DC800DA5702 /* SimpleTransformer.swift */,
 				80E6811C2057479B00DA5702 /* ValueTransformers.swift */,
 				8091B9FE20C6B7E50019CE23 /* Hash.swift */,
+				8085DC6F20C936D6008F4084 /* ActionStub.swift */,
+				8055FE7D20C947A300559F45 /* Volumes.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -702,6 +708,7 @@
 				80DCA9B3203F636F00B1E9B1 /* TagLibImporter.mm in Sources */,
 				80E092A12066C42D000CA4D5 /* MediaLocation.swift in Sources */,
 				80802586203EFCC0008D4168 /* Foundation+TT.swift in Sources */,
+				8055FE7E20C947A300559F45 /* Volumes.swift in Sources */,
 				8017685920743898000DD433 /* NSImageViewAspectFill.swift in Sources */,
 				80E4F9CB20A0DD4B0014532E /* Library+M3U.swift in Sources */,
 				80F2C5912038A80D00212739 /* Track+TT.swift in Sources */,
@@ -715,6 +722,7 @@
 				8093467120A62319001D15CD /* TrackController+Pasteboard.swift in Sources */,
 				80E937592039C2850014C835 /* Keycodes.swift in Sources */,
 				80E2C9FB204B40A000298E81 /* PlaylistFolder+CoreDataClass.swift in Sources */,
+				8085DC7020C936D6008F4084 /* ActionStub.swift in Sources */,
 				807E4B47206428260051C028 /* ScrollableSlider.swift in Sources */,
 				80E2C9FA204B40A000298E81 /* PlaylistManual+CoreDataProperties.swift in Sources */,
 				8046CDA3204EF1ED00E732E7 /* TitleSubtitleCellView.swift in Sources */,

@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="ExportPlaylistsController" customModule="TenTunes" customModuleProvider="target">
             <connections>
                 <outlet property="_destinationDirectory" destination="ERE-2I-qxo" id="Nzx-ai-X6x"/>
+                <outlet property="_rekordboxSelect" destination="K7s-ho-2II" id="Krc-lV-X6t"/>
                 <outlet property="_trackLibrary" destination="dyT-IV-bG5" id="OM1-aP-lX3"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
@@ -17,12 +18,25 @@
         <window title="Export Playlists" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="480" height="177"/>
+            <rect key="contentRect" x="196" y="240" width="480" height="216"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" wantsLayer="YES" id="se5-gp-TjO">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="177"/>
+                <rect key="frame" x="0.0" y="0.0" width="480" height="216"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K7s-ho-2II">
+                        <rect key="frame" x="17" y="173" width="446" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <popUpButtonCell key="cell" type="push" title="Select Rekordbox Volume..." bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="053-ae-UQB" id="KqF-xc-5rU">
+                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                            <menu key="menu" id="Kb6-hP-3Sr">
+                                <items>
+                                    <menuItem title="Select Rekordbox Volume..." state="on" id="053-ae-UQB"/>
+                                </items>
+                            </menu>
+                        </popUpButtonCell>
+                    </popUpButton>
                     <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dyT-IV-bG5">
                         <rect key="frame" x="17" y="114" width="446" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -73,7 +87,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
             </connections>
-            <point key="canvasLocation" x="139" y="117.5"/>
+            <point key="canvasLocation" x="139" y="137"/>
         </window>
     </objects>
 </document>

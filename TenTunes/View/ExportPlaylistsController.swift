@@ -9,17 +9,52 @@
 import Cocoa
 import AudioKit
 
-class ExportPlaylistsController: NSWindowController {
+class ExportPlaylistsController: NSWindowController, USBWatcherDelegate {
     
     static let maxReadLength: AVAudioFramePosition = 100000
 
     @IBOutlet var _trackLibrary: NSPathControl!
     @IBOutlet var _destinationDirectory: NSPathControl!
     
+    @IBOutlet var _rekordboxSelect: NSPopUpButton!
+    
+    var usbWatcher: USBWatcher!
+    
     override func windowDidLoad() {
         super.windowDidLoad()
 
         _trackLibrary.url = Library.shared.mediaLocation.directory
+        
+        usbWatcher = USBWatcher(delegate: self)
+        volumesChanged()
+    }
+    
+    func volumesChanged() {
+        _rekordboxSelect.removeAllItems()
+        
+        _rekordboxSelect.menu?.addItem(NSMenuItem(title: "Select Rekordbox Device...", action: nil, keyEquivalent: ""))
+
+        let paths = FileManager.default.mountedVolumeURLs(includingResourceValuesForKeys: [], options: [])
+        if let urls = paths {
+            for url in urls {
+                let components = url.pathComponents
+                if components.count > 1 && components[1] == "Volumes"
+                {
+                    let libraryURL = url.appendingPathComponent("Contents")
+                    let playlistsURL = url.appendingPathComponent("Playlists")
+
+                    if FileManager.default.fileExists(atPath: libraryURL.path) {
+                        let item = NSMenuItem(title: components[0], action: nil, keyEquivalent: "")
+                        ActionStub.bind(item) { _ in
+                            self._trackLibrary.url = libraryURL
+                            try! FileManager.default.createDirectory(at: playlistsURL, withIntermediateDirectories: false, attributes: nil)
+                            self._destinationDirectory.url = playlistsURL
+                        }
+                        _rekordboxSelect.menu?.addItem(item)
+                    }
+                }
+            }
+        }
     }
     
     @IBAction func export(_ sender: Any) {
@@ -93,5 +128,13 @@ class ExportPlaylistsController: NSWindowController {
         })
         
         // TODO Alert if some files were missing
+    }
+    
+    func deviceAdded(_ device: io_object_t) {
+        volumesChanged()
+    }
+    
+    func deviceRemoved(_ device: io_object_t) {
+        volumesChanged()
     }
 }

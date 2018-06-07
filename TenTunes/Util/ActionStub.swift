@@ -8,17 +8,29 @@
 
 import Cocoa
 
+class ActionStubs {
+    var stubs: [ActionStub] = []
+    
+    func clear() {
+        stubs = []
+    }
+    
+    func bind(_ button: NSControl, action: @escaping (Any) -> Swift.Void) {
+        let stub = ActionStub(action)
+        button.target = stub
+        button.action = #selector(stub.run)
+        stubs.append(stub)
+    }
+    
+    func bind(_ button: NSMenuItem, action: @escaping (Any) -> Swift.Void) {
+        let stub = ActionStub(action)
+        button.target = stub
+        button.action = #selector(stub.run)
+        stubs.append(stub)
+    }
+}
+
 class ActionStub {
-    static func bind(_ button: NSControl, action: @escaping (Any) -> Swift.Void) {
-        button.target = ActionStub(action)
-        button.action = #selector(run)
-    }
-    
-    static func bind(_ button: NSMenuItem, action: @escaping (Any) -> Swift.Void) {
-        button.target = ActionStub(action)
-        button.action = #selector(run)
-    }
-    
     let action: (Any) -> Swift.Void
     
     init(_ action: @escaping (Any) -> Swift.Void) {

@@ -451,6 +451,10 @@ extension URL {
     func ensurePath() throws {
         try FileManager.default.createDirectory(at: self.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
     }
+
+    func ensureDirectory() throws {
+        try FileManager.default.createDirectory(at: self, withIntermediateDirectories: true, attributes: nil)
+    }
 }
 
 extension Timer {

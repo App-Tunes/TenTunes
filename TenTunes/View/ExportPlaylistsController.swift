@@ -17,6 +17,7 @@ class ExportPlaylistsController: NSWindowController, USBWatcherDelegate {
     @IBOutlet var _destinationDirectory: NSPathControl!
     
     @IBOutlet var _rekordboxSelect: NSPopUpButton!
+    var selectStubs = ActionStubs()
     
     var usbWatcher: USBWatcher!
     
@@ -31,6 +32,7 @@ class ExportPlaylistsController: NSWindowController, USBWatcherDelegate {
     
     func volumesChanged() {
         _rekordboxSelect.removeAllItems()
+        selectStubs.clear()
         
         _rekordboxSelect.menu?.addItem(NSMenuItem(title: "Select Rekordbox Device...", action: nil, keyEquivalent: ""))
 
@@ -38,16 +40,16 @@ class ExportPlaylistsController: NSWindowController, USBWatcherDelegate {
         if let urls = paths {
             for url in urls {
                 let components = url.pathComponents
-                if components.count > 1 && components[1] == "Volumes"
+                if components.count > 2 && components[1] == "Volumes"
                 {
                     let libraryURL = url.appendingPathComponent("Contents")
                     let playlistsURL = url.appendingPathComponent("Playlists")
 
                     if FileManager.default.fileExists(atPath: libraryURL.path) {
-                        let item = NSMenuItem(title: components[0], action: nil, keyEquivalent: "")
-                        ActionStub.bind(item) { _ in
+                        let item = NSMenuItem(title: components[2], action: nil, keyEquivalent: "")
+                        selectStubs.bind(item) { [unowned self] _ in
                             self._trackLibrary.url = libraryURL
-                            try! FileManager.default.createDirectory(at: playlistsURL, withIntermediateDirectories: false, attributes: nil)
+                            try! playlistsURL.ensureDirectory()
                             self._destinationDirectory.url = playlistsURL
                         }
                         _rekordboxSelect.menu?.addItem(item)

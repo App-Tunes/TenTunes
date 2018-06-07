@@ -30,7 +30,6 @@ class ExportPlaylistsController: NSWindowController {
                 return nil
             }
             let buffer = file.pcmBuffer
-            try? file.read(into: buffer)
             return buffer.withUnsafePointer(block: Hash.md5)
         }
         

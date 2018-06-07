@@ -24,20 +24,18 @@ class ExportPlaylistsController: NSWindowController {
         let playlists = ViewController.shared.playlistController.selectedPlaylists.map { $0.1 }
 //        let playlists: [Playlist] = try! Library.shared.viewContext.fetch(Playlist.fetchRequest())
 
-        let toData: (URL) -> Data? = {
+        let toHash: (URL) -> Data? = {
             guard let file = try? AKAudioFile(forReading: $0) else {
                 print("Failed to create audio file for \($0)")
                 return nil
             }
             let buffer = file.pcmBuffer
             try? file.read(into: buffer)
-            return buffer.asData
+            return buffer.withUnsafePointer(block: Hash.md5)
         }
         
         var src: [Data: URL] = [:]
-        let dst: LazyMap<URL, Data?> = LazyMap {
-            return toData($0) ?=> Hash.md5
-        }
+        let dst: LazyMap<URL, Data?> = LazyMap(toHash)
 
         let libraryURL = _trackLibrary.url!
         let enumerator = FileManager.default.enumerator(at: libraryURL,
@@ -53,7 +51,7 @@ class ExportPlaylistsController: NSWindowController {
         for case let url as URL in enumerator {
             let isRegularFile = try? url.resourceValues(forKeys: [ .isRegularFileKey ]).isRegularFile!
             if isRegularFile ?? false {
-                if let md5 = toData(url) ?=> Hash.md5 {
+                if let md5 = toHash(url) {
                     src[md5] = url
                     srcFound += 1
                     

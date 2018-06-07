@@ -11,26 +11,28 @@ import AVFoundation
 
 extension AVAudioPCMBuffer {
     var asData: Data {
+        return withUnsafePointer {
+            return Data(bytes: $0, count: $1)
+        }
+    }
+    
+    func withUnsafePointer<Return>(block: (UnsafeRawPointer, Int) -> Return) -> Return {
+        var pointer: UnsafeRawPointer
+        
         if let data16 = int16ChannelData {
-            let channels = UnsafeBufferPointer(start: data16, count: 1)
-            let ch0Data = Data(bytes: channels[0], count: Int(frameCapacity * format.streamDescription.pointee.mBytesPerFrame))
-            
-            return ch0Data
+            pointer = UnsafeRawPointer(UnsafeBufferPointer(start: data16, count: 1)[0])
         }
         else if let data32 = int32ChannelData {
-            let channels = UnsafeBufferPointer(start: data32, count: 1)
-            let ch0Data = Data(bytes: channels[0], count: Int(frameCapacity * format.streamDescription.pointee.mBytesPerFrame))
-            
-            return ch0Data
+            pointer = UnsafeRawPointer(UnsafeBufferPointer(start: data32, count: 1)[0])
         }
         else if let dataFloat = floatChannelData {
-            let channels = UnsafeBufferPointer(start: dataFloat, count: 1)
-            let ch0Data = Data(bytes: channels[0], count: Int(frameCapacity * format.streamDescription.pointee.mBytesPerFrame))
-            
-            return ch0Data
+            pointer = UnsafeRawPointer(UnsafeBufferPointer(start: dataFloat, count: 1)[0])
         }
         else {
             fatalError("Failed to determine format!")
         }
+        
+        let length = Int(frameCapacity * format.streamDescription.pointee.mBytesPerFrame)
+        return block(pointer, length)
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,13 +26,10 @@
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="8Z0-Gt-dbf" secondAttribute="height" multiplier="1:1" id="A68-Nx-MH3"/>
                             </constraints>
-                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="playlist" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="FUC-fH-z3B">
+                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSGoBackTemplate" imagePosition="overlaps" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="FUC-fH-z3B">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
+                                <font key="font" metaFont="systemBold"/>
                             </buttonCell>
-                            <connections>
-                                <action selector="createPlaylist:" target="-2" id="gMt-Co-cDw"/>
-                            </connections>
                         </button>
                         <button toolTip="Library" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="58Y-ON-eOB">
                             <rect key="frame" x="30" y="5" width="20" height="20"/>
@@ -52,13 +49,10 @@
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="2x8-2J-xWJ" secondAttribute="height" multiplier="1:1" id="mnd-Sa-TuN"/>
                             </constraints>
-                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="folder" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="qKK-Uj-lbi">
+                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSGoForwardTemplate" imagePosition="overlaps" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="qKK-Uj-lbi">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
+                                <font key="font" metaFont="systemBold"/>
                             </buttonCell>
-                            <connections>
-                                <action selector="createGroup:" target="-2" id="32f-1f-BOe"/>
-                            </connections>
                         </button>
                     </subviews>
                     <constraints>
@@ -77,13 +71,13 @@
                     </constraints>
                 </customView>
                 <scrollView horizontalHuggingPriority="750" horizontalCompressionResistancePriority="25" verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="IaV-BJ-2N9">
-                    <rect key="frame" x="0.0" y="0.0" width="178" height="450"/>
+                    <rect key="frame" x="0.0" y="30" width="178" height="420"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="lbM-WH-AFJ">
-                        <rect key="frame" x="0.0" y="0.0" width="178" height="450"/>
+                        <rect key="frame" x="0.0" y="0.0" width="178" height="420"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" autosaveName="Playlists" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autosaveExpandedItems="YES" outlineTableColumn="y9Z-8l-kxU" id="jaf-cH-DJt">
-                                <rect key="frame" x="0.0" y="0.0" width="178" height="450"/>
+                                <rect key="frame" x="0.0" y="0.0" width="178" height="420"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="2" height="3"/>
                                 <color key="backgroundColor" red="0.1489986479" green="0.1490316391" blue="0.14899659160000001" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -153,16 +147,67 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="FlW-e5-GJv">
+                    <rect key="frame" x="0.0" y="0.0" width="178" height="30"/>
+                    <subviews>
+                        <button toolTip="Create Group" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s5V-cO-NDS">
+                            <rect key="frame" x="110" y="5" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="s5V-cO-NDS" secondAttribute="height" multiplier="1:1" id="iLc-oV-qb8"/>
+                            </constraints>
+                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="folder" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="CcK-3A-aHk">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="createGroup:" target="-2" id="AD1-Af-WOD"/>
+                            </connections>
+                        </button>
+                        <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z3C-14-8qk">
+                            <rect key="frame" x="89" y="5" width="1" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="1" id="Zuv-FG-A5V"/>
+                            </constraints>
+                        </customView>
+                        <button toolTip="Create Playlist" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XDO-KJ-zFo">
+                            <rect key="frame" x="49" y="5" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="XDO-KJ-zFo" secondAttribute="height" multiplier="1:1" id="IgZ-ie-N6E"/>
+                            </constraints>
+                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="playlist" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="D5p-pT-g7N">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="createPlaylist:" target="-2" id="OcZ-zn-hID"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="09x-Qg-6Gb"/>
+                        <constraint firstItem="Z3C-14-8qk" firstAttribute="centerX" secondItem="FlW-e5-GJv" secondAttribute="centerX" id="38m-Yi-tm2"/>
+                        <constraint firstAttribute="bottom" secondItem="XDO-KJ-zFo" secondAttribute="bottom" constant="5" id="V5p-uP-wan"/>
+                        <constraint firstItem="s5V-cO-NDS" firstAttribute="top" secondItem="FlW-e5-GJv" secondAttribute="top" constant="5" id="cSZ-T1-V7f"/>
+                        <constraint firstItem="Z3C-14-8qk" firstAttribute="leading" secondItem="XDO-KJ-zFo" secondAttribute="trailing" constant="20" id="ncf-P0-6UZ"/>
+                        <constraint firstItem="XDO-KJ-zFo" firstAttribute="top" secondItem="FlW-e5-GJv" secondAttribute="top" constant="5" id="ppf-hb-Rzj"/>
+                        <constraint firstItem="s5V-cO-NDS" firstAttribute="centerX" secondItem="FlW-e5-GJv" secondAttribute="centerX" priority="50" id="tXr-sb-dNB"/>
+                        <constraint firstAttribute="bottom" secondItem="s5V-cO-NDS" secondAttribute="bottom" constant="5" id="vZG-bZ-RUF"/>
+                        <constraint firstItem="s5V-cO-NDS" firstAttribute="leading" secondItem="Z3C-14-8qk" secondAttribute="trailing" constant="20" id="xMg-ee-v2c"/>
+                    </constraints>
+                </customView>
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="IaV-BJ-2N9" secondAttribute="trailing" id="4Id-gU-a9O"/>
                 <constraint firstItem="IaV-BJ-2N9" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="bottom" id="94p-SO-1gK"/>
+                <constraint firstAttribute="bottom" secondItem="FlW-e5-GJv" secondAttribute="bottom" id="Aqb-UC-H9W"/>
                 <constraint firstItem="Ry6-zg-Muz" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="NAq-Mn-pRx"/>
                 <constraint firstItem="Ry6-zg-Muz" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="OYG-go-Q4q"/>
                 <constraint firstItem="IaV-BJ-2N9" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="T88-TC-6fw"/>
                 <constraint firstAttribute="trailing" secondItem="Ry6-zg-Muz" secondAttribute="trailing" id="a3m-hS-Ygf"/>
+                <constraint firstItem="FlW-e5-GJv" firstAttribute="top" secondItem="IaV-BJ-2N9" secondAttribute="bottom" id="hPd-r7-1EO"/>
+                <constraint firstItem="FlW-e5-GJv" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="mB3-Om-IlZ"/>
+                <constraint firstAttribute="trailing" secondItem="FlW-e5-GJv" secondAttribute="trailing" id="mxI-iL-pzn"/>
                 <constraint firstItem="IaV-BJ-2N9" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="bottom" id="ocP-mR-FOd"/>
-                <constraint firstAttribute="bottom" secondItem="IaV-BJ-2N9" secondAttribute="bottom" id="pFY-Az-mgl"/>
             </constraints>
             <point key="canvasLocation" x="-12" y="64"/>
         </customView>
@@ -194,6 +239,8 @@
         </menu>
     </objects>
     <resources>
+        <image name="NSGoBackTemplate" width="9" height="12"/>
+        <image name="NSGoForwardTemplate" width="9" height="12"/>
         <image name="folder" width="125" height="125"/>
         <image name="home" width="140" height="140"/>
         <image name="playlist" width="125" height="125"/>

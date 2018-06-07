@@ -49,9 +49,15 @@ extension Library {
             let info = "#EXTINF:\(track.durationSeconds ?? 0),\(track.rAuthor) - \(track.rTitle)"
             
             // TODO Put in path whether it exists or not
-            let url = pathMapper(track) ?? URL(fileURLWithPath: "unknown")
+            let url = pathMapper(track)
+            let path = absolute ? url?.path
+                : url.map { $0.relativePath(from: to) ?? $0.path }
             
-            return info + "\n" + (absolute ? url.path : (url.relativePath(from: to) ?? url.path))
+            if path == nil {
+                print("Failed writing m3u for \(info) (path:\(String(describing: url?.path))) ")
+            }
+            
+            return info + "\n" + (path ?? "unknown")
         }
         let contents = "#EXTM3U\n" + tracks.joined(separator: "\n")
         

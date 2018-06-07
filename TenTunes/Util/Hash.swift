@@ -9,6 +9,23 @@
 import Cocoa
 
 class Hash {
+    static func md5(of data: Data) -> Data? {
+        // Create and initialize MD5 context:
+        var context = CC_MD5_CTX()
+        CC_MD5_Init(&context)
+
+        _ =  data.withUnsafeBytes { 
+            _ = CC_MD5_Update(&context, $0, numericCast(data.count))
+        }
+
+        // Compute the MD5 digest:
+        var digest = Data(count: Int(CC_MD5_DIGEST_LENGTH))
+        digest.withUnsafeMutableBytes {
+            _ = CC_MD5_Final($0, &context)
+        }
+        return digest
+    }
+
     // From https://stackoverflow.com/questions/42935148/swift-calculate-md5-checksum-for-large-files
     static func md5(url: URL) -> Data? {
         

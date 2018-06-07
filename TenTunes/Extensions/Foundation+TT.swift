@@ -402,7 +402,7 @@ extension String {
     
     var asFileName: String {
         return replacingOccurrences(of: ":", with: "_") // Remove :
-            .replacingOccurrences(of: "/", with: "\\:\\") // Escape /
+            .replacingOccurrences(of: "/", with: ":") // : is a slash in filenames
     }
     
     static func random16Hex() -> String {

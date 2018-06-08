@@ -39,5 +39,14 @@ extension Library {
         
         writeM3UPlaylists(playlists: playlists, changed: changed)
         writeiTunesLibraryXML(tracks: tracks, playlists: playlists)
-    }        
+    }
+    
+    static func iterate(playlists: [Playlist], changed: Set<NSManagedObjectID>?, in directory: URL, block: (URL, Playlist) -> Swift.Void) {
+        // TODO Clean up old playlists
+        for playlist in playlists where changed == nil || changed!.contains(playlist.objectID) || playlist.tracksList.anyMatch { changed!.contains($0.objectID) } {
+            let url = Library.shared.url(of: playlist, relativeTo: directory)
+            
+            block(url, playlist)
+        }
+    }
 }

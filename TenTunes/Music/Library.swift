@@ -149,6 +149,16 @@ class Library : NSPersistentContainer {
         request.predicate = NSPredicate(format: "iTunesID == %@", byITunesID)
         return try! viewContext.fetch(request).first
     }
+    
+    func url(of playlist: Playlist, relativeTo: URL) -> URL {
+        var url = relativeTo
+        
+        for component in Library.shared.path(of: playlist).dropLast().dropFirst() {
+            url = url.appendingPathComponent(component.name.asFileName)
+        }
+        
+        return url
+    }
 }
 
 extension Library {

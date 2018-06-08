@@ -73,6 +73,7 @@
 		80E6811B20573DC800DA5702 /* SimpleTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E6811A20573DC800DA5702 /* SimpleTransformer.swift */; };
 		80E6811D2057479B00DA5702 /* ValueTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E6811C2057479B00DA5702 /* ValueTransformers.swift */; };
 		80E937592039C2850014C835 /* Keycodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E937582039C2850014C835 /* Keycodes.swift */; };
+		80F11E5920CA732E00331D12 /* Library+Symlink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F11E5820CA732E00331D12 /* Library+Symlink.swift */; };
 		80F2C57A2038808000212739 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C5792038808000212739 /* AppDelegate.swift */; };
 		80F2C57C2038808000212739 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C57B2038808000212739 /* ViewController.swift */; };
 		80F2C57F2038808000212739 /* TenTunes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C57D2038808000212739 /* TenTunes.xcdatamodeld */; };
@@ -216,6 +217,7 @@
 		80E6811A20573DC800DA5702 /* SimpleTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTransformer.swift; sourceTree = "<group>"; };
 		80E6811C2057479B00DA5702 /* ValueTransformers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueTransformers.swift; sourceTree = "<group>"; };
 		80E937582039C2850014C835 /* Keycodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keycodes.swift; sourceTree = "<group>"; };
+		80F11E5820CA732E00331D12 /* Library+Symlink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Symlink.swift"; sourceTree = "<group>"; };
 		80F2C5762038808000212739 /* TenTunes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TenTunes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80F2C5792038808000212739 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80F2C57B2038808000212739 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 				80CB652B20514E050031A6D7 /* Library+Export.swift */,
 				80E4F9CA20A0DD4B0014532E /* Library+M3U.swift */,
 				80E4F9CD20A0DD7E0014532E /* Library+iTunes.swift */,
+				80F11E5820CA732E00331D12 /* Library+Symlink.swift */,
 				80E2C9E3204B3D5C00298E81 /* Playlist */,
 				80CB65362052CAEA0031A6D7 /* Track */,
 				80CB65372052CB100031A6D7 /* Analyze */,
@@ -692,6 +695,7 @@
 				80E6811B20573DC800DA5702 /* SimpleTransformer.swift in Sources */,
 				80F2C57C2038808000212739 /* ViewController.swift in Sources */,
 				80E2C9E1204AE18E00298E81 /* Track+CoreDataProperties.swift in Sources */,
+				80F11E5920CA732E00331D12 /* Library+Symlink.swift in Sources */,
 				803E972F20C7EF2C00D46565 /* LazyMap.swift in Sources */,
 				8087A494206597DC00CC9569 /* EnterReturningTextField.swift in Sources */,
 				80CED03C20C88055001E710F /* AVFoundation+TT.swift in Sources */,

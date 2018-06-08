@@ -10,35 +10,21 @@ import Cocoa
 
 extension Library {
     func writeM3UPlaylists(playlists: [Playlist], changed: Set<NSManagedObjectID>?) {
-        let m3uRelative = exportURL(title: "M3U (Relative)")
-        let m3uAbsolute = exportURL(title: "M3U (Absolute)")
-        
-        // TODO Clean up old playlists
-        for playlist in playlists where changed == nil || changed!.contains(playlist.objectID) || playlist.tracksList.anyMatch { changed!.contains($0.objectID) } {
+        Library.iterate(playlists: playlists, changed: changed, in: exportURL(title: "M3U (Relative)")) { (url, playlist) in
             let filename = playlist.name.asFileName + ".m3u"
-            var relative = m3uRelative
-            var absolute = m3uAbsolute
+            Library.writeM3U(playlist: playlist, to: url.appendingPathComponent(filename), absolute: false)
+        }
 
-            for component in Library.shared.path(of: playlist).dropLast().dropFirst() {
-                relative = relative.appendingPathComponent(component.name.asFileName)
-                absolute = absolute.appendingPathComponent(component.name.asFileName)
-            }
-            
-            Library.writeM3U(playlist: playlist, to: relative.appendingPathComponent(filename, isDirectory: false), absolute: false)
-            Library.writeM3U(playlist: playlist, to: absolute.appendingPathComponent(filename, isDirectory: false), absolute: true)
+        Library.iterate(playlists: playlists, changed: changed, in: exportURL(title: "M3U (Absolute)")) { (url, playlist) in
+            let filename = playlist.name.asFileName + ".m3u"
+            Library.writeM3U(playlist: playlist, to: url.appendingPathComponent(filename), absolute: true)
         }
     }
     
     static func writeRemoteM3UPlaylists(_ playlists: [Playlist], to: URL, pathMapper: @escaping (Track) -> URL?) {
-        for playlist in playlists {
+        Library.iterate(playlists: playlists, changed: nil, in: to) { (url, playlist) in
             let filename = playlist.name.asFileName + ".m3u"
-            var relative = to
-
-            for component in Library.shared.path(of: playlist).dropLast().dropFirst() {
-                relative = relative.appendingPathComponent(component.name.asFileName)
-            }
-            
-            Library.writeM3U(playlist: playlist, to: relative.appendingPathComponent(filename, isDirectory: false), absolute: false, pathMapper: pathMapper)
+            Library.writeM3U(playlist: playlist, to: url.appendingPathComponent(filename), absolute: false, pathMapper: pathMapper)
         }
     }
     

@@ -10,40 +10,35 @@ import Cocoa
 
 extension Library {
     func writeM3UPlaylists(playlists: [Playlist], changed: Set<NSManagedObjectID>?) {
-        Library.iterate(playlists: playlists, changed: changed, in: exportURL(title: "M3U (Relative)")) { (url, playlist) in
+        Library.iterate(playlists: playlists, changed: changed, in: exportURL(title: "M3U")) { (url, playlist) in
             let filename = playlist.name.asFileName + ".m3u"
-            Library.writeM3U(playlist: playlist, to: url.appendingPathComponent(filename), absolute: false)
+            Library.writeM3U(playlist: playlist, to: url.appendingPathComponent(filename), pather: mediaLocation.pather())
         }
 
-        Library.iterate(playlists: playlists, changed: changed, in: exportURL(title: "M3U (Absolute)")) { (url, playlist) in
+        Library.iterate(playlists: playlists, changed: changed, in: exportURL(title: "M3U (Static)")) { (url, playlist) in
             let filename = playlist.name.asFileName + ".m3u"
-            Library.writeM3U(playlist: playlist, to: url.appendingPathComponent(filename), absolute: true)
+            Library.writeM3U(playlist: playlist, to: url.appendingPathComponent(filename), pather: mediaLocation.pather(absolute: true))
         }
     }
     
-    static func writeRemoteM3UPlaylists(_ playlists: [Playlist], to: URL, pathMapper: @escaping (Track) -> URL?) {
+    static func writeRemoteM3UPlaylists(_ playlists: [Playlist], to: URL, pather: @escaping (Track, URL) -> String?) {
         Library.iterate(playlists: playlists, changed: nil, in: to) { (url, playlist) in
             let filename = playlist.name.asFileName + ".m3u"
-            Library.writeM3U(playlist: playlist, to: url.appendingPathComponent(filename), absolute: false, pathMapper: pathMapper)
+            Library.writeM3U(playlist: playlist, to: url.appendingPathComponent(filename), pather: pather)
         }
     }
     
-    static func writeM3U(playlist: Playlist, to: URL, absolute: Bool, pathMapper: ((Track) -> URL?)? = nil) {
-        let pathMapper: (Track) -> URL? = pathMapper ?? { $0.url }
-        
+    static func writeM3U(playlist: Playlist, to: URL, pather: (Track, URL) -> String?) {
         let tracks: [String] = playlist.tracksList.map { track in
             let info = "#EXTINF:\(track.durationSeconds ?? 0),\(track.rAuthor) - \(track.rTitle)"
             
             // TODO Put in path whether it exists or not
-            let url = pathMapper(track)
-            let path = absolute ? url?.path
-                : url.map { $0.relativePath(from: to) ?? $0.path }
-            
-            if path == nil {
-                print("Failed writing m3u for \(info) (path:\(String(describing: url?.path))) ")
+            if let path = pather(track, to) {
+                return info + "\n" + path
             }
-            
-            return info + "\n" + (path ?? "unknown")
+
+            print("Failed writing m3u for \(info)")
+            return info + "\nunknown"
         }
         let contents = "#EXTM3U\n" + tracks.joined(separator: "\n")
         

@@ -111,4 +111,18 @@ class MediaLocation {
                         .appendingPathComponent(track.rTitle)
                         .appendingPathExtension(pathExtension)
     }
+    
+    func pather(absolute: Bool = false) -> ((Track, URL) -> String?) {
+        return { (track, dest) in
+            guard let url = track.url else {
+                return nil
+            }
+            
+            if !absolute && url.absoluteString.starts(with: self.directory.absoluteString) {
+                return url.relativePath(from: dest)!
+            }
+            
+            return url.path
+        }
+    }
 }

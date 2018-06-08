@@ -127,13 +127,13 @@ class ExportPlaylistsController: NSWindowController, USBWatcherDelegate {
             print("Failed sources: \(srcFailed)")
         }
 
-        Library.writeRemoteM3UPlaylists(playlists, to: _destinationDirectory.url!, pathMapper: {
-            guard let url = $0.url, let hash = dst[url] else {
+        Library.writeRemoteM3UPlaylists(playlists, to: _destinationDirectory.url!) { (track, dest) in
+            guard let url = track.url, let hash = dst[url] else {
                 return nil
             }
             
-            return src[hash]
-        })
+            return src[hash]?.relativePath(from: libraryURL)
+        }
         
         // TODO Alert if some files were missing
     }

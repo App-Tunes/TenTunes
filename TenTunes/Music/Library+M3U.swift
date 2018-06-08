@@ -33,7 +33,7 @@ extension Library {
             let info = "#EXTINF:\(track.durationSeconds ?? 0),\(track.rAuthor) - \(track.rTitle)"
             
             // TODO Put in path whether it exists or not
-            if let path = pather(track, to) {
+            if let path = pather(track, to.deletingLastPathComponent()) {
                 return info + "\n" + path
             }
 

@@ -8,6 +8,8 @@
 
 import Cocoa
 
+import AudioKit
+
 class MediaLocation {
     var directory: URL
     
@@ -113,16 +115,83 @@ class MediaLocation {
     }
     
     func pather(absolute: Bool = false) -> ((Track, URL) -> String?) {
-        return { (track, dest) in
+        return { (track, dstURL) in
             guard let url = track.url else {
                 return nil
             }
             
             if !absolute && url.absoluteString.starts(with: self.directory.absoluteString) {
-                return url.relativePath(from: dest)!
+                return url.relativePath(from: dstURL)!
             }
             
             return url.path
+        }
+    }
+    
+    static func md5Audio(url: URL) -> Data? {
+        guard let file = try? AKAudioFile(forReading: url) else {
+            print("Failed to create audio file for \(url)")
+            return nil
+        }
+        
+        let readLength = AVAudioFrameCount(min(ExportPlaylistsController.maxReadLength, file.length))
+        let buffer = AVAudioPCMBuffer(pcmFormat: file.processingFormat,
+                                      frameCapacity: readLength)
+        
+        do {
+            try file.read(into: buffer!, frameCount: readLength)
+        } catch let error as NSError {
+            print("error cannot readIntBuffer, Error: \(error)")
+        }
+        
+        return buffer!.withUnsafePointer(block: Hash.md5)
+    }
+    
+    static func pather(for libraryURL: URL, absolute: Bool = false) -> ((Track, URL) -> String?) {
+        var src: [Data: URL] = [:]
+        let dst: LazyMap<URL, Data?> = LazyMap(MediaLocation.md5Audio)
+        
+        let enumerator = FileManager.default.enumerator(at: libraryURL,
+                                                        includingPropertiesForKeys: [ .isRegularFileKey ],
+                                                        options: [.skipsHiddenFiles], errorHandler: { (url, error) -> Bool in
+                                                            print("directoryEnumerator error at \(url): ", error)
+                                                            return true
+        })!
+        
+        var srcFound = 0
+        var srcFailed = 0
+        
+        for case let url as URL in enumerator {
+            let isRegularFile = try? url.resourceValues(forKeys: [ .isRegularFileKey ]).isRegularFile!
+            if isRegularFile ?? false {
+                if let md5 = md5Audio(url: url) {
+                    if let existing = src[md5] {
+                        print("Hash collision between urls \(url) and \(existing)")
+                    }
+                    
+                    src[md5] = url
+                    srcFound += 1
+                    
+                    if srcFound % 100 == 0 {
+                        print("Found \(srcFound)")
+                    }
+                }
+                else {
+                    srcFailed += 1
+                }
+            }
+        }
+        
+        if srcFailed > 0 {
+            print("Failed sources: \(srcFailed)")
+        }
+        
+        return { (track, dstURL) in
+            guard let url = track.url, let hash = dst[url] else {
+                return nil
+            }
+            
+            return src[hash]?.relativePath(from: dstURL)
         }
     }
 }

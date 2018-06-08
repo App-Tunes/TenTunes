@@ -424,15 +424,15 @@ extension DispatchSemaphore {
 }
 
 extension URL {
-    func relativePath(from base: URL) -> String? {
+    func relativePath(from directory: URL) -> String? {
         // Ensure that both URLs represent files:
-        guard self.isFileURL && base.isFileURL else {
+        guard self.isFileURL && directory.isFileURL else {
             return nil
         }
         
         // Remove/replace "." and "..", make paths absolute:
         let destComponents = self.standardized.pathComponents
-        let baseComponents = base.standardized.pathComponents
+        let baseComponents = directory.standardized.pathComponents
         
         // Find number of common path components:
         var i = 0
@@ -442,8 +442,7 @@ extension URL {
         }
         
         // Build relative path:
-         // -1 since the last component is the file
-        var relComponents = Array(repeating: "..", count: baseComponents.count - i - 1)
+        var relComponents = Array(repeating: "..", count: baseComponents.count - i)
         relComponents.append(contentsOf: destComponents[i...])
         return relComponents.joined(separator: "/")
     }

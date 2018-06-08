@@ -25,13 +25,22 @@ extension Library {
         }
     }
     
-    static func writeSymlinks(playlist: PlaylistManual, to: URL, pather: (Track, URL) -> String?) {
+    static func writeRemoteSymlinks(_ playlists: [Playlist], to: URL, pather: @escaping (Track, URL) -> String?) {
+        Library.iterate(playlists: playlists, changed: nil, in: to) { (url, playlist) in
+            if let playlist = playlist as? PlaylistManual {
+                let name = playlist.name.asFileName
+                Library.writeSymlinks(playlist: playlist, to: url.appendingPathComponent(name), pather: pather)
+            }
+        }
+    }
+    
+    static func writeSymlinks(playlist: PlaylistManual, to playlistURL: URL, pather: (Track, URL) -> String?) {
         // TODO Clean Up before
         for track in playlist.tracksList {
-            if let dest = pather(track, to) {
-                let path = to.appendingPathComponent((dest as NSString).lastPathComponent).path
-                try! to.ensureDirectory()
-                try? FileManager.default.createSymbolicLink(atPath: path, withDestinationPath: dest)
+            if let trackURL = pather(track, playlistURL) {
+                let fileURL = playlistURL.appendingPathComponent((trackURL as NSString).lastPathComponent)
+                try! playlistURL.ensureDirectory()
+                try? FileManager.default.createSymbolicLink(atPath: fileURL.path, withDestinationPath: trackURL)
             }
         }
     }

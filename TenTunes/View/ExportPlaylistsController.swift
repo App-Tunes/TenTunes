@@ -15,6 +15,7 @@ class ExportPlaylistsController: NSWindowController, USBWatcherDelegate {
 
     @IBOutlet var _trackLibrary: NSPathControl!
     @IBOutlet var _destinationDirectory: NSPathControl!
+    @IBOutlet var _aliasDirectory: NSPathControl!
     
     @IBOutlet var _rekordboxSelect: NSPopUpButton!
     var selectStubs = ActionStubs()
@@ -43,14 +44,19 @@ class ExportPlaylistsController: NSWindowController, USBWatcherDelegate {
                 if components.count > 2 && components[1] == "Volumes"
                 {
                     let libraryURL = url.appendingPathComponent("Contents")
-                    let playlistsURL = url.appendingPathComponent("Playlists")
 
                     if FileManager.default.fileExists(atPath: libraryURL.path) {
                         let item = NSMenuItem(title: components[2], action: nil, keyEquivalent: "")
                         selectStubs.bind(item) { [unowned self] _ in
                             self._trackLibrary.url = libraryURL
+
+                            let playlistsURL = url.appendingPathComponent("Playlists")
                             try! playlistsURL.ensureDirectory()
                             self._destinationDirectory.url = playlistsURL
+
+                            let aliasURL = url.appendingPathComponent("Playlists - Alias")
+                            try! aliasURL.ensureDirectory()
+                            self._aliasDirectory.url = aliasURL
                         }
                         _rekordboxSelect.menu?.addItem(item)
                     }
@@ -69,72 +75,12 @@ class ExportPlaylistsController: NSWindowController, USBWatcherDelegate {
         }
 //        let playlists: [Playlist] = try! Library.shared.viewContext.fetch(Playlist.fetchRequest())
 
-        let toHash: (URL) -> Data? = {
-            guard let file = try? AKAudioFile(forReading: $0) else {
-                print("Failed to create audio file for \($0)")
-                return nil
-            }
-            
-            let readLength = AVAudioFrameCount(min(ExportPlaylistsController.maxReadLength, file.length))
-            let buffer = AVAudioPCMBuffer(pcmFormat: file.processingFormat,
-                                          frameCapacity: readLength)
-            
-            do {
-                try file.read(into: buffer!, frameCount: readLength)
-            } catch let error as NSError {
-                print("error cannot readIntBuffer, Error: \(error)")
-            }
-            
-            return buffer!.withUnsafePointer(block: Hash.md5)
-        }
-        
-        var src: [Data: URL] = [:]
-        let dst: LazyMap<URL, Data?> = LazyMap(toHash)
-
         let libraryURL = _trackLibrary.url!
-        let enumerator = FileManager.default.enumerator(at: libraryURL,
-                                                        includingPropertiesForKeys: [ .isRegularFileKey ],
-                                                        options: [.skipsHiddenFiles], errorHandler: { (url, error) -> Bool in
-                                                            print("directoryEnumerator error at \(url): ", error)
-                                                            return true
-        })!
-        
-        var srcFound = 0
-        var srcFailed = 0
-        
-        for case let url as URL in enumerator {
-            let isRegularFile = try? url.resourceValues(forKeys: [ .isRegularFileKey ]).isRegularFile!
-            if isRegularFile ?? false {
-                if let md5 = toHash(url) {
-                    if let existing = src[md5] {
-                        print("Hash collision between urls \(url) and \(existing)")
-                    }
-                    
-                    src[md5] = url
-                    srcFound += 1
-                    
-                    if srcFound % 100 == 0 {
-                        print("Found \(srcFound)")
-                    }
-                }
-                else {
-                    srcFailed += 1
-                }
-            }
-        }
-        
-        if srcFailed > 0 {
-            print("Failed sources: \(srcFailed)")
-        }
 
-        Library.writeRemoteM3UPlaylists(playlists, to: _destinationDirectory.url!) { (track, dest) in
-            guard let url = track.url, let hash = dst[url] else {
-                return nil
-            }
-            
-            return src[hash]?.relativePath(from: libraryURL)
-        }
-        
+        let pather = MediaLocation.pather(for: libraryURL)
+        Library.writeRemoteM3UPlaylists(playlists, to: _destinationDirectory.url!, pather: pather)
+        Library.writeRemoteSymlinks(playlists, to: _aliasDirectory.url!, pather: pather)
+
         // TODO Alert if some files were missing
     }
     

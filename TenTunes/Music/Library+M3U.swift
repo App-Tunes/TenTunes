@@ -43,6 +43,13 @@ extension Library {
         let contents = "#EXTM3U\n" + tracks.joined(separator: "\n")
         
         try! to.ensurePath()
-        try! contents.write(to: to, atomically: true, encoding: .utf8)
+        
+        var data = contents.data(using: .windowsCP1252, allowLossyConversion: false)
+        if data == nil {
+            print("Lossy Conversion of m3u \(to)!")
+            data = contents.data(using: .windowsCP1252, allowLossyConversion: true)
+        }
+        
+        try! data!.write(to: to)
     }
 }

@@ -127,7 +127,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 return
             }
             
-            if !Library.shared.importITunes(url: url) {
+            if !Library.shared.import().iTunesLibraryXML(url: url) {
                 let alert: NSAlert = NSAlert()
                 alert.messageText = "Invalid File"
                 alert.informativeText = "The selected file is not a valid iTunes library file."
@@ -139,7 +139,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func revealExports(_ sender: Any) {
-        NSWorkspace.shared.activateFileViewerSelecting([Library.shared.exportURL(title: nil)])
+        NSWorkspace.shared.activateFileViewerSelecting([Library.shared.export().url(title: nil)])
     }
     
     @IBAction func refreshExports(_ sender: Any) {
@@ -173,7 +173,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //        dialog.allowedFileTypes        = ["xml"]
         
         if dialog.runModal() == NSApplication.ModalResponse.OK {
-            let tracks = dialog.urls.map { Library.shared.importTrack(url: $0) }
+            let tracks = dialog.urls.map { Library.shared.import().track(url: $0) }
             
             try! Library.shared.viewContext.save()
             
@@ -187,7 +187,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func application(_ sender: NSApplication, openFiles filenames: [String]) {
         let tracks: [Track] = filenames.map { path in
             let url = URL(fileURLWithPath: path)
-            return Library.shared.importTrack(url: url)
+            return Library.shared.import().track(url: url)
         }
         
         try! Library.shared.viewContext.save()

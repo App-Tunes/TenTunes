@@ -78,8 +78,8 @@ class ExportPlaylistsController: NSWindowController, USBWatcherDelegate {
         let libraryURL = _trackLibrary.url!
 
         let pather = MediaLocation.pather(for: libraryURL)
-        Library.writeRemoteM3UPlaylists(playlists, to: _destinationDirectory.url!, pather: pather)
-        Library.writeRemoteSymlinks(playlists, to: _aliasDirectory.url!, pather: pather)
+        Library.Export.remoteM3uPlaylists(playlists, to: _destinationDirectory.url!, pather: pather)
+        Library.Export.remoteSymlinks(playlists, to: _aliasDirectory.url!, pather: pather)
 
         // TODO Alert if some files were missing
     }

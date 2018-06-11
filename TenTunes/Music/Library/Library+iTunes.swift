@@ -8,8 +8,8 @@
 
 import Cocoa
 
-extension Library {
-    func writeiTunesLibraryXML(tracks: [Track], playlists: [Playlist]) {
+extension Library.Export {
+    func iTunesLibraryXML(tracks: [Track], playlists: [Playlist]) {
         var dict: [String: Any] = [:]
         
         dict["Major Version"] = 1
@@ -54,8 +54,8 @@ extension Library {
             }
             
             var tracks = playlist.tracksList
-            if playlist == masterPlaylist {
-                tracks = allTracks.tracksList
+            if playlist == library.masterPlaylist {
+                tracks = library.allTracks.tracksList
                 playlistDict["Master"] = true
                 playlistDict["All Items"] = true
                 playlistDict["Visible"] = false
@@ -69,14 +69,16 @@ extension Library {
         }
         dict["Playlists"] = playlistsArray
         
-        dict["Music Folder"] = directory.appendingPathComponent("Media").absoluteString
+        dict["Music Folder"] = library.directory.appendingPathComponent("Media").absoluteString
         
-        let url = exportURL(title: "iTunes Library.xml", directory: false)
+        let url = self.url(title: "iTunes Library.xml", directory: false)
         try! url.ensurePath()
         (dict as NSDictionary).write(toFile: url.path, atomically: true)
     }
-    
-    func importITunes(url: URL) -> Bool {
+}
+
+extension Library.Import {
+    func iTunesLibraryXML(url: URL) -> Bool {
         guard let nsdict = NSDictionary(contentsOf: url) else {
             return false
         }
@@ -85,17 +87,15 @@ extension Library {
         // i.e. We have a non-editable 'iTunes' folder that has a right click update and cannot be edit
         // Though it needs to be duplicatable into an editable copy
         
-        let mox = viewContext
-        
         // TODO Async
-        let masterPlaylist = PlaylistFolder(context: mox)
-        mox.insert(masterPlaylist)
+        let masterPlaylist = PlaylistFolder(context: context)
+        context.insert(masterPlaylist)
         masterPlaylist.name = "iTunes Library"
         masterPlaylist.addPlaylist(masterPlaylist)
         
         var existingTracks: [String:Track] = [:]
         // TODO Request
-        for track in allTracks.tracksList {
+        for track in library.allTracks.tracksList {
             if let iTunesID = track.iTunesID {
                 existingTracks[iTunesID] = track
             }
@@ -108,7 +108,7 @@ extension Library {
             let trackData = trackData as! NSDictionary
             let persistentID =  trackData["Persistent ID"] as! String
             
-            let track = existingTracks[persistentID] ?? Track(context: mox)
+            let track = existingTracks[persistentID] ?? Track(context: context)
             
             iTunesTracks[trackData["Track ID"] as! Int] = track
             
@@ -119,7 +119,7 @@ extension Library {
             track.path = track.path ?? trackData["Location"] as? String
             
             if existingTracks[persistentID] == nil {
-                mox.insert(track)
+                context.insert(track)
             }
         }
         
@@ -140,7 +140,7 @@ extension Library {
             //            }
             
             let isFolder = playlistData.object(forKey: "Folder") as? Bool ?? false
-            let playlist = isFolder ? PlaylistFolder(context: mox) : PlaylistManual(context: mox)
+            let playlist = isFolder ? PlaylistFolder(context: context) : PlaylistManual(context: context)
             
             playlist.name = playlistData.object(forKey: "Name") as! String
             playlist.iTunesID = persistentID
@@ -155,7 +155,7 @@ extension Library {
                 }
             }
             
-            mox.insert(playlist) // Since we don't use existing ones, we don't run into problems inserting every time
+            context.insert(playlist) // Since we don't use existing ones, we don't run into problems inserting every time
             iTunesPlaylists[persistentID] = playlist
             
             if let playlist = playlist as? PlaylistManual, let tracks = tracks {
@@ -170,7 +170,7 @@ extension Library {
             }
         }
         
-        try! mox.save()
+        try! context.save()
         
         return true
     }

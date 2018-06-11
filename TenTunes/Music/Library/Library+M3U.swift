@@ -8,22 +8,22 @@
 
 import Cocoa
 
-extension Library {
-    func writeM3UPlaylists(playlists: [Playlist], changed: Set<NSManagedObjectID>?) {
-        Library.iterate(playlists: playlists, changed: changed, in: exportURL(title: "M3U")) { (url, playlist) in
+extension Library.Export {
+    func m3uPlaylists(playlists: [Playlist], changed: Set<NSManagedObjectID>?) {
+        Library.Export.iterate(playlists: playlists, changed: changed, in: url(title: "M3U")) { (url, playlist) in
             let filename = playlist.name.asFileName + ".m3u"
-            Library.writeM3U(playlist: playlist, to: url.appendingPathComponent(filename), pather: mediaLocation.pather(absolute: true))
+            Library.Export.m3u(playlist: playlist, to: url.appendingPathComponent(filename), pather: library.mediaLocation.pather(absolute: true))
         }
     }
     
-    static func writeRemoteM3UPlaylists(_ playlists: [Playlist], to: URL, pather: @escaping (Track, URL) -> String?) {
-        Library.iterate(playlists: playlists, changed: nil, in: to) { (url, playlist) in
+    static func remoteM3uPlaylists(_ playlists: [Playlist], to: URL, pather: @escaping (Track, URL) -> String?) {
+        Library.Export.iterate(playlists: playlists, changed: nil, in: to) { (url, playlist) in
             let filename = playlist.name.asFileName + ".m3u"
-            Library.writeM3U(playlist: playlist, to: url.appendingPathComponent(filename), pather: pather)
+            Library.Export.m3u(playlist: playlist, to: url.appendingPathComponent(filename), pather: pather)
         }
     }
     
-    static func writeM3U(playlist: Playlist, to: URL, pather: (Track, URL) -> String?) {
+    static func m3u(playlist: Playlist, to: URL, pather: (Track, URL) -> String?) {
         let tracks: [String] = playlist.tracksList.map { track in
             let info = "#EXTINF:\(track.durationSeconds ?? 0),\(track.rAuthor) - \(track.rTitle)"
             

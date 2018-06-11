@@ -8,8 +8,8 @@
 
 import Cocoa
 
-extension Library {
-    func importTrack(url: URL) -> Track {
+extension Library.Import {
+    func track(url: URL) -> Track {
         let request = NSFetchRequest<Track>(entityName: "Track")
         request.predicate = NSPredicate(format: "path == %@", url.absoluteString)
         if let track = try! Library.shared.viewContext.fetch(request).first {
@@ -21,7 +21,7 @@ extension Library {
         track.path = url.absoluteString // Possibly temporary location
         track.title = url.lastPathComponent // Temporary title
         
-        viewContext.insert(track)
+        context.insert(track)
         
         return track
     }

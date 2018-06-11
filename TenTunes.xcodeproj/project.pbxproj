@@ -24,7 +24,6 @@
 		8058FABE20432D3D0086FF8A /* MediaKeyTap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8058FABB20432A730086FF8A /* MediaKeyTap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8058FAC02043409F0086FF8A /* VibrantTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058FABF2043409F0086FF8A /* VibrantTableRowView.swift */; };
 		806AC1332040D7C700857B1B /* PlayHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AC1322040D7C700857B1B /* PlayHistory.swift */; };
-		806AC136204174F300857B1B /* ITunesImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AC135204174F300857B1B /* ITunesImporter.swift */; };
 		806AC13A2041EDD900857B1B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806AC1392041EDD900857B1B /* AVFoundation.framework */; };
 		806AC13C2041EDE500857B1B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806AC13B2041EDE500857B1B /* CoreMedia.framework */; };
 		806AC13E2041EDEE00857B1B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806AC13D2041EDEE00857B1B /* AudioToolbox.framework */; };
@@ -46,7 +45,7 @@
 		8091B9FF20C6B7E50019CE23 /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8091B9FE20C6B7E50019CE23 /* Hash.swift */; };
 		8093466E20A62249001D15CD /* PlaylistController+Pasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093466D20A62249001D15CD /* PlaylistController+Pasteboard.swift */; };
 		8093467120A62319001D15CD /* TrackController+Pasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093467020A62319001D15CD /* TrackController+Pasteboard.swift */; };
-		8093467320A628E1001D15CD /* FileImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093467220A628E1001D15CD /* FileImporter.swift */; };
+		8093467320A628E1001D15CD /* Library+AudioFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093467220A628E1001D15CD /* Library+AudioFile.swift */; };
 		8093467520A629A7001D15CD /* Library+Pasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093467420A629A7001D15CD /* Library+Pasteboard.swift */; };
 		8093467720A99112001D15CD /* DefaultPreferences.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8093467620A99112001D15CD /* DefaultPreferences.plist */; };
 		80ADCD4A20442E1200AA9A89 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ADCD4920442E1200AA9A89 /* Library.swift */; };
@@ -164,7 +163,6 @@
 		8058FABB20432A730086FF8A /* MediaKeyTap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaKeyTap.framework; path = Carthage/Build/Mac/MediaKeyTap.framework; sourceTree = SOURCE_ROOT; };
 		8058FABF2043409F0086FF8A /* VibrantTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibrantTableRowView.swift; sourceTree = "<group>"; };
 		806AC1322040D7C700857B1B /* PlayHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayHistory.swift; sourceTree = "<group>"; };
-		806AC135204174F300857B1B /* ITunesImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesImporter.swift; sourceTree = "<group>"; };
 		806AC1372041EC8400857B1B /* libSuperpoweredAudioOSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSuperpoweredAudioOSX.a; path = ../../../SuperpoweredSDK/Superpowered/libSuperpoweredAudioOSX.a; sourceTree = "<group>"; };
 		806AC1392041EDD900857B1B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		806AC13B2041EDE500857B1B /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -187,7 +185,7 @@
 		8091B9FE20C6B7E50019CE23 /* Hash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hash.swift; sourceTree = "<group>"; };
 		8093466D20A62249001D15CD /* PlaylistController+Pasteboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistController+Pasteboard.swift"; sourceTree = "<group>"; };
 		8093467020A62319001D15CD /* TrackController+Pasteboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackController+Pasteboard.swift"; sourceTree = "<group>"; };
-		8093467220A628E1001D15CD /* FileImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImporter.swift; sourceTree = "<group>"; };
+		8093467220A628E1001D15CD /* Library+AudioFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+AudioFile.swift"; sourceTree = "<group>"; };
 		8093467420A629A7001D15CD /* Library+Pasteboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Pasteboard.swift"; sourceTree = "<group>"; };
 		8093467620A99112001D15CD /* DefaultPreferences.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DefaultPreferences.plist; sourceTree = "<group>"; };
 		80ADCD4920442E1200AA9A89 /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
@@ -331,21 +329,32 @@
 		805901C020404CDF00B97D84 /* Music */ = {
 			isa = PBXGroup;
 			children = (
+				805D2D1820CE75EA00A61184 /* Library */,
+				80E2C9E3204B3D5C00298E81 /* Playlist */,
+				80CB65362052CAEA0031A6D7 /* Track */,
+				80CB65372052CB100031A6D7 /* Analyze */,
+				806AC1322040D7C700857B1B /* PlayHistory.swift */,
+				80B3BE11207514D200B93961 /* Player.swift */,
+				80F77BF4203D8B35001E397F /* Key.swift */,
+			);
+			path = Music;
+			sourceTree = "<group>";
+		};
+		805D2D1820CE75EA00A61184 /* Library */ = {
+			isa = PBXGroup;
+			children = (
 				80ADCD4920442E1200AA9A89 /* Library.swift */,
 				8093467420A629A7001D15CD /* Library+Pasteboard.swift */,
 				80CB652B20514E050031A6D7 /* Library+Export.swift */,
 				80E4F9CA20A0DD4B0014532E /* Library+M3U.swift */,
 				80E4F9CD20A0DD7E0014532E /* Library+iTunes.swift */,
 				80F11E5820CA732E00331D12 /* Library+Symlink.swift */,
-				80E2C9E3204B3D5C00298E81 /* Playlist */,
-				80CB65362052CAEA0031A6D7 /* Track */,
-				80CB65372052CB100031A6D7 /* Analyze */,
-				80CB65382052CB1E0031A6D7 /* Import */,
-				806AC1322040D7C700857B1B /* PlayHistory.swift */,
-				80B3BE11207514D200B93961 /* Player.swift */,
-				80F77BF4203D8B35001E397F /* Key.swift */,
+				8093467220A628E1001D15CD /* Library+AudioFile.swift */,
+				80DCA9B1203F636D00B1E9B1 /* TagLibImporter.h */,
+				80DCA9B2203F636E00B1E9B1 /* TagLibImporter.mm */,
+				808161CE2040520900AEA64F /* AVFoundationImporter.swift */,
 			);
-			path = Music;
+			path = Library;
 			sourceTree = "<group>";
 		};
 		807E4B44206428050051C028 /* Controls */ = {
@@ -398,18 +407,6 @@
 				806C5B2520423AC000C34F49 /* SPInterpreter.swift */,
 			);
 			path = Analyze;
-			sourceTree = "<group>";
-		};
-		80CB65382052CB1E0031A6D7 /* Import */ = {
-			isa = PBXGroup;
-			children = (
-				808161CE2040520900AEA64F /* AVFoundationImporter.swift */,
-				80DCA9B1203F636D00B1E9B1 /* TagLibImporter.h */,
-				80DCA9B2203F636E00B1E9B1 /* TagLibImporter.mm */,
-				806AC135204174F300857B1B /* ITunesImporter.swift */,
-				8093467220A628E1001D15CD /* FileImporter.swift */,
-			);
-			path = Import;
 			sourceTree = "<group>";
 		};
 		80CB65392052CB910031A6D7 /* Util */ = {
@@ -744,12 +741,11 @@
 				806EFC22204B63620079DBAA /* PlaylistLibrary.swift in Sources */,
 				80F2C57F2038808000212739 /* TenTunes.xcdatamodeld in Sources */,
 				80CB65352052C9CC0031A6D7 /* CoreData+TT.swift in Sources */,
-				8093467320A628E1001D15CD /* FileImporter.swift in Sources */,
+				8093467320A628E1001D15CD /* Library+AudioFile.swift in Sources */,
 				8087A406206D933F003F1821 /* Analysis.swift in Sources */,
 				80E4F9CE20A0DD7E0014532E /* Library+iTunes.swift in Sources */,
 				80F8F6F32053EA2C004A07D6 /* FileTagEditor.swift in Sources */,
 				803717292043629800DB9EAA /* ViewController+Background.swift in Sources */,
-				806AC136204174F300857B1B /* ITunesImporter.swift in Sources */,
 				806EFC27204B65C10079DBAA /* PlaylistProtocol.swift in Sources */,
 				80CB65332052C9530031A6D7 /* Cocoa+TT.swift in Sources */,
 				8058FAC02043409F0086FF8A /* VibrantTableRowView.swift in Sources */,

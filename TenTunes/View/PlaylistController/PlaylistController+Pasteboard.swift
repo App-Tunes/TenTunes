@@ -59,7 +59,7 @@ extension PlaylistController {
             return true
         case .fileURL:
             let urls = pasteboard.readObjects(forClasses: [NSURL.self], options: [.urlReadingFileURLsOnly: true])
-            let tracks = (urls as! [NSURL]).map {FileImporter.importURL($0 as URL) }
+            let tracks = (urls as! [NSURL]).map { Library.shared.importTrack(url: $0 as URL) }
             (parent as! PlaylistManual).addTracks(tracks)
             return true
         case Playlist.pasteboardType:

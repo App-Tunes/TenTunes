@@ -8,8 +8,8 @@
 
 import Cocoa
 
-class FileImporter {
-    static func importURL(_ url: URL) -> Track {
+extension Library {
+    func importTrack(url: URL) -> Track {
         let request = NSFetchRequest<Track>(entityName: "Track")
         request.predicate = NSPredicate(format: "path == %@", url.absoluteString)
         if let track = try! Library.shared.viewContext.fetch(request).first {
@@ -21,7 +21,7 @@ class FileImporter {
         track.path = url.absoluteString // Possibly temporary location
         track.title = url.lastPathComponent // Temporary title
         
-        Library.shared.viewContext.insert(track)
+        viewContext.insert(track)
         
         return track
     }

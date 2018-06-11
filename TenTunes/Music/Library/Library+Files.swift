@@ -21,6 +21,14 @@ extension Library {
             self.library = library
             self.context = context
         }
+        
+        func guess(url: URL) -> AnyObject? {
+            if url.lastPathComponent.hasSuffix(".m3u") {
+                return m3u(url: url)
+            }
+            
+            return track(url: url) // TODO Only if audiovisual
+        }
     }
     
     func export(_ context: NSManagedObjectContext? = nil) -> Export {

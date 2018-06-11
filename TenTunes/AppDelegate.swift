@@ -168,34 +168,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         dialog.allowsMultipleSelection = true
 
-        // TODO Allow only audiovisual files
+        // TODO Allow only audiovisual files, and m3u
 //        dialog.title                   = "Select an iTunes Library"
 //        dialog.allowedFileTypes        = ["xml"]
         
         if dialog.runModal() == NSApplication.ModalResponse.OK {
-            let tracks = dialog.urls.map { Library.shared.import().track(url: $0) }
-            
-            try! Library.shared.viewContext.save()
-            
-            if Preferences.PlayOpenedFiles.current == .play {
-                ViewController.shared.player.enqueue(tracks: tracks)
-                ViewController.shared.player.play(moved: 1)
-            }
+            self.import(urls: dialog.urls)
         }
     }
     
     func application(_ sender: NSApplication, openFiles filenames: [String]) {
-        let tracks: [Track] = filenames.map { path in
-            let url = URL(fileURLWithPath: path)
-            return Library.shared.import().track(url: url)
-        }
+        let urls = filenames.map { URL(fileURLWithPath: $0) }
+        self.import(urls: urls)
+    }
+    
+    func `import`(urls: [URL]) {
+        let objects = urls.compactMap { Library.shared.import().guess(url: $0) }
         
         try! Library.shared.viewContext.save()
         
-        if Preferences.PlayOpenedFiles.current == .play {
+        let tracks = objects.compactMap { $0 as? Track }
+        if tracks.count > 0, Preferences.PlayOpenedFiles.current == .play {
             ViewController.shared.player.enqueue(tracks: tracks)
             ViewController.shared.player.play(moved: 1)
         }
-    }    
+    }
 }
 

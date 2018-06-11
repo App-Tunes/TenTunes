@@ -50,7 +50,7 @@ extension TrackController {
             tracks = (pasteboard.pasteboardItems ?? []).compactMap(Library.shared.readTrack)
         case .fileURL:
             let urls = pasteboard.readObjects(forClasses: [NSURL.self], options: [.urlReadingFileURLsOnly: true])
-            tracks = (urls as! [NSURL]).map { Library.shared.import().track(url: $0 as URL) }
+            tracks = (urls as! [NSURL]).compactMap { Library.shared.import().track(url: $0 as URL) }
         default:
             return false
         }

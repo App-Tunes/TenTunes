@@ -48,3 +48,31 @@ extension Library.Export {
         try! data!.write(to: to)
     }
 }
+
+extension Library.Import {
+    func m3u(url: URL) -> PlaylistManual {
+        let contents = try!  String.init(contentsOf: url, encoding: .windowsCP1252)
+        let lines = contents.split(separator: "\n").map {
+            $0.trimmingCharacters(in: .whitespaces)
+        }
+        let paths = lines.filter {
+            !$0.starts(with: "#") && $0.count > 0
+        }
+        
+        let tracks: [Track] = paths.compactMap {
+            let url = URL(fileURLWithPath: $0)
+            return self.track(url: url)
+        }
+        
+        let playlist = PlaylistManual(context: context)
+        
+        playlist.name = (url.lastPathComponent as NSString).deletingPathExtension
+
+        context.insert(playlist)
+        
+        playlist.addTracks(tracks)
+        library.masterPlaylist.addPlaylist(playlist)
+        
+        return playlist
+    }
+}

@@ -6,18 +6,38 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
-	    <dict>
-	        <key>CFBundleTypeName</key>
-	        <string>Ten Tunes</string>
-	        <key>CFBundleTypeRole</key>
-	        <string>Editor</string>
-	        <key>LSHandlerRank</key>
-	        <string>Default</string>
-	        <key>LSItemContentTypes</key>
-	        <array>
-	            <string>public.audiovisual-content</string>
-	        </array>
-	    </dict>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Ten Tunes</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.audiovisual-content</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>m3u</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>M3U</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.plain-text</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>

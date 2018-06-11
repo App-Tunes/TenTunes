@@ -13,13 +13,6 @@ extension Library {
         Library.iterate(playlists: playlists, changed: nil, in: exportURL(title: "Alias")) { (url, playlist) in
             if let playlist = playlist as? PlaylistManual {
                 let name = playlist.name.asFileName
-                Library.writeSymlinks(playlist: playlist, to: url.appendingPathComponent(name), pather: mediaLocation.pather())
-            }
-        }
-
-        Library.iterate(playlists: playlists, changed: nil, in: exportURL(title: "Alias (Static)")) { (url, playlist) in
-            if let playlist = playlist as? PlaylistManual {
-                let name = playlist.name.asFileName
                 Library.writeSymlinks(playlist: playlist, to: url.appendingPathComponent(name), pather: mediaLocation.pather(absolute: true))
             }
         }

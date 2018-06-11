@@ -12,11 +12,6 @@ extension Library {
     func writeM3UPlaylists(playlists: [Playlist], changed: Set<NSManagedObjectID>?) {
         Library.iterate(playlists: playlists, changed: changed, in: exportURL(title: "M3U")) { (url, playlist) in
             let filename = playlist.name.asFileName + ".m3u"
-            Library.writeM3U(playlist: playlist, to: url.appendingPathComponent(filename), pather: mediaLocation.pather())
-        }
-
-        Library.iterate(playlists: playlists, changed: changed, in: exportURL(title: "M3U (Static)")) { (url, playlist) in
-            let filename = playlist.name.asFileName + ".m3u"
             Library.writeM3U(playlist: playlist, to: url.appendingPathComponent(filename), pather: mediaLocation.pather(absolute: true))
         }
     }

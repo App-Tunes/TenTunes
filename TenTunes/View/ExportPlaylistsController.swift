@@ -20,6 +20,8 @@ class ExportPlaylistsController: NSWindowController {
     @IBOutlet var _rekordboxSelect: NSPopUpButton!
     var selectStubs = ActionStubs()
     
+    @IBOutlet var _exportOnlySelected: NSButton!
+    
     override func windowDidLoad() {
         super.windowDidLoad()
 
@@ -67,14 +69,19 @@ class ExportPlaylistsController: NSWindowController {
     }
     
     @IBAction func export(_ sender: Any) {
-        let selected = ViewController.shared.playlistController.selectedPlaylists.map { $0.1 }
-        let playlists = selected.flatten {
-            if let group = $0 as? PlaylistFolder {
-                return group.childrenList
+        var playlists: [Playlist]
+        if _exportOnlySelected.state == .on {
+            let selected = ViewController.shared.playlistController.selectedPlaylists.map { $0.1 }
+            playlists = selected.flatten {
+                if let group = $0 as? PlaylistFolder {
+                    return group.childrenList
+                }
+                return nil
             }
-            return nil
         }
-//        let playlists: [Playlist] = try! Library.shared.viewContext.fetch(Playlist.fetchRequest())
+        else {
+            playlists = try! Library.shared.viewContext.fetch(Playlist.fetchRequest())
+        }
 
         let libraryURL = _trackLibrary.url!
 

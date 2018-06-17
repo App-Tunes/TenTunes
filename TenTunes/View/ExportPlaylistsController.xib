@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="_aliasDirectory" destination="DEs-y3-L4m" id="ln5-do-ueW"/>
                 <outlet property="_destinationDirectory" destination="ERE-2I-qxo" id="Nzx-ai-X6x"/>
+                <outlet property="_exportOnlySelected" destination="Iv9-kX-ajV" id="K8N-nn-c1z"/>
                 <outlet property="_rekordboxSelect" destination="K7s-ho-2II" id="Krc-lV-X6t"/>
                 <outlet property="_trackLibrary" destination="dyT-IV-bG5" id="OM1-aP-lX3"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
@@ -19,14 +20,14 @@
         <window title="Export Playlists" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="480" height="278"/>
+            <rect key="contentRect" x="196" y="240" width="480" height="303"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" wantsLayer="YES" id="se5-gp-TjO">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="278"/>
+                <rect key="frame" x="0.0" y="0.0" width="480" height="303"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K7s-ho-2II">
-                        <rect key="frame" x="17" y="235" width="446" height="22"/>
+                        <rect key="frame" x="17" y="260" width="446" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" title="Select Rekordbox Volume..." bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="053-ae-UQB" id="KqF-xc-5rU">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -39,7 +40,7 @@
                         </popUpButtonCell>
                     </popUpButton>
                     <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dyT-IV-bG5">
-                        <rect key="frame" x="17" y="176" width="446" height="22"/>
+                        <rect key="frame" x="17" y="201" width="446" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <pathCell key="cell" controlSize="small" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="y1U-Gr-i1a">
                             <font key="font" metaFont="smallSystem"/>
@@ -47,7 +48,7 @@
                         </pathCell>
                     </pathControl>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="md5-tf-fXi">
-                        <rect key="frame" x="20" y="205" width="73" height="14"/>
+                        <rect key="frame" x="20" y="230" width="73" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Track Library" id="cTg-Zl-h38">
                             <font key="font" metaFont="smallSystem"/>
@@ -56,7 +57,7 @@
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Hs-Cs-lJf">
-                        <rect key="frame" x="20" y="147" width="81" height="14"/>
+                        <rect key="frame" x="20" y="172" width="81" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="M3U Directory" id="ZRq-2x-kma">
                             <font key="font" metaFont="smallSystem"/>
@@ -65,7 +66,7 @@
                         </textFieldCell>
                     </textField>
                     <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ERE-2I-qxo">
-                        <rect key="frame" x="17" y="118" width="446" height="22"/>
+                        <rect key="frame" x="17" y="143" width="446" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <pathCell key="cell" controlSize="small" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="iDa-2m-b7V">
                             <font key="font" metaFont="smallSystem"/>
@@ -73,7 +74,7 @@
                         </pathCell>
                     </pathControl>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hx5-pq-Bge">
-                        <rect key="frame" x="20" y="89" width="81" height="14"/>
+                        <rect key="frame" x="20" y="114" width="81" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Alias Directory" id="Jey-5Q-qBi">
                             <font key="font" metaFont="smallSystem"/>
@@ -82,7 +83,7 @@
                         </textFieldCell>
                     </textField>
                     <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DEs-y3-L4m">
-                        <rect key="frame" x="17" y="60" width="446" height="22"/>
+                        <rect key="frame" x="17" y="85" width="446" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <pathCell key="cell" controlSize="small" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="vI4-qL-k57">
                             <font key="font" metaFont="smallSystem"/>
@@ -100,12 +101,20 @@
                             <action selector="export:" target="-2" id="pz5-Yf-qHN"/>
                         </connections>
                     </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iv9-kX-ajV">
+                        <rect key="frame" x="17" y="52" width="176" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Export only selected playlists" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="8Qj-8b-V1G">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                        </buttonCell>
+                    </button>
                 </subviews>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
             </connections>
-            <point key="canvasLocation" x="139" y="168"/>
+            <point key="canvasLocation" x="139" y="180.5"/>
         </window>
     </objects>
 </document>

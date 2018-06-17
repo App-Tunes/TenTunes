@@ -154,3 +154,25 @@ extension NSOutlineView {
         }
     }
 }
+
+extension FileManager {
+    func regularFiles(inDirectory directory: URL) -> [URL] {
+        let enumerator = FileManager.default.enumerator(at: directory,
+                                                        includingPropertiesForKeys: [ .isRegularFileKey ],
+                                                        options: [.skipsHiddenFiles], errorHandler: { (url, error) -> Bool in
+                                                            print("directoryEnumerator error at \(url): ", error)
+                                                            return true
+        })!
+        
+        var allFiles: [URL] = []
+        
+        for case let url as URL in enumerator {
+            let isRegularFile = try? url.resourceValues(forKeys: [ .isRegularFileKey ]).isRegularFile!
+            if isRegularFile ?? false {
+                allFiles.append(url)
+            }
+        }
+        
+        return allFiles
+    }
+}

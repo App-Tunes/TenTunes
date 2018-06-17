@@ -150,35 +150,24 @@ class MediaLocation {
     static func pather(for libraryURL: URL, absolute: Bool = false) -> ((Track, URL) -> String?) {
         var src: [Data: URL] = [:]
         let dst: LazyMap<URL, Data?> = LazyMap(MediaLocation.md5Audio)
-        
-        let enumerator = FileManager.default.enumerator(at: libraryURL,
-                                                        includingPropertiesForKeys: [ .isRegularFileKey ],
-                                                        options: [.skipsHiddenFiles], errorHandler: { (url, error) -> Bool in
-                                                            print("directoryEnumerator error at \(url): ", error)
-                                                            return true
-        })!
-        
+                
         var srcFound = 0
         var srcFailed = 0
-        
-        for case let url as URL in enumerator {
-            let isRegularFile = try? url.resourceValues(forKeys: [ .isRegularFileKey ]).isRegularFile!
-            if isRegularFile ?? false {
-                if let md5 = md5Audio(url: url) {
-                    if let existing = src[md5] {
-                        print("Hash collision between urls \(url) and \(existing)")
-                    }
-                    
-                    src[md5] = url
-                    srcFound += 1
-                    
-                    if srcFound % 100 == 0 {
-                        print("Found \(srcFound)")
-                    }
+        for url in FileManager.default.regularFiles(inDirectory: libraryURL) {
+            if let md5 = md5Audio(url: url) {
+                if let existing = src[md5] {
+                    print("Hash collision between urls \(url) and \(existing)")
                 }
-                else {
-                    srcFailed += 1
+                
+                src[md5] = url
+                srcFound += 1
+                
+                if srcFound % 100 == 0 {
+                    print("Found \(srcFound)")
                 }
+            }
+            else {
+                srcFailed += 1
             }
         }
         

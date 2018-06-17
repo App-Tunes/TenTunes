@@ -9,7 +9,7 @@
 import Cocoa
 import AudioKit
 
-class ExportPlaylistsController: NSWindowController, USBWatcherDelegate {
+class ExportPlaylistsController: NSWindowController {
     
     static let maxReadLength: AVAudioFramePosition = 100000
 
@@ -20,15 +20,16 @@ class ExportPlaylistsController: NSWindowController, USBWatcherDelegate {
     @IBOutlet var _rekordboxSelect: NSPopUpButton!
     var selectStubs = ActionStubs()
     
-    var usbWatcher: USBWatcher!
-    
     override func windowDidLoad() {
         super.windowDidLoad()
 
         _trackLibrary.url = Library.shared.mediaLocation.directory
         
-        usbWatcher = USBWatcher(delegate: self)
         volumesChanged()
+        
+        let nc = NSWorkspace.shared.notificationCenter
+        nc.addObserver(self, selector: #selector(didMount(_:)), name: NSWorkspace.didMountNotification, object: nil)
+        nc.addObserver(self, selector: #selector(didUnMount(_:)), name: NSWorkspace.didUnmountNotification, object: nil)
     }
     
     func volumesChanged() {
@@ -84,11 +85,10 @@ class ExportPlaylistsController: NSWindowController, USBWatcherDelegate {
         // TODO Alert if some files were missing
     }
     
-    func deviceAdded(_ device: io_object_t) {
-        volumesChanged()
+    @objc func didMount(_ notification: NSNotification)  {
+        self.volumesChanged()
     }
-    
-    func deviceRemoved(_ device: io_object_t) {
-        volumesChanged()
+    @objc func didUnMount(_ notification: NSNotification)  {
+        self.volumesChanged()
     }
 }

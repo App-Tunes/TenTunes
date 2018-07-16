@@ -114,7 +114,7 @@ import Cocoa
         Library.shared.viewContext.insert(createPlaylist)
         let (parent, idx) = playlistInsertionPosition
         
-        if selected.map({ $0.1.parent }).uniqueElement != nil {
+        if selected.count > 1, selected.map({ $0.1.parent }).uniqueElement != nil {
             for (_, playlist) in selected {
                 createPlaylist.addPlaylist(playlist)
             }

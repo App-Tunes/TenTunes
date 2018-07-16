@@ -30,6 +30,8 @@ extension ViewController {
         }
         
         self.backgroundTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 10.0, repeats: true ) { [unowned self] (timer) in
+            Library.shared.considerExport()
+            
             var taskers = PriorityQueue(ascending: true, startingValues: self.taskers)
             taskers.push(self.tasker)
             var haveWorkerKey = false
@@ -53,6 +55,10 @@ extension ViewController {
                             }
                             
                             self.runningTasks.remove(element: task)
+                            
+                            DispatchQueue.main.async{
+                                self.taskViewController._tableView?.reloadData()
+                            }
                         }
                         task.execute()
                         haveWorkerKey = false
@@ -76,7 +82,6 @@ extension ViewController {
                 self._workerSemaphore.signal()
             }
             
-            // TODO Schedule timer that pushes export onto the task queue
             // TODO Fetch one metadata
         }
         

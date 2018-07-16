@@ -35,19 +35,33 @@ extension Library {
         return Export(library: self, context: context ?? viewContext)
     }
     
-    func startExport(completion: @escaping () -> Swift.Void) -> Bool {
+    func considerExport() {
         guard _exportChanged == nil || _exportChanged!.count > 0, exportSemaphore.acquireNow() else {
-            return false
+            return
         }
         
-        performBackgroundTask { mox in
-            self.export(mox).updateExports()
-            completion()
-        }
+        ViewController.shared.tasker.enqueue(task: UpdateExports(library: self))
         
         exportSemaphore.signalAfter(seconds: 60)
+    }
+    
+    class UpdateExports: Task {
+        let library: Library
         
-        return true
+        init(library: Library) {
+            self.library = library
+        }
+        
+        override var priority: Float { return 2 }
+        
+        override var title: String { return "Update Exports" }
+        
+        override func execute() {
+            library.performBackgroundTask { mox in
+                self.library.export(mox).updateExports()
+                self.finish()
+            }
+        }
     }
 
     class Export {

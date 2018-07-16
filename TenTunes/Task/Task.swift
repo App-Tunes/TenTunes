@@ -40,7 +40,10 @@ class QueueTasker : Tasker {
     }
     
     func enqueue(task: Task) {
-        queue.push(task)
+        if !queue.contains(task) {
+            queue.push(task)
+        }
+        // Else TODO? Else we never call finish which might be bad
     }
 }
 

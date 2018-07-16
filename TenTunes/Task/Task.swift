@@ -72,6 +72,10 @@ class Task {
         finished = true
         completion?()
     }
+    
+    func eq(other: Task) -> Bool {
+        return true
+    }
 }
 
 extension Task : Comparable {
@@ -79,12 +83,11 @@ extension Task : Comparable {
         return lhs.priority < rhs.priority
     }
     
-    // TODO Implement this
     static func == (lhs: Task, rhs: Task) -> Bool {
-        return lhs === rhs
+        if lhs === rhs {
+            return true
+        }
+        
+        return type(of: lhs) == type(of: rhs) && lhs.eq(other: rhs)
     }
-}
-
-protocol SameObjective {
-    static func objectivesEqual (lhs: Self, rhs: Self) -> Bool 
 }

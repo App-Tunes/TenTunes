@@ -54,9 +54,8 @@ extension ViewController {
                                 self._workerSemaphore.signal()
                             }
                             
-                            self.runningTasks.remove(element: task)
-                            
                             DispatchQueue.main.async{
+                                self.runningTasks.remove(element: task)
                                 self.taskViewController._tableView?.reloadData()
                             }
                         }

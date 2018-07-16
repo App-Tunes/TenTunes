@@ -35,11 +35,9 @@ class TrackTask: Task {
         self.track = track
         super.init(priority: priority)
     }
-}
-
-extension TrackTask : SameObjective {
-    static func objectivesEqual(lhs: TrackTask, rhs: TrackTask) -> Bool {
-        return lhs.track == rhs.track
+    
+    override func eq(other: Task) -> Bool {
+        return (other as! TrackTask).track == track
     }
 }
 

@@ -108,11 +108,18 @@ import Cocoa
     }
     
     @IBAction func createGroup(_ sender: Any) {
+        let selected = selectedPlaylists
+        
         let createPlaylist = PlaylistFolder(context: Library.shared.viewContext)
         Library.shared.viewContext.insert(createPlaylist)
         let (parent, idx) = playlistInsertionPosition
         
-        // TODO If we select multiple playlists at once, put them in the newly created one
+        if selected.map({ $0.1.parent }).uniqueElement != nil {
+            for (_, playlist) in selected {
+                createPlaylist.addPlaylist(playlist)
+            }
+        }
+        
         parent.addPlaylist(createPlaylist, above: idx)
         try! Library.shared.viewContext.save()
 

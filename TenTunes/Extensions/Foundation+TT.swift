@@ -30,6 +30,18 @@ extension Collection {
     func anyMatch(_ filter: (Element) -> Bool) -> Bool { return self.first(where: filter) != nil }
 }
 
+extension Collection where Element : Equatable {
+    var uniqueElement : Element? {
+        guard count > 0 else {
+            return nil
+        }
+        
+        return reduce(into: first) { (result, next) in
+            result = result == next ? result : nil
+        }
+    }
+}
+
 extension MutableCollection {
     /// Shuffles the contents of this collection.
     mutating func shuffle() {

@@ -19,7 +19,11 @@ class TaskViewController: NSViewController {
     var tasker: QueueTasker {
         return ViewController.shared.tasker
     }
-    
+
+    var runningTasks: [Task] {
+        return ViewController.shared.runningTasks
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -32,23 +36,35 @@ extension TaskViewController : NSTableViewDelegate {
 extension TaskViewController : NSTableViewDataSource {
     fileprivate enum CellIdentifiers {
         static let title = NSUserInterfaceItemIdentifier(rawValue: "titleCell")
+        static let busy = NSUserInterfaceItemIdentifier(rawValue: "busyCell")
     }
     
     fileprivate enum ColumnIdentifiers {
         static let title = NSUserInterfaceItemIdentifier(rawValue: "titleColumn")
+        static let busy = NSUserInterfaceItemIdentifier(rawValue: "busyColumn")
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         // TODO What we working on right now?
-        return tasker.queue.count
+        return runningTasks.count + tasker.queue.count
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        let task = runningTasks[safe: row] ?? tasker.queue[row - runningTasks.count]
+        
         if tableColumn?.identifier == ColumnIdentifiers.title, let view = tableView.makeView(withIdentifier: CellIdentifiers.title, owner: nil) as? NSTableCellView {
-            view.textField?.stringValue = tasker.queue[row].title
+            view.textField?.stringValue = task.title
             return view
         }
-        
+
+        if row < runningTasks.count {
+            if tableColumn?.identifier == ColumnIdentifiers.busy, let view = tableView.makeView(withIdentifier: CellIdentifiers.busy, owner: nil) as? NSProgressIndicator {
+                view.startAnimation(self)
+                return view
+            }
+        }
+
         return nil
     }
 }
+

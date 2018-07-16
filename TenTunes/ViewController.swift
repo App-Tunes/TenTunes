@@ -53,6 +53,7 @@ class ViewController: NSViewController {
     
     let player: Player = Player()
 
+    var runningTasks: [Task] = []
     var taskers: [Tasker] = []
     var tasker = QueueTasker()
     var _workerSemaphore = DispatchSemaphore(value: 3)

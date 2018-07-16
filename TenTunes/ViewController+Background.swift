@@ -43,6 +43,7 @@ extension ViewController {
                     // We want a new task!
                     if let task = tasker.spawn() {
                         // TODO Might have changed the view!
+                        self.runningTasks.append(task)
                         self.taskViewController._tableView?.reloadData()
 
                         // Task delivar'd, execute!
@@ -50,6 +51,8 @@ extension ViewController {
                             if haveWorkerKey {
                                 self._workerSemaphore.signal()
                             }
+                            
+                            self.runningTasks.remove(element: task)
                         }
                         task.execute()
                         haveWorkerKey = false

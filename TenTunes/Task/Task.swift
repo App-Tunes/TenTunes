@@ -74,6 +74,6 @@ extension Task : Comparable {
     
     // TODO Implement this
     static func == (lhs: Task, rhs: Task) -> Bool {
-        return false
+        return lhs === rhs
     }
 }

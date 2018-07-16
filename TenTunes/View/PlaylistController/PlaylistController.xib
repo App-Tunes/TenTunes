@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -150,7 +150,7 @@
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="FlW-e5-GJv">
                     <rect key="frame" x="0.0" y="0.0" width="178" height="30"/>
                     <subviews>
-                        <button toolTip="Create Group" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s5V-cO-NDS">
+                        <button toolTip="Create Group" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s5V-cO-NDS">
                             <rect key="frame" x="110" y="5" width="20" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="s5V-cO-NDS" secondAttribute="height" multiplier="1:1" id="iLc-oV-qb8"/>
@@ -169,7 +169,7 @@
                                 <constraint firstAttribute="width" constant="1" id="Zuv-FG-A5V"/>
                             </constraints>
                         </customView>
-                        <button toolTip="Create Playlist" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XDO-KJ-zFo">
+                        <button toolTip="Create Playlist" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XDO-KJ-zFo">
                             <rect key="frame" x="49" y="5" width="20" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="XDO-KJ-zFo" secondAttribute="height" multiplier="1:1" id="IgZ-ie-N6E"/>
@@ -191,7 +191,6 @@
                         <constraint firstItem="Z3C-14-8qk" firstAttribute="leading" secondItem="XDO-KJ-zFo" secondAttribute="trailing" constant="20" id="ncf-P0-6UZ"/>
                         <constraint firstItem="XDO-KJ-zFo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FlW-e5-GJv" secondAttribute="leading" constant="30" id="osi-LX-YUo"/>
                         <constraint firstItem="XDO-KJ-zFo" firstAttribute="top" secondItem="FlW-e5-GJv" secondAttribute="top" constant="5" id="ppf-hb-Rzj"/>
-                        <constraint firstItem="s5V-cO-NDS" firstAttribute="centerX" secondItem="FlW-e5-GJv" secondAttribute="centerX" priority="50" id="tXr-sb-dNB"/>
                         <constraint firstAttribute="bottom" secondItem="s5V-cO-NDS" secondAttribute="bottom" constant="5" id="vZG-bZ-RUF"/>
                         <constraint firstItem="s5V-cO-NDS" firstAttribute="leading" secondItem="Z3C-14-8qk" secondAttribute="trailing" constant="20" id="xMg-ee-v2c"/>
                     </constraints>

@@ -37,7 +37,7 @@ import AVFoundation
 }
 
 class TrackController: NSViewController {
-    @IBOutlet var _tableView: NSTableView!
+    @IBOutlet var _tableView: ActionTableView!
     @IBOutlet var _tableViewHeight: NSLayoutConstraint!
     
     @IBOutlet weak var _searchField: NSSearchField!
@@ -95,16 +95,13 @@ class TrackController: NSViewController {
 
         infoEditor = FileTagEditor()
         
+        _tableView.enterAction = #selector(enterAction(_:))
         _tableView.registerForDraggedTypes(pasteboardTypes)
         _tableView.setDraggingSourceOperationMask(.every, forLocal: false) // ESSENTIAL
         
         _searchBarHeight.constant = CGFloat(0)
         
         _playlistTitle.stringValue = ""
-        
-        NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [unowned self] in
-            return self.keyDown(with: $0)
-        }
     }
     
     override func viewDidAppear() {
@@ -183,29 +180,18 @@ class TrackController: NSViewController {
         }
     }
     
+    @IBAction func enterAction(_ sender: Any) {
+        playCurrentTrack()
+    }
+    
     @IBAction func doubleClick(_ sender: Any) {
-        let row = self._tableView.clickedRow
+        let row = _tableView.clickedRow
         
         if let playTrack = playTrack {
             if history.track(at: row) != nil {
                 playTrack(row, nil)
             }
         }
-    }
-    
-    func keyDown(with event: NSEvent) -> NSEvent? {
-        guard view.window?.isKeyWindow ?? false else {
-            return event
-        }
-
-        if Keycodes.enterKey.matches(event: event) || Keycodes.returnKey.matches(event: event) {
-            self.playCurrentTrack()
-        }
-        else {
-            return event
-        }
-        
-        return nil
     }
     
     func reload(track: Track) {

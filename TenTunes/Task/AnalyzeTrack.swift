@@ -28,12 +28,24 @@ class AnalyzeCurrentTrack: Tasker {
     }
 }
 
-class AnalyzeTrack: Task {
+class TrackTask: Task {
     var track: Track
-    
-    init(track: Track, priority: Float = 20) {
+
+    init(track: Track, priority: Float = 1) {
         self.track = track
         super.init(priority: priority)
+    }
+}
+
+extension TrackTask : SameObjective {
+    static func objectivesEqual(lhs: TrackTask, rhs: TrackTask) -> Bool {
+        return lhs.track == rhs.track
+    }
+}
+
+class AnalyzeTrack: TrackTask {
+    override init(track: Track, priority: Float = 20) {
+        super.init(track: track, priority: priority)
     }
         
     override var title: String { return "Analyze Track" }

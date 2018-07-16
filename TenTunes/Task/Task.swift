@@ -81,3 +81,7 @@ extension Task : Comparable {
         return lhs === rhs
     }
 }
+
+protocol SameObjective {
+    static func objectivesEqual (lhs: Self, rhs: Self) -> Bool 
+}

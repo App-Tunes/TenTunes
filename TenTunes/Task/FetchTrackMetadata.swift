@@ -8,12 +8,9 @@
 
 import Cocoa
 
-class FetchTrackMetadata: Task {
-    let track: Track
-    
+class FetchTrackMetadata: TrackTask {
     init(track: Track) {
-        self.track = track
-        super.init(priority: 10)
+        super.init(track: track, priority: 10)
     }
     
     override var title: String { return "Fetch Track Metadata" }

@@ -49,7 +49,9 @@ extension TaskViewController : NSTableViewDataSource {
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let task = runningTasks[safe: row] ?? tasker.queue[row - runningTasks.count]
+        guard let task = runningTasks[safe: row] ?? tasker.queue[safe: row - runningTasks.count] else {
+            return nil
+        }
         
         if tableColumn?.identifier == ColumnIdentifiers.title, let view = tableView.makeView(withIdentifier: CellIdentifiers.title, owner: nil) as? NSTableCellView {
             view.textField?.stringValue = task.title

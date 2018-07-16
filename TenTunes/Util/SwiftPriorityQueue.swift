@@ -173,7 +173,9 @@ extension PriorityQueue: Collection {
     public var endIndex: Int { return heap.endIndex }
     
     public subscript(i: Int) -> T { return heap[i] }
-    
+
+    public subscript(safe i: Int) -> T? { return heap[safe: i] }
+
     public func index(after i: PriorityQueue.Index) -> PriorityQueue.Index {
         return heap.index(after: i)
     }

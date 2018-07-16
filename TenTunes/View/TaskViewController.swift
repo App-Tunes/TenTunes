@@ -45,7 +45,6 @@ extension TaskViewController : NSTableViewDataSource {
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        // TODO What we working on right now?
         return runningTasks.count + tasker.queue.count
     }
     

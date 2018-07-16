@@ -13,9 +13,8 @@ class FetchTrackMetadata: Task {
     
     init(track: Track) {
         self.track = track
+        super.init(priority: 10)
     }
-    
-    override var priority: Float { return 10 }
     
     override var title: String { return "Fetch Track Metadata" }
 

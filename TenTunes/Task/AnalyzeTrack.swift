@@ -21,7 +21,7 @@ class AnalyzeCurrentTrack: Tasker {
     
     override func spawn() -> Task? {
         if let playing = ViewController.shared.player.playing {
-            return AnalyzeTrack(track: playing)
+            return AnalyzeTrack(track: playing, priority: 1)
         }
         
         return nil
@@ -31,12 +31,11 @@ class AnalyzeCurrentTrack: Tasker {
 class AnalyzeTrack: Task {
     var track: Track
     
-    init(track: Track) {
+    init(track: Track, priority: Float = 20) {
         self.track = track
+        super.init(priority: priority)
     }
-    
-    override var priority: Float { return 1 }
-    
+        
     override var title: String { return "Analyze Track" }
 
     override func execute() {

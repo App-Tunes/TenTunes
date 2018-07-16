@@ -50,9 +50,8 @@ extension Library {
         
         init(library: Library) {
             self.library = library
+            super.init(priority: 2)
         }
-        
-        override var priority: Float { return 2 }
         
         override var title: String { return "Update Exports" }
         

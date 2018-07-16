@@ -28,9 +28,8 @@ class UpdateCurrentPlaylist: Task {
     init(trackController: TrackController, desired: PlayHistorySetup) {
         self.trackController = trackController
         self.desired = desired
+        super.init(priority: 0)
     }
-    
-    override var priority: Float { return 0 }
     
     override var title: String { return "Update Playlist View" }
         

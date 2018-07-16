@@ -81,8 +81,6 @@ extension ViewController {
                 // Looks like we prematurely grabbed a key, give back
                 self._workerSemaphore.signal()
             }
-            
-            // TODO Fetch one metadata
         }
         
         // Requests are freaking slow with many tracks so do it rarely
@@ -90,7 +88,10 @@ extension ViewController {
             Library.shared.performChildBackgroundTask { mox in
                 let request: NSFetchRequest = Track.fetchRequest()
                 request.predicate = NSPredicate(format: "metadataFetched == false")
-//                self.metadataToDo = Library.shared.viewContext.convert(try! mox.fetch(request))
+                let tracks = Library.shared.viewContext.convert(try! mox.fetch(request))
+                for track in tracks {
+                    self.tasker.enqueue(task: FetchTrackMetadata(track: track))
+                }
             }
         }
     }

@@ -48,8 +48,12 @@ class Task {
     var completion: (() -> Swift.Void)?
     var finished = false
     
+    init(priority: Float = 1) {
+        self.priority = priority
+    }
+    
     // Priority <= 0 = Immediately spawn a new worker thread for this
-    var priority: Float { return 1 }
+    var priority: Float = 1
     
     var title: String { return "Unnamed Task" }
     

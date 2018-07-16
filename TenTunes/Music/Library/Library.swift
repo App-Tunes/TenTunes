@@ -176,7 +176,7 @@ extension Library {
         for insert in inserts {
             if let track = insert as? Track {
                 if Preferences.AnalyzeNewTracks.current == .analyze {
-                    ViewController.shared.analysisToDo.insert(track)
+                    ViewController.shared.tasker.enqueue(task: AnalyzeTrack(track: track))
                 }
                 
                 if Preferences.FileLocationOnAdd.current == .copy || Preferences.FileLocationOnAdd.current == .move {

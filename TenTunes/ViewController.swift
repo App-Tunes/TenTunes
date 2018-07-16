@@ -52,9 +52,9 @@ class ViewController: NSViewController {
     
     let player: Player = Player()
 
+    var taskers: [Tasker] = []
+    var tasker = QueueTasker()
     var _workerSemaphore = DispatchSemaphore(value: 3)
-    var metadataToDo: [Track] = []
-    var analysisToDo: Set<Track> = Set()
     
     var mediaKeyTap: MediaKeyTap?
     
@@ -147,6 +147,8 @@ class ViewController: NSViewController {
         mediaKeyTap = MediaKeyTap(delegate: self)
         mediaKeyTap?.start()
 
+        taskers.append(AnalyzeCurrentTrack())
+        taskers.append(CurrentPlaylistUpdater())
         startBackgroundTasks()
     }
     

@@ -30,47 +30,45 @@ extension ViewController {
         }
         
         self.backgroundTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 10.0, repeats: true ) { [unowned self] (timer) in
-            if self._workerSemaphore.acquireNow() {
-                // Update the current playlist, top priority
-                if let desired = self.trackController.desired, desired._changed, desired.semaphore.acquireNow() {
-                    desired._changed = false
-                    
-                    Library.shared.performChildBackgroundTask { mox in
-                        let history = desired.playlist?.convert(to: mox) ?=> PlayHistory.init
-
-                        if let history = history {
-                            desired.filter ?=> history.filter
-                            desired.sort ?=> history.sort
-                        }
+            var taskers = PriorityQueue(ascending: true, startingValues: self.taskers)
+            taskers.push(self.tasker)
+            var haveWorkerKey = false
+            
+            while let tasker = taskers.pop(), let promise = tasker.promise {
+                // Have a tasker that promises some task
+                
+                // If no worker key acquired yet, acquire one now
+                haveWorkerKey = haveWorkerKey || self._workerSemaphore.acquireNow()
+                if haveWorkerKey || promise <= 0 {
+                    // We want a new task!
+                    if let task = tasker.spawn() {
+                        // Task delivar'd, execute!
+                        // If we have a worker key let the task signal it later
+                        task.semaphore = haveWorkerKey ? self._workerSemaphore : nil
+                        task.execute()
+                        haveWorkerKey = false
                         
-                        DispatchQueue.main.async {
-                            history?.convert(to: Library.shared.viewContext)
-                            self.trackController.history = history ?? PlayHistory(playlist: Library.shared.allTracks)
-                            desired.isDone = !desired._changed
-                            
-                            self._workerSemaphore.signal()
-                            desired.semaphore.signal()
+                        if tasker.promise != nil {
+                            // Tasker promises a new task, push back onto queue
+                            taskers.push(tasker)
                         }
                     }
+                    // Else the task has not delivar'd
+                    // continue with popping the next tasker
                 }
-                else if let playing = self.player.playing, playing.analysis == nil {
-                    // Analyze the current file
-                    self.analyze(track: playing, read: true) {
-                        self._workerSemaphore.signal()
-                    }
-                }
-                else if !self.analysisToDo.isEmpty {
-                    // Analyze requested file
-                    self.analyze(track: self.analysisToDo.removeFirst(), read: false) {
-                        self._workerSemaphore.signal()
-                    }
-                }
-                else if (!Library.shared.startExport {
-                   self._workerSemaphore.signal()
-                }){
-                    self.fetchOneMetadata()
+                else {
+                    // No worker keys left and task doesn't warrant spawning a new one
+                    break
                 }
             }
+            
+            if haveWorkerKey {
+                // Looks like we prematurely grabbed a key, give back
+                self._workerSemaphore.signal()
+            }
+            
+            // TODO Schedule timer that pushes export onto the task queue
+            // TODO Fetch one metadata
         }
         
         // Requests are freaking slow with many tracks so do it rarely
@@ -78,79 +76,8 @@ extension ViewController {
             Library.shared.performChildBackgroundTask { mox in
                 let request: NSFetchRequest = Track.fetchRequest()
                 request.predicate = NSPredicate(format: "metadataFetched == false")
-                self.metadataToDo = Library.shared.viewContext.convert(try! mox.fetch(request))
+//                self.metadataToDo = Library.shared.viewContext.convert(try! mox.fetch(request))
             }
-        }
-    }
-    
-    func fetchOneMetadata() {
-        if view.window?.isVisible ?? false {
-            for track in trackController.visibleTracks {
-                if !track.metadataFetched  {
-                    fetchMetadata(for: track)
-                    return
-                }
-            }
-            
-            if !metadataToDo.isEmpty {
-                let track = metadataToDo.removeFirst()
-                fetchMetadata(for: track, wait: true) // TODO If we fetched it in the meantime, skip
-                return
-            }
-        }
-        
-        // Else we're done
-        self._workerSemaphore.signal()
-    }
-    
-    func fetchMetadata(for track: Track, wait: Bool = false) {
-        track.metadataFetched = true // So no other thread tries to enter
-        
-        Library.shared.performChildBackgroundTask { mox in
-            mox.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
-
-            let asyncTrack = mox.convert(track)
-            
-            asyncTrack.fetchMetadata()
-            Library.shared.mediaLocation.updateLocation(of: track)
-            
-            try! mox.save()
-            track.copyTransient(from: asyncTrack)
-            
-            self._workerSemaphore.signalAfter(seconds: wait ? 0.2 : 0.02)
-        }
-    }
-    
-    func analyze(track: Track, read: Bool, completion: @escaping () -> Swift.Void) {
-        guard let url = track.url else {
-            completion()
-            return
-        }
-        
-        track.analysis = Analysis()
-        
-        if player.playing == track {
-            self._waveformView.analysis = track.analysis
-        }
-        
-        self.trackController.reload(track: track) // Get the analysis inside the cell
-        
-        Library.shared.performChildBackgroundTask { mox in
-            mox.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
-            
-            let asyncTrack = mox.convert(track)
-            asyncTrack.analysis = track.analysis
-            
-            // May exist on disk
-            if !read || !asyncTrack.readAnalysis() {
-                // TODO Merge with metadata fetch etc
-                let audioFile = try! AKAudioFile(forReading: url)
-                SPInterpreter.analyze(file: audioFile, analysis: asyncTrack.analysis!)
-                asyncTrack.writeAnalysis()
-            }
-            try! mox.save()
-            
-            completion()
         }
     }
 }

@@ -16,6 +16,11 @@
 		801621332067B71B00093B15 /* ViewController+Updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801621322067B71B00093B15 /* ViewController+Updates.swift */; };
 		8017685920743898000DD433 /* NSImageViewAspectFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8017685820743898000DD433 /* NSImageViewAspectFill.swift */; };
 		8030E00120FC8F0C006B4AE8 /* ActionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E00020FC8F0C006B4AE8 /* ActionTableView.swift */; };
+		8030E00720FC9749006B4AE8 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E00620FC9749006B4AE8 /* Task.swift */; };
+		8030E00920FC9A91006B4AE8 /* SwiftPriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E00820FC9A91006B4AE8 /* SwiftPriorityQueue.swift */; };
+		8030E00D20FCA04C006B4AE8 /* UpdateCurrentPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E00C20FCA04C006B4AE8 /* UpdateCurrentPlaylist.swift */; };
+		8030E00F20FCB12C006B4AE8 /* AnalyzeTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E00E20FCB12C006B4AE8 /* AnalyzeTrack.swift */; };
+		8030E01120FCB33C006B4AE8 /* FetchTrackMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E01020FCB33C006B4AE8 /* FetchTrackMetadata.swift */; };
 		803717292043629800DB9EAA /* ViewController+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803717282043629700DB9EAA /* ViewController+Background.swift */; };
 		803E972F20C7EF2C00D46565 /* LazyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803E972E20C7EF2C00D46565 /* LazyMap.swift */; };
 		8046CDA3204EF1ED00E732E7 /* TitleSubtitleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */; };
@@ -127,6 +132,11 @@
 		801621322067B71B00093B15 /* ViewController+Updates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Updates.swift"; sourceTree = "<group>"; };
 		8017685820743898000DD433 /* NSImageViewAspectFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImageViewAspectFill.swift; sourceTree = "<group>"; };
 		8030E00020FC8F0C006B4AE8 /* ActionTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTableView.swift; sourceTree = "<group>"; };
+		8030E00620FC9749006B4AE8 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		8030E00820FC9A91006B4AE8 /* SwiftPriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPriorityQueue.swift; sourceTree = "<group>"; };
+		8030E00C20FCA04C006B4AE8 /* UpdateCurrentPlaylist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCurrentPlaylist.swift; sourceTree = "<group>"; };
+		8030E00E20FCB12C006B4AE8 /* AnalyzeTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeTrack.swift; sourceTree = "<group>"; };
+		8030E01020FCB33C006B4AE8 /* FetchTrackMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchTrackMetadata.swift; sourceTree = "<group>"; };
 		803717282043629700DB9EAA /* ViewController+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Background.swift"; sourceTree = "<group>"; };
 		803E972E20C7EF2C00D46565 /* LazyMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyMap.swift; sourceTree = "<group>"; };
 		8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSubtitleCellView.swift; sourceTree = "<group>"; };
@@ -270,6 +280,17 @@
 				8030E00020FC8F0C006B4AE8 /* ActionTableView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		8030E00320FC970E006B4AE8 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				8030E00620FC9749006B4AE8 /* Task.swift */,
+				8030E00C20FCA04C006B4AE8 /* UpdateCurrentPlaylist.swift */,
+				8030E00E20FCB12C006B4AE8 /* AnalyzeTrack.swift */,
+				8030E01020FCB33C006B4AE8 /* FetchTrackMetadata.swift */,
+			);
+			path = Task;
 			sourceTree = "<group>";
 		};
 		8058FA8D204316F50086FF8A /* Superpowered */ = {
@@ -422,6 +443,7 @@
 				8091B9FE20C6B7E50019CE23 /* Hash.swift */,
 				8085DC6F20C936D6008F4084 /* ActionStub.swift */,
 				8055FE7D20C947A300559F45 /* Volumes.swift */,
+				8030E00820FC9A91006B4AE8 /* SwiftPriorityQueue.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -483,6 +505,7 @@
 			children = (
 				805901BE20404CB900B97D84 /* View */,
 				805901C020404CDF00B97D84 /* Music */,
+				8030E00320FC970E006B4AE8 /* Task */,
 				80F2C5792038808000212739 /* AppDelegate.swift */,
 				80F2C57B2038808000212739 /* ViewController.swift */,
 				803717282043629700DB9EAA /* ViewController+Background.swift */,
@@ -694,8 +717,11 @@
 			files = (
 				80ADCD4A20442E1200AA9A89 /* Library.swift in Sources */,
 				80CB652C20514E050031A6D7 /* Library+Files.swift in Sources */,
+				8030E00D20FCA04C006B4AE8 /* UpdateCurrentPlaylist.swift in Sources */,
 				80E6811B20573DC800DA5702 /* SimpleTransformer.swift in Sources */,
 				80F2C57C2038808000212739 /* ViewController.swift in Sources */,
+				8030E00720FC9749006B4AE8 /* Task.swift in Sources */,
+				8030E00F20FCB12C006B4AE8 /* AnalyzeTrack.swift in Sources */,
 				80E2C9E1204AE18E00298E81 /* Track+CoreDataProperties.swift in Sources */,
 				80F11E5920CA732E00331D12 /* Library+Symlink.swift in Sources */,
 				803E972F20C7EF2C00D46565 /* LazyMap.swift in Sources */,
@@ -732,10 +758,12 @@
 				807E4B47206428260051C028 /* ScrollableSlider.swift in Sources */,
 				80E2C9FA204B40A000298E81 /* PlaylistManual+CoreDataProperties.swift in Sources */,
 				8046CDA3204EF1ED00E732E7 /* TitleSubtitleCellView.swift in Sources */,
+				8030E01120FCB33C006B4AE8 /* FetchTrackMetadata.swift in Sources */,
 				80CB652F2052C6CD0031A6D7 /* Operators.swift in Sources */,
 				80E2C9F7204B40A000298E81 /* Playlist+CoreDataClass.swift in Sources */,
 				8093466E20A62249001D15CD /* PlaylistController+Pasteboard.swift in Sources */,
 				80F2C58F20389B9B00212739 /* WaveformView.swift in Sources */,
+				8030E00920FC9A91006B4AE8 /* SwiftPriorityQueue.swift in Sources */,
 				80F854FF2069180A009A8FBE /* TrackController+RightClick.swift in Sources */,
 				808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */,
 				801621332067B71B00093B15 /* ViewController+Updates.swift in Sources */,

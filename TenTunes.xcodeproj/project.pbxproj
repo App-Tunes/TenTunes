@@ -21,6 +21,8 @@
 		8030E00D20FCA04C006B4AE8 /* UpdateCurrentPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E00C20FCA04C006B4AE8 /* UpdateCurrentPlaylist.swift */; };
 		8030E00F20FCB12C006B4AE8 /* AnalyzeTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E00E20FCB12C006B4AE8 /* AnalyzeTrack.swift */; };
 		8030E01120FCB33C006B4AE8 /* FetchTrackMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E01020FCB33C006B4AE8 /* FetchTrackMetadata.swift */; };
+		8030E01420FCBDAA006B4AE8 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E01220FCBDAA006B4AE8 /* TaskViewController.swift */; };
+		8030E01520FCBDAA006B4AE8 /* TaskViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8030E01320FCBDAA006B4AE8 /* TaskViewController.xib */; };
 		803717292043629800DB9EAA /* ViewController+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803717282043629700DB9EAA /* ViewController+Background.swift */; };
 		803E972F20C7EF2C00D46565 /* LazyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803E972E20C7EF2C00D46565 /* LazyMap.swift */; };
 		8046CDA3204EF1ED00E732E7 /* TitleSubtitleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */; };
@@ -137,6 +139,8 @@
 		8030E00C20FCA04C006B4AE8 /* UpdateCurrentPlaylist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCurrentPlaylist.swift; sourceTree = "<group>"; };
 		8030E00E20FCB12C006B4AE8 /* AnalyzeTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeTrack.swift; sourceTree = "<group>"; };
 		8030E01020FCB33C006B4AE8 /* FetchTrackMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchTrackMetadata.swift; sourceTree = "<group>"; };
+		8030E01220FCBDAA006B4AE8 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
+		8030E01320FCBDAA006B4AE8 /* TaskViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskViewController.xib; sourceTree = "<group>"; };
 		803717282043629700DB9EAA /* ViewController+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Background.swift"; sourceTree = "<group>"; };
 		803E972E20C7EF2C00D46565 /* LazyMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyMap.swift; sourceTree = "<group>"; };
 		8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSubtitleCellView.swift; sourceTree = "<group>"; };
@@ -346,6 +350,8 @@
 				80F9702F209625E800A989D8 /* PreferencesWindowController.xib */,
 				807092E920C69D8F00DFED53 /* ExportPlaylistsController.swift */,
 				807092EA20C69D8F00DFED53 /* ExportPlaylistsController.xib */,
+				8030E01220FCBDAA006B4AE8 /* TaskViewController.swift */,
+				8030E01320FCBDAA006B4AE8 /* TaskViewController.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -649,6 +655,7 @@
 				8093467720A99112001D15CD /* DefaultPreferences.plist in Resources */,
 				80F2C5812038808000212739 /* Assets.xcassets in Resources */,
 				80074CFD204584980055B87E /* PlaylistController.xib in Resources */,
+				8030E01520FCBDAA006B4AE8 /* TaskViewController.xib in Resources */,
 				80074CF9204583CF0055B87E /* TrackController.xib in Resources */,
 				80F2C5842038808000212739 /* Main.storyboard in Resources */,
 			);
@@ -758,6 +765,7 @@
 				807E4B47206428260051C028 /* ScrollableSlider.swift in Sources */,
 				80E2C9FA204B40A000298E81 /* PlaylistManual+CoreDataProperties.swift in Sources */,
 				8046CDA3204EF1ED00E732E7 /* TitleSubtitleCellView.swift in Sources */,
+				8030E01420FCBDAA006B4AE8 /* TaskViewController.swift in Sources */,
 				8030E01120FCB33C006B4AE8 /* FetchTrackMetadata.swift in Sources */,
 				80CB652F2052C6CD0031A6D7 /* Operators.swift in Sources */,
 				80E2C9F7204B40A000298E81 /* Playlist+CoreDataClass.swift in Sources */,

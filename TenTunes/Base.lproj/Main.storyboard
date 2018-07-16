@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -842,7 +842,7 @@ IA
                                                 </connections>
                                             </button>
                                             <button horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Xs-lc-aS8">
-                                                <rect key="frame" x="1251" y="57" width="21" height="21"/>
+                                                <rect key="frame" x="1214" y="57" width="21" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="9Xs-lc-aS8" secondAttribute="height" multiplier="1:1" id="O0P-AH-Reg"/>
                                                 </constraints>
@@ -855,7 +855,7 @@ IA
                                                 </connections>
                                             </button>
                                             <button toolTip="Shuffle" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Y2-7h-2Y4">
-                                                <rect key="frame" x="1214" y="57" width="21" height="21"/>
+                                                <rect key="frame" x="1177" y="57" width="21" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="7Y2-7h-2Y4" secondAttribute="height" multiplier="1:1" id="jRx-Wh-ukj"/>
                                                 </constraints>
@@ -868,7 +868,7 @@ IA
                                                 </connections>
                                             </button>
                                             <slider toolTip="Volume" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="weN-hW-VXM" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
-                                                <rect key="frame" x="1116" y="58" width="84" height="19"/>
+                                                <rect key="frame" x="1079" y="58" width="84" height="19"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="80" id="IaB-e8-PZM"/>
                                                 </constraints>
@@ -894,11 +894,27 @@ IA
                                                     <constraint firstItem="VMd-f1-c9v" firstAttribute="leading" secondItem="NC3-8V-1wQ" secondAttribute="leading" id="yMy-d5-FIc"/>
                                                 </constraints>
                                             </customView>
+                                            <button horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ETj-HU-NV5">
+                                                <rect key="frame" x="1251" y="57" width="21" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="ETj-HU-NV5" secondAttribute="height" multiplier="1:1" id="qGX-a4-Xxa"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="folder" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="pWN-MD-pQY">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system" size="20"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="showTasks:" target="XfG-lQ-9wD" id="p4I-cb-dui"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="ETj-HU-NV5" firstAttribute="width" secondItem="ETj-HU-NV5" secondAttribute="height" multiplier="1:1" id="0dk-4x-AQr"/>
                                             <constraint firstItem="vGp-jR-JQ9" firstAttribute="centerY" secondItem="4Fc-0r-wVE" secondAttribute="centerY" id="2ny-ao-zVy"/>
+                                            <constraint firstItem="ETj-HU-NV5" firstAttribute="leading" secondItem="9Xs-lc-aS8" secondAttribute="trailing" constant="16" id="4yn-NV-s13"/>
                                             <constraint firstItem="9Xs-lc-aS8" firstAttribute="leading" secondItem="7Y2-7h-2Y4" secondAttribute="trailing" constant="16" id="5N5-Tv-tpk"/>
                                             <constraint firstItem="NC3-8V-1wQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ws9-gx-fi8" secondAttribute="trailing" constant="30" id="7wW-14-RBF"/>
+                                            <constraint firstItem="ETj-HU-NV5" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="14" id="8TE-zh-6Xg"/>
                                             <constraint firstItem="vGp-jR-JQ9" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" constant="97" id="Ak8-DA-NJT"/>
                                             <constraint firstItem="7Y2-7h-2Y4" firstAttribute="leading" secondItem="weN-hW-VXM" secondAttribute="trailing" constant="16" id="DSC-bJ-QKK"/>
                                             <constraint firstItem="4Fc-0r-wVE" firstAttribute="leading" secondItem="vGp-jR-JQ9" secondAttribute="trailing" constant="8" symbolic="YES" id="F1p-Yh-tF4"/>
@@ -911,7 +927,6 @@ IA
                                             <constraint firstItem="weN-hW-VXM" firstAttribute="leading" relation="lessThanOrEqual" secondItem="NC3-8V-1wQ" secondAttribute="trailing" priority="10" constant="10" id="TSE-kL-kgl"/>
                                             <constraint firstItem="o1F-mb-bFA" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" id="Tfj-Fh-ooz"/>
                                             <constraint firstAttribute="trailing" secondItem="TnY-8S-uno" secondAttribute="trailing" id="ZOi-Zw-7Sx"/>
-                                            <constraint firstAttribute="trailing" secondItem="9Xs-lc-aS8" secondAttribute="trailing" constant="20" id="ZYS-7e-eWI"/>
                                             <constraint firstItem="7Y2-7h-2Y4" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="14" id="c3R-Ek-gmG"/>
                                             <constraint firstItem="vGp-jR-JQ9" firstAttribute="firstBaseline" secondItem="Ws9-gx-fi8" secondAttribute="firstBaseline" id="dl3-k3-IVH"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="7Y2-7h-2Y4" secondAttribute="bottom" constant="14" id="eOK-zm-vOj"/>
@@ -919,7 +934,9 @@ IA
                                             <constraint firstItem="NC3-8V-1wQ" firstAttribute="centerX" secondItem="CJ8-Em-XgG" secondAttribute="centerX" id="i3i-pO-6IN"/>
                                             <constraint firstItem="4Fc-0r-wVE" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="2" id="ivH-Kr-erJ"/>
                                             <constraint firstAttribute="bottom" secondItem="o1F-mb-bFA" secondAttribute="bottom" id="lus-gC-hse"/>
+                                            <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="ETj-HU-NV5" secondAttribute="bottom" constant="14" id="mSY-SA-lDg"/>
                                             <constraint firstAttribute="bottom" secondItem="TnY-8S-uno" secondAttribute="bottom" id="mm5-D9-4tj"/>
+                                            <constraint firstAttribute="trailing" secondItem="ETj-HU-NV5" secondAttribute="trailing" constant="20" id="oKp-fI-pwe"/>
                                             <constraint firstItem="vGp-jR-JQ9" firstAttribute="baseline" secondItem="Ws9-gx-fi8" secondAttribute="baseline" id="p3y-sr-YYy"/>
                                             <constraint firstItem="NC3-8V-1wQ" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="7" id="w9Y-w4-DQt"/>
                                             <constraint firstItem="Ws9-gx-fi8" firstAttribute="leading" secondItem="4Fc-0r-wVE" secondAttribute="trailing" constant="8" symbolic="YES" id="wEc-11-xbf"/>
@@ -991,6 +1008,7 @@ IA
         </scene>
     </scenes>
     <resources>
+        <image name="folder" width="125" height="125"/>
         <image name="queue" width="155" height="155"/>
         <image name="shuffle" width="125" height="125"/>
     </resources>

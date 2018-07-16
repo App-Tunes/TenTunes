@@ -37,6 +37,8 @@ class AnalyzeTrack: Task {
     
     override var priority: Float { return 1 }
     
+    override var title: String { return "Analyze Track" }
+
     override func execute() {
         self.analyze(read: true) {
             self.finish()

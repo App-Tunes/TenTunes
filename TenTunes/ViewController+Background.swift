@@ -42,9 +42,15 @@ extension ViewController {
                 if haveWorkerKey || promise <= 0 {
                     // We want a new task!
                     if let task = tasker.spawn() {
+                        // TODO Might have changed the view!
+                        self.taskViewController._tableView?.reloadData()
+
                         // Task delivar'd, execute!
-                        // If we have a worker key let the task signal it later
-                        task.semaphore = haveWorkerKey ? self._workerSemaphore : nil
+                        task.completion = { [unowned self, haveWorkerKey] in
+                            if haveWorkerKey {
+                                self._workerSemaphore.signal()
+                            }
+                        }
                         task.execute()
                         haveWorkerKey = false
                         

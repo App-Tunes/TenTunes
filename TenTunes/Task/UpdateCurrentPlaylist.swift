@@ -31,6 +31,8 @@ class UpdateCurrentPlaylist: Task {
     }
     
     override var priority: Float { return 0 }
+    
+    override var title: String { return "Update Playlist View" }
         
     override func execute() {
         let desired = self.desired

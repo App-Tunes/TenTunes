@@ -45,13 +45,13 @@ class QueueTasker : Tasker {
 }
 
 class Task {
-    var semaphore: DispatchSemaphore?
+    var completion: (() -> Swift.Void)?
     var finished = false
     
     // Priority <= 0 = Immediately spawn a new worker thread for this
-    var priority: Float {
-        return 1
-    }
+    var priority: Float { return 1 }
+    
+    var title: String { return "Unnamed Task" }
     
     func execute() {
         
@@ -63,7 +63,7 @@ class Task {
         }
         
         finished = true
-        semaphore?.signal()
+        completion?()
     }
 }
 

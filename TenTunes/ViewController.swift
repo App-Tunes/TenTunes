@@ -46,7 +46,8 @@ class ViewController: NSViewController {
     @IBOutlet var _splitView: NSSplitView!
     
     var queuePopover: NSPopover!
-        
+    var taskPopover: NSPopover!
+
     var visualTimer: Timer!
     var backgroundTimer: Timer!
     
@@ -62,7 +63,9 @@ class ViewController: NSViewController {
     var trackController: TrackController!
     var playingTrackController: TrackController!
     var queueController: TrackController!
-
+    
+    var taskViewController: TaskViewController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -83,6 +86,8 @@ class ViewController: NSViewController {
         _splitView.replaceSubview(_playlistView, with: playlistController.view)
 
         queueController = TrackController(nibName: .init(rawValue: "TrackController"), bundle: nil)
+
+        taskViewController = TaskViewController(nibName: .init(rawValue: "TaskViewController"), bundle: nil)
 
         ViewController.shared = self
         
@@ -130,6 +135,11 @@ class ViewController: NSViewController {
                 }
             }
         }
+
+        taskPopover = NSPopover()
+        taskPopover.contentViewController = taskViewController
+        taskPopover.animates = true
+        taskPopover.behavior = .transient
 
         self.updatePlaying()
         
@@ -268,6 +278,19 @@ class ViewController: NSViewController {
         // TODO Show a divider on top
         queueController._tableView.scrollRowToTop(history.playingIndex)
         queuePopover.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
+    }
+    
+    @IBAction func showTasks(_ sender: Any) {
+        let view = sender as! NSView
+        
+        if !taskViewController.isViewLoaded {
+            taskViewController.loadView()
+        }
+        
+        taskViewController._tableView.reloadData() // TODO Live update
+        taskPopover.appearance = view.window!.appearance
+        
+        taskPopover.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
     }
 }
 

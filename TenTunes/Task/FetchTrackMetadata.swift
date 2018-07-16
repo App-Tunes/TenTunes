@@ -17,6 +17,8 @@ class FetchTrackMetadata: Task {
     
     override var priority: Float { return 10 }
     
+    override var title: String { return "Fetch Track Metadata" }
+
     override func execute() {
         track.metadataFetched = true // So no other thread tries to enter
         

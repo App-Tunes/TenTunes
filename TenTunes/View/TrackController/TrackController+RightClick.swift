@@ -37,7 +37,7 @@ extension TrackController: NSMenuDelegate {
         _moveToMediaDirectory.isHidden = menuTracks.noneMatch { !$0.usesMediaDirectory && $0.url != nil }
         
         let someNeedAnalysis = menuTracks.anyMatch { $0.url != nil }
-        _analyzeSubmenu.isVisible = someNeedAnalysis && menuTracks.anyMatch { $0.analysis != nil } && menuTracks.anyMatch { $0.analysis == nil }
+        _analyzeSubmenu.isVisible = someNeedAnalysis && menuTracks.anyMatch { $0.analysisData != nil } && menuTracks.anyMatch { $0.analysisData == nil }
         menu.item(withAction: #selector(menuAnalyze))?.isVisible = someNeedAnalysis && _analyzeSubmenu.isHidden
 
         let deleteItem = menu.item(withAction: #selector(removeTrack))
@@ -120,7 +120,7 @@ extension TrackController: NSMenuDelegate {
     }
     
     @IBAction func menuAnalyzeWhereMissing(_ sender: Any) {
-        let missing = menuTracks.filter { $0.analysis == nil }
+        let missing = menuTracks.filter { $0.analysisData == nil }
         for track in missing {
             ViewController.shared.tasker.enqueue(task: AnalyzeTrack(track: track))
         }

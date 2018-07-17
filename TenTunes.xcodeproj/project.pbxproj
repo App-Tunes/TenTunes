@@ -23,6 +23,7 @@
 		8030E01120FCB33C006B4AE8 /* FetchTrackMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E01020FCB33C006B4AE8 /* FetchTrackMetadata.swift */; };
 		8030E01420FCBDAA006B4AE8 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E01220FCBDAA006B4AE8 /* TaskViewController.swift */; };
 		8030E01520FCBDAA006B4AE8 /* TaskViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8030E01320FCBDAA006B4AE8 /* TaskViewController.xib */; };
+		8030E01720FE2C3B006B4AE8 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E01620FE2C3B006B4AE8 /* Alerts.swift */; };
 		803717292043629800DB9EAA /* ViewController+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803717282043629700DB9EAA /* ViewController+Background.swift */; };
 		803E972F20C7EF2C00D46565 /* LazyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803E972E20C7EF2C00D46565 /* LazyMap.swift */; };
 		8046CDA3204EF1ED00E732E7 /* TitleSubtitleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */; };
@@ -141,6 +142,7 @@
 		8030E01020FCB33C006B4AE8 /* FetchTrackMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchTrackMetadata.swift; sourceTree = "<group>"; };
 		8030E01220FCBDAA006B4AE8 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		8030E01320FCBDAA006B4AE8 /* TaskViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskViewController.xib; sourceTree = "<group>"; };
+		8030E01620FE2C3B006B4AE8 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		803717282043629700DB9EAA /* ViewController+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Background.swift"; sourceTree = "<group>"; };
 		803E972E20C7EF2C00D46565 /* LazyMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyMap.swift; sourceTree = "<group>"; };
 		8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSubtitleCellView.swift; sourceTree = "<group>"; };
@@ -450,6 +452,7 @@
 				8085DC6F20C936D6008F4084 /* ActionStub.swift */,
 				8055FE7D20C947A300559F45 /* Volumes.swift */,
 				8030E00820FC9A91006B4AE8 /* SwiftPriorityQueue.swift */,
+				8030E01620FE2C3B006B4AE8 /* Alerts.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -756,6 +759,7 @@
 				80E2C9FC204B40A000298E81 /* PlaylistFolder+CoreDataProperties.swift in Sources */,
 				807092EB20C69D8F00DFED53 /* ExportPlaylistsController.swift in Sources */,
 				806AC1432041EF1900857B1B /* SPAnalyzer.mm in Sources */,
+				8030E01720FE2C3B006B4AE8 /* Alerts.swift in Sources */,
 				8091B9FF20C6B7E50019CE23 /* Hash.swift in Sources */,
 				80F97030209625E800A989D8 /* PreferencesWindowController.swift in Sources */,
 				8093467120A62319001D15CD /* TrackController+Pasteboard.swift in Sources */,

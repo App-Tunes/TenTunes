@@ -337,9 +337,11 @@ extension TrackController: NSTableViewDelegate {
         if !infoEditor.window!.isVisible {
             infoEditor.window!.positionNextTo(view: (nextTo?.visibleRect != .zero ? nextTo : nil) ?? view)
         }
-        
-        let tracks = of.map { history.track(at: $0)! }
-        infoEditor.show(tracks: tracks)
+
+        NSAlert.ensure(intent: of.count < 20, action: "Editing Many Tracks at once", text: "You are about to edit \(of.count) tracks at once. Are you sure you want to continue?") {
+            let tracks = of.map { history.track(at: $0)! }
+            infoEditor.show(tracks: tracks)
+        }
     }
     
     func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {

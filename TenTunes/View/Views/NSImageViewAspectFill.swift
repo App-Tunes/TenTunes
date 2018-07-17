@@ -12,7 +12,6 @@ open class NSImageViewAspectFill : NSView {
     open var image: NSImage? {
         didSet {
             needsDisplay = true
-            alphaValue = 0.1
         }
     }
     

@@ -8,6 +8,12 @@
 
 import Cocoa
 
+extension UserDefaults {
+    @objc dynamic var titleBarStylization: Double {
+        return double(forKey: "titleBarStylization")
+    }
+}
+
 class Preferences {
     enum InitialKeyDisplay: String {
         static let key: String = "intialKeyDisplay"

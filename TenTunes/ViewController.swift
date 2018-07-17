@@ -25,7 +25,8 @@ class ViewController: NSViewController {
     static var shared: ViewController!
     
     @IBOutlet var _coverImage: NSImageViewAspectFill!
-    
+    var coverImageObserver: NSKeyValueObservation?
+
     @IBOutlet var _play: NSButton!
     @IBOutlet var _stop: NSButton!
     @IBOutlet var _previous: NSButton!

@@ -13,6 +13,10 @@ extension ViewController {
         let notificationCenter = NotificationCenter.default
         
         notificationCenter.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: .NSManagedObjectContextObjectsDidChange, object: Library.shared.viewContext)
+        
+        coverImageObserver = UserDefaults.standard.observe(\.titleBarStylization, options: [.initial, .new]) { (defaults, change) in
+            self._coverImage.alphaValue = CGFloat(change.newValue ?? 0)
+        }
     }
     
     @IBAction func managedObjectContextObjectsDidChange(notification: NSNotification) {

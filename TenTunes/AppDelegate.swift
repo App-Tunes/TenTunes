@@ -76,7 +76,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let tasksPreventingQuit = (ViewController.shared.tasker.queue + ViewController.shared.runningTasks).filter { $0.preventsQuit }
         
         // TODO Live update this
-        print(tasksPreventingQuit.isEmpty)
         guard NSAlert.ensure(intent: tasksPreventingQuit.isEmpty, action: "Running Tasks", text: "There are currently still \(tasksPreventingQuit.count) tasks running. Do you want to quit anyway?") else {
             return .terminateCancel
         }

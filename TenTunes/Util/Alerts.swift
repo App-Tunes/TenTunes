@@ -17,16 +17,12 @@ extension NSAlert {
         alert.runModal()
     }
     
-    static func ensure(intent: Bool, action: String, text: String, run: () -> Swift.Void) -> Bool {
+    static func ensure(intent: Bool, action: String, text: String) -> Bool {
         guard intent else {
             return confirm(action: action, text: text)
         }
         
         return true
-    }
-    
-    static func ensure(intent: Bool, action: String, text: String) -> Bool {
-        return confirm(action: action, text: text)
     }
     
     static func confirm(action: String, text: String) -> Bool {

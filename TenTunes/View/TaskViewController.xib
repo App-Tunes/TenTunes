@@ -18,13 +18,13 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Wx-e2-o4O">
-                    <rect key="frame" x="0.0" y="0.0" width="337" height="169"/>
+                    <rect key="frame" x="0.0" y="0.0" width="337" height="142"/>
                     <clipView key="contentView" id="NH1-Ad-tFr">
-                        <rect key="frame" x="1" y="1" width="335" height="167"/>
+                        <rect key="frame" x="1" y="1" width="335" height="140"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="MbP-CU-gQi">
-                                <rect key="frame" x="0.0" y="0.0" width="335" height="167"/>
+                                <rect key="frame" x="0.0" y="0.0" width="335" height="140"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -99,12 +99,23 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PuG-Xr-QTz">
+                    <rect key="frame" x="3" y="147" width="331" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Tasks" id="9XJ-Ve-4uY">
+                        <font key="font" metaFont="systemBold"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <constraints>
+                <constraint firstItem="PuG-Xr-QTz" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="5" id="DEh-Fp-8JQ"/>
                 <constraint firstItem="9Wx-e2-o4O" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="Ydr-dZ-sWJ"/>
-                <constraint firstItem="9Wx-e2-o4O" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="gxK-xH-jBM"/>
+                <constraint firstAttribute="trailing" secondItem="PuG-Xr-QTz" secondAttribute="trailing" constant="5" id="Ztf-I7-RUH"/>
                 <constraint firstAttribute="trailing" secondItem="9Wx-e2-o4O" secondAttribute="trailing" id="hTf-fh-6Vw"/>
+                <constraint firstItem="PuG-Xr-QTz" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="5" id="pur-qP-K6z"/>
                 <constraint firstAttribute="bottom" secondItem="9Wx-e2-o4O" secondAttribute="bottom" id="rhT-r9-U3Q"/>
+                <constraint firstItem="9Wx-e2-o4O" firstAttribute="top" secondItem="PuG-Xr-QTz" secondAttribute="bottom" constant="5" id="vQL-Qg-JN6"/>
             </constraints>
             <point key="canvasLocation" x="67.5" y="116.5"/>
         </customView>

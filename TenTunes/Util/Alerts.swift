@@ -9,6 +9,14 @@
 import Cocoa
 
 extension NSAlert {
+    static func informational(title: String, text: String) {
+        let alert = NSAlert()
+        alert.messageText = title
+        alert.informativeText = text
+        alert.alertStyle = .informational
+        alert.runModal()
+    }
+    
     static func ensure(intent: Bool, action: String, text: String, run: () -> Swift.Void) {
         if !intent {
             confirming(action: action, text: text, run: run)

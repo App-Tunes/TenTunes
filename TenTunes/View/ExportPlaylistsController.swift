@@ -84,6 +84,8 @@ class ExportPlaylistsController: NSWindowController {
         }
         
         ViewController.shared.tasker.enqueue(task: ExportPlaylists(libraryURL: _trackLibrary.url!, playlists: playlists, destinationURL: _destinationDirectory.url!, aliasURL: _aliasDirectory.url!))
+        
+        NSAlert.informational(title: "Exporting Playlists", text: "\(playlists.count) playlists are being exported. You can check the progress in the task view.")
     }
     
     @objc func didMount(_ notification: NSNotification)  {

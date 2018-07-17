@@ -29,7 +29,11 @@ class TaskViewController: NSViewController {
     
     fileprivate var taskGroups: [TaskGroup] = []
     
-    func reload() {
+    func reload(force: Bool = false) {
+        guard force || view.visibleRect != NSZeroRect else {
+            return
+        }
+        
         var dict: [String: TaskGroup] = [:]
         
         for task in ViewController.shared.runningTasks {

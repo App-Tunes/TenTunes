@@ -9,25 +9,38 @@
 import Foundation
 
 open class NSImageViewAspectFill : NSView {
-    public override init(frame frameRect: NSRect) {
-        super.init(frame: frameRect)
-        setup()
-    }
-    
-    required public init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setup()
-    }
-    
-    private func setup() {
-        wantsLayer = true
-        layer = CALayer()
-        layer!.contentsGravity = kCAGravityResizeAspectFill
-    }
-    
     open var image: NSImage? {
         didSet {
-            layer!.contents = image
+            needsDisplay = true
+            alphaValue = 0.1
         }
+    }
+    
+    private func saveGState(drawStuff: (CGContext) -> ()) -> () {
+        if let context = NSGraphicsContext.current?.cgContext {
+            context.saveGState ()
+            drawStuff(context)
+            context.restoreGState ()
+        }
+    }
+
+    open override func draw(_ dirtyRect: NSRect) {
+        let ctx = NSGraphicsContext.current!.cgContext
+        
+        if let image = image {
+            saveGState { ctx in
+                let diff = frame.size.width / frame.size.height
+                let blurAmount = Double(min(20, max(image.size.width, image.size.height) / 8))
+                let blurred = image.blurred(radius: blurAmount)
+                
+                blurred.draw(in: frame, from: NSMakeRect(0, blurred.size.height / 2 - blurred.size.height / diff / 2, blurred.size.width, blurred.size.height / diff), operation: .sourceOver, fraction: 1)
+            }
+        }
+
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let gradient = CGGradient(colorsSpace: colorSpace, colors: [CGColor.clear, CGColor.black] as CFArray, locations: [0.8, 1])
+        let center = CGPoint(x: bounds.width / 2.0, y: bounds.height / 2.0)
+        let radius = max(bounds.width / 2.0, bounds.height / 2.0)
+        ctx.drawRadialGradient(gradient!, startCenter: center, startRadius: 0.0, endCenter: center, endRadius: radius, options: CGGradientDrawingOptions(rawValue: 0))
     }
 }

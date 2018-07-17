@@ -146,9 +146,7 @@ class ViewController: NSViewController {
         
         _waveformView.postsFrameChangedNotifications = true
         NotificationCenter.default.addObserver(self, selector: #selector(updateTimesHidden), name: NSView.frameDidChangeNotification, object: _waveformView)
-        
-        _coverImage.layer!.opacity = 0.08
-        
+                
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             return self.keyDown(with: $0)
         }

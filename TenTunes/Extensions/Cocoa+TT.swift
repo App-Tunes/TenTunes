@@ -30,6 +30,18 @@ extension NSImage {
         newImage.size = destSize
         return NSImage(data: newImage.tiffRepresentation!)!
     }
+    
+    func blurred(radius: Double) -> NSImage {
+        let imageToBlur = CIImage(data: tiffRepresentation!)
+        let gaussianBlurFilter = CIFilter(name: "CIGaussianBlur")
+        gaussianBlurFilter?.setValue(imageToBlur, forKey: kCIInputImageKey)
+        gaussianBlurFilter?.setValue(NSNumber(floatLiteral: radius), forKey: "inputRadius")
+        
+        let rep = gaussianBlurFilter?.value(forKey: kCIOutputImageKey) as! CIImage
+        let cgImage =  CIContext().createCGImage(rep, from: imageToBlur!.extent)!
+        
+        return NSImage(cgImage: cgImage, size: size)
+    }
 }
 
 extension NSTextField {

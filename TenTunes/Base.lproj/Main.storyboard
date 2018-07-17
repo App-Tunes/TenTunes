@@ -758,8 +758,8 @@
                                         <rect key="frame" x="0.0" y="0.0" width="1292" height="92"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
-                                            <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o1F-mb-bFA" customClass="NSImageViewAspectFill" customModule="TenTunes" customModuleProvider="target">
-                                                <rect key="frame" x="521" y="0.0" width="250" height="92"/>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="o1F-mb-bFA" customClass="NSImageViewAspectFill" customModule="TenTunes" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="1292" height="92"/>
                                             </customView>
                                             <customView verticalHuggingPriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="TnY-8S-uno" customClass="WaveformView" customModule="TenTunes" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="1292" height="43"/>
@@ -911,6 +911,7 @@ IA
                                         <constraints>
                                             <constraint firstItem="ETj-HU-NV5" firstAttribute="width" secondItem="ETj-HU-NV5" secondAttribute="height" multiplier="1:1" id="0dk-4x-AQr"/>
                                             <constraint firstItem="vGp-jR-JQ9" firstAttribute="centerY" secondItem="4Fc-0r-wVE" secondAttribute="centerY" id="2ny-ao-zVy"/>
+                                            <constraint firstItem="o1F-mb-bFA" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" id="37u-Jm-jrP"/>
                                             <constraint firstItem="ETj-HU-NV5" firstAttribute="leading" secondItem="9Xs-lc-aS8" secondAttribute="trailing" constant="16" id="4yn-NV-s13"/>
                                             <constraint firstItem="9Xs-lc-aS8" firstAttribute="leading" secondItem="7Y2-7h-2Y4" secondAttribute="trailing" constant="16" id="5N5-Tv-tpk"/>
                                             <constraint firstItem="NC3-8V-1wQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ws9-gx-fi8" secondAttribute="trailing" constant="30" id="7wW-14-RBF"/>
@@ -933,6 +934,7 @@ IA
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="4Fc-0r-wVE" secondAttribute="bottom" constant="4" id="fxo-uM-5FA"/>
                                             <constraint firstItem="NC3-8V-1wQ" firstAttribute="centerX" secondItem="CJ8-Em-XgG" secondAttribute="centerX" id="i3i-pO-6IN"/>
                                             <constraint firstItem="4Fc-0r-wVE" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="2" id="ivH-Kr-erJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="o1F-mb-bFA" secondAttribute="trailing" id="kcG-rB-AwR"/>
                                             <constraint firstAttribute="bottom" secondItem="o1F-mb-bFA" secondAttribute="bottom" id="lus-gC-hse"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="ETj-HU-NV5" secondAttribute="bottom" constant="14" id="mSY-SA-lDg"/>
                                             <constraint firstAttribute="bottom" secondItem="TnY-8S-uno" secondAttribute="bottom" id="mm5-D9-4tj"/>

@@ -180,10 +180,7 @@ extension Library {
                 }
                 
                 if Preferences.FileLocationOnAdd.current == .copy || Preferences.FileLocationOnAdd.current == .move {
-                    DispatchQueue.main.async { // Async so we have no save error
-                        track.usesMediaDirectory = true
-                        self.mediaLocation.updateLocations(of: [track], copy: Preferences.FileLocationOnAdd.current == .copy) // Auto-Saves
-                    }
+                    ViewController.shared.tasker.enqueue(task: MoveTrackToMediaLocation(track: track, copy: Preferences.FileLocationOnAdd.current == .copy))
                 }
             }
         }

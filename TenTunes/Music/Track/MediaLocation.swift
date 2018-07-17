@@ -25,7 +25,7 @@ class MediaLocation {
             updateLocation(of: track, copy: copy)
         }
         
-        try! Library.shared.viewContext.save()
+        try! tracks.first?.managedObjectContext?.save()
     }
     
     func updateLocation(of track: Track, copy: Bool = false) {

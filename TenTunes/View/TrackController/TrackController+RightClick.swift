@@ -102,20 +102,15 @@ extension TrackController: NSMenuDelegate {
     }
     
     @IBAction func manageByMoving(_ sender: Any) {
-        // TODO If too many, do in background
         for track in menuTracks {
-            track.usesMediaDirectory = true
+            ViewController.shared.tasker.enqueue(task: MoveTrackToMediaLocation(track: track, copy: false))
         }
-        
-        Library.shared.mediaLocation.updateLocations(of: menuTracks)
     }
     
     @IBAction func manageByCopying(_ sender: Any) {
         for track in menuTracks {
-            track.usesMediaDirectory = true
+            ViewController.shared.tasker.enqueue(task: MoveTrackToMediaLocation(track: track, copy: true))
         }
-        
-        Library.shared.mediaLocation.updateLocations(of: menuTracks, copy: true)
     }
     
     @IBAction func menuAnalyze(_ sender: Any) {

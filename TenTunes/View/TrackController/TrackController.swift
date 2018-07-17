@@ -85,7 +85,7 @@ class TrackController: NSViewController {
         _loadingIndicator.startAnimation(self)
         _loadingIndicator.alphaValue = 0 // By default, nothing is to be loaded
         
-        observeHiddenToken = desired.observe(\.isDone, options: [.new]) { [weak self] object, change in
+        observeHiddenToken = desired.observe(\.isDone, options: [.new]) { [unowned self] object, change in
             guard self.mode != .title else {
                 return
             }
@@ -93,7 +93,7 @@ class TrackController: NSViewController {
             let isDone = change.newValue!
             NSAnimationContext.runAnimationGroup({ context in
                 context.duration = 0.5
-                self?._loadingIndicator.animator().alphaValue = isDone ? 0 : 1
+                self._loadingIndicator.animator().alphaValue = isDone ? 0 : 1
             }, completionHandler: nil)
         }
 

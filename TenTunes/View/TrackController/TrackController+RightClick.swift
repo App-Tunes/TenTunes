@@ -136,6 +136,9 @@ extension TrackController: NSMenuDelegate {
     }
     
     @IBAction func deleteTrack(_ sender: Any) {
-        Library.shared.viewContext.delete(all: menuTracks)
+        let message = "Are you sure you want to delete \(menuTracks.count) track\(menuTracks.count > 1 ? "s" : "") from the library? Tracks may be moved to trash if they are located in the media directory."
+        NSAlert.confirming(action: "Delete Tracks", text: message) {
+            Library.shared.viewContext.delete(all: menuTracks)
+        }
     }
 }

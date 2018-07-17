@@ -46,7 +46,7 @@ extension ViewController {
                     if let task = tasker.spawn() {
                         // TODO Might have changed the view!
                         self.runningTasks.append(task)
-                        self.taskViewController._tableView?.reloadData()
+                        self.taskViewController.reload()
 
                         // Task delivar'd, execute!
                         task.completion = { [unowned self, haveWorkerKey] in
@@ -56,7 +56,7 @@ extension ViewController {
                             
                             DispatchQueue.main.async{
                                 self.runningTasks.remove(element: task)
-                                self.taskViewController._tableView?.reloadData()
+                                self.taskViewController.reload()
                             }
                         }
                         task.execute()

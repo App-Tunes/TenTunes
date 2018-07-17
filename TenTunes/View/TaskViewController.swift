@@ -12,20 +12,46 @@ class TaskViewController: NSViewController {
     
     @IBOutlet var _tableView: NSTableView!
     
-    var taskers: [Tasker] {
-        return ViewController.shared.taskers
-    }
-    
-    var tasker: QueueTasker {
-        return ViewController.shared.tasker
-    }
-
-    var runningTasks: [Task] {
-        return ViewController.shared.runningTasks
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    fileprivate class TaskGroup {
+        var running = false
+        var title = ""
+        var count = 1
+        
+        init(title: String, running: Bool) {
+            self.title = title
+            self.running = running
+        }
+    }
+    
+    fileprivate var taskGroups: [TaskGroup] = []
+    
+    func reload() {
+        var dict: [String: TaskGroup] = [:]
+        
+        for task in ViewController.shared.runningTasks {
+            if let group = dict[task.title] {
+                group.count += 1
+            }
+            else {
+                dict[task.title] = TaskGroup(title: task.title, running: true)
+            }
+        }
+        
+        for task in ViewController.shared.tasker.queue {
+            if let group = dict[task.title] {
+                group.count += 1
+            }
+            else {
+                dict[task.title] = TaskGroup(title: task.title, running: false)
+            }
+        }
+        
+        taskGroups = Array(dict.values)
+        _tableView?.reloadData()
     }
 }
 
@@ -45,20 +71,20 @@ extension TaskViewController : NSTableViewDataSource {
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return runningTasks.count + tasker.queue.count
+        return taskGroups.count
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        guard let task = runningTasks[safe: row] ?? tasker.queue[safe: row - runningTasks.count] else {
+        guard let taskGroup = taskGroups[safe: row] else {
             return nil
         }
         
         if tableColumn?.identifier == ColumnIdentifiers.title, let view = tableView.makeView(withIdentifier: CellIdentifiers.title, owner: nil) as? NSTableCellView {
-            view.textField?.stringValue = task.title
+            view.textField?.stringValue = taskGroup.count > 1 ? "(\(taskGroup.count)) \(taskGroup.title)" : taskGroup.title
             return view
         }
 
-        if row < runningTasks.count {
+        if taskGroup.running {
             if tableColumn?.identifier == ColumnIdentifiers.busy, let view = tableView.makeView(withIdentifier: CellIdentifiers.busy, owner: nil) as? NSProgressIndicator {
                 view.startAnimation(self)
                 return view

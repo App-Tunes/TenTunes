@@ -288,7 +288,7 @@ class ViewController: NSViewController {
             taskViewController.loadView()
         }
         
-        taskViewController._tableView.reloadData() // TODO Live update
+        taskViewController.reload() // TODO Live update
         taskPopover.appearance = view.window!.appearance
         
         taskPopover.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)

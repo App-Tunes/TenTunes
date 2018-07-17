@@ -73,6 +73,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+        let tasksPreventingQuit = (ViewController.shared.tasker.queue + ViewController.shared.runningTasks).filter { $0.preventsQuit }
+        
+        // TODO Live update this
+        guard NSAlert.ensure(intent: tasksPreventingQuit.isEmpty, action: "Running Tasks", text: "There are currently still \(tasksPreventingQuit.count) tasks running. Do you want to quit anyway?") else {
+            return .terminateCancel
+        }
+        
         // Save changes in the application's managed object context before the application terminates.
         let context = persistentContainer.viewContext
         

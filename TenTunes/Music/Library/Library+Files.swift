@@ -55,6 +55,8 @@ extension Library {
         
         override var title: String { return "Update Exports" }
         
+        override var preventsQuit: Bool { return false }
+        
         override func execute() {
             library.performBackgroundTask { mox in
                 self.library.export(mox).updateExports()

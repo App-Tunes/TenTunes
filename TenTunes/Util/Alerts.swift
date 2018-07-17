@@ -17,16 +17,19 @@ extension NSAlert {
         alert.runModal()
     }
     
-    static func ensure(intent: Bool, action: String, text: String, run: () -> Swift.Void) {
-        if !intent {
-            confirming(action: action, text: text, run: run)
+    static func ensure(intent: Bool, action: String, text: String, run: () -> Swift.Void) -> Bool {
+        guard intent else {
+            return confirm(action: action, text: text)
         }
-        else {
-            run()
-        }
+        
+        return true
     }
     
-    static func confirming(action: String, text: String, run: () -> Swift.Void) {
+    static func ensure(intent: Bool, action: String, text: String) -> Bool {
+        return confirm(action: action, text: text)
+    }
+    
+    static func confirm(action: String, text: String) -> Bool {
         let alert = NSAlert()
         alert.messageText = action
         alert.informativeText = text
@@ -35,8 +38,6 @@ extension NSAlert {
         alert.alertStyle = .warning
         let response = alert.runModal()
         
-        if response == .alertFirstButtonReturn {
-            run()
-        }
+        return response == .alertFirstButtonReturn
     }
 }

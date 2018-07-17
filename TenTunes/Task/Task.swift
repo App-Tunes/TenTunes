@@ -60,6 +60,8 @@ class Task {
     
     var title: String { return "Unnamed Task" }
     
+    var preventsQuit: Bool { return true }
+    
     func execute() {
         
     }

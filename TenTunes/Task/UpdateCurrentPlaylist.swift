@@ -32,6 +32,8 @@ class UpdateCurrentPlaylist: Task {
     }
     
     override var title: String { return "Update Playlist View" }
+    
+    override var preventsQuit: Bool { return false }
         
     override func execute() {
         let desired = self.desired

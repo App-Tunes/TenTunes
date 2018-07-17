@@ -40,9 +40,10 @@ extension PlaylistController: NSMenuDelegate {
     }
     
     @IBAction func deletePlaylist(_ sender: Any) {
-        let message = "Are you sure you want to delete \(_outlineView.clickedRows.count) playlist\(_outlineView.clickedRows.count > 1 ? "s" : "")?"
+        let playlistRows = _outlineView.clickedRows
+        let message = "Are you sure you want to delete \(playlistRows.count) playlist\(playlistRows.count > 1 ? "s" : "")?"
         NSAlert.confirming(action: "Delete Playlists", text: message) {
-            delete(indices: _outlineView.clickedRows)
+            delete(indices: playlistRows)
         }
     }
 }

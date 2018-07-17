@@ -338,8 +338,9 @@ extension TrackController: NSTableViewDelegate {
             infoEditor.window!.positionNextTo(view: (nextTo?.visibleRect != .zero ? nextTo : nil) ?? view)
         }
 
-        NSAlert.ensure(intent: of.count < 20, action: "Editing Many Tracks at once", text: "You are about to edit \(of.count) tracks at once. Are you sure you want to continue?") {
-            let tracks = of.map { history.track(at: $0)! }
+        let tracks = of.map { history.track(at: $0)! }
+
+        NSAlert.ensure(intent: tracks.count < 20, action: "Editing Many Tracks at once", text: "You are about to edit \(tracks.count) tracks at once. Are you sure you want to continue?") {
             infoEditor.show(tracks: tracks)
         }
     }

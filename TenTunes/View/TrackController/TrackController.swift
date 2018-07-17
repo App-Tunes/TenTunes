@@ -315,7 +315,7 @@ extension TrackController: NSTableViewDelegate {
         if let track = history.track(at: row) {
             let exists = track.url != nil
             if !exists {
-                rowView.backgroundColor = NSColor(white: 0.03, alpha: 1.0)
+                rowView.backgroundColor = NSColor(red: 0.1, green: 0.05, blue: 0.05, alpha: 1)
             }
         }
     }

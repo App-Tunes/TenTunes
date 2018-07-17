@@ -26,11 +26,19 @@ class ExportPlaylists: Task {
     override var title: String { return "Exporting Playlists" }
     
     override func execute() {
-        let pather = libraryURL == Library.shared.mediaLocation.directory ? Library.shared.mediaLocation.pather() : MediaLocation.pather(for: libraryURL)
-        
-        Library.Export.remoteM3uPlaylists(playlists, to: destinationURL, pather: pather)
-        Library.Export.remoteSymlinks(playlists, to: aliasURL, pather: pather)
-        
-        // TODO Alert if some files were missing
+        Library.shared.performChildBackgroundTask { mox in
+            let playlists = mox.convert(self.playlists)
+            
+            let pather = self.libraryURL == Library.shared.mediaLocation.directory
+                ? Library.shared.mediaLocation.pather()
+                : MediaLocation.pather(for: self.libraryURL)
+            
+            Library.Export.remoteM3uPlaylists(playlists, to: self.destinationURL, pather: pather)
+            Library.Export.remoteSymlinks(playlists, to: self.aliasURL, pather: pather)
+            
+            // TODO Alert if some files were missing
+            
+            self.finish()
+        }
     }
 }

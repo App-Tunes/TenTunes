@@ -13,7 +13,7 @@ class FileTagEditor: NSWindowController {
     var context: NSManagedObjectContext!
     @objc dynamic var tracks: [Track] = [] {
         didSet {
-            for track in tracks where !track.metadataFetched {
+            for track in tracks {
                 track.fetchMetadata()
             }
             

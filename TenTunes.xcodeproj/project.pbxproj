@@ -24,6 +24,7 @@
 		8030E01420FCBDAA006B4AE8 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E01220FCBDAA006B4AE8 /* TaskViewController.swift */; };
 		8030E01520FCBDAA006B4AE8 /* TaskViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8030E01320FCBDAA006B4AE8 /* TaskViewController.xib */; };
 		8030E01720FE2C3B006B4AE8 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E01620FE2C3B006B4AE8 /* Alerts.swift */; };
+		8030E01920FE33D2006B4AE8 /* ExportPlaylists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E01820FE33D2006B4AE8 /* ExportPlaylists.swift */; };
 		803717292043629800DB9EAA /* ViewController+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803717282043629700DB9EAA /* ViewController+Background.swift */; };
 		803E972F20C7EF2C00D46565 /* LazyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803E972E20C7EF2C00D46565 /* LazyMap.swift */; };
 		8046CDA3204EF1ED00E732E7 /* TitleSubtitleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */; };
@@ -143,6 +144,7 @@
 		8030E01220FCBDAA006B4AE8 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		8030E01320FCBDAA006B4AE8 /* TaskViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskViewController.xib; sourceTree = "<group>"; };
 		8030E01620FE2C3B006B4AE8 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
+		8030E01820FE33D2006B4AE8 /* ExportPlaylists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPlaylists.swift; sourceTree = "<group>"; };
 		803717282043629700DB9EAA /* ViewController+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Background.swift"; sourceTree = "<group>"; };
 		803E972E20C7EF2C00D46565 /* LazyMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyMap.swift; sourceTree = "<group>"; };
 		8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSubtitleCellView.swift; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 				8030E00C20FCA04C006B4AE8 /* UpdateCurrentPlaylist.swift */,
 				8030E00E20FCB12C006B4AE8 /* AnalyzeTrack.swift */,
 				8030E01020FCB33C006B4AE8 /* FetchTrackMetadata.swift */,
+				8030E01820FE33D2006B4AE8 /* ExportPlaylists.swift */,
 			);
 			path = Task;
 			sourceTree = "<group>";
@@ -742,6 +745,7 @@
 				80E6811D2057479B00DA5702 /* ValueTransformers.swift in Sources */,
 				80CFDA0A203C4E2300C7A506 /* LazyVar.swift in Sources */,
 				80F855042069187D009A8FBE /* PlaylistController+Menu.swift in Sources */,
+				8030E01920FE33D2006B4AE8 /* ExportPlaylists.swift in Sources */,
 				80E2C9E0204AE18E00298E81 /* Track+CoreDataClass.swift in Sources */,
 				80802588203F0399008D4168 /* PlaylistController.swift in Sources */,
 				806AC1332040D7C700857B1B /* PlayHistory.swift in Sources */,

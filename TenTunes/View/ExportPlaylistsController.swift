@@ -82,14 +82,8 @@ class ExportPlaylistsController: NSWindowController {
         else {
             playlists = try! Library.shared.viewContext.fetch(Playlist.fetchRequest())
         }
-
-        let libraryURL = _trackLibrary.url!
-
-        let pather = MediaLocation.pather(for: libraryURL)
-        Library.Export.remoteM3uPlaylists(playlists, to: _destinationDirectory.url!, pather: pather)
-        Library.Export.remoteSymlinks(playlists, to: _aliasDirectory.url!, pather: pather)
-
-        // TODO Alert if some files were missing
+        
+        ViewController.shared.tasker.enqueue(task: ExportPlaylists(libraryURL: _trackLibrary.url!, playlists: playlists, destinationURL: _destinationDirectory.url!, aliasURL: _aliasDirectory.url!))
     }
     
     @objc func didMount(_ notification: NSNotification)  {

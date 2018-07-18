@@ -63,11 +63,11 @@ class LabelTextField: NSTokenField {
     }
     
     override func controlTextDidChange(_ obj: Notification) {
-        guard let delegate = delegate as? LabelFieldDelegate else {
+        let editingString = self.editingString
+
+        guard let delegate = delegate as? LabelFieldDelegate, editingString.count > 0 else {
             return
         }
-        
-        let editingString = self.editingString
         
         actionStubs.clear()
         

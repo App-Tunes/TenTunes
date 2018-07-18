@@ -115,14 +115,14 @@ extension TrackController: NSMenuDelegate {
     
     @IBAction func menuAnalyze(_ sender: Any) {
         for track in menuTracks {
-            ViewController.shared.tasker.enqueue(task: AnalyzeTrack(track: track))
+            ViewController.shared.tasker.enqueue(task: AnalyzeTrack(track: track, read: false))
         }
     }
     
     @IBAction func menuAnalyzeWhereMissing(_ sender: Any) {
         let missing = menuTracks.filter { $0.analysisData == nil }
         for track in missing {
-            ViewController.shared.tasker.enqueue(task: AnalyzeTrack(track: track))
+            ViewController.shared.tasker.enqueue(task: AnalyzeTrack(track: track, read: false))
         }
     }
     

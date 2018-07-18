@@ -89,6 +89,7 @@ class SPInterpreter {
         
         // This may take a while too
         // So move the wave a little further
+        print(analyzer.waveform())
         var wf = waveform(start: analyzer.waveform())
         setProgress(1.03)
         wf = wf.normalized(min: 0.0, max: (1.0 + wf.max()!) / 2.0)

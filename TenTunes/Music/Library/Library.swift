@@ -51,31 +51,23 @@ class Library : NSPersistentContainer {
         registerObservers()
 
         allTracks = PlaylistLibrary(context: viewContext)
-        if !fetchMaster() {
+        
+        if let url = defaultMetadata["Master Playlist"], let playlist = restoreFrom(playlistID: url) as? PlaylistFolder {
+            _masterPlaylist = playlist
+        }
+        else {
             _masterPlaylist = PlaylistFolder(context: viewContext)
             _masterPlaylist.name = "Master Playlist"
             
             viewContext.insert(_masterPlaylist)
             try! viewContext.save()
+
+            // Need to do this after initial save, otherwise the ID is temporary.............
+            defaultMetadata["Master Playlist"] = writePlaylistID(of: _masterPlaylist)
+            try! viewContext.save()
         }
-    }
-    
-    @discardableResult
-    func fetchMaster() -> Bool {
-        let request: NSFetchRequest = PlaylistFolder.fetchRequest()
-        request.predicate = NSPredicate(format: "parent = nil")
-        do {
-            let applicable = try viewContext.fetch(request)
-            if applicable.count > 1 {
-                fatalError("Multiple applicable master playlists!")
-            }
-            
-            _masterPlaylist = applicable.first
-        }
-        catch let error {
-            print(error)
-        }
-        return _masterPlaylist != nil
+        
+        // TODO Check for sanity (e.g. playlists without a parent)
     }
     
     var directory: URL
@@ -87,6 +79,11 @@ class Library : NSPersistentContainer {
         return _masterPlaylist
     }
     
+    var _tagPlaylist: PlaylistFolder!
+    var tagPlaylist: PlaylistFolder {
+        return _tagPlaylist
+    }
+
     var _exportChanged: Set<NSManagedObjectID>? = Set()
     var exportSemaphore = DispatchSemaphore(value: 1)
 

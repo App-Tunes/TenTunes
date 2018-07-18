@@ -14,7 +14,7 @@ extension Library {
     }
     
     func restoreFrom(playlistID: Any) -> Playlist? {
-        if let string = playlistID as? String, let uri = URL(string: string), let id = persistentStoreCoordinator.managedObjectID(forURIRepresentation: uri) {
+        if let uri = ((playlistID as? String) ?=> URL.init) ?? (playlistID as? URL), let id = persistentStoreCoordinator.managedObjectID(forURIRepresentation: uri) {
             return playlist(byId: id)
         }
         return nil

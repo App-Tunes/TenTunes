@@ -27,6 +27,11 @@ extension NSPersistentContainer {
             task(context)
         }
     }
+    
+    var defaultMetadata : [String : Any] {
+        get { return persistentStoreCoordinator.metadata(for: persistentStoreCoordinator.persistentStores[0]) }
+        set { return persistentStoreCoordinator.setMetadata(newValue, for: persistentStoreCoordinator.persistentStores[0]) }
+    }
 }
 
 extension NSManagedObject {

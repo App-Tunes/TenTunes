@@ -25,6 +25,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         preferencesController = PreferencesWindowController(windowNibName: .init(rawValue: "PreferencesWindowController"))
         
         exportPlaylistsController = ExportPlaylistsController(windowNibName: .init(rawValue: "ExportPlaylistsController"))
+        
+        NSUserNotificationCenter.default.delegate = self
     }
 
     // MARK: - Core Data stack
@@ -199,6 +201,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             ViewController.shared.player.enqueue(tracks: tracks)
             ViewController.shared.player.play(moved: 1)
         }
+    }
+}
+
+extension AppDelegate : NSUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
+        return true
     }
 }
 

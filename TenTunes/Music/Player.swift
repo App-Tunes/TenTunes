@@ -108,6 +108,19 @@ class Player {
         }
     }
     
+    func notifyPlay(of: Track) {
+        let notification = NSUserNotification()
+        notification.title = of.rTitle
+        notification.subtitle = of.rSource
+        if notification.responds(to: Selector(("set_identityImage:"))) {
+            notification.perform(Selector(("set_identityImage:")), with: of.rPreview)
+        }
+        else {
+            print("Failed to set identity image of notification!")
+        }
+        NSUserNotificationCenter.default.deliver(notification)
+    }
+    
     func togglePlay() {        
         if self.isPaused() {
             self.player.play()
@@ -166,6 +179,10 @@ class Player {
                 
                 player.play()
                 playing = track
+                
+                if !NSApp.isActive {
+                    notifyPlay(of: track)
+                }
             }
             else {
                 // We are at a track but it's not playable :<

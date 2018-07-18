@@ -13,12 +13,11 @@
                 <outlet property="_playlistInfoBarHeight" destination="uIC-33-LVc" id="Fyv-rA-ffm"/>
                 <outlet property="_playlistTitle" destination="yA3-8B-zr1" id="n1M-oM-Ov1"/>
                 <outlet property="_searchBarClose" destination="BeI-cc-vzB" id="5Pj-5J-T9B"/>
-                <outlet property="_searchBarHeight" destination="Sxu-f3-yrD" id="Ubq-yi-vS6"/>
-                <outlet property="_searchField" destination="Vb1-dH-y3M" id="jvB-RL-GBx"/>
                 <outlet property="_showInPlaylistSubmenu" destination="RJZ-UA-3i7" id="RD3-RB-fQe"/>
                 <outlet property="_tableView" destination="4mk-XS-5ci" id="kXR-Tw-wbo"/>
                 <outlet property="_tableViewHeight" destination="407-lR-Mkm" id="dW8-YU-sVA"/>
                 <outlet property="_tagBarHeight" destination="Oqn-zf-Asv" id="JK0-4p-TyB"/>
+                <outlet property="_tagField" destination="w3y-Lb-zjn" id="M6y-Vu-UZf"/>
                 <outlet property="view" destination="xJh-CN-pmz" id="a8O-4K-FFG"/>
             </connections>
         </customObject>
@@ -29,13 +28,13 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <scrollView verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="J4f-bg-DFw">
-                    <rect key="frame" x="0.0" y="25" width="680" height="363"/>
+                    <rect key="frame" x="0.0" y="25" width="680" height="385"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="FmM-r7-abk">
-                        <rect key="frame" x="0.0" y="0.0" width="680" height="363"/>
+                        <rect key="frame" x="0.0" y="0.0" width="680" height="385"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnSelection="YES" rowHeight="30" headerView="sMk-yA-QjA" viewBased="YES" floatsGroupRows="NO" id="4mk-XS-5ci" customClass="ActionTableView" customModule="TenTunes" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="680" height="340"/>
+                                <rect key="frame" x="0.0" y="0.0" width="680" height="362"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -302,43 +301,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Hz2-5n-F4a">
-                    <rect key="frame" x="0.0" y="412" width="680" height="26"/>
-                    <subviews>
-                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BeI-cc-vzB">
-                            <rect key="frame" x="637" y="3" width="23" height="19"/>
-                            <buttonCell key="cell" type="recessed" title="X" bezelStyle="recessed" alignment="center" state="on" borderStyle="border" inset="2" id="AsP-aM-a0M">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="systemBold" size="12"/>
-                                <string key="keyEquivalent" base64-UTF8="YES">
-Gw
-</string>
-                            </buttonCell>
-                            <connections>
-                                <action selector="closeSearchBar:" target="-2" id="K7D-v3-2re"/>
-                            </connections>
-                        </button>
-                        <searchField wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vb1-dH-y3M">
-                            <rect key="frame" x="2" y="2" width="627" height="22"/>
-                            <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="Filter" usesSingleLineMode="YES" bezelStyle="round" id="x7v-Yb-jnW">
-                                <font key="font" metaFont="system"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                            </searchFieldCell>
-                            <connections>
-                                <outlet property="delegate" destination="-2" id="tpn-Cr-xdf"/>
-                            </connections>
-                        </searchField>
-                    </subviews>
-                    <constraints>
-                        <constraint firstItem="BeI-cc-vzB" firstAttribute="leading" secondItem="Vb1-dH-y3M" secondAttribute="trailing" constant="8" symbolic="YES" id="BzE-gf-Q69"/>
-                        <constraint firstItem="Vb1-dH-y3M" firstAttribute="leading" secondItem="Hz2-5n-F4a" secondAttribute="leading" constant="2" id="KHi-hI-mA9"/>
-                        <constraint firstAttribute="bottom" secondItem="Vb1-dH-y3M" secondAttribute="bottom" constant="2" id="LAh-3f-yxM"/>
-                        <constraint firstAttribute="height" constant="26" id="Sxu-f3-yrD"/>
-                        <constraint firstAttribute="trailing" secondItem="BeI-cc-vzB" secondAttribute="trailing" constant="20" symbolic="YES" id="dox-KT-InR"/>
-                        <constraint firstItem="BeI-cc-vzB" firstAttribute="top" secondItem="Vb1-dH-y3M" secondAttribute="top" constant="2" id="jPC-N4-O2j"/>
-                    </constraints>
-                </customView>
                 <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" doubleValue="2" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Q4S-45-Dyj">
                     <rect key="frame" x="324" y="203" width="32" height="32"/>
                 </progressIndicator>
@@ -361,11 +323,11 @@ Gw
                     </constraints>
                 </customView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="utN-ND-KA3">
-                    <rect key="frame" x="0.0" y="388" width="680" height="24"/>
+                    <rect key="frame" x="0.0" y="410" width="680" height="28"/>
                     <subviews>
                         <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="w3y-Lb-zjn" customClass="LabelTextField" customModule="TenTunes" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="680" height="24"/>
-                            <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" drawsBackground="YES" allowsEditingTextAttributes="YES" id="bz5-84-vMN">
+                            <rect key="frame" x="2" y="2" width="625" height="24"/>
+                            <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" placeholderString="Filter" allowsEditingTextAttributes="YES" bezelStyle="round" id="bz5-84-vMN">
                                 <font key="font" metaFont="cellTitle"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -374,31 +336,42 @@ Gw
                                 <outlet property="delegate" destination="cXd-Ka-Pht" id="roW-gZ-V9E"/>
                             </connections>
                         </tokenField>
+                        <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BeI-cc-vzB">
+                            <rect key="frame" x="637" y="4" width="23" height="19"/>
+                            <buttonCell key="cell" type="recessed" title="X" bezelStyle="recessed" alignment="center" state="on" borderStyle="border" inset="2" id="AsP-aM-a0M">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="systemBold" size="12"/>
+                                <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                            </buttonCell>
+                            <connections>
+                                <action selector="closeSearchBar:" target="-2" id="K7D-v3-2re"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="w3y-Lb-zjn" secondAttribute="bottom" id="0yb-lf-mxO"/>
-                        <constraint firstAttribute="trailing" secondItem="w3y-Lb-zjn" secondAttribute="trailing" id="OGk-Wz-13n"/>
-                        <constraint firstAttribute="height" constant="24" id="Oqn-zf-Asv"/>
-                        <constraint firstItem="w3y-Lb-zjn" firstAttribute="top" secondItem="utN-ND-KA3" secondAttribute="top" id="bDX-hx-uEb"/>
-                        <constraint firstItem="w3y-Lb-zjn" firstAttribute="leading" secondItem="utN-ND-KA3" secondAttribute="leading" id="xXj-h3-2Fk"/>
+                        <constraint firstAttribute="bottom" secondItem="w3y-Lb-zjn" secondAttribute="bottom" constant="2" id="0yb-lf-mxO"/>
+                        <constraint firstItem="BeI-cc-vzB" firstAttribute="leading" secondItem="w3y-Lb-zjn" secondAttribute="trailing" constant="10" id="BJz-cX-Y09"/>
+                        <constraint firstAttribute="height" constant="28" id="Oqn-zf-Asv"/>
+                        <constraint firstItem="w3y-Lb-zjn" firstAttribute="top" secondItem="utN-ND-KA3" secondAttribute="top" constant="2" id="bDX-hx-uEb"/>
+                        <constraint firstAttribute="trailing" secondItem="BeI-cc-vzB" secondAttribute="trailing" constant="20" symbolic="YES" id="sTZ-va-Zgk"/>
+                        <constraint firstItem="w3y-Lb-zjn" firstAttribute="leading" secondItem="utN-ND-KA3" secondAttribute="leading" constant="2" id="xXj-h3-2Fk"/>
                     </constraints>
                 </customView>
             </subviews>
             <constraints>
-                <constraint firstItem="Hz2-5n-F4a" firstAttribute="leading" secondItem="xJh-CN-pmz" secondAttribute="leading" id="5Po-t0-BmR"/>
-                <constraint firstItem="Hz2-5n-F4a" firstAttribute="top" secondItem="xJh-CN-pmz" secondAttribute="top" id="5uy-Dv-Yaz"/>
                 <constraint firstItem="Q4S-45-Dyj" firstAttribute="centerY" secondItem="xJh-CN-pmz" secondAttribute="centerY" id="EY4-LI-S6T"/>
                 <constraint firstItem="J4f-bg-DFw" firstAttribute="top" secondItem="utN-ND-KA3" secondAttribute="bottom" id="Igb-Fx-wLa"/>
                 <constraint firstItem="J4f-bg-DFw" firstAttribute="leading" secondItem="xJh-CN-pmz" secondAttribute="leading" id="Ivw-18-ON1"/>
                 <constraint firstItem="Q4S-45-Dyj" firstAttribute="centerX" secondItem="xJh-CN-pmz" secondAttribute="centerX" id="JkQ-Ie-BTx"/>
+                <constraint firstItem="utN-ND-KA3" firstAttribute="top" secondItem="xJh-CN-pmz" secondAttribute="top" id="LOb-BB-myu"/>
                 <constraint firstItem="no2-Pk-ubw" firstAttribute="top" secondItem="J4f-bg-DFw" secondAttribute="bottom" id="P1h-5B-cw9"/>
                 <constraint firstItem="utN-ND-KA3" firstAttribute="leading" secondItem="xJh-CN-pmz" secondAttribute="leading" id="Vzl-Yt-XOz"/>
                 <constraint firstAttribute="trailing" secondItem="no2-Pk-ubw" secondAttribute="trailing" id="cu7-TG-cFD"/>
-                <constraint firstItem="utN-ND-KA3" firstAttribute="top" secondItem="Hz2-5n-F4a" secondAttribute="bottom" id="ezv-2z-34V"/>
                 <constraint firstAttribute="bottom" secondItem="no2-Pk-ubw" secondAttribute="bottom" id="nj9-83-RAH"/>
                 <constraint firstAttribute="trailing" secondItem="utN-ND-KA3" secondAttribute="trailing" id="rYE-YT-YTi"/>
                 <constraint firstItem="no2-Pk-ubw" firstAttribute="leading" secondItem="xJh-CN-pmz" secondAttribute="leading" id="sTr-D3-7QQ"/>
-                <constraint firstAttribute="trailing" secondItem="Hz2-5n-F4a" secondAttribute="trailing" id="uSb-rw-OM6"/>
                 <constraint firstAttribute="trailing" secondItem="J4f-bg-DFw" secondAttribute="trailing" id="vGr-VU-bFh"/>
             </constraints>
         </view>

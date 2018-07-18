@@ -40,11 +40,9 @@ class TrackController: NSViewController {
     @IBOutlet var _tableView: ActionTableView!
     @IBOutlet var _tableViewHeight: NSLayoutConstraint!
     
-    @IBOutlet weak var _searchField: NSSearchField!
-    @IBOutlet var _searchBarHeight: NSLayoutConstraint!
-    @IBOutlet weak var _searchBarClose: NSButton!
-    
     @IBOutlet var _tagBarHeight: NSLayoutConstraint!
+    @IBOutlet var _tagField: LabelTextField!
+    @IBOutlet weak var _searchBarClose: NSButton!
     
     @IBOutlet var _playlistTitle: NSTextField!
     @IBOutlet var _playlistInfoBarHeight: NSLayoutConstraint!
@@ -105,7 +103,7 @@ class TrackController: NSViewController {
         _tableView.registerForDraggedTypes(pasteboardTypes)
         _tableView.setDraggingSourceOperationMask(.every, forLocal: false) // ESSENTIAL
         
-        _searchBarHeight.constant = CGFloat(0)
+        _tagBarHeight.constant = CGFloat(0)
         
         _playlistTitle.stringValue = ""
     }
@@ -393,12 +391,11 @@ extension TrackController: NSTableViewDataSource {
     }
 }
 
-extension TrackController: NSSearchFieldDelegate {
-    override func controlTextDidChange(_ obj: Notification) {
-        desired.filter = PlayHistory.filter(findText: _searchField.stringValue)
-    }
-    
-    func searchFieldDidEndSearching(_ sender: NSSearchField) {
-        closeSearchBar(self)
+extension TrackController : LabelManagerDelegate {
+    func labelsChanged(labels: [Label]) {
+        let filters = labels.map { $0.filter() }
+        desired.filter = { track in
+            return filters.allMatch { $0(track) }
+        }
     }
 }

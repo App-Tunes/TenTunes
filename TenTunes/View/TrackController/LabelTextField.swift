@@ -10,9 +10,9 @@ import Cocoa
 
 class LabelGroup {
     let title: String
-    var contents: [String] = []
+    var contents: [Any] = []
     
-    init(title: String, contents: [String]) {
+    init(title: String, contents: [Any]) {
         self.title = title
         self.contents = contents
     }
@@ -20,6 +20,8 @@ class LabelGroup {
 
 protocol LabelFieldDelegate : NSTokenFieldDelegate {
     func tokenField(_ tokenField: NSTokenField, completionGroupsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [LabelGroup]?
+
+    func tokenFieldChangedLabels(_ tokenField: NSTokenField, labels: [Any])
 }
 
 class LabelAutocompleteViewController : NSViewController {
@@ -56,6 +58,10 @@ class LabelTextField: NSTokenField {
         }
         
         return _autocompletePopover!
+    }
+    
+    var currentLabels: [Any] {
+        return (objectValue as! NSArray).filter { !($0 is String) }
     }
     
     var editingString: String {
@@ -102,16 +108,17 @@ class LabelTextField: NSTokenField {
                 button.setButtonType(.momentaryPushIn)
                 button.bezelStyle = .rounded
                 
-                if let delegate = self.delegate, let repObject = self.delegate?.tokenField?(self, representedObjectForEditing: content), let displayString = delegate.tokenField?(self, displayStringForRepresentedObject: repObject) {
+                if let delegate = self.delegate, let displayString = delegate.tokenField?(self, displayStringForRepresentedObject: content) {
                     button.title = displayString
                 }
                 else {
-                    button.title = content
+                    fatalError("Not Implemented")
                 }
                 
                 actionStubs.bind(button) { _ in
                     self.autocompletePopover.close()
                     self.autocomplete(with: content)
+                    delegate.tokenFieldChangedLabels(self, labels: self.currentLabels)
                 }
                 
                 view.addSubview(button)
@@ -126,8 +133,8 @@ class LabelTextField: NSTokenField {
         autocompletePopover.show(relativeTo: bounds, of: self, preferredEdge: .maxY)
     }
     
-    func autocomplete(with: String) {
-        stringValue = stringValue[..<(-editingString.count)] + with
+    func autocomplete(with: Any) {
+        objectValue = (currentLabels + [with]) as NSArray // Strip away strings at the end
         currentEditor()?.moveToEndOfLine(nil)
     }
 }

@@ -28,9 +28,9 @@ extension TrackController: NSUserInterfaceValidations {
     @IBAction func performFindPanelAction(_ sender: AnyObject) {        
         NSAnimationContext.runAnimationGroup({_ in
             NSAnimationContext.current.duration = 0.2
-            _searchBarHeight.animator().constant = CGFloat(26)
+            _tagBarHeight.animator().constant = CGFloat(28)
         })
-        _searchField.window?.makeFirstResponder(_searchField)
+        _tagField.window?.makeFirstResponder(_tagField)
     }
     
     @IBAction func delete(_ sender: AnyObject) {
@@ -40,10 +40,10 @@ extension TrackController: NSUserInterfaceValidations {
     @IBAction func closeSearchBar(_ sender: Any) {
         desired.filter = nil
         
-        _searchField.resignFirstResponder()
+        _tagField.resignFirstResponder()
         NSAnimationContext.runAnimationGroup({_ in
             NSAnimationContext.current.duration = 0.2
-            _searchBarHeight.animator().constant = CGFloat(0)
+            _tagBarHeight.animator().constant = CGFloat(0)
         })
         view.window?.makeFirstResponder(view)
     }

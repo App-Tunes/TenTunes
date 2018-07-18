@@ -13,7 +13,7 @@ import Cocoa
 }
 
 @objc protocol Label {
-    func filter(tracks: [Track]) -> [Track]
+    func filter() -> (Track) -> Bool
     
     var representation: String { get }
 }
@@ -25,8 +25,8 @@ class LabelTag : Label {
         self.tag = tag
     }
     
-    func filter(tracks: [Track]) -> [Track] {
-        return []
+    func filter() -> (Track) -> Bool {
+        return { _ in return false }
     }
     
     var representation: String {
@@ -41,12 +41,14 @@ class PlaylistLabel : Label {
         self.playlist = playlist
     }
     
-    func filter(tracks: [Track]) -> [Track] {
-        guard let playlist = playlist else {
-            return []
+    func filter() -> (Track) -> Bool {
+        guard let tracks = playlist?.tracksList else {
+            return { _ in return false }
         }
-        
-        return tracks.filter(playlist.tracksList.contains)
+
+        return { track in
+            return (tracks.map { $0.objectID } ).contains(track.objectID)
+        }
     }
     
     var representation: String {
@@ -66,28 +68,31 @@ class LabelManager : NSObject, LabelFieldDelegate {
     func tokenField(_ tokenField: NSTokenField, completionGroupsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [LabelGroup]? {
         let compareSubstring = substring.lowercased()
         
-        var groups: [LabelGroup] = [LabelGroup(title: "Has Tag", contents: ["tag:" + substring])]
+        var groups: [LabelGroup] = [LabelGroup(title: "Has Tag", contents: [LabelTag(tag: substring)])]
 
         let found = substring.count > 0 ? playlists.filter({ $0.name.lowercased().range(of: compareSubstring) != nil }) : playlists
-        groups.append(LabelGroup(title: "In Playlist", contents: found.map { "in:" + Library.shared.writePlaylistID(of: $0) }))
+        groups.append(LabelGroup(title: "In Playlist", contents: found.map { PlaylistLabel(playlist: $0) }))
 
         return groups
     }
     
-    func tokenField(_ tokenField: NSTokenField, representedObjectForEditing editingString: String) -> Any? {
-        if editingString.starts(with: "in:") {
-            let playlist = Library.shared.restoreFrom(playlistID: editingString[3...])
-            return PlaylistLabel(playlist: playlist)
+    func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {
+        return (representedObject as? Label)?.representation
+    }
+    
+    func tokenField(_ tokenField: NSTokenField, editingStringForRepresentedObject representedObject: Any) -> String? {
+        if let label = representedObject as? LabelTag {
+            return "tag:" + label.tag
         }
-        else if editingString.starts(with: "tag:") {
-            return LabelTag(tag: editingString[4...])
+        else if let label = representedObject as? PlaylistLabel {
+            return "in:\(String(describing: label.playlist?.objectID))"
         }
         
         return nil
     }
     
-    func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {
-        return (representedObject as? Label)?.representation
+    func tokenFieldChangedLabels(_ tokenField: NSTokenField, labels: [Any]) {
+        delegate?.labelsChanged(labels: labels as! [Label])
     }
     
     override func controlTextDidChange(_ obj: Notification) {

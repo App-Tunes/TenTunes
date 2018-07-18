@@ -81,9 +81,17 @@ class LabelTextField: NSTokenField {
         }
     }
     
+    override func keyDown(with event: NSEvent) {
+        if (Keycodes.enterKey.matches(event: event) || Keycodes.returnKey.matches(event: event)) && event.modifierFlags.contains(.option) {
+            return
+        }
+        
+        super.keyDown(with: event)
+    }
+    
     override func controlTextDidChange(_ obj: Notification) {
         let editingString = self.editingString
-            
+        
         guard let delegate = delegate as? LabelFieldDelegate, editingString.count > 0 else {
             _autocompletePopover?.close()
             notifyLabelChange()

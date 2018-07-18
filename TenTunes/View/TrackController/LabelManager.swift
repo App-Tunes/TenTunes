@@ -11,7 +11,7 @@ import Cocoa
 @objc protocol LabelManagerDelegate {
     @objc optional func labelsChanged(labelManager: LabelManager, labels: [Label])
 
-    @objc optional func editingEnded(labelManager: LabelManager)
+    @objc optional func editingEnded(labelManager: LabelManager, notification: Notification)
 }
 
 @objc protocol Label {
@@ -111,6 +111,23 @@ class LabelManager : NSObject, LabelFieldDelegate {
     }
     
     override func controlTextDidEndEditing(_ obj: Notification) {
-        delegate?.editingEnded?(labelManager: self)
+        delegate?.editingEnded?(labelManager: self, notification: obj)
+    }
+    
+    func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
+        let labelField = control as! LabelTextField
+        
+        if commandSelector == #selector(NSResponder.insertNewlineIgnoringFieldEditor(_:)) {
+            // Use the first matching tag
+            let compareSubstring = labelField.editingString.lowercased()
+            
+            let applicable = self.tags.filter({ $0.name.lowercased().range(of: compareSubstring) != nil })
+            if let tag = applicable.first {
+                labelField.autocomplete(with: PlaylistLabel(playlist: tag, isTag: true))
+                return true
+            }
+        }
+        
+        return false
     }
 }

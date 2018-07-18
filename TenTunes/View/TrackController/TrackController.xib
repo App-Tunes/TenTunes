@@ -330,7 +330,7 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="24" id="znz-jV-4pZ"/>
                             </constraints>
-                            <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" placeholderString="Filter" allowsEditingTextAttributes="YES" bezelStyle="round" id="bz5-84-vMN">
+                            <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" placeholderString="Filter" allowsEditingTextAttributes="YES" usesSingleLineMode="YES" bezelStyle="round" id="bz5-84-vMN">
                                 <font key="font" metaFont="cellTitle"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

@@ -402,5 +402,5 @@ extension TrackController : LabelManagerDelegate {
     
     override func cancelOperation(_ sender: Any?) {
         _searchBarClose.performClick(self)
-    }
+    }    
 }

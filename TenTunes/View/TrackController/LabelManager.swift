@@ -80,7 +80,15 @@ class LabelManager : NSObject, LabelFieldDelegate {
     @objc var delegate: LabelManagerDelegate?
     
     var playlists: [Playlist] {
-        return Library.shared.allPlaylists
+        return Library.shared.allPlaylists.filter {
+            !Library.shared.path(of: $0).contains(Library.shared.tagPlaylist)
+        }
+    }
+    
+    var tags: [Playlist] {
+        return Library.shared.allPlaylists.filter {
+            Library.shared.path(of: $0).contains(Library.shared.tagPlaylist) && $0 != Library.shared.tagPlaylist
+        }
     }
     
     func tokenField(_ tokenField: NSTokenField, completionGroupsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [LabelGroup]? {
@@ -88,8 +96,10 @@ class LabelManager : NSObject, LabelFieldDelegate {
         
         var groups: [LabelGroup] = [
             LabelGroup(title: "Search For", contents: [LabelSearch(string: substring)]),
-            LabelGroup(title: "Has Tag", contents: [LabelTag(tag: substring)])
         ]
+
+        let tags = substring.count > 0 ? self.tags.filter({ $0.name.lowercased().range(of: compareSubstring) != nil }) : playlists
+        groups.append(LabelGroup(title: "Has Tag", contents: tags.map { LabelTag(tag: $0.name) }))
 
         let found = substring.count > 0 ? playlists.filter({ $0.name.lowercased().range(of: compareSubstring) != nil }) : playlists
         groups.append(LabelGroup(title: "In Playlist", contents: found.map { PlaylistLabel(playlist: $0) }))

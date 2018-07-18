@@ -9,9 +9,9 @@
 import Cocoa
 
 @objc protocol LabelManagerDelegate {
-    func labelsChanged(labelManager: LabelManager, labels: [Label])
+    @objc optional func labelsChanged(labelManager: LabelManager, labels: [Label])
 
-    func editingEnded(labelManager: LabelManager)
+    @objc optional func editingEnded(labelManager: LabelManager)
 }
 
 @objc protocol Label {
@@ -113,7 +113,7 @@ class LabelManager : NSObject, LabelFieldDelegate {
     }
     
     func tokenFieldChangedLabels(_ tokenField: NSTokenField, labels: [Any]) {
-        delegate?.labelsChanged(labelManager: self, labels: labels as! [Label])
+        delegate?.labelsChanged?(labelManager: self, labels: labels as! [Label])
     }
     
     func tokenField(_ tokenField: NSTokenField, shouldAdd tokens: [Any], at index: Int) -> [Any] {
@@ -126,6 +126,6 @@ class LabelManager : NSObject, LabelFieldDelegate {
     }
     
     override func controlTextDidEndEditing(_ obj: Notification) {
-        delegate?.editingEnded(labelManager: self)
+        delegate?.editingEnded?(labelManager: self)
     }
 }

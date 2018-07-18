@@ -339,7 +339,7 @@
                                 <outlet property="delegate" destination="cXd-Ka-Pht" id="roW-gZ-V9E"/>
                             </connections>
                         </tokenField>
-                        <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BeI-cc-vzB">
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BeI-cc-vzB">
                             <rect key="frame" x="637" y="4" width="23" height="19"/>
                             <buttonCell key="cell" type="recessed" title="X" bezelStyle="recessed" alignment="center" state="on" borderStyle="border" inset="2" id="AsP-aM-a0M">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -357,6 +357,7 @@ Gw
                         <constraint firstAttribute="bottom" secondItem="w3y-Lb-zjn" secondAttribute="bottom" constant="2" id="0yb-lf-mxO"/>
                         <constraint firstItem="BeI-cc-vzB" firstAttribute="leading" secondItem="w3y-Lb-zjn" secondAttribute="trailing" constant="10" id="BJz-cX-Y09"/>
                         <constraint firstAttribute="height" constant="28" id="Oqn-zf-Asv"/>
+                        <constraint firstItem="BeI-cc-vzB" firstAttribute="centerY" secondItem="w3y-Lb-zjn" secondAttribute="centerY" id="PHU-vz-nZg"/>
                         <constraint firstItem="w3y-Lb-zjn" firstAttribute="top" secondItem="utN-ND-KA3" secondAttribute="top" priority="100" constant="2" id="bDX-hx-uEb"/>
                         <constraint firstAttribute="trailing" secondItem="BeI-cc-vzB" secondAttribute="trailing" constant="20" symbolic="YES" id="sTZ-va-Zgk"/>
                         <constraint firstItem="w3y-Lb-zjn" firstAttribute="leading" secondItem="utN-ND-KA3" secondAttribute="leading" constant="2" id="xXj-h3-2Fk"/>

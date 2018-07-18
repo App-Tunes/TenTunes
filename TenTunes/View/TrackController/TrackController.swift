@@ -400,7 +400,7 @@ extension TrackController : LabelManagerDelegate {
         }
     }
     
-    func editingEnded(labelManager: LabelManager) {
+    override func cancelOperation(_ sender: Any?) {
         _searchBarClose.performClick(self)
     }
 }

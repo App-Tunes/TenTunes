@@ -30,7 +30,7 @@ class LabelTag : Label {
     }
     
     var representation: String {
-        return "Search: " + tag
+        return tag
     }
 }
 
@@ -46,7 +46,7 @@ class LabelSearch : Label {
     }
     
     var representation: String {
-        return string
+        return "Search: " + string
     }
 }
 

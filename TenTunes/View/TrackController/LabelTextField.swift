@@ -47,6 +47,7 @@ class LabelTextField: NSTokenField {
     var _autocompletePopover: NSPopover?
     
     var actionStubs = ActionStubs()
+    var objectValueObservation: NSKeyValueObservation?
     
     var autocompletePopover: NSPopover {
         if _autocompletePopover == nil {
@@ -60,7 +61,7 @@ class LabelTextField: NSTokenField {
         return _autocompletePopover!
     }
     
-    var currentLabels: [Any] {
+    @objc dynamic var currentLabels: [Any] {
         return (objectValue as! NSArray).filter { !($0 is String) }
     }
     
@@ -68,11 +69,24 @@ class LabelTextField: NSTokenField {
         return ((objectValue as! NSArray).lastObject) as? String ?? ""
     }
     
+    override func awakeFromNib() {
+        objectValueObservation = self.observe(\.objectValue, options: [.new]) { [unowned self] object, change in
+            if let delegate = self.delegate as? LabelFieldDelegate {
+                delegate.tokenFieldChangedLabels(self, labels: self.currentLabels)
+            }
+        }
+    }
+    
     override func controlTextDidChange(_ obj: Notification) {
         let editingString = self.editingString
 
-        guard let delegate = delegate as? LabelFieldDelegate, editingString.count > 0 else {
+        guard let delegate = delegate as? LabelFieldDelegate else {
+            return
+        }
+            
+        guard editingString.count > 0 else {
             _autocompletePopover?.close()
+            delegate.tokenFieldChangedLabels(self, labels: self.currentLabels)
             return
         }
         
@@ -118,7 +132,6 @@ class LabelTextField: NSTokenField {
                 actionStubs.bind(button) { _ in
                     self.autocompletePopover.close()
                     self.autocomplete(with: content)
-                    delegate.tokenFieldChangedLabels(self, labels: self.currentLabels)
                 }
                 
                 view.addSubview(button)

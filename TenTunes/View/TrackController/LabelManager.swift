@@ -64,9 +64,11 @@ class LabelManager : NSObject, LabelFieldDelegate {
     }
     
     func tokenField(_ tokenField: NSTokenField, completionGroupsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [LabelGroup]? {
+        let compareSubstring = substring.lowercased()
+        
         var groups: [LabelGroup] = [LabelGroup(title: "Has Tag", contents: ["tag:" + substring])]
 
-        let found = substring.count > 0 ? playlists.filter({ $0.name.range(of: substring) != nil }) : playlists
+        let found = substring.count > 0 ? playlists.filter({ $0.name.lowercased().range(of: compareSubstring) != nil }) : playlists
         groups.append(LabelGroup(title: "In Playlist", contents: found.map { "in:" + Library.shared.writePlaylistID(of: $0) }))
 
         return groups

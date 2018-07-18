@@ -66,6 +66,7 @@ class LabelTextField: NSTokenField {
         let editingString = self.editingString
 
         guard let delegate = delegate as? LabelFieldDelegate, editingString.count > 0 else {
+            _autocompletePopover?.close()
             return
         }
         

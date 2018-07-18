@@ -52,22 +52,37 @@ class Library : NSPersistentContainer {
 
         allTracks = PlaylistLibrary(context: viewContext)
         
-        if let url = defaultMetadata["Master Playlist"], let playlist = restoreFrom(playlistID: url) as? PlaylistFolder {
-            _masterPlaylist = playlist
+        _masterPlaylist = fetchCreateSpecialFolder(key: "Master Playlist") { playlist in
+            playlist.name = "Master Playlist"
         }
-        else {
-            _masterPlaylist = PlaylistFolder(context: viewContext)
-            _masterPlaylist.name = "Master Playlist"
-            
-            viewContext.insert(_masterPlaylist)
-            try! viewContext.save()
-
-            // Need to do this after initial save, otherwise the ID is temporary.............
-            defaultMetadata["Master Playlist"] = writePlaylistID(of: _masterPlaylist)
-            try! viewContext.save()
+        
+        _tagPlaylist = fetchCreateSpecialFolder(key: "Tag Playlist") { playlist in
+            // TODO Make unrenamable and unmovable
+            playlist.name = "Tags"
+            _masterPlaylist.addPlaylist(playlist)
         }
         
         // TODO Check for sanity (e.g. playlists without a parent)
+    }
+    
+    func fetchCreateSpecialFolder(key: String, create: (PlaylistFolder) -> Swift.Void) -> PlaylistFolder {
+        if let url = defaultMetadata[key], let playlist = restoreFrom(playlistID: url) as? PlaylistFolder {
+            return playlist
+        }
+        else {
+            let playlist = PlaylistFolder(context: viewContext)
+            
+            create(playlist)
+            
+            viewContext.insert(playlist)
+            try! viewContext.save()
+            
+            // Need to do this after initial save, otherwise the ID is temporary.............
+            defaultMetadata[key] = writePlaylistID(of: playlist)
+            try! viewContext.save()
+            
+            return playlist
+        }
     }
     
     var directory: URL

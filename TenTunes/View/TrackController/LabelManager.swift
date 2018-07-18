@@ -20,22 +20,6 @@ import Cocoa
     var representation: String { get }
 }
 
-class LabelTag : Label {
-    var tag: String
-    
-    init(tag: String) {
-        self.tag = tag
-    }
-    
-    func filter() -> (Track) -> Bool {
-        return { _ in return false }
-    }
-    
-    var representation: String {
-        return tag
-    }
-}
-
 class LabelSearch : Label {
     var string: String
     
@@ -54,9 +38,11 @@ class LabelSearch : Label {
 
 class PlaylistLabel : Label {
     var playlist: Playlist?
+    var isTag: Bool
     
-    init(playlist: Playlist?) {
+    init(playlist: Playlist?, isTag: Bool) {
         self.playlist = playlist
+        self.isTag = isTag
     }
     
     func filter() -> (Track) -> Bool {
@@ -70,7 +56,7 @@ class PlaylistLabel : Label {
     }
     
     var representation: String {
-        return "In: " + (playlist?.name ?? "Invalid Playlist")
+        return (isTag ? "" : "In: ") + (playlist?.name ?? "Invalid Playlist")
     }
 }
 
@@ -99,27 +85,16 @@ class LabelManager : NSObject, LabelFieldDelegate {
         ]
 
         let tags = substring.count > 0 ? self.tags.filter({ $0.name.lowercased().range(of: compareSubstring) != nil }) : playlists
-        groups.append(LabelGroup(title: "Has Tag", contents: tags.map { LabelTag(tag: $0.name) }))
+        groups.append(LabelGroup(title: "Has Tag", contents: tags.map { PlaylistLabel(playlist: $0, isTag: true) }))
 
         let found = substring.count > 0 ? playlists.filter({ $0.name.lowercased().range(of: compareSubstring) != nil }) : playlists
-        groups.append(LabelGroup(title: "In Playlist", contents: found.map { PlaylistLabel(playlist: $0) }))
+        groups.append(LabelGroup(title: "In Playlist", contents: found.map { PlaylistLabel(playlist: $0, isTag: false) }))
 
         return groups
     }
     
     func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {
         return (representedObject as? Label)?.representation
-    }
-    
-    func tokenField(_ tokenField: NSTokenField, editingStringForRepresentedObject representedObject: Any) -> String? {
-        if let label = representedObject as? LabelTag {
-            return "tag:" + label.tag
-        }
-        else if let label = representedObject as? PlaylistLabel {
-            return "in:\(String(describing: label.playlist?.objectID))"
-        }
-        
-        return nil
     }
     
     func tokenFieldChangedLabels(_ tokenField: NSTokenField, labels: [Any]) {

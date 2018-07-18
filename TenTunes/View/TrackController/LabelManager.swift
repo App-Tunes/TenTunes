@@ -30,7 +30,23 @@ class LabelTag : Label {
     }
     
     var representation: String {
-        return tag
+        return "Search: " + tag
+    }
+}
+
+class LabelSearch : Label {
+    var string: String
+    
+    init(string: String) {
+        self.string = string
+    }
+    
+    func filter() -> (Track) -> Bool {
+        return PlayHistory.filter(findText: string)!
+    }
+    
+    var representation: String {
+        return string
     }
 }
 
@@ -68,7 +84,10 @@ class LabelManager : NSObject, LabelFieldDelegate {
     func tokenField(_ tokenField: NSTokenField, completionGroupsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [LabelGroup]? {
         let compareSubstring = substring.lowercased()
         
-        var groups: [LabelGroup] = [LabelGroup(title: "Has Tag", contents: [LabelTag(tag: substring)])]
+        var groups: [LabelGroup] = [
+            LabelGroup(title: "Search For", contents: [LabelSearch(string: substring)]),
+            LabelGroup(title: "Has Tag", contents: [LabelTag(tag: substring)])
+        ]
 
         let found = substring.count > 0 ? playlists.filter({ $0.name.lowercased().range(of: compareSubstring) != nil }) : playlists
         groups.append(LabelGroup(title: "In Playlist", contents: found.map { PlaylistLabel(playlist: $0) }))

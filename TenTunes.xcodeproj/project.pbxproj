@@ -15,6 +15,8 @@
 		8013720F203F7C9C00CA9036 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720D203F7C9C00CA9036 /* AudioKitUI.framework */; };
 		801621332067B71B00093B15 /* ViewController+Updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801621322067B71B00093B15 /* ViewController+Updates.swift */; };
 		8017685920743898000DD433 /* NSImageViewAspectFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8017685820743898000DD433 /* NSImageViewAspectFill.swift */; };
+		8026241620FF445F009D7988 /* LabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8026241520FF445F009D7988 /* LabelTextField.swift */; };
+		8026241920FF44C2009D7988 /* LabelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8026241820FF44C2009D7988 /* LabelManager.swift */; };
 		8030E00120FC8F0C006B4AE8 /* ActionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E00020FC8F0C006B4AE8 /* ActionTableView.swift */; };
 		8030E00720FC9749006B4AE8 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E00620FC9749006B4AE8 /* Task.swift */; };
 		8030E00920FC9A91006B4AE8 /* SwiftPriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E00820FC9A91006B4AE8 /* SwiftPriorityQueue.swift */; };
@@ -69,6 +71,7 @@
 		80CED03C20C88055001E710F /* AVFoundation+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CED03B20C88055001E710F /* AVFoundation+TT.swift */; };
 		80CFDA0A203C4E2300C7A506 /* LazyVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CFDA09203C4E2300C7A506 /* LazyVar.swift */; };
 		80DCA9B3203F636F00B1E9B1 /* TagLibImporter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80DCA9B2203F636E00B1E9B1 /* TagLibImporter.mm */; };
+		80E0885020FFB3A3001FFE26 /* TTWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E0884F20FFB3A3001FFE26 /* TTWindow.swift */; };
 		80E092A12066C42D000CA4D5 /* MediaLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E092A02066C42D000CA4D5 /* MediaLocation.swift */; };
 		80E2C9E0204AE18E00298E81 /* Track+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E2C9DC204AE18E00298E81 /* Track+CoreDataClass.swift */; };
 		80E2C9E1204AE18E00298E81 /* Track+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E2C9DD204AE18E00298E81 /* Track+CoreDataProperties.swift */; };
@@ -136,6 +139,8 @@
 		8013720D203F7C9C00CA9036 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = Carthage/Build/Mac/AudioKitUI.framework; sourceTree = SOURCE_ROOT; };
 		801621322067B71B00093B15 /* ViewController+Updates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Updates.swift"; sourceTree = "<group>"; };
 		8017685820743898000DD433 /* NSImageViewAspectFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImageViewAspectFill.swift; sourceTree = "<group>"; };
+		8026241520FF445F009D7988 /* LabelTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTextField.swift; sourceTree = "<group>"; };
+		8026241820FF44C2009D7988 /* LabelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelManager.swift; sourceTree = "<group>"; };
 		8030E00020FC8F0C006B4AE8 /* ActionTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTableView.swift; sourceTree = "<group>"; };
 		8030E00620FC9749006B4AE8 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		8030E00820FC9A91006B4AE8 /* SwiftPriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPriorityQueue.swift; sourceTree = "<group>"; };
@@ -223,6 +228,7 @@
 		80DCA9B0203F636900B1E9B1 /* TenTunes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TenTunes-Bridging-Header.h"; sourceTree = "<group>"; };
 		80DCA9B1203F636D00B1E9B1 /* TagLibImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagLibImporter.h; sourceTree = "<group>"; };
 		80DCA9B2203F636E00B1E9B1 /* TagLibImporter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TagLibImporter.mm; sourceTree = "<group>"; };
+		80E0884F20FFB3A3001FFE26 /* TTWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTWindow.swift; sourceTree = "<group>"; };
 		80E092A02066C42D000CA4D5 /* MediaLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaLocation.swift; sourceTree = "<group>"; };
 		80E2C9DC204AE18E00298E81 /* Track+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Track+CoreDataClass.swift"; sourceTree = "<group>"; };
 		80E2C9DD204AE18E00298E81 /* Track+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Track+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -288,6 +294,7 @@
 			children = (
 				8017685820743898000DD433 /* NSImageViewAspectFill.swift */,
 				8030E00020FC8F0C006B4AE8 /* ActionTableView.swift */,
+				80E0884F20FFB3A3001FFE26 /* TTWindow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -548,6 +555,8 @@
 				80074CF7204583CF0055B87E /* TrackController.xib */,
 				80F8F6F12053EA2C004A07D6 /* FileTagEditor.swift */,
 				80F8F6F22053EA2C004A07D6 /* FileTagEditor.xib */,
+				8026241520FF445F009D7988 /* LabelTextField.swift */,
+				8026241820FF44C2009D7988 /* LabelManager.swift */,
 			);
 			path = TrackController;
 			sourceTree = "<group>";
@@ -736,6 +745,7 @@
 				8030E00D20FCA04C006B4AE8 /* UpdateCurrentPlaylist.swift in Sources */,
 				80E6811B20573DC800DA5702 /* SimpleTransformer.swift in Sources */,
 				80F2C57C2038808000212739 /* ViewController.swift in Sources */,
+				8026241920FF44C2009D7988 /* LabelManager.swift in Sources */,
 				8030E00720FC9749006B4AE8 /* Task.swift in Sources */,
 				8030E00F20FCB12C006B4AE8 /* AnalyzeTrack.swift in Sources */,
 				80E2C9E1204AE18E00298E81 /* Track+CoreDataProperties.swift in Sources */,
@@ -744,6 +754,7 @@
 				8087A494206597DC00CC9569 /* EnterReturningTextField.swift in Sources */,
 				80CED03C20C88055001E710F /* AVFoundation+TT.swift in Sources */,
 				8030E00120FC8F0C006B4AE8 /* ActionTableView.swift in Sources */,
+				80E0885020FFB3A3001FFE26 /* TTWindow.swift in Sources */,
 				80F855012069183E009A8FBE /* TrackController+Menu.swift in Sources */,
 				80E6811D2057479B00DA5702 /* ValueTransformers.swift in Sources */,
 				80CFDA0A203C4E2300C7A506 /* LazyVar.swift in Sources */,
@@ -805,6 +816,7 @@
 				80E2C9F8204B40A000298E81 /* Playlist+CoreDataProperties.swift in Sources */,
 				80F77BF5203D8B35001E397F /* Key.swift in Sources */,
 				80F2C57A2038808000212739 /* AppDelegate.swift in Sources */,
+				8026241620FF445F009D7988 /* LabelTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

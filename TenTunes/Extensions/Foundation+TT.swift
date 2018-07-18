@@ -412,6 +412,21 @@ extension String {
         }
     }
     
+    subscript (r: CountablePartialRangeFrom<Int>) -> String {
+        get {
+            let startIndex =  self.index(self.startIndex, offsetBy: r.lowerBound)
+            return String(self[startIndex..<endIndex])
+        }
+    }
+    
+    subscript (r: PartialRangeUpTo<Int>) -> String {
+        get {
+            let upperBound = r.upperBound >= 0 ? r.upperBound : count + r.upperBound
+            let endIndex = self.index(startIndex, offsetBy: upperBound)
+            return String(self[startIndex..<endIndex])
+        }
+    }
+
     var asFileName: String {
         return replacingOccurrences(of: ":", with: "_") // Remove :
             .replacingOccurrences(of: "/", with: ":") // : is a slash in filenames

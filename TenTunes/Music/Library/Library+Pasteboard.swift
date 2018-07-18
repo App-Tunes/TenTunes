@@ -9,7 +9,7 @@
 import Cocoa
 
 extension Library {
-    func writePlaylistID(of: Playlist) -> Any? {
+    func writePlaylistID(of: Playlist) -> String {
         return of.objectID.uriRepresentation().absoluteString
     }
     

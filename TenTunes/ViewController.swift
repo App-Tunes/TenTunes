@@ -277,7 +277,7 @@ class ViewController: NSViewController {
         
         // TODO Show a divider on top
         queueController._tableView.scrollRowToTop(history.playingIndex)
-        queuePopover.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
+        queuePopover.show(relativeTo: view.bounds, of: view, preferredEdge: .maxY)
     }
     
     @IBAction func showTasks(_ sender: Any) {
@@ -290,7 +290,7 @@ class ViewController: NSViewController {
         taskViewController.reload(force: true) 
         taskPopover.appearance = view.window!.appearance
         
-        taskPopover.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
+        taskPopover.show(relativeTo: view.bounds, of: view, preferredEdge: .maxY)
     }
 }
 

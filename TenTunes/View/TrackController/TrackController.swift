@@ -44,6 +44,8 @@ class TrackController: NSViewController {
     @IBOutlet var _searchBarHeight: NSLayoutConstraint!
     @IBOutlet weak var _searchBarClose: NSButton!
     
+    @IBOutlet var _tagBarHeight: NSLayoutConstraint!
+    
     @IBOutlet var _playlistTitle: NSTextField!
     @IBOutlet var _playlistInfoBarHeight: NSLayoutConstraint!
     
@@ -137,6 +139,8 @@ class TrackController: NSViewController {
             self._tableView.animateDifference(from: tracksBefore, to: self.history.tracks)
         }
         
+        _tagBarHeight.constant = 0
+        
          // Unintuitive to use in a queue
         // TODO Make non-interactable?
         _tableView.tableColumn(withIdentifier: ColumnIdentifiers.waveform)?.isHidden = true
@@ -151,6 +155,7 @@ class TrackController: NSViewController {
         
         _playlistInfoBarHeight.constant = 0
         _tableViewHeight.constant = 0
+        _tagBarHeight.constant = 0
         _tableView.enclosingScrollView?.hasVerticalScroller = false
         _tableView.enclosingScrollView?.hasHorizontalScroller = false
         _tableView.enclosingScrollView?.verticalScrollElasticity = .none

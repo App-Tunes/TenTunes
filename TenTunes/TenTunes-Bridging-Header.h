@@ -6,4 +6,3 @@
 #import "SPAnalyzer.h"
 
 #import <CommonCrypto/CommonCrypto.h>
-

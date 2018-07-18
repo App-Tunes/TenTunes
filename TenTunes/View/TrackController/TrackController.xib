@@ -18,6 +18,7 @@
                 <outlet property="_showInPlaylistSubmenu" destination="RJZ-UA-3i7" id="RD3-RB-fQe"/>
                 <outlet property="_tableView" destination="4mk-XS-5ci" id="kXR-Tw-wbo"/>
                 <outlet property="_tableViewHeight" destination="407-lR-Mkm" id="dW8-YU-sVA"/>
+                <outlet property="_tagBarHeight" destination="Oqn-zf-Asv" id="JK0-4p-TyB"/>
                 <outlet property="view" destination="xJh-CN-pmz" id="a8O-4K-FFG"/>
             </connections>
         </customObject>
@@ -28,13 +29,13 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <scrollView verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="J4f-bg-DFw">
-                    <rect key="frame" x="0.0" y="25" width="680" height="387"/>
+                    <rect key="frame" x="0.0" y="25" width="680" height="363"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="FmM-r7-abk">
-                        <rect key="frame" x="0.0" y="0.0" width="680" height="387"/>
+                        <rect key="frame" x="0.0" y="0.0" width="680" height="363"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnSelection="YES" rowHeight="30" headerView="sMk-yA-QjA" viewBased="YES" floatsGroupRows="NO" id="4mk-XS-5ci" customClass="ActionTableView" customModule="TenTunes" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="680" height="364"/>
+                                <rect key="frame" x="0.0" y="0.0" width="680" height="340"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -359,17 +360,43 @@ Gw
                         <constraint firstItem="yA3-8B-zr1" firstAttribute="leading" secondItem="no2-Pk-ubw" secondAttribute="leading" constant="4" id="wTP-6K-6yt"/>
                     </constraints>
                 </customView>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="utN-ND-KA3">
+                    <rect key="frame" x="0.0" y="388" width="680" height="24"/>
+                    <subviews>
+                        <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="w3y-Lb-zjn" customClass="LabelTextField" customModule="TenTunes" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="680" height="24"/>
+                            <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" drawsBackground="YES" allowsEditingTextAttributes="YES" id="bz5-84-vMN">
+                                <font key="font" metaFont="cellTitle"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </tokenFieldCell>
+                            <connections>
+                                <outlet property="delegate" destination="cXd-Ka-Pht" id="roW-gZ-V9E"/>
+                            </connections>
+                        </tokenField>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="w3y-Lb-zjn" secondAttribute="bottom" id="0yb-lf-mxO"/>
+                        <constraint firstAttribute="trailing" secondItem="w3y-Lb-zjn" secondAttribute="trailing" id="OGk-Wz-13n"/>
+                        <constraint firstAttribute="height" constant="24" id="Oqn-zf-Asv"/>
+                        <constraint firstItem="w3y-Lb-zjn" firstAttribute="top" secondItem="utN-ND-KA3" secondAttribute="top" id="bDX-hx-uEb"/>
+                        <constraint firstItem="w3y-Lb-zjn" firstAttribute="leading" secondItem="utN-ND-KA3" secondAttribute="leading" id="xXj-h3-2Fk"/>
+                    </constraints>
+                </customView>
             </subviews>
             <constraints>
                 <constraint firstItem="Hz2-5n-F4a" firstAttribute="leading" secondItem="xJh-CN-pmz" secondAttribute="leading" id="5Po-t0-BmR"/>
                 <constraint firstItem="Hz2-5n-F4a" firstAttribute="top" secondItem="xJh-CN-pmz" secondAttribute="top" id="5uy-Dv-Yaz"/>
                 <constraint firstItem="Q4S-45-Dyj" firstAttribute="centerY" secondItem="xJh-CN-pmz" secondAttribute="centerY" id="EY4-LI-S6T"/>
+                <constraint firstItem="J4f-bg-DFw" firstAttribute="top" secondItem="utN-ND-KA3" secondAttribute="bottom" id="Igb-Fx-wLa"/>
                 <constraint firstItem="J4f-bg-DFw" firstAttribute="leading" secondItem="xJh-CN-pmz" secondAttribute="leading" id="Ivw-18-ON1"/>
                 <constraint firstItem="Q4S-45-Dyj" firstAttribute="centerX" secondItem="xJh-CN-pmz" secondAttribute="centerX" id="JkQ-Ie-BTx"/>
                 <constraint firstItem="no2-Pk-ubw" firstAttribute="top" secondItem="J4f-bg-DFw" secondAttribute="bottom" id="P1h-5B-cw9"/>
-                <constraint firstItem="J4f-bg-DFw" firstAttribute="top" secondItem="Hz2-5n-F4a" secondAttribute="bottom" id="Ys0-1e-Rcs"/>
+                <constraint firstItem="utN-ND-KA3" firstAttribute="leading" secondItem="xJh-CN-pmz" secondAttribute="leading" id="Vzl-Yt-XOz"/>
                 <constraint firstAttribute="trailing" secondItem="no2-Pk-ubw" secondAttribute="trailing" id="cu7-TG-cFD"/>
+                <constraint firstItem="utN-ND-KA3" firstAttribute="top" secondItem="Hz2-5n-F4a" secondAttribute="bottom" id="ezv-2z-34V"/>
                 <constraint firstAttribute="bottom" secondItem="no2-Pk-ubw" secondAttribute="bottom" id="nj9-83-RAH"/>
+                <constraint firstAttribute="trailing" secondItem="utN-ND-KA3" secondAttribute="trailing" id="rYE-YT-YTi"/>
                 <constraint firstItem="no2-Pk-ubw" firstAttribute="leading" secondItem="xJh-CN-pmz" secondAttribute="leading" id="sTr-D3-7QQ"/>
                 <constraint firstAttribute="trailing" secondItem="Hz2-5n-F4a" secondAttribute="trailing" id="uSb-rw-OM6"/>
                 <constraint firstAttribute="trailing" secondItem="J4f-bg-DFw" secondAttribute="trailing" id="vGr-VU-bFh"/>
@@ -478,6 +505,11 @@ Gw
             </connections>
             <point key="canvasLocation" x="644" y="134"/>
         </menu>
+        <customObject id="cXd-Ka-Pht" customClass="LabelManager" customModule="TenTunes" customModuleProvider="target">
+            <connections>
+                <outlet property="delegate" destination="-2" id="TFg-f7-0WG"/>
+            </connections>
+        </customObject>
     </objects>
     <resources>
         <image name="music_missing" width="250" height="250"/>

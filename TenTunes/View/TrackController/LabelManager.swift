@@ -116,6 +116,10 @@ class LabelManager : NSObject, LabelFieldDelegate {
         delegate?.labelsChanged(labelManager: self, labels: labels as! [Label])
     }
     
+    func tokenField(_ tokenField: NSTokenField, shouldAdd tokens: [Any], at index: Int) -> [Any] {
+        return tokens.map { $0 is Label ? $0 : LabelSearch(string: $0 as! String) }
+    }
+    
     override func controlTextDidChange(_ obj: Notification) {
         // TODO Hack, let LabelTextField observe this instead
         (obj.object as! LabelTextField).controlTextDidChange(obj)

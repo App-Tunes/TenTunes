@@ -69,24 +69,24 @@ class LabelTextField: NSTokenField {
         return ((objectValue as! NSArray).lastObject) as? String ?? ""
     }
     
+    func notifyLabelChange() {
+        if let delegate = self.delegate as? LabelFieldDelegate {
+            delegate.tokenFieldChangedLabels(self, labels: self.currentLabels)
+        }
+    }
+    
     override func awakeFromNib() {
         objectValueObservation = self.observe(\.objectValue, options: [.new]) { [unowned self] object, change in
-            if let delegate = self.delegate as? LabelFieldDelegate {
-                delegate.tokenFieldChangedLabels(self, labels: self.currentLabels)
-            }
+            self.notifyLabelChange()
         }
     }
     
     override func controlTextDidChange(_ obj: Notification) {
         let editingString = self.editingString
-
-        guard let delegate = delegate as? LabelFieldDelegate else {
-            return
-        }
             
-        guard editingString.count > 0 else {
+        guard let delegate = delegate as? LabelFieldDelegate, editingString.count > 0 else {
             _autocompletePopover?.close()
-            delegate.tokenFieldChangedLabels(self, labels: self.currentLabels)
+            notifyLabelChange()
             return
         }
         

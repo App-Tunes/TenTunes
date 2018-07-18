@@ -31,6 +31,7 @@ extension TrackController: NSUserInterfaceValidations {
             _tagBarHeight.animator().constant = CGFloat(28)
         })
         _tagField.window?.makeFirstResponder(_tagField)
+        _tagField.notifyLabelChange() // Get our initial filter on
     }
     
     @IBAction func delete(_ sender: AnyObject) {

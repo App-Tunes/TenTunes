@@ -28,7 +28,7 @@ extension TrackController: NSUserInterfaceValidations {
     @IBAction func performFindPanelAction(_ sender: AnyObject) {        
         NSAnimationContext.runAnimationGroup({_ in
             NSAnimationContext.current.duration = 0.2
-            _tagBarHeight.animator().constant = CGFloat(28)
+            _tagBarHeight.animator().constant = 28
         })
         _tagField.window?.makeFirstResponder(_tagField)
         _tagField.notifyLabelChange() // Get our initial filter on
@@ -44,7 +44,7 @@ extension TrackController: NSUserInterfaceValidations {
         _tagField.resignFirstResponder()
         NSAnimationContext.runAnimationGroup({_ in
             NSAnimationContext.current.duration = 0.2
-            _tagBarHeight.animator().constant = CGFloat(0)
+            _tagBarHeight.animator().constant = 0
         })
         view.window?.makeFirstResponder(view)
     }

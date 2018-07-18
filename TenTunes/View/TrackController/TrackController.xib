@@ -327,6 +327,9 @@
                     <subviews>
                         <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="w3y-Lb-zjn" customClass="LabelTextField" customModule="TenTunes" customModuleProvider="target">
                             <rect key="frame" x="2" y="2" width="625" height="24"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="24" id="znz-jV-4pZ"/>
+                            </constraints>
                             <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" placeholderString="Filter" allowsEditingTextAttributes="YES" bezelStyle="round" id="bz5-84-vMN">
                                 <font key="font" metaFont="cellTitle"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -354,7 +357,7 @@ Gw
                         <constraint firstAttribute="bottom" secondItem="w3y-Lb-zjn" secondAttribute="bottom" constant="2" id="0yb-lf-mxO"/>
                         <constraint firstItem="BeI-cc-vzB" firstAttribute="leading" secondItem="w3y-Lb-zjn" secondAttribute="trailing" constant="10" id="BJz-cX-Y09"/>
                         <constraint firstAttribute="height" constant="28" id="Oqn-zf-Asv"/>
-                        <constraint firstItem="w3y-Lb-zjn" firstAttribute="top" secondItem="utN-ND-KA3" secondAttribute="top" constant="2" id="bDX-hx-uEb"/>
+                        <constraint firstItem="w3y-Lb-zjn" firstAttribute="top" secondItem="utN-ND-KA3" secondAttribute="top" priority="100" constant="2" id="bDX-hx-uEb"/>
                         <constraint firstAttribute="trailing" secondItem="BeI-cc-vzB" secondAttribute="trailing" constant="20" symbolic="YES" id="sTZ-va-Zgk"/>
                         <constraint firstItem="w3y-Lb-zjn" firstAttribute="leading" secondItem="utN-ND-KA3" secondAttribute="leading" constant="2" id="xXj-h3-2Fk"/>
                     </constraints>

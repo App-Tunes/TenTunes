@@ -9,7 +9,9 @@
 import Cocoa
 
 @objc protocol LabelManagerDelegate {
-    func labelsChanged(labels: [Label])
+    func labelsChanged(labelManager: LabelManager, labels: [Label])
+
+    func editingEnded(labelManager: LabelManager)
 }
 
 @objc protocol Label {
@@ -111,11 +113,15 @@ class LabelManager : NSObject, LabelFieldDelegate {
     }
     
     func tokenFieldChangedLabels(_ tokenField: NSTokenField, labels: [Any]) {
-        delegate?.labelsChanged(labels: labels as! [Label])
+        delegate?.labelsChanged(labelManager: self, labels: labels as! [Label])
     }
     
     override func controlTextDidChange(_ obj: Notification) {
         // TODO Hack, let LabelTextField observe this instead
         (obj.object as! LabelTextField).controlTextDidChange(obj)
+    }
+    
+    override func controlTextDidEndEditing(_ obj: Notification) {
+        delegate?.editingEnded(labelManager: self)
     }
 }

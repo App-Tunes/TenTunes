@@ -392,10 +392,14 @@ extension TrackController: NSTableViewDataSource {
 }
 
 extension TrackController : LabelManagerDelegate {
-    func labelsChanged(labels: [Label]) {
+    func labelsChanged(labelManager: LabelManager, labels: [Label]) {
         let filters = labels.map { $0.filter() }
         desired.filter = { track in
             return filters.allMatch { $0(track) }
         }
+    }
+    
+    func editingEnded(labelManager: LabelManager) {
+        _searchBarClose.performClick(self)
     }
 }

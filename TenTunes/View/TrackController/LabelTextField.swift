@@ -88,7 +88,11 @@ class LabelTextField: NSTokenField {
     }
     
     var editingString: String {
-        return (objectValue as? NSArray)?[editingIndex] as? String ?? ""
+        guard let array = objectValue as? NSArray, array.count > 0 else {
+            return ""
+        }
+        
+        return array[editingIndex] as? String ?? ""
     }
     
     func notifyLabelChange() {
@@ -173,6 +177,7 @@ class LabelTextField: NSTokenField {
         currentLabels.insert(with, at: idx)
         // When we have no strings, location is equal to the number of labels
         currentEditor()?.selectedRange = NSMakeRange(idx + 1, 0)
+        
         self.autocompletePopover.close()
     }
 }

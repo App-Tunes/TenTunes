@@ -117,6 +117,13 @@ class LabelManager : NSObject, LabelFieldDelegate {
     
     override func controlTextDidEndEditing(_ obj: Notification) {
         delegate?.editingEnded?(labelManager: self, notification: obj)
+        
+        if let labelField = obj.object as? LabelTextField {
+            let editing = labelField.editingString
+            if editing.count > 0 {
+                labelField.autocomplete(with: LabelSearch(string: labelField.editingString))
+            }
+        }
     }
     
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {

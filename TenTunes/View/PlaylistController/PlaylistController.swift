@@ -101,29 +101,30 @@ import Cocoa
         }
     }
     
-    @IBAction func createPlaylist(_ sender: Any) {
-        let createPlaylist = PlaylistManual(context: Library.shared.viewContext)
-        Library.shared.viewContext.insert(createPlaylist)
+    func insert(playlist: Playlist) {
+        Library.shared.viewContext.insert(playlist)
         let (parent, idx) = playlistInsertionPosition
         
-        parent.addPlaylist(createPlaylist, above: idx)
+        parent.addPlaylist(playlist, above: idx)
+    }
+    
+    @IBAction func createPlaylist(_ sender: Any) {
+        insert(playlist: PlaylistManual(context: Library.shared.viewContext))
         try! Library.shared.viewContext.save()
     }
     
     @IBAction func createGroup(_ sender: Any) {
         let selected = selectedPlaylists
+        let group = PlaylistFolder(context: Library.shared.viewContext)
         
-        let createPlaylist = PlaylistFolder(context: Library.shared.viewContext)
-        Library.shared.viewContext.insert(createPlaylist)
-        let (parent, idx) = playlistInsertionPosition
-        
+        insert(playlist: group)
+
         if selected.count > 1, selected.map({ $0.1.parent }).uniqueElement != nil {
             for (_, playlist) in selected {
-                createPlaylist.addPlaylist(playlist)
+                group.addPlaylist(playlist)
             }
         }
         
-        parent.addPlaylist(createPlaylist, above: idx)
         try! Library.shared.viewContext.save()
     }
     

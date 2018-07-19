@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17D47" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Playlist" representedClassName="Playlist" isAbstract="YES" syncable="YES">
         <attribute name="creationDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
@@ -13,11 +13,12 @@
     <entity name="PlaylistManual" representedClassName="PlaylistManual" parentEntity="Playlist" syncable="YES">
         <relationship name="tracks" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Track" inverseName="containingPlaylists" inverseEntity="Track" syncable="YES"/>
     </entity>
+    <entity name="PlaylistSmart" representedClassName="PlaylistSmart" parentEntity="Playlist" syncable="YES"/>
     <entity name="Track" representedClassName="Track" syncable="YES">
         <attribute name="album" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="analysisData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="artworkData" optional="YES" transient="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
-        <attribute name="artworkPreview" optional="YES" attributeType="Transformable" valueTransformerName="NSImageTransformer" customClassName="NSImage" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="artworkPreview" optional="YES" attributeType="Transformable" valueTransformerName="NSImageTransformer" allowsExternalBinaryDataStorage="YES" customClassName="NSImage" syncable="YES"/>
         <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="bpmString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="creationDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -37,5 +38,6 @@
         <element name="PlaylistFolder" positionX="-218" positionY="171" width="128" height="58"/>
         <element name="PlaylistManual" positionX="-218" positionY="252" width="128" height="58"/>
         <element name="Track" positionX="-414" positionY="261" width="128" height="300"/>
+        <element name="PlaylistSmart" positionX="-216" positionY="108" width="128" height="43"/>
     </elements>
 </model>

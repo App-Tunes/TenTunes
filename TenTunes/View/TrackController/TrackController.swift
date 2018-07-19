@@ -394,10 +394,7 @@ extension TrackController: NSTableViewDataSource {
 extension TrackController : LabelManagerDelegate {
     func labelsChanged(labelManager: LabelManager, labels: [Label]) {
         // TODO Live search
-        let filters = labels.map { $0.filter() }
-        desired.filter = { track in
-            return filters.allMatch { $0(track) }
-        }
+        desired.filter = PlaylistSmart.filter(of: labels)
     }
     
     override func cancelOperation(_ sender: Any?) {

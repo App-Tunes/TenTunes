@@ -113,6 +113,11 @@ import Cocoa
         try! Library.shared.viewContext.save()
     }
     
+    @IBAction func createSmartPlaylist(_ sender: Any) {
+        insert(playlist: PlaylistSmart(context: Library.shared.viewContext))
+        try! Library.shared.viewContext.save()
+    }
+    
     @IBAction func createGroup(_ sender: Any) {
         let selected = selectedPlaylists
         let group = PlaylistFolder(context: Library.shared.viewContext)

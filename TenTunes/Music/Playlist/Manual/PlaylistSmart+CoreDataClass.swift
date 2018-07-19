@@ -30,7 +30,6 @@ public class PlaylistSmart: Playlist {
     
     var labels: [Label] {
         return [
-            LabelSearch(string: "Deep")
         ]
     }
 }

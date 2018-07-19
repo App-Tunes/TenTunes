@@ -249,6 +249,9 @@
                 </menuItem>
                 <menuItem title="Smart Playlist" id="gNk-t6-o2h">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="createSmartPlaylist:" target="-2" id="in1-fk-Js1"/>
+                    </connections>
                 </menuItem>
             </items>
             <point key="canvasLocation" x="-210" y="319"/>

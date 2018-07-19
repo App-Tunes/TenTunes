@@ -87,6 +87,7 @@ extension ViewController {
             Library.shared.performChildBackgroundTask { mox in
                 let request: NSFetchRequest = Track.fetchRequest()
                 request.predicate = NSPredicate(format: "metadataFetched == false")
+                request.fetchLimit = 100
                 let tracks = Library.shared.viewContext.convert(try! mox.fetch(request))
                 
                 // Need to do this in sync because we use tasker.enqueue

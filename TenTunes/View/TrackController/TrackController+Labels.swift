@@ -26,10 +26,10 @@ extension TrackController : LabelManagerDelegate {
     override func cancelOperation(_ sender: Any?) {
         let firstResponder = view.window?.firstResponder
         
-        if firstResponder == _tagField {
+        if firstResponder == _tagField.currentEditor() {
             _searchBarClose.performClick(self)
         }
-        else if firstResponder == _ruleField {
+        else if firstResponder == _ruleField.currentEditor() {
             _ruleBarClose.performClick(self)
         }
     }

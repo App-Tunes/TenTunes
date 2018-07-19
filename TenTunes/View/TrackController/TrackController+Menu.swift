@@ -36,17 +36,6 @@ extension TrackController: NSUserInterfaceValidations {
     
     @IBAction func delete(_ sender: AnyObject) {
         remove(indices: Array(_tableView.selectedRowIndexes))
-    }
-        
-    @IBAction func closeSearchBar(_ sender: Any) {
-        desired.filter = nil
-        
-        _tagField.resignFirstResponder()
-        NSAnimationContext.runAnimationGroup({_ in
-            NSAnimationContext.current.duration = 0.2
-            _tagBarHeight.animator().constant = 0
-        })
-        view.window?.makeFirstResponder(view)
-    }
+    }        
 }
 

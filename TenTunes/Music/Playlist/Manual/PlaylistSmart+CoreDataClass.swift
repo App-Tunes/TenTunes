@@ -27,9 +27,4 @@ public class PlaylistSmart: Playlist {
     var filter: (Track) -> Bool {
         return PlaylistSmart.filter(of: labels)
     }
-    
-    var labels: [Label] {
-        return [
-        ]
-    }
 }

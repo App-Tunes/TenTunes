@@ -14,56 +14,8 @@ import Cocoa
     @objc optional func editingEnded(labelManager: LabelManager, notification: Notification)
 }
 
-@objc protocol Label {
-    func filter() -> (Track) -> Bool
-    
-    var representation: String { get }
-}
-
-class LabelSearch : Label {
-    var string: String
-    
-    init(string: String) {
-        self.string = string
-    }
-    
-    func filter() -> (Track) -> Bool {
-        return PlayHistory.filter(findText: string)!
-    }
-    
-    var representation: String {
-        return "Search: " + string
-    }
-}
-
-class PlaylistLabel : Label {
-    var playlist: Playlist?
-    var isTag: Bool
-    
-    init(playlist: Playlist?, isTag: Bool) {
-        self.playlist = playlist
-        self.isTag = isTag
-    }
-    
-    func filter() -> (Track) -> Bool {
-        guard let tracks = playlist?.tracksList else {
-            return { _ in return false }
-        }
-
-        return { track in
-            return (tracks.map { $0.objectID } ).contains(track.objectID)
-        }
-    }
-    
-    var representation: String {
-        return (isTag ? "" : "In: ") + (playlist?.name ?? "Invalid Playlist")
-    }
-}
-
 class LabelManager : NSObject, LabelFieldDelegate {
-    @IBOutlet
-    // TODO Weak?
-    @objc var delegate: LabelManagerDelegate?
+    @IBOutlet @objc weak open var delegate: LabelManagerDelegate?
     
     var playlists: [Playlist] {
         return Library.shared.allPlaylists.filter {

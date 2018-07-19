@@ -40,9 +40,16 @@ class TrackController: NSViewController {
     @IBOutlet var _tableView: ActionTableView!
     @IBOutlet var _tableViewHeight: NSLayoutConstraint!
     
+    @IBOutlet var _tagManager: LabelManager!
     @IBOutlet var _tagBarHeight: NSLayoutConstraint!
     @IBOutlet var _tagField: LabelTextField!
     @IBOutlet weak var _searchBarClose: NSButton!
+    
+    @IBOutlet var _ruleManager: LabelManager!
+    @IBOutlet var _ruleButton: NSButton!
+    @IBOutlet var _ruleBarHeight: NSLayoutConstraint!
+    @IBOutlet var _ruleField: LabelTextField!
+    @IBOutlet var _ruleBarClose: NSButton!
     
     @IBOutlet var _playlistTitle: NSTextField!
     @IBOutlet var _playlistInfoBarHeight: NSLayoutConstraint!
@@ -58,7 +65,17 @@ class TrackController: NSViewController {
     var history: PlayHistory = PlayHistory(playlist: PlaylistEmpty()) {
         didSet {
             _tableView?.animateDifference(from: oldValue.tracks, to: history.tracks)
+            
             _playlistTitle.stringValue = history.playlist.name
+            
+            if let playlist = history.playlist as? PlaylistSmart {
+                _ruleButton.isHidden = false
+                _ruleField.currentLabels = playlist.labels 
+            }
+            else {
+                _ruleButton.isHidden = true
+                _ruleBarClose.performClick(self)
+            }
         }
     }
     @objc dynamic var desired: PlayHistorySetup!
@@ -104,7 +121,8 @@ class TrackController: NSViewController {
         _tableView.setDraggingSourceOperationMask(.every, forLocal: false) // ESSENTIAL
         
         _tagBarHeight.constant = CGFloat(0)
-        
+        _ruleBarHeight.constant = CGFloat(0)
+
         _playlistTitle.stringValue = ""
     }
     
@@ -138,7 +156,8 @@ class TrackController: NSViewController {
         }
         
         _tagBarHeight.constant = 0
-        
+        _ruleBarHeight.constant = 0
+
          // Unintuitive to use in a queue
         // TODO Make non-interactable?
         _tableView.tableColumn(withIdentifier: ColumnIdentifiers.waveform)?.isHidden = true
@@ -154,6 +173,7 @@ class TrackController: NSViewController {
         _playlistInfoBarHeight.constant = 0
         _tableViewHeight.constant = 0
         _tagBarHeight.constant = 0
+        _ruleBarHeight.constant = 0
         _tableView.enclosingScrollView?.hasVerticalScroller = false
         _tableView.enclosingScrollView?.hasHorizontalScroller = false
         _tableView.enclosingScrollView?.verticalScrollElasticity = .none
@@ -389,15 +409,4 @@ extension TrackController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
         return history.size
     }
-}
-
-extension TrackController : LabelManagerDelegate {
-    func labelsChanged(labelManager: LabelManager, labels: [Label]) {
-        // TODO Live search
-        desired.filter = PlaylistSmart.filter(of: labels)
-    }
-    
-    override func cancelOperation(_ sender: Any?) {
-        _searchBarClose.performClick(self)
-    }    
 }

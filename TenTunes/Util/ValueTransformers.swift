@@ -19,7 +19,7 @@ class ValueTransformers {
                                                   there: { $0?.tiffRepresentation as NSData? },
                                                   back: { $0 != nil ? NSImage(data: $0! as Data) : nil }
         )
-
+        
         DoubleTransformer.double("Pow2Transformer", there: curry(pow)(2), back: log2)
     }
 }

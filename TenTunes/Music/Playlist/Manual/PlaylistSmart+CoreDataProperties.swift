@@ -14,5 +14,17 @@ extension PlaylistSmart {
         return NSFetchRequest<PlaylistSmart>(entityName: "PlaylistSmart")
     }
 
-
+    var labels: [Label] {
+        get { return labelArray as! [Label] }
+        set { labelArray = newValue as NSArray }
+    }
+    
+    @NSManaged public var labelArray: NSArray
+    
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        if labelArray.count == 0 {
+            labelArray = NSArray()
+        }
+    }
 }

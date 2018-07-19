@@ -13,7 +13,9 @@
     <entity name="PlaylistManual" representedClassName="PlaylistManual" parentEntity="Playlist" syncable="YES">
         <relationship name="tracks" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Track" inverseName="containingPlaylists" inverseEntity="Track" syncable="YES"/>
     </entity>
-    <entity name="PlaylistSmart" representedClassName="PlaylistSmart" parentEntity="Playlist" syncable="YES"/>
+    <entity name="PlaylistSmart" representedClassName="PlaylistSmart" parentEntity="Playlist" syncable="YES">
+        <attribute name="labelArray" attributeType="Transformable" valueTransformerName="NSKeyedUnarchiveFromDataTransformerName" customClassName="NSArray" syncable="YES"/>
+    </entity>
     <entity name="Track" representedClassName="Track" syncable="YES">
         <attribute name="album" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="analysisData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
@@ -37,7 +39,7 @@
         <element name="Playlist" positionX="-416" positionY="113" width="128" height="118"/>
         <element name="PlaylistFolder" positionX="-218" positionY="171" width="128" height="58"/>
         <element name="PlaylistManual" positionX="-218" positionY="252" width="128" height="58"/>
+        <element name="PlaylistSmart" positionX="-216" positionY="108" width="128" height="60"/>
         <element name="Track" positionX="-414" positionY="261" width="128" height="300"/>
-        <element name="PlaylistSmart" positionX="-216" positionY="108" width="128" height="43"/>
     </elements>
 </model>

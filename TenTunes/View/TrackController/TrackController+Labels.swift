@@ -14,6 +14,7 @@ extension TrackController : LabelManagerDelegate {
         if labelManager == _ruleManager, let playlist = history.playlist as? PlaylistSmart {
             if playlist.rules.labels != labels {
                 playlist.rules.labels = labels
+                playlist.markRulesDirty()
                 try! Library.shared.viewContext.save()
             }
         }

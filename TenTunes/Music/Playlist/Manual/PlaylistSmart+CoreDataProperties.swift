@@ -16,6 +16,11 @@ extension PlaylistSmart {
     
     @NSManaged public var rules: PlaylistRules!
     
+    func markRulesDirty() {
+        let rules = self.rules
+        self.rules = rules // Eww, but need this to mark it to Core Data
+    }
+    
     public override func awakeFromInsert() {
         super.awakeFromInsert()
         if rules == nil {

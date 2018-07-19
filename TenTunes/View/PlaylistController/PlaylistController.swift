@@ -87,7 +87,12 @@ import Cocoa
         }
         
         let idx = _outlineView.row(forItem: playlist)
-        if idx < 0 { fatalError("Playlist does not exist in view even though it must!") }
+        guard idx >= 0 else {
+            if editTitle {
+                fatalError("Playlist does not exist in view even though it must!")
+            }
+            return
+        }
         
         _outlineView.selectRowIndexes(IndexSet(integer: idx), byExtendingSelection: false)
         

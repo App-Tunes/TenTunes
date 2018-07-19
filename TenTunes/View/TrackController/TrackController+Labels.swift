@@ -34,6 +34,10 @@ extension TrackController : LabelManagerDelegate {
     }
     
     @IBAction func closeSearchBar(_ sender: Any) {
+        guard _tagBarHeight.constant > 0 else {
+            return
+        }
+        
         desired.filter = nil
         
         _tagField.resignFirstResponder()
@@ -45,6 +49,10 @@ extension TrackController : LabelManagerDelegate {
     }
     
     @IBAction func closeRuleBar(_ sender: Any) {
+        guard _ruleBarHeight.constant > 0 else {
+            return
+        }
+        
         _ruleField.resignFirstResponder()
         NSAnimationContext.runAnimationGroup({_ in
             NSAnimationContext.current.duration = 0.2

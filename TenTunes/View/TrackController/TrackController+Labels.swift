@@ -12,13 +12,13 @@ extension TrackController : LabelManagerDelegate {
     func labelsChanged(labelManager: LabelManager, labels: [Label]) {
         // TODO Live search
         if labelManager == _ruleManager, let playlist = history.playlist as? PlaylistSmart {
-            if playlist.labels != labels {
-                playlist.labels = labels
+            if playlist.rules.labels != labels {
+                playlist.rules.labels = labels
                 try! Library.shared.viewContext.save()
             }
         }
         else {
-            desired.filter = PlaylistSmart.filter(of: labels)
+            desired.filter = PlaylistRules(labels: labels).filter
         }
     }
     

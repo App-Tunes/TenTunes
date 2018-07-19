@@ -16,15 +16,8 @@ public class PlaylistSmart: Playlist {
             return Library.shared.allTracks.tracksList.filter(filter)
         }
     }
-    
-    static func filter(of labels: [Label]) -> ((Track) -> Bool) {
-        let filters = labels.map { $0.filter() }
-        return { track in
-            return filters.allMatch { $0(track) }
-        }
-    }
-    
+        
     var filter: (Track) -> Bool {
-        return PlaylistSmart.filter(of: labels)
+        return rules.filter
     }
 }

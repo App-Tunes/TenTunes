@@ -14,7 +14,7 @@
         <relationship name="tracks" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Track" inverseName="containingPlaylists" inverseEntity="Track" syncable="YES"/>
     </entity>
     <entity name="PlaylistSmart" representedClassName="PlaylistSmart" parentEntity="Playlist" syncable="YES">
-        <attribute name="labelArray" attributeType="Transformable" valueTransformerName="NSKeyedUnarchiveFromDataTransformerName" customClassName="NSArray" syncable="YES"/>
+        <attribute name="rules" attributeType="Transformable" valueTransformerName="NSKeyedUnarchiveFromDataTransformerName" customClassName="PlaylistRules" syncable="YES"/>
     </entity>
     <entity name="Track" representedClassName="Track" syncable="YES">
         <attribute name="album" optional="YES" attributeType="String" syncable="YES"/>

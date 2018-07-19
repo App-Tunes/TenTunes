@@ -8,6 +8,37 @@
 
 import Cocoa
 
+@objc public class PlaylistRules : NSObject, NSCoding {
+    var labels: [Label]
+
+    public func encode(with aCoder: NSCoder) {
+        aCoder.encode(labels, forKey: "labels")
+    }
+    
+    var filter : ((Track) -> Bool) {
+        let filters = labels.map { $0.filter() }
+        return { track in
+            return filters.allMatch { $0(track) }
+        }
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        labels = aDecoder.decodeObject(forKey: "labels") as? [Label] ?? []
+    }
+    
+    init(labels: [Label] = []) {
+        self.labels = labels
+    }
+    
+    override public func isEqual(_ object: Any?) -> Bool {
+        guard let object = object as? PlaylistRules else {
+            return false
+        }
+        
+        return labels == object.labels
+    }
+}
+
 @objc class Label : NSObject, NSCoding {
     func encode(with aCoder: NSCoder) {
         

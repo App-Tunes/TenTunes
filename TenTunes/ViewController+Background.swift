@@ -88,8 +88,12 @@ extension ViewController {
                 let request: NSFetchRequest = Track.fetchRequest()
                 request.predicate = NSPredicate(format: "metadataFetched == false")
                 let tracks = Library.shared.viewContext.convert(try! mox.fetch(request))
-                for track in tracks {
-                    self.tasker.enqueue(task: FetchTrackMetadata(track: track))
+                
+                // Need to do this in sync because we use tasker.enqueue
+                DispatchQueue.main.async {
+                    for track in tracks {
+                        self.tasker.enqueue(task: FetchTrackMetadata(track: track))
+                    }
                 }
             }
         }

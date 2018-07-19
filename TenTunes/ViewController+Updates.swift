@@ -53,13 +53,17 @@ extension ViewController {
             }
         }
         
+        let playlistDeletes = deletes.of(type: Playlist.self)
+        let playlistInserts = inserts.of(type: Playlist.self)
+        
         // Modified playlists?
-        if updates.of(type: Playlist.self).count > 0 {
+        if updates.of(type: Playlist.self).count > 0 || (playlistDeletes.count > 0 && playlistInserts.count > 0){
             playlistController._outlineView.reloadData() // TODO Animate movement?
         }
-        else if deletes.of(type: Playlist.self).count > 0 || inserts.of(type: Playlist.self).count > 0 {
-            // We hope that it's not possible to insert/delete and reorder at once lol
+        else if playlistDeletes.count > 0 {
             playlistController._outlineView.animateDelete(elements: Array(deletes.of(type: Playlist.self)))
+        }
+        else if playlistInserts.count > 0 {
             playlistController._outlineView.animateInsert(elements: Array(inserts.of(type: Playlist.self))) {
                 let (parent, idx) = Library.shared.position(of: $0)!
                 return (idx, parent == Library.shared.masterPlaylist ? nil : parent)

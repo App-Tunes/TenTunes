@@ -39,6 +39,10 @@ extension NSManagedObject {
         managedObjectContext!.refresh(self, mergeChanges: false)
     }
     
+    static func markDirty<C, T>(_ obj: C, _ keyPath: ReferenceWritableKeyPath<C, T>) {
+        obj[keyPath: keyPath] = obj[keyPath: keyPath]
+    }
+    
     func duplicate(only: [String]) -> NSManagedObject {
         return duplicate { only.contains($0) ? .copy : .none }
     }

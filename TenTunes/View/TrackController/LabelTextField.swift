@@ -119,7 +119,7 @@ class LabelTextField: NSTokenField {
         actionStubs.clear()
         
         // TODO Fix indices
-        let groups = delegate.tokenField(self, completionGroupsForSubstring: editingString, indexOfToken: 0, indexOfSelectedItem: UnsafeMutablePointer(bitPattern: 0))
+        let groups = delegate.tokenField(self, completionGroupsForSubstring: editingString, indexOfToken: 0, indexOfSelectedItem: UnsafeMutablePointer(bitPattern: 0))?.filter { $0.contents.count > 0 }
         
         let view = autocompletePopover.contentViewController!.view
         view.removeConstraints(view.constraints)

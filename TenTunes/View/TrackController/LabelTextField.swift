@@ -138,7 +138,6 @@ class LabelTextField: NSTokenField {
                 }
                 
                 actionStubs.bind(button) { _ in
-                    self.autocompletePopover.close()
                     self.autocomplete(with: content)
                 }
                 
@@ -157,5 +156,6 @@ class LabelTextField: NSTokenField {
     func autocomplete(with: Any) {
         objectValue = (currentLabels + [with]) as NSArray // Strip away strings at the end
         currentEditor()?.moveToEndOfLine(nil)
+        self.autocompletePopover.close()
     }
 }

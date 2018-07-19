@@ -62,11 +62,33 @@ class LabelTextField: NSTokenField {
     }
     
     @objc dynamic var currentLabels: [Any] {
-        return (objectValue as! NSArray).filter { !($0 is String) }
+        get { return (objectValue as! NSArray).filter { !($0 is String) } }
+        set { objectValue = newValue as NSArray }
+    }
+    
+    var editingIndex: Int {
+        guard var selectedPos = currentEditor()?.selectedRange.location, let array = objectValue as? NSArray else {
+            return 0
+        }
+        
+        for (idx, obj) in array.enumerated() {
+            if let string = obj as? String {
+                selectedPos -= string.count
+            }
+            else {
+                selectedPos -= 1
+            }
+            
+            if selectedPos <= 0 {
+                return idx
+            }
+        }
+        
+        return array.count - 1
     }
     
     var editingString: String {
-        return ((objectValue as! NSArray).lastObject) as? String ?? ""
+        return (objectValue as? NSArray)?[editingIndex] as? String ?? ""
     }
     
     func notifyLabelChange() {
@@ -79,14 +101,6 @@ class LabelTextField: NSTokenField {
         objectValueObservation = self.observe(\.objectValue, options: [.new]) { [unowned self] object, change in
             self.notifyLabelChange()
         }
-    }
-    
-    override func keyDown(with event: NSEvent) {
-        if (Keycodes.enterKey.matches(event: event) || Keycodes.returnKey.matches(event: event)) && event.modifierFlags.contains(.option) {
-            return
-        }
-        
-        super.keyDown(with: event)
     }
     
     override func controlTextDidChange(_ obj: Notification) {
@@ -154,8 +168,11 @@ class LabelTextField: NSTokenField {
     }
     
     func autocomplete(with: Any) {
-        objectValue = (currentLabels + [with]) as NSArray // Strip away strings at the end
-        currentEditor()?.moveToEndOfLine(nil)
+        // Strip away unfinished strings by using currentLabels rather than objectValue
+        let idx = editingIndex
+        currentLabels.insert(with, at: idx)
+        // When we have no strings, location is equal to the number of labels
+        currentEditor()?.selectedRange = NSMakeRange(idx + 1, 0)
         self.autocompletePopover.close()
     }
 }

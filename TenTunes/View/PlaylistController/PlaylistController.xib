@@ -150,7 +150,7 @@
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="FlW-e5-GJv">
                     <rect key="frame" x="0.0" y="0.0" width="178" height="30"/>
                     <subviews>
-                        <button toolTip="Create Group" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s5V-cO-NDS">
+                        <button toolTip="Create Group" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s5V-cO-NDS" customClass="SMButtonWithMenu">
                             <rect key="frame" x="110" y="5" width="20" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="s5V-cO-NDS" secondAttribute="height" multiplier="1:1" id="iLc-oV-qb8"/>
@@ -161,6 +161,7 @@
                             </buttonCell>
                             <connections>
                                 <action selector="createGroup:" target="-2" id="AD1-Af-WOD"/>
+                                <outlet property="holdMenu" destination="rXe-Jh-d6s" id="LEB-9h-REr"/>
                             </connections>
                         </button>
                         <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z3C-14-8qk">
@@ -169,7 +170,7 @@
                                 <constraint firstAttribute="width" constant="1" id="Zuv-FG-A5V"/>
                             </constraints>
                         </customView>
-                        <button toolTip="Create Playlist" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XDO-KJ-zFo">
+                        <button toolTip="Create Playlist" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XDO-KJ-zFo" customClass="SMButtonWithMenu">
                             <rect key="frame" x="49" y="5" width="20" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="XDO-KJ-zFo" secondAttribute="height" multiplier="1:1" id="IgZ-ie-N6E"/>
@@ -180,6 +181,7 @@
                             </buttonCell>
                             <connections>
                                 <action selector="createPlaylist:" target="-2" id="OcZ-zn-hID"/>
+                                <outlet property="holdMenu" destination="FBg-C1-FYI" id="Oif-eh-9bX"/>
                             </connections>
                         </button>
                     </subviews>
@@ -236,6 +238,34 @@
                 <outlet property="delegate" destination="-2" id="Guf-Rv-dhm"/>
             </connections>
             <point key="canvasLocation" x="278" y="51"/>
+        </menu>
+        <menu id="FBg-C1-FYI">
+            <items>
+                <menuItem title="Playlist" id="teK-rc-H0p">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="createPlaylist:" target="-2" id="Igc-Sy-EXY"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Smart Playlist" id="gNk-t6-o2h">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="-210" y="319"/>
+        </menu>
+        <menu id="rXe-Jh-d6s">
+            <items>
+                <menuItem title="Group" id="M7n-9P-CRC">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="createGroup:" target="-2" id="Tut-Xq-XBV"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Smart Group" id="Yn6-pc-NBH">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="207" y="332"/>
         </menu>
     </objects>
     <resources>

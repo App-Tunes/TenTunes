@@ -91,7 +91,7 @@ extension ViewController {
                 
                 // Need to do this in sync because we use tasker.enqueue
                 DispatchQueue.main.async {
-                    for track in tracks {
+                    for track in tracks.map(Library.shared.viewContext.convert) {
                         self.tasker.enqueue(task: FetchTrackMetadata(track: track))
                     }
                 }

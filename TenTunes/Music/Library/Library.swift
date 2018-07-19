@@ -147,7 +147,10 @@ class Library : NSPersistentContainer {
     // Editing
 
     func isPlaylist(playlist: PlaylistProtocol) -> Bool {
-        return playlist is Playlist
+        guard let playlist = playlist as? Playlist else {
+            return false
+        }
+        return playlist != tagPlaylist
     }
 
     func isEditable(playlist: PlaylistProtocol) -> Bool {

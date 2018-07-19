@@ -103,8 +103,6 @@ import Cocoa
         
         parent.addPlaylist(createPlaylist, above: idx)
         try! Library.shared.viewContext.save()
-
-        select(playlist: createPlaylist, editTitle: true)
     }
     
     @IBAction func createGroup(_ sender: Any) {
@@ -122,8 +120,6 @@ import Cocoa
         
         parent.addPlaylist(createPlaylist, above: idx)
         try! Library.shared.viewContext.save()
-
-        select(playlist: createPlaylist, editTitle: true)
     }
     
     func delete(indices: [Int]?) {
@@ -211,8 +207,11 @@ extension PlaylistController: NSTextFieldDelegate {
         
         let row = _outlineView.row(for: textField.superview!)
         let playlist = (_outlineView.item(atRow: row)) as! Playlist
-        playlist.name = textField.stringValue
         
-        try! Library.shared.viewContext.save()
+        if playlist.name != textField.stringValue {
+            playlist.name = textField.stringValue
+            
+            try! Library.shared.viewContext.save()
+        }
     }
 }

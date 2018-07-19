@@ -55,20 +55,27 @@ extension ViewController {
         
         let playlistDeletes = deletes.of(type: Playlist.self)
         let playlistInserts = inserts.of(type: Playlist.self)
-        
+        let playlistUpdates = updates.of(type: Playlist.self)
+
         // Modified playlists?
-        if updates.of(type: Playlist.self).count > 0 || (playlistDeletes.count > 0 && playlistInserts.count > 0){
-            playlistController._outlineView.reloadData() // TODO Animate movement?
-        }
-        else if playlistDeletes.count > 0 {
+        if playlistDeletes.count > 0 && playlistUpdates.uniqueElement == playlistDeletes.uniqueElement?.parent {
             playlistController._outlineView.animateDelete(elements: Array(deletes.of(type: Playlist.self)))
         }
-        else if playlistInserts.count > 0 {
+        else if playlistInserts.count > 0 && playlistUpdates.uniqueElement == playlistInserts.uniqueElement?.parent {
             playlistController._outlineView.animateInsert(elements: Array(inserts.of(type: Playlist.self))) {
                 let (parent, idx) = Library.shared.position(of: $0)!
                 return (idx, parent == Library.shared.masterPlaylist ? nil : parent)
             }
+            
+            if let insertedPlaylist = playlistInserts.uniqueElement, Library.shared.isPlaylist(playlist: insertedPlaylist) {
+                // Let's hope that playlists don't get inserted other than when creating a new one, otherwise we need another solution
+                playlistController.select(playlist: insertedPlaylist, editTitle: true)
+            }
         }
+        else if playlistUpdates.count > 0 || playlistDeletes.count > 0 || playlistInserts.count > 0 {
+            playlistController._outlineView.reloadData() // TODO Animate movement?
+        }
+
         
         if let viewingPlaylist = trackController.history.playlist as? Playlist, deletes.of(type: Playlist.self).contains(viewingPlaylist) {
             

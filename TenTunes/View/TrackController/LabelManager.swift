@@ -84,13 +84,18 @@ class LabelManager : NSObject, LabelFieldDelegate {
             LabelGroup(title: "Search For", contents: [LabelSearch(string: substring)]),
         ]
 
-        let tags = substring.count > 0 ? self.tags.filter({ $0.name.lowercased().range(of: compareSubstring) != nil }) : playlists
-        groups.append(LabelGroup(title: "Has Tag", contents: tags.map { PlaylistLabel(playlist: $0, isTag: true) }))
-
-        let found = substring.count > 0 ? playlists.filter({ $0.name.lowercased().range(of: compareSubstring) != nil }) : playlists
-        groups.append(LabelGroup(title: "In Playlist", contents: found.map { PlaylistLabel(playlist: $0, isTag: false) }))
+        groups.append(LabelGroup(title: "Has Tag", contents: playlistResults(search: compareSubstring, tag: true)))
+        groups.append(LabelGroup(title: "In Playlist", contents: playlistResults(search: compareSubstring, tag: false)))
 
         return groups
+    }
+    
+    func playlistResults(search: String, tag: Bool) -> [PlaylistLabel] {
+        let found = search.count > 0 ? (tag ? tags : playlists).filter({ $0.name.lowercased().range(of: search) != nil }) : playlists
+        let sortedPlaylists = found.map({ PlaylistLabel(playlist: $0, isTag: tag) }).sorted { (a, b) -> Bool in
+            a.representation.count < b.representation.count
+        }
+        return sortedPlaylists
     }
     
     func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {
@@ -121,9 +126,9 @@ class LabelManager : NSObject, LabelFieldDelegate {
             // Use the first matching tag
             let compareSubstring = labelField.editingString.lowercased()
             
-            let applicable = self.tags.filter({ $0.name.lowercased().range(of: compareSubstring) != nil })
+            let applicable = playlistResults(search: compareSubstring, tag: true)
             if let tag = applicable.first {
-                labelField.autocomplete(with: PlaylistLabel(playlist: tag, isTag: true))
+                labelField.autocomplete(with: tag)
                 return true
             }
         }

@@ -13,11 +13,12 @@ import CoreData
 public class PlaylistSmart: Playlist {
     override var tracksList: [Track] {
         get {
-            return Library.shared.allTracks.tracksList.filter(filter)
+            let all = managedObjectContext!.convert(Library.shared.allTracks.tracksList)
+            return all.filter(filter(in: managedObjectContext!))
         }
     }
         
-    var filter: (Track) -> Bool {
-        return rules.filter
+    func filter(in context: NSManagedObjectContext) -> (Track) -> Bool {
+        return rules.filter(in: context)
     }
 }

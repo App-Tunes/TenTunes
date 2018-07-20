@@ -19,7 +19,7 @@ extension TrackController : LabelManagerDelegate {
             }
         }
         else {
-            desired.filter = PlaylistRules(labels: labels).filter
+            desired.filter = PlaylistRules(labels: labels).filter(in: Library.shared.viewContext)
         }
     }
     

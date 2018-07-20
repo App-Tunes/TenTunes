@@ -104,12 +104,14 @@ class Library : NSPersistentContainer {
 
     // Querying
     
-    func track(byId: NSManagedObjectID) -> Track? {
-        return (try? viewContext.existingObject(with: byId)) as? Track
+    func track(byId: NSManagedObjectID, in context: NSManagedObjectContext? = nil) -> Track? {
+        let context = context ?? viewContext
+        return (try? context.existingObject(with: byId)) as? Track
     }
 
-    func playlist(byId: NSManagedObjectID) -> Playlist? {
-        return (try? viewContext.existingObject(with: byId)) as? Playlist
+    func playlist(byId: NSManagedObjectID, in context: NSManagedObjectContext? = nil) -> Playlist? {
+        let context = context ?? viewContext
+        return (try? context.existingObject(with: byId)) as? Playlist
     }
     
     var allPlaylists: [Playlist] {

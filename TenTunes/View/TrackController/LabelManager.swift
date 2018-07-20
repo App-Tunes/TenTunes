@@ -45,13 +45,13 @@ class LabelManager : NSObject, LabelFieldDelegate {
     func playlistResults(search: String, tag: Bool) -> [PlaylistLabel] {
         let found = search.count > 0 ? (tag ? tags : playlists).filter({ $0.name.lowercased().range(of: search) != nil }) : playlists
         let sortedPlaylists = found.map({ PlaylistLabel(playlist: $0, isTag: tag) }).sorted { (a, b) -> Bool in
-            a.representation.count < b.representation.count
+            a.representation(in: Library.shared.viewContext).count < b.representation(in: Library.shared.viewContext).count
         }
         return sortedPlaylists
     }
     
     func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {
-        return (representedObject as? Label)?.representation
+        return (representedObject as? Label)?.representation(in: Library.shared.viewContext)
     }
     
     func tokenFieldChangedLabels(_ tokenField: NSTokenField, labels: [Any]) {

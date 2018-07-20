@@ -15,8 +15,8 @@ import Cocoa
         aCoder.encode(labels, forKey: "labels")
     }
     
-    var filter : ((Track) -> Bool) {
-        let filters = labels.map { $0.filter() }
+    func filter(in context: NSManagedObjectContext) -> ((Track) -> Bool) {
+        let filters = labels.map { $0.filter(in: context) }
         return { track in
             return filters.allMatch { $0(track) }
         }
@@ -30,8 +30,12 @@ import Cocoa
         self.labels = labels
     }
     
+    public override var description: String {
+        return "[\((labels.map { $0.representation() }).joined(separator: ", "))]"
+    }
+    
     public override var hashValue: Int {
-        return (labels.map { $0.representation }).reduce(0, { (hash, string) in
+        return (labels.map { $0.representation() }).reduce(0, { (hash, string) in
             hash ^ string.hash
         })
     }
@@ -58,11 +62,11 @@ import Cocoa
         
     }
     
-    func filter() -> (Track) -> Bool {
+    func filter(in context: NSManagedObjectContext) -> (Track) -> Bool {
         return { _ in return false }
     }
     
-    var representation: String { return "" }
+    func representation(in context: NSManagedObjectContext? = nil) -> String { return "" }
     
     var data : NSData { return NSKeyedArchiver.archivedData(withRootObject: self) as NSData }
     
@@ -95,51 +99,58 @@ class LabelSearch : Label {
         super.encode(with: aCoder)
     }
     
-    override func filter() -> (Track) -> Bool {
+    override func filter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
         return PlayHistory.filter(findText: string)!
     }
     
-    override var representation: String {
+    override func representation(in context: NSManagedObjectContext? = nil) -> String {
         return "Search: " + string
     }
 }
 
 class PlaylistLabel : Label {
-    var playlist: Playlist?
+    var playlistID: NSManagedObjectID?
     var isTag: Bool
     
     init(playlist: Playlist?, isTag: Bool) {
-        self.playlist = playlist
+        self.playlistID = playlist?.objectID
         self.isTag = isTag
         super.init()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        guard let playlistID = aDecoder.decodeObject(forKey: "playlistID") else {
-            return nil
-        }
-        self.playlist = Library.shared.restoreFrom(playlistID: playlistID)
+        playlistID = (aDecoder.decodeObject(forKey: "playlistID") as? URL) ?=> Library.shared.persistentStoreCoordinator.managedObjectID
         isTag = aDecoder.decodeBool(forKey: "isTag")
         super.init(coder: aDecoder)
     }
     
     override func encode(with aCoder: NSCoder) {
         aCoder.encode(isTag, forKey: "isTag")
-        aCoder.encode(playlist ?=> Library.shared.writePlaylistID, forKey: "playlistID")
+        aCoder.encode(playlistID?.uriRepresentation(), forKey: "playlistID")
         super.encode(with: aCoder)
     }
     
-    override func filter() -> (Track) -> Bool {
-        guard let tracks = playlist?.tracksList else {
-            return super.filter()
+    func playlist(in context: NSManagedObjectContext) -> Playlist? {
+        guard let playlistID = self.playlistID else {
+            return nil
+        }
+        return Library.shared.playlist(byId: playlistID, in: context)
+    }
+    
+    override func filter(in context: NSManagedObjectContext) -> (Track) -> Bool {
+        guard let tracks = playlist(in: context)?.tracksList else {
+            return super.filter(in: context)
         }
         
+        let trackIDs = tracks.map { $0.objectID }
+        
         return { track in
-            return (tracks.map { $0.objectID } ).contains(track.objectID)
+            return trackIDs.contains(track.objectID)
         }
     }
     
-    override var representation: String {
-        return (isTag ? "" : "In: ") + (playlist?.name ?? "Invalid Playlist")
+    override func representation(in context: NSManagedObjectContext? = nil) -> String {
+        let playlistName = context != nil ? playlist(in: context!)?.name : playlistID?.description
+        return (isTag ? "" : "In: ") + (playlistName ?? "Invalid Playlist")
     }
 }

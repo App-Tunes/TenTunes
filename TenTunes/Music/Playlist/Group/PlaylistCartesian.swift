@@ -44,7 +44,7 @@ class PlaylistCartesian: PlaylistFolder {
             for error in childrenList.retain({
                 (Combination(from: $0) ?=> cross.contains) ?? false
             }) {
-                removeFromChildren(error)
+                context.delete(error) // Harsh measues but with GUI validation this should not happen anyway
             }
             for combination in cross where !childrenRules.contains(combination) {
                 let playlist = PlaylistSmart(context: context)

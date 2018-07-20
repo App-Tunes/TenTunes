@@ -77,6 +77,7 @@ extension ViewController {
         else if playlistUpdates.count > 0 || playlistDeletes.count > 0 || playlistInserts.count > 0 {
             let prevSelected = playlistController.selectedPlaylists.map({ $0.1 }).uniqueElement
             
+            // TODO Only reload when the affected playlists are in view
             playlistController._outlineView.reloadData() // TODO Animate movement?
             
             if let prevSelected = prevSelected {

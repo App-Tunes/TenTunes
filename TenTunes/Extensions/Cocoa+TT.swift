@@ -154,15 +154,16 @@ extension NSOutlineView {
         }
     }
     
-    func animateInsert<T>(elements: [T], position: (T) -> (Int, T?)) {
+    func animateInsert<T>(elements: [T], position: (T) -> (Int, T?)?) {
         guard elements.count < 100 else {
             reloadData()
             return
         }
         
         for t in elements {
-            let (pos, parent) = position(t)
-            insertItems(at: IndexSet(integer: pos), inParent: parent, withAnimation: .slideUp)
+            if let (pos, parent) = position(t) {
+                insertItems(at: IndexSet(integer: pos), inParent: parent, withAnimation: .slideUp)
+            }
         }
     }
 }

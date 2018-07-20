@@ -266,6 +266,9 @@
                 </menuItem>
                 <menuItem title="Smart Group" id="Yn6-pc-NBH">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="createCartesianPlaylist:" target="-2" id="pi0-zS-kGI"/>
+                    </connections>
                 </menuItem>
             </items>
             <point key="canvasLocation" x="207" y="332"/>

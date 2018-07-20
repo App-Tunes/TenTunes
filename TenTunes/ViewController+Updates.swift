@@ -63,7 +63,9 @@ extension ViewController {
         }
         else if playlistInserts.count > 0 && playlistUpdates.uniqueElement == playlistInserts.uniqueElement?.parent {
             playlistController._outlineView.animateInsert(elements: Array(inserts.of(type: Playlist.self))) {
-                let (parent, idx) = Library.shared.position(of: $0)!
+                guard let (parent, idx) = Library.shared.position(of: $0) else {
+                    return nil
+                }
                 return (idx, parent == Library.shared.masterPlaylist ? nil : parent)
             }
             

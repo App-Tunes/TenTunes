@@ -102,6 +102,8 @@ import Cocoa
     }
     
     func insert(playlist: Playlist) {
+        view.window?.makeFirstResponder(view) // To make sure nothing else is doing anything
+
         Library.shared.viewContext.insert(playlist)
         let (parent, idx) = playlistInsertionPosition
         
@@ -130,6 +132,11 @@ import Cocoa
             }
         }
         
+        try! Library.shared.viewContext.save()
+    }
+    
+    @IBAction func createCartesianPlaylist(_ sender: Any) {
+        insert(playlist: PlaylistCartesian(context: Library.shared.viewContext))
         try! Library.shared.viewContext.save()
     }
     

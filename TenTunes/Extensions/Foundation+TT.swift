@@ -8,6 +8,19 @@
 
 import Foundation
 
+extension Sequence {
+    func crossProduct<T2:Sequence>(_ rhs : T2) -> AnySequence<(Iterator.Element,T2.Iterator.Element)>
+    {
+        return AnySequence (
+            lazy.flatMap { x in rhs.lazy.map { y in (x,y) }}
+        )
+    }
+    
+    func retain(_ retainer: (Element) -> Bool) -> [Element] {
+        return filter { !retainer($0) }
+    }
+}
+
 extension Optional where Wrapped : Comparable {
     // Simply puts the nils at the end
     static func compare(_ lhs: Wrapped?, _ rhs: Wrapped?) -> Bool {
@@ -86,7 +99,7 @@ extension Array {
             remove(at: index)
         }
     }
-
+    
     public mutating func rearrange(from: [Int], to: Int) {
         // First get the elements
         let elements = from.map { self[$0] }

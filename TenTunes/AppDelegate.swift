@@ -35,18 +35,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let musicDir = FileManager.default.urls(for: .musicDirectory, in: .userDomainMask).first!
         return musicDir.appendingPathComponent("Ten Tunes")
     }
-
-    lazy var persistentContainer: Library = {
-        /*
-         The persistent container for the application. This implementation
-         creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
-        */
-        let container = Library(name: "TenTunes", at: AppDelegate.dataLocation)
+    
+    var _persistentContainer: Library?
+    var persistentContainer: Library {
+        if _persistentContainer == nil {
+            /*
+             The persistent container for the application. This implementation
+             creates and returns a container, having loaded the store for the
+             application to it. This property is optional since there are legitimate
+             error conditions that could cause the creation of the store to fail.
+             */
+            _persistentContainer = Library(name: "TenTunes", at: AppDelegate.dataLocation)
+            Library.CheckSanity(library: _persistentContainer!).check(in: _persistentContainer!.viewContext)
+        }
         
-        return container
-    }()
+        return _persistentContainer!
+    }
 
     // MARK: - Core Data Saving and Undo support
 

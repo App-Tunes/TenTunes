@@ -61,8 +61,6 @@ class Library : NSPersistentContainer {
             playlist.name = "Tags"
             _masterPlaylist.addPlaylist(playlist)
         }
-        
-        // TODO Check for sanity (e.g. playlists without a parent)
     }
     
     func fetchCreateSpecialFolder(key: String, create: (PlaylistFolder) -> Swift.Void) -> PlaylistFolder {
@@ -98,6 +96,8 @@ class Library : NSPersistentContainer {
     var tagPlaylist: PlaylistFolder {
         return _tagPlaylist
     }
+
+    var sanitySemaphore = DispatchSemaphore(value: 1)
 
     var _exportChanged: Set<NSManagedObjectID>? = Set()
     var exportSemaphore = DispatchSemaphore(value: 1)

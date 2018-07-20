@@ -19,6 +19,9 @@ extension PlaylistFolder {
 
     @NSManaged public var children: NSOrderedSet
 
+    @NSManaged public var carthesianLeft: NSOrderedSet
+    @NSManaged public var carthesianRight: NSOrderedSet
+
 }
 
 // MARK: Generated accessors for children

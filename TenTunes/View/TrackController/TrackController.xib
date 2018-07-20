@@ -323,7 +323,7 @@
                         </textField>
                         <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RVc-tT-TEm">
                             <rect key="frame" x="612" y="3" width="48" height="19"/>
-                            <buttonCell key="cell" type="recessed" title="Rules" bezelStyle="recessed" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zkM-Rz-wEu">
+                            <buttonCell key="cell" type="recessed" title="Rules" bezelStyle="recessed" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zkM-Rz-wEu">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                 <font key="font" metaFont="systemBold" size="12"/>
                             </buttonCell>
@@ -400,7 +400,7 @@ Gw
                         </tokenField>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tzd-Vh-FYi">
                             <rect key="frame" x="637" y="4" width="23" height="19"/>
-                            <buttonCell key="cell" type="recessed" title="X" bezelStyle="recessed" alignment="center" state="on" borderStyle="border" inset="2" id="aI3-qh-oTV">
+                            <buttonCell key="cell" type="recessed" title="X" bezelStyle="recessed" alignment="center" borderStyle="border" inset="2" id="aI3-qh-oTV">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="systemBold" size="12"/>
                                 <string key="keyEquivalent" base64-UTF8="YES">

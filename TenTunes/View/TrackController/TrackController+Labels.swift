@@ -41,6 +41,8 @@ extension TrackController : LabelManagerDelegate {
         
         desired.filter = nil
         
+        _ruleButton.state = .off
+
         _tagField.resignFirstResponder()
         NSAnimationContext.runAnimationGroup({_ in
             NSAnimationContext.current.duration = 0.2
@@ -67,6 +69,8 @@ extension TrackController : LabelManagerDelegate {
             _ruleBarClose.performClick(self)
         }
         else {
+            _ruleButton.state = .on
+            
             NSAnimationContext.runAnimationGroup({_ in
                 NSAnimationContext.current.duration = 0.2
                 _ruleBarHeight.animator().constant = 28

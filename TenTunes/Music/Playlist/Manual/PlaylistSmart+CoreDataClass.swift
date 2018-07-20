@@ -19,6 +19,6 @@ public class PlaylistSmart: Playlist {
     }
         
     func filter(in context: NSManagedObjectContext) -> (Track) -> Bool {
-        return rules.filter(in: context)
+        return rules?.filter(in: context) ?? { _ in false }
     }
 }

@@ -51,6 +51,7 @@ class PlaylistCartesian: PlaylistFolder {
                 playlist.rules = combination.rules
                 playlist.name = combination.name
                 addToChildren(playlist)
+                // TODO Fix the program trying to autoname these
             }
         }
     }

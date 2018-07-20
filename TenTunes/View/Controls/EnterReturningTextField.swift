@@ -15,8 +15,5 @@ class EnterReturningTextField: NSTextField {
                 self.window?.makeFirstResponder(self.superview!)
             }
         }
-        else {
-            super.keyDown(with: event)
-        }
     }
 }

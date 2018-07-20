@@ -22,7 +22,7 @@ extension Library {
         override var preventsQuit: Bool { return false }
         
         override func execute() {
-            library.performBackgroundTask { mox in
+            library.performChildBackgroundTask { mox in
                 self.check(in: mox)
                 self.finish()
             }
@@ -32,16 +32,14 @@ extension Library {
             let allPlaylists = context.convert(self.library.allPlaylists)
             let master = context.convert(self.library.masterPlaylist)
             
-            for case let playlist in allPlaylists {
-                if playlist.parent == nil && playlist != master {
-                    master.addToChildren(playlist)
-                }
-                
-                if let playlist = playlist as? PlaylistCartesian {
-                    playlist.checkSanity(in: context)
-                }
+            for playlist in allPlaylists where playlist.parent == nil && playlist != master {
+                master.addToChildren(playlist)
             }
-            
+
+            for case let playlist as PlaylistCartesian in allPlaylists {
+                playlist.checkSanity(in: context)
+            }
+
             try! context.save()
         }
     }

@@ -30,6 +30,12 @@ import Cocoa
         self.labels = labels
     }
     
+    public override var hashValue: Int {
+        return (labels.map { $0.representation }).reduce(0, { (hash, string) in
+            hash ^ string.hash
+        })
+    }
+    
     override public func isEqual(_ object: Any?) -> Bool {
         guard let object = object as? PlaylistRules else {
             return false

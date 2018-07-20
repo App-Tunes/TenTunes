@@ -224,12 +224,15 @@ extension PlaylistController: NSTextFieldDelegate {
         textField.resignFirstResponder()
         
         let row = _outlineView.row(for: textField.superview!)
-        let playlist = (_outlineView.item(atRow: row)) as! Playlist
-        
-        if playlist.name != textField.stringValue {
-            playlist.name = textField.stringValue
-            
-            try! Library.shared.viewContext.save()
+        if let playlist = (_outlineView.item(atRow: row)) as? Playlist {
+            if playlist.name != textField.stringValue {
+                playlist.name = textField.stringValue
+                
+                try! Library.shared.viewContext.save()
+            }
+        }
+        else {
+            print("Unable to find Playlist after editing!")
         }
     }
 }

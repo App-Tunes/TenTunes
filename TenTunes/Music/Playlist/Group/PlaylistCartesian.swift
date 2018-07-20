@@ -26,12 +26,18 @@ class PlaylistCartesian: PlaylistFolder {
             
             self.init(name: from.name, rules: rules)
         }
+        
+        var hashValue: Int {
+            return name.hashValue ^ rules.hashValue
+        }
+        
+        static func == (lhs: Combination, rhs: Combination) -> Bool {
+            return lhs.name == rhs.name && lhs.rules == rhs.rules
+        }
     }
     
-    func checkSanity(in context: NSManagedObjectContext? = nil) {
-        let context = context ?? Library.shared.viewContext
-        
-        let cross = crossProduct()
+    func checkSanity(in context: NSManagedObjectContext) {
+        let cross = crossProduct(in: context)
         let childrenRules = childrenList.compactMap(Combination.init)
         
         if cross.count != childrenList.count || cross != Set(childrenRules) {
@@ -49,9 +55,9 @@ class PlaylistCartesian: PlaylistFolder {
         }
     }
     
-    func crossProduct() -> Set<Combination> {
-        let ltmp = Library.shared.tagPlaylist.childrenList[safe: 0] as? PlaylistFolder
-        let rtmp = Library.shared.tagPlaylist.childrenList[safe: 1] as? PlaylistFolder
+    func crossProduct(in context: NSManagedObjectContext) -> Set<Combination> {
+        let ltmp = Library.shared.tagPlaylist.childrenList[safe: 0] as? PlaylistFolder ?=> context.convert
+        let rtmp = Library.shared.tagPlaylist.childrenList[safe: 1] as? PlaylistFolder ?=> context.convert
         
         guard let left = ltmp?.childrenList, let right = rtmp?.childrenList else {
             return Set((self.left ?? self.right)?.childrenList.map { source in

@@ -39,6 +39,7 @@ class LabelManager : NSObject, LabelFieldDelegate {
         groups.append(LabelGroup(title: "Has Tag", contents: playlistResults(search: compareSubstring, tag: true)))
         groups.append(LabelGroup(title: "Contained In Playlist", contents: playlistResults(search: compareSubstring, tag: false)))
         groups.append(LabelGroup(title: "Created By", contents: authorResults(search: compareSubstring)))
+        groups.append(LabelGroup(title: "Released on Album", contents: albumResults(search: compareSubstring)))
 
         return groups
     }
@@ -47,6 +48,11 @@ class LabelManager : NSObject, LabelFieldDelegate {
         return labels.sorted { (a, b) -> Bool in
             a.representation(in: Library.shared.viewContext).count < b.representation(in: Library.shared.viewContext).count
         }
+    }
+    
+    func albumResults(search: String) -> [LabelAlbum] {
+        let found = search.count > 0 ? Library.shared.allAlbums.filter({ $0.title.lowercased().range(of: search) != nil }) : Library.shared.allAlbums
+        return LabelManager.sorted(labels: found.map { LabelAlbum(album: $0) })
     }
     
     func authorResults(search: String) -> [LabelAuthor] {

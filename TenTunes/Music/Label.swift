@@ -184,3 +184,37 @@ class LabelAuthor : Label {
         return "Author: " + author
     }
 }
+
+class LabelAlbum : Label {
+    var album: Album
+
+    init(album: Album) {
+        self.album = album
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        guard let title = aDecoder.decodeObject(forKey: "title") as? String, let author = aDecoder.decodeObject(forKey: "author") as? String else {
+            return nil
+        }
+        self.album = Album(title: title, by: author)
+        super.init(coder: aDecoder)
+    }
+    
+    override func encode(with aCoder: NSCoder) {
+        aCoder.encode(album.title, forKey: "title")
+        aCoder.encode(album.author, forKey: "author")
+        super.encode(with: aCoder)
+    }
+    
+    override func filter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
+        return {
+            $0.rAlbum.lowercased() == self.album.title.lowercased() &&
+            $0.rAuthor.lowercased() == self.album.author.lowercased() // TODO Use the album author
+        }
+    }
+    
+    override func representation(in context: NSManagedObjectContext? = nil) -> String {
+        return "On \(album.title) by \(album.author)"
+    }
+}

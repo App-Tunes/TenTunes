@@ -110,7 +110,17 @@ class Library : NSPersistentContainer {
         }
         return _allAuthors!
     }
-
+    
+    var _allAlbums: Set<Album>?
+    var allAlbums: Set<Album> {
+        if _allAlbums == nil {
+            _allAlbums = Set(allTracks.tracksList
+                .map { track in Album(title: track.rAlbum, by: track.rAuthor) }
+            ) // TODO Use album author
+        }
+        return _allAlbums!
+    }
+    
     // Querying
     
     func track(byId: NSManagedObjectID, in context: NSManagedObjectContext? = nil) -> Track? {

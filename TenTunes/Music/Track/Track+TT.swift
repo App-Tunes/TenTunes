@@ -11,6 +11,9 @@ import AudioKit
 
 extension Track {
     static let pasteboardType = NSPasteboard.PasteboardType(rawValue: "tentunes.track")
+    
+    static let unknownAuthor = "Unknown Author"
+    static let unknownTitle = "Unknown Title"
 
     var duration: CMTime? {
         get { return durationR > 0 ? CMTime(value: durationR, timescale: 1000) : nil }
@@ -33,7 +36,7 @@ extension Track {
     }
     
     var rTitle: String {
-        return title ?? "Unknown Title"
+        return title ?? Track.unknownTitle
     }
 
     var rSource: String {
@@ -41,7 +44,7 @@ extension Track {
     }
 
     var rAuthor: String {
-        return author ?? "Unknown Author"
+        return author ?? Track.unknownAuthor
     }
 
     var rAlbum: String {

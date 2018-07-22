@@ -46,11 +46,20 @@ extension ViewController {
             }
         }
 
-        // Modified library?
-        if inserts.of(type: Track.self).count > 0 || deletes.of(type: Track.self).count > 0 {
-            if trackController.history.playlist is PlaylistLibrary {
-                trackController.desired._changed = true
+        let trackDeletes = deletes.of(type: Track.self)
+        let trackInserts = inserts.of(type: Track.self)
+        let trackUpdates = updates.of(type: Track.self)
+        
+        if trackInserts.count > 0 || trackUpdates.count > 0 || trackDeletes.count > 0 {
+            // Modified library?
+            if trackInserts.count > 0 || trackDeletes.count > 0 {
+                if trackController.history.playlist is PlaylistLibrary {
+                    trackController.desired._changed = true
+                }
             }
+
+            // Invalidate caches
+            Library.shared._allAuthors = nil
         }
         
         let playlistDeletes = deletes.of(type: Playlist.self)

@@ -101,6 +101,15 @@ class Library : NSPersistentContainer {
 
     var _exportChanged: Set<NSManagedObjectID>? = Set()
     var exportSemaphore = DispatchSemaphore(value: 1)
+    
+    var _allAuthors: Set<String>?
+    var allAuthors: Set<String> {
+        if _allAuthors == nil {
+            _allAuthors = Set(allTracks.tracksList
+                .compactMap({ track in track.author}) + [Track.unknownAuthor])
+        }
+        return _allAuthors!
+    }
 
     // Querying
     

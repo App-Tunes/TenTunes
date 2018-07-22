@@ -154,3 +154,33 @@ class LabelPlaylist : Label {
         return (isTag ? "" : "In: ") + (playlistName ?? "Invalid Playlist")
     }
 }
+
+class LabelAuthor : Label {
+    var author: String
+    
+    init(author: String) {
+        self.author = author
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        guard let author = aDecoder.decodeObject(forKey: "author") as? String else {
+            return nil
+        }
+        self.author = author
+        super.init(coder: aDecoder)
+    }
+    
+    override func encode(with aCoder: NSCoder) {
+        aCoder.encode(author, forKey: "author")
+        super.encode(with: aCoder)
+    }
+    
+    override func filter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
+        return { $0.rAuthor == self.author }
+    }
+    
+    override func representation(in context: NSManagedObjectContext? = nil) -> String {
+        return "Author: " + author
+    }
+}

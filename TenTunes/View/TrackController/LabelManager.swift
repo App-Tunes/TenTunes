@@ -37,17 +37,26 @@ class LabelManager : NSObject, LabelFieldDelegate {
         ]
 
         groups.append(LabelGroup(title: "Has Tag", contents: playlistResults(search: compareSubstring, tag: true)))
-        groups.append(LabelGroup(title: "In Playlist", contents: playlistResults(search: compareSubstring, tag: false)))
+        groups.append(LabelGroup(title: "Contained In Playlist", contents: playlistResults(search: compareSubstring, tag: false)))
+        groups.append(LabelGroup(title: "Created By", contents: authorResults(search: compareSubstring)))
 
         return groups
     }
     
-    func playlistResults(search: String, tag: Bool) -> [LabelPlaylist] {
-        let found = search.count > 0 ? (tag ? tags : playlists).filter({ $0.name.lowercased().range(of: search) != nil }) : playlists
-        let sortedPlaylists = found.map({ LabelPlaylist(playlist: $0, isTag: tag) }).sorted { (a, b) -> Bool in
+    static func sorted<L : Label>(labels: [L]) -> [L] {
+        return labels.sorted { (a, b) -> Bool in
             a.representation(in: Library.shared.viewContext).count < b.representation(in: Library.shared.viewContext).count
         }
-        return sortedPlaylists
+    }
+    
+    func authorResults(search: String) -> [LabelAuthor] {
+        let found = search.count > 0 ? Library.shared.allAuthors.filter({ $0.lowercased().range(of: search) != nil }) : Library.shared.allAuthors
+        return LabelManager.sorted(labels: found.map { LabelAuthor(author: $0) })
+    }
+    
+    func playlistResults(search: String, tag: Bool) -> [LabelPlaylist] {
+        let found = search.count > 0 ? (tag ? tags : playlists).filter({ $0.name.lowercased().range(of: search) != nil }) : playlists
+        return LabelManager.sorted(labels: found.map({ LabelPlaylist(playlist: $0, isTag: tag) }))
     }
     
     func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {

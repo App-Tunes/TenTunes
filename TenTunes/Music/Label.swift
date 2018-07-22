@@ -187,7 +187,7 @@ class LabelAuthor : Label {
 
 class LabelAlbum : Label {
     var album: Album
-
+    
     init(album: Album) {
         self.album = album
         super.init()
@@ -213,5 +213,35 @@ class LabelAlbum : Label {
     
     override func representation(in context: NSManagedObjectContext? = nil) -> String {
         return "💿 \(album.title) 👥 \(album.author)"
+    }
+}
+
+class LabelGenre : Label {
+    var genre: String
+    
+    init(genre: String) {
+        self.genre = genre
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        guard let genre = aDecoder.decodeObject(forKey: "genre") as? String else {
+            return nil
+        }
+        self.genre = genre
+        super.init(coder: aDecoder)
+    }
+    
+    override func encode(with aCoder: NSCoder) {
+        aCoder.encode(genre, forKey: "genre")
+        super.encode(with: aCoder)
+    }
+    
+    override func filter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
+        return { $0.genre?.lowercased() == self.genre.lowercased() }
+    }
+    
+    override func representation(in context: NSManagedObjectContext? = nil) -> String {
+        return "📗 " + genre
     }
 }

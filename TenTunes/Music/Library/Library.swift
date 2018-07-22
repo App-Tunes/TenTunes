@@ -111,6 +111,15 @@ class Library : NSPersistentContainer {
         return _allAuthors!
     }
     
+    var _allGenres: Set<String>?
+    var allGenres: Set<String> {
+        if _allGenres == nil {
+            _allGenres = Set(allTracks.tracksList
+                .compactMap({ track in track.genre }))
+        }
+        return _allGenres!
+    }
+    
     var _allAlbums: Set<Album>?
     var allAlbums: Set<Album> {
         if _allAlbums == nil {

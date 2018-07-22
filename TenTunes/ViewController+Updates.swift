@@ -60,6 +60,8 @@ extension ViewController {
 
             // Invalidate caches
             Library.shared._allAuthors = nil
+            Library.shared._allAlbums = nil
+            Library.shared._allGenres = nil
         }
         
         let playlistDeletes = deletes.of(type: Playlist.self)

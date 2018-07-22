@@ -208,10 +208,7 @@ class LabelAlbum : Label {
     }
     
     override func filter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
-        return {
-            $0.rAlbum.lowercased() == self.album.title.lowercased() &&
-            $0.rAuthor.lowercased() == self.album.author.lowercased() // TODO Use the album author
-        }
+        return { Album(of: $0) == self.album }
     }
     
     override func representation(in context: NSManagedObjectContext? = nil) -> String {

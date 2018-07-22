@@ -12,6 +12,10 @@ class Album {
     let title: String
     let author: String
     
+    convenience init(of track: Track) {
+        self.init(title: track.rAlbum, by: track.rAuthor) // TODO Use album author
+    }
+    
     init(title: String, by author: String) {
         self.title = title
         self.author = author
@@ -24,6 +28,7 @@ extension Album : Hashable {
     }
     
     static func == (lhs: Album, rhs: Album) -> Bool {
-        return lhs.title == rhs.title && lhs.author == rhs.author
+        return lhs.title.lowercased() == rhs.title.lowercased() &&
+            lhs.author.lowercased() == rhs.author.lowercased()
     }
 }

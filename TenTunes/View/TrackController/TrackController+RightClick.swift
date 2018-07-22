@@ -32,8 +32,10 @@ extension TrackController: NSMenuDelegate {
         
         menu.item(withAction: #selector(menuPlay))?.isVisible = playTrack != nil
         
-        _showInPlaylistSubmenu.isHidden = menuTracks.count != 1
-        
+        _showInPlaylistSubmenu.isVisible = menuTracks.count == 1
+        menu.item(withAction: #selector(menuShowAuthor(_:)))?.isVisible = menuTracks.count == 1
+        menu.item(withAction: #selector(menuShowAlbum(_:)))?.isVisible = menuTracks.count == 1
+
         _moveToMediaDirectory.isHidden = menuTracks.noneMatch { !$0.usesMediaDirectory && $0.url != nil }
         
         let someNeedAnalysis = menuTracks.anyMatch { $0.url != nil }
@@ -91,6 +93,22 @@ extension TrackController: NSMenuDelegate {
         
         ViewController.shared.playlistController.select(playlist: playlist)
         // TODO select track
+    }
+    
+    @IBAction func menuShowAuthor(_ sender: Any) {
+        ViewController.shared.playlistController.selectLibrary(self)
+        let track = menuTracks.first!
+
+        ViewController.shared.trackController.openFindPanel()
+        ViewController.shared.trackController._tagField.currentLabels = [LabelAuthor(author: track.rAuthor)]
+    }
+
+    @IBAction func menuShowAlbum(_ sender: Any) {
+        ViewController.shared.playlistController.selectLibrary(self)
+        let track = menuTracks.first!
+        
+        ViewController.shared.trackController.openFindPanel()
+        ViewController.shared.trackController._tagField.currentLabels = [LabelAlbum(album: Album(of: track))]
     }
 
     @IBAction func menuShowInFinder(_ sender: Any) {

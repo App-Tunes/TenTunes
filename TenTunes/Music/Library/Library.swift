@@ -115,8 +115,8 @@ class Library : NSPersistentContainer {
     var allAlbums: Set<Album> {
         if _allAlbums == nil {
             _allAlbums = Set(allTracks.tracksList
-                .map { track in Album(title: track.rAlbum, by: track.rAuthor) }
-            ) // TODO Use album author
+                .map { track in Album(of: track) }
+            )
         }
         return _allAlbums!
     }

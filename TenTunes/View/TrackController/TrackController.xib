@@ -499,6 +499,18 @@ Gw
                         </connections>
                     </menu>
                 </menuItem>
+                <menuItem title="Show Author" id="AH7-T1-bK0">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="menuShowAuthor:" target="-2" id="5Rv-xc-D8d"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Show Album" id="PSt-6k-Dai">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="menuShowAlbum:" target="-2" id="URQ-2W-0aD"/>
+                    </connections>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="P8g-M2-vOX"/>
                 <menuItem title="Analyze" id="gdC-UO-cO1">
                     <modifierMask key="keyEquivalentModifierMask"/>

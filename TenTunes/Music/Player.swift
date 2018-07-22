@@ -121,6 +121,12 @@ class Player {
         NSUserNotificationCenter.default.deliver(notification)
     }
     
+    func sanityCheck() {
+        if !AudioKit.engine.isRunning {
+            try! AudioKit.start()
+        }
+    }
+    
     func togglePlay() {        
         if self.isPaused() {
             self.player.play()
@@ -155,9 +161,7 @@ class Player {
             player.stop()
         }
         
-        if !AudioKit.engine.isRunning {
-            try! AudioKit.start()
-        }
+        sanityCheck()
         
         if let track = track {
             if let url = track.url {
@@ -224,10 +228,13 @@ class Player {
     }
     
     func setPosition(_ position: Double) {
+        sanityCheck()
         player.setPosition(position * player.duration)
     }
     
     func pause() {
+        sanityCheck()
+        
         // The set position is reset when we play again
         player.play(from: player.currentTime, to: player.duration)
         player.stop()

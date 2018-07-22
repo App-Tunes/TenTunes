@@ -151,7 +151,7 @@ class LabelPlaylist : Label {
     
     override func representation(in context: NSManagedObjectContext? = nil) -> String {
         let playlistName = context != nil ? playlist(in: context!)?.name : playlistID?.description
-        return (isTag ? "" : "In: ") + (playlistName ?? "Invalid Playlist")
+        return (isTag ? "🏷 " : "📁 ") + (playlistName ?? "Invalid Playlist")
     }
 }
 
@@ -181,7 +181,7 @@ class LabelAuthor : Label {
     }
     
     override func representation(in context: NSManagedObjectContext? = nil) -> String {
-        return "Author: " + author
+        return "👥 " + author
     }
 }
 
@@ -212,6 +212,6 @@ class LabelAlbum : Label {
     }
     
     override func representation(in context: NSManagedObjectContext? = nil) -> String {
-        return "On \(album.title) by \(album.author)"
+        return "💿 \(album.title) 👥 \(album.author)"
     }
 }

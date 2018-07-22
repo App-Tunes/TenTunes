@@ -102,11 +102,7 @@ import Cocoa
     }
     
     func insert(playlist: Playlist) {
-        view.window?.makeFirstResponder(view) // To make sure nothing else is doing anything
-
-        Library.shared.viewContext.insert(playlist)
         let (parent, idx) = playlistInsertionPosition
-        
         parent.addPlaylist(playlist, above: idx)
     }
     
@@ -227,8 +223,6 @@ extension PlaylistController: NSTextFieldDelegate {
         if let playlist = (_outlineView.item(atRow: row)) as? Playlist {
             if playlist.name != textField.stringValue {
                 playlist.name = textField.stringValue
-                
-                try! Library.shared.viewContext.save()
             }
         }
         else {

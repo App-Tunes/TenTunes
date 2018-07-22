@@ -32,6 +32,8 @@ extension ViewController {
         self.backgroundTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 10.0, repeats: true ) { [unowned self] (timer) in
             Library.shared.considerExport()
             Library.shared.considerSanity()
+            
+            self.player.sanityCheck()
 
             var taskers = PriorityQueue(ascending: true, startingValues: self.taskers)
             taskers.push(self.tasker)

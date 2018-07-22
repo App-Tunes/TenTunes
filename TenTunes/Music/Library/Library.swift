@@ -184,7 +184,7 @@ class Library : NSPersistentContainer {
     }
 
     func isEditable(playlist: PlaylistProtocol) -> Bool {
-        return playlist is PlaylistManual
+        return playlist is PlaylistManual && isPlaylist(playlist: playlist)
     }
             
     // iTunes

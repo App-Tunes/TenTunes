@@ -14,7 +14,9 @@ extension PlaylistController: NSUserInterfaceValidations {
             return false
         }
         
-        if action == #selector(delete as (AnyObject) -> Swift.Void) { return true }
+        if action == #selector(delete as (AnyObject) -> Swift.Void) {
+            return selectedPlaylists.map({ $0.1 }).map(Library.shared.isPlaylist).allMatch { $0 }
+        }
         if action == #selector(performFindPanelAction) { return true }
         
         return false

@@ -17,6 +17,8 @@ extension PlaylistController: NSMenuDelegate {
         if menuPlaylists.count < 1 {
             menu.cancelTrackingWithoutAnimation()
         }
+        
+        menu.item(withAction: #selector(deletePlaylist(_:)))?.isVisible = menuPlaylists.map(Library.shared.isPlaylist).allMatch { $0 }
     }
     
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {

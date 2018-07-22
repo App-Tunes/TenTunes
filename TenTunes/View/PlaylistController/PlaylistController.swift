@@ -137,10 +137,16 @@ import Cocoa
     }
     
     func delete(indices: [Int]?) {
-        if let indices = indices {
-            Library.shared.viewContext.delete(all: indices.compactMap { _outlineView.item(atRow: $0) as? Playlist })
-            try! Library.shared.viewContext.save()
+        guard let playlists = indices?.compactMap({ _outlineView.item(atRow: $0) as? Playlist }) else {
+            return
         }
+
+        guard playlists.allMatch({ Library.shared.isPlaylist(playlist: $0) }) else {
+            fatalError("Trying to delete undeletable playlists!")
+        }
+        
+        Library.shared.viewContext.delete(all: playlists)
+        try! Library.shared.viewContext.save()
     }
 }
 

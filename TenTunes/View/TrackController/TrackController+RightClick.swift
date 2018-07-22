@@ -33,8 +33,8 @@ extension TrackController: NSMenuDelegate {
         menu.item(withAction: #selector(menuPlay))?.isVisible = playTrack != nil
         
         _showInPlaylistSubmenu.isVisible = menuTracks.count == 1
-        menu.item(withAction: #selector(menuShowAuthor(_:)))?.isVisible = menuTracks.count == 1
-        menu.item(withAction: #selector(menuShowAlbum(_:)))?.isVisible = menuTracks.count == 1
+        menu.item(withAction: #selector(menuShowAuthor(_:)))?.isVisible = menuTracks.count == 1 && menuTracks.first!.author != nil
+        menu.item(withAction: #selector(menuShowAlbum(_:)))?.isVisible = menuTracks.count == 1 && menuTracks.first!.album != nil
 
         _moveToMediaDirectory.isHidden = menuTracks.noneMatch { !$0.usesMediaDirectory && $0.url != nil }
         

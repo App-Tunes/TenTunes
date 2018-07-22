@@ -336,11 +336,19 @@ class WaveformView: NSControl, CALayerDelegate {
         self.click(at: self.convert(event.locationInWindow, from: nil))
     }
     
+    override func mouseEntered(with event: NSEvent) {
+        waveformLayer.mouseLocation = Double(self.convert(event.locationInWindow, from:nil).x / bounds.size.width)
+    }
+    
     override func mouseExited(with event: NSEvent) {
         waveformLayer.mouseLocation = nil
     }
     
     override func mouseMoved(with event: NSEvent) {
+        guard waveformLayer.mouseLocation != nil else {
+            return
+        }
+        
         CATransaction.begin()
         CATransaction.setValue(true, forKey:kCATransactionDisableActions)
         waveformLayer.mouseLocation = Double(self.convert(event.locationInWindow, from:nil).x / bounds.size.width)

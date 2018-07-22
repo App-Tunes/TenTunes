@@ -142,7 +142,7 @@ class LabelTextField: NSTokenField {
             view.addConstraint(NSLayoutConstraint(item: label, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 5))
             
             var prev: NSView? = nil
-            for content in group.contents {
+            for content in group.contents.prefix(10) {
                 let button = NSButton()
                 button.translatesAutoresizingMaskIntoConstraints = false
                 button.setButtonType(.momentaryPushIn)

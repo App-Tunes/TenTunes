@@ -177,7 +177,7 @@ class LabelAuthor : Label {
     }
     
     override func filter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
-        return { $0.rAuthor == self.author }
+        return { $0.rAuthor.lowercased() == self.author.lowercased() }
     }
     
     override func representation(in context: NSManagedObjectContext? = nil) -> String {

@@ -15,6 +15,9 @@ class FetchTrackMetadata: TrackTask {
     
     override var title: String { return "Fetch Track Metadata" }
 
+    // Will be auto-gathered each run anyway
+    override var preventsQuit: Bool { return false }
+
     override func execute() {
         track.metadataFetched = true // So no other thread tries to enter
         

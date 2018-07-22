@@ -108,7 +108,7 @@ class LabelSearch : Label {
     }
 }
 
-class PlaylistLabel : Label {
+class LabelPlaylist : Label {
     var playlistID: NSManagedObjectID?
     var isTag: Bool
     

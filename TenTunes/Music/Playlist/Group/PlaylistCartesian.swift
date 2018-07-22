@@ -62,7 +62,7 @@ class PlaylistCartesian: PlaylistFolder {
         
         guard let left = ltmp?.childrenList, let right = rtmp?.childrenList else {
             return Set((self.left ?? self.right)?.childrenList.map { source in
-                let rules = PlaylistRules(labels: [PlaylistLabel(playlist: source, isTag: false)])
+                let rules = PlaylistRules(labels: [LabelPlaylist(playlist: source, isTag: false)])
                 return Combination(name: source.name, rules: rules)
             } ?? [])
         }
@@ -70,8 +70,8 @@ class PlaylistCartesian: PlaylistFolder {
         return Set(left.crossProduct(right).map { (left, right) in
             let name = "\(left.name) | \(right.name)"
             let rules = PlaylistRules(labels: [
-                PlaylistLabel(playlist: left, isTag: false),
-                PlaylistLabel(playlist: right, isTag: false)
+                LabelPlaylist(playlist: left, isTag: false),
+                LabelPlaylist(playlist: right, isTag: false)
                 ])
             return Combination(name: name, rules: rules)
         })

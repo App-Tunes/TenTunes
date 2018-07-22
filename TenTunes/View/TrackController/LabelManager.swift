@@ -42,9 +42,9 @@ class LabelManager : NSObject, LabelFieldDelegate {
         return groups
     }
     
-    func playlistResults(search: String, tag: Bool) -> [PlaylistLabel] {
+    func playlistResults(search: String, tag: Bool) -> [LabelPlaylist] {
         let found = search.count > 0 ? (tag ? tags : playlists).filter({ $0.name.lowercased().range(of: search) != nil }) : playlists
-        let sortedPlaylists = found.map({ PlaylistLabel(playlist: $0, isTag: tag) }).sorted { (a, b) -> Bool in
+        let sortedPlaylists = found.map({ LabelPlaylist(playlist: $0, isTag: tag) }).sorted { (a, b) -> Bool in
             a.representation(in: Library.shared.viewContext).count < b.representation(in: Library.shared.viewContext).count
         }
         return sortedPlaylists

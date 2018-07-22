@@ -751,7 +751,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1292" height="531"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <splitView arrangesAllSubviews="NO" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="Yju-o7-Cq9">
+                            <splitView arrangesAllSubviews="NO" autosaveName="titlePlayerSplit" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="Yju-o7-Cq9">
                                 <rect key="frame" x="0.0" y="0.0" width="1292" height="531"/>
                                 <subviews>
                                     <customView id="CJ8-Em-XgG">
@@ -949,7 +949,7 @@ IA
                                         <rect key="frame" x="0.0" y="93" width="1292" height="438"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
-                                            <splitView vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A22-NE-xw5">
+                                            <splitView autosaveName="trackPlaylistSplit" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A22-NE-xw5">
                                                 <rect key="frame" x="0.0" y="0.0" width="1292" height="438"/>
                                                 <subviews>
                                                     <customView fixedFrame="YES" id="rPD-z5-E1p">

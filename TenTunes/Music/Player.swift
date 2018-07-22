@@ -129,6 +129,7 @@ class Player {
     
     func togglePlay() {        
         if self.isPaused() {
+            sanityCheck()
             self.player.play()
             updatePlaying?(playing)
         }

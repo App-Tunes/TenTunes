@@ -43,14 +43,13 @@ extension TrackController: NSMenuDelegate {
         menu.item(withAction: #selector(menuAnalyze))?.isVisible = someNeedAnalysis && _analyzeSubmenu.isHidden
 
         let deleteItem = menu.item(withAction: #selector(removeTrack))
-        if mode == .queue {
+        switch mode {
+        case .queue:
             deleteItem?.isHidden = false
             deleteItem?.title = "Remove from Queue"
-        }
-        else if mode == .tracksList {
-            deleteItem?.isHidden = Library.shared.isPlaylist(playlist: history.playlist)
-        }
-        else {
+        case .tracksList:
+            deleteItem?.isVisible = Library.shared.isPlaylist(playlist: history.playlist)
+        case .title:
             deleteItem?.isHidden = true
         }
     }

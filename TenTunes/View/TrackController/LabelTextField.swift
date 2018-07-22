@@ -62,7 +62,7 @@ class LabelTextField: NSTokenField {
     }
     
     @objc dynamic var currentLabels: [Any] {
-        get { return (objectValue as! NSArray).filter { !($0 is String) } }
+        get { return (objectValue as? NSArray)?.filter { !($0 is String) } ?? [] }
         set { objectValue = newValue as NSArray }
     }
     

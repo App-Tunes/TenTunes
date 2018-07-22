@@ -130,6 +130,7 @@ class Player {
     func togglePlay() {        
         if self.isPaused() {
             self.player.play()
+            updatePlaying?(playing)
         }
         else {
             self.pause()
@@ -152,9 +153,7 @@ class Player {
 
     func play(track: Track?) throws {
         defer {
-            if let updatePlaying = updatePlaying {
-                updatePlaying(playing)
-            }
+            updatePlaying?(playing)
         }
         
         if player.isPlaying {
@@ -239,8 +238,6 @@ class Player {
         player.play(from: player.currentTime, to: player.duration)
         player.stop()
         
-        if let updatePlaying = updatePlaying {
-            updatePlaying(playing)
-        }
+        updatePlaying?(playing)
     }
 }

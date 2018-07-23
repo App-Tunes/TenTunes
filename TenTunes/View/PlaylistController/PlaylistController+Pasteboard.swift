@@ -14,13 +14,17 @@ extension PlaylistController {
     }
     
     func outlineView(_ outlineView: NSOutlineView, pasteboardWriterForItem item: Any) -> NSPasteboardWriting? {
+        let playlist = item as! Playlist
+        
         let pbitem = NSPasteboardItem()
-        Library.shared.writePlaylist(item as! Playlist, toPasteboarditem: pbitem)
+        Library.shared.writePlaylist(playlist, toPasteboarditem: pbitem)
         return pbitem
     }
     
     func outlineView(_ outlineView: NSOutlineView, validateDrop info: NSDraggingInfo, proposedItem item: Any?, proposedChildIndex index: Int) -> NSDragOperation {
-        guard let type = info.draggingPasteboard().availableType(from: outlineView.registeredDraggedTypes) else {
+        let pasteboard = info.draggingPasteboard()
+        
+        guard let type = pasteboard.availableType(from: outlineView.registeredDraggedTypes) else {
             return []
         }
         
@@ -33,10 +37,15 @@ extension PlaylistController {
             return Library.shared.isEditable(playlist: playlist) ? .move : []
         case Playlist.pasteboardType:
             // We can always rearrange, except into playlists
-            let playlist = item as? Playlist ?? masterPlaylist
-            if !(playlist is PlaylistFolder) {
+            let parent = item as? Playlist ?? masterPlaylist
+            guard parent is PlaylistFolder else {
                 return []
             }
+            let playlists = (pasteboard.pasteboardItems ?? []).compactMap(Library.shared.readPlaylist)
+            guard playlists.allMatch(Library.shared.isPlaylist) else {
+                return []
+            }
+            
             return .move
         default:
             fatalError("Unhandled, but registered pasteboard type")

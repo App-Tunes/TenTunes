@@ -92,6 +92,7 @@ extension ViewController {
                 metadataRequest.predicate = NSPredicate(format: "metadataFetched == false")
                 metadataRequest.fetchLimit = 200
                 let tracks = Library.shared.viewContext.convert(try! mox.fetch(metadataRequest))
+                    .filter { $0.url != nil }
                 
                 // Need to do this in sync because we use tasker.enqueue
                 DispatchQueue.main.async {

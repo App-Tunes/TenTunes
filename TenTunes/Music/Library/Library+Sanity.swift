@@ -33,8 +33,16 @@ extension Library {
             let allPlaylists = Array(context.convert(self.library.allPlaylists))
             let master = context.convert(self.library.masterPlaylist)
             
-            for playlist in allPlaylists where playlist.parent == nil && playlist != master {
-                master.addToChildren(playlist)
+            for playlist in allPlaylists {
+                var root = playlist.parent
+                for _ in 0..<100 { // No tree is larger than 100, and if it is... Fuck that tree
+                    // Nah, actually checks for infinite recursion among playlists
+                    root = root?.parent
+                }
+
+                if (playlist.parent == nil || root != nil) && playlist != master {
+                    master.addToChildren(playlist)
+                }
             }
 
             for case let playlist as PlaylistCartesian in allPlaylists {

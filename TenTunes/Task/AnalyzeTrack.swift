@@ -50,6 +50,9 @@ class AnalyzeTrack: TrackTask {
     }
         
     override var title: String { return "Analyze Track" }
+    
+    // If not read we were specifically asked to re-analyze
+    override var preventsQuit: Bool { return !read }
 
     override func execute() {
         self.analyze(read: read) {

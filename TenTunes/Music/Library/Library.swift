@@ -220,10 +220,6 @@ extension Library {
 
         for insert in inserts {
             if let track = insert as? Track {
-                if Preferences.AnalyzeNewTracks.current == .analyze {
-                    ViewController.shared.tasker.enqueue(task: AnalyzeTrack(track: track, read: true))
-                }
-                
                 if Preferences.FileLocationOnAdd.current == .copy || Preferences.FileLocationOnAdd.current == .move {
                     ViewController.shared.tasker.enqueue(task: MoveTrackToMediaLocation(track: track, copy: Preferences.FileLocationOnAdd.current == .copy))
                 }

@@ -86,12 +86,12 @@ extension ViewController {
         }
         
         // Requests are freaking slow with many tracks so do it rarely
-        Timer.scheduledAsyncBlock(withTimeInterval: 10, repeats: true) {
+        Timer.scheduledAsyncTickTock(withTimeInterval: 5, do: [{
             Library.shared.performChildBackgroundTask { mox in
-                let request: NSFetchRequest = Track.fetchRequest()
-                request.predicate = NSPredicate(format: "metadataFetched == false")
-                request.fetchLimit = 400
-                let tracks = Library.shared.viewContext.convert(try! mox.fetch(request))
+                let metadataRequest: NSFetchRequest = Track.fetchRequest()
+                metadataRequest.predicate = NSPredicate(format: "metadataFetched == false")
+                metadataRequest.fetchLimit = 200
+                let tracks = Library.shared.viewContext.convert(try! mox.fetch(metadataRequest))
                 
                 // Need to do this in sync because we use tasker.enqueue
                 DispatchQueue.main.async {
@@ -100,6 +100,24 @@ extension ViewController {
                     }
                 }
             }
-        }
+            }, {
+                guard Preferences.AnalyzeNewTracks.current == .analyze else {
+                    return
+                }
+                
+                Library.shared.performChildBackgroundTask { mox in
+                    let analysisRequest: NSFetchRequest = Track.fetchRequest()
+                    analysisRequest.predicate = NSPredicate(format: "analysisData == nil")
+                    analysisRequest.fetchLimit = 20
+                    let tracks = Library.shared.viewContext.convert(try! mox.fetch(analysisRequest))
+                    
+                    // Need to do this in sync because we use tasker.enqueue
+                    DispatchQueue.main.async {
+                        for track in tracks.map(Library.shared.viewContext.convert) {
+                            self.tasker.enqueue(task: AnalyzeTrack(track: track, read: true))
+                        }
+                    }
+                }
+            }])
     }
 }

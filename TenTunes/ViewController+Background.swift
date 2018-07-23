@@ -111,7 +111,8 @@ extension ViewController {
                     analysisRequest.predicate = NSPredicate(format: "analysisData == nil")
                     analysisRequest.fetchLimit = 20
                     let tracks = Library.shared.viewContext.convert(try! mox.fetch(analysisRequest))
-                    
+                        .filter { $0.url != nil }
+
                     // Need to do this in sync because we use tasker.enqueue
                     DispatchQueue.main.async {
                         for track in tracks.map(Library.shared.viewContext.convert) {

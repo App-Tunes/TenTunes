@@ -428,6 +428,7 @@
 				80F9703220962EA200A989D8 /* PopupEnum.swift */,
 				80B68B9F21011D0300A32E3D /* SMButtonWithMenu.h */,
 				80B68B9D21011CC100A32E3D /* SMButtonWithMenu.m */,
+				8026241520FF445F009D7988 /* LabelTextField.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -608,7 +609,6 @@
 				80074CF7204583CF0055B87E /* TrackController.xib */,
 				80F8F6F12053EA2C004A07D6 /* FileTagEditor.swift */,
 				80F8F6F22053EA2C004A07D6 /* FileTagEditor.xib */,
-				8026241520FF445F009D7988 /* LabelTextField.swift */,
 				8026241820FF44C2009D7988 /* TrackLabelManager.swift */,
 			);
 			path = TrackController;

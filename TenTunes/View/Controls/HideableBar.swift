@@ -49,6 +49,10 @@ class HideableBar: NSViewController {
     }
     
     @IBAction func closeButtonClicked(_ sender: Any) {
+        close()
+    }
+    
+    func close() { // TODO Resign first responder for any subviews
         guard isOpen else {
             return
         }
@@ -59,9 +63,5 @@ class HideableBar: NSViewController {
         })
         
         delegate?.hideableBar(self, didChangeState: false)
-    }
-    
-    func close() { // TODO Resign first responder for any subviews
-        _closeButton.performClick(self)
     }
 }

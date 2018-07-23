@@ -42,7 +42,7 @@ extension PlaylistController {
                 return []
             }
             let playlists = (pasteboard.pasteboardItems ?? []).compactMap(Library.shared.readPlaylist)
-            guard playlists.allMatch(Library.shared.isPlaylist) else {
+            guard playlists.allMatch({ Library.shared.isPlaylist(playlist: $0) || $0.parent == parent }) else {
                 return []
             }
             // If any dropping playlist contains (or is) the new parent, don't drop

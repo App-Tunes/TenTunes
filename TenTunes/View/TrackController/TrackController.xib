@@ -72,7 +72,7 @@
                                         <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <customView identifier="waveformCell" id="po2-en-Xal" customClass="WaveformView" customModule="TenTunes" customModuleProvider="target">
-                                                <rect key="frame" x="34" y="1" width="100" height="30"/>
+                                                <rect key="frame" x="34" y="1" width="100" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <connections>
                                                     <action selector="waveformViewClicked:" target="-1" id="tSy-aY-owi"/>

@@ -40,16 +40,14 @@ class TrackController: NSViewController {
     @IBOutlet var _tableView: ActionTableView!
     @IBOutlet var _tableViewHeight: NSLayoutConstraint!
     
-    @IBOutlet var _tagManager: LabelManager!
-    @IBOutlet var _tagBarHeight: NSLayoutConstraint!
-    @IBOutlet var _tagField: LabelTextField!
-    @IBOutlet weak var _searchBarClose: NSButton!
-    
-    @IBOutlet var _ruleManager: LabelManager!
+    @IBOutlet var filterController: TrackLabelController!
+    @IBOutlet var filterBar: HideableBar!
+    @IBOutlet var _filterBarContainer: NSView!
+
+    @IBOutlet var ruleController: TrackLabelController!
+    @IBOutlet var ruleBar: HideableBar!
+    @IBOutlet var _ruleBarContainer: NSView!
     @IBOutlet var _ruleButton: NSButton!
-    @IBOutlet var _ruleBarHeight: NSLayoutConstraint!
-    @IBOutlet var _ruleField: LabelTextField!
-    @IBOutlet var _ruleBarClose: NSButton!
     
     @IBOutlet var _playlistTitle: NSTextField!
     @IBOutlet var _playlistInfoBarHeight: NSLayoutConstraint!
@@ -70,11 +68,11 @@ class TrackController: NSViewController {
             
             if let playlist = history.playlist as? PlaylistSmart {
                 _ruleButton.isHidden = false
-                _ruleField.currentLabels = playlist.rules.labels
+                ruleController.currentLabels = playlist.rules.labels
             }
             else {
                 _ruleButton.isHidden = true
-                _ruleBarClose.performClick(self)
+                ruleBar.close()
             }
         }
     }
@@ -120,10 +118,25 @@ class TrackController: NSViewController {
         _tableView.registerForDraggedTypes(pasteboardTypes)
         _tableView.setDraggingSourceOperationMask(.every, forLocal: false) // ESSENTIAL
         
-        _tagBarHeight.constant = CGFloat(0)
-        _ruleBarHeight.constant = CGFloat(0)
-
         _playlistTitle.stringValue = ""
+        
+        filterBar = HideableBar(nibName: .init(rawValue: "HideableBar"), bundle: nil)
+        filterBar.height = 32
+        filterBar.delegate = self
+        _filterBarContainer.setFullSizeContent(filterBar.view)
+        
+        filterController = TrackLabelController(nibName: .init(rawValue: "TrackLabelController"), bundle: nil)
+        filterController.delegate = self
+        filterBar.contentView = filterController.view
+
+        ruleBar = HideableBar(nibName: .init(rawValue: "HideableBar"), bundle: nil)
+        ruleBar.height = 32
+        ruleBar.delegate = self
+        _ruleBarContainer.setFullSizeContent(ruleBar.view)
+
+        ruleController = TrackLabelController(nibName: .init(rawValue: "TrackLabelController"), bundle: nil)
+        ruleController.delegate = self
+        ruleBar.contentView = ruleController.view
     }
     
     override func viewDidAppear() {
@@ -155,9 +168,6 @@ class TrackController: NSViewController {
             self._tableView.animateDifference(from: tracksBefore, to: self.history.tracks)
         }
         
-        _tagBarHeight.constant = 0
-        _ruleBarHeight.constant = 0
-
          // Unintuitive to use in a queue
         // TODO Make non-interactable?
         _tableView.tableColumn(withIdentifier: ColumnIdentifiers.waveform)?.isHidden = true
@@ -172,8 +182,6 @@ class TrackController: NSViewController {
         
         _playlistInfoBarHeight.constant = 0
         _tableViewHeight.constant = 0
-        _tagBarHeight.constant = 0
-        _ruleBarHeight.constant = 0
         _tableView.enclosingScrollView?.hasVerticalScroller = false
         _tableView.enclosingScrollView?.hasHorizontalScroller = false
         _tableView.enclosingScrollView?.verticalScrollElasticity = .none
@@ -408,5 +416,25 @@ extension TrackController: NSTableViewDelegate {
 extension TrackController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
         return history.size
+    }
+}
+
+extension TrackController : HideableBarDelegate {
+    func hideableBar(_ bar: HideableBar, didChangeState state: Bool) {
+        if bar == ruleBar {
+            _ruleButton.state = state ? .on : .off
+            
+            if state == false {
+                ruleController._labelField.resignFirstResponder()
+            }
+        }
+        else if bar == filterBar {
+            if state == false {
+                desired.filter = nil
+                filterController._labelField.resignFirstResponder()
+            }
+        }
+        
+        view.window?.makeFirstResponder(view)
     }
 }

@@ -8,22 +8,16 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TrackController" customModule="TenTunes" customModuleProvider="target">
             <connections>
                 <outlet property="_analyzeSubmenu" destination="rAL-JR-UxV" id="Vvq-LS-eak"/>
+                <outlet property="_filterBarContainer" destination="utN-ND-KA3" id="cBT-He-il8"/>
                 <outlet property="_loadingIndicator" destination="Q4S-45-Dyj" id="uIh-jH-P5s"/>
                 <outlet property="_moveToMediaDirectory" destination="e6s-jT-drv" id="Mxx-MY-rhK"/>
                 <outlet property="_playlistInfoBarHeight" destination="uIC-33-LVc" id="Fyv-rA-ffm"/>
                 <outlet property="_playlistTitle" destination="yA3-8B-zr1" id="n1M-oM-Ov1"/>
-                <outlet property="_ruleBarClose" destination="Tzd-Vh-FYi" id="SN3-Ff-aeT"/>
-                <outlet property="_ruleBarHeight" destination="krg-v1-Mac" id="6ye-ID-avs"/>
+                <outlet property="_ruleBarContainer" destination="49r-TX-xMK" id="jrG-Gr-1dG"/>
                 <outlet property="_ruleButton" destination="RVc-tT-TEm" id="Xhr-m5-S1j"/>
-                <outlet property="_ruleField" destination="53G-Hx-Z0S" id="PoM-0c-nNA"/>
-                <outlet property="_ruleManager" destination="cXd-Ka-Pht" id="7uF-EX-hlS"/>
-                <outlet property="_searchBarClose" destination="BeI-cc-vzB" id="5Pj-5J-T9B"/>
                 <outlet property="_showInPlaylistSubmenu" destination="RJZ-UA-3i7" id="RD3-RB-fQe"/>
                 <outlet property="_tableView" destination="4mk-XS-5ci" id="kXR-Tw-wbo"/>
                 <outlet property="_tableViewHeight" destination="407-lR-Mkm" id="dW8-YU-sVA"/>
-                <outlet property="_tagBarHeight" destination="Oqn-zf-Asv" id="JK0-4p-TyB"/>
-                <outlet property="_tagField" destination="w3y-Lb-zjn" id="M6y-Vu-UZf"/>
-                <outlet property="_tagManager" destination="XQV-01-dLZ" id="snp-Pe-e9d"/>
                 <outlet property="view" destination="xJh-CN-pmz" id="a8O-4K-FFG"/>
             </connections>
         </customObject>
@@ -33,9 +27,9 @@
             <rect key="frame" x="0.0" y="0.0" width="680" height="438"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <scrollView verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="J4f-bg-DFw">
+                <scrollView verticalCompressionResistancePriority="300" ambiguous="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="J4f-bg-DFw">
                     <rect key="frame" x="0.0" y="53" width="680" height="357"/>
-                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="FmM-r7-abk">
+                    <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="FmM-r7-abk">
                         <rect key="frame" x="0.0" y="0.0" width="680" height="357"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -340,86 +334,32 @@
                         <constraint firstItem="yA3-8B-zr1" firstAttribute="leading" secondItem="no2-Pk-ubw" secondAttribute="leading" constant="4" id="wTP-6K-6yt"/>
                     </constraints>
                 </customView>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="utN-ND-KA3">
+                <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="utN-ND-KA3">
                     <rect key="frame" x="0.0" y="410" width="680" height="28"/>
                     <subviews>
-                        <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="w3y-Lb-zjn" customClass="LabelTextField" customModule="TenTunes" customModuleProvider="target">
-                            <rect key="frame" x="2" y="2" width="625" height="24"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="24" id="znz-jV-4pZ"/>
-                            </constraints>
-                            <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" placeholderString="Filter" allowsEditingTextAttributes="YES" usesSingleLineMode="YES" bezelStyle="round" id="bz5-84-vMN">
-                                <font key="font" metaFont="cellTitle"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                            </tokenFieldCell>
-                            <connections>
-                                <outlet property="delegate" destination="XQV-01-dLZ" id="WPC-Px-bNB"/>
-                            </connections>
-                        </tokenField>
-                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BeI-cc-vzB">
-                            <rect key="frame" x="637" y="4" width="23" height="19"/>
-                            <buttonCell key="cell" type="recessed" title="X" bezelStyle="recessed" alignment="center" state="on" borderStyle="border" inset="2" id="AsP-aM-a0M">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="systemBold" size="12"/>
-                                <string key="keyEquivalent" base64-UTF8="YES">
-Gw
-</string>
-                            </buttonCell>
-                            <connections>
-                                <action selector="closeSearchBar:" target="-2" id="K7D-v3-2re"/>
-                            </connections>
-                        </button>
+                        <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5dq-V7-Pxb">
+                            <rect key="frame" x="0.0" y="0.0" width="680" height="28"/>
+                        </customView>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="w3y-Lb-zjn" secondAttribute="bottom" constant="2" id="0yb-lf-mxO"/>
-                        <constraint firstItem="BeI-cc-vzB" firstAttribute="leading" secondItem="w3y-Lb-zjn" secondAttribute="trailing" constant="10" id="BJz-cX-Y09"/>
-                        <constraint firstAttribute="height" constant="28" id="Oqn-zf-Asv"/>
-                        <constraint firstItem="BeI-cc-vzB" firstAttribute="centerY" secondItem="w3y-Lb-zjn" secondAttribute="centerY" id="PHU-vz-nZg"/>
-                        <constraint firstItem="w3y-Lb-zjn" firstAttribute="top" secondItem="utN-ND-KA3" secondAttribute="top" priority="100" constant="2" id="bDX-hx-uEb"/>
-                        <constraint firstAttribute="trailing" secondItem="BeI-cc-vzB" secondAttribute="trailing" constant="20" symbolic="YES" id="sTZ-va-Zgk"/>
-                        <constraint firstItem="w3y-Lb-zjn" firstAttribute="leading" secondItem="utN-ND-KA3" secondAttribute="leading" constant="2" id="xXj-h3-2Fk"/>
+                        <constraint firstAttribute="trailing" secondItem="5dq-V7-Pxb" secondAttribute="trailing" id="BfC-KR-pII"/>
+                        <constraint firstItem="5dq-V7-Pxb" firstAttribute="top" secondItem="utN-ND-KA3" secondAttribute="top" id="Rhg-zv-V7z"/>
+                        <constraint firstAttribute="bottom" secondItem="5dq-V7-Pxb" secondAttribute="bottom" id="cCn-V0-rku"/>
+                        <constraint firstItem="5dq-V7-Pxb" firstAttribute="leading" secondItem="utN-ND-KA3" secondAttribute="leading" id="rat-rk-gjR"/>
                     </constraints>
                 </customView>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="49r-TX-xMK">
+                <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="49r-TX-xMK">
                     <rect key="frame" x="0.0" y="25" width="680" height="28"/>
                     <subviews>
-                        <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="53G-Hx-Z0S" customClass="LabelTextField" customModule="TenTunes" customModuleProvider="target">
-                            <rect key="frame" x="2" y="2" width="625" height="24"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="24" id="9V8-aV-B2g"/>
-                            </constraints>
-                            <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" placeholderString="Filter" allowsEditingTextAttributes="YES" usesSingleLineMode="YES" bezelStyle="round" id="Wte-Of-eOs">
-                                <font key="font" metaFont="cellTitle"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                            </tokenFieldCell>
-                            <connections>
-                                <outlet property="delegate" destination="cXd-Ka-Pht" id="8Rx-Vg-LC2"/>
-                            </connections>
-                        </tokenField>
-                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tzd-Vh-FYi">
-                            <rect key="frame" x="637" y="4" width="23" height="19"/>
-                            <buttonCell key="cell" type="recessed" title="X" bezelStyle="recessed" alignment="center" borderStyle="border" inset="2" id="aI3-qh-oTV">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="systemBold" size="12"/>
-                                <string key="keyEquivalent" base64-UTF8="YES">
-Gw
-</string>
-                            </buttonCell>
-                            <connections>
-                                <action selector="closeRuleBar:" target="-2" id="PR0-dg-9R7"/>
-                            </connections>
-                        </button>
+                        <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZeZ-1Q-VgQ">
+                            <rect key="frame" x="0.0" y="0.0" width="680" height="28"/>
+                        </customView>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="53G-Hx-Z0S" firstAttribute="top" secondItem="49r-TX-xMK" secondAttribute="top" priority="100" constant="2" id="J3h-3k-Z0x"/>
-                        <constraint firstAttribute="bottom" secondItem="53G-Hx-Z0S" secondAttribute="bottom" constant="2" id="S1P-r2-Vbv"/>
-                        <constraint firstItem="Tzd-Vh-FYi" firstAttribute="leading" secondItem="53G-Hx-Z0S" secondAttribute="trailing" constant="10" id="dru-qX-Vqg"/>
-                        <constraint firstAttribute="trailing" secondItem="Tzd-Vh-FYi" secondAttribute="trailing" constant="20" symbolic="YES" id="gtk-3u-mcR"/>
-                        <constraint firstAttribute="height" constant="28" id="krg-v1-Mac"/>
-                        <constraint firstItem="Tzd-Vh-FYi" firstAttribute="centerY" secondItem="53G-Hx-Z0S" secondAttribute="centerY" id="l1F-Wj-jdN"/>
-                        <constraint firstItem="53G-Hx-Z0S" firstAttribute="leading" secondItem="49r-TX-xMK" secondAttribute="leading" constant="2" id="pL3-Rd-IEk"/>
+                        <constraint firstItem="ZeZ-1Q-VgQ" firstAttribute="leading" secondItem="49r-TX-xMK" secondAttribute="leading" id="IYR-Ra-fiA"/>
+                        <constraint firstItem="ZeZ-1Q-VgQ" firstAttribute="top" secondItem="49r-TX-xMK" secondAttribute="top" id="PCB-Vu-Tw9"/>
+                        <constraint firstAttribute="bottom" secondItem="ZeZ-1Q-VgQ" secondAttribute="bottom" id="V9v-u0-P6j"/>
+                        <constraint firstAttribute="trailing" secondItem="ZeZ-1Q-VgQ" secondAttribute="trailing" id="nWX-N3-7xd"/>
                     </constraints>
                 </customView>
             </subviews>
@@ -556,16 +496,6 @@ Gw
             </connections>
             <point key="canvasLocation" x="644" y="134"/>
         </menu>
-        <customObject id="XQV-01-dLZ" customClass="LabelManager" customModule="TenTunes" customModuleProvider="target">
-            <connections>
-                <outlet property="delegate" destination="-2" id="TFg-f7-0WG"/>
-            </connections>
-        </customObject>
-        <customObject id="cXd-Ka-Pht" customClass="LabelManager" customModule="TenTunes" customModuleProvider="target">
-            <connections>
-                <outlet property="delegate" destination="-2" id="TVg-f7-0WG"/>
-            </connections>
-        </customObject>
     </objects>
     <resources>
         <image name="music_missing" width="250" height="250"/>

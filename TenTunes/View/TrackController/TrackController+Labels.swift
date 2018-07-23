@@ -8,10 +8,10 @@
 
 import Cocoa
 
-extension TrackController : LabelManagerDelegate {
-    func labelsChanged(labelManager: LabelManager, labels: [Label]) {
+extension TrackController : TrackLabelControllerDelegate {
+    func labelsChanged(labelManager: TrackLabelController, labels: [Label]) {
         // TODO Live search
-        if labelManager == _ruleManager, let playlist = history.playlist as? PlaylistSmart {
+        if labelManager == ruleController, let playlist = history.playlist as? PlaylistSmart {
             if playlist.rules.labels != labels {
                 playlist.rules.labels = labels
                 NSManagedObject.markDirty(playlist, \.rules)
@@ -24,58 +24,24 @@ extension TrackController : LabelManagerDelegate {
     }
     
     override func cancelOperation(_ sender: Any?) {
+        // TODO Move this to the Hideable Bar class
         let firstResponder = view.window?.firstResponder
         
-        if firstResponder == _tagField.currentEditor() {
-            _searchBarClose.performClick(self)
+        if firstResponder == filterController._labelField.currentEditor() {
+            filterBar.close()
         }
-        else if firstResponder == _ruleField.currentEditor() {
-            _ruleBarClose.performClick(self)
+        else if firstResponder == ruleController._labelField.currentEditor() {
+            ruleBar.close()
         }
-    }
-    
-    @IBAction func closeSearchBar(_ sender: Any) {
-        guard _tagBarHeight.constant > 0 else {
-            return
-        }
-        
-        desired.filter = nil
-        
-        _ruleButton.state = .off
-
-        _tagField.resignFirstResponder()
-        NSAnimationContext.runAnimationGroup({_ in
-            NSAnimationContext.current.duration = 0.2
-            _tagBarHeight.animator().constant = 0
-        })
-        view.window?.makeFirstResponder(view)
-    }
-    
-    @IBAction func closeRuleBar(_ sender: Any) {
-        guard _ruleBarHeight.constant > 0 else {
-            return
-        }
-        
-        _ruleField.resignFirstResponder()
-        NSAnimationContext.runAnimationGroup({_ in
-            NSAnimationContext.current.duration = 0.2
-            _ruleBarHeight.animator().constant = 0
-        })
-        view.window?.makeFirstResponder(view)
     }
 
     @IBAction func rulesClicked(_ sender: Any) {
-        if _ruleBarHeight.constant > 0 {
-            _ruleBarClose.performClick(self)
+        if ruleBar.isOpen {
+            ruleBar.close()
         }
         else {
-            _ruleButton.state = .on
-            
-            NSAnimationContext.runAnimationGroup({_ in
-                NSAnimationContext.current.duration = 0.2
-                _ruleBarHeight.animator().constant = 28
-            })
-            _ruleField.window?.makeFirstResponder(_ruleField)
+            ruleBar.open()
+            view.window?.makeFirstResponder(ruleController._labelField)
         }
     }
 }

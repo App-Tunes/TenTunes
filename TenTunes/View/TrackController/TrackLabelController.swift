@@ -8,14 +8,21 @@
 
 import Cocoa
 
-@objc protocol LabelManagerDelegate {
-    @objc optional func labelsChanged(labelManager: LabelManager, labels: [Label])
-
-    @objc optional func editingEnded(labelManager: LabelManager, notification: Notification)
+@objc protocol TrackLabelControllerDelegate {
+    @objc optional func labelsChanged(labelManager: TrackLabelController, labels: [Label])
+    
+    @objc optional func editingEnded(labelManager: TrackLabelController, notification: Notification)
 }
 
-class LabelManager : NSObject, LabelFieldDelegate {
-    @IBOutlet @objc weak open var delegate: LabelManagerDelegate?
+class TrackLabelController : NSViewController, LabelFieldDelegate {
+    @IBOutlet @objc weak open var delegate: TrackLabelControllerDelegate?
+    
+    @IBOutlet var _labelField: LabelTextField!
+    
+    var currentLabels: [Label] {
+        get { return _labelField.currentLabels as! [Label] }
+        set { _labelField.currentLabels = newValue }
+    }
     
     var playlists: [Playlist] {
         return Library.shared.allPlaylists.filter {
@@ -34,14 +41,14 @@ class LabelManager : NSObject, LabelFieldDelegate {
         
         var groups: [LabelGroup] = [
             LabelGroup(title: "Search For", contents: [LabelSearch(string: substring)]),
-        ]
-
+            ]
+        
         groups.append(LabelGroup(title: "Has Tag", contents: playlistResults(search: compareSubstring, tag: true)))
         groups.append(LabelGroup(title: "Contained In Playlist", contents: playlistResults(search: compareSubstring, tag: false)))
         groups.append(LabelGroup(title: "Created By", contents: authorResults(search: compareSubstring)))
         groups.append(LabelGroup(title: "Released on Album", contents: albumResults(search: compareSubstring)))
         groups.append(LabelGroup(title: "Genre", contents: genreResults(search: compareSubstring)))
-
+        
         return groups
     }
     
@@ -53,22 +60,22 @@ class LabelManager : NSObject, LabelFieldDelegate {
     
     func genreResults(search: String) -> [LabelGenre] {
         let found = search.count > 0 ? Library.shared.allGenres.filter({ $0.lowercased().range(of: search) != nil }) : Library.shared.allGenres
-        return LabelManager.sorted(labels: found.map { LabelGenre(genre: $0) })
+        return TrackLabelController.sorted(labels: found.map { LabelGenre(genre: $0) })
     }
     
     func albumResults(search: String) -> [LabelAlbum] {
         let found = search.count > 0 ? Library.shared.allAlbums.filter({ $0.title.lowercased().range(of: search) != nil }) : Library.shared.allAlbums
-        return LabelManager.sorted(labels: found.map { LabelAlbum(album: $0) })
+        return TrackLabelController.sorted(labels: found.map { LabelAlbum(album: $0) })
     }
     
     func authorResults(search: String) -> [LabelAuthor] {
         let found = search.count > 0 ? Library.shared.allAuthors.filter({ $0.lowercased().range(of: search) != nil }) : Library.shared.allAuthors
-        return LabelManager.sorted(labels: found.map { LabelAuthor(author: $0) })
+        return TrackLabelController.sorted(labels: found.map { LabelAuthor(author: $0) })
     }
     
     func playlistResults(search: String, tag: Bool) -> [LabelPlaylist] {
         let found = search.count > 0 ? (tag ? tags : playlists).filter({ $0.name.lowercased().range(of: search) != nil }) : playlists
-        return LabelManager.sorted(labels: found.map({ LabelPlaylist(playlist: $0, isTag: tag) }))
+        return TrackLabelController.sorted(labels: found.map({ LabelPlaylist(playlist: $0, isTag: tag) }))
     }
     
     func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {

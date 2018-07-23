@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="TrackLabelController" customModule="TenTunes" customModuleProvider="target">
+            <connections>
+                <outlet property="_labelField" destination="oy3-NO-azg" id="U2T-On-voe"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="32"/>
+            <subviews>
+                <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oy3-NO-azg" customClass="LabelTextField" customModule="TenTunes" customModuleProvider="target">
+                    <rect key="frame" x="14" y="4" width="452" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="24" id="hfT-Zd-bDt"/>
+                    </constraints>
+                    <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" placeholderString="Filter" allowsEditingTextAttributes="YES" usesSingleLineMode="YES" bezelStyle="round" id="yQm-Xf-EtH">
+                        <font key="font" metaFont="cellTitle"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </tokenFieldCell>
+                    <connections>
+                        <outlet property="delegate" destination="-2" id="3Sm-yK-cS1"/>
+                    </connections>
+                </tokenField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="oy3-NO-azg" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="CJr-ea-OOB"/>
+                <constraint firstAttribute="trailing" secondItem="oy3-NO-azg" secondAttribute="trailing" constant="14" id="bS9-jE-Pge"/>
+                <constraint firstItem="oy3-NO-azg" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="14" id="biB-ac-Gtv"/>
+                <constraint firstAttribute="height" priority="100" constant="32" id="gve-5w-mCx"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="105"/>
+        </customView>
+    </objects>
+</document>

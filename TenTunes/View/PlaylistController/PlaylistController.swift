@@ -10,10 +10,10 @@ import Cocoa
 
 @objc class PlaylistController: NSViewController {
     var masterPlaylist: PlaylistFolder? {
-        didSet { _outlineView.reloadData() }
+        didSet { _outlineView?.reloadData() }
     }
     var library: PlaylistLibrary? {
-        didSet { _outlineView.reloadData() }
+        didSet { _outlineView?.reloadData() }
     }
 
     var selectionDidChange: ((PlaylistProtocol) -> Swift.Void)? = nil

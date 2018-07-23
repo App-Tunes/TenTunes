@@ -27,15 +27,12 @@ extension TrackController: NSUserInterfaceValidations {
     
     @IBAction func performFindPanelAction(_ sender: AnyObject) {
         openFindPanel()
-        _tagField.window?.makeFirstResponder(_tagField)
+        view.window?.makeFirstResponder(filterController._labelField)
     }
     
     func openFindPanel() {
-        NSAnimationContext.runAnimationGroup({_ in
-            NSAnimationContext.current.duration = 0.2
-            _tagBarHeight.animator().constant = 28
-        })
-        _tagField.notifyLabelChange() // Get our initial filter on
+        filterBar.open()
+        filterController._labelField.notifyLabelChange() // Get our initial filter on
     }
     
     @IBAction func delete(_ sender: AnyObject) {

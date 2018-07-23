@@ -189,3 +189,21 @@ extension FileManager {
         return allFiles
     }
 }
+
+extension NSView {
+    func setFullSizeContent(_ view: NSView?) {
+        subviews = []
+        
+        guard let view = view else {
+            return
+        }
+        
+        view.frame = bounds
+        addSubview(view)
+        
+        addConstraint(NSLayoutConstraint(item: view, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 0))
+        addConstraint(NSLayoutConstraint(item: view, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: 0))
+        addConstraint(NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0))
+        addConstraint(NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0))
+    }
+}

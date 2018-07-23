@@ -109,7 +109,7 @@ extension ViewController {
                 Library.shared.performChildBackgroundTask { mox in
                     let analysisRequest: NSFetchRequest = Track.fetchRequest()
                     analysisRequest.predicate = NSPredicate(format: "analysisData == nil")
-                    analysisRequest.fetchLimit = 20
+                    analysisRequest.fetchLimit = 100
                     let tracks = Library.shared.viewContext.convert(try! mox.fetch(analysisRequest))
                         .filter { $0.url != nil }
 

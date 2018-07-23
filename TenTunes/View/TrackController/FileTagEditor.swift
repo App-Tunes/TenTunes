@@ -14,7 +14,7 @@ class FileTagEditor: NSWindowController {
     @objc dynamic var tracks: [Track] = [] {
         didSet {
             for track in tracks {
-                track.fetchMetadata()
+                try! track.fetchMetadata()
             }
             
             Library.shared.mediaLocation.updateLocations(of: tracks)

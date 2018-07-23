@@ -19,6 +19,7 @@ class FetchTrackMetadata: TrackTask {
     override var preventsQuit: Bool { return false }
 
     override func execute() {
+        // TODO We set this, but if we quit in between it will not have been fetched
         track.metadataFetched = true // So no other thread tries to enter
         
         Library.shared.performChildBackgroundTask { mox in
@@ -26,8 +27,13 @@ class FetchTrackMetadata: TrackTask {
             
             let asyncTrack = mox.convert(self.track)
             
-            asyncTrack.fetchMetadata()
-            Library.shared.mediaLocation.updateLocation(of: self.track)
+            if (try? asyncTrack.fetchMetadata()) == nil {
+                // Reset
+                asyncTrack.metadataFetched = false
+            }
+            else {
+                Library.shared.mediaLocation.updateLocation(of: self.track)
+            }
             
             try! mox.save()
             self.track.copyTransient(from: asyncTrack)

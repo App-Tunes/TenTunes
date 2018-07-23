@@ -104,12 +104,16 @@ func parseGenre(_ genre: String?) -> String? {
 }
 
 extension Track {
-    func fetchMetadata() {
+    enum MetadataError: Error {
+        case fileNotFound
+    }
+    
+    func fetchMetadata() throws {
         self.metadataFetched = true
         self.artwork = nil
         
         guard let url = self.url else {
-            return
+            throw MetadataError.fileNotFound
         }
         
         var title: String? = nil
@@ -194,8 +198,6 @@ extension Track {
             self.artworkPreview = artwork.resized(w: 64, h: 64)
             // TODO Write both to data
         }
-
-        return
     }
     
     func writeMetadata() {

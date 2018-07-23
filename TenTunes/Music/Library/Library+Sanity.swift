@@ -34,13 +34,8 @@ extension Library {
             let master = context.convert(self.library.masterPlaylist)
             
             for playlist in allPlaylists {
-                var root = playlist.parent
-                for _ in 0..<100 { // No tree is larger than 100, and if it is... Fuck that tree
-                    // Nah, actually checks for infinite recursion among playlists
-                    root = root?.parent
-                }
-
-                if (playlist.parent == nil || root != nil) && playlist != master {
+                // All must go to master eventually
+                if !Library.find(parent: master, of: playlist) {
                     master.addToChildren(playlist)
                 }
             }
@@ -51,6 +46,21 @@ extension Library {
 
             try! context.save()
         }
+    }
+    
+    static func find(parent: Playlist, of: Playlist) -> Bool {
+        var playlist: Playlist? = of
+
+        // No tree is larger than 100, and if it is... Fuck that tree
+        // Nah, actually checks for infinite recursion among playlists
+        for _ in 0..<100 {
+            if playlist == parent {
+                return true
+            }
+            playlist = playlist?.parent
+        }
+        
+        return false
     }
 
     func considerSanity() {

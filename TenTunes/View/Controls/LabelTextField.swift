@@ -171,10 +171,16 @@ class LabelTextField: NSTokenField {
         autocompletePopover.show(relativeTo: bounds, of: self, preferredEdge: .maxY)
     }
     
-    func autocomplete(with: Any) {
-        // Strip away unfinished strings by using currentLabels rather than objectValue
+    func autocomplete(with: Any?) {
         let idx = editingIndex
-        currentLabels.insert(with, at: idx)
+        if let with = with {
+            // Strip away unfinished strings by using currentLabels rather than objectValue
+            currentLabels.insert(with, at: idx)
+        }
+        else {
+            let labels = currentLabels
+            currentLabels = labels
+        }
         // When we have no strings, location is equal to the number of labels
         currentEditor()?.selectedRange = NSMakeRange(idx + 1, 0)
         

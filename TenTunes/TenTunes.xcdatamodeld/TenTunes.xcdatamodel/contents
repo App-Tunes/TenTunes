@@ -8,12 +8,9 @@
         <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PlaylistFolder" inverseName="children" inverseEntity="PlaylistFolder" syncable="YES"/>
     </entity>
     <entity name="PlaylistCartesian" representedClassName="PlaylistCartesian" parentEntity="PlaylistFolder" syncable="YES">
-        <relationship name="left" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PlaylistFolder" inverseName="carthesianLeft" inverseEntity="PlaylistFolder" syncable="YES"/>
-        <relationship name="right" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PlaylistFolder" inverseName="carthesianRight" inverseEntity="PlaylistFolder" syncable="YES"/>
+        <attribute name="rules" attributeType="Transformable" valueTransformerName="NSKeyedUnarchiveFromDataTransformerName" customClassName="CartesianRules" syncable="YES"/>
     </entity>
     <entity name="PlaylistFolder" representedClassName="PlaylistFolder" parentEntity="Playlist" syncable="YES">
-        <relationship name="carthesianLeft" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PlaylistCartesian" inverseName="left" inverseEntity="PlaylistCartesian" syncable="YES"/>
-        <relationship name="carthesianRight" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PlaylistCartesian" inverseName="right" inverseEntity="PlaylistCartesian" syncable="YES"/>
         <relationship name="children" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Playlist" inverseName="parent" inverseEntity="Playlist" syncable="YES"/>
     </entity>
     <entity name="PlaylistManual" representedClassName="PlaylistManual" parentEntity="Playlist" syncable="YES">
@@ -43,8 +40,8 @@
     </entity>
     <elements>
         <element name="Playlist" positionX="-416" positionY="113" width="128" height="120"/>
-        <element name="PlaylistCartesian" positionX="-315" positionY="261" width="128" height="75"/>
-        <element name="PlaylistFolder" positionX="-218" positionY="171" width="128" height="90"/>
+        <element name="PlaylistCartesian" positionX="-315" positionY="261" width="128" height="60"/>
+        <element name="PlaylistFolder" positionX="-218" positionY="171" width="128" height="60"/>
         <element name="PlaylistManual" positionX="-218" positionY="252" width="128" height="58"/>
         <element name="PlaylistSmart" positionX="-216" positionY="108" width="128" height="60"/>
         <element name="Track" positionX="-414" positionY="261" width="128" height="300"/>

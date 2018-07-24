@@ -44,7 +44,8 @@ class TrackController: NSViewController {
     @IBOutlet var filterBar: HideableBar!
     @IBOutlet var _filterBarContainer: NSView!
 
-    @IBOutlet var ruleController: TrackLabelController!
+    @IBOutlet var smartPlaylistRuleController: TrackLabelController!
+    @IBOutlet var smartFolderRuleController: CartesianLabelController!
     @IBOutlet var ruleBar: HideableBar!
     @IBOutlet var _ruleBarContainer: NSView!
     @IBOutlet var _ruleButton: NSButton!
@@ -68,7 +69,13 @@ class TrackController: NSViewController {
             
             if let playlist = history.playlist as? PlaylistSmart {
                 _ruleButton.isHidden = false
-                ruleController.currentLabels = playlist.rules.labels
+                smartPlaylistRuleController.currentLabels = playlist.rules.labels
+                ruleBar.contentView = smartPlaylistRuleController.view
+            }
+            else if let playlist = history.playlist as? PlaylistCartesian {
+                _ruleButton.isHidden = false
+                smartFolderRuleController.currentLabels = playlist.rules.labels
+                ruleBar.contentView = smartFolderRuleController.view
             }
             else {
                 _ruleButton.isHidden = true
@@ -134,9 +141,13 @@ class TrackController: NSViewController {
         ruleBar.delegate = self
         _ruleBarContainer.setFullSizeContent(ruleBar.view)
 
-        ruleController = TrackLabelController(nibName: .init(rawValue: "TrackLabelController"), bundle: nil)
-        ruleController.delegate = self
-        ruleBar.contentView = ruleController.view
+        smartPlaylistRuleController = TrackLabelController(nibName: .init(rawValue: "TrackLabelController"), bundle: nil)
+        smartPlaylistRuleController.delegate = self
+        ruleBar.contentView = smartPlaylistRuleController.view
+        
+        smartFolderRuleController = CartesianLabelController(nibName: .init(rawValue: "CartesianLabelController"), bundle: nil)
+        smartFolderRuleController.delegate = self
+        smartFolderRuleController.loadView()
     }
     
     override func viewDidAppear() {
@@ -425,7 +436,7 @@ extension TrackController : HideableBarDelegate {
             _ruleButton.state = state ? .on : .off
             
             if state == false {
-                ruleController._labelField.resignFirstResponder()
+                smartPlaylistRuleController._labelField.resignFirstResponder()
             }
         }
         else if bar == filterBar {

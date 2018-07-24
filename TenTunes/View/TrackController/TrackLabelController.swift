@@ -9,7 +9,7 @@
 import Cocoa
 
 @objc protocol TrackLabelControllerDelegate {
-    @objc optional func labelsChanged(labelManager: TrackLabelController, labels: [Label])
+    @objc optional func labelsChanged(trackLabelController: TrackLabelController, labels: [TrackLabel])
     
     @objc optional func editingEnded(labelManager: TrackLabelController, notification: Notification)
 }
@@ -19,8 +19,8 @@ class TrackLabelController : NSViewController, LabelFieldDelegate {
     
     @IBOutlet var _labelField: LabelTextField!
     
-    var currentLabels: [Label] {
-        get { return _labelField.currentLabels as! [Label] }
+    var currentLabels: [TrackLabel] {
+        get { return _labelField.currentLabels as! [TrackLabel] }
         set { _labelField.currentLabels = newValue }
     }
     
@@ -52,7 +52,7 @@ class TrackLabelController : NSViewController, LabelFieldDelegate {
         return groups
     }
     
-    static func sorted<L : Label>(labels: [L]) -> [L] {
+    static func sorted<L : TrackLabel>(labels: [L]) -> [L] {
         return labels.sorted { (a, b) -> Bool in
             a.representation(in: Library.shared.viewContext).count < b.representation(in: Library.shared.viewContext).count
         }
@@ -79,15 +79,15 @@ class TrackLabelController : NSViewController, LabelFieldDelegate {
     }
     
     func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {
-        return (representedObject as? Label)?.representation(in: Library.shared.viewContext)
+        return (representedObject as? TrackLabel)?.representation(in: Library.shared.viewContext)
     }
     
     func tokenFieldChangedLabels(_ tokenField: NSTokenField, labels: [Any]) {
-        delegate?.labelsChanged?(labelManager: self, labels: labels as! [Label])
+        delegate?.labelsChanged?(trackLabelController: self, labels: labels as! [TrackLabel])
     }
     
     func tokenField(_ tokenField: NSTokenField, shouldAdd tokens: [Any], at index: Int) -> [Any] {
-        return tokens.map { $0 is Label ? $0 : LabelSearch(string: $0 as! String) }
+        return tokens.map { $0 is TrackLabel ? $0 : LabelSearch(string: $0 as! String) }
     }
     
     override func controlTextDidChange(_ obj: Notification) {

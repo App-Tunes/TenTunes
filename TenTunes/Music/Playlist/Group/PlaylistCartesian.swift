@@ -9,40 +9,14 @@
 import Cocoa
 
 @objc(PlaylistCartesian)
-class PlaylistCartesian: PlaylistFolder {
-    struct Combination : Hashable {
-        let name: String
-        let rules: PlaylistRules
-        
-        init(name: String, rules: PlaylistRules) {
-            self.name = name
-            self.rules = rules
-        }
-        
-        init?(from: Playlist) {
-            guard let rules = (from as? PlaylistSmart)?.rules else {
-                return nil
-            }
-            
-            self.init(name: from.name, rules: rules)
-        }
-        
-        var hashValue: Int {
-            return name.hashValue ^ rules.hashValue
-        }
-        
-        static func == (lhs: Combination, rhs: Combination) -> Bool {
-            return lhs.name == rhs.name && lhs.rules == rhs.rules
-        }
-    }
-    
+class PlaylistCartesian: PlaylistFolder {    
     func checkSanity(in context: NSManagedObjectContext) {
         let cross = crossProduct(in: context)
-        let childrenRules = childrenList.compactMap(Combination.init)
+        let childrenRules = childrenList.compactMap(CartesianRules.Combination.init)
         
         if cross.count != childrenList.count || cross != Set(childrenRules) {
             for error in childrenList.retain({
-                (Combination(from: $0) ?=> cross.contains) ?? false
+                (CartesianRules.Combination(from: $0) ?=> cross.contains) ?? false
             }) {
                 context.delete(error) // Harsh measues but with GUI validation this should not happen anyway
             }
@@ -56,24 +30,7 @@ class PlaylistCartesian: PlaylistFolder {
         }
     }
     
-    func crossProduct(in context: NSManagedObjectContext) -> Set<Combination> {
-        let ltmp = Library.shared.tagPlaylist.childrenList[safe: 0] as? PlaylistFolder ?=> context.convert
-        let rtmp = Library.shared.tagPlaylist.childrenList[safe: 1] as? PlaylistFolder ?=> context.convert
-        
-        guard let left = ltmp?.childrenList, let right = rtmp?.childrenList else {
-            return Set((self.left ?? self.right)?.childrenList.map { source in
-                let rules = PlaylistRules(labels: [LabelPlaylist(playlist: source, isTag: false)])
-                return Combination(name: source.name, rules: rules)
-            } ?? [])
-        }
-        
-        return Set(left.crossProduct(right).map { (left, right) in
-            let name = "\(left.name) | \(right.name)"
-            let rules = PlaylistRules(labels: [
-                LabelPlaylist(playlist: left, isTag: false),
-                LabelPlaylist(playlist: right, isTag: false)
-                ])
-            return Combination(name: name, rules: rules)
-        })
+    func crossProduct(in context: NSManagedObjectContext) -> Set<CartesianRules.Combination> {
+        return rules.crossProduct(in: context)
     }
 }

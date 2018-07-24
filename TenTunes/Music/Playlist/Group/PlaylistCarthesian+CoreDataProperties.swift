@@ -14,7 +14,12 @@ extension PlaylistCartesian {
         return NSFetchRequest<PlaylistCartesian>(entityName: "PlaylistCartesian")
     }
     
-    @NSManaged public var left: PlaylistFolder?
-    @NSManaged public var right: PlaylistFolder?
-
+    @NSManaged public var rules: CartesianRules!
+    
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        if rules == nil {
+            rules = CartesianRules()
+        }
+    }
 }

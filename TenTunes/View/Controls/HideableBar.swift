@@ -20,7 +20,11 @@ class HideableBar: NSViewController {
     @IBOutlet var _heightConstraint: NSLayoutConstraint!
     
     @IBOutlet var contentView : NSView? {
-        didSet { _containerView.setFullSizeContent(contentView) }
+        didSet {
+            if oldValue != contentView {
+                _containerView.setFullSizeContent(contentView)
+            }
+        }
     }
     
     var delegate: HideableBarDelegate?

@@ -9,7 +9,7 @@
 import Cocoa
 
 @objc public class PlaylistRules : NSObject, NSCoding {
-    var labels: [Label]
+    var labels: [TrackLabel]
 
     public func encode(with aCoder: NSCoder) {
         aCoder.encode(labels, forKey: "labels")
@@ -23,10 +23,10 @@ import Cocoa
     }
 
     public required init?(coder aDecoder: NSCoder) {
-        labels = aDecoder.decodeObject(forKey: "labels") as? [Label] ?? []
+        labels = aDecoder.decodeObject(forKey: "labels") as? [TrackLabel] ?? []
     }
     
-    init(labels: [Label] = []) {
+    init(labels: [TrackLabel] = []) {
         self.labels = labels
     }
     
@@ -49,7 +49,7 @@ import Cocoa
     }
 }
 
-@objc class Label : NSObject, NSCoding {
+@objc class TrackLabel : NSObject, NSCoding {
     func encode(with aCoder: NSCoder) {
         
     }
@@ -71,14 +71,14 @@ import Cocoa
     var data : NSData { return NSKeyedArchiver.archivedData(withRootObject: self) as NSData }
     
     override func isEqual(_ object: Any?) -> Bool {
-        guard let object = object as? Label else {
+        guard let object = object as? TrackLabel else {
             return false
         }
         return data == object.data
     }
 }
 
-class LabelSearch : Label {
+class LabelSearch : TrackLabel {
     var string: String
     
     init(string: String) {
@@ -108,7 +108,7 @@ class LabelSearch : Label {
     }
 }
 
-class LabelPlaylist : Label {
+class LabelPlaylist : TrackLabel {
     var playlistID: NSManagedObjectID?
     var isTag: Bool
     
@@ -155,7 +155,7 @@ class LabelPlaylist : Label {
     }
 }
 
-class LabelAuthor : Label {
+class LabelAuthor : TrackLabel {
     var author: String
     
     init(author: String) {
@@ -185,7 +185,7 @@ class LabelAuthor : Label {
     }
 }
 
-class LabelAlbum : Label {
+class LabelAlbum : TrackLabel {
     var album: Album
     
     init(album: Album) {
@@ -216,7 +216,7 @@ class LabelAlbum : Label {
     }
 }
 
-class LabelGenre : Label {
+class LabelGenre : TrackLabel {
     var genre: String
     
     init(genre: String) {

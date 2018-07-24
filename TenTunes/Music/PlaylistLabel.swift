@@ -41,6 +41,10 @@ import Cocoa
         aCoder.encode(labels, forKey: "labels")
     }
     
+    public required init?(coder aDecoder: NSCoder) {
+        labels = (aDecoder.decodeObject(forKey: "labels") as? [PlaylistLabel?])?.compactMap { $0 } ?? []
+    }
+
     func crossProduct(in context: NSManagedObjectContext) -> Set<Combination> {
         guard let left = labels.first, let right = labels.last else {
             return Set(labels.first?.matches(in: context).map { source in
@@ -57,10 +61,6 @@ import Cocoa
                 ])
             return Combination(name: name, rules: rules)
         })
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        labels = aDecoder.decodeObject(forKey: "labels") as? [PlaylistLabel] ?? []
     }
     
     init(labels: [PlaylistLabel] = []) {

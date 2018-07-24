@@ -18,8 +18,10 @@ extension PlaylistSmart {
         
     public override func awakeFromInsert() {
         super.awakeFromInsert()
-        if rules == nil {
-            rules = PlaylistRules()
-        }
+        if rules == nil { rules = PlaylistRules() }
+    }
+    
+    public override func awakeFromFetch() {
+        if rules == nil { rules = PlaylistRules() }
     }
 }

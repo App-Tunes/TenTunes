@@ -10,10 +10,6 @@ import Cocoa
 
 @objc public class PlaylistRules : NSObject, NSCoding {
     var labels: [TrackLabel]
-
-    public func encode(with aCoder: NSCoder) {
-        aCoder.encode(labels, forKey: "labels")
-    }
     
     func filter(in context: NSManagedObjectContext) -> ((Track) -> Bool) {
         let filters = labels.map { $0.filter(in: context) }
@@ -22,8 +18,12 @@ import Cocoa
         }
     }
 
+    public func encode(with aCoder: NSCoder) {
+        aCoder.encode(labels, forKey: "labels")
+    }
+
     public required init?(coder aDecoder: NSCoder) {
-        labels = aDecoder.decodeObject(forKey: "labels") as? [TrackLabel] ?? []
+        labels = (aDecoder.decodeObject(forKey: "labels") as? [TrackLabel?])?.compactMap { $0 } ?? []
     }
     
     init(labels: [TrackLabel] = []) {

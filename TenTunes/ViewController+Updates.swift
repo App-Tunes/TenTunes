@@ -95,12 +95,9 @@ extension ViewController {
                 playlistController.select(playlist: prevSelected)
             }
         }
-
         
         if let viewingPlaylist = trackController.history.playlist as? Playlist, deletes.of(type: Playlist.self).contains(viewingPlaylist) {
-            
             // Deleted our current playlist! :<
-            // TODO What to do when deleting listening playlist?
             trackController.history = PlayHistory(playlist: Library.shared.allTracks)
         }
     }

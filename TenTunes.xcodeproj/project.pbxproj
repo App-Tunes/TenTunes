@@ -75,7 +75,7 @@
 		80B3BE12207514D200B93961 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B3BE11207514D200B93961 /* Player.swift */; };
 		80B68B9E21011CC100A32E3D /* SMButtonWithMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 80B68B9D21011CC100A32E3D /* SMButtonWithMenu.m */; };
 		80B68BA62101204200A32E3D /* PlaylistSmart+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B68BA42101204200A32E3D /* PlaylistSmart+CoreDataProperties.swift */; };
-		80B68BA72101204200A32E3D /* PlaylistSmart+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B68BA52101204200A32E3D /* PlaylistSmart+CoreDataClass.swift */; };
+		80B68BA72101204200A32E3D /* PlaylistSmart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B68BA52101204200A32E3D /* PlaylistSmart.swift */; };
 		80B68BA92101255D00A32E3D /* TrackController+Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B68BA82101255D00A32E3D /* TrackController+Labels.swift */; };
 		80B764562072F38D003BD7F8 /* PlaylistEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B764552072F38D003BD7F8 /* PlaylistEmpty.swift */; };
 		80C8559E210512B400177035 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C8559D210512B400177035 /* Album.swift */; };
@@ -245,7 +245,7 @@
 		80B68B9D21011CC100A32E3D /* SMButtonWithMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMButtonWithMenu.m; sourceTree = "<group>"; };
 		80B68B9F21011D0300A32E3D /* SMButtonWithMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMButtonWithMenu.h; sourceTree = "<group>"; };
 		80B68BA42101204200A32E3D /* PlaylistSmart+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PlaylistSmart+CoreDataProperties.swift"; path = "/Users/lukas/XCode Projects/TenTunes/TenTunes/Music/Playlist/Manual/PlaylistSmart+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
-		80B68BA52101204200A32E3D /* PlaylistSmart+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PlaylistSmart+CoreDataClass.swift"; path = "/Users/lukas/XCode Projects/TenTunes/TenTunes/Music/Playlist/Manual/PlaylistSmart+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		80B68BA52101204200A32E3D /* PlaylistSmart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlaylistSmart.swift; path = "/Users/lukas/XCode Projects/TenTunes/TenTunes/Music/Playlist/Manual/PlaylistSmart.swift"; sourceTree = "<absolute>"; };
 		80B68BA82101255D00A32E3D /* TrackController+Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackController+Labels.swift"; sourceTree = "<group>"; };
 		80B764552072F38D003BD7F8 /* PlaylistEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistEmpty.swift; sourceTree = "<group>"; };
 		80C0C29F203F6DCA00FA6083 /* taglib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = taglib.xcodeproj; path = ../../taglib.xcodeproj; sourceTree = "<group>"; };
@@ -465,7 +465,7 @@
 			children = (
 				80E2C9F3204B40A000298E81 /* PlaylistManual.swift */,
 				80E2C9F4204B40A000298E81 /* PlaylistManual+CoreDataProperties.swift */,
-				80B68BA52101204200A32E3D /* PlaylistSmart+CoreDataClass.swift */,
+				80B68BA52101204200A32E3D /* PlaylistSmart.swift */,
 				80B68BA42101204200A32E3D /* PlaylistSmart+CoreDataProperties.swift */,
 			);
 			path = Manual;
@@ -862,7 +862,7 @@
 				8091B9FF20C6B7E50019CE23 /* Hash.swift in Sources */,
 				80F97030209625E800A989D8 /* PreferencesWindowController.swift in Sources */,
 				8093467120A62319001D15CD /* TrackController+Pasteboard.swift in Sources */,
-				80B68BA72101204200A32E3D /* PlaylistSmart+CoreDataClass.swift in Sources */,
+				80B68BA72101204200A32E3D /* PlaylistSmart.swift in Sources */,
 				80E937592039C2850014C835 /* Keycodes.swift in Sources */,
 				80E2C9FB204B40A000298E81 /* PlaylistFolder.swift in Sources */,
 				8085DC7020C936D6008F4084 /* ActionStub.swift in Sources */,

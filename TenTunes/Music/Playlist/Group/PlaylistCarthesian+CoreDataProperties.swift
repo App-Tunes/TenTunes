@@ -18,8 +18,6 @@ extension PlaylistCartesian {
     
     public override func awakeFromInsert() {
         super.awakeFromInsert()
-        if rules == nil {
-            rules = CartesianRules()
-        }
+        if rules == nil { rules = CartesianRules() }
     }
 }

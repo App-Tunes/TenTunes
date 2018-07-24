@@ -15,7 +15,11 @@ extension PlaylistSmart {
     }
     
     @NSManaged public var rules: PlaylistRules!
-        
+
+    var rrules: PlaylistRules {
+        return rules ?? PlaylistRules()
+    }
+
     public override func awakeFromInsert() {
         super.awakeFromInsert()
         if rules == nil { rules = PlaylistRules() }

@@ -42,7 +42,7 @@ extension TrackController : TrackLabelControllerDelegate {
     func labelsChanged(trackLabelController: TrackLabelController, labels: [TrackLabel]) {
         // TODO Live search
         if trackLabelController == smartPlaylistRuleController, let playlist = history.playlist as? PlaylistSmart {
-            if playlist.rules.labels != labels {
+            if playlist.rrules.labels != labels {
                 playlist.rules.labels = labels
                 NSManagedObject.markDirty(playlist, \.rules)
                 try! Library.shared.viewContext.save()

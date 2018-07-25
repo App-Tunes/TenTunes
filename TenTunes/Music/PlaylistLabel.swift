@@ -108,7 +108,7 @@ import Cocoa
     var data : NSData { return NSKeyedArchiver.archivedData(withRootObject: self) as NSData }
     
     override func isEqual(_ object: Any?) -> Bool {
-        guard let object = object as? TrackLabel else {
+        guard let object = object as? PlaylistLabel else {
             return false
         }
         return data == object.data

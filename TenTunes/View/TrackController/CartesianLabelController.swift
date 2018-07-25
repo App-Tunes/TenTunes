@@ -58,7 +58,19 @@ class CartesianLabelController : NSViewController, LabelFieldDelegate {
     }
     
     func tokenField(_ tokenField: NSTokenField, shouldAdd tokens: [Any], at index: Int) -> [Any] {
-        return tokens.compactMap { $0 as? PlaylistLabel }
+        return tokens.compactMap {
+            if $0 is PlaylistLabel {
+                return $0
+            }
+            else if let substring = $0 as? String {
+                let compareSubstring = substring.lowercased()
+                
+                let applicable = folderResults(search: compareSubstring)
+                if let tag = applicable.first { return tag }
+            }
+            
+            return nil
+        }
     }
     
     override func controlTextDidChange(_ obj: Notification) {
@@ -68,20 +80,5 @@ class CartesianLabelController : NSViewController, LabelFieldDelegate {
     
     override func controlTextDidEndEditing(_ obj: Notification) {
         delegate?.editingEnded?(cartesianLabelController: self, notification: obj)
-        
-        if let labelField = obj.object as? LabelTextField {
-            let editing = labelField.editingString
-            if editing.count > 0 {
-                let compareSubstring = labelField.editingString.lowercased()
-                
-                let applicable = folderResults(search: compareSubstring)
-                if let tag = applicable.first {
-                    labelField.autocomplete(with: tag)
-                    return
-                }
-            }
-            
-            labelField.autocomplete(with: nil)
-        }
     }
 }

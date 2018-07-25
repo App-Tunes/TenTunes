@@ -80,5 +80,6 @@ class CartesianLabelController : NSViewController, LabelFieldDelegate {
     
     override func controlTextDidEndEditing(_ obj: Notification) {
         delegate?.editingEnded?(cartesianLabelController: self, notification: obj)
+        (obj.object as? LabelTextField)?.autocomplete(with: nil)
     }
 }

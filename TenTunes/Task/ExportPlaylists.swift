@@ -27,7 +27,7 @@ class ExportPlaylists: Task {
     
     override func execute() {
         Library.shared.performChildBackgroundTask { mox in
-            let playlists = mox.convert(self.playlists)
+            let playlists = mox.compactConvert(self.playlists)
             
             let pather = self.libraryURL == Library.shared.mediaLocation.directory
                 ? Library.shared.mediaLocation.pather()

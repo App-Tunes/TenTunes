@@ -36,9 +36,9 @@ class PlayHistory {
     }
     
     func convert(to mox: NSManagedObjectContext) {
-        playlist = playlist.convert(to: mox)
-        order = mox.convert(order)
-        shuffled = shuffled ?=> mox.convert
+        playlist = playlist.convert(to: mox) ?? PlaylistEmpty()
+        order = mox.compactConvert(order)
+        shuffled = shuffled ?=> mox.compactConvert
     }
         
     // Order, Filter

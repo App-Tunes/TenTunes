@@ -31,11 +31,11 @@ class PlaylistLibrary: PlaylistProtocol {
         }
     }
     
-    func convert(to: NSManagedObjectContext) -> Self {
+    func convert(to: NSManagedObjectContext) -> Self? {
         let converted = type(of: self).init(context: to)
         // Faster than executing a new fetch request
         // Yes, if it's not calculated yet we do it now since it will likely be reused
-        converted._tracks = to.convert(tracksList)
+        converted._tracks = to.compactConvert(tracksList)
         return converted
     }
     

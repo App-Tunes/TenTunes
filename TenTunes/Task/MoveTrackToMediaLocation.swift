@@ -20,7 +20,10 @@ class MoveTrackToMediaLocation: TrackTask {
     
     override func execute() {
         Library.shared.performChildBackgroundTask { mox in
-            let track = mox.convert(self.track)
+            guard let track = mox.convert(self.track) else {
+                self.finish()
+                return
+            }
             
             guard !track.usesMediaDirectory else {
                 self.finish()

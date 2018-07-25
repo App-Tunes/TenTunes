@@ -25,7 +25,10 @@ class FetchTrackMetadata: TrackTask {
         Library.shared.performChildBackgroundTask { mox in
             mox.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
             
-            let asyncTrack = mox.convert(self.track)
+            guard let asyncTrack = mox.convert(self.track) else {
+                self.finish()
+                return
+            }
             
             if (try? asyncTrack.fetchMetadata()) == nil {
                 // Reset

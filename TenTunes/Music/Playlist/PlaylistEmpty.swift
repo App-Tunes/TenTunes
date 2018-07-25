@@ -17,7 +17,7 @@ class PlaylistEmpty : PlaylistProtocol {
         return []
     }
     
-    func convert(to: NSManagedObjectContext) -> Self {
+    func convert(to: NSManagedObjectContext) -> Self? {
         return self
     }
 }

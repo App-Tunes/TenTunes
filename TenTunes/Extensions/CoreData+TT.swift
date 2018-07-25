@@ -94,13 +94,16 @@ extension NSManagedObject {
 }
 
 extension NSManagedObjectContext {
-    public func convert<T : NSManagedObject>(_ t: T) -> T {
-        return object(with: t.objectID) as! T
+    public func convert<T : NSManagedObject>(_ t: T) -> T? {
+        return (try? existingObject(with: t.objectID)) as? T
     }
 
-    public func convert<T : NSManagedObject>(_ ts: [T]) -> [T] {
-        // TODO If many, fetch all at once
+    public func convert<T : NSManagedObject>(_ ts: [T]) -> [T?] {
         return ts.map(convert)
+    }
+    
+    public func compactConvert<T : NSManagedObject>(_ ts: [T]) -> [T] {
+        return ts.compactMap(convert)
     }
     
     public func delete(all: [NSManagedObject]) {

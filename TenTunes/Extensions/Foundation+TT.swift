@@ -8,6 +8,13 @@
 
 import Foundation
 
+func longZip<Sequence1, Sequence2>(_ sequence1: Sequence1, _ sequence2: Sequence2) -> [(Sequence1.Element?, Sequence2.Element?)] where Sequence1 : Sequence, Sequence2 : Sequence {
+    var zipped : [(Sequence1.Element?, Sequence2.Element?)] = Array(zip(sequence1, sequence2).map { ($0.0 as Sequence1.Element?, $0.1 as Sequence2.Element?) })
+    zipped.append(contentsOf: sequence1.dropFirst(zipped.count).map { ($0, nil) })
+    zipped.append(contentsOf: sequence2.dropFirst(zipped.count).map { (nil, $0) })
+    return zipped
+}
+
 extension Sequence {
     func crossProduct<T2:Sequence>(_ rhs : T2) -> AnySequence<(Iterator.Element,T2.Iterator.Element)>
     {

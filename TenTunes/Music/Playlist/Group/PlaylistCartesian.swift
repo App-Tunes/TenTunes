@@ -14,23 +14,28 @@ class PlaylistCartesian: PlaylistFolder {
         let cross = crossProduct(in: context)
         let childrenRules = childrenList.compactMap(CartesianRules.Combination.init)
         
-        if cross.count != childrenList.count || cross != Set(childrenRules) {
-            for error in childrenList.retain({
-                (CartesianRules.Combination(from: $0) ?=> cross.contains) ?? false
-            }) {
-                context.delete(error) // Harsh measues but with GUI validation this should not happen anyway
-            }
-            for combination in cross where !childrenRules.contains(combination) {
-                let playlist = PlaylistSmart(context: context)
-                playlist.rules = combination.rules
-                playlist.name = combination.name
-                addToChildren(playlist)
-                // TODO Fix the program trying to autoname these
+        if cross.count != childrenList.count || cross != childrenRules {
+            for (required, existing) in longZip(cross, childrenList) {
+                guard required?.rules.labels != (existing as? PlaylistSmart)?.rules?.labels else {
+                    continue
+                }
+                
+                if let existing = existing {
+                    context.delete(existing)
+                }
+                
+                if let required = required {
+                    let playlist = PlaylistSmart(context: context)
+                    playlist.rules = required.rules
+                    playlist.name = required.name
+                    // TODO Fix the program trying to autoname these
+                    addToChildren(playlist)
+                }
             }
         }
     }
     
-    func crossProduct(in context: NSManagedObjectContext) -> Set<CartesianRules.Combination> {
+    func crossProduct(in context: NSManagedObjectContext) -> [CartesianRules.Combination] {
         return rules.crossProduct(in: context)
     }
 }

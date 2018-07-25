@@ -45,22 +45,22 @@ import Cocoa
         labels = (aDecoder.decodeObject(forKey: "labels") as? [PlaylistLabel?])?.compactMap { $0 } ?? []
     }
 
-    func crossProduct(in context: NSManagedObjectContext) -> Set<Combination> {
+    func crossProduct(in context: NSManagedObjectContext) -> [Combination] {
         guard let left = labels.first, let right = labels.last else {
-            return Set(labels.first?.matches(in: context).map { source in
+            return labels.first?.matches(in: context).map { source in
                 let rules = PlaylistRules(labels: [LabelPlaylist(playlist: source, isTag: false)])
                 return Combination(name: source.name, rules: rules)
-                } ?? [])
+                } ?? []
         }
         
-        return Set(left.matches(in: context).crossProduct(right.matches(in: context)).map { (left, right) in
+        return left.matches(in: context).crossProduct(right.matches(in: context)).map { (left, right) in
             let name = "\(left.name) | \(right.name)"
             let rules = PlaylistRules(labels: [
                 LabelPlaylist(playlist: left, isTag: false),
                 LabelPlaylist(playlist: right, isTag: false)
                 ])
             return Combination(name: name, rules: rules)
-        })
+        }
     }
     
     init(labels: [PlaylistLabel] = []) {

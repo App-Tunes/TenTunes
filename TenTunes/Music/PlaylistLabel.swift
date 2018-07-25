@@ -46,14 +46,14 @@ import Cocoa
     }
 
     func crossProduct(in context: NSManagedObjectContext) -> [Combination] {
-        guard let left = labels.first, let right = labels.last else {
+        guard labels.count == 2 else {
             return labels.first?.matches(in: context).map { source in
                 let rules = PlaylistRules(labels: [LabelPlaylist(playlist: source, isTag: false)])
                 return Combination(name: source.name, rules: rules)
                 } ?? []
         }
         
-        return left.matches(in: context).crossProduct(right.matches(in: context)).map { (left, right) in
+        return labels.first!.matches(in: context).crossProduct(labels.last!.matches(in: context)).map { (left, right) in
             let name = "\(left.name) | \(right.name)"
             let rules = PlaylistRules(labels: [
                 LabelPlaylist(playlist: left, isTag: false),

@@ -26,6 +26,8 @@ extension Playlist {
     @NSManaged public var iTunesID: String?
     
     public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        
         if name == "" {
             name = "Unnamed Playlist"
         }

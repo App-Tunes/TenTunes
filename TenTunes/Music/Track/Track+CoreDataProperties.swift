@@ -37,6 +37,7 @@ extension Track {
     @NSManaged public var usesMediaDirectory: Bool
 
     public override func awakeFromInsert() {
+        super.awakeFromInsert()
         id = UUID()
         creationDate = NSDate()
     }

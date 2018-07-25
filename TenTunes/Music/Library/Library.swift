@@ -142,8 +142,9 @@ class Library : NSPersistentContainer {
         return (try? context.existingObject(with: byId)) as? Playlist
     }
     
-    var allPlaylists: [Playlist] {
-        return try! viewContext.fetch(NSFetchRequest<Playlist>(entityName: "Playlist"))
+    func allPlaylists(in context: NSManagedObjectContext? = nil) -> [Playlist] {
+        let context = context ?? viewContext
+        return try! context.fetch(NSFetchRequest<Playlist>(entityName: "Playlist"))
     }
     
     func isAffected(playlist: PlaylistProtocol, whenChanging: Playlist) -> Bool {

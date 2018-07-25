@@ -25,7 +25,7 @@ class CartesianLabelController : NSViewController, LabelFieldDelegate {
     }
     
     var folders: [PlaylistFolder] {
-        return Library.shared.allPlaylists.compactMap { $0 as? PlaylistFolder}
+        return Library.shared.allPlaylists().compactMap { $0 as? PlaylistFolder}
     }
     
     func tokenField(_ tokenField: NSTokenField, completionGroupsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [LabelGroup]? {

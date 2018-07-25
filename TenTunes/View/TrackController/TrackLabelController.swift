@@ -25,13 +25,13 @@ class TrackLabelController : NSViewController, LabelFieldDelegate {
     }
     
     var playlists: [Playlist] {
-        return Library.shared.allPlaylists.filter {
+        return Library.shared.allPlaylists().filter {
             !Library.shared.path(of: $0).contains(Library.shared.tagPlaylist)
         }
     }
     
     var tags: [Playlist] {
-        return Library.shared.allPlaylists.filter {
+        return Library.shared.allPlaylists().filter {
             Library.shared.path(of: $0).contains(Library.shared.tagPlaylist) && $0 != Library.shared.tagPlaylist
         }
     }

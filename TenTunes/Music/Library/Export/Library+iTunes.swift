@@ -23,7 +23,11 @@ extension Library.Export {
         
         let to16Hex: (UUID) -> String = { $0.uuidString.replacingOccurrences(of: "-", with: "")[0...15] }
         
-        let tracksDicts: [String: Any] = Dictionary(uniqueKeysWithValues: tracks.enumerated().map { (idx, track) in
+        let tracksDicts: [String: Any] = Dictionary(uniqueKeysWithValues: tracks.enumerated().compactMap { (idx, track) in
+            guard track.fireFault() else {
+                return nil
+            }
+            
             var trackDict: [String: Any] = [:]
             
             trackDict["Track ID"] = idx
@@ -42,8 +46,13 @@ extension Library.Export {
         let playlistPersistentID: (Playlist) -> String = { $0.iTunesID ?? to16Hex($0.id)  } // TODO
         
         let trackIDs: [Track: Int] = Dictionary(uniqueKeysWithValues: tracks.enumerated().map { (idx, track) in (track, idx) })
-        let playlistsArray: [[String: Any]] = playlists.enumerated().map { tuple in
+        let playlistsArray: [[String: Any]] = playlists.enumerated().compactMap { tuple in
             let (idx, playlist) = tuple // TODO Destructure in param (later Swift)
+
+            guard playlist.fireFault() else {
+                return nil
+            }
+            
             var playlistDict: [String: Any] = [:]
             
             playlistDict["Playlist ID"] = idx

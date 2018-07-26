@@ -43,6 +43,11 @@ extension NSManagedObject {
         obj[keyPath: keyPath] = obj[keyPath: keyPath]
     }
     
+    func fireFault() -> Bool {
+        willAccessValue(forKey: nil)
+        return !isDeleted
+    }
+    
     func duplicate(only: [String]) -> NSManagedObject {
         return duplicate { only.contains($0) ? .copy : .none }
     }

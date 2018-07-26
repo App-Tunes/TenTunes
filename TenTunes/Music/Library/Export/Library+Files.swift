@@ -83,10 +83,10 @@ extension Library {
             let changed = library._exportChanged
             library._exportChanged = Set()
             
-            let tracks: [Track] = try! context.fetch(Track.fetchRequest())
+            let tracks: [Track] = (try! context.fetch(Track.fetchRequest()))
             // TODO Sort playlist by their parent / child tree
-            let playlists: [Playlist] = try! context.fetch(Playlist.fetchRequest())
-            
+            let playlists: [Playlist] = (try! context.fetch(Playlist.fetchRequest()))
+
             m3uPlaylists(playlists: playlists, changed: changed)
             iTunesLibraryXML(tracks: tracks, playlists: playlists)
             symlinks(tracks: tracks, playlists: playlists)
@@ -95,8 +95,11 @@ extension Library {
         static func iterate<Type: Playlist>(playlists: [Type], changed: Set<NSManagedObjectID>?, in directory: URL, block: (URL, Type) -> Swift.Void) {
             // TODO Clean up old playlists
             for playlist in playlists where changed == nil || changed!.contains(playlist.objectID) || playlist.tracksList.anyMatch { changed!.contains($0.objectID) } {
-                let url = Library.shared.url(of: playlist, relativeTo: directory)
+                guard playlist.fireFault() else {
+                    continue
+                }
                 
+                let url = Library.shared.url(of: playlist, relativeTo: directory)
                 block(url, playlist)
             }
         }

@@ -166,6 +166,12 @@ extension NSOutlineView {
             }
         }
     }
+    
+    func reloadItems<C : Collection>(_ items: C, reloadChildren: Bool = false) {
+        for item in items {
+            reloadItem(item, reloadChildren: reloadChildren)
+        }
+    }
 }
 
 extension FileManager {

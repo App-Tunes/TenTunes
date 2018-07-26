@@ -421,6 +421,11 @@ extension Set {
     func of<T>(type: T.Type) -> Set<T> {
         return filter { $0 is T } as! Set<T>
     }
+    
+    // TODO If possible, change to a possible mathematical v OR and add mathematical AND 
+    static func +(lhs: Set, rhs: Set) -> Set {
+        return lhs.union(rhs)
+    }
 }
 
 extension String {

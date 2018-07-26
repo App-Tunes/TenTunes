@@ -69,32 +69,42 @@ extension ViewController {
         let playlistUpdates = updates.of(type: Playlist.self)
 
         // Modified playlists?
-        if playlistDeletes.count > 0 && playlistUpdates.uniqueElement == playlistDeletes.uniqueElement?.parent {
-            playlistController._outlineView.animateDelete(elements: Array(deletes.of(type: Playlist.self)))
-        }
-        else if playlistInserts.count > 0 && playlistUpdates.uniqueElement == playlistInserts.uniqueElement?.parent {
-            playlistController._outlineView.animateInsert(elements: Array(inserts.of(type: Playlist.self))) {
-                guard let (parent, idx) = Library.shared.position(of: $0) else {
-                    return nil
+        // Use while so we can use break to nope out lol
+        while !playlistUpdates.isEmpty || !playlistDeletes.isEmpty || !playlistInserts.isEmpty {
+            if !playlistInserts.isEmpty && playlistUpdates.uniqueElement == playlistInserts.uniqueElement?.parent {
+                playlistController._outlineView.animateInsert(elements: Array(inserts.of(type: Playlist.self))) {
+                    guard let (parent, idx) = Library.shared.position(of: $0) else {
+                        return nil
+                    }
+                    return (idx, parent == Library.shared.masterPlaylist ? nil : parent)
                 }
-                return (idx, parent == Library.shared.masterPlaylist ? nil : parent)
+                
+                if let insertedPlaylist = playlistInserts.uniqueElement, Library.shared.isPlaylist(playlist: insertedPlaylist) {
+                    // Let's hope that playlists don't get inserted other than when creating a new one, otherwise we need another solution
+                    playlistController.select(playlist: insertedPlaylist, editTitle: true)
+                }
+                
+                break
             }
             
-            if let insertedPlaylist = playlistInserts.uniqueElement, Library.shared.isPlaylist(playlist: insertedPlaylist) {
-                // Let's hope that playlists don't get inserted other than when creating a new one, otherwise we need another solution
-                playlistController.select(playlist: insertedPlaylist, editTitle: true)
+            if !playlistDeletes.isEmpty && playlistUpdates.uniqueElement == playlistDeletes.uniqueElement?.parent {
+                playlistController._outlineView.animateDelete(elements: Array(deletes.of(type: Playlist.self)))
+                break
             }
-        }
-        else if playlistUpdates.count > 0 || playlistDeletes.count > 0 || playlistInserts.count > 0 {
+                
             let prevSelected = playlistController.selectedPlaylists.map({ $0.1 }).uniqueElement
             
-            // TODO Only reload when the affected playlists are in view
-            playlistController._outlineView.reloadData() // TODO Animate movement?
+            // TODO Animate movement?
+            // It's enough if we reload only updated ones since deletes / inserts are auto-reloaded
+            playlistController._outlineView.reloadItems(playlistUpdates, reloadChildren: true)
             
             if let prevSelected = prevSelected {
                 playlistController.select(playlist: prevSelected)
             }
+
+            break
         }
+
         
         if let viewingPlaylist = trackController.history.playlist as? Playlist, deletes.of(type: Playlist.self).contains(viewingPlaylist) {
             // Deleted our current playlist! :<

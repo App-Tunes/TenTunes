@@ -173,7 +173,14 @@ extension NSOutlineView {
             return
         }
         
-        for item in items {
+        for case let item as AnyObject in items {
+            let parent = self.parent(forItem: item)
+            let idx = childIndex(forItem: item)
+            guard (dataSource?.outlineView?(self, numberOfChildrenOfItem: parent) ?? 0) > idx else {
+                // We have been deleted or something, but the parent will be reloaded anyway
+                continue
+            }
+            
             reloadItem(item, reloadChildren: reloadChildren)
         }
     }

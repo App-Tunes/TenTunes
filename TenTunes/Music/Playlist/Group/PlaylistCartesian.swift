@@ -16,7 +16,7 @@ class PlaylistCartesian: PlaylistFolder {
         
         if cross.count != childrenList.count || cross != childrenRules {
             for (required, existing) in longZip(cross, childrenList) {
-                guard required?.rules.labels != (existing as? PlaylistSmart)?.rules?.labels else {
+                guard required?.rules.labels != (existing as? PlaylistSmart)?.rules?.labels || required?.name != existing?.name else {
                     continue
                 }
                 

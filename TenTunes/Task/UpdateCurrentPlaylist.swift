@@ -38,6 +38,9 @@ class UpdateCurrentPlaylist: Task {
     override func execute() {
         let desired = self.desired
         
+        // Make sure to cache the results on the main thread if we use the biggest of them all
+        (desired.playlist as? PlaylistLibrary)?.loadTracks()
+        
         Library.shared.performChildBackgroundTask { mox in
             let history = desired.playlist?.convert(to: mox) ?=> PlayHistory.init
             

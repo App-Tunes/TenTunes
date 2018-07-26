@@ -167,11 +167,11 @@ extension Array where Element: Equatable {
         return false
     }
     
-    public mutating func remove(all: [Element]) {
+    public mutating func remove<C: Collection>(all: C) where C.Element == Element {
         self = removing(all: all)
     }
     
-    public func removing(all: [Element]) -> [Element] {
+    public func removing<C: Collection>(all: C) -> [Element] where C.Element == Element {
         return filter { !all.contains($0) }
     }
     

@@ -48,7 +48,7 @@ import Cocoa
     func crossProduct(in context: NSManagedObjectContext) -> [Combination] {
         guard labels.count == 2 else {
             return labels.first?.matches(in: context).map { source in
-                let rules = PlaylistRules(labels: [LabelPlaylist(playlist: source, isTag: false)])
+                let rules = PlaylistRules(labels: [TrackLabel.InPlaylist(playlist: source, isTag: false)])
                 return Combination(name: source.name, rules: rules)
                 } ?? []
         }
@@ -56,8 +56,8 @@ import Cocoa
         return labels.first!.matches(in: context).crossProduct(labels.last!.matches(in: context)).map { (left, right) in
             let name = "\(left.name) | \(right.name)"
             let rules = PlaylistRules(labels: [
-                LabelPlaylist(playlist: left, isTag: false),
-                LabelPlaylist(playlist: right, isTag: false)
+                TrackLabel.InPlaylist(playlist: left, isTag: false),
+                TrackLabel.InPlaylist(playlist: right, isTag: false)
                 ])
             return Combination(name: name, rules: rules)
         }
@@ -115,37 +115,39 @@ import Cocoa
     }
 }
 
-@objc class LabelFolder : PlaylistLabel {
-    var playlistID: NSManagedObjectID?
-    
-    init(playlist: PlaylistFolder?) {
-        self.playlistID = playlist?.objectID
-        super.init()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        playlistID = (aDecoder.decodeObject(forKey: "playlistID") as? URL) ?=> Library.shared.persistentStoreCoordinator.managedObjectID
-        super.init(coder: aDecoder)
-    }
-    
-    override func encode(with aCoder: NSCoder) {
-        aCoder.encode(playlistID?.uriRepresentation(), forKey: "playlistID")
-        super.encode(with: aCoder)
-    }
-    
-    func playlist(in context: NSManagedObjectContext) -> PlaylistFolder? {
-        guard let playlistID = self.playlistID else {
-            return nil
+extension PlaylistLabel {
+    @objc class Folder : PlaylistLabel {
+        var playlistID: NSManagedObjectID?
+        
+        init(playlist: PlaylistFolder?) {
+            self.playlistID = playlist?.objectID
+            super.init()
         }
-        return Library.shared.playlist(byId: playlistID, in: context) as? PlaylistFolder
-    }
-    
-    override func matches(in context: NSManagedObjectContext) -> [Playlist] {
-        return playlist(in: context)?.childrenList ?? []
-    }
-    
-    override func representation(in context: NSManagedObjectContext? = nil) -> String {
-        let playlistName = context != nil ? playlist(in: context!)?.name : playlistID?.description
-        return "📁 " + (playlistName ?? "Invalid Playlist")
+        
+        required init?(coder aDecoder: NSCoder) {
+            playlistID = (aDecoder.decodeObject(forKey: "playlistID") as? URL) ?=> Library.shared.persistentStoreCoordinator.managedObjectID
+            super.init(coder: aDecoder)
+        }
+        
+        override func encode(with aCoder: NSCoder) {
+            aCoder.encode(playlistID?.uriRepresentation(), forKey: "playlistID")
+            super.encode(with: aCoder)
+        }
+        
+        func playlist(in context: NSManagedObjectContext) -> PlaylistFolder? {
+            guard let playlistID = self.playlistID else {
+                return nil
+            }
+            return Library.shared.playlist(byId: playlistID, in: context) as? PlaylistFolder
+        }
+        
+        override func matches(in context: NSManagedObjectContext) -> [Playlist] {
+            return playlist(in: context)?.childrenList ?? []
+        }
+        
+        override func representation(in context: NSManagedObjectContext? = nil) -> String {
+            let playlistName = context != nil ? playlist(in: context!)?.name : playlistID?.description
+            return "📁 " + (playlistName ?? "Invalid Playlist")
+        }
     }
 }

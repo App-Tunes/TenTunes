@@ -46,7 +46,7 @@ class CartesianLabelController : NSViewController, LabelFieldDelegate {
     
     func folderResults(search: String) -> [PlaylistLabel] {
         let found = search.count > 0 ? folders.filter({ $0.name.lowercased().range(of: search) != nil }) : folders
-        return CartesianLabelController.sorted(labels: found.map({ LabelFolder(playlist: $0) }))
+        return CartesianLabelController.sorted(labels: found.map({ PlaylistLabel.Folder(playlist: $0) }))
     }
     
     func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {

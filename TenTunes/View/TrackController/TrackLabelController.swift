@@ -42,7 +42,7 @@ class TrackLabelController : NSViewController, LabelFieldDelegate {
         let compareSubstring = substring.lowercased()
         
         var groups: [LabelGroup] = [
-            LabelGroup(title: "Search For", contents: [LabelSearch(string: substring)]),
+            LabelGroup(title: "Search For", contents: [TrackLabel.Search(string: substring)]),
             ]
         
         groups.append(LabelGroup(title: "Has Tag", contents: playlistResults(search: compareSubstring, tag: true)))
@@ -60,24 +60,24 @@ class TrackLabelController : NSViewController, LabelFieldDelegate {
         }
     }
     
-    func genreResults(search: String) -> [LabelGenre] {
+    func genreResults(search: String) -> [TrackLabel.Genre] {
         let found = search.count > 0 ? Library.shared.allGenres.filter({ $0.lowercased().range(of: search) != nil }) : Library.shared.allGenres
-        return TrackLabelController.sorted(labels: found.map { LabelGenre(genre: $0) })
+        return TrackLabelController.sorted(labels: found.map { TrackLabel.Genre(genre: $0) })
     }
     
-    func albumResults(search: String) -> [LabelAlbum] {
+    func albumResults(search: String) -> [TrackLabel.InAlbum] {
         let found = search.count > 0 ? Library.shared.allAlbums.filter({ $0.title.lowercased().range(of: search) != nil }) : Library.shared.allAlbums
-        return TrackLabelController.sorted(labels: found.map { LabelAlbum(album: $0) })
+        return TrackLabelController.sorted(labels: found.map { TrackLabel.InAlbum(album: $0) })
     }
     
-    func authorResults(search: String) -> [LabelAuthor] {
+    func authorResults(search: String) -> [TrackLabel.Author] {
         let found = search.count > 0 ? Library.shared.allAuthors.filter({ $0.lowercased().range(of: search) != nil }) : Library.shared.allAuthors
-        return TrackLabelController.sorted(labels: found.map { LabelAuthor(author: $0) })
+        return TrackLabelController.sorted(labels: found.map { TrackLabel.Author(author: $0) })
     }
     
-    func playlistResults(search: String, tag: Bool) -> [LabelPlaylist] {
+    func playlistResults(search: String, tag: Bool) -> [TrackLabel.InPlaylist] {
         let found = search.count > 0 ? (tag ? tags : playlists).filter({ $0.name.lowercased().range(of: search) != nil }) : playlists
-        return TrackLabelController.sorted(labels: found.map({ LabelPlaylist(playlist: $0, isTag: tag) }))
+        return TrackLabelController.sorted(labels: found.map({ TrackLabel.InPlaylist(playlist: $0, isTag: tag) }))
     }
     
     func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {
@@ -89,11 +89,11 @@ class TrackLabelController : NSViewController, LabelFieldDelegate {
     }
     
     func tokenField(_ tokenField: NSTokenField, shouldAdd tokens: [Any], at index: Int) -> [Any] {
-        return tokens.map { $0 is TrackLabel ? $0 : LabelSearch(string: $0 as! String) }
+        return tokens.map { $0 is TrackLabel ? $0 : TrackLabel.Search(string: $0 as! String) }
     }
     
     func tokenField(_ tokenField: NSTokenField, hasMenuForRepresentedObject representedObject: Any) -> Bool {
-        return !(representedObject is LabelSearch)
+        return !(representedObject is TrackLabel.Search)
     }
     
     func tokenField(_ tokenField: NSTokenField, menuForRepresentedObject representedObject: Any) -> NSMenu? {
@@ -120,7 +120,7 @@ class TrackLabelController : NSViewController, LabelFieldDelegate {
         if let labelField = obj.object as? LabelTextField {
             let editing = labelField.editingString
             if editing.count > 0 {
-                labelField.autocomplete(with: LabelSearch(string: labelField.editingString))
+                labelField.autocomplete(with: TrackLabel.Search(string: labelField.editingString))
             }
         }
     }

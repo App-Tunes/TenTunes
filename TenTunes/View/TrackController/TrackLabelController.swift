@@ -110,8 +110,10 @@ class TrackLabelController : NSViewController, LabelFieldDelegate {
     
     @IBAction func invertLabel(_ sender: Any) {
         let label = (sender as! NSMenuItem).representedObject as! TrackLabel
-        label.not = !label.not
-        delegate?.labelsChanged?(trackLabelController: self, labels: currentLabels)
+        let inverted = label.inverted()
+        
+        currentLabels[currentLabels.index(of: label)!] = inverted
+        _labelField.notifyLabelChange()
         
         _labelField.reloadLabels()
     }

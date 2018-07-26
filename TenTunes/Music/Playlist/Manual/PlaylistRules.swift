@@ -50,18 +50,22 @@ import Cocoa
 }
 
 @objc class TrackLabel : NSObject, NSCoding {
-    var not = false
+    var _not: Bool
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(not, forKey: "not")
     }
     
-    override init() {
-        
+    init(not: Bool = false) {
+        _not = not
     }
     
     required init?(coder aDecoder: NSCoder) {
-        not = aDecoder.decodeBool(forKey: "not")
+        _not = aDecoder.decodeBool(forKey: "not")
+    }
+    
+    var not: Bool { // So it's get-only, though for convenience the var itself is var, not let
+        return _not
     }
     
     func filter(in context: NSManagedObjectContext) -> (Track) -> Bool {
@@ -77,10 +81,16 @@ import Cocoa
         // TODO Use red background instead when possible
         return (not ? "🚫 " : "") + positiveRepresentation(in: context)
     }
+    
+    func inverted() -> TrackLabel {
+        let copy = NSKeyedUnarchiver.unarchiveObject(with: data) as! TrackLabel
+        copy._not = !_not
+        return copy
+    }
 
     func positiveRepresentation(in context: NSManagedObjectContext? = nil) -> String { return "" }
     
-    var data : NSData { return NSKeyedArchiver.archivedData(withRootObject: self) as NSData }
+    var data : Data { return NSKeyedArchiver.archivedData(withRootObject: self) }
     
     override func isEqual(_ object: Any?) -> Bool {
         guard let object = object as? TrackLabel else {

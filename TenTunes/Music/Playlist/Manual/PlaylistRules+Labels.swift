@@ -182,8 +182,7 @@ extension TrackLabel {
         
         init(bitrate: Int, above: Bool) {
             self.bitrate = bitrate
-            super.init()
-            not = !above
+            super.init(not: !above)
         }
         
         required init?(coder aDecoder: NSCoder) {

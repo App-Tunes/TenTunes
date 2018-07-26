@@ -176,4 +176,32 @@ extension TrackLabel {
             return "📗 " + genre
         }
     }
+    
+    class MinBitrate : TrackLabel {
+        var bitrate: Float
+        
+        init(bitrate: Float, above: Bool) {
+            self.bitrate = bitrate
+            super.init()
+            not = !above
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            self.bitrate = aDecoder.decodeFloat(forKey: "bitrate")
+            super.init(coder: aDecoder)
+        }
+        
+        override func encode(with aCoder: NSCoder) {
+            aCoder.encode(bitrate, forKey: "bitrate")
+            super.encode(with: aCoder)
+        }
+        
+        override func positiveFilter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
+            return { $0.bitrate >= self.bitrate }
+        }
+        
+        override func representation(in context: NSManagedObjectContext?) -> String {
+            return String(format: "Bitrate \(not ? "<" : "≥") %.2f", bitrate)
+        }
+    }
 }

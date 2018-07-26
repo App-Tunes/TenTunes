@@ -45,6 +45,13 @@ class TrackLabelController : NSViewController, LabelFieldDelegate {
             LabelGroup(title: "Search For", contents: [TrackLabel.Search(string: substring)]),
             ]
         
+        if let float = Float(substring) {
+            groups.append(LabelGroup(title: "Bitrate", contents: [
+                TrackLabel.MinBitrate(bitrate: float, above: true),
+                TrackLabel.MinBitrate(bitrate: float, above: false)
+                ]))
+        }
+        
         groups.append(LabelGroup(title: "Has Tag", contents: playlistResults(search: compareSubstring, tag: true)))
         groups.append(LabelGroup(title: "Contained In Playlist", contents: playlistResults(search: compareSubstring, tag: false)))
         groups.append(LabelGroup(title: "Created By", contents: authorResults(search: compareSubstring)))

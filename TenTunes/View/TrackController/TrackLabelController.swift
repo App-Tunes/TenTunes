@@ -45,10 +45,10 @@ class TrackLabelController : NSViewController, LabelFieldDelegate {
             LabelGroup(title: "Search For", contents: [TrackLabel.Search(string: substring)]),
             ]
         
-        if let float = Float(substring) {
-            groups.append(LabelGroup(title: "Bitrate", contents: [
-                TrackLabel.MinBitrate(bitrate: float, above: true),
-                TrackLabel.MinBitrate(bitrate: float, above: false)
+        if let int = Int(substring), int > 0 {
+            groups.append(LabelGroup(title: "Kbps", contents: [
+                TrackLabel.MinBitrate(bitrate: int, above: true),
+                TrackLabel.MinBitrate(bitrate: int, above: false)
                 ]))
         }
         

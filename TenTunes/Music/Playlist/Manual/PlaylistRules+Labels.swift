@@ -178,30 +178,30 @@ extension TrackLabel {
     }
     
     class MinBitrate : TrackLabel {
-        var bitrate: Float
+        var bitrate: Int
         
-        init(bitrate: Float, above: Bool) {
+        init(bitrate: Int, above: Bool) {
             self.bitrate = bitrate
             super.init()
             not = !above
         }
         
         required init?(coder aDecoder: NSCoder) {
-            self.bitrate = aDecoder.decodeFloat(forKey: "bitrate")
+            self.bitrate = aDecoder.decodeInteger(forKey: "kbps")
             super.init(coder: aDecoder)
         }
         
         override func encode(with aCoder: NSCoder) {
-            aCoder.encode(bitrate, forKey: "bitrate")
+            aCoder.encode(bitrate, forKey: "kbps")
             super.encode(with: aCoder)
         }
         
         override func positiveFilter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
-            return { $0.bitrate >= self.bitrate }
+            return { $0.bitrate >= Float(self.bitrate * 1024) }
         }
         
         override func representation(in context: NSManagedObjectContext?) -> String {
-            return String(format: "Bitrate \(not ? "<" : "≥") %.2f", bitrate)
+            return "kbps \(not ? "<" : "≥") \(bitrate)"
         }
     }
 }

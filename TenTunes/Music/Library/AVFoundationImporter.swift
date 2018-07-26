@@ -24,8 +24,10 @@ class AVFoundationImporter {
     var bitrate: Float64? {
         let track = asset.tracks[0]
         let desc = track.formatDescriptions[0] as! CMAudioFormatDescription
-        let basic = CMAudioFormatDescriptionGetStreamBasicDescription(desc)
-        return basic?.pointee.mSampleRate
+        guard let info = CMAudioFormatDescriptionGetStreamBasicDescription(desc)?.pointee else {
+            return nil
+        }
+        return Float64(info.mBitsPerChannel) * info.mSampleRate
     }
     
     func string(withKey: AVMetadataKey, keySpace: AVMetadataKeySpace) -> String? {

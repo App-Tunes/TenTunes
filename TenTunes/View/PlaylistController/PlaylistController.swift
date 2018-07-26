@@ -168,7 +168,7 @@ extension PlaylistController : NSOutlineViewDataSource {
         
         if let view = outlineView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? NSTableCellView {
             view.textField?.stringValue = playlist.name
-            view.imageView?.image = playlist.icon
+            view.imageView?.image = Library.shared.icon(of: playlist)
 
             // Doesn't work from interface builder
             view.textField?.delegate = self

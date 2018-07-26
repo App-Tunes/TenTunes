@@ -205,6 +205,17 @@ class Library : NSPersistentContainer {
         
         return url
     }
+    
+    // Visual
+    
+    func icon(of playlist: Playlist) -> NSImage {
+        switch playlist {
+        case tagPlaylist:
+            return #imageLiteral(resourceName: "tag")
+        default:
+            return playlist.icon
+        }
+    }
 }
 
 extension Library {

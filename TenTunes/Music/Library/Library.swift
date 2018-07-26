@@ -174,7 +174,7 @@ class Library : NSPersistentContainer {
     }
     
     func playlists(containing track: Track) -> [PlaylistManual] {
-        return (track.containingPlaylists as Set).of(type: PlaylistManual.self)
+        return Array((track.containingPlaylists as Set).of(type: PlaylistManual.self))
 //            .filter { !self.isTag(playlist: $0) }
     }
 

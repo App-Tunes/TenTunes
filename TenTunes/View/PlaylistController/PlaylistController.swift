@@ -136,11 +136,16 @@ import Cocoa
         try! Library.shared.viewContext.save()
     }
     
-    func delete(indices: [Int]?) {
+    func delete(indices: [Int]?, confirmed: Bool = true) {
         guard let playlists = indices?.compactMap({ _outlineView.item(atRow: $0) as? Playlist }) else {
             return
         }
 
+        let message = "Are you sure you want to delete \(playlists.count) playlist\(playlists.count > 1 ? "s" : "")?"
+        guard !confirmed || NSAlert.confirm(action: "Delete Playlists", text: message) else {
+            return
+        }
+        
         guard playlists.allMatch({ Library.shared.isPlaylist(playlist: $0) }) else {
             fatalError("Trying to delete undeletable playlists!")
         }

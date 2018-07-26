@@ -19,6 +19,8 @@ class TrackLabelController : NSViewController, LabelFieldDelegate {
     
     @IBOutlet var _labelField: LabelTextField!
     
+    @IBOutlet var _labelMenu: NSMenu!
+    
     var currentLabels: [TrackLabel] {
         get { return _labelField.currentLabels as! [TrackLabel] }
         set { _labelField.currentLabels = newValue }
@@ -88,6 +90,23 @@ class TrackLabelController : NSViewController, LabelFieldDelegate {
     
     func tokenField(_ tokenField: NSTokenField, shouldAdd tokens: [Any], at index: Int) -> [Any] {
         return tokens.map { $0 is TrackLabel ? $0 : LabelSearch(string: $0 as! String) }
+    }
+    
+    func tokenField(_ tokenField: NSTokenField, hasMenuForRepresentedObject representedObject: Any) -> Bool {
+        return !(representedObject is LabelSearch)
+    }
+    
+    func tokenField(_ tokenField: NSTokenField, menuForRepresentedObject representedObject: Any) -> NSMenu? {
+        for item in _labelMenu.items { item.representedObject = representedObject }
+        return _labelMenu
+    }
+    
+    @IBAction func invertLabel(_ sender: Any) {
+        let label = (sender as! NSMenuItem).representedObject as! TrackLabel
+        label.not = !label.not
+        delegate?.labelsChanged?(trackLabelController: self, labels: currentLabels)
+        
+        _labelField.reloadLabels()
     }
     
     override func controlTextDidChange(_ obj: Notification) {

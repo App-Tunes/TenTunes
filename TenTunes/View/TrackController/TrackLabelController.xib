@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TrackLabelController" customModule="TenTunes" customModuleProvider="target">
             <connections>
                 <outlet property="_labelField" destination="oy3-NO-azg" id="U2T-On-voe"/>
+                <outlet property="_labelMenu" destination="pao-Zw-37z" id="12G-Tr-X6K"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -39,5 +40,16 @@
             </constraints>
             <point key="canvasLocation" x="139" y="105"/>
         </customView>
+        <menu id="pao-Zw-37z">
+            <items>
+                <menuItem title="Invert" id="LxO-GV-WWx">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="invertLabel:" target="-2" id="SVY-O6-Sxv"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="-89" y="239"/>
+        </menu>
     </objects>
 </document>

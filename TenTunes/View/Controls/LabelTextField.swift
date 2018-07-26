@@ -66,6 +66,11 @@ class LabelTextField: NSTokenField {
         set { objectValue = newValue as NSArray }
     }
     
+    func reloadLabels() {
+        let value = currentLabels
+        objectValue = value
+    }
+    
     var editingIndex: Int {
         guard var selectedPos = currentEditor()?.selectedRange.location, let array = objectValue as? NSArray else {
             return 0

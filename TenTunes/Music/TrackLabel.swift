@@ -50,8 +50,10 @@ import Cocoa
 }
 
 @objc class TrackLabel : NSObject, NSCoding {
+    var not = false
+    
     func encode(with aCoder: NSCoder) {
-        
+        aCoder.encode(not, forKey: "not")
     }
     
     override init() {
@@ -59,14 +61,24 @@ import Cocoa
     }
     
     required init?(coder aDecoder: NSCoder) {
-        
+        not = aDecoder.decodeBool(forKey: "not")
     }
     
     func filter(in context: NSManagedObjectContext) -> (Track) -> Bool {
+        let positive = positiveFilter(in: context)
+        return not ? { !positive($0) } : positive
+    }
+    
+    func positiveFilter(in context: NSManagedObjectContext) -> (Track) -> Bool {
         return { _ in return false }
     }
     
-    func representation(in context: NSManagedObjectContext? = nil) -> String { return "" }
+    func representation(in context: NSManagedObjectContext? = nil) -> String {
+        // TODO Use red background instead when possible
+        return (not ? "🚫 " : "") + positiveRepresentation(in: context)
+    }
+
+    func positiveRepresentation(in context: NSManagedObjectContext? = nil) -> String { return "" }
     
     var data : NSData { return NSKeyedArchiver.archivedData(withRootObject: self) as NSData }
     
@@ -99,11 +111,11 @@ class LabelSearch : TrackLabel {
         super.encode(with: aCoder)
     }
     
-    override func filter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
+    override func positiveFilter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
         return PlayHistory.filter(findText: string)!
     }
     
-    override func representation(in context: NSManagedObjectContext? = nil) -> String {
+    override func positiveRepresentation(in context: NSManagedObjectContext? = nil) -> String {
         return "Search: " + string
     }
 }
@@ -137,7 +149,7 @@ class LabelPlaylist : TrackLabel {
         return Library.shared.playlist(byId: playlistID, in: context)
     }
     
-    override func filter(in context: NSManagedObjectContext) -> (Track) -> Bool {
+    override func positiveFilter(in context: NSManagedObjectContext) -> (Track) -> Bool {
         guard let tracks = playlist(in: context)?.tracksList else {
             return super.filter(in: context)
         }
@@ -149,7 +161,7 @@ class LabelPlaylist : TrackLabel {
         }
     }
     
-    override func representation(in context: NSManagedObjectContext? = nil) -> String {
+    override func positiveRepresentation(in context: NSManagedObjectContext? = nil) -> String {
         let playlistName = context != nil ? playlist(in: context!)?.name : playlistID?.description
         return (isTag ? "🏷 " : "📁 ") + (playlistName ?? "Invalid Playlist")
     }
@@ -176,11 +188,11 @@ class LabelAuthor : TrackLabel {
         super.encode(with: aCoder)
     }
     
-    override func filter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
+    override func positiveFilter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
         return { $0.rAuthor.lowercased() == self.author.lowercased() }
     }
     
-    override func representation(in context: NSManagedObjectContext? = nil) -> String {
+    override func positiveRepresentation(in context: NSManagedObjectContext? = nil) -> String {
         return "👥 " + author
     }
 }
@@ -207,11 +219,11 @@ class LabelAlbum : TrackLabel {
         super.encode(with: aCoder)
     }
     
-    override func filter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
+    override func positiveFilter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
         return { Album(of: $0) == self.album }
     }
     
-    override func representation(in context: NSManagedObjectContext? = nil) -> String {
+    override func positiveRepresentation(in context: NSManagedObjectContext? = nil) -> String {
         return "💿 \(album.title) 👥 \(album.author)"
     }
 }
@@ -237,11 +249,11 @@ class LabelGenre : TrackLabel {
         super.encode(with: aCoder)
     }
     
-    override func filter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
+    override func positiveFilter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
         return { $0.genre?.lowercased() == self.genre.lowercased() }
     }
     
-    override func representation(in context: NSManagedObjectContext? = nil) -> String {
+    override func positiveRepresentation(in context: NSManagedObjectContext? = nil) -> String {
         return "📗 " + genre
     }
 }

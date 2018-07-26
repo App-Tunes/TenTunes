@@ -22,6 +22,8 @@ extension ViewController {
     @IBAction func managedObjectContextObjectsDidChange(notification: NSNotification) {
         guard let userInfo = notification.userInfo else { return }
         
+        let library = Library.shared
+        
         let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject> ?? Set()
         let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject> ?? Set()
         let deletes = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject> ?? Set()
@@ -35,11 +37,11 @@ extension ViewController {
             // Modified playlist contents?
             if let playlist = update as? Playlist {
                 // When deleting playlists the parent is updated since it loses a child
-                if Library.shared.isAffected(playlist: trackController.history.playlist, whenChanging: playlist) {
+                if library.isAffected(playlist: trackController.history.playlist, whenChanging: playlist) {
                     trackController.desired._changed = true
                 }
                 
-                if let listening = player.history?.playlist, Library.shared.isAffected(playlist: listening, whenChanging: playlist) {
+                if let listening = player.history?.playlist, library.isAffected(playlist: listening, whenChanging: playlist) {
                     let left = Set(player.history!.playlist.tracksList)
                     player.history!.filter { left.contains($0) }
                 }
@@ -59,9 +61,9 @@ extension ViewController {
             }
 
             // Invalidate caches
-            Library.shared._allAuthors = nil
-            Library.shared._allAlbums = nil
-            Library.shared._allGenres = nil
+            library._allAuthors = nil
+            library._allAlbums = nil
+            library._allGenres = nil
         }
         
         let playlistDeletes = deletes.of(type: Playlist.self)
@@ -73,13 +75,13 @@ extension ViewController {
         while !playlistUpdates.isEmpty || !playlistDeletes.isEmpty || !playlistInserts.isEmpty {
             if !playlistInserts.isEmpty && playlistUpdates.uniqueElement == playlistInserts.uniqueElement?.parent {
                 playlistController._outlineView.animateInsert(elements: Array(inserts.of(type: Playlist.self))) {
-                    guard let (parent, idx) = Library.shared.position(of: $0) else {
+                    guard let (parent, idx) = library.position(of: $0) else {
                         return nil
                     }
-                    return (idx, parent == Library.shared.masterPlaylist ? nil : parent)
+                    return (idx, parent == library.masterPlaylist ? nil : parent)
                 }
                 
-                if let insertedPlaylist = playlistInserts.uniqueElement, Library.shared.isPlaylist(playlist: insertedPlaylist) {
+                if let insertedPlaylist = playlistInserts.uniqueElement, library.isPlaylist(playlist: insertedPlaylist) {
                     // Let's hope that playlists don't get inserted other than when creating a new one, otherwise we need another solution
                     playlistController.select(playlist: insertedPlaylist, editTitle: true)
                 }
@@ -96,7 +98,7 @@ extension ViewController {
             
             // TODO Animate movement?
             // It's enough if we reload only updated ones since deletes / inserts are auto-reloaded
-            playlistController._outlineView.reloadItems(playlistUpdates, reloadChildren: true)
+            playlistController._outlineView.reloadItems(playlistUpdates.map { $0 == library.masterPlaylist ? nil : $0 }, reloadChildren: true)
             
             if let prevSelected = prevSelected {
                 playlistController.select(playlist: prevSelected)
@@ -108,7 +110,7 @@ extension ViewController {
         
         if let viewingPlaylist = trackController.history.playlist as? Playlist, deletes.of(type: Playlist.self).contains(viewingPlaylist) {
             // Deleted our current playlist! :<
-            trackController.history = PlayHistory(playlist: Library.shared.allTracks)
+            trackController.history = PlayHistory(playlist: library.allTracks)
         }
     }
 }

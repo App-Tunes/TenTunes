@@ -167,7 +167,12 @@ extension NSOutlineView {
         }
     }
     
-    func reloadItems<C : Collection>(_ items: C, reloadChildren: Bool = false) {
+    func reloadItems<C : Collection, E>(_ items: C, reloadChildren: Bool = false) where C.Element == E? {
+        if items.contains(where: { $0 == nil }) {
+            reloadData()
+            return
+        }
+        
         for item in items {
             reloadItem(item, reloadChildren: reloadChildren)
         }

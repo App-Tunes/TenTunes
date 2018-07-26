@@ -33,7 +33,7 @@ public class PlaylistFolder: Playlist {
     }
     
     // TODO
-    override var tracksList: [Track] {
+    override var _freshTracksList: [Track] {
         get { return childrenList.flatMap { $0.tracksList } }
     }
     

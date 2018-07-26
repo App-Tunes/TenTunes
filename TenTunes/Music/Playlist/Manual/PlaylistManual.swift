@@ -12,7 +12,7 @@ import CoreData
 
 @objc(PlaylistManual)
 public class PlaylistManual: Playlist {
-    override var tracksList: [Track] {
+    override var _freshTracksList: [Track] {
         get { return Array(tracks) as! [Track] }
     }
     

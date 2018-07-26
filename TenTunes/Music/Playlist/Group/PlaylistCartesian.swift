@@ -35,6 +35,15 @@ class PlaylistCartesian: PlaylistFolder {
         }
     }
     
+    override var _freshTracksList: [Track] {
+        let all = Library.shared.allTracks.convert(to: managedObjectContext!)!.tracksList
+        return all.filter(combinedFilter(in: managedObjectContext!))
+    }
+    
+    func combinedFilter(in context: NSManagedObjectContext) -> (Track) -> Bool {
+        return rules.combinedFilter(in: context)
+    }
+    
     func crossProduct(in context: NSManagedObjectContext) -> [CartesianRules.Combination] {
         return rules.crossProduct(in: context)
     }

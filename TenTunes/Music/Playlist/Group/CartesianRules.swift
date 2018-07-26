@@ -44,6 +44,19 @@ import Cocoa
     public required init?(coder aDecoder: NSCoder) {
         labels = (aDecoder.decodeObject(forKey: "labels") as? [PlaylistLabel?])?.compactMap { $0 } ?? []
     }
+    
+    func combinedFilter(in context: NSManagedObjectContext) -> (Track) -> Bool {
+        let matches = combinedMatches(in: context)
+        return { track in
+            // Slow this down... :
+            // Every group of playlists must have at least one that contains the track
+            matches.allMatch { $0.anyMatch { $0.tracksList.contains(track) } }
+        }
+    }
+    
+    func combinedMatches(in context: NSManagedObjectContext) -> [[Playlist]] {
+        return labels.map({ $0.matches(in: context) })
+    }
 
     func crossProduct(in context: NSManagedObjectContext) -> [Combination] {
         guard labels.count == 2 else {

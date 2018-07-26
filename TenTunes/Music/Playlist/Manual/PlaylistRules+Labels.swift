@@ -70,7 +70,7 @@ extension TrackLabel {
         
         override func positiveFilter(in context: NSManagedObjectContext) -> (Track) -> Bool {
             guard let tracks = playlist(in: context)?.tracksList else {
-                return super.filter(in: context)
+                return { _ in false }
             }
             
             let trackIDs = tracks.map { $0.objectID }

@@ -42,7 +42,7 @@ extension Collection {
     subscript (safe index: Index) -> Element? {
         return indices.contains(index) ? self[index] : nil
     }
-    
+
     func allMatch(_ filter: (Element) -> Bool) -> Bool { return self.filter(filter).count == count }
 
     func noneMatch(_ filter: (Element) -> Bool) -> Bool { return self.filter(filter).count == 0 }

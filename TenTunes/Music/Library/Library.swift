@@ -169,10 +169,13 @@ class Library : NSPersistentContainer {
         return nil
     }
     
-    func playlists(containing tracks: [Track]) -> [PlaylistManual] {
-        let request: NSFetchRequest = PlaylistManual.fetchRequest()
-        request.predicate = NSPredicate(format: "ANY tracks IN %@", tracks) // TODO
-        return try! viewContext.fetch(request)
+    func isTag(playlist: Playlist) -> Bool {
+        return path(of: playlist).contains(tagPlaylist) && playlist != tagPlaylist
+    }
+    
+    func playlists(containing track: Track) -> [PlaylistManual] {
+        return (track.containingPlaylists as Set).of(type: PlaylistManual.self)
+//            .filter { !self.isTag(playlist: $0) }
     }
 
     // Editing

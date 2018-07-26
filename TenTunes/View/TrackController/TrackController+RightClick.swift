@@ -16,7 +16,7 @@ extension TrackController: NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
         guard menu !== _showInPlaylistSubmenu.submenu else {
             menu.removeAllItems()
-            for case let playlist as Playlist in menuTracks.first!.containingPlaylists {
+            for playlist in Library.shared.playlists(containing: menuTracks.first!) {
                 let item = NSMenuItem(title: playlist.name, action: #selector(menuShowInPlaylist), keyEquivalent: "")
                 item.target = self
                 item.representedObject = playlist

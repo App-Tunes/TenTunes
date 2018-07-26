@@ -247,8 +247,7 @@ class ViewController: NSViewController {
     
     @IBAction func toggleShuffle(_ sender: Any) {
         player.shuffle = !player.shuffle
-        let img = NSImage(named: NSImage.Name(rawValue: "shuffle"))
-        _shuffle.image = player.shuffle ? img : img?.tinted(in: NSColor.gray)
+        _shuffle.state = player.shuffle ? .on : .off
     }
         
     func playlistSelected(_ playlist: PlaylistProtocol) {

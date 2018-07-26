@@ -800,11 +800,11 @@
                                                 </connections>
                                             </customView>
                                             <button toolTip="Next" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ws9-gx-fi8">
-                                                <rect key="frame" x="168" y="47" width="25" height="43"/>
+                                                <rect key="frame" x="168" y="60" width="25" height="15"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="25" id="elU-UP-N0X"/>
                                                 </constraints>
-                                                <buttonCell key="cell" type="bevel" title="⇥" bezelStyle="rounded" alignment="center" state="on" toolTip="Next Title" imageScaling="proportionallyDown" inset="2" id="ZGz-kB-7P5">
+                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="play-next" imagePosition="only" alignment="center" state="on" toolTip="Next Title" imageScaling="proportionallyDown" inset="2" id="ZGz-kB-7P5">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
@@ -813,11 +813,11 @@
                                                 </connections>
                                             </button>
                                             <button toolTip="Previous" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vGp-jR-JQ9">
-                                                <rect key="frame" x="97" y="47" width="25" height="43"/>
+                                                <rect key="frame" x="97" y="60" width="25" height="15"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="25" id="l85-XI-Vhi"/>
                                                 </constraints>
-                                                <buttonCell key="cell" type="bevel" title="⇤" bezelStyle="rounded" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="Zjb-jG-uxV">
+                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="play-previous" imagePosition="overlaps" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="Zjb-jG-uxV">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
@@ -826,11 +826,11 @@
                                                 </connections>
                                             </button>
                                             <button toolTip="Play / Pause" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Fc-0r-wVE">
-                                                <rect key="frame" x="130" y="47" width="30" height="43"/>
+                                                <rect key="frame" x="130" y="56" width="30" height="23"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="30" id="U0M-9e-hwV"/>
                                                 </constraints>
-                                                <buttonCell key="cell" type="bevel" title="▶" bezelStyle="regularSquare" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="3am-G2-ql0">
+                                                <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="play" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="3am-G2-ql0">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system" size="20"/>
                                                     <string key="keyEquivalent" base64-UTF8="YES">
@@ -920,7 +920,7 @@ IA
                                             <constraint firstItem="7Y2-7h-2Y4" firstAttribute="leading" secondItem="weN-hW-VXM" secondAttribute="trailing" constant="16" id="DSC-bJ-QKK"/>
                                             <constraint firstItem="4Fc-0r-wVE" firstAttribute="leading" secondItem="vGp-jR-JQ9" secondAttribute="trailing" constant="8" symbolic="YES" id="F1p-Yh-tF4"/>
                                             <constraint firstItem="weN-hW-VXM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NC3-8V-1wQ" secondAttribute="trailing" constant="30" id="HQb-Dl-Lp6"/>
-                                            <constraint firstItem="vGp-jR-JQ9" firstAttribute="bottom" secondItem="4Fc-0r-wVE" secondAttribute="bottom" id="Hdu-CG-TQ4"/>
+                                            <constraint firstItem="vGp-jR-JQ9" firstAttribute="bottom" secondItem="4Fc-0r-wVE" secondAttribute="bottom" constant="-4" id="Hdu-CG-TQ4"/>
                                             <constraint firstItem="weN-hW-VXM" firstAttribute="centerY" secondItem="7Y2-7h-2Y4" secondAttribute="centerY" id="JOg-1S-jWD"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="NC3-8V-1wQ" secondAttribute="bottom" constant="7" id="KBD-pX-2GJ"/>
                                             <constraint firstItem="9Xs-lc-aS8" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="14" id="MVV-2g-mOg"/>
@@ -931,9 +931,9 @@ IA
                                             <constraint firstItem="7Y2-7h-2Y4" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="14" id="c3R-Ek-gmG"/>
                                             <constraint firstItem="vGp-jR-JQ9" firstAttribute="firstBaseline" secondItem="Ws9-gx-fi8" secondAttribute="firstBaseline" id="dl3-k3-IVH"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="7Y2-7h-2Y4" secondAttribute="bottom" constant="14" id="eOK-zm-vOj"/>
-                                            <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="4Fc-0r-wVE" secondAttribute="bottom" constant="4" id="fxo-uM-5FA"/>
+                                            <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="4Fc-0r-wVE" secondAttribute="bottom" constant="13" id="fxo-uM-5FA"/>
                                             <constraint firstItem="NC3-8V-1wQ" firstAttribute="centerX" secondItem="CJ8-Em-XgG" secondAttribute="centerX" id="i3i-pO-6IN"/>
-                                            <constraint firstItem="4Fc-0r-wVE" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="2" id="ivH-Kr-erJ"/>
+                                            <constraint firstItem="4Fc-0r-wVE" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="13" id="ivH-Kr-erJ"/>
                                             <constraint firstAttribute="trailing" secondItem="o1F-mb-bFA" secondAttribute="trailing" id="kcG-rB-AwR"/>
                                             <constraint firstAttribute="bottom" secondItem="o1F-mb-bFA" secondAttribute="bottom" id="lus-gC-hse"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="ETj-HU-NV5" secondAttribute="bottom" constant="14" id="mSY-SA-lDg"/>
@@ -1010,6 +1010,9 @@ IA
         </scene>
     </scenes>
     <resources>
+        <image name="play" width="178" height="200"/>
+        <image name="play-next" width="129" height="178"/>
+        <image name="play-previous" width="130" height="179"/>
         <image name="queue" width="205" height="180"/>
         <image name="shuffle" width="205" height="180"/>
         <image name="tasks" width="199" height="197"/>

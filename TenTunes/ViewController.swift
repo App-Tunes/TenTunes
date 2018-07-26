@@ -11,9 +11,6 @@ import Foundation
 
 import MediaKeyTap
 
-let playString = "▶"
-let pauseString = "||"
-
 func synced(_ lock: Any, closure: () -> ()) {
     objc_sync_enter(lock)
     closure()
@@ -195,7 +192,7 @@ class ViewController: NSViewController {
         self.updateTimesHidden(self)
         
         guard let track = player.playing else {
-            _play.set(text: playString)
+            _play.image = #imageLiteral(resourceName: "play")
             
             playingTrackController.history = PlayHistory(playlist: PlaylistEmpty())
             
@@ -205,7 +202,7 @@ class ViewController: NSViewController {
             return
         }
         
-        _play.set(text: player.isPaused() ? playString : pauseString)
+        _play.image = player.isPaused() ? #imageLiteral(resourceName: "play") : #imageLiteral(resourceName: "pause")
 
         let titleHistory = PlayHistory(playlist: PlaylistEmpty())
         titleHistory.insert(tracks: [track], before: 0)

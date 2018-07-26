@@ -38,4 +38,8 @@ class PlaylistCartesian: PlaylistFolder {
     func crossProduct(in context: NSManagedObjectContext) -> [CartesianRules.Combination] {
         return rules.crossProduct(in: context)
     }
+    
+    override var icon: NSImage {
+        return #imageLiteral(resourceName: "playlist-cartesian")
+    }
 }

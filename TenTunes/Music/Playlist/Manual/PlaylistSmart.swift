@@ -21,4 +21,8 @@ public class PlaylistSmart: Playlist {
     func filter(in context: NSManagedObjectContext) -> (Track) -> Bool {
         return rrules.filter(in: context)
     }
+    
+    override var icon: NSImage {
+        return #imageLiteral(resourceName: "playlist-smart")
+    }
 }

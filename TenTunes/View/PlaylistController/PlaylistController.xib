@@ -264,7 +264,7 @@
                         <action selector="createGroup:" target="-2" id="Tut-Xq-XBV"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Smart Group" id="Yn6-pc-NBH">
+                <menuItem title="Cartesian Group" id="Yn6-pc-NBH">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="createCartesianPlaylist:" target="-2" id="pi0-zS-kGI"/>
@@ -277,8 +277,8 @@
     <resources>
         <image name="NSGoBackTemplate" width="9" height="12"/>
         <image name="NSGoForwardTemplate" width="9" height="12"/>
-        <image name="folder" width="125" height="125"/>
-        <image name="home" width="140" height="140"/>
-        <image name="playlist" width="125" height="125"/>
+        <image name="folder" width="204" height="153"/>
+        <image name="home" width="230" height="179"/>
+        <image name="playlist" width="205" height="167"/>
     </resources>
 </document>

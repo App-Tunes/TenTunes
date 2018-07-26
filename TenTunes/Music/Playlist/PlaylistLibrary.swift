@@ -27,10 +27,10 @@ class PlaylistLibrary: PlaylistProtocol {
         let trackDeletes = deletes.of(type: Track.self)
         
         // Modified library?
-        if inserts.of(type: Track.self).count > 0 {
+        if !inserts.of(type: Track.self).isEmpty {
             _tracks = nil
         }
-        else if trackDeletes.count > 0 {
+        else if !trackDeletes.isEmpty {
             _tracks?.remove(all: trackDeletes)
         }
     }

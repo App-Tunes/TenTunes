@@ -199,6 +199,11 @@ extension FileManager {
         
         return allFiles
     }
+    
+    func sizeOfItem(at url: URL) throws -> UInt64 {
+        let attr = try FileManager.default.attributesOfItem(atPath: url.path)
+        return attr[FileAttributeKey.size] as! UInt64
+    }
 }
 
 extension NSView {

@@ -30,6 +30,17 @@ class AVFoundationImporter {
         return Float64(info.mBitsPerChannel) * info.mSampleRate
     }
     
+    var channels: Int {
+        let track = asset.tracks[0]
+        let desc = track.formatDescriptions[0] as! CMAudioFormatDescription
+        guard let info = CMAudioFormatDescriptionGetStreamBasicDescription(desc)?.pointee else {
+            print("Guessed Channel number!")
+            return 1 // Guess, but shouldn't happen .... :>
+            // (It does, though... lol)
+        }
+        return Int(info.mChannelsPerFrame)
+    }
+    
     func string(withKey: AVMetadataKey, keySpace: AVMetadataKeySpace) -> String? {
         for metadata in AVMetadataItem.metadataItems(from: asset.metadata, withKey: withKey, keySpace: keySpace) {
             if let val = metadata.stringValue {

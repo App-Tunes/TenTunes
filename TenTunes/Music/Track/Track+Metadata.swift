@@ -89,7 +89,9 @@ extension Track {
             }
         }
         
-        duration = duration ?? avImporter.duration
+        duration = avImporter.duration
+        
+        bitrate = (avImporter.bitrate ?=> Float.init) ?? 0
         
         if analysis == nil {
             readAnalysis()

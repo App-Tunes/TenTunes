@@ -185,8 +185,13 @@ class LabelTextField: NSTokenField {
         
         autocompletePopover.contentSize = NSMakeSize(frame.size.width, 10 + CGFloat(groups.count * 50))
         
-        for (idx, group) in groups.enumerated() {
+        for (idx, (group, _)) in longZip(groups, rows).enumerated() {
             let row = self.row(at: idx)
+            
+            guard let group = group else {
+                row.view.isHidden = true
+                continue
+            }
 
             row.view.isHidden = false
             row.title.stringValue = group.title
@@ -211,10 +216,6 @@ class LabelTextField: NSTokenField {
                     self.autocomplete(with: content)
                 }
             }
-        }
-        
-        for idx in groups.count ..< rows.count {
-            row(at: idx).view.isHidden = true
         }
         
         autocompletePopover.show(relativeTo: bounds, of: self, preferredEdge: .maxY)

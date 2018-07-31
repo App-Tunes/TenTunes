@@ -199,7 +199,9 @@ class LabelTextField: NSTokenField {
                 
                 button.isHidden = false
                 if let delegate = self.delegate, let displayString = delegate.tokenField?(self, displayStringForRepresentedObject: content) {
-                    button.title = displayString
+                    if button.title != displayString {
+                        button.title = displayString
+                    }
                 }
                 else {
                     fatalError("Not Implemented")

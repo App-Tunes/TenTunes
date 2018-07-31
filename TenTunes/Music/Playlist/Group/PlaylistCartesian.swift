@@ -11,7 +11,10 @@ import Cocoa
 @objc(PlaylistCartesian)
 class PlaylistCartesian: PlaylistFolder {    
     func checkSanity(in context: NSManagedObjectContext) {
+        let allTracks = Library.shared.allTracks.convert(to: context)!.tracksList
+        
         let cross = crossProduct(in: context)
+            .filter { allTracks.anyMatch($0.rules.filter(in: context)) }
         let childrenRules = childrenList.compactMap(CartesianRules.Combination.init)
         
         if cross.count != childrenList.count || cross != childrenRules {

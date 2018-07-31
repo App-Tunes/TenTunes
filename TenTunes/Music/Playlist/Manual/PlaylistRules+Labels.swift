@@ -73,7 +73,7 @@ extension TrackLabel {
                 return { _ in false }
             }
             
-            let trackIDs = tracks.map { $0.objectID }
+            let trackIDs = Set(tracks.map { $0.objectID })
             
             return { track in
                 return trackIDs.contains(track.objectID)
@@ -108,7 +108,8 @@ extension TrackLabel {
         }
         
         override func positiveFilter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
-            return { $0.rAuthor.lowercased() == self.author.lowercased() }
+            let lowerAuthor = author.lowercased()
+            return { $0.rAuthor.lowercased() == lowerAuthor }
         }
         
         override func positiveRepresentation(in context: NSManagedObjectContext? = nil) -> String {
@@ -169,7 +170,8 @@ extension TrackLabel {
         }
         
         override func positiveFilter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
-            return { $0.genre?.lowercased() == self.genre.lowercased() }
+            let lowerGenre = self.genre.lowercased()
+            return { $0.genre?.lowercased() == lowerGenre }
         }
         
         override func positiveRepresentation(in context: NSManagedObjectContext? = nil) -> String {
@@ -196,7 +198,8 @@ extension TrackLabel {
         }
         
         override func positiveFilter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
-            return { $0.bitrate >= Float(self.bitrate * 1024) }
+            let bitrate = Float(self.bitrate * 1024)
+            return { $0.bitrate >= bitrate }
         }
         
         override func representation(in context: NSManagedObjectContext?) -> String {

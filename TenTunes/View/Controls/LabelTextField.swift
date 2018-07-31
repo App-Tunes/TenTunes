@@ -44,10 +44,14 @@ class TagContentView : NSView, PopoverFirstResponderStealingSuppression {
 }
 
 class LabelTextField: NSTokenField {
+    let maxButtonsPerRow = 10
+    
     var _autocompletePopover: NSPopover?
     
     var actionStubs = ActionStubs()
     var objectValueObservation: NSKeyValueObservation?
+    
+    fileprivate var rows: [Row] = []
     
     var autocompletePopover: NSPopover {
         if _autocompletePopover == nil {
@@ -69,6 +73,59 @@ class LabelTextField: NSTokenField {
     func reloadLabels() {
         let value = currentLabels
         objectValue = value
+    }
+    
+    fileprivate class Row {
+        var buttons: [NSButton] = []
+        let view: NSView = NSView()
+        let title: NSTextField = NSTextField()
+    }
+    
+    fileprivate func row(at: Int) -> Row {
+        while rows.count <= at {
+            var prev: NSView? = nil
+            let row = Row()
+            row.view.translatesAutoresizingMaskIntoConstraints = false
+
+            row.view.addConstraint(NSLayoutConstraint(item: row.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0, constant: 45))
+
+            row.title.translatesAutoresizingMaskIntoConstraints = false
+            row.title.isBordered = false
+            row.title.isSelectable = false
+            row.title.font = NSFont.boldSystemFont(ofSize: 12)
+            
+            row.view.addSubview(row.title)
+
+            row.view.addConstraint(NSLayoutConstraint(item: row.title, attribute: .top, relatedBy: .equal, toItem: row.view, attribute: .top, multiplier: 1, constant: 0))
+            row.view.addConstraint(NSLayoutConstraint(item: row.title, attribute: .leading, relatedBy: .equal, toItem: row.view, attribute: .leading, multiplier: 1, constant: 5))
+
+            for _ in 0 ..< maxButtonsPerRow {
+                let button = NSButton()
+                button.translatesAutoresizingMaskIntoConstraints = false
+                button.setButtonType(.momentaryPushIn)
+                button.bezelStyle = .rounded
+
+                row.view.addSubview(button)
+                
+                row.view.addConstraint(NSLayoutConstraint(item: button, attribute: .leading, relatedBy: .equal, toItem: prev ?? row.view, attribute: prev != nil ? .trailing : .leading, multiplier: 1, constant: 5))
+                row.view.addConstraint(NSLayoutConstraint(item: button, attribute: .top, relatedBy: .equal, toItem: row.title, attribute: .bottom, multiplier: 1, constant: 5))
+                
+                prev = button
+                row.buttons.append(button)
+            }
+            
+            let view = autocompletePopover.contentViewController!.view
+
+            view.addSubview(row.view)
+            
+            view.addConstraint(NSLayoutConstraint(item: row.view, attribute: .top, relatedBy: .equal, toItem: rows.last?.view ?? view, attribute: rows.count > 0 ? .bottom : .top, multiplier: 1, constant: 5))
+            view.addConstraint(NSLayoutConstraint(item: row.view, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0))
+            view.addConstraint(NSLayoutConstraint(item: row.view, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0))
+            
+            rows.append(row)
+        }
+        
+        return rows[at]
     }
     
     var editingIndex: Int {
@@ -124,35 +181,23 @@ class LabelTextField: NSTokenField {
         actionStubs.clear()
         
         // TODO Fix indices
-        let groups = delegate.tokenField(self, completionGroupsForSubstring: editingString, indexOfToken: 0, indexOfSelectedItem: UnsafeMutablePointer(bitPattern: 0))?.filter { $0.contents.count > 0 }
+        let groups = delegate.tokenField(self, completionGroupsForSubstring: editingString, indexOfToken: 0, indexOfSelectedItem: UnsafeMutablePointer(bitPattern: 0))?.filter { $0.contents.count > 0 } ?? []
         
-        let view = autocompletePopover.contentViewController!.view
-        view.removeConstraints(view.constraints)
-        view.subviews = [] // Cleanup
+        autocompletePopover.contentSize = NSMakeSize(frame.size.width, 10 + CGFloat(groups.count * 50))
         
-        autocompletePopover.contentSize = NSMakeSize(frame.size.width, 10 + CGFloat((groups?.count ?? 0) * 50))
-        
-        for (idx, group) in (groups ?? []).enumerated() {
-            let label = NSTextField()
-            label.translatesAutoresizingMaskIntoConstraints = false
-            label.isBordered = false
-            label.isSelectable = false
-            label.font = NSFont.boldSystemFont(ofSize: 12)
+        for (idx, group) in groups.enumerated() {
+            let row = self.row(at: idx)
+
+            row.view.isHidden = false
+            row.title.stringValue = group.title
             
-            label.stringValue = group.title
-            
-            view.addSubview(label)
-            
-            view.addConstraint(NSLayoutConstraint(item: label, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: CGFloat(5 + idx * 50)))
-            view.addConstraint(NSLayoutConstraint(item: label, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 5))
-            
-            var prev: NSView? = nil
-            for content in group.contents.prefix(10) {
-                let button = NSButton()
-                button.translatesAutoresizingMaskIntoConstraints = false
-                button.setButtonType(.momentaryPushIn)
-                button.bezelStyle = .rounded
+            for (content, _button) in longZip(group.contents.prefix(maxButtonsPerRow), row.buttons) {
+                guard let content = content, let button = _button else {
+                    _button!.isHidden = true
+                    continue
+                }
                 
+                button.isHidden = false
                 if let delegate = self.delegate, let displayString = delegate.tokenField?(self, displayStringForRepresentedObject: content) {
                     button.title = displayString
                 }
@@ -163,14 +208,11 @@ class LabelTextField: NSTokenField {
                 actionStubs.bind(button) { _ in
                     self.autocomplete(with: content)
                 }
-                
-                view.addSubview(button)
-                
-                view.addConstraint(NSLayoutConstraint(item: button, attribute: .leading, relatedBy: .equal, toItem: prev ?? view, attribute: prev != nil ? .trailing : .leading, multiplier: 1, constant: 5))
-                view.addConstraint(NSLayoutConstraint(item: button, attribute: .top, relatedBy: .equal, toItem: label, attribute: .bottom, multiplier: 1, constant: 5))
-                
-                prev = button
             }
+        }
+        
+        for idx in groups.count ..< rows.count {
+            row(at: idx).view.isHidden = true
         }
         
         autocompletePopover.show(relativeTo: bounds, of: self, preferredEdge: .maxY)

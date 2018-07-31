@@ -34,7 +34,7 @@ public class PlaylistFolder: Playlist {
     
     // TODO
     override var _freshTracksList: [Track] {
-        get { return childrenList.flatMap { $0.tracksList } }
+        get { return (childrenList.flatMap { $0.tracksList }).uniqueElements }
     }
     
     override var icon: NSImage {

@@ -56,9 +56,13 @@ extension Collection where Element : Equatable {
             return nil
         }
         
-        return reduce(into: first) { (result, next) in
-            result = result == next ? result : nil
+        let result: Element? = first
+        for element in self.dropFirst() {
+            if element != result {
+                return nil
+            }
         }
+        return result
     }
 }
 
@@ -121,6 +125,10 @@ extension Array {
     
     public func fullSlice() -> ArraySlice<Element> {
         return self[indices]
+    }
+    
+    var uniqueElements: [Element] {
+        return Array<Any>(NSOrderedSet(array: self)) as! [Element]
     }
 }
 

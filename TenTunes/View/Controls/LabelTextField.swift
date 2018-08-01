@@ -183,6 +183,11 @@ class LabelTextField: NSTokenField {
         // TODO Fix indices
         let groups = delegate.tokenField(self, completionGroupsForSubstring: editingString, indexOfToken: 0, indexOfSelectedItem: UnsafeMutablePointer(bitPattern: 0))?.filter { $0.contents.count > 0 } ?? []
         
+        guard groups.count > 0 else {
+            _autocompletePopover?.close()
+            return
+        }
+        
         autocompletePopover.contentSize = NSMakeSize(frame.size.width, 10 + CGFloat(groups.count * 50))
         
         for (idx, (group, _)) in longZip(groups, rows).enumerated() {

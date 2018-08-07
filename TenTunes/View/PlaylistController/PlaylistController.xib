@@ -221,6 +221,12 @@
                         <action selector="didDoubleClick:" target="-2" id="ilf-kI-BUX"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Untangle" id="EL6-rp-IjK">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="untanglePlaylist:" target="-2" id="1fh-2Y-7d4"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="Duplicate" id="xYA-qX-gKO">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>

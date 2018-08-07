@@ -33,7 +33,9 @@ extension ViewController {
             Library.shared.considerExport()
             Library.shared.considerSanity()
             
-            self.player.sanityCheck()
+            if self.player.isPlaying {
+                self.player.sanityCheck()
+            }
 
             var taskers = PriorityQueue(ascending: true, startingValues: self.taskers)
             taskers.push(self.tasker)

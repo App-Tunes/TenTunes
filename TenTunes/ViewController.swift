@@ -202,7 +202,7 @@ class ViewController: NSViewController {
             return
         }
         
-        _play.image = player.isPaused() ? #imageLiteral(resourceName: "play") : #imageLiteral(resourceName: "pause")
+        _play.image = player.isPaused ? #imageLiteral(resourceName: "play") : #imageLiteral(resourceName: "pause")
 
         let titleHistory = PlayHistory(playlist: PlaylistEmpty())
         titleHistory.insert(tracks: [track], before: 0)

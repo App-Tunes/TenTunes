@@ -56,16 +56,15 @@ class Player {
     
     func start() {
         AudioKit.output = self.player
-        try! AudioKit.start()
     }
     
     
-    func isPlaying() -> Bool {
-        return self.player.isPlaying
+    var isPlaying : Bool {
+        return player.isPlaying
     }
     
-    func isPaused() -> Bool {
-        return !self.isPlaying()
+    var isPaused : Bool {
+        return !isPlaying
     }
 
     func play(at: Int?, in history: PlayHistory) {
@@ -128,9 +127,9 @@ class Player {
     }
     
     func togglePlay() {        
-        if self.isPaused() {
+        if isPaused {
             sanityCheck()
-            self.player.play()
+            player.play()
             updatePlaying?(playing)
         }
         else {

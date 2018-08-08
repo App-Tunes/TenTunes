@@ -17,7 +17,7 @@ extension Library {
             super.init(priority: 2)
         }
         
-        override var title: String { return "Update Exports" }
+        override var title: String { return "Check Sanity" }
         
         override var preventsQuit: Bool { return false }
         

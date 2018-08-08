@@ -192,7 +192,10 @@ class WaveformLayer : CALayer {
 
 class WaveformView: NSControl, CALayerDelegate {
     var location: Double? {
-        set(location) { waveformLayer.location = location }
+        set(location) {
+            waveformLayer.location = location
+            waveformLayer.mouseLocation = waveformLayer.mouseLocation ?=> jumpPosition
+        }
         get { return waveformLayer.location }
     }
     
@@ -234,6 +237,8 @@ class WaveformView: NSControl, CALayerDelegate {
         set(spaceWidth) { waveformLayer._barsLayer.spaceWidth = spaceWidth }
         get { return waveformLayer._barsLayer.spaceWidth }
     }
+    
+    var jumpSegment: Double = 0
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -316,24 +321,40 @@ class WaveformView: NSControl, CALayerDelegate {
         return true
     }
 
-    func click(at: NSPoint) {
-        self.location = (0.0...1.0).clamp(Float(at.x) / Float(self.bounds.width))
+    func click(at: Double) {
+        self.location = (0.0...1.0).clamp(jumpPosition(for: at))
         
         if let action = self.action, let target = self.target {
             NSApp.sendAction(action, to: target, from: self)
         }
     }
     
+    func relativeX(_ event: NSEvent) -> Double {
+        return Double(self.convert(event.locationInWindow, from:nil).x / bounds.size.width)
+    }
+    
+    func jumpPosition(for position: Double) -> Double {
+        guard !NSEvent.modifierFlags.contains(.option) else {
+            return position
+        }
+        
+        guard jumpSegment > 0, let location = self.location else {
+            return position
+        }
+        
+        return location + ((position - location) / jumpSegment).rounded() * jumpSegment
+    }
+    
     override func mouseDragged(with event: NSEvent) {
-        self.click(at: self.convert(event.locationInWindow, from: nil))
+        self.click(at: relativeX(event))
     }
     
     override func mouseDown(with event: NSEvent) {
-        self.click(at: self.convert(event.locationInWindow, from: nil))
+        self.click(at: relativeX(event))
     }
     
     override func mouseEntered(with event: NSEvent) {
-        waveformLayer.mouseLocation = Double(self.convert(event.locationInWindow, from:nil).x / bounds.size.width)
+        waveformLayer.mouseLocation = jumpPosition(for: relativeX(event))
     }
     
     override func mouseExited(with event: NSEvent) {
@@ -347,7 +368,7 @@ class WaveformView: NSControl, CALayerDelegate {
         
         CATransaction.begin()
         CATransaction.setValue(true, forKey:kCATransactionDisableActions)
-        waveformLayer.mouseLocation = Double(self.convert(event.locationInWindow, from:nil).x / bounds.size.width)
+        waveformLayer.mouseLocation = jumpPosition(for: relativeX(event))
         CATransaction.commit()
     }
 }

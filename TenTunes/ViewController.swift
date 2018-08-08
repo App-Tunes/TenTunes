@@ -199,6 +199,7 @@ class ViewController: NSViewController {
             
             _coverImage.image = nil
             _waveformView.analysis = nil
+            _waveformView.jumpSegment = 0
 
             return
         }
@@ -212,6 +213,11 @@ class ViewController: NSViewController {
 
         _coverImage.image = track.artworkPreview
         _waveformView.analysis = track.analysis
+        
+        if let bpm = track.bpm {
+            // Always jump 16 beats
+            _waveformView.jumpSegment = (1 / (bpm / 60) * 16) / player.player.duration
+        }
     }
                 
     @IBAction func play(_ sender: Any) {

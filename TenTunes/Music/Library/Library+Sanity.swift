@@ -64,10 +64,11 @@ extension Library {
     }
 
     func considerSanity() {
-        guard sanitySemaphore.acquireNow() else {
+        guard sanitySemaphore.acquireNow(), sanityChanged else {
             return
         }
         
+        sanityChanged = false
         ViewController.shared.tasker.enqueue(task: CheckSanity(library: self))
         
         sanitySemaphore.signalAfter(seconds: 5)

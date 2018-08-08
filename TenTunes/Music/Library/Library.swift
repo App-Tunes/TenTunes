@@ -97,6 +97,7 @@ class Library : NSPersistentContainer {
         return _tagPlaylist
     }
 
+    var sanityChanged = true
     var sanitySemaphore = DispatchSemaphore(value: 1)
 
     var _exportChanged: Set<NSManagedObjectID>? = Set()
@@ -256,6 +257,7 @@ extension Library {
             }
         }
         
+        sanityChanged = true // No matter what changed
         _exportChanged = _exportChanged?.union(inserts.map { $0.objectID })
                                         .union(deletes.map { $0.objectID })
                                         .union(updates.map { $0.objectID })

@@ -221,6 +221,7 @@
                         <action selector="didDoubleClick:" target="-2" id="ilf-kI-BUX"/>
                     </connections>
                 </menuItem>
+                <menuItem isSeparatorItem="YES" id="K5T-46-pVW"/>
                 <menuItem title="Untangle" id="EL6-rp-IjK">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -233,6 +234,7 @@
                         <action selector="duplicatePlaylist:" target="-2" id="vRz-SN-nhS"/>
                     </connections>
                 </menuItem>
+                <menuItem isSeparatorItem="YES" id="c7H-XO-xtM"/>
                 <menuItem title="Delete" id="ZLK-fo-c9h">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>

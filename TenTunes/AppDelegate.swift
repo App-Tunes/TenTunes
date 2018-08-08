@@ -46,7 +46,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
              error conditions that could cause the creation of the store to fail.
              */
             _persistentContainer = Library(name: "TenTunes", at: AppDelegate.dataLocation)
-            Library.CheckSanity(library: _persistentContainer!).check(in: _persistentContainer!.viewContext)
         }
         
         return _persistentContainer!

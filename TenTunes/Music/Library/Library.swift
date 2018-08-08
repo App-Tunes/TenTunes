@@ -57,7 +57,6 @@ class Library : NSPersistentContainer {
         }
         
         _tagPlaylist = fetchCreateSpecialFolder(key: "Tag Playlist") { playlist in
-            // TODO Make unrenamable and unmovable
             playlist.name = "Tags"
             _masterPlaylist.addPlaylist(playlist)
         }

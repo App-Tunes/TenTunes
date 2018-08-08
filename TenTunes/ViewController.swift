@@ -55,6 +55,7 @@ class ViewController: NSViewController {
     var taskers: [Tasker] = []
     var tasker = QueueTasker()
     var _workerSemaphore = DispatchSemaphore(value: 3)
+    @IBOutlet var _taskButton: SpinningButton!
     
     var mediaKeyTap: MediaKeyTap?
     

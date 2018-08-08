@@ -23,6 +23,8 @@ extension ViewController {
             
             self._waveformView.setBy(player: self.player.player)
             
+            self._taskButton.spinning = !self.runningTasks.isEmpty
+            
             if !self._timePlayed.isHidden, !self._timeLeft.isHidden {
                 self._timePlayed.stringValue = Int(self.player.player.currentTime).timeString
                 self._timeLeft.stringValue = Int(self.player.player.duration - self.player.player.currentTime).timeString

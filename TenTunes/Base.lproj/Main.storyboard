@@ -894,7 +894,7 @@ IA
                                                     <constraint firstItem="VMd-f1-c9v" firstAttribute="leading" secondItem="NC3-8V-1wQ" secondAttribute="leading" id="yMy-d5-FIc"/>
                                                 </constraints>
                                             </customView>
-                                            <button horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ETj-HU-NV5">
+                                            <button horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ETj-HU-NV5" customClass="SpinningButton" customModule="TenTunes" customModuleProvider="target">
                                                 <rect key="frame" x="1251" y="57" width="21" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="ETj-HU-NV5" secondAttribute="height" multiplier="1:1" id="qGX-a4-Xxa"/>
@@ -997,6 +997,7 @@ IA
                         <outlet property="_previous" destination="vGp-jR-JQ9" id="9Ln-gY-j8Q"/>
                         <outlet property="_shuffle" destination="7Y2-7h-2Y4" id="znx-qG-XRl"/>
                         <outlet property="_splitView" destination="A22-NE-xw5" id="0eO-Fs-b7A"/>
+                        <outlet property="_taskButton" destination="ETj-HU-NV5" id="FXd-mp-8jl"/>
                         <outlet property="_timeLeft" destination="9Bx-lC-97p" id="NbD-28-VlR"/>
                         <outlet property="_timePlayed" destination="1Xa-l4-VRg" id="RJx-GO-IGU"/>
                         <outlet property="_trackView" destination="wx1-Jg-18R" id="DrA-iR-AEj"/>

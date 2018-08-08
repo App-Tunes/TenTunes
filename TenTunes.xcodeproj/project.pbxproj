@@ -57,6 +57,7 @@
 		8079F6E4210A2C5400B7A278 /* PlaylistRules+Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6E3210A2C5300B7A278 /* PlaylistRules+Labels.swift */; };
 		8079F6E8211B015B00B7A278 /* RecursionGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6E7211B015B00B7A278 /* RecursionGuard.swift */; };
 		8079F6EA211B822900B7A278 /* UnscalingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6E9211B822900B7A278 /* UnscalingMenu.swift */; };
+		8079F6EC211B87A700B7A278 /* SpinningButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6EB211B87A700B7A278 /* SpinningButton.swift */; };
 		807E289E2101291B0080F332 /* PlaylistRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E289D2101291B0080F332 /* PlaylistRules.swift */; };
 		807E4B47206428260051C028 /* ScrollableSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E4B46206428260051C028 /* ScrollableSlider.swift */; };
 		807F6A312101F986002048B1 /* PlaylistCartesian.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807F6A302101F986002048B1 /* PlaylistCartesian.swift */; };
@@ -229,6 +230,7 @@
 		8079F6E3210A2C5300B7A278 /* PlaylistRules+Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistRules+Labels.swift"; sourceTree = "<group>"; };
 		8079F6E7211B015B00B7A278 /* RecursionGuard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecursionGuard.swift; sourceTree = "<group>"; };
 		8079F6E9211B822900B7A278 /* UnscalingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnscalingMenu.swift; sourceTree = "<group>"; };
+		8079F6EB211B87A700B7A278 /* SpinningButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinningButton.swift; sourceTree = "<group>"; };
 		807E289D2101291B0080F332 /* PlaylistRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistRules.swift; sourceTree = "<group>"; };
 		807E4B46206428260051C028 /* ScrollableSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableSlider.swift; sourceTree = "<group>"; };
 		807F6A302101F986002048B1 /* PlaylistCartesian.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistCartesian.swift; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 				8030E00020FC8F0C006B4AE8 /* ActionTableView.swift */,
 				80E0884F20FFB3A3001FFE26 /* TTWindow.swift */,
 				8079F6E9211B822900B7A278 /* UnscalingMenu.swift */,
+				8079F6EB211B87A700B7A278 /* SpinningButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -893,6 +896,7 @@
 				8030E00920FC9A91006B4AE8 /* SwiftPriorityQueue.swift in Sources */,
 				80F854FF2069180A009A8FBE /* TrackController+RightClick.swift in Sources */,
 				808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */,
+				8079F6EC211B87A700B7A278 /* SpinningButton.swift in Sources */,
 				801621332067B71B00093B15 /* ViewController+Updates.swift in Sources */,
 				806C5B2620423AC000C34F49 /* SPInterpreter.swift in Sources */,
 				80B764562072F38D003BD7F8 /* PlaylistEmpty.swift in Sources */,

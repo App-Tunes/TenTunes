@@ -21,8 +21,8 @@ extension NSImage {
         return tinted
     }
     
-    func resized(w: Int, h: Int) -> NSImage {
-        let destSize = NSMakeSize(CGFloat(w), CGFloat(h))
+    func resized(w: CGFloat, h: CGFloat) -> NSImage {
+        let destSize = NSMakeSize(w, h)
         let newImage = NSImage(size: destSize)
         newImage.lockFocus()
         draw(in: NSMakeRect(0, 0, destSize.width, destSize.height), from: NSMakeRect(0, 0, size.width, size.height), operation: .sourceOver, fraction: CGFloat(1))
@@ -113,12 +113,31 @@ extension NSMenu {
     func item(withRepresentedObject represented: Any?) -> NSMenuItem? {
         return items[safe: indexOfItem(withRepresentedObject: represented)]
     }
+    
+    func resizeImages(max: CGFloat = 15) {
+        for item in items {
+            item.resizeImage(max: max)
+        }
+    }
 }
 
 extension NSMenuItem {
     var isVisible: Bool {
         get { return !isHidden }
         set(visible) { isHidden = !visible }
+    }
+    
+    func resizeImage(max: CGFloat = 15) {
+        guard let image = self.image else {
+            return
+        }
+        
+        if image.size.width > image.size.height {
+            self.image = image.resized(w: max, h: image.size.height * max / image.size.width)
+        }
+        else {
+            self.image = image.resized(w: image.size.width * max / image.size.height, h: max)
+        }
     }
 }
 

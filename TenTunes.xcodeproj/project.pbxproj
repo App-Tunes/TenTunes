@@ -56,6 +56,7 @@
 		8079F6E0210A268900B7A278 /* Track+Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6DF210A268900B7A278 /* Track+Metadata.swift */; };
 		8079F6E4210A2C5400B7A278 /* PlaylistRules+Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6E3210A2C5300B7A278 /* PlaylistRules+Labels.swift */; };
 		8079F6E8211B015B00B7A278 /* RecursionGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6E7211B015B00B7A278 /* RecursionGuard.swift */; };
+		8079F6EA211B822900B7A278 /* UnscalingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6E9211B822900B7A278 /* UnscalingMenu.swift */; };
 		807E289E2101291B0080F332 /* PlaylistRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E289D2101291B0080F332 /* PlaylistRules.swift */; };
 		807E4B47206428260051C028 /* ScrollableSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E4B46206428260051C028 /* ScrollableSlider.swift */; };
 		807F6A312101F986002048B1 /* PlaylistCartesian.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807F6A302101F986002048B1 /* PlaylistCartesian.swift */; };
@@ -227,6 +228,7 @@
 		8079F6DF210A268900B7A278 /* Track+Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Track+Metadata.swift"; sourceTree = "<group>"; };
 		8079F6E3210A2C5300B7A278 /* PlaylistRules+Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistRules+Labels.swift"; sourceTree = "<group>"; };
 		8079F6E7211B015B00B7A278 /* RecursionGuard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecursionGuard.swift; sourceTree = "<group>"; };
+		8079F6E9211B822900B7A278 /* UnscalingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnscalingMenu.swift; sourceTree = "<group>"; };
 		807E289D2101291B0080F332 /* PlaylistRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistRules.swift; sourceTree = "<group>"; };
 		807E4B46206428260051C028 /* ScrollableSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableSlider.swift; sourceTree = "<group>"; };
 		807F6A302101F986002048B1 /* PlaylistCartesian.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistCartesian.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				8017685820743898000DD433 /* NSImageViewAspectFill.swift */,
 				8030E00020FC8F0C006B4AE8 /* ActionTableView.swift */,
 				80E0884F20FFB3A3001FFE26 /* TTWindow.swift */,
+				8079F6E9211B822900B7A278 /* UnscalingMenu.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -839,6 +842,7 @@
 				80E0885020FFB3A3001FFE26 /* TTWindow.swift in Sources */,
 				80F855012069183E009A8FBE /* TrackController+Menu.swift in Sources */,
 				80E6811D2057479B00DA5702 /* ValueTransformers.swift in Sources */,
+				8079F6EA211B822900B7A278 /* UnscalingMenu.swift in Sources */,
 				80CFDA0A203C4E2300C7A506 /* LazyVar.swift in Sources */,
 				80F855042069187D009A8FBE /* PlaylistController+Menu.swift in Sources */,
 				8030E01920FE33D2006B4AE8 /* ExportPlaylists.swift in Sources */,

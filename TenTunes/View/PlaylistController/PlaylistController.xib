@@ -213,7 +213,7 @@
             </constraints>
             <point key="canvasLocation" x="-12" y="64"/>
         </customView>
-        <menu title="Playlist" id="5YT-Yc-AOa" userLabel="Playlist">
+        <menu title="Playlist" id="5YT-Yc-AOa" userLabel="Playlist" customClass="UnscalingMenu" customModule="TenTunes" customModuleProvider="target">
             <items>
                 <menuItem title="Play" id="DWl-hq-9u6">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -247,7 +247,7 @@
             </connections>
             <point key="canvasLocation" x="278" y="51"/>
         </menu>
-        <menu id="FBg-C1-FYI">
+        <menu id="FBg-C1-FYI" customClass="UnscalingMenu" customModule="TenTunes" customModuleProvider="target">
             <items>
                 <menuItem title="Playlist" id="teK-rc-H0p">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -262,9 +262,9 @@
                     </connections>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="-210" y="319"/>
+            <point key="canvasLocation" x="-319" y="320"/>
         </menu>
-        <menu id="rXe-Jh-d6s">
+        <menu id="rXe-Jh-d6s" customClass="UnscalingMenu" customModule="TenTunes" customModuleProvider="target">
             <items>
                 <menuItem title="Group" id="M7n-9P-CRC">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -279,7 +279,7 @@
                     </connections>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="207" y="332"/>
+            <point key="canvasLocation" x="288" y="543"/>
         </menu>
     </objects>
     <resources>

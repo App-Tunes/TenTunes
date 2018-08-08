@@ -11,8 +11,16 @@ import Cocoa
 class CurrentPlaylistUpdater: Tasker {
     override var promise: Float? { return 0 }
     
-    override func spawn() -> Task? {
-        guard let trackController = ViewController.shared.trackController, let desired = trackController.desired, desired._changed, desired.semaphore.acquireNow() else {
+    override func spawn(running: [Task]) -> Task? {
+        guard let trackController = ViewController.shared.trackController, let desired = trackController.desired, desired._changed else {
+            return nil
+        }
+        
+        let others = running.of(type: UpdateCurrentPlaylist.self).filter({ $0.trackController == trackController })
+        guard others.isEmpty else {
+            for other in others {
+                other.cancel() // Cancel, but don't dare starting ourselves yet so we have at most one running at once (so we don't just start 100 by accident)
+            }
             return nil
         }
         
@@ -24,7 +32,7 @@ class CurrentPlaylistUpdater: Tasker {
 class UpdateCurrentPlaylist: Task {
     var trackController: TrackController
     var desired: PlayHistorySetup
-
+    
     init(trackController: TrackController, desired: PlayHistorySetup) {
         self.trackController = trackController
         self.desired = desired
@@ -41,27 +49,26 @@ class UpdateCurrentPlaylist: Task {
         // Make sure to cache the results on the main thread if we use the biggest of them all
         (desired.playlist as? PlaylistLibrary)?.loadTracks()
         
-        Library.shared.performChildBackgroundTask { mox in
+        performChildBackgroundTask(for: Library.shared) { mox in
             let history = desired.playlist?.convert(to: mox) ?=> PlayHistory.init
-            
+
+            if self.checkCanceled() { return }
+
             if let history = history {
                 desired.filter ?=> history.filter
+                if self.checkCanceled() { return }
                 desired.sort ?=> history.sort
             }
+            
+            if self.uncancelable() { return }
             
             DispatchQueue.main.async {
                 history?.convert(to: Library.shared.viewContext)
                 self.trackController.history = history ?? PlayHistory(playlist: Library.shared.allTracks)
                 desired.isDone = !desired._changed
-                
+
                 self.finish()
             }
         }
-    }
-    
-    override func finish() {
-        super.finish()
-        
-        desired.semaphore.signal()
     }
 }

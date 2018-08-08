@@ -17,7 +17,6 @@ import AVFoundation
         self.completion = completion
     }
     
-    var semaphore = DispatchSemaphore(value: 1)
     var _changed = false {
         didSet { isDone = isDone && !_changed }
     }

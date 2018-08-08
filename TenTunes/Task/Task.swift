@@ -13,7 +13,7 @@ class Tasker {
         return nil
     }
     
-    func spawn() -> Task? {
+    func spawn(running: [Task]) -> Task? {
         return nil
     }
 }
@@ -35,7 +35,7 @@ class QueueTasker : Tasker {
         return queue.peek()?.priority
     }
     
-    override func spawn() -> Task? {
+    override func spawn(running: [Task]) -> Task? {
         return queue.pop()
     }
     
@@ -45,11 +45,32 @@ class QueueTasker : Tasker {
         }
         // Else TODO? Else we never call finish which might be bad
     }
+    
+    @discardableResult
+    func replace(task: Task) -> Bool {
+        for other in queue where other == task {
+            if other.cancel() {
+                enqueue(task: task)
+                return true
+            }
+            else {
+                return false
+            }
+        }
+        
+        enqueue(task: task)
+        return true
+    }
 }
 
 class Task {
+    let manageSemaphore = DispatchSemaphore(value: 1)
+    
     var completion: (() -> Swift.Void)?
     var finished = false
+    
+    var cancelled = false
+    var cancelable = true
     
     init(priority: Float = 1) {
         self.priority = priority
@@ -66,6 +87,55 @@ class Task {
         
     }
     
+    func performChildBackgroundTask(for library: Library, block: @escaping (NSManagedObjectContext) -> Void) {
+        manageSemaphore.wait()
+        
+        guard !cancelled else {
+            finish()
+            manageSemaphore.signal()
+            return
+        }
+        
+        library.performChildBackgroundTask { context in
+            self.manageSemaphore.signal()
+            block(context)
+        }
+    }
+    
+    func checkCanceled() -> Bool {
+        if cancelled {
+            if !finished {
+                finish()
+            }
+            return true
+        }
+        
+        return false
+    }
+    
+    func uncancelable() -> Bool {
+        manageSemaphore.wait()
+        cancelable = false
+        manageSemaphore.signal()
+        
+        return checkCanceled()
+    }
+    
+    @discardableResult
+    func cancel() -> Bool {
+        manageSemaphore.wait()
+        
+        guard cancelable else {
+            manageSemaphore.signal()
+            return false
+        }
+        
+        cancelled = true
+        
+        manageSemaphore.signal()
+        return true
+    }
+    
     func finish() {
         guard !finished else {
             fatalError("Finishing finished task!")
@@ -76,7 +146,7 @@ class Task {
     }
     
     func eq(other: Task) -> Bool {
-        return true
+        return other === self
     }
 }
 
@@ -93,3 +163,4 @@ extension Task : Comparable {
         return type(of: lhs) == type(of: rhs) && lhs.eq(other: rhs)
     }
 }
+

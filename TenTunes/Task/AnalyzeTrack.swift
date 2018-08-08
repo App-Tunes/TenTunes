@@ -19,7 +19,7 @@ class AnalyzeCurrentTrack: Tasker {
         return nil
     }
     
-    override func spawn() -> Task? {
+    override func spawn(running: [Task]) -> Task? {
         if let playing = ViewController.shared.player.playing {
             return AnalyzeTrack(track: playing, read: true, priority: 1)
         }

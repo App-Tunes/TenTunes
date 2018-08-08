@@ -48,7 +48,7 @@ extension ViewController {
                 haveWorkerKey = haveWorkerKey || self._workerSemaphore.acquireNow()
                 if haveWorkerKey || promise <= 0 {
                     // We want a new task!
-                    if let task = tasker.spawn() {
+                    if let task = tasker.spawn(running: self.runningTasks) {
                         // TODO Might have changed the view!
                         self.runningTasks.append(task)
                         self.taskViewController.reload()

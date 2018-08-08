@@ -43,9 +43,9 @@ extension Collection {
         return indices.contains(index) ? self[index] : nil
     }
 
-    func allMatch(_ filter: (Element) -> Bool) -> Bool { return self.filter(filter).count == count }
+    func allMatch(_ filter: (Element) -> Bool) -> Bool { return self.first { !filter($0) } == nil }
 
-    func noneMatch(_ filter: (Element) -> Bool) -> Bool { return self.filter(filter).count == 0 }
+    func noneMatch(_ filter: (Element) -> Bool) -> Bool { return !anyMatch(filter) }
 
     func anyMatch(_ filter: (Element) -> Bool) -> Bool { return self.first(where: filter) != nil }
 }
@@ -125,6 +125,10 @@ extension Array {
     
     public func fullSlice() -> ArraySlice<Element> {
         return self[indices]
+    }
+    
+    func of<T>(type: T.Type) -> [T] {
+        return filter { $0 is T } as! [T]
     }
     
     var uniqueElements: [Element] {
@@ -467,6 +471,10 @@ extension String {
     
     static func random16Hex() -> String {
         return String(format:"%08X%08X", arc4random(), arc4random())
+    }
+    
+    static func id(of object: AnyObject) -> String {
+        return String(UInt(bitPattern: ObjectIdentifier(object)))
     }
 }
 

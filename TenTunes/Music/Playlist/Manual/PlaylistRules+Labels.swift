@@ -30,7 +30,7 @@ extension TrackLabel {
             super.encode(with: aCoder)
         }
         
-        override func positiveFilter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
+        override func positiveFilter(in context: NSManagedObjectContext?, rguard: RecursionGuard<Playlist>) -> (Track) -> Bool {
             return PlayHistory.filter(findText: string)!
         }
         
@@ -68,8 +68,8 @@ extension TrackLabel {
             return Library.shared.playlist(byId: playlistID, in: context)
         }
         
-        override func positiveFilter(in context: NSManagedObjectContext) -> (Track) -> Bool {
-            guard let tracks = playlist(in: context)?.tracksList else {
+        override func positiveFilter(in context: NSManagedObjectContext, rguard: RecursionGuard<Playlist>) -> (Track) -> Bool {
+            guard let tracks = playlist(in: context)?.guardedTracksList(rguard: rguard) else {
                 return { _ in false }
             }
             
@@ -107,7 +107,7 @@ extension TrackLabel {
             super.encode(with: aCoder)
         }
         
-        override func positiveFilter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
+        override func positiveFilter(in context: NSManagedObjectContext?, rguard: RecursionGuard<Playlist>) -> (Track) -> Bool {
             let lowerAuthor = author.lowercased()
             return { $0.rAuthor.lowercased() == lowerAuthor }
         }
@@ -139,7 +139,7 @@ extension TrackLabel {
             super.encode(with: aCoder)
         }
         
-        override func positiveFilter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
+        override func positiveFilter(in context: NSManagedObjectContext?, rguard: RecursionGuard<Playlist>) -> (Track) -> Bool {
             return { Album(of: $0) == self.album }
         }
         
@@ -169,7 +169,7 @@ extension TrackLabel {
             super.encode(with: aCoder)
         }
         
-        override func positiveFilter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
+        override func positiveFilter(in context: NSManagedObjectContext?, rguard: RecursionGuard<Playlist>) -> (Track) -> Bool {
             let lowerGenre = self.genre.lowercased()
             return { $0.genre?.lowercased() == lowerGenre }
         }
@@ -197,7 +197,7 @@ extension TrackLabel {
             super.encode(with: aCoder)
         }
         
-        override func positiveFilter(in context: NSManagedObjectContext?) -> (Track) -> Bool {
+        override func positiveFilter(in context: NSManagedObjectContext?, rguard: RecursionGuard<Playlist>) -> (Track) -> Bool {
             let bitrate = Float(self.bitrate * 1024)
             return { $0.bitrate >= bitrate }
         }

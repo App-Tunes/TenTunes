@@ -33,8 +33,8 @@ public class PlaylistFolder: Playlist {
     }
     
     // TODO
-    override var _freshTracksList: [Track] {
-        get { return (childrenList.flatMap { $0.tracksList }).uniqueElements }
+    override func _freshTracksList(rguard: RecursionGuard<Playlist>) -> [Track] {
+        return (childrenList.flatMap { $0.guardedTracksList(rguard: rguard) }).uniqueElements
     }
     
     override var icon: NSImage {

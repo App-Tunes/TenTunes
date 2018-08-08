@@ -12,8 +12,8 @@ import CoreData
 
 @objc(PlaylistManual)
 public class PlaylistManual: Playlist {
-    override var _freshTracksList: [Track] {
-        get { return Array(tracks) as! [Track] }
+    override func _freshTracksList(rguard: RecursionGuard<Playlist>) -> [Track] {
+        return Array(tracks) as! [Track] 
     }
     
     func addTracks(_ tracks: [Track], above: Int? = nil) {

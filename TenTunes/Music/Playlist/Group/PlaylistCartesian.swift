@@ -38,9 +38,17 @@ class PlaylistCartesian: PlaylistFolder {
         }
     }
     
-    override var _freshTracksList: [Track] {
+    override func _freshTracksList(rguard: RecursionGuard<Playlist>) -> [Track] {
+        guard rguard.push(self) else {
+            return [] // TODO Find a better way
+        }
+        
         let all = Library.shared.allTracks.convert(to: managedObjectContext!)!.tracksList
-        return all.filter(combinedFilter(in: managedObjectContext!))
+        let tracks = all.filter(combinedFilter(in: managedObjectContext!))
+        
+        rguard.pop(self)
+        
+        return tracks
     }
     
     func combinedFilter(in context: NSManagedObjectContext) -> (Track) -> Bool {

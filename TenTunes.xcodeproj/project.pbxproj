@@ -55,6 +55,7 @@
 		8079F6DE210674F700B7A278 /* CartesianRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6DD210674F700B7A278 /* CartesianRules.swift */; };
 		8079F6E0210A268900B7A278 /* Track+Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6DF210A268900B7A278 /* Track+Metadata.swift */; };
 		8079F6E4210A2C5400B7A278 /* PlaylistRules+Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6E3210A2C5300B7A278 /* PlaylistRules+Labels.swift */; };
+		8079F6E8211B015B00B7A278 /* RecursionGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6E7211B015B00B7A278 /* RecursionGuard.swift */; };
 		807E289E2101291B0080F332 /* PlaylistRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E289D2101291B0080F332 /* PlaylistRules.swift */; };
 		807E4B47206428260051C028 /* ScrollableSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E4B46206428260051C028 /* ScrollableSlider.swift */; };
 		807F6A312101F986002048B1 /* PlaylistCartesian.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807F6A302101F986002048B1 /* PlaylistCartesian.swift */; };
@@ -225,6 +226,7 @@
 		8079F6DD210674F700B7A278 /* CartesianRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartesianRules.swift; sourceTree = "<group>"; };
 		8079F6DF210A268900B7A278 /* Track+Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Track+Metadata.swift"; sourceTree = "<group>"; };
 		8079F6E3210A2C5300B7A278 /* PlaylistRules+Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistRules+Labels.swift"; sourceTree = "<group>"; };
+		8079F6E7211B015B00B7A278 /* RecursionGuard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecursionGuard.swift; sourceTree = "<group>"; };
 		807E289D2101291B0080F332 /* PlaylistRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistRules.swift; sourceTree = "<group>"; };
 		807E4B46206428260051C028 /* ScrollableSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableSlider.swift; sourceTree = "<group>"; };
 		807F6A302101F986002048B1 /* PlaylistCartesian.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistCartesian.swift; sourceTree = "<group>"; };
@@ -539,6 +541,7 @@
 				8055FE7D20C947A300559F45 /* Volumes.swift */,
 				8030E00820FC9A91006B4AE8 /* SwiftPriorityQueue.swift */,
 				8030E01620FE2C3B006B4AE8 /* Alerts.swift */,
+				8079F6E7211B015B00B7A278 /* RecursionGuard.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -880,6 +883,7 @@
 				80E2C9F7204B40A000298E81 /* Playlist.swift in Sources */,
 				8030E01B20FE7AAC006B4AE8 /* MoveTrackToMediaLocation.swift in Sources */,
 				8093466E20A62249001D15CD /* PlaylistController+Pasteboard.swift in Sources */,
+				8079F6E8211B015B00B7A278 /* RecursionGuard.swift in Sources */,
 				80C8559E210512B400177035 /* Album.swift in Sources */,
 				80F2C58F20389B9B00212739 /* WaveformView.swift in Sources */,
 				8030E00920FC9A91006B4AE8 /* SwiftPriorityQueue.swift in Sources */,

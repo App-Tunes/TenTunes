@@ -12,8 +12,10 @@ import Cocoa
     let labels: [TrackLabel]
     let any: Bool
     
-    func filter(in context: NSManagedObjectContext) -> ((Track) -> Bool) {
-        let filters = labels.map { $0.filter(in: context) }
+    func filter(in context: NSManagedObjectContext, rguard: RecursionGuard<Playlist>? = nil) -> ((Track) -> Bool) {
+        let rguard = rguard ?? RecursionGuard()
+        
+        let filters = labels.map { $0.filter(in: context, rguard: rguard) }
         let any = self.any
         
         return { track in
@@ -74,12 +76,12 @@ import Cocoa
         return _not
     }
     
-    func filter(in context: NSManagedObjectContext) -> (Track) -> Bool {
-        let positive = positiveFilter(in: context)
+    func filter(in context: NSManagedObjectContext, rguard: RecursionGuard<Playlist>) -> (Track) -> Bool {
+        let positive = positiveFilter(in: context, rguard: rguard)
         return not ? { !positive($0) } : positive
     }
     
-    func positiveFilter(in context: NSManagedObjectContext) -> (Track) -> Bool {
+    func positiveFilter(in context: NSManagedObjectContext, rguard: RecursionGuard<Playlist>) -> (Track) -> Bool {
         return { _ in return false }
     }
     

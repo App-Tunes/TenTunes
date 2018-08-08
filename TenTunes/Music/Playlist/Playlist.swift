@@ -39,18 +39,23 @@ public class Playlist: NSManagedObject, PlaylistProtocol {
     }
     
     var _tracksList: [Track]?
-    var _freshTracksList: [Track] {
+    func _freshTracksList(rguard: RecursionGuard<Playlist>) -> [Track] {
         return []
+    }
+    
+    func guardedTracksList(rguard: RecursionGuard<Playlist>) -> [Track] {
+        if _tracksList == nil {
+            _tracksList = _freshTracksList(rguard: rguard)
+            if rguard.hasFailed {
+                _tracksList = []
+            }
+        }
+        
+        return _tracksList!
     }
 
     var tracksList: [Track] {
-        get {
-            if _tracksList == nil {
-                _tracksList = _freshTracksList
-            }
-            
-            return _tracksList!
-        }
+        return guardedTracksList(rguard: RecursionGuard())
     }
 
     func track(at: Int) -> Track? {

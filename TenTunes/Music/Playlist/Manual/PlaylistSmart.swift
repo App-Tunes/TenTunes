@@ -11,13 +11,21 @@ import CoreData
 
 @objc(PlaylistSmart)
 public class PlaylistSmart: Playlist {
-    override var _freshTracksList: [Track] {
+    override func _freshTracksList(rguard: RecursionGuard<Playlist>) -> [Track] {
+        guard rguard.push(self) else {
+            return []
+        }
+        
         let all = Library.shared.allTracks.convert(to: managedObjectContext!)!.tracksList
-        return all.filter(filter(in: managedObjectContext!))
+        let tracks = all.filter(filter(in: managedObjectContext!, rguard: rguard))
+        
+        rguard.pop(self)
+        
+        return tracks
     }
         
-    func filter(in context: NSManagedObjectContext) -> (Track) -> Bool {
-        return rrules.filter(in: context)
+    func filter(in context: NSManagedObjectContext, rguard: RecursionGuard<Playlist>) -> (Track) -> Bool {
+        return rrules.filter(in: context, rguard: rguard)
     }
     
     override var icon: NSImage {

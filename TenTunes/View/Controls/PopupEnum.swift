@@ -38,4 +38,13 @@ class PopupEnum<E>: NSObject {
         
         popup.bind(.init(rawValue: "selectedIndex"), to: controller, withKeyPath: "selectedItem", options: [:])
     }
+    
+    static func represent(in popup: NSPopUpButton, with: [E], title: (E) -> String) {
+        popup.removeAllItems()
+        
+        for item in with {
+            popup.addItem(withTitle: title(item))
+            popup.menu!.items.last!.representedObject = item
+        }
+    }
 }

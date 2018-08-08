@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TrackLabelController" customModule="TenTunes" customModuleProvider="target">
             <connections>
+                <outlet property="_accumulationType" destination="46r-eQ-QvF" id="GxD-VS-H5Q"/>
                 <outlet property="_labelField" destination="oy3-NO-azg" id="U2T-On-voe"/>
                 <outlet property="_labelMenu" destination="pao-Zw-37z" id="12G-Tr-X6K"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
@@ -15,10 +16,10 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="32"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="31"/>
             <subviews>
                 <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oy3-NO-azg" customClass="LabelTextField" customModule="TenTunes" customModuleProvider="target">
-                    <rect key="frame" x="14" y="4" width="452" height="24"/>
+                    <rect key="frame" x="14" y="4" width="383" height="24"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="hfT-Zd-bDt"/>
                     </constraints>
@@ -31,12 +32,30 @@
                         <outlet property="delegate" destination="-2" id="3Sm-yK-cS1"/>
                     </connections>
                 </tokenField>
+                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="46r-eQ-QvF">
+                    <rect key="frame" x="403" y="2" width="60" height="26"/>
+                    <popUpButtonCell key="cell" type="push" title="Any" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="nG2-X2-cxf" id="LYb-jU-mBU">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="29o-IZ-vMq">
+                            <items>
+                                <menuItem title="Any" state="on" id="nG2-X2-cxf"/>
+                                <menuItem title="All" id="ZQe-1d-Wqd"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="accumulationChanged:" target="-2" id="3zM-Zb-Idw"/>
+                    </connections>
+                </popUpButton>
             </subviews>
             <constraints>
                 <constraint firstItem="oy3-NO-azg" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="CJr-ea-OOB"/>
-                <constraint firstAttribute="trailing" secondItem="oy3-NO-azg" secondAttribute="trailing" constant="14" id="bS9-jE-Pge"/>
+                <constraint firstItem="46r-eQ-QvF" firstAttribute="leading" secondItem="oy3-NO-azg" secondAttribute="trailing" constant="8" id="RfS-Cm-spx"/>
                 <constraint firstItem="oy3-NO-azg" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="14" id="biB-ac-Gtv"/>
                 <constraint firstAttribute="height" priority="100" constant="32" id="gve-5w-mCx"/>
+                <constraint firstItem="46r-eQ-QvF" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="l3d-TO-bI7"/>
+                <constraint firstAttribute="trailing" secondItem="46r-eQ-QvF" secondAttribute="trailing" constant="20" id="qsp-mC-J39"/>
             </constraints>
             <point key="canvasLocation" x="139" y="105"/>
         </customView>

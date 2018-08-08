@@ -69,8 +69,8 @@ class TrackController: NSViewController {
             
             if let playlist = history.playlist as? PlaylistSmart {
                 _ruleButton.isHidden = false
-                if smartPlaylistRuleController.currentLabels != playlist.rrules.labels {
-                    smartPlaylistRuleController.currentLabels = playlist.rrules.labels
+                if smartPlaylistRuleController.rules != playlist.rrules {
+                    smartPlaylistRuleController.rules = playlist.rrules
                 }
                 ruleBar.contentView = smartPlaylistRuleController.view
             }

@@ -9,35 +9,41 @@
 import Cocoa
 
 @objc public class PlaylistRules : NSObject, NSCoding {
-    var labels: [TrackLabel]
+    let labels: [TrackLabel]
+    let any: Bool
     
     func filter(in context: NSManagedObjectContext) -> ((Track) -> Bool) {
         let filters = labels.map { $0.filter(in: context) }
+        let any = self.any
+        
         return { track in
-            return filters.allMatch { $0(track) }
+            return (any ? filters.anyMatch : filters.allMatch) { $0(track) }
         }
     }
 
     public func encode(with aCoder: NSCoder) {
         aCoder.encode(labels, forKey: "labels")
+        aCoder.encode(any, forKey: "modeAny")
     }
 
     public required init?(coder aDecoder: NSCoder) {
         labels = (aDecoder.decodeObject(forKey: "labels") as? [TrackLabel?])?.compactMap { $0 } ?? []
+        any = aDecoder.decodeBool(forKey: "modeAny")
     }
     
-    init(labels: [TrackLabel] = []) {
+    init(labels: [TrackLabel] = [], any: Bool = false) {
         self.labels = labels
+        self.any = any
     }
     
     public override var description: String {
-        return "[\((labels.map { $0.representation() }).joined(separator: ", "))]"
+        return "[\((labels.map { $0.representation() }).joined(separator: any ? " | " : ", "))]"
     }
     
     public override var hashValue: Int {
         return (labels.map { $0.representation() }).reduce(0, { (hash, string) in
             hash ^ string.hash
-        })
+        }) * (any ? -1 : 1)
     }
     
     override public func isEqual(_ object: Any?) -> Bool {
@@ -45,7 +51,7 @@ import Cocoa
             return false
         }
         
-        return labels == object.labels
+        return labels == object.labels && any == object.any
     }
 }
 

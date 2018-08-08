@@ -39,17 +39,16 @@ extension TrackController {
 }
 
 extension TrackController : TrackLabelControllerDelegate {
-    func labelsChanged(trackLabelController: TrackLabelController, labels: [TrackLabel]) {
+    func labelsChanged(trackLabelController: TrackLabelController, rules: PlaylistRules) {
         // TODO Live search
         if trackLabelController == smartPlaylistRuleController, let playlist = history.playlist as? PlaylistSmart {
-            if playlist.rrules.labels != labels {
-                playlist.rules.labels = labels
-                NSManagedObject.markDirty(playlist, \.rules)
+            if playlist.rrules != rules {
+                playlist.rules = rules
                 try! Library.shared.viewContext.save()
             }
         }
         else {
-            desired.filter = PlaylistRules(labels: labels).filter(in: Library.shared.viewContext)
+            desired.filter = rules.filter(in: Library.shared.viewContext)
         }
     }
 }

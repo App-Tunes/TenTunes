@@ -9,7 +9,7 @@
 import Cocoa
 
 @objc protocol TrackLabelControllerDelegate {
-    @objc optional func labelsChanged(trackLabelController: TrackLabelController, labels: [TrackLabel])
+    @objc optional func labelsChanged(trackLabelController: TrackLabelController, rules: PlaylistRules)
     
     @objc optional func editingEnded(labelManager: TrackLabelController, notification: Notification)
 }
@@ -20,6 +20,36 @@ class TrackLabelController : NSViewController, LabelFieldDelegate {
     @IBOutlet var _labelField: LabelTextField!
     
     @IBOutlet var _labelMenu: NSMenu!
+    
+    @IBOutlet var _accumulationType: NSPopUpButton!
+
+    enum Accumulation {
+        case all, any
+        
+        var title: String {
+            switch self {
+            case .all:
+                return "All"
+            case .any:
+                return "Any"
+            }
+        }
+    }
+    
+    override func awakeFromNib() {
+        PopupEnum.represent(in: _accumulationType, with: [Accumulation.all, Accumulation.any], title: { $0.title })
+    }
+    
+    var rules: PlaylistRules {
+        get {
+            let acc = _accumulationType.selectedItem?.representedObject as! Accumulation
+            return PlaylistRules(labels: currentLabels, any: acc == .any)
+        }
+        set {
+            _accumulationType.select(_accumulationType.menu!.item(withRepresentedObject: newValue.any ? Accumulation.any : Accumulation.all))
+            currentLabels = newValue.labels
+        }
+    }
     
     var currentLabels: [TrackLabel] {
         get { return _labelField.currentLabels as! [TrackLabel] }
@@ -92,7 +122,7 @@ class TrackLabelController : NSViewController, LabelFieldDelegate {
     }
     
     func tokenFieldChangedLabels(_ tokenField: NSTokenField, labels: [Any]) {
-        delegate?.labelsChanged?(trackLabelController: self, labels: labels as! [TrackLabel])
+        delegate?.labelsChanged?(trackLabelController: self, rules: rules)
     }
     
     func tokenField(_ tokenField: NSTokenField, shouldAdd tokens: [Any], at index: Int) -> [Any] {
@@ -149,5 +179,9 @@ class TrackLabelController : NSViewController, LabelFieldDelegate {
         }
         
         return false
+    }
+    
+    @IBAction func accumulationChanged(_ sender: Any) {
+        delegate?.labelsChanged?(trackLabelController: self, rules: rules)
     }
 }

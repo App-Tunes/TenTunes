@@ -109,6 +109,10 @@ extension NSMenu {
     func item(withAction: Selector) -> NSMenuItem? {
         return items.filter { $0.action == withAction }.first
     }
+    
+    func item(withRepresentedObject represented: Any?) -> NSMenuItem? {
+        return items[safe: indexOfItem(withRepresentedObject: represented)]
+    }
 }
 
 extension NSMenuItem {

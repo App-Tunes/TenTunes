@@ -61,7 +61,7 @@ extension PlaylistController: NSMenuDelegate {
             return false
         }
         
-        return untangle(playlist: folder, dryRun: true)
+        return folder.childrenList.count > 1 && untangle(playlist: folder, dryRun: true)
     }
     
     class UntangledPlaylist {

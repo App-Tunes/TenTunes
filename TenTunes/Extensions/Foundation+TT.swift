@@ -342,6 +342,11 @@ extension Array where Iterator.Element == CGFloat {
             let trackPosEnd = Double(idx + 1) / Double(toSize)
             let trackRange = Int(trackPosStart * Double(count))..<Int(trackPosEnd * Double(count))
             
+            if trackRange.count == 0 {
+                // TODO Needs lerp
+                return self[trackRange.lowerBound]
+            }
+            
             return self[trackRange].reduce(0, +) / CGFloat(trackRange.count)
         }
     }

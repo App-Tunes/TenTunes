@@ -140,8 +140,6 @@ class WaveformLayer : CALayer {
         _barsLayer.autoresizingMask = [.layerWidthSizable, .layerHeightSizable]
 
         _barsLayer.zPosition = -1
-        _barsLayer.barWidth = 2
-        _barsLayer.spaceWidth = 2
         addSublayer(_barsLayer)
         
         _mousePositionLayer.backgroundColor = NSColor.gray.cgColor
@@ -250,8 +248,6 @@ class WaveformView: NSControl, CALayerDelegate {
     func _setup() {
         wantsLayer = true
         layer = WaveformLayer()
-        waveformLayer._barsLayer.barWidth = barWidth
-        waveformLayer._barsLayer.spaceWidth = spaceWidth
         
         let trackingArea = NSTrackingArea(rect: self.bounds,
                                           options: [.activeInActiveApp, .inVisibleRect, .assumeInside, .mouseEnteredAndExited, .mouseMoved],

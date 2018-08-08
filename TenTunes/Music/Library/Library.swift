@@ -151,6 +151,9 @@ class Library : NSPersistentContainer {
         if let playlist = playlist as? Playlist, path(of: whenChanging).contains(playlist) {
             return true
         }
+        if playlist is PlaylistSmart {
+            return true // TODO Only return true if actually affected (tags contain it or something)
+        }
         return playlist is PlaylistLibrary
     }
 

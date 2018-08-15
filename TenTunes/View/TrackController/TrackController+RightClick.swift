@@ -81,10 +81,6 @@ extension TrackController: NSMenuDelegate {
         }
     }
     
-    @IBAction func menuShowTrackInfo(_ sender: Any?) {
-        showTrackInfo(of: _tableView.clickedRows, nextTo: _tableView.rowView(atRow: _tableView.clickedRow, makeIfNecessary: false))
-    }
-    
     @IBAction func menuShowInPlaylist(_ sender: Any) {
         guard let item = sender as? NSMenuItem, let playlist = item.representedObject as? Playlist else {
             return

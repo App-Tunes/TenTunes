@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class FileTagEditor: NSWindowController {
+class FileTagEditor: NSViewController {
         
     var context: NSManagedObjectContext!
     @objc dynamic var tracks: [Track] = [] {
@@ -22,13 +22,14 @@ class FileTagEditor: NSWindowController {
     }
     @IBOutlet var tracksController: NSArrayController!
     
-    convenience init() {
-        self.init(windowNibName: .init("FileTagEditor"))
-        window!.level = .floating
-    }
+    var manyTracks: [Track] = []
     
-    override func windowDidLoad() {
-        super.windowDidLoad()
+    @IBOutlet var _contentView: NSView!
+    @IBOutlet var _manyPlaceholder: NSView!
+    @IBOutlet var _nonePlaceholder: NSView!
+    
+    override func viewDidLoad() {
+        showNone()
     }
     
     func show(tracks: [Track]) {
@@ -36,8 +37,17 @@ class FileTagEditor: NSWindowController {
         context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy // User is always right
         self.tracks = context.compactConvert(tracks)
         
-        showWindow(self)
-        window!.becomeKey()
+        view.setFullSizeContent(_contentView)
+    }
+    
+    func showNone() {
+        view.setFullSizeContent(_nonePlaceholder)
+    }
+    
+    func suggest(tracks: [Track]) {
+        manyTracks = tracks
+        
+        view.setFullSizeContent(_manyPlaceholder)
     }
     
     @IBAction func save(_ sender: Any) {
@@ -51,12 +61,13 @@ class FileTagEditor: NSWindowController {
         for track in tracks {
             track.writeMetadata()
         }
-        
-        window?.close()
     }
     
     @IBAction func cancel(_ sender: Any) {
-        window?.close()
+    }
+    
+    @IBAction func showSuggestedTracks(_ sender: Any) {
+        show(tracks: manyTracks)
     }
 }
 

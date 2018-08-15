@@ -28,43 +28,47 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let musicDir = FileManager.default.urls(for: .musicDirectory, in: .userDomainMask).first!
             return musicDir.appendingPathComponent("Ten Tunes")
         }
+        
+        var freedomToChoose = NSEvent.modifierFlags.contains(.option)
 
-        if NSEvent.modifierFlags.contains(.option) {
-            switch NSAlert.choose(title: "Choose Library", text: "Ten Tunes requires a library to run - this is where your data and music are stored. Please choose or create one.", actions: ["Choose Existing", "New Library", "Cancel", ]) {
-            case .alertSecondButtonReturn:
-                let dialog = NSSavePanel()
-                
-                dialog.runModal()
-                location = dialog.url
-                create = true
-            case .alertFirstButtonReturn:
-                let dialog = NSOpenPanel()
-                
-                dialog.canChooseFiles = false
-                dialog.canChooseDirectories = true
-                dialog.directoryURL = defaultURL()
-                
-                dialog.runModal()
-                location = dialog.url
-                create = false
-            default:
-                NSApp.terminate(self)
+        while persistentContainer == nil {
+            if freedomToChoose {
+                switch NSAlert.choose(title: "Choose Library", text: "Ten Tunes requires a library to run - this is where your data and music are stored. Please choose or create one.", actions: ["Choose Existing", "New Library", "Cancel", ]) {
+                case .alertSecondButtonReturn:
+                    let dialog = NSSavePanel()
+                    
+                    dialog.runModal()
+                    location = dialog.url
+                    create = true
+                case .alertFirstButtonReturn:
+                    let dialog = NSOpenPanel()
+                    
+                    dialog.canChooseFiles = false
+                    dialog.canChooseDirectories = true
+                    dialog.directoryURL = defaultURL()
+                    
+                    dialog.runModal()
+                    location = dialog.url
+                    create = false
+                default:
+                    NSApp.terminate(self)
+                }
             }
-        }
-        else {
-            location = defaultURL()
-        }
-        
-        guard location != nil else {
-            NSApp.terminate(self)
-            return
-        }
-        
-        persistentContainer = Library(name: "TenTunes", at: location, create: create)
-        
-        guard persistentContainer != nil else {
-            NSApp.terminate(withErrorTitle: "Failed to load library", message: "The library could not be read or created anew. Please use a different library location.")
-            return
+            else {
+                location = defaultURL()
+            }
+            
+            guard location != nil else {
+                NSApp.terminate(self)
+                return
+            }
+            
+            persistentContainer = Library(name: "TenTunes", at: location, create: create)
+            
+            if persistentContainer == nil {
+                NSAlert.informational(title: "Failed to load library", text: "The library could not be read or created anew. Please use a different library location.")
+                freedomToChoose = true
+            }
         }
         
         UserDefaults.standard.set(location, forKey: "libraryLocation")

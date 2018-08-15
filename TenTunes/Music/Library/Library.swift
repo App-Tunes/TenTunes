@@ -29,7 +29,9 @@ class Library : NSPersistentContainer {
 
         super.init(name: name, managedObjectModel: NSManagedObjectModel(contentsOf: Bundle.main.url(forResource: name, withExtension: "momd")!)!)
         
-        try! FileManager.default.createDirectory(at: libraryURL, withIntermediateDirectories: true, attributes: nil)
+        if (try? FileManager.default.createDirectory(at: libraryURL, withIntermediateDirectories: true, attributes: nil)) == nil {
+            return nil
+        }
         
         let description = NSPersistentStoreDescription(url: storeURL)
         description.shouldInferMappingModelAutomatically = true

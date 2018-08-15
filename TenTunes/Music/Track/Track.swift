@@ -128,4 +128,15 @@ public class Track: NSManagedObject {
     var searchable: [String] {
         return [rTitle, rAuthor, rAlbum]
     }
+    
+    var tags: Set<PlaylistManual> {
+        set {
+            containingPlaylists = newValue as NSSet
+        }
+        get {
+            // TODO Also consider smart playlists and folders?
+            let containing = containingPlaylists as! Set<PlaylistManual>
+            return containing.filter { Library.shared.isTag(playlist: $0) }
+        }
+    }
 }

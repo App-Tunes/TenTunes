@@ -155,6 +155,11 @@ class Library : NSPersistentContainer {
         return try! context.fetch(NSFetchRequest<Playlist>(entityName: "Playlist"))
     }
     
+    func allTags(in context: NSManagedObjectContext? = nil) -> [Playlist] {
+        // TODO Instead only use all children method of tagPlaylist
+        return allPlaylists(in: context).filter { self.isTag(playlist: $0) }
+    }
+    
     func isAffected(playlist: PlaylistProtocol, whenChanging: Playlist) -> Bool {
         if let playlist = playlist as? Playlist, path(of: whenChanging).contains(playlist) {
             return true
@@ -181,7 +186,7 @@ class Library : NSPersistentContainer {
     }
     
     func isTag(playlist: Playlist) -> Bool {
-        return path(of: playlist).contains(tagPlaylist) && playlist != tagPlaylist
+        return path(of: playlist).map { $0.objectID }.contains(tagPlaylist.objectID) && playlist.objectID != tagPlaylist.objectID
     }
     
     func playlists(containing track: Track) -> [PlaylistManual] {

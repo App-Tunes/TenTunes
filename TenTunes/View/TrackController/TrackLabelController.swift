@@ -62,12 +62,6 @@ class TrackLabelController : NSViewController, LabelFieldDelegate {
         }
     }
     
-    var tags: [Playlist] {
-        return Library.shared.allPlaylists().filter {
-            Library.shared.path(of: $0).contains(Library.shared.tagPlaylist) && $0 != Library.shared.tagPlaylist
-        }
-    }
-    
     func tokenField(_ tokenField: NSTokenField, completionGroupsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [LabelGroup]? {
         let compareSubstring = substring.lowercased()
         
@@ -113,7 +107,7 @@ class TrackLabelController : NSViewController, LabelFieldDelegate {
     }
     
     func playlistResults(search: String, tag: Bool) -> [TrackLabel.InPlaylist] {
-        let found = search.count > 0 ? (tag ? tags : playlists).filter({ $0.name.lowercased().range(of: search) != nil }) : playlists
+        let found = search.count > 0 ? (tag ? Library.shared.allTags() : playlists).filter({ $0.name.lowercased().range(of: search) != nil }) : playlists
         return TrackLabelController.sorted(labels: found.map({ TrackLabel.InPlaylist(playlist: $0, isTag: tag) }))
     }
     

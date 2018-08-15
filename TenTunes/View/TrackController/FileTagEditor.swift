@@ -34,17 +34,18 @@ class FileTagEditor: NSViewController {
         showNone()
     }
     
-    func findShares<T : Hashable>(in ts: [Set<T>]) -> (Bool, Set<T>) {
+    func findShares<T : Hashable>(in ts: [Set<T>]) -> (Set<T>, Set<T>) {
         guard !ts.isEmpty else {
-            return (false, Set())
+            return (Set(), Set())
         }
         
-        return ts.dropFirst().reduce((false, ts.first!)) { (acc, t) in
+        return ts.dropFirst().reduce((Set(), ts.first!)) { (acc, t) in
             var (omitted, shared) = acc
             
+            omitted = omitted.union(t.symmetricDifference(shared))
             shared = shared.intersection(t)
             
-            return (omitted || shared.count != t.count, shared)
+            return (omitted, shared)
         }
     }
     
@@ -54,7 +55,8 @@ class FileTagEditor: NSViewController {
         self.tracks = context.compactConvert(tracks)
         
         let (omittedTags, sharedTags) = findShares(in: self.tracks.map { $0.tags })
-        _tagEditor.objectValue = sharedTags.sorted { $0.name < $1.name }
+        _tagEditor.objectValue = (omittedTags.count > 0 ? [omittedTags] as [AnyObject] : [])
+            + (sharedTags.sorted { $0.name < $1.name } as [AnyObject])
         
         view.setFullSizeContent(_contentView)
     }
@@ -106,14 +108,15 @@ extension FileTagEditor : LabelFieldDelegate {
     }
     
     func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {
-        return (representedObject as? PlaylistManual)?.name
+        return (representedObject as? PlaylistManual)?.name ?? "<Multiple Values>"
     }
     
     func tokenFieldChangedLabels(_ tokenField: NSTokenField, labels: [Any]) {
-        let newTags = Set(labels as! [PlaylistManual])
+        let allowedOthers = labels.of(type: Set<PlaylistManual>.self).first ?? Set()
+        let newTags = Set(labels.of(type: PlaylistManual.self))
         
         for track in tracks where track.tags != newTags {
-            track.tags = newTags
+            track.tags = newTags.union(track.tags.intersection(allowedOthers))
         }
     }
     

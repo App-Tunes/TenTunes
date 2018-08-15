@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/lukas/XCode Projects/TenTunes/TenTunes/Music/Playlist/Manual/PlaylistSmart+CoreDataClass.swift">
-   </FileRef>
-   <FileRef
-      location = "group:/Users/lukas/XCode Projects/TenTunes/TenTunes/Music/Playlist/Manual/PlaylistSmart+CoreDataProperties.swift">
-   </FileRef>
-   <FileRef
       location = "group:TenTunes.xcodeproj">
    </FileRef>
    <FileRef

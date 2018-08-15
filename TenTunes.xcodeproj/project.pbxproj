@@ -35,6 +35,7 @@
 		8058FABC20432A730086FF8A /* MediaKeyTap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8058FABB20432A730086FF8A /* MediaKeyTap.framework */; };
 		8058FABE20432D3D0086FF8A /* MediaKeyTap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8058FABB20432A730086FF8A /* MediaKeyTap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8058FAC02043409F0086FF8A /* VibrantTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058FABF2043409F0086FF8A /* VibrantTableRowView.swift */; };
+		806611812124622100C3948E /* Library.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80D8A0FC212460BE003E1F11 /* Library.storyboard */; };
 		806AC1332040D7C700857B1B /* PlayHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AC1322040D7C700857B1B /* PlayHistory.swift */; };
 		806AC13A2041EDD900857B1B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806AC1392041EDD900857B1B /* AVFoundation.framework */; };
 		806AC13C2041EDE500857B1B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806AC13B2041EDE500857B1B /* CoreMedia.framework */; };
@@ -265,6 +266,7 @@
 		80CB65342052C9CC0031A6D7 /* CoreData+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreData+TT.swift"; sourceTree = "<group>"; };
 		80CED03B20C88055001E710F /* AVFoundation+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVFoundation+TT.swift"; sourceTree = "<group>"; };
 		80CFDA09203C4E2300C7A506 /* LazyVar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyVar.swift; sourceTree = "<group>"; };
+		80D8A0FC212460BE003E1F11 /* Library.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Library.storyboard; path = "/Users/lukas/XCode Projects/TenTunes/TenTunes/Library.storyboard"; sourceTree = "<absolute>"; };
 		80DCA9B0203F636900B1E9B1 /* TenTunes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TenTunes-Bridging-Header.h"; sourceTree = "<group>"; };
 		80DCA9B1203F636D00B1E9B1 /* TagLibImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagLibImporter.h; sourceTree = "<group>"; };
 		80DCA9B2203F636E00B1E9B1 /* TagLibImporter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TagLibImporter.mm; sourceTree = "<group>"; };
@@ -613,6 +615,7 @@
 				803717282043629700DB9EAA /* ViewController+Background.swift */,
 				801621322067B71B00093B15 /* ViewController+Updates.swift */,
 				80F2C5822038808000212739 /* Main.storyboard */,
+				80D8A0FC212460BE003E1F11 /* Library.storyboard */,
 				80CB65392052CB910031A6D7 /* Util */,
 				80CB65302052C9180031A6D7 /* Extensions */,
 				80F2C5802038808000212739 /* Assets.xcassets */,
@@ -760,6 +763,7 @@
 				8079F6DC2106745600B7A278 /* CartesianLabelController.xib in Resources */,
 				80074CFD204584980055B87E /* PlaylistController.xib in Resources */,
 				8030E01520FCBDAA006B4AE8 /* TaskViewController.xib in Resources */,
+				806611812124622100C3948E /* Library.storyboard in Resources */,
 				80074CF9204583CF0055B87E /* TrackController.xib in Resources */,
 				80F2C5842038808000212739 /* Main.storyboard in Resources */,
 			);

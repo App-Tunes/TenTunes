@@ -11,10 +11,15 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
+    var libraryWindowController: NSWindowController!
+    
     var preferencesController: PreferencesWindowController!
     var exportPlaylistsController: ExportPlaylistsController!
 
     func applicationWillFinishLaunching(_ notification: Notification) {
+        let libraryStoryboard = NSStoryboard(name: .init("Library"), bundle: nil)
+        libraryWindowController = libraryStoryboard.instantiateInitialController() as! NSWindowController
+        ViewController.shared.view.window!.makeKeyAndOrderFront(self)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

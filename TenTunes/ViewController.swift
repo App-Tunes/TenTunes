@@ -218,6 +218,9 @@ class ViewController: NSViewController {
             // Always jump 16 beats
             _waveformView.jumpSegment = (1 / (bpm / 60) * 16) / player.player.duration
         }
+        else {
+            _waveformView.jumpSegment = 0
+        }
     }
                 
     @IBAction func play(_ sender: Any) {

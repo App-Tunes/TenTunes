@@ -133,7 +133,7 @@
             </connections>
             <point key="canvasLocation" x="644" y="134"/>
         </menu>
-        <splitView vertical="YES" id="NYt-ks-eHN">
+        <splitView autosaveName="TrackDivider" vertical="YES" id="NYt-ks-eHN">
             <rect key="frame" x="0.0" y="0.0" width="769" height="360"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>

@@ -378,7 +378,7 @@ import AudioKitUI
 
 extension WaveformView {
     func setBy(player: AKPlayer) {
-        if player.audioFile != nil {
+        if player.audioFile != nil, let stamp = player.avAudioNode.lastRenderTime?.audioTimeStamp, stamp.mFlags.contains(.hostTimeValid) && stamp.mFlags.contains(.sampleTimeValid) {
             self.setBy(time: player.currentTime, max: player.duration)
         }
         else {

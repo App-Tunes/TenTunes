@@ -228,7 +228,12 @@ class Player {
     
     func setPosition(_ position: Double) {
         sanityCheck()
-        player.setPosition(position * player.duration)
+        
+        let time = position * player.duration
+        guard abs(time - player.currentTime) > 0.04 else {
+            return // Baaasically the same, so skip doing extra work
+        }
+        player.setPosition(time)
     }
     
     func pause() {

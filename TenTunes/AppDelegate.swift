@@ -21,6 +21,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         var create: Bool?
         
         let defaultURL = { () -> URL in
+            if let previous = UserDefaults.standard.url(forKey: "libraryLocation") {
+                return previous
+            }
+            
             let musicDir = FileManager.default.urls(for: .musicDirectory, in: .userDomainMask).first!
             return musicDir.appendingPathComponent("Ten Tunes")
         }
@@ -62,6 +66,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             NSApp.terminate(withErrorTitle: "Failed to load library", message: "The library could not be read or created anew. Please use a different library location.")
             return
         }
+        
+        UserDefaults.standard.set(location, forKey: "libraryLocation")
         
         let libraryStoryboard = NSStoryboard(name: .init("Library"), bundle: nil)
         libraryWindowController = libraryStoryboard.instantiateInitialController() as! NSWindowController

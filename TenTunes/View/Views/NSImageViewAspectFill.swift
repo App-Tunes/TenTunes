@@ -15,6 +15,8 @@ open class NSImageViewAspectFill : NSView {
         }
     }
     
+    var aspectFill = false
+    
     private func saveGState(drawStuff: (CGContext) -> ()) -> () {
         if let context = NSGraphicsContext.current?.cgContext {
             context.saveGState ()
@@ -28,6 +30,14 @@ open class NSImageViewAspectFill : NSView {
         
         if let image = image {
             saveGState { ctx in
+                guard aspectFill else {
+                    let blurred = image.resized(w: frame.size.width, h: frame.size.height)
+                        .blurred(radius: 50)
+                    blurred.draw(in: frame, from: NSZeroRect, operation: .sourceOver, fraction: 1)
+                    
+                    return
+                }
+                
                 let diff = frame.size.width / frame.size.height
                 let blurAmount = Double(min(20, max(image.size.width, image.size.height) / 8))
                 let blurred = image.blurred(radius: blurAmount)
@@ -35,6 +45,7 @@ open class NSImageViewAspectFill : NSView {
                 blurred.draw(in: frame, from: NSMakeRect(0, blurred.size.height / 2 - blurred.size.height / diff / 2, blurred.size.width, blurred.size.height / diff), operation: .sourceOver, fraction: 1)
             }
         }
+        
 
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         let gradient = CGGradient(colorsSpace: colorSpace, colors: [CGColor.clear, CGColor.black] as CFArray, locations: [0.8, 1])

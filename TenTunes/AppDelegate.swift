@@ -17,16 +17,46 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var exportPlaylistsController: ExportPlaylistsController!
 
     func applicationWillFinishLaunching(_ notification: Notification) {
-//        switch NSAlert.choose(title: "Choose Library", text: "Ten Tunes requires a library to run - this is where your data and music are stored. Please choose or create one.", actions: ["Choose Existing", "New Library", "Cancel", ]) {
-//        case .alertSecondButtonReturn:
-//            print("Create")
-//        case .alertFirstButtonReturn:
-//            print("Choose")
-//        default:
-//            NSApplication.shared.terminate(self)
-//        }
+        var location: URL!
+        var create: Bool?
         
-        persistentContainer = Library(name: "TenTunes", at: AppDelegate.dataLocation)
+        let defaultURL = { () -> URL in
+            let musicDir = FileManager.default.urls(for: .musicDirectory, in: .userDomainMask).first!
+            return musicDir.appendingPathComponent("Ten Tunes")
+        }
+
+        if NSEvent.modifierFlags.contains(.option) {
+            switch NSAlert.choose(title: "Choose Library", text: "Ten Tunes requires a library to run - this is where your data and music are stored. Please choose or create one.", actions: ["Choose Existing", "New Library", "Cancel", ]) {
+            case .alertSecondButtonReturn:
+                let dialog = NSSavePanel()
+                
+                dialog.runModal()
+                location = dialog.url
+                create = true
+            case .alertFirstButtonReturn:
+                let dialog = NSOpenPanel()
+                
+                dialog.canChooseFiles = false
+                dialog.canChooseDirectories = true
+                dialog.directoryURL = defaultURL()
+                
+                dialog.runModal()
+                location = dialog.url
+                create = false
+            default:
+                NSApp.terminate(self)
+            }
+        }
+        else {
+            location = defaultURL()
+        }
+        
+        guard location != nil else {
+            NSApp.terminate(self)
+            return
+        }
+        
+        persistentContainer = Library(name: "TenTunes", at: location, create: create)
         
         guard persistentContainer != nil else {
             NSApp.terminate(withErrorTitle: "Failed to load library", message: "The library could not be read or created anew. Please use a different library location.")
@@ -51,11 +81,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     // MARK: - Core Data stack
-    
-    static var dataLocation: URL {
-        let musicDir = FileManager.default.urls(for: .musicDirectory, in: .userDomainMask).first!
-        return musicDir.appendingPathComponent("Ten Tunes")
-    }
     
     var persistentContainer: Library!
     

@@ -36,4 +36,30 @@ extension NSAlert {
         
         return response == .alertFirstButtonReturn
     }
+    
+    static func choose(title: String, text: String, actions: [String]) -> NSApplication.ModalResponse {
+        guard actions.count < 4 else {
+            fatalError("Action count > 3")
+        }
+        
+        let alert = NSAlert()
+        alert.messageText = title
+        alert.informativeText = text
+        
+        for action in actions {
+            alert.addButton(withTitle: action)
+        }
+        
+        return alert.runModal()
+    }
+}
+
+extension NSApplication {
+    func terminate(withErrorTitle title: String, message: String) {
+        let alert = NSAlert()
+        alert.messageText = title
+        alert.informativeText = message
+        alert.runModal()
+        terminate(self)
+    }
 }

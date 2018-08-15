@@ -17,6 +17,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var exportPlaylistsController: ExportPlaylistsController!
 
     func applicationWillFinishLaunching(_ notification: Notification) {
+//        switch NSAlert.choose(title: "Choose Library", text: "Ten Tunes requires a library to run - this is where your data and music are stored. Please choose or create one.", actions: ["Choose Existing", "New Library", "Cancel", ]) {
+//        case .alertSecondButtonReturn:
+//            print("Create")
+//        case .alertFirstButtonReturn:
+//            print("Choose")
+//        default:
+//            NSApplication.shared.terminate(self)
+//        }
+        
+        persistentContainer = Library(name: "TenTunes", at: AppDelegate.dataLocation)
+        
+        guard persistentContainer != nil else {
+            NSApp.terminate(withErrorTitle: "Failed to load library", message: "The library could not be read or created anew. Please use a different library location.")
+            return
+        }
+        
         let libraryStoryboard = NSStoryboard(name: .init("Library"), bundle: nil)
         libraryWindowController = libraryStoryboard.instantiateInitialController() as! NSWindowController
         ViewController.shared.view.window!.makeKeyAndOrderFront(self)
@@ -41,21 +57,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return musicDir.appendingPathComponent("Ten Tunes")
     }
     
-    var _persistentContainer: Library?
-    var persistentContainer: Library {
-        if _persistentContainer == nil {
-            /*
-             The persistent container for the application. This implementation
-             creates and returns a container, having loaded the store for the
-             application to it. This property is optional since there are legitimate
-             error conditions that could cause the creation of the store to fail.
-             */
-            _persistentContainer = Library(name: "TenTunes", at: AppDelegate.dataLocation)
-        }
-        
-        return _persistentContainer!
-    }
-
+    var persistentContainer: Library!
+    
     // MARK: - Core Data Saving and Undo support
 
     // TODO Replace?? We auto-save normally.
@@ -83,6 +86,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+        guard ViewController.shared != nil else {
+            return .terminateNow // We aren't fully launched yet anyway! Who the fuck cares!
+        }
+        
         let tasksPreventingQuit = (ViewController.shared.tasker.queue + ViewController.shared.runningTasks).filter { $0.preventsQuit }
         
         // TODO Live update this

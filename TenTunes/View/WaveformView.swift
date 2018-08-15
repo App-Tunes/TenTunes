@@ -338,7 +338,7 @@ class WaveformView: NSControl, CALayerDelegate {
             return position
         }
         
-        guard jumpSegment > 0, let location = self.location else {
+        guard jumpSegment > 0, jumpSegment < 1, let location = self.location else {
             return position
         }
         

@@ -45,8 +45,9 @@ class TrackEditor: NSViewController {
     }
     
     func show(tracks: [Track]) {
-        context = Library.shared.newConcurrentContext()
-        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy // User is always right
+//        context = Library.shared.newConcurrentContext()
+//        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy // User is always right
+        context = Library.shared.viewContext
         self.tracks = context.compactConvert(tracks)
         
         for track in self.tracks {
@@ -71,7 +72,7 @@ class TrackEditor: NSViewController {
         view.setFullSizeContent(_manyPlaceholder)
     }
     
-    @IBAction func save(_ sender: Any) {
+    @IBAction func trackChanged(_ sender: Any) {
         for track in tracks {
             // Don't call the collection method since it auto-saves in the wrong context
             Library.shared.mediaLocation.updateLocation(of: track)
@@ -82,9 +83,6 @@ class TrackEditor: NSViewController {
         for track in tracks {
             track.writeMetadata()
         }
-    }
-    
-    @IBAction func cancel(_ sender: Any) {
     }
     
     @IBAction func showSuggestedTracks(_ sender: Any) {
@@ -127,6 +125,8 @@ extension TrackEditor: NSOutlineViewDelegate {
         case ColumnIdentifiers.value:
             if let view = outlineView.makeView(withIdentifier: CellIdentifiers.ValueCell, owner: nil) as? NSTableCellView {
                 view.textField?.bind(.value, to: tracksController, withKeyPath: "selection." + data.1, options: nil)
+                view.textField?.action = #selector(trackChanged(_:))
+                view.textField?.target = self
                 return view
             }
         default:

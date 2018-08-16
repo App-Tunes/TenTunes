@@ -11,15 +11,7 @@ import Cocoa
 class TrackEditor: NSViewController {
         
     var context: NSManagedObjectContext!
-    @objc dynamic var tracks: [Track] = [] {
-        didSet {
-            for track in tracks {
-                try! track.fetchMetadata()
-            }
-            
-            Library.shared.mediaLocation.updateLocations(of: tracks)
-        }
-    }
+    @objc dynamic var tracks: [Track] = []
     @IBOutlet var tracksController: NSArrayController!
     
     var manyTracks: [Track] = []
@@ -30,26 +22,12 @@ class TrackEditor: NSViewController {
     @IBOutlet var _errorTextField: NSTextField!
     
     @IBOutlet var _tagEditor: LabelTextField!
+    @IBOutlet var _editorOutline: NSOutlineView!
     
     override func viewDidLoad() {
         showError(text: "No Tracks Selected")
     }
-    
-    func findShares<T : Hashable>(in ts: [Set<T>]) -> (Set<T>, Set<T>) {
-        guard !ts.isEmpty else {
-            return (Set(), Set())
-        }
         
-        return ts.dropFirst().reduce((Set(), ts.first!)) { (acc, t) in
-            var (omitted, shared) = acc
-            
-            omitted = omitted.union(t.symmetricDifference(shared))
-            shared = shared.intersection(t)
-            
-            return (omitted, shared)
-        }
-    }
-    
     func present(tracks: [Track]) {
         if tracks.count == 0 {
             showError(text: "No Tracks Selected")
@@ -70,6 +48,10 @@ class TrackEditor: NSViewController {
         context = Library.shared.newConcurrentContext()
         context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy // User is always right
         self.tracks = context.compactConvert(tracks)
+        
+        for track in self.tracks {
+            try! track.fetchMetadata()
+        }
         
         let (omittedTags, sharedTags) = findShares(in: self.tracks.map { $0.tags })
         _tagEditor.objectValue = (omittedTags.count > 0 ? [omittedTags] as [AnyObject] : [])
@@ -110,69 +92,64 @@ class TrackEditor: NSViewController {
     }
 }
 
-extension TrackEditor : LabelFieldDelegate {
-    func tagResults(search: String, exact: Bool = false) -> [PlaylistManual] {
-        return Library.shared.allTags(in: context).of(type: PlaylistManual.self).filter { exact ? $0.name.lowercased() == search : $0.name.lowercased().range(of: search) != nil }
-            .sorted { (a, b) in a.name.count < b.name.count }
+extension TrackEditor: NSOutlineViewDelegate {
+    fileprivate enum CellIdentifiers {
+        static let NameCell = NSUserInterfaceItemIdentifier(rawValue: "nameCell")
+        static let ValueCell = NSUserInterfaceItemIdentifier(rawValue: "valueCell")
     }
     
-    func tokenField(_ tokenField: NSTokenField, completionGroupsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [LabelGroup]? {
-        let compareSubstring = substring.lowercased()
-        var groups: [LabelGroup] = []
+    fileprivate enum ColumnIdentifiers {
+        static let name = NSUserInterfaceItemIdentifier(rawValue: "nameColumn")
+        static let value = NSUserInterfaceItemIdentifier(rawValue: "valueColumn")
+    }
+
+    var data : [(String, String)] {
+        return [
+            ("Genre", "genre"),
+            ("BPM", "bpmString"),
+            ("Initial Key", "keyString"),
+        ]
+    }
+
+    func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
+        return data.count
+    }
+    
+    func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
+        let data = item as! (String, String)
         
-        groups.append(LabelGroup(title: "Tag", contents: tagResults(search: compareSubstring)))
-        
-        return groups
-    }
-    
-    func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {
-        return (representedObject as? PlaylistManual)?.name ?? "<Multiple Values>"
-    }
-    
-    func tokenFieldChangedLabels(_ tokenField: NSTokenField, labels: [Any]) {
-        let allowedOthers = labels.of(type: Set<PlaylistManual>.self).first ?? Set()
-        let newTags = Set(labels.of(type: PlaylistManual.self))
-        
-        for track in tracks where track.tags != newTags {
-            track.tags = newTags.union(track.tags.intersection(allowedOthers))
-        }
-    }
-    
-    override func controlTextDidChange(_ obj: Notification) {
-        // TODO Hack, let LabelTextField observe this instead
-        (obj.object as! LabelTextField).controlTextDidChange(obj)
-    }
-    
-    func tokenField(_ tokenField: NSTokenField, shouldAdd tokens: [Any], at index: Int) -> [Any] {
-        return tokens.compactMap {
-            guard let compareSubstring = ($0 as? String)?.lowercased() else {
-                return $0
+        switch tableColumn!.identifier {
+        case ColumnIdentifiers.name:
+            if let view = outlineView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? NSTableCellView {
+                view.textField?.stringValue = data.0
+                return view
             }
-            
-            if let match = tagResults(search: compareSubstring, exact: true).first {
-                return match
+        case ColumnIdentifiers.value:
+            if let view = outlineView.makeView(withIdentifier: CellIdentifiers.ValueCell, owner: nil) as? NSTableCellView {
+                view.textField?.bind(.value, to: tracksController, withKeyPath: "selection." + data.1, options: nil)
+                return view
             }
-            
-            // Must create a new one
-            // TODO
-            return nil
-        }
-    }
-    
-    func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
-        let labelField = control as! LabelTextField
-        
-        if commandSelector == #selector(NSResponder.insertNewlineIgnoringFieldEditor(_:)) {
-            // Use the first matching tag
-            let compareSubstring = labelField.editingString.lowercased()
-            
-            let applicable = tagResults(search: compareSubstring)
-            if let tag = applicable.first {
-                labelField.autocomplete(with: tag)
-                return true
-            }
+        default:
+            break
         }
         
+        return nil
+    }
+    
+    func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
+        return data[index]
+    }
+    
+    func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
         return false
     }
+    
+    // TODO With this active we can't edit the cells
+//    func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
+//        return false
+//    }
+}
+
+extension TrackEditor: NSOutlineViewDataSource {
+    
 }

@@ -36,6 +36,7 @@
 		8058FABE20432D3D0086FF8A /* MediaKeyTap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8058FABB20432A730086FF8A /* MediaKeyTap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8058FAC02043409F0086FF8A /* VibrantTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058FABF2043409F0086FF8A /* VibrantTableRowView.swift */; };
 		806611812124622100C3948E /* Library.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80D8A0FC212460BE003E1F11 /* Library.storyboard */; };
+		8066118A2125B9BF00C3948E /* TrackEditor+Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806611892125B9BF00C3948E /* TrackEditor+Tags.swift */; };
 		806AC1332040D7C700857B1B /* PlayHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AC1322040D7C700857B1B /* PlayHistory.swift */; };
 		806AC13A2041EDD900857B1B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806AC1392041EDD900857B1B /* AVFoundation.framework */; };
 		806AC13C2041EDE500857B1B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806AC13B2041EDE500857B1B /* CoreMedia.framework */; };
@@ -208,6 +209,7 @@
 		8058FAB2204317330086FF8A /* SuperpoweredResampler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SuperpoweredResampler.h; path = ../../../../SuperpoweredSDK/Superpowered/SuperpoweredResampler.h; sourceTree = "<group>"; };
 		8058FABB20432A730086FF8A /* MediaKeyTap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaKeyTap.framework; path = Carthage/Build/Mac/MediaKeyTap.framework; sourceTree = SOURCE_ROOT; };
 		8058FABF2043409F0086FF8A /* VibrantTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibrantTableRowView.swift; sourceTree = "<group>"; };
+		806611892125B9BF00C3948E /* TrackEditor+Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackEditor+Tags.swift"; sourceTree = "<group>"; };
 		806AC1322040D7C700857B1B /* PlayHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayHistory.swift; sourceTree = "<group>"; };
 		806AC1372041EC8400857B1B /* libSuperpoweredAudioOSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSuperpoweredAudioOSX.a; path = ../../../SuperpoweredSDK/Superpowered/libSuperpoweredAudioOSX.a; sourceTree = "<group>"; };
 		806AC1392041EDD900857B1B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -638,6 +640,7 @@
 				80B68BA82101255D00A32E3D /* TrackController+Labels.swift */,
 				80074CF7204583CF0055B87E /* TrackController.xib */,
 				80F8F6F12053EA2C004A07D6 /* TrackEditor.swift */,
+				806611892125B9BF00C3948E /* TrackEditor+Tags.swift */,
 				80F8F6F22053EA2C004A07D6 /* TrackEditor.xib */,
 				8079F6D12106551100B7A278 /* TrackLabelController.swift */,
 				8079F6D22106551100B7A278 /* TrackLabelController.xib */,
@@ -901,6 +904,7 @@
 				80F854FF2069180A009A8FBE /* TrackController+RightClick.swift in Sources */,
 				808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */,
 				8079F6EC211B87A700B7A278 /* SpinningButton.swift in Sources */,
+				8066118A2125B9BF00C3948E /* TrackEditor+Tags.swift in Sources */,
 				801621332067B71B00093B15 /* ViewController+Updates.swift in Sources */,
 				806C5B2620423AC000C34F49 /* SPInterpreter.swift in Sources */,
 				80B764562072F38D003BD7F8 /* PlaylistEmpty.swift in Sources */,

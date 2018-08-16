@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="FileTagEditor" customModule="TenTunes" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="TrackEditor" customModule="TenTunes" customModuleProvider="target">
             <connections>
                 <outlet property="_contentView" destination="5cZ-qZ-0Fp" id="hy0-f2-lt4"/>
                 <outlet property="_manyPlaceholder" destination="bcN-Vx-zMm" id="u2Q-cj-MOh"/>

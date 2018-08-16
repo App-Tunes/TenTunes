@@ -54,7 +54,7 @@ class TrackController: NSViewController {
     @IBOutlet var _playlistTitle: NSTextField!
     @IBOutlet var _playlistInfoBarHeight: NSLayoutConstraint!
     
-    var infoEditor : FileTagEditor!
+    var trackEditor : TrackEditor!
     
     @IBOutlet weak var _sortLabel: NSTextField!
     @IBOutlet weak var _sortBar: NSView!
@@ -124,8 +124,8 @@ class TrackController: NSViewController {
             }, completionHandler: nil)
         }
 
-        infoEditor = FileTagEditor()
-        _trackEditorView.superview?.replaceSubview(_trackEditorView, with: infoEditor.view)
+        trackEditor = TrackEditor()
+        _trackEditorView.superview?.replaceSubview(_trackEditorView, with: trackEditor.view)
         
         _tableView.enterAction = #selector(enterAction(_:))
         _tableView.registerForDraggedTypes(pasteboardTypes)
@@ -176,7 +176,7 @@ class TrackController: NSViewController {
         
         _tableView.headerView = nil
         _tableView.usesAlternatingRowBackgroundColors = false  // TODO In NSPanels, this is solid while everything else isn't
-        infoEditor.view.removeFromSuperview()
+        trackEditor.view.removeFromSuperview()
         
         playTrackNext = { [unowned self] in
             let tracksBefore = self.history.tracks
@@ -196,7 +196,7 @@ class TrackController: NSViewController {
         queueify()
         mode = .title
         
-        infoEditor.view.removeFromSuperview()
+        trackEditor.view.removeFromSuperview()
         
         _playlistInfoBarHeight.constant = 0
         _tableViewHeight.constant = 0
@@ -378,13 +378,13 @@ extension TrackController: NSTableViewDelegate {
     }
     
     @IBAction func showInfo(_ sender: Any?) {
-        let split = infoEditor.view.superview as! NSSplitView
+        let split = trackEditor.view.superview as! NSSplitView
         
-        if split.isSubviewCollapsed(infoEditor.view) {
-            infoEditor.view.isHidden = false
+        if split.isSubviewCollapsed(trackEditor.view) {
+            trackEditor.view.isHidden = false
         }
         else {
-            infoEditor.view.isHidden = true
+            trackEditor.view.isHidden = true
         }
     }
     
@@ -430,13 +430,13 @@ extension TrackController: NSTableViewDelegate {
         let tracks = indices.map { history.track(at: $0)! }
         
         if tracks.count == 0 {
-            infoEditor.showNone()
+            trackEditor.showNone()
         }
         else if tracks.count < 2 {
-            infoEditor.show(tracks: tracks)
+            trackEditor.show(tracks: tracks)
         }
         else {
-            infoEditor.suggest(tracks: tracks)
+            trackEditor.suggest(tracks: tracks)
         }
     }
 }
@@ -469,6 +469,6 @@ extension TrackController : HideableBarDelegate {
 
 extension TrackController : NSSplitViewDelegate {
     func splitView(_ splitView: NSSplitView, canCollapseSubview subview: NSView) -> Bool {
-        return subview == infoEditor.view
+        return subview == trackEditor.view
     }
 }

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class FileTagEditor: NSViewController {
+class TrackEditor: NSViewController {
         
     var context: NSManagedObjectContext!
     @objc dynamic var tracks: [Track] = [] {
@@ -92,7 +92,7 @@ class FileTagEditor: NSViewController {
     }
 }
 
-extension FileTagEditor : LabelFieldDelegate {
+extension TrackEditor : LabelFieldDelegate {
     func tagResults(search: String, exact: Bool = false) -> [PlaylistManual] {
         return Library.shared.allTags(in: context).of(type: PlaylistManual.self).filter { exact ? $0.name.lowercased() == search : $0.name.lowercased().range(of: search) != nil }
             .sorted { (a, b) in a.name.count < b.name.count }

@@ -119,8 +119,8 @@
 		80F855012069183E009A8FBE /* TrackController+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F855002069183E009A8FBE /* TrackController+Menu.swift */; };
 		80F855042069187D009A8FBE /* PlaylistController+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F855032069187D009A8FBE /* PlaylistController+Menu.swift */; };
 		80F8550620691897009A8FBE /* PlaylistController+RightClick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F8550520691897009A8FBE /* PlaylistController+RightClick.swift */; };
-		80F8F6F32053EA2C004A07D6 /* FileTagEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F8F6F12053EA2C004A07D6 /* FileTagEditor.swift */; };
-		80F8F6F42053EA2C004A07D6 /* FileTagEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80F8F6F22053EA2C004A07D6 /* FileTagEditor.xib */; };
+		80F8F6F32053EA2C004A07D6 /* TrackEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F8F6F12053EA2C004A07D6 /* TrackEditor.swift */; };
+		80F8F6F42053EA2C004A07D6 /* TrackEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80F8F6F22053EA2C004A07D6 /* TrackEditor.xib */; };
 		80F97030209625E800A989D8 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F9702E209625E800A989D8 /* PreferencesWindowController.swift */; };
 		80F97031209625E800A989D8 /* PreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80F9702F209625E800A989D8 /* PreferencesWindowController.xib */; };
 		80F9703320962EA200A989D8 /* PopupEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F9703220962EA200A989D8 /* PopupEnum.swift */; };
@@ -300,8 +300,8 @@
 		80F855002069183E009A8FBE /* TrackController+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackController+Menu.swift"; sourceTree = "<group>"; };
 		80F855032069187D009A8FBE /* PlaylistController+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistController+Menu.swift"; sourceTree = "<group>"; };
 		80F8550520691897009A8FBE /* PlaylistController+RightClick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistController+RightClick.swift"; sourceTree = "<group>"; };
-		80F8F6F12053EA2C004A07D6 /* FileTagEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTagEditor.swift; sourceTree = "<group>"; };
-		80F8F6F22053EA2C004A07D6 /* FileTagEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileTagEditor.xib; sourceTree = "<group>"; };
+		80F8F6F12053EA2C004A07D6 /* TrackEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackEditor.swift; sourceTree = "<group>"; };
+		80F8F6F22053EA2C004A07D6 /* TrackEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackEditor.xib; sourceTree = "<group>"; };
 		80F9702E209625E800A989D8 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
 		80F9702F209625E800A989D8 /* PreferencesWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferencesWindowController.xib; sourceTree = "<group>"; };
 		80F9703220962EA200A989D8 /* PopupEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupEnum.swift; sourceTree = "<group>"; };
@@ -637,8 +637,8 @@
 				80F855002069183E009A8FBE /* TrackController+Menu.swift */,
 				80B68BA82101255D00A32E3D /* TrackController+Labels.swift */,
 				80074CF7204583CF0055B87E /* TrackController.xib */,
-				80F8F6F12053EA2C004A07D6 /* FileTagEditor.swift */,
-				80F8F6F22053EA2C004A07D6 /* FileTagEditor.xib */,
+				80F8F6F12053EA2C004A07D6 /* TrackEditor.swift */,
+				80F8F6F22053EA2C004A07D6 /* TrackEditor.xib */,
 				8079F6D12106551100B7A278 /* TrackLabelController.swift */,
 				8079F6D22106551100B7A278 /* TrackLabelController.xib */,
 				8079F6D92106745600B7A278 /* CartesianLabelController.swift */,
@@ -754,7 +754,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8079F6D42106551100B7A278 /* TrackLabelController.xib in Resources */,
-				80F8F6F42053EA2C004A07D6 /* FileTagEditor.xib in Resources */,
+				80F8F6F42053EA2C004A07D6 /* TrackEditor.xib in Resources */,
 				807092EC20C69D8F00DFED53 /* ExportPlaylistsController.xib in Resources */,
 				8079F6D82106661A00B7A278 /* HideableBar.xib in Resources */,
 				80F97031209625E800A989D8 /* PreferencesWindowController.xib in Resources */,
@@ -913,7 +913,7 @@
 				807E289E2101291B0080F332 /* PlaylistRules.swift in Sources */,
 				8087A406206D933F003F1821 /* Analysis.swift in Sources */,
 				80E4F9CE20A0DD7E0014532E /* Library+iTunes.swift in Sources */,
-				80F8F6F32053EA2C004A07D6 /* FileTagEditor.swift in Sources */,
+				80F8F6F32053EA2C004A07D6 /* TrackEditor.swift in Sources */,
 				803717292043629800DB9EAA /* ViewController+Background.swift in Sources */,
 				806EFC27204B65C10079DBAA /* PlaylistProtocol.swift in Sources */,
 				80CB65332052C9530031A6D7 /* Cocoa+TT.swift in Sources */,

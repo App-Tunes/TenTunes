@@ -53,7 +53,7 @@ extension TrackEditor : LabelFieldDelegate {
     
     override func controlTextDidChange(_ obj: Notification) {
         // TODO Hack, let LabelTextField observe this instead
-        (obj.object as! LabelTextField).controlTextDidChange(obj)
+        (obj.object as? LabelTextField)?.controlTextDidChange(obj)
     }
     
     func tokenField(_ tokenField: NSTokenField, shouldAdd tokens: [Any], at index: Int) -> [Any] {
@@ -73,7 +73,9 @@ extension TrackEditor : LabelFieldDelegate {
     }
     
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
-        let labelField = control as! LabelTextField
+        guard let labelField = control as? LabelTextField else {
+            return false
+        }
         
         if commandSelector == #selector(NSResponder.insertNewlineIgnoringFieldEditor(_:)) {
             // Use the first matching tag

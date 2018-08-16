@@ -155,3 +155,4 @@ extension TrackEditor: NSOutlineViewDelegate {
 extension TrackEditor: NSOutlineViewDataSource {
     
 }
+

@@ -172,19 +172,11 @@ inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFram
     if (!f.isNull()) {
         TagLib::Tag *tag = f.tag();
         
-        if (_title != nil) {
-            tag->setTitle(TagLibStringFromNS(_title));
-        }
-        if (_artist != nil) {
-            tag->setArtist(TagLibStringFromNS(_artist));
-        }
-        if (_album != nil) {
-            tag->setAlbum(TagLibStringFromNS(_album));
-        }
-        if (_genre != nil) {
-            tag->setGenre(TagLibStringFromNS(_genre));
-        }
-        
+        tag->setTitle(TagLibStringFromNS(_title));
+        tag->setArtist(TagLibStringFromNS(_artist));
+        tag->setAlbum(TagLibStringFromNS(_album));
+        tag->setGenre(TagLibStringFromNS(_genre));
+
         // TODO Insert an id3 tag if none is there yet
         if (TagLib::MPEG::File *file = dynamic_cast<TagLib::MPEG::File *>(f.file())) {
             if (file->hasID3v2Tag()) {
@@ -214,23 +206,21 @@ inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFram
 
 +(void)replaceFrame:(TagLib::ID3v2::Tag *) tag name:(NSString *)name text:(NSString *)text {
     TagLib::String tName = TagLibStringFromNS(name);
-    TagLib::String tText = TagLibStringFromNS(text);
 
     // Remove existing
     tag->removeFrames(name.UTF8String);
     
     // Add new
-    tag->addFrame(TagLib::ID3v2::Frame::createTextualFrame(tName, tText));
+    if (text != nil) {
+        TagLib::String tText = TagLibStringFromNS(text);
+        tag->addFrame(TagLib::ID3v2::Frame::createTextualFrame(tName, tText));
+    }
 }
 
+
 -(void)writeID3v2:(TagLib::ID3v2::Tag *)tag {
-    if (_initialKey != nil) {
-        [TagLibImporter replaceFrame:tag name:AVMetadataID3MetadataKeyInitialKey text:_initialKey];
-    }
-    
-    if (_bpm != nil) {
-        [TagLibImporter replaceFrame:tag name:AVMetadataID3MetadataKeyBeatsPerMinute text:_bpm];
-    }
+    [TagLibImporter replaceFrame:tag name:AVMetadataID3MetadataKeyInitialKey text:_initialKey];
+    [TagLibImporter replaceFrame:tag name:AVMetadataID3MetadataKeyBeatsPerMinute text:_bpm];
 }
 
 @end

@@ -9,8 +9,9 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TrackEditor" customModule="TenTunes" customModuleProvider="target">
             <connections>
                 <outlet property="_contentView" destination="5cZ-qZ-0Fp" id="hy0-f2-lt4"/>
+                <outlet property="_errorPlaceholder" destination="cZt-hQ-cEw" id="KId-Ow-s0c"/>
+                <outlet property="_errorTextField" destination="07g-9B-cnI" id="lAb-lS-Evc"/>
                 <outlet property="_manyPlaceholder" destination="bcN-Vx-zMm" id="u2Q-cj-MOh"/>
-                <outlet property="_nonePlaceholder" destination="cZt-hQ-cEw" id="Dcu-vj-Qdd"/>
                 <outlet property="_tagEditor" destination="sd5-co-dPb" id="cyT-3j-IVC"/>
                 <outlet property="tracksController" destination="i0G-Xb-2QU" id="8Xv-73-EVI"/>
                 <outlet property="view" destination="NQ7-v6-GOZ" id="BEZ-u6-4AC"/>

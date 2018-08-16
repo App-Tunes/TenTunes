@@ -427,17 +427,8 @@ extension TrackController: NSTableViewDelegate {
     func tableViewSelectionDidChange(_ notification: Notification) {
         let indices = Array(_tableView.selectedRowIndexes)
         
-        let tracks = indices.map { history.track(at: $0)! }
-        
-        if tracks.count == 0 {
-            trackEditor.showNone()
-        }
-        else if tracks.count < 2 {
-            trackEditor.show(tracks: tracks)
-        }
-        else {
-            trackEditor.suggest(tracks: tracks)
-        }
+        let tracks = indices.map { history.track(at: $0)! }        
+        trackEditor.present(tracks: tracks)
     }
 }
 

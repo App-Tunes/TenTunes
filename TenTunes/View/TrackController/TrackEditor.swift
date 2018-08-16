@@ -26,12 +26,13 @@ class TrackEditor: NSViewController {
     
     @IBOutlet var _contentView: NSView!
     @IBOutlet var _manyPlaceholder: NSView!
-    @IBOutlet var _nonePlaceholder: NSView!
+    @IBOutlet var _errorPlaceholder: NSView!
+    @IBOutlet var _errorTextField: NSTextField!
     
     @IBOutlet var _tagEditor: LabelTextField!
     
     override func viewDidLoad() {
-        showNone()
+        showError(text: "No Tracks Selected")
     }
     
     func findShares<T : Hashable>(in ts: [Set<T>]) -> (Set<T>, Set<T>) {
@@ -49,6 +50,21 @@ class TrackEditor: NSViewController {
         }
     }
     
+    func present(tracks: [Track]) {
+        if tracks.count == 0 {
+            showError(text: "No Tracks Selected")
+        }
+        else if tracks.contains(where: { $0.url == nil }) {
+            showError(text: "Tracks Not Found")
+        }
+        else if tracks.count < 2 {
+            show(tracks: tracks)
+        }
+        else {
+            suggest(tracks: tracks)
+        }
+    }
+    
     func show(tracks: [Track]) {
         context = Library.shared.newConcurrentContext()
         context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy // User is always right
@@ -61,8 +77,9 @@ class TrackEditor: NSViewController {
         view.setFullSizeContent(_contentView)
     }
     
-    func showNone() {
-        view.setFullSizeContent(_nonePlaceholder)
+    func showError(text: String) {
+        _errorTextField.stringValue = text
+        view.setFullSizeContent(_errorPlaceholder)
     }
     
     func suggest(tracks: [Track]) {

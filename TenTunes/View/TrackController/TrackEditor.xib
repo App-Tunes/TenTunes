@@ -52,11 +52,12 @@
                             </textFieldCell>
                             <connections>
                                 <action selector="trackChanged:" target="-2" id="Jb7-TC-z7l"/>
-                                <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.title" id="VW1-4h-eVG">
+                                <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.title" id="sxN-co-DsE">
                                     <dictionary key="options">
                                         <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                         <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                         <string key="NSMultipleValuesPlaceholder">Multiple Values</string>
+                                        <string key="NSNullPlaceholder">Title</string>
                                     </dictionary>
                                 </binding>
                             </connections>
@@ -70,10 +71,11 @@
                             </textFieldCell>
                             <connections>
                                 <action selector="trackChanged:" target="-2" id="x0i-vb-bPA"/>
-                                <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.author" id="vgM-Q3-6Zj">
+                                <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.author" id="qbs-R2-chO">
                                     <dictionary key="options">
                                         <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                         <string key="NSMultipleValuesPlaceholder">Multiple Values</string>
+                                        <string key="NSNullPlaceholder">Author</string>
                                     </dictionary>
                                 </binding>
                             </connections>
@@ -87,10 +89,11 @@
                             </textFieldCell>
                             <connections>
                                 <action selector="trackChanged:" target="-2" id="93r-Ge-tVt"/>
-                                <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.album" id="cfo-Ee-0xo">
+                                <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.album" id="e0k-2b-SSt">
                                     <dictionary key="options">
                                         <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                         <string key="NSMultipleValuesPlaceholder">Multiple Values</string>
+                                        <string key="NSNullPlaceholder">Album</string>
                                     </dictionary>
                                 </binding>
                             </connections>
@@ -125,13 +128,13 @@
                             </connections>
                         </tokenField>
                         <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4S-uV-C4C">
-                            <rect key="frame" x="8" y="8" width="247" height="214"/>
+                            <rect key="frame" x="0.0" y="8" width="263" height="214"/>
                             <clipView key="contentView" drawsBackground="NO" id="flI-e3-PP9">
-                                <rect key="frame" x="0.0" y="0.0" width="247" height="214"/>
+                                <rect key="frame" x="0.0" y="0.0" width="263" height="214"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="3Ae-Tm-QZb" id="RRs-pC-UFg">
-                                        <rect key="frame" x="0.0" y="0.0" width="247" height="214"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="263" height="214"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <size key="intercellSpacing" width="3" height="2"/>
                                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -157,8 +160,8 @@
                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rdZ-7T-bTY">
                                                                 <rect key="frame" x="0.0" y="0.0" width="99" height="17"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="gcX-C5-qIb">
-                                                                    <font key="font" metaFont="system"/>
+                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell" id="gcX-C5-qIb">
+                                                                    <font key="font" metaFont="systemBold"/>
                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
@@ -170,7 +173,7 @@
                                                     </tableCellView>
                                                 </prototypeCellViews>
                                             </tableColumn>
-                                            <tableColumn identifier="valueColumn" width="142" minWidth="40" maxWidth="1000" id="yIt-4y-iCx">
+                                            <tableColumn identifier="valueColumn" width="158" minWidth="40" maxWidth="1000" id="yIt-4y-iCx">
                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                     <font key="font" metaFont="smallSystem"/>
                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -184,11 +187,11 @@
                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 <prototypeCellViews>
                                                     <tableCellView identifier="valueCell" id="cXV-Tj-Tt3">
-                                                        <rect key="frame" x="103" y="1" width="142" height="17"/>
+                                                        <rect key="frame" x="103" y="1" width="158" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lpl-eK-fVf">
-                                                                <rect key="frame" x="0.0" y="0.0" width="142" height="17"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="158" height="17"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="T1l-1y-gqG">
                                                                     <font key="font" metaFont="system"/>
@@ -225,13 +228,13 @@
                         <constraint firstItem="Mfs-pi-vdb" firstAttribute="leading" secondItem="GGH-Dw-GOG" secondAttribute="trailing" constant="8" id="2xg-9K-hkn"/>
                         <constraint firstItem="GGH-Dw-GOG" firstAttribute="top" secondItem="fry-a8-cnm" secondAttribute="top" constant="8" id="7Qo-Bg-JAo"/>
                         <constraint firstAttribute="trailing" secondItem="IxQ-nY-WjC" secondAttribute="trailing" constant="8" id="AIm-mY-1Db"/>
-                        <constraint firstItem="u4S-uV-C4C" firstAttribute="leading" secondItem="fry-a8-cnm" secondAttribute="leading" constant="8" id="CtK-Kb-pLE"/>
+                        <constraint firstItem="u4S-uV-C4C" firstAttribute="leading" secondItem="fry-a8-cnm" secondAttribute="leading" id="CtK-Kb-pLE"/>
                         <constraint firstItem="rAj-i8-zh5" firstAttribute="leading" secondItem="fry-a8-cnm" secondAttribute="leading" constant="10" id="Gne-A4-MIr"/>
                         <constraint firstAttribute="trailing" secondItem="rAj-i8-zh5" secondAttribute="trailing" constant="10" id="HdL-c8-gmk"/>
                         <constraint firstItem="vc8-yo-YBx" firstAttribute="leading" secondItem="GGH-Dw-GOG" secondAttribute="trailing" constant="8" id="IHI-0p-wM0"/>
                         <constraint firstAttribute="trailing" secondItem="sd5-co-dPb" secondAttribute="trailing" constant="10" id="LZd-1G-lu7"/>
                         <constraint firstItem="GGH-Dw-GOG" firstAttribute="leading" secondItem="fry-a8-cnm" secondAttribute="leading" constant="8" id="MVL-kY-oMU"/>
-                        <constraint firstAttribute="trailing" secondItem="u4S-uV-C4C" secondAttribute="trailing" constant="8" id="STt-Hn-faS"/>
+                        <constraint firstAttribute="trailing" secondItem="u4S-uV-C4C" secondAttribute="trailing" id="STt-Hn-faS"/>
                         <constraint firstItem="Mfs-pi-vdb" firstAttribute="top" secondItem="IxQ-nY-WjC" secondAttribute="bottom" constant="8" id="V0g-Nb-dJ6"/>
                         <constraint firstItem="IxQ-nY-WjC" firstAttribute="leading" secondItem="GGH-Dw-GOG" secondAttribute="trailing" constant="8" id="YAI-O5-i5o"/>
                         <constraint firstItem="sd5-co-dPb" firstAttribute="top" secondItem="rAj-i8-zh5" secondAttribute="bottom" constant="8" id="bAU-pL-QZy"/>

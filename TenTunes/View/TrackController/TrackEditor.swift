@@ -50,6 +50,8 @@ class TrackEditor: NSViewController {
         context = Library.shared.viewContext
         self.tracks = context.compactConvert(tracks)
         
+        _editorOutline.deselectAll(self) // Hack because selection looks shit but we need it for now
+        
         for track in self.tracks {
             try! track.fetchMetadata()
         }

@@ -55,6 +55,7 @@ class TrackEditor: NSViewController {
             showError(text: "No Tracks Selected")
         }
         else if tracks.contains(where: { $0.url == nil }) {
+            // TODO Show what we know but don't make it editable
             showError(text: "Tracks Not Found")
         }
         else if tracks.count < 2 {

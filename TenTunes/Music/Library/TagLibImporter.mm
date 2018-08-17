@@ -108,8 +108,8 @@ inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFram
         [self setArtist: TagLibStringToNS(tag->artist())];
         [self setAlbum: TagLibStringToNS(tag->album())];
         [self setGenre: TagLibStringToNS(tag->genre())];
+        [self setYear: tag->year()];
         // Comment
-        // Year
         // Tracknumber
 
         if (TagLib::MPEG::File *file = dynamic_cast<TagLib::MPEG::File *>(f.file())) {
@@ -176,6 +176,7 @@ inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFram
         tag->setArtist(TagLibStringFromNS(_artist));
         tag->setAlbum(TagLibStringFromNS(_album));
         tag->setGenre(TagLibStringFromNS(_genre));
+        tag->setYear(_year);
 
         // TODO Insert an id3 tag if none is there yet
         if (TagLib::MPEG::File *file = dynamic_cast<TagLib::MPEG::File *>(f.file())) {

@@ -33,6 +33,7 @@ extension Track {
         var key: Key? = nil
         var bpm: Double? = nil
         var artwork: NSImage? = nil
+        var year: Int16? = nil
         
         // TODO Duration
         
@@ -49,6 +50,8 @@ extension Track {
             
             key = Key.parse(importer.initialKey ?? "")
             bpm = Double(importer.bpm ?? "")
+            
+            year = importer.year > 0 ? importer.year : nil
         }
         catch let error {
             print(error)
@@ -76,7 +79,7 @@ extension Track {
         artwork = artwork ?? avImporter.image(withKey: .iTunesMetadataKeyCoverArt, keySpace: .iTunes)
         
         bpm = bpm ?? Double(avImporter.string(withKey: .iTunesMetadataKeyBeatsPerMin, keySpace: .iTunes) ?? "")
-        
+
         // For videos, generate thumbnails
         if artwork == nil {
             let imgGenerator = AVAssetImageGenerator(asset: AVURLAsset(url: url))
@@ -110,6 +113,7 @@ extension Track {
         self.key = key ?? self.key
         self.bpm = bpm ?? self.bpm
         self.artwork = artwork ?? self.artwork
+        self.year = year ?? self.year
         
         if let artwork = artwork {
             self.artworkPreview = artwork.resized(w: 64, h: 64)
@@ -133,7 +137,8 @@ extension Track {
             
             importer.initialKey = keyString
             importer.bpm = bpmString
-            
+            importer.year = year
+
             try importer.write()
             // TODO Artwork
         }

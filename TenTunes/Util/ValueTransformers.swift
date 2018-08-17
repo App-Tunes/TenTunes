@@ -19,6 +19,26 @@ class ValueTransformers {
                                                   there: { $0?.tiffRepresentation as NSData? },
                                                   back: { $0 != nil ? NSImage(data: $0! as Data) : nil }
         )
+
+        SimpleTransformer<NSString, NSNumber>.simple("IntString",
+                                                     there: { ($0 ?=> String.init) ?=> NSString.init },
+                                                     back: { (($0 ?=> String.init) ?=> Int.init) ?=> NSNumber.init }
+        )
+        
+        SimpleTransformer<NSString, NSNumber>.simple("IntStringNullable",
+                                                     there: {
+                                                        guard $0?.intValue != 0 else {
+                                                            return nil
+                                                        }
+                                                        return ($0 ?=> String.init) ?=> NSString.init
+        },
+                                                     back: {
+                                                        guard ($0?.length ?? 1) > 0 else {
+                                                            return NSNumber(value: 0)
+                                                        }
+                                                        
+                                                        return (($0 ?=> String.init) ?=> Int.init) ?=> NSNumber.init
+        })
         
         DoubleTransformer.double("Pow2Transformer", there: curry(pow)(2), back: log2)
     }

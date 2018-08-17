@@ -102,12 +102,15 @@ extension TrackEditor: NSOutlineViewDelegate {
         static let name = NSUserInterfaceItemIdentifier(rawValue: "nameColumn")
         static let value = NSUserInterfaceItemIdentifier(rawValue: "valueColumn")
     }
-
-    var data : [(String, String)] {
+    
+    typealias EditData = (String, String, [NSBindingOption: Any]?)
+    
+    var data : [EditData] {
         return [
-            ("Genre", "genre"),
-            ("BPM", "bpmString"),
-            ("Initial Key", "keyString"),
+            ("Genre", "genre", nil),
+            ("BPM", "bpmString", nil),
+            ("Initial Key", "keyString", nil),
+            ("Year", "year", [.valueTransformerName: "IntStringNullable"]),
         ]
     }
 
@@ -116,7 +119,7 @@ extension TrackEditor: NSOutlineViewDelegate {
     }
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
-        let data = item as! (String, String)
+        let data = item as! EditData
         
         switch tableColumn!.identifier {
         case ColumnIdentifiers.name:
@@ -126,7 +129,7 @@ extension TrackEditor: NSOutlineViewDelegate {
             }
         case ColumnIdentifiers.value:
             if let view = outlineView.makeView(withIdentifier: CellIdentifiers.ValueCell, owner: nil) as? NSTableCellView {
-                view.textField?.bind(.value, to: tracksController, withKeyPath: "selection." + data.1, options: nil)
+                view.textField?.bind(.value, to: tracksController, withKeyPath: "selection." + data.1, options: data.2)
                 view.textField?.action = #selector(trackChanged(_:))
                 view.textField?.target = self
                 return view

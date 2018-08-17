@@ -28,4 +28,6 @@
 @property(nullable) NSString *initialKey;
 @property(nullable) NSString *bpm;
 
+@property short year;
+
 @end

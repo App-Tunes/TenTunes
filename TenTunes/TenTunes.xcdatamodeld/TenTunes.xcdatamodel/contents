@@ -37,6 +37,7 @@
         <attribute name="path" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="usesMediaDirectory" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="year" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="containingPlaylists" toMany="YES" deletionRule="Nullify" destinationEntity="PlaylistManual" inverseName="tracks" inverseEntity="PlaylistManual" syncable="YES"/>
     </entity>
     <elements>
@@ -45,6 +46,6 @@
         <element name="PlaylistFolder" positionX="-218" positionY="171" width="128" height="60"/>
         <element name="PlaylistManual" positionX="-218" positionY="252" width="128" height="58"/>
         <element name="PlaylistSmart" positionX="-216" positionY="108" width="128" height="60"/>
-        <element name="Track" positionX="-414" positionY="261" width="128" height="315"/>
+        <element name="Track" positionX="-414" positionY="261" width="128" height="330"/>
     </elements>
 </model>

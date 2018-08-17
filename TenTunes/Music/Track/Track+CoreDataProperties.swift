@@ -36,6 +36,7 @@ extension Track {
     @NSManaged public var path: String?
     @NSManaged public var title: String?
     @NSManaged public var usesMediaDirectory: Bool
+    @NSManaged public var year: Int16
 
     public override func awakeFromInsert() {
         super.awakeFromInsert()

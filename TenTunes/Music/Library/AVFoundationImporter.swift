@@ -50,6 +50,15 @@ class AVFoundationImporter {
         return nil
     }
     
+    func number(withKey: AVMetadataKey, keySpace: AVMetadataKeySpace) -> NSNumber? {
+        for metadata in AVMetadataItem.metadataItems(from: asset.metadata, withKey: withKey, keySpace: keySpace) {
+            if let val = metadata.numberValue {
+                return val
+            }
+        }
+        return nil
+    }
+    
     func data(withKey: AVMetadataKey, keySpace: AVMetadataKeySpace) -> Data? {
         for metadata in AVMetadataItem.metadataItems(from: asset.metadata, withKey: withKey, keySpace: keySpace) {
             if let val = metadata.dataValue {

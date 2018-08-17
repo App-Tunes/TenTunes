@@ -28,6 +28,7 @@ extension Track {
         
         var title: String? = nil
         var album: String? = nil
+        var albumArtist: String? = nil
         var author: String? = nil
         var genre: String? = nil
         var key: Key? = nil
@@ -44,6 +45,7 @@ extension Track {
             
             title = importer.title
             album = importer.album
+            albumArtist = importer.albumArtist
             author = importer.artist
             genre = parseGenre(importer.genre)
             
@@ -66,7 +68,9 @@ extension Track {
         
         album = album ?? avImporter.string(withKey: .commonKeyAlbumName, keySpace: .common)
         album = album ?? avImporter.string(withKey: .iTunesMetadataKeyAlbum, keySpace: .iTunes)
-        
+
+        albumArtist = albumArtist ?? avImporter.string(withKey: .iTunesMetadataKeyAlbumArtist, keySpace: .iTunes)
+
         author = author ?? avImporter.string(withKey: .commonKeyArtist, keySpace: .common)
         author = author ?? avImporter.string(withKey: .commonKeyCreator, keySpace: .common)
         author = author ?? avImporter.string(withKey: .commonKeyAuthor, keySpace: .common)
@@ -110,6 +114,7 @@ extension Track {
         // Always prefer the data we read if any
         self.title = title ?? self.title
         self.album = album ?? self.album
+        self.albumArtist = albumArtist ?? self.albumArtist
         self.author = author ?? self.author
         self.genre = genre ?? self.genre
         self.key = key ?? self.key
@@ -135,6 +140,7 @@ extension Track {
         do {
             importer.title = title
             importer.album = album
+            importer.albumArtist = albumArtist
             importer.artist = author
             importer.genre = genre
             

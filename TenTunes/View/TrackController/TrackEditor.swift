@@ -110,6 +110,7 @@ extension TrackEditor: NSOutlineViewDelegate {
             ("Genre", "genre", nil),
             ("BPM", "bpmString", nil),
             ("Initial Key", "keyString", nil),
+            ("Album Artist", "albumArtist", nil),
             ("Year", "year", [.valueTransformerName: "IntStringNullable"]),
             ("Track No.", "trackNumber", [.valueTransformerName: "IntStringNullable"]),
         ]

@@ -21,6 +21,7 @@ extension Track {
     @NSManaged public var creationDate: NSDate
     
     @NSManaged public var album: String?
+    @NSManaged public var albumArtist: String?
     @NSManaged public var analysisData: NSData?
     @NSManaged public var artworkData: NSData?
     @NSManaged public var artworkPreview: NSImage?

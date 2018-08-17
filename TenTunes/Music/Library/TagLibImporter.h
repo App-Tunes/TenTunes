@@ -21,6 +21,7 @@
 @property(nullable) NSString *title;
 @property(nullable) NSString *artist;
 @property(nullable) NSString *album;
+@property(nullable) NSString *albumArtist;
 @property(nullable) NSString *genre;
 
 @property(nullable) NSImage *image;

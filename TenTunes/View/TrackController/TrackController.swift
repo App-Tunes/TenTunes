@@ -328,11 +328,7 @@ extension TrackController: NSTableViewDelegate {
             // Doesn't work from interface builder
             view.target = self
             view.action = #selector(waveformViewClicked)
-            
-            // More detailed
-            view.barWidth = 1
-            view.spaceWidth = 1
-            
+                        
             // For the small previews, less fps is enough (for performance)
             view.updateTime = 1 / 10
             view.lerpRatio = 1 / 2

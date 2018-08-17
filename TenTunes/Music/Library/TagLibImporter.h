@@ -29,5 +29,6 @@
 @property(nullable) NSString *bpm;
 
 @property short year;
+@property short trackNumber;
 
 @end

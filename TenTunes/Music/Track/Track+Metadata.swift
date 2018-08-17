@@ -34,7 +34,8 @@ extension Track {
         var bpm: Double? = nil
         var artwork: NSImage? = nil
         var year: Int16? = nil
-        
+        var trackNumber: Int16? = nil
+
         // TODO Duration
         
         let importer = TagLibImporter(url: url)
@@ -52,6 +53,7 @@ extension Track {
             bpm = Double(importer.bpm ?? "")
             
             year = importer.year > 0 ? importer.year : nil
+            trackNumber = importer.trackNumber > 0 ? importer.trackNumber : nil
         }
         catch let error {
             print(error)
@@ -114,7 +116,8 @@ extension Track {
         self.bpm = bpm ?? self.bpm
         self.artwork = artwork ?? self.artwork
         self.year = year ?? self.year
-        
+        self.trackNumber = trackNumber ?? self.trackNumber
+
         if let artwork = artwork {
             self.artworkPreview = artwork.resized(w: 64, h: 64)
             // TODO Write both to data
@@ -138,6 +141,7 @@ extension Track {
             importer.initialKey = keyString
             importer.bpm = bpmString
             importer.year = year
+            importer.trackNumber = trackNumber
 
             try importer.write()
             // TODO Artwork

@@ -111,6 +111,7 @@ extension TrackEditor: NSOutlineViewDelegate {
             ("BPM", "bpmString", nil),
             ("Initial Key", "keyString", nil),
             ("Year", "year", [.valueTransformerName: "IntStringNullable"]),
+            ("Track No.", "trackNumber", [.valueTransformerName: "IntStringNullable"]),
         ]
     }
 

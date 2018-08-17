@@ -67,6 +67,7 @@ class TrackController: NSViewController {
             _tableView?.animateDifference(from: oldValue.tracks, to: history.tracks)
             
             _playlistTitle.stringValue = history.playlist.name
+            _trackCounter.stringValue = String(history.size) + (history.size != 1 ? " tracks" : " track")
             
             if let playlist = history.playlist as? PlaylistSmart {
                 _ruleButton.isHidden = false
@@ -101,6 +102,8 @@ class TrackController: NSViewController {
     @IBOutlet var _analyzeSubmenu: NSMenuItem!
     @IBOutlet var _showInPlaylistSubmenu: NSMenuItem!
 
+    @IBOutlet var _trackCounter: NSTextField!
+    
     var observeHiddenToken: NSKeyValueObservation?
     
     enum Mode {

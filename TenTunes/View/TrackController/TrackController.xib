@@ -18,6 +18,7 @@
                 <outlet property="_showInPlaylistSubmenu" destination="RJZ-UA-3i7" id="RD3-RB-fQe"/>
                 <outlet property="_tableView" destination="4mk-XS-5ci" id="kXR-Tw-wbo"/>
                 <outlet property="_tableViewHeight" destination="407-lR-Mkm" id="dW8-YU-sVA"/>
+                <outlet property="_trackCounter" destination="Xki-oe-dMl" id="EBo-Pq-uI3"/>
                 <outlet property="_trackEditorView" destination="eZA-1m-Cok" id="gpJ-nw-AX4"/>
                 <outlet property="view" destination="NYt-ks-eHN" id="wOG-sx-1xW"/>
             </connections>
@@ -439,10 +440,22 @@
                                         <action selector="rulesClicked:" target="-2" id="uah-IS-wEZ"/>
                                     </connections>
                                 </button>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Xki-oe-dMl">
+                                    <rect key="frame" x="309" y="4" width="51" height="17"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="1 tracks" id="XrJ-Fh-vG6">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="yA3-8B-zr1" firstAttribute="centerY" secondItem="no2-Pk-ubw" secondAttribute="centerY" id="5dD-o0-7Dr"/>
+                                <constraint firstItem="Xki-oe-dMl" firstAttribute="centerY" secondItem="no2-Pk-ubw" secondAttribute="centerY" id="MQi-gt-Jp1"/>
+                                <constraint firstItem="Xki-oe-dMl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yA3-8B-zr1" secondAttribute="trailing" constant="20" id="VbX-7e-5se"/>
+                                <constraint firstItem="RVc-tT-TEm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Xki-oe-dMl" secondAttribute="trailing" constant="20" id="Yx8-mP-kZM"/>
                                 <constraint firstItem="RVc-tT-TEm" firstAttribute="centerY" secondItem="no2-Pk-ubw" secondAttribute="centerY" id="cjB-JQ-RLn"/>
+                                <constraint firstItem="Xki-oe-dMl" firstAttribute="centerX" secondItem="no2-Pk-ubw" secondAttribute="centerX" id="mCT-Xy-x6z"/>
                                 <constraint firstAttribute="trailing" secondItem="RVc-tT-TEm" secondAttribute="trailing" constant="20" id="rFb-qp-PVH"/>
                                 <constraint firstAttribute="height" constant="25" id="uIC-33-LVc"/>
                                 <constraint firstItem="yA3-8B-zr1" firstAttribute="leading" secondItem="no2-Pk-ubw" secondAttribute="leading" constant="4" id="wTP-6K-6yt"/>
@@ -463,7 +476,7 @@
                             </constraints>
                         </customView>
                         <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="49r-TX-xMK">
-                            <rect key="frame" x="0.0" y="-53" width="669" height="28"/>
+                            <rect key="frame" x="0.0" y="25" width="669" height="28"/>
                             <subviews>
                                 <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZeZ-1Q-VgQ">
                                     <rect key="frame" x="0.0" y="0.0" width="669" height="28"/>

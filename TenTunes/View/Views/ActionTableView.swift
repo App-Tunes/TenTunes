@@ -15,10 +15,14 @@ class ActionTableView: NSTableView {
     var enterAction: Selector?
     
     override func keyDown(with event: NSEvent) {
-        if Keycodes.enterKey.matches(event: event) || Keycodes.returnKey.matches(event: event) {
+        guard !(Keycodes.enterKey.matches(event: event) || Keycodes.returnKey.matches(event: event)) else {
             if let enterAction = enterAction {
                 target?.performSelector(onMainThread: enterAction, with: event, waitUntilDone: false)
             }
+            
+            return
         }
+        
+        super.keyDown(with: event)
     }
 }

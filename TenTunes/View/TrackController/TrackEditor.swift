@@ -95,6 +95,7 @@ class TrackEditor: NSViewController {
 
 extension TrackEditor: NSOutlineViewDelegate {
     fileprivate enum CellIdentifiers {
+        static let GroupTitleCell = NSUserInterfaceItemIdentifier(rawValue: "groupTitleCell")
         static let NameCell = NSUserInterfaceItemIdentifier(rawValue: "nameCell")
         static let ValueCell = NSUserInterfaceItemIdentifier(rawValue: "valueCell")
     }
@@ -104,16 +105,17 @@ extension TrackEditor: NSOutlineViewDelegate {
         static let value = NSUserInterfaceItemIdentifier(rawValue: "valueColumn")
     }
     
+    typealias GroupData = (String, NSImage)
     typealias EditData = (String, String, [NSBindingOption: Any]?)
     
-    var data : [(String, [EditData])] {
+    var data : [(GroupData, [EditData])] {
         return [
-            ("Musical", [
+            (("Musical", #imageLiteral(resourceName: "music")), [
                 ("Genre", "genre", nil),
                 ("BPM", "bpmString", nil),
                 ("Initial Key", "keyString", nil),
             ]),
-            ("Album", [
+            (("Album", #imageLiteral(resourceName: "album")), [
                 ("Album Artist", "albumArtist", nil),
                 ("Year", "year", [.valueTransformerName: "IntStringNullable"]),
                 ("Track No.", "trackNumber", [.valueTransformerName: "IntStringNullable"]),
@@ -122,15 +124,16 @@ extension TrackEditor: NSOutlineViewDelegate {
     }
 
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
-        return item == nil ? data.count : (item as! (String, [EditData])).1.count
+        return item == nil ? data.count : (item as! (GroupData, [EditData])).1.count
     }
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
-        if let (title, _) = item as? (String, [EditData]) {
+        if let ((title, image), _) = item as? (GroupData, [EditData]) {
             switch tableColumn!.identifier {
             case ColumnIdentifiers.name:
-                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? NSTableCellView {
+                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.GroupTitleCell, owner: nil) as? NSTableCellView {
                     view.textField?.stringValue = title
+                    view.imageView?.image = image
                     return view
                 }
             default:
@@ -160,11 +163,11 @@ extension TrackEditor: NSOutlineViewDelegate {
     }
     
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
-        return item == nil ? data[index] : (item as! (String, [EditData])).1[index]
+        return item == nil ? data[index] : (item as! (GroupData, [EditData])).1[index]
     }
     
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
-        return item is (String, [EditData])
+        return item is (GroupData, [EditData])
     }
     
     func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {

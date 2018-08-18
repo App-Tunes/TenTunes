@@ -113,7 +113,7 @@ extension TrackLabel {
         }
         
         override func positiveRepresentation(in context: NSManagedObjectContext? = nil) -> String {
-            return "👥 " + author
+            return "👤 " + author
         }
     }
     
@@ -144,7 +144,7 @@ extension TrackLabel {
         }
         
         override func positiveRepresentation(in context: NSManagedObjectContext? = nil) -> String {
-            return "💿 \(album.title) 👥 \(album.author)"
+            return "💿 \(album.title) 👤 \(album.author)"
         }
     }
     

@@ -26,6 +26,7 @@ class TrackEditor: NSViewController {
     
     override func viewDidLoad() {
         showError(text: "No Tracks Selected")
+        _editorOutline.expandItem(nil, expandChildren: true)
     }
         
     func present(tracks: [Track]) {
@@ -105,56 +106,71 @@ extension TrackEditor: NSOutlineViewDelegate {
     
     typealias EditData = (String, String, [NSBindingOption: Any]?)
     
-    var data : [EditData] {
+    var data : [(String, [EditData])] {
         return [
-            ("Genre", "genre", nil),
-            ("BPM", "bpmString", nil),
-            ("Initial Key", "keyString", nil),
-            ("Album Artist", "albumArtist", nil),
-            ("Year", "year", [.valueTransformerName: "IntStringNullable"]),
-            ("Track No.", "trackNumber", [.valueTransformerName: "IntStringNullable"]),
+            ("Musical", [
+                ("Genre", "genre", nil),
+                ("BPM", "bpmString", nil),
+                ("Initial Key", "keyString", nil),
+            ]),
+            ("Album", [
+                ("Album Artist", "albumArtist", nil),
+                ("Year", "year", [.valueTransformerName: "IntStringNullable"]),
+                ("Track No.", "trackNumber", [.valueTransformerName: "IntStringNullable"]),
+            ]),
         ]
     }
 
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
-        return data.count
+        return item == nil ? data.count : (item as! (String, [EditData])).1.count
     }
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
-        let data = item as! EditData
-        
-        switch tableColumn!.identifier {
-        case ColumnIdentifiers.name:
-            if let view = outlineView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? NSTableCellView {
-                view.textField?.stringValue = data.0
-                return view
+        if let (title, _) = item as? (String, [EditData]) {
+            switch tableColumn!.identifier {
+            case ColumnIdentifiers.name:
+                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? NSTableCellView {
+                    view.textField?.stringValue = title
+                    return view
+                }
+            default:
+                break
             }
-        case ColumnIdentifiers.value:
-            if let view = outlineView.makeView(withIdentifier: CellIdentifiers.ValueCell, owner: nil) as? NSTableCellView {
-                view.textField?.bind(.value, to: tracksController, withKeyPath: "selection." + data.1, options: (data.2 ?? [:]).merging([.nullPlaceholder: "..."], uniquingKeysWith: { (a, _) in a }))
-                view.textField?.action = #selector(trackChanged(_:))
-                view.textField?.target = self
-                return view
+        }
+        else if let data = item as? EditData {
+            switch tableColumn!.identifier {
+            case ColumnIdentifiers.name:
+                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? NSTableCellView {
+                    view.textField?.stringValue = data.0
+                    return view
+                }
+            case ColumnIdentifiers.value:
+                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.ValueCell, owner: nil) as? NSTableCellView {
+                    view.textField?.bind(.value, to: tracksController, withKeyPath: "selection." + data.1, options: (data.2 ?? [:]).merging([.nullPlaceholder: "..."], uniquingKeysWith: { (a, _) in a }))
+                    view.textField?.action = #selector(trackChanged(_:))
+                    view.textField?.target = self
+                    return view
+                }
+            default:
+                break
             }
-        default:
-            break
         }
         
         return nil
     }
     
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
-        return data[index]
+        return item == nil ? data[index] : (item as! (String, [EditData])).1[index]
     }
     
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
-        return false
+        return item is (String, [EditData])
     }
     
-    // TODO With this active we can't edit the cells
-//    func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
-//        return false
-//    }
+    func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
+        // TODO With this active we can't edit the cells
+        return item is EditData
+    }
 }
 
 extension TrackEditor: NSOutlineViewDataSource {

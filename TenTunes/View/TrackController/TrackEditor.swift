@@ -131,7 +131,7 @@ extension TrackEditor: NSOutlineViewDelegate {
             }
         case ColumnIdentifiers.value:
             if let view = outlineView.makeView(withIdentifier: CellIdentifiers.ValueCell, owner: nil) as? NSTableCellView {
-                view.textField?.bind(.value, to: tracksController, withKeyPath: "selection." + data.1, options: data.2)
+                view.textField?.bind(.value, to: tracksController, withKeyPath: "selection." + data.1, options: (data.2 ?? [:]).merging([.nullPlaceholder: "..."], uniquingKeysWith: { (a, _) in a }))
                 view.textField?.action = #selector(trackChanged(_:))
                 view.textField?.target = self
                 return view

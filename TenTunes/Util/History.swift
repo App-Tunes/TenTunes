@@ -53,14 +53,20 @@ class History<Element> : NSObject {
     }
     
     @discardableResult
-    func back() -> Element {
+    func back(skip: ((Element) -> Bool)? = nil) -> Element {
         index = max(0, index - 1)
+        while index > 0 && (skip?(current) ?? false) {
+            index -= 1
+        }
         return current
     }
     
     @discardableResult
-    func forwards() -> Element {
+    func forwards(skip: ((Element) -> Bool)? = nil) -> Element {
         index = min(count - 1, index + 1)
+        while index < count - 1 && (skip?(current) ?? false) {
+            index -= 1
+        }
         return current
     }
     

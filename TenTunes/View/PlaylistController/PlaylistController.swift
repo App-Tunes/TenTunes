@@ -174,12 +174,12 @@ import Cocoa
     }
     
     @IBAction func back(_ sender: Any) {
-        history.back()
+        history.back(skip: { ($0 as? Playlist)?.isDeleted ?? false })
         playlistChanged()
     }
     
     @IBAction func forwards(_ sender: Any) {
-        history.forwards()
+        history.forwards(skip: { ($0 as? Playlist)?.isDeleted ?? false })
         playlistChanged()
     }
 }

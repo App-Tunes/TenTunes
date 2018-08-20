@@ -13,6 +13,8 @@ class History<Element> : NSObject {
     @objc var index: Int = 0
     var defaultElement: Element
     
+    var maxLength = 1000
+    
     init(default element: Element) {
         defaultElement = element
     }
@@ -40,7 +42,8 @@ class History<Element> : NSObject {
     }
 
     func push(_ element: Element) {
-        elements = (index < count - 1) ? Array(elements[0...index]) : elements
+        // +1 because 0...index is length index +1, and because we add another element later
+        elements = (index < count - 1) ? Array(elements[max(index + 2 - maxLength, 0)...index]) : elements
         elements.append(element)
         index = count - 1
     }
@@ -59,5 +62,10 @@ class History<Element> : NSObject {
     func forwards() -> Element {
         index = min(count - 1, index + 1)
         return current
+    }
+    
+    func clear() {
+        elements = []
+        index = 0
     }
 }

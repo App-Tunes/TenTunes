@@ -100,11 +100,6 @@ extension TrackEditor: NSOutlineViewDelegate {
         static let ValueCell = NSUserInterfaceItemIdentifier(rawValue: "valueCell")
     }
     
-    fileprivate enum ColumnIdentifiers {
-        static let name = NSUserInterfaceItemIdentifier(rawValue: "nameColumn")
-        static let value = NSUserInterfaceItemIdentifier(rawValue: "valueColumn")
-    }
-    
     typealias GroupData = (String, NSImage)
     typealias EditData = (String, String, [NSBindingOption: Any]?)
     
@@ -129,33 +124,21 @@ extension TrackEditor: NSOutlineViewDelegate {
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         if let ((title, image), _) = item as? (GroupData, [EditData]) {
-            switch tableColumn!.identifier {
-            case ColumnIdentifiers.name:
-                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.GroupTitleCell, owner: nil) as? NSTableCellView {
-                    view.textField?.stringValue = title
-                    view.imageView?.image = image
-                    return view
-                }
-            default:
-                break
+            if let view = outlineView.makeView(withIdentifier: CellIdentifiers.GroupTitleCell, owner: nil) as? NSTableCellView {
+                view.textField?.stringValue = title
+                view.imageView?.image = image
+                return view
             }
         }
         else if let data = item as? EditData {
-            switch tableColumn!.identifier {
-            case ColumnIdentifiers.name:
-                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? NSTableCellView {
-                    view.textField?.stringValue = data.0
-                    return view
-                }
-            case ColumnIdentifiers.value:
-                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.ValueCell, owner: nil) as? NSTableCellView {
-                    view.textField?.bind(.value, to: tracksController, withKeyPath: "selection." + data.1, options: (data.2 ?? [:]).merging([.nullPlaceholder: "..."], uniquingKeysWith: { (a, _) in a }))
-                    view.textField?.action = #selector(trackChanged(_:))
-                    view.textField?.target = self
-                    return view
-                }
-            default:
-                break
+            if let view = outlineView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? TrackDataCell {
+                view.textField?.stringValue = data.0
+                
+                view.valueTextField?.bind(.value, to: tracksController, withKeyPath: "selection." + data.1, options: (data.2 ?? [:]).merging([.nullPlaceholder: "..."], uniquingKeysWith: { (a, _) in a }))
+                view.valueTextField?.action = #selector(trackChanged(_:))
+                view.valueTextField?.target = self
+
+                return view
             }
         }
         
@@ -178,5 +161,9 @@ extension TrackEditor: NSOutlineViewDelegate {
 
 extension TrackEditor: NSOutlineViewDataSource {
     
+}
+
+class TrackDataCell: NSTableCellView {
+    @IBOutlet var valueTextField: NSTextField?
 }
 

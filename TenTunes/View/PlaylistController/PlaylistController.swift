@@ -19,7 +19,12 @@ import Cocoa
     var selectionDidChange: ((PlaylistProtocol) -> Swift.Void)? = nil
     var playPlaylist: ((PlaylistProtocol) -> Swift.Void)? = nil
     
+    var history: History<PlaylistProtocol> = History(default: PlaylistEmpty())
+    
     @IBOutlet var _outlineView: NSOutlineView!
+    
+    @IBOutlet var _back: NSButton!
+    @IBOutlet var _forwards: NSButton!
     
     var selectedPlaylists: [(Int, Playlist)] {
         return _outlineView.selectedRowIndexes.map {
@@ -42,8 +47,8 @@ import Cocoa
     }
     
     @IBAction func selectLibrary(_ sender: Any) {
-        if let selectionDidChange = selectionDidChange, let library = library {
-            selectionDidChange(library)
+        if let library = library {
+            selected(playlist: library)
         }
         _outlineView.deselectAll(self)
     }
@@ -153,6 +158,30 @@ import Cocoa
         Library.shared.viewContext.delete(all: playlists)
         try! Library.shared.viewContext.save()
     }
+    
+    func playlistChanged() {
+        if let selectionDidChange = selectionDidChange {
+            selectionDidChange(history.current)
+        }
+        
+        _back.isEnabled = history.canGoBack
+        _forwards.isEnabled = history.canGoForwards
+    }
+    
+    func selected(playlist: PlaylistProtocol) {
+        history.push(playlist)
+        playlistChanged()
+    }
+    
+    @IBAction func back(_ sender: Any) {
+        history.back()
+        playlistChanged()
+    }
+    
+    @IBAction func forwards(_ sender: Any) {
+        history.forwards()
+        playlistChanged()
+    }
 }
 
 extension PlaylistController : NSOutlineViewDataSource {
@@ -213,9 +242,7 @@ extension PlaylistController : NSOutlineViewDelegate {
     func outlineViewSelectionDidChange(_ notification: Notification) {
         // TODO If we select multiple, show all at once?
         if let selected = _outlineView.selectedRowIndexes.first {
-            if let selectionDidChange = selectionDidChange {
-                selectionDidChange(_outlineView.item(atRow: selected) as! Playlist)
-            }
+            self.selected(playlist: _outlineView.item(atRow: selected) as! Playlist)
         }
     }
     

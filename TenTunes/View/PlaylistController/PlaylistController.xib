@@ -8,6 +8,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PlaylistController" customModule="TenTunes" customModuleProvider="target">
             <connections>
+                <outlet property="_back" destination="8Z0-Gt-dbf" id="6qN-Q0-cgl"/>
+                <outlet property="_forwards" destination="2x8-2J-xWJ" id="ZiZ-Vs-y8A"/>
                 <outlet property="_outlineView" destination="jaf-cH-DJt" id="sJF-Dr-Ogf"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -30,6 +32,9 @@
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="systemBold"/>
                             </buttonCell>
+                            <connections>
+                                <action selector="back:" target="-2" id="cgn-eW-M82"/>
+                            </connections>
                         </button>
                         <button toolTip="Library" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="58Y-ON-eOB">
                             <rect key="frame" x="30" y="5" width="20" height="20"/>
@@ -53,6 +58,9 @@
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="systemBold"/>
                             </buttonCell>
+                            <connections>
+                                <action selector="forwards:" target="-2" id="PHL-qw-7PI"/>
+                            </connections>
                         </button>
                     </subviews>
                     <constraints>
@@ -281,6 +289,7 @@
             </items>
             <point key="canvasLocation" x="288" y="543"/>
         </menu>
+        <userDefaultsController representsSharedInstance="YES" id="0Zo-eS-kIn"/>
     </objects>
     <resources>
         <image name="NSGoBackTemplate" width="9" height="12"/>

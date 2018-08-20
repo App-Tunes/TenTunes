@@ -108,6 +108,7 @@ class ViewController: NSViewController {
         }
         self.playlistController.masterPlaylist = Library.shared.masterPlaylist
         self.playlistController.library = Library.shared.allTracks
+        self.playlistController.selectLibrary(self)
 
         trackController.playTrack = { [unowned self] in
             self.player.play(at: $0, in: self.trackController.history) // TODO Support for multiple
@@ -121,7 +122,6 @@ class ViewController: NSViewController {
             let next = [self.trackController.history.track(at: $0)!]
             self.player.enqueue(tracks: next)
         }
-        trackController.desired.playlist = Library.shared.allTracks
 
         queuePopover = NSPopover()
         queuePopover.contentViewController = queueController

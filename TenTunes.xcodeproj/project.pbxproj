@@ -85,6 +85,7 @@
 		80B68BA72101204200A32E3D /* PlaylistSmart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B68BA52101204200A32E3D /* PlaylistSmart.swift */; };
 		80B68BA92101255D00A32E3D /* TrackController+Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B68BA82101255D00A32E3D /* TrackController+Labels.swift */; };
 		80B764562072F38D003BD7F8 /* PlaylistEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B764552072F38D003BD7F8 /* PlaylistEmpty.swift */; };
+		80BF21C3212AD9D500B9F0AB /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BF21C2212AD9D500B9F0AB /* History.swift */; };
 		80C8559E210512B400177035 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C8559D210512B400177035 /* Album.swift */; };
 		80CB652C20514E050031A6D7 /* Library+Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652B20514E050031A6D7 /* Library+Files.swift */; };
 		80CB652F2052C6CD0031A6D7 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652E2052C6CD0031A6D7 /* Operators.swift */; };
@@ -260,6 +261,7 @@
 		80B68BA52101204200A32E3D /* PlaylistSmart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlaylistSmart.swift; path = "/Users/lukas/XCode Projects/TenTunes/TenTunes/Music/Playlist/Manual/PlaylistSmart.swift"; sourceTree = "<absolute>"; };
 		80B68BA82101255D00A32E3D /* TrackController+Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackController+Labels.swift"; sourceTree = "<group>"; };
 		80B764552072F38D003BD7F8 /* PlaylistEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistEmpty.swift; sourceTree = "<group>"; };
+		80BF21C2212AD9D500B9F0AB /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		80C0C29F203F6DCA00FA6083 /* taglib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = taglib.xcodeproj; path = ../../taglib.xcodeproj; sourceTree = "<group>"; };
 		80C8559D210512B400177035 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		80CB652B20514E050031A6D7 /* Library+Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Files.swift"; sourceTree = "<group>"; };
@@ -552,6 +554,7 @@
 				8030E00820FC9A91006B4AE8 /* SwiftPriorityQueue.swift */,
 				8030E01620FE2C3B006B4AE8 /* Alerts.swift */,
 				8079F6E7211B015B00B7A278 /* RecursionGuard.swift */,
+				80BF21C2212AD9D500B9F0AB /* History.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -892,6 +895,7 @@
 				80E2C9FA204B40A000298E81 /* PlaylistManual+CoreDataProperties.swift in Sources */,
 				8046CDA3204EF1ED00E732E7 /* TitleSubtitleCellView.swift in Sources */,
 				8030E01420FCBDAA006B4AE8 /* TaskViewController.swift in Sources */,
+				80BF21C3212AD9D500B9F0AB /* History.swift in Sources */,
 				8030E01120FCB33C006B4AE8 /* FetchTrackMetadata.swift in Sources */,
 				80CB652F2052C6CD0031A6D7 /* Operators.swift in Sources */,
 				80E2C9F7204B40A000298E81 /* Playlist.swift in Sources */,

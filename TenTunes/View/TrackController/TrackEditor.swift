@@ -69,7 +69,6 @@ class TrackEditor: NSViewController {
         _editorOutline.expandItem(nil, expandChildren: true)
         
         _editorOutline.target = self
-        (_editorOutline as! ActionOutlineView).deleteAction = #selector(deleteRow(_:))
     }
         
     func present(tracks: [Track]) {
@@ -137,7 +136,7 @@ class TrackEditor: NSViewController {
         show(tracks: manyTracks)
     }
     
-    @IBAction func deleteRow(_ event: NSEvent) {
+    @IBAction func delete(_ sender: AnyObject) {
         guard let item = _editorOutline.item(atRow: _editorOutline.selectedRow) else {
             return
         }

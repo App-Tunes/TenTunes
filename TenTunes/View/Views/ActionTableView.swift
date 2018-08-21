@@ -13,19 +13,8 @@ class ActionTableView: NSTableView {
     @objc
     var enterAction: Selector?
     
-    @objc
-    var deleteAction: Selector?
-    
     override func keyDown(with event: NSEvent) {
         guard !Keycodes.Either.enter.matches(event: event) else {
-            if let enterAction = enterAction {
-                target?.performSelector(onMainThread: enterAction, with: event, waitUntilDone: false)
-            }
-            
-            return
-        }
-        
-        guard !Keycodes.Either.delete.matches(event: event) else {
             if let enterAction = enterAction {
                 target?.performSelector(onMainThread: enterAction, with: event, waitUntilDone: false)
             }
@@ -41,9 +30,6 @@ class ActionOutlineView: NSOutlineView {
     @objc
     var enterAction: Selector?
     
-    @objc
-    var deleteAction: Selector?
-    
     override func keyDown(with event: NSEvent) {
         guard !Keycodes.Either.enter.matches(event: event) else {
             if let enterAction = enterAction {
@@ -52,15 +38,7 @@ class ActionOutlineView: NSOutlineView {
             
             return
         }
-        
-        guard !Keycodes.Either.delete.matches(event: event) else {
-            if let deleteAction = deleteAction {
-                target?.performSelector(onMainThread: deleteAction, with: event, waitUntilDone: false)
-            }
-            
-            return
-        }
-        
+                
         super.keyDown(with: event)
     }
 }

@@ -59,12 +59,15 @@ extension TrackEditor : LabelFieldDelegate {
         let labelPlaylists = labelTokens.of(type: Playlist.self)
         
         // Insert we don't add after add element
-        labelTokens.insert(contentsOf: newLabels.filter { label in !labelPlaylists.contains { $0 == label } } as [Any], at: labelTokens.count - 1)
+        let addLabels = newLabels.filter { label in !labelPlaylists.contains { $0 == label } } as [Any]
+        labelTokens.insert(contentsOf: addLabels, at: labelTokens.count - 1)
         
         if var omitted = labelTokens[0] as? Set<Playlist> {
             omitted.remove(contentsOf: Set(newLabels.of(type: Playlist.self)))
             if omitted.isEmpty {
                 labelTokens.remove(at: 0)
+                // Little hacky but multiple values are always the first, and remove by item doesn't work because it's an array (copy by value)
+                _editorOutline.removeItems(at: IndexSet(integer: 0), inParent: data[0], withAnimation: .slideDown)
             }
             else {
                 labelTokens[0] = omitted
@@ -73,8 +76,9 @@ extension TrackEditor : LabelFieldDelegate {
         
         tokensChanged()
         
-        // TODO Animate, but works only with equatable
-        _editorOutline.reloadItem(data[0], reloadChildren: true)
+        _editorOutline.insertItems(at: IndexSet(integersIn: (labelTokens.count - 2)..<(labelTokens.count + addLabels.count - 2)), inParent: data[0], withAnimation: .slideDown)
+
+        tokenField.objectValue = []
     }
     
     func tokensChanged() {

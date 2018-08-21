@@ -64,36 +64,36 @@
                         </textField>
                         <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IxQ-nY-WjC">
                             <rect key="frame" x="106" y="332" width="174" height="17"/>
-                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" placeholderString="Author..." id="dHl-D9-I7J">
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" placeholderString="Unknown Author" id="dHl-D9-I7J">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                             </textFieldCell>
                             <connections>
                                 <action selector="trackChanged:" target="-2" id="x0i-vb-bPA"/>
-                                <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.author" id="jc8-9X-9yU">
+                                <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.author" id="Uxw-Sv-Sc2">
                                     <dictionary key="options">
                                         <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                         <string key="NSMultipleValuesPlaceholder">Multiple Values</string>
-                                        <string key="NSNullPlaceholder">Author...</string>
+                                        <string key="NSNullPlaceholder">Unknown Author</string>
                                     </dictionary>
                                 </binding>
                             </connections>
                         </textField>
                         <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mfs-pi-vdb">
                             <rect key="frame" x="106" y="307" width="174" height="17"/>
-                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" placeholderString="Album..." id="qyN-oT-Uof">
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" placeholderString="No Album" id="qyN-oT-Uof">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                             </textFieldCell>
                             <connections>
                                 <action selector="trackChanged:" target="-2" id="93r-Ge-tVt"/>
-                                <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.album" id="tZM-Xf-FI8">
+                                <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.album" id="Duf-VN-ZdA">
                                     <dictionary key="options">
                                         <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                         <string key="NSMultipleValuesPlaceholder">Multiple Values</string>
-                                        <string key="NSNullPlaceholder">Album...</string>
+                                        <string key="NSNullPlaceholder">No Album</string>
                                     </dictionary>
                                 </binding>
                             </connections>

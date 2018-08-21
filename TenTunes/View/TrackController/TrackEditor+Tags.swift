@@ -124,10 +124,18 @@ extension TrackEditor : LabelFieldDelegate {
             let applicable = tagResults(search: compareSubstring)
             if let tag = applicable.first {
                 labelField.autocomplete(with: tag)
-                return true
             }
+
+            // Always consume the alt enter
+            return true
         }
         
         return false
+    }
+    
+    override func controlTextDidEndEditing(_ obj: Notification) {
+        if let labelField = obj.object as? LabelTextField {
+            labelField.objectValue = [] // Clear instead of letting it become a Token
+        }
     }
 }

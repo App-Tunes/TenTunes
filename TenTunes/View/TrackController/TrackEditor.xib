@@ -52,12 +52,12 @@
                             </textFieldCell>
                             <connections>
                                 <action selector="trackChanged:" target="-2" id="Jb7-TC-z7l"/>
-                                <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.title" id="sxN-co-DsE">
+                                <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.title" id="hky-lX-dDj">
                                     <dictionary key="options">
                                         <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                         <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                         <string key="NSMultipleValuesPlaceholder">Multiple Values</string>
-                                        <string key="NSNullPlaceholder">Title</string>
+                                        <string key="NSNullPlaceholder">Title...</string>
                                     </dictionary>
                                 </binding>
                             </connections>
@@ -71,11 +71,11 @@
                             </textFieldCell>
                             <connections>
                                 <action selector="trackChanged:" target="-2" id="x0i-vb-bPA"/>
-                                <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.author" id="qbs-R2-chO">
+                                <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.author" id="jc8-9X-9yU">
                                     <dictionary key="options">
                                         <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                         <string key="NSMultipleValuesPlaceholder">Multiple Values</string>
-                                        <string key="NSNullPlaceholder">Author</string>
+                                        <string key="NSNullPlaceholder">Author...</string>
                                     </dictionary>
                                 </binding>
                             </connections>
@@ -89,11 +89,11 @@
                             </textFieldCell>
                             <connections>
                                 <action selector="trackChanged:" target="-2" id="93r-Ge-tVt"/>
-                                <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.album" id="e0k-2b-SSt">
+                                <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.album" id="tZM-Xf-FI8">
                                     <dictionary key="options">
                                         <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                         <string key="NSMultipleValuesPlaceholder">Multiple Values</string>
-                                        <string key="NSNullPlaceholder">Album</string>
+                                        <string key="NSNullPlaceholder">Album...</string>
                                     </dictionary>
                                 </binding>
                             </connections>

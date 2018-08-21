@@ -22,7 +22,7 @@ class TrackEditor: NSViewController {
     @IBOutlet var _errorPlaceholder: NSView!
     @IBOutlet var _errorTextField: NSTextField!
     
-    @IBOutlet var _editorOutline: NSOutlineView!
+    @IBOutlet var _editorOutline: ActionOutlineView!
     
     class GroupData {
         let title: String
@@ -69,6 +69,7 @@ class TrackEditor: NSViewController {
         _editorOutline.expandItem(nil, expandChildren: true)
         
         _editorOutline.target = self
+        _editorOutline.enterAction = #selector(outlineViewAction(_:))
     }
         
     func present(tracks: [Track]) {
@@ -150,6 +151,38 @@ class TrackEditor: NSViewController {
         labelTokens = labelTokens.filter { ($0 as AnyObject) !== (item as AnyObject) }
 
         tokensChanged()
+    }
+    
+    func toggleEdit(textField: NSTextField) {
+        guard textField.convert(textField.bounds, to: nil).contains(textField.window!.mouseLocationOutsideOfEventStream) else {
+            return
+        }
+        
+        guard textField.currentEditor() == nil else {
+            textField.resignFirstResponder()
+            return
+        }
+     
+        guard textField.isEditable else {
+            return
+        }
+        
+        textField.becomeFirstResponder()
+    }
+    
+    @IBAction func outlineViewAction(_ sender: Any) {
+        let row = _editorOutline.clickedRow >= 0 ? _editorOutline.clickedRow : _editorOutline.selectedRow
+        
+        guard row >= 0, let view = _editorOutline.view(atColumn: 0, row: _editorOutline.clickedRow, makeIfNecessary: false) else {
+            return
+        }
+        
+        if let cell = view as? TrackDataCell, let textField = cell.valueTextField {
+            toggleEdit(textField: textField)
+        }
+        else if let cell = view as? NSTableCellView, let textField = cell.textField {
+            toggleEdit(textField: textField)
+        }
     }
 }
 
@@ -234,7 +267,7 @@ extension TrackEditor: NSOutlineViewDelegate {
     
     func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
         // TODO With these unselectable we can't edit the cells
-        return item is EditData || item is Set<Playlist> || item is PlaylistProtocol
+        return item is Set<Playlist> || item is Playlist
     }
 }
 

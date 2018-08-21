@@ -230,6 +230,7 @@
                                             </tableColumn>
                                         </tableColumns>
                                         <connections>
+                                            <action selector="outlineViewAction:" target="-2" id="0DM-YV-Ohc"/>
                                             <outlet property="dataSource" destination="-2" id="G0U-Pz-e8e"/>
                                             <outlet property="delegate" destination="-2" id="e8V-ZG-36k"/>
                                         </connections>

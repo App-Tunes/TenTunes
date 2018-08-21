@@ -138,17 +138,15 @@ class TrackEditor: NSViewController {
     }
     
     @IBAction func delete(_ sender: AnyObject) {
-        guard let item = _editorOutline.item(atRow: _editorOutline.selectedRow) else {
-            return
-        }
+        let items = _editorOutline.selectedRowIndexes.compactMap({ _editorOutline.item(atRow: $0) })
         
-        guard item is Playlist || item is Set<Playlist> else {
+        guard items.allMatch({ $0 is Playlist || $0 is Set<Playlist>}) else {
             // Make sure it's deletable
             return
         }
         
-        _editorOutline.animateDelete(elements: [item])
-        labelTokens = labelTokens.filter { ($0 as AnyObject) !== (item as AnyObject) }
+        _editorOutline.animateDelete(elements: items)
+        labelTokens = labelTokens.filter { label in !items.contains { (label as AnyObject) === ($0 as AnyObject) }}
 
         tokensChanged()
     }

@@ -50,7 +50,12 @@ extension TrackEditor : LabelFieldDelegate {
     }
     
     func tokenFieldChangedLabels(_ tokenField: NSTokenField, labels: [Any]) {
-        let newLabels = tokenField.objectValue as! [Playlist]
+        let newLabels = (tokenField.objectValue as! [Any]).of(type: Playlist.self) // First might be multiple values
+        
+        guard newLabels.count > 0 else {
+            return
+        }
+        
         let labelPlaylists = labelTokens.of(type: Playlist.self)
         
         // Insert we don't add after add element

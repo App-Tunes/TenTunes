@@ -9,6 +9,13 @@
 import Cocoa
 
 extension TrackEditor : LabelFieldDelegate {
+    var viewTags : [Any] {
+        return _editorOutline.children(ofItem: data[0]).compactMap { item in
+            let view = _editorOutline.view(atColumn: 0, forItem: item, makeIfNecessary: false) as! NSTableCellView
+            return view.textField!.objectValue as! [Any]
+        }
+    }
+    
     func findShares<T : Hashable>(in ts: [Set<T>]) -> (Set<T>, Set<T>) {
         guard !ts.isEmpty else {
             return (Set(), Set())
@@ -43,6 +50,30 @@ extension TrackEditor : LabelFieldDelegate {
     }
     
     func tokenFieldChangedLabels(_ tokenField: NSTokenField, labels: [Any]) {
+        let newLabels = tokenField.objectValue as! [Playlist]
+        let labelPlaylists = labelTokens.of(type: Playlist.self)
+        
+        // Insert we don't add after add element
+        labelTokens.insert(contentsOf: newLabels.filter { label in !labelPlaylists.contains { $0 == label } } as [Any], at: labelTokens.count - 1)
+        
+        if var omitted = labelTokens[0] as? Set<Playlist> {
+            omitted.remove(contentsOf: Set(newLabels.of(type: Playlist.self)))
+            if omitted.isEmpty {
+                labelTokens.remove(at: 0)
+            }
+            else {
+                labelTokens[0] = omitted
+            }
+        }
+        
+        tokensChanged()
+        
+        // TODO Animate, but works only with equatable
+        _editorOutline.reloadItem(data[0], reloadChildren: true)
+    }
+    
+    func tokensChanged() {
+        let labels = labelTokens
         let allowedOthers = labels.of(type: Set<PlaylistManual>.self).first ?? Set()
         let newTags = Set(labels.of(type: PlaylistManual.self))
         

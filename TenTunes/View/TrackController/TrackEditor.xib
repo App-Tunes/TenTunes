@@ -14,7 +14,6 @@
                 <outlet property="_errorPlaceholder" destination="cZt-hQ-cEw" id="KId-Ow-s0c"/>
                 <outlet property="_errorTextField" destination="07g-9B-cnI" id="lAb-lS-Evc"/>
                 <outlet property="_manyPlaceholder" destination="bcN-Vx-zMm" id="u2Q-cj-MOh"/>
-                <outlet property="_tagEditor" destination="sd5-co-dPb" id="cyT-3j-IVC"/>
                 <outlet property="tracksController" destination="i0G-Xb-2QU" id="8Xv-73-EVI"/>
                 <outlet property="view" destination="NQ7-v6-GOZ" id="BEZ-u6-4AC"/>
             </connections>
@@ -109,33 +108,14 @@
                                 <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.artwork" id="oKk-Xx-heb"/>
                             </connections>
                         </imageView>
-                        <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rAj-i8-zh5">
-                            <rect key="frame" x="27" y="275" width="251" height="17"/>
-                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Tags" id="BWv-gg-Wil">
-                                <font key="font" metaFont="systemBold"/>
-                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                            </textFieldCell>
-                        </textField>
-                        <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sd5-co-dPb" customClass="LabelTextField" customModule="TenTunes" customModuleProvider="target">
-                            <rect key="frame" x="10" y="245" width="266" height="22"/>
-                            <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" placeholderString="Tags" allowsEditingTextAttributes="YES" bezelStyle="round" id="Zi6-cW-mq4">
-                                <font key="font" metaFont="system"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                            </tokenFieldCell>
-                            <connections>
-                                <outlet property="delegate" destination="-2" id="haa-uf-djl"/>
-                            </connections>
-                        </tokenField>
                         <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="25" horizontalPageScroll="10" verticalLineScroll="25" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4S-uV-C4C">
-                            <rect key="frame" x="0.0" y="8" width="286" height="229"/>
+                            <rect key="frame" x="0.0" y="8" width="286" height="291"/>
                             <clipView key="contentView" drawsBackground="NO" id="flI-e3-PP9">
-                                <rect key="frame" x="0.0" y="0.0" width="286" height="229"/>
+                                <rect key="frame" x="0.0" y="0.0" width="286" height="291"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="23" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="3Ae-Tm-QZb" id="RRs-pC-UFg">
-                                        <rect key="frame" x="0.0" y="0.0" width="286" height="229"/>
+                                    <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="23" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="3Ae-Tm-QZb" id="RRs-pC-UFg" customClass="ActionOutlineView" customModule="TenTunes" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="286" height="291"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <size key="intercellSpacing" width="0.0" height="2"/>
                                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -214,6 +194,28 @@
                                                             <outlet property="valueTextField" destination="WK4-jO-DQ1" id="vAX-q5-2Uo"/>
                                                         </connections>
                                                     </tableCellView>
+                                                    <tableCellView identifier="tokenCell" id="32i-fz-tGp">
+                                                        <rect key="frame" x="0.0" y="45" width="286" height="23"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <subviews>
+                                                            <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rRD-38-h8c" customClass="LabelTextField" customModule="TenTunes" customModuleProvider="target">
+                                                                <rect key="frame" x="6" y="4" width="274" height="16"/>
+                                                                <tokenFieldCell key="cell" alignment="left" placeholderString=" Add Tag" allowsEditingTextAttributes="YES" id="gt6-ZL-OQW">
+                                                                    <font key="font" metaFont="cellTitle"/>
+                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </tokenFieldCell>
+                                                            </tokenField>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="rRD-38-h8c" firstAttribute="leading" secondItem="32i-fz-tGp" secondAttribute="leading" constant="8" id="kQW-N6-kj6"/>
+                                                            <constraint firstItem="rRD-38-h8c" firstAttribute="centerY" secondItem="32i-fz-tGp" secondAttribute="centerY" id="trd-zh-qz5"/>
+                                                            <constraint firstAttribute="trailing" secondItem="rRD-38-h8c" secondAttribute="trailing" constant="8" id="xsf-32-igc"/>
+                                                        </constraints>
+                                                        <connections>
+                                                            <outlet property="textField" destination="rRD-38-h8c" id="Dhl-OX-IfD"/>
+                                                        </connections>
+                                                    </tableCellView>
                                                 </prototypeCellViews>
                                             </tableColumn>
                                         </tableColumns>
@@ -255,47 +257,31 @@
                             </constraints>
                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="artist" id="K67-rT-5hU"/>
                         </imageView>
-                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EKd-tX-gI9">
-                            <rect key="frame" x="10" y="275" width="15" height="15"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="15" id="VbP-1d-r7H"/>
-                            </constraints>
-                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="tag" id="j4h-xT-O7L"/>
-                        </imageView>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="EKd-tX-gI9" firstAttribute="width" secondItem="EKd-tX-gI9" secondAttribute="height" multiplier="1:1" id="4b0-gS-oB3"/>
                         <constraint firstItem="Rdg-Wt-HDc" firstAttribute="top" secondItem="GGH-Dw-GOG" secondAttribute="top" constant="1" id="6v0-9v-Mln"/>
                         <constraint firstItem="GGH-Dw-GOG" firstAttribute="top" secondItem="fry-a8-cnm" secondAttribute="top" constant="8" id="7Qo-Bg-JAo"/>
                         <constraint firstAttribute="trailing" secondItem="IxQ-nY-WjC" secondAttribute="trailing" constant="8" id="AIm-mY-1Db"/>
                         <constraint firstItem="Axn-Tv-fVt" firstAttribute="top" secondItem="j3A-SG-yXW" secondAttribute="bottom" constant="10" id="AVD-Ny-chn"/>
                         <constraint firstItem="u4S-uV-C4C" firstAttribute="leading" secondItem="fry-a8-cnm" secondAttribute="leading" id="CtK-Kb-pLE"/>
-                        <constraint firstItem="rAj-i8-zh5" firstAttribute="bottom" secondItem="EKd-tX-gI9" secondAttribute="bottom" id="DYQ-AM-JNn"/>
                         <constraint firstItem="j3A-SG-yXW" firstAttribute="leading" secondItem="GGH-Dw-GOG" secondAttribute="trailing" constant="8" id="EeK-lF-Vc5"/>
-                        <constraint firstAttribute="trailing" secondItem="rAj-i8-zh5" secondAttribute="trailing" constant="10" id="HdL-c8-gmk"/>
                         <constraint firstItem="j3A-SG-yXW" firstAttribute="top" secondItem="Rdg-Wt-HDc" secondAttribute="bottom" constant="10" id="Ibu-Ay-YIO"/>
-                        <constraint firstItem="rAj-i8-zh5" firstAttribute="leading" secondItem="EKd-tX-gI9" secondAttribute="trailing" constant="4" id="J4N-DK-OT7"/>
-                        <constraint firstAttribute="trailing" secondItem="sd5-co-dPb" secondAttribute="trailing" constant="10" id="LZd-1G-lu7"/>
                         <constraint firstItem="Axn-Tv-fVt" firstAttribute="leading" secondItem="GGH-Dw-GOG" secondAttribute="trailing" constant="8" id="Lbe-NJ-tUO"/>
                         <constraint firstItem="GGH-Dw-GOG" firstAttribute="leading" secondItem="fry-a8-cnm" secondAttribute="leading" constant="8" id="MVL-kY-oMU"/>
-                        <constraint firstItem="EKd-tX-gI9" firstAttribute="leading" secondItem="fry-a8-cnm" secondAttribute="leading" constant="10" id="N8I-Fd-deq"/>
                         <constraint firstItem="Mfs-pi-vdb" firstAttribute="leading" secondItem="Axn-Tv-fVt" secondAttribute="trailing" constant="10" id="PKC-5s-OS3"/>
                         <constraint firstItem="Axn-Tv-fVt" firstAttribute="width" secondItem="Axn-Tv-fVt" secondAttribute="height" multiplier="1:1" id="SEp-Xb-s6o"/>
                         <constraint firstAttribute="trailing" secondItem="u4S-uV-C4C" secondAttribute="trailing" id="STt-Hn-faS"/>
                         <constraint firstItem="Mfs-pi-vdb" firstAttribute="top" secondItem="IxQ-nY-WjC" secondAttribute="bottom" constant="8" id="V0g-Nb-dJ6"/>
                         <constraint firstItem="j3A-SG-yXW" firstAttribute="width" secondItem="j3A-SG-yXW" secondAttribute="height" multiplier="1:1" id="Yh7-SU-7Il"/>
-                        <constraint firstItem="sd5-co-dPb" firstAttribute="top" secondItem="rAj-i8-zh5" secondAttribute="bottom" constant="8" id="bAU-pL-QZy"/>
                         <constraint firstItem="vc8-yo-YBx" firstAttribute="top" secondItem="GGH-Dw-GOG" secondAttribute="top" id="chF-Aj-Yti"/>
                         <constraint firstItem="Rdg-Wt-HDc" firstAttribute="leading" secondItem="GGH-Dw-GOG" secondAttribute="trailing" constant="8" id="gUp-gc-PUO"/>
                         <constraint firstItem="IxQ-nY-WjC" firstAttribute="top" secondItem="vc8-yo-YBx" secondAttribute="bottom" constant="8" id="gtV-Mb-ktH"/>
                         <constraint firstItem="vc8-yo-YBx" firstAttribute="leading" secondItem="Rdg-Wt-HDc" secondAttribute="trailing" constant="10" id="lBD-Be-AIu"/>
                         <constraint firstItem="IxQ-nY-WjC" firstAttribute="leading" secondItem="j3A-SG-yXW" secondAttribute="trailing" constant="10" id="lxd-DE-ZuF"/>
+                        <constraint firstItem="u4S-uV-C4C" firstAttribute="top" secondItem="GGH-Dw-GOG" secondAttribute="bottom" constant="8" id="m8N-mE-NLU"/>
                         <constraint firstAttribute="bottom" secondItem="u4S-uV-C4C" secondAttribute="bottom" constant="8" id="o7a-cA-t8D"/>
                         <constraint firstItem="GGH-Dw-GOG" firstAttribute="bottom" secondItem="Mfs-pi-vdb" secondAttribute="bottom" id="qMv-9C-kHZ"/>
-                        <constraint firstItem="rAj-i8-zh5" firstAttribute="top" secondItem="Mfs-pi-vdb" secondAttribute="bottom" constant="15" id="qlj-pq-FlY"/>
-                        <constraint firstItem="u4S-uV-C4C" firstAttribute="top" secondItem="sd5-co-dPb" secondAttribute="bottom" constant="8" id="sUY-QC-lXm"/>
                         <constraint firstItem="Rdg-Wt-HDc" firstAttribute="leading" secondItem="GGH-Dw-GOG" secondAttribute="trailing" constant="8" id="sao-H8-Gku"/>
-                        <constraint firstItem="sd5-co-dPb" firstAttribute="leading" secondItem="fry-a8-cnm" secondAttribute="leading" constant="10" id="tMZ-8J-kjX"/>
                         <constraint firstAttribute="trailing" secondItem="vc8-yo-YBx" secondAttribute="trailing" constant="8" id="ux1-KO-YLX"/>
                         <constraint firstAttribute="trailing" secondItem="Mfs-pi-vdb" secondAttribute="trailing" constant="8" id="yJ1-CW-O2S"/>
                         <constraint firstItem="j3A-SG-yXW" firstAttribute="leading" secondItem="GGH-Dw-GOG" secondAttribute="trailing" constant="8" id="z2Y-xi-GQp"/>
@@ -376,6 +362,5 @@
         <image name="album" width="198" height="200"/>
         <image name="artist" width="178" height="200"/>
         <image name="name" width="206" height="154"/>
-        <image name="tag" width="204" height="200"/>
     </resources>
 </document>

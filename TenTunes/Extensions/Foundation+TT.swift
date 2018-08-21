@@ -439,6 +439,12 @@ extension Set {
         return filter { $0 is T } as! Set<T>
     }
     
+    mutating func remove<S : Sequence>(contentsOf other: S) where S.Element == Element {
+        for t in other {
+            remove(t)
+        }
+    }
+    
     // TODO If possible, change to a possible mathematical v OR and add mathematical AND 
     static func +(lhs: Set, rhs: Set) -> Set {
         return lhs.union(rhs)

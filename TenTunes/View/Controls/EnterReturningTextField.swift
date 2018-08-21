@@ -10,7 +10,7 @@ import Cocoa
 
 class EnterReturningTextField: NSTextField {
     override func keyUp(with event: NSEvent) {
-        if Keycodes.enterKey.matches(event: event) || Keycodes.returnKey.matches(event: event) {
+        if Keycodes.Either.enter.matches(event: event) {
             DispatchQueue.main.async{
                 self.window?.makeFirstResponder(self.superview!)
             }

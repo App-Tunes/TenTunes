@@ -9,7 +9,8 @@
 import Cocoa
 
 class TrackEditor: NSViewController {
-        
+    static let addPlaceholder = PlaylistEmpty()
+    
     var context: NSManagedObjectContext!
     @objc dynamic var tracks: [Track] = []
     @IBOutlet var tracksController: NSArrayController!
@@ -21,12 +22,54 @@ class TrackEditor: NSViewController {
     @IBOutlet var _errorPlaceholder: NSView!
     @IBOutlet var _errorTextField: NSTextField!
     
-    @IBOutlet var _tagEditor: LabelTextField!
     @IBOutlet var _editorOutline: NSOutlineView!
     
+    class GroupData {
+        let title: String
+        let icon: NSImage
+        let data: [EditData]
+        
+        init(title: String, icon: NSImage, data: [EditData]) {
+            self.title = title
+            self.icon = icon
+            self.data = data
+        }
+    }
+    
+    class EditData {
+        let title: String
+        let path: String
+        let options: [NSBindingOption: Any]?
+        
+        init(title: String, path: String, options: [NSBindingOption: Any]?) {
+            self.title = title
+            self.path = path
+            self.options = options
+        }
+    }
+
+    var data : [GroupData] = [
+        GroupData(title: "Tags", icon: #imageLiteral(resourceName: "tag"), data: []),
+        GroupData(title: "Musical", icon: #imageLiteral(resourceName: "music"), data: [
+                EditData(title: "Genre", path: "genre", options: nil),
+                EditData(title: "BPM", path: "bpmString", options: nil),
+                EditData(title: "Initial Key", path: "keyString", options: nil),
+                ]),
+        GroupData(title: "Album", icon: #imageLiteral(resourceName: "album"), data: [
+                EditData(title: "Album Artist", path: "albumArtist", options: nil),
+                EditData(title: "Year", path: "year", options: [.valueTransformerName: "IntStringNullable"]),
+                EditData(title: "Track No.", path: "trackNumber", options: [.valueTransformerName: "IntStringNullable"]),
+                ]),
+            ]
+
+    var labelTokens : [Any] = []
+
     override func viewDidLoad() {
         showError(text: "No Tracks Selected")
         _editorOutline.expandItem(nil, expandChildren: true)
+        
+        _editorOutline.target = self
+        (_editorOutline as! ActionOutlineView).deleteAction = #selector(deleteRow(_:))
     }
         
     func present(tracks: [Track]) {
@@ -57,9 +100,11 @@ class TrackEditor: NSViewController {
             try! track.fetchMetadata()
         }
         
-        let (omittedTags, sharedTags) = findShares(in: self.tracks.map { $0.tags })
-        _tagEditor.objectValue = (omittedTags.count > 0 ? [omittedTags] as [AnyObject] : [])
-            + (sharedTags.sorted { $0.name < $1.name } as [AnyObject])
+        let (omittedTags, sharedTags) = findShares(in: tracks.map { $0.tags })
+        let omittedPart = omittedTags.isEmpty ? [] : [omittedTags]
+        labelTokens = omittedPart as [Any] + sharedTags.sorted { $0.name < $1.name } as [Any] + [TrackEditor.addPlaceholder]
+
+        _editorOutline.reloadItem(data[0], reloadChildren: true)
         
         view.setFullSizeContent(_contentView)
     }
@@ -91,53 +136,79 @@ class TrackEditor: NSViewController {
     @IBAction func showSuggestedTracks(_ sender: Any) {
         show(tracks: manyTracks)
     }
+    
+    @IBAction func deleteRow(_ event: NSEvent) {
+        guard let item = _editorOutline.item(atRow: _editorOutline.selectedRow) else {
+            return
+        }
+        
+        guard item is Playlist || item is Set<Playlist> else {
+            // Make sure it's deletable
+            return
+        }
+        
+        _editorOutline.animateDelete(elements: [item])
+        labelTokens = labelTokens.filter { ($0 as AnyObject) !== (item as AnyObject) }
+
+        tokensChanged()
+    }
 }
 
 extension TrackEditor: NSOutlineViewDelegate {
     fileprivate enum CellIdentifiers {
         static let GroupTitleCell = NSUserInterfaceItemIdentifier(rawValue: "groupTitleCell")
         static let NameCell = NSUserInterfaceItemIdentifier(rawValue: "nameCell")
-        static let ValueCell = NSUserInterfaceItemIdentifier(rawValue: "valueCell")
+        static let TokenCell = NSUserInterfaceItemIdentifier(rawValue: "tokenCell")
     }
     
-    typealias GroupData = (String, NSImage)
-    typealias EditData = (String, String, [NSBindingOption: Any]?)
-    
-    var data : [(GroupData, [EditData])] {
-        return [
-            (("Musical", #imageLiteral(resourceName: "music")), [
-                ("Genre", "genre", nil),
-                ("BPM", "bpmString", nil),
-                ("Initial Key", "keyString", nil),
-            ]),
-            (("Album", #imageLiteral(resourceName: "album")), [
-                ("Album Artist", "albumArtist", nil),
-                ("Year", "year", [.valueTransformerName: "IntStringNullable"]),
-                ("Track No.", "trackNumber", [.valueTransformerName: "IntStringNullable"]),
-            ]),
-        ]
-    }
-
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
-        return item == nil ? data.count : (item as! (GroupData, [EditData])).1.count
+        guard let group = item as? GroupData else {
+            return data.count
+        }
+        
+        guard !group.data.isEmpty else {
+            // Tag hack
+            return labelTokens.count
+        }
+        
+        return group.data.count
     }
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
-        if let ((title, image), _) = item as? (GroupData, [EditData]) {
+        if let group = item as? GroupData {
             if let view = outlineView.makeView(withIdentifier: CellIdentifiers.GroupTitleCell, owner: nil) as? NSTableCellView {
-                view.textField?.stringValue = title
-                view.imageView?.image = image
+                view.textField?.stringValue = group.title
+                view.imageView?.image = group.icon
+                
                 return view
             }
         }
         else if let data = item as? EditData {
             if let view = outlineView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? TrackDataCell {
-                view.textField?.stringValue = data.0
+                view.textField?.stringValue = data.title
                 
-                view.valueTextField?.bind(.value, to: tracksController, withKeyPath: "selection." + data.1, options: (data.2 ?? [:]).merging([.nullPlaceholder: "..."], uniquingKeysWith: { (a, _) in a }))
+                view.valueTextField?.bind(.value, to: tracksController, withKeyPath: "selection." + data.path, options: (data.options ?? [:]).merging([.nullPlaceholder: "..."], uniquingKeysWith: { (a, _) in a }))
                 view.valueTextField?.action = #selector(trackChanged(_:))
                 view.valueTextField?.target = self
 
+                return view
+            }
+        }
+        else if let multiple = item as? Set<Playlist> {
+            if let view = outlineView.makeView(withIdentifier: CellIdentifiers.TokenCell, owner: nil) as? NSTableCellView, let tokenField = view.textField as? NSTokenField {
+                tokenField.delegate = self
+                tokenField.objectValue = [multiple]
+                
+                return view
+            }
+        }
+        else if let tag = item as? PlaylistProtocol {
+            if let view = outlineView.makeView(withIdentifier: CellIdentifiers.TokenCell, owner: nil) as? NSTableCellView, let tokenField = view.textField as? NSTokenField {
+                tokenField.delegate = nil // Kinda hacky tho, to make sure we get no change notification
+                tokenField.objectValue = (tag is Playlist ? [tag] : [])
+                tokenField.delegate = self
+                tokenField.isEditable = tag is PlaylistEmpty
+                
                 return view
             }
         }
@@ -146,16 +217,25 @@ extension TrackEditor: NSOutlineViewDelegate {
     }
     
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
-        return item == nil ? data[index] : (item as! (GroupData, [EditData])).1[index]
+        guard let group = item as? GroupData else {
+            return data[index]
+        }
+        
+        guard !group.data.isEmpty else {
+            // Tag hack
+            return labelTokens[index]
+        }
+        
+        return group.data[index]
     }
     
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
-        return item is (GroupData, [EditData])
+        return item is GroupData
     }
     
     func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
-        // TODO With this active we can't edit the cells
-        return item is EditData
+        // TODO With these unselectable we can't edit the cells
+        return item is EditData || item is Set<Playlist> || item is PlaylistProtocol
     }
 }
 

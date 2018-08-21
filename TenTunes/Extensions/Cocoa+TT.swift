@@ -163,7 +163,7 @@ extension NSOutlineView {
         editColumn(0, row: row, with: event, select: select)
     }
     
-    func animateDelete(elements: [AnyObject]) {
+    func animateDelete(elements: [Any]) {
         guard elements.count < 100 else {
             reloadData()
             return
@@ -206,6 +206,18 @@ extension NSOutlineView {
             
             reloadItem(item, reloadChildren: reloadChildren)
         }
+    }
+    
+    func children(ofItem item: Any?) -> [Any] {
+        let number = numberOfChildren(ofItem: item)
+        return (0..<number).map {
+            self.child($0, ofItem: item)!
+        }
+    }
+    
+    func view(atColumn column: Int, forItem item: Any?, makeIfNecessary: Bool) -> NSView? {
+        let itemRow = row(forItem: item)
+        return itemRow >= 0 ? view(atColumn: column, row: itemRow, makeIfNecessary: makeIfNecessary) : nil
     }
 }
 

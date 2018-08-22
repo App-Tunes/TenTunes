@@ -61,19 +61,21 @@ class TrackEditor: NSViewController {
     var data : [GroupData] = [
         GroupData(title: "Tags", icon: #imageLiteral(resourceName: "tag"), data: []),
         GroupData(title: "Musical", icon: #imageLiteral(resourceName: "music"), data: [
-                EditData(title: "Genre", path: "genre", options: nil),
-                EditData(title: "BPM", path: "bpmString", options: nil),
-                EditData(title: "Initial Key", path: "keyString", options: nil),
-                ]),
+            EditData(title: "Genre", path: "genre", options: nil),
+            EditData(title: "BPM", path: "bpmString", options: nil),
+            EditData(title: "Initial Key", path: "keyString", options: nil),
+            ]),
         GroupData(title: "Album", icon: #imageLiteral(resourceName: "album"), data: [
-                EditData(title: "Album Artist", path: "albumArtist", options: nil),
-                EditData(title: "Year", path: "year", options: [.valueTransformerName: "IntStringNullable"]),
-                EditData(title: "Track No.", path: "trackNumber", options: [.valueTransformerName: "IntStringNullable"]),
-                ]),
+            EditData(title: "Album Artist", path: "albumArtist", options: nil),
+            EditData(title: "Year", path: "year", options: [.valueTransformerName: "IntStringNullable"]),
+            EditData(title: "Track No.", path: "trackNumber", options: [.valueTransformerName: "IntStringNullable"]),
+            ]),
         GroupData(title: "Info", icon: #imageLiteral(resourceName: "info"), data: [
-                InfoData(title: "Kbps") { String(format: "%0.2f", $0.bitrate / 1024) },
-                ]),
-            ]
+            InfoData(title: "Duration") { $0.rLength },
+            InfoData(title: "Kbps") { String(format: "%0.2f", $0.bitrate / 1024) },
+            InfoData(title: "Location") { $0.path ?? "" },
+            ]),
+        ]
 
     var tagTokens : [Any] = []
 

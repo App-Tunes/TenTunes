@@ -129,7 +129,7 @@ class LabelTextField: NSTokenField {
     }
     
     var editingIndex: Int {
-        guard var selectedPos = currentEditor()?.selectedRange.location, let array = objectValue as? NSArray else {
+        guard var selectedPos = currentEditor()?.selectedRange.location, let array = objectValue as? NSArray, array.count > 0 else {
             return 0
         }
         

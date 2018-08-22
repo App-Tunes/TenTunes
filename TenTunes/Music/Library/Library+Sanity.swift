@@ -64,7 +64,7 @@ extension Library {
     }
 
     func considerSanity() {
-        guard sanitySemaphore.acquireNow(), sanityChanged else {
+        guard sanityChanged, sanitySemaphore.acquireNow() else {
             return
         }
         

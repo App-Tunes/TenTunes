@@ -21,7 +21,7 @@ extension PlaylistController: NSMenuDelegate {
         menu.item(withAction: #selector(deletePlaylist(_:)))?.isVisible = menuPlaylists.map(Library.shared.isPlaylist).allMatch { $0 }
 
         menu.item(withAction: #selector(untanglePlaylist(_:)))?.isVisible = (menuPlaylists.uniqueElement ?=> self.isUntangleable) ?? false
-        menu.item(withAction: #selector(sortPlaylistChildren(_:)))?.isVisible = (menuPlaylists.uniqueElement is PlaylistFolder) ?? false
+        menu.item(withAction: #selector(sortPlaylistChildren(_:)))?.isVisible = !((menuPlaylists.uniqueElement as? PlaylistFolder)?.automatesChildren ?? true)
     }
     
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {

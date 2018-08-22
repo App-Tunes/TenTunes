@@ -27,9 +27,9 @@ class TrackEditor: NSViewController {
     class GroupData {
         let title: String
         let icon: NSImage
-        let data: [EditData]
+        let data: [Any]
         
-        init(title: String, icon: NSImage, data: [EditData]) {
+        init(title: String, icon: NSImage, data: [Any]) {
             self.title = title
             self.icon = icon
             self.data = data
@@ -48,6 +48,16 @@ class TrackEditor: NSViewController {
         }
     }
 
+    class InfoData {
+        let title: String
+        let show: (Track) -> String
+        
+        init(title: String, show: @escaping (Track) -> String) {
+            self.title = title
+            self.show = show
+        }
+    }
+
     var data : [GroupData] = [
         GroupData(title: "Tags", icon: #imageLiteral(resourceName: "tag"), data: []),
         GroupData(title: "Musical", icon: #imageLiteral(resourceName: "music"), data: [
@@ -59,6 +69,9 @@ class TrackEditor: NSViewController {
                 EditData(title: "Album Artist", path: "albumArtist", options: nil),
                 EditData(title: "Year", path: "year", options: [.valueTransformerName: "IntStringNullable"]),
                 EditData(title: "Track No.", path: "trackNumber", options: [.valueTransformerName: "IntStringNullable"]),
+                ]),
+        GroupData(title: "Info", icon: #imageLiteral(resourceName: "info"), data: [
+                InfoData(title: "Kbps") { String(format: "%0.2f", $0.bitrate / 1024) },
                 ]),
             ]
 
@@ -93,7 +106,7 @@ class TrackEditor: NSViewController {
 //        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy // User is always right
         context = Library.shared.viewContext
         self.tracks = context.compactConvert(tracks)
-                
+        
         for track in self.tracks {
             try! track.fetchMetadata()
         }
@@ -102,8 +115,9 @@ class TrackEditor: NSViewController {
         let omittedPart = omittedTags.isEmpty ? [] : [omittedTags]
         tagTokens = omittedPart as [Any] + sharedTags.sorted { $0.name < $1.name } as [Any] + [TrackEditor.addPlaceholder]
 
-        _editorOutline.reloadItem(data[0], reloadChildren: true)
-        
+        _editorOutline.reloadItem(data[0], reloadChildren: true) // Tags
+        _editorOutline.reloadItem(data.last, reloadChildren: true) // Info, both computed rather than bound
+
         view.setFullSizeContent(_contentView)
     }
     
@@ -218,7 +232,17 @@ extension TrackEditor: NSOutlineViewDelegate {
                 view.valueTextField?.bind(.value, to: tracksController, withKeyPath: "selection." + data.path, options: (data.options ?? [:]).merging([.nullPlaceholder: "..."], uniquingKeysWith: { (a, _) in a }))
                 view.valueTextField?.action = #selector(trackChanged(_:))
                 view.valueTextField?.target = self
-
+                
+                return view
+            }
+        }
+        else if let data = item as? InfoData {
+            if let view = outlineView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? TrackDataCell {
+                view.textField?.stringValue = data.title
+                
+                view.valueTextField?.stringValue = (tracks.uniqueElement ?=> data.show) ?? ""
+                view.valueTextField?.isEditable = false
+                
                 return view
             }
         }

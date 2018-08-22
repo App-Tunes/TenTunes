@@ -15,7 +15,7 @@
 		8013720F203F7C9C00CA9036 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720D203F7C9C00CA9036 /* AudioKitUI.framework */; };
 		801621332067B71B00093B15 /* ViewController+Updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801621322067B71B00093B15 /* ViewController+Updates.swift */; };
 		8017685920743898000DD433 /* NSImageViewAspectFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8017685820743898000DD433 /* NSImageViewAspectFill.swift */; };
-		8026241620FF445F009D7988 /* LabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8026241520FF445F009D7988 /* LabelTextField.swift */; };
+		8026241620FF445F009D7988 /* TTTokenField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8026241520FF445F009D7988 /* TTTokenField.swift */; };
 		8030E00120FC8F0C006B4AE8 /* ActionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E00020FC8F0C006B4AE8 /* ActionTableView.swift */; };
 		8030E00720FC9749006B4AE8 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E00620FC9749006B4AE8 /* Task.swift */; };
 		8030E00920FC9A91006B4AE8 /* SwiftPriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E00820FC9A91006B4AE8 /* SwiftPriorityQueue.swift */; };
@@ -48,7 +48,7 @@
 		806EFC27204B65C10079DBAA /* PlaylistProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806EFC26204B65C10079DBAA /* PlaylistProtocol.swift */; };
 		807092EB20C69D8F00DFED53 /* ExportPlaylistsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807092E920C69D8F00DFED53 /* ExportPlaylistsController.swift */; };
 		807092EC20C69D8F00DFED53 /* ExportPlaylistsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 807092EA20C69D8F00DFED53 /* ExportPlaylistsController.xib */; };
-		8079F6D32106551100B7A278 /* TrackLabelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6D12106551100B7A278 /* TrackLabelController.swift */; };
+		8079F6D32106551100B7A278 /* SmartPlaylistRulesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6D12106551100B7A278 /* SmartPlaylistRulesController.swift */; };
 		8079F6D42106551100B7A278 /* TrackLabelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8079F6D22106551100B7A278 /* TrackLabelController.xib */; };
 		8079F6D72106661A00B7A278 /* HideableBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6D52106661A00B7A278 /* HideableBar.swift */; };
 		8079F6D82106661A00B7A278 /* HideableBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8079F6D62106661A00B7A278 /* HideableBar.xib */; };
@@ -60,7 +60,7 @@
 		8079F6E8211B015B00B7A278 /* RecursionGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6E7211B015B00B7A278 /* RecursionGuard.swift */; };
 		8079F6EA211B822900B7A278 /* UnscalingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6E9211B822900B7A278 /* UnscalingMenu.swift */; };
 		8079F6EC211B87A700B7A278 /* SpinningButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6EB211B87A700B7A278 /* SpinningButton.swift */; };
-		807E289E2101291B0080F332 /* PlaylistRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E289D2101291B0080F332 /* PlaylistRules.swift */; };
+		807E289E2101291B0080F332 /* SmartPlaylistRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E289D2101291B0080F332 /* SmartPlaylistRules.swift */; };
 		807E4B47206428260051C028 /* ScrollableSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E4B46206428260051C028 /* ScrollableSlider.swift */; };
 		807F6A312101F986002048B1 /* PlaylistCartesian.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807F6A302101F986002048B1 /* PlaylistCartesian.swift */; };
 		807F6A342101F9EE002048B1 /* PlaylistCarthesian+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807F6A332101F9EE002048B1 /* PlaylistCarthesian+CoreDataProperties.swift */; };
@@ -161,7 +161,7 @@
 		8013720D203F7C9C00CA9036 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = Carthage/Build/Mac/AudioKitUI.framework; sourceTree = SOURCE_ROOT; };
 		801621322067B71B00093B15 /* ViewController+Updates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Updates.swift"; sourceTree = "<group>"; };
 		8017685820743898000DD433 /* NSImageViewAspectFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImageViewAspectFill.swift; sourceTree = "<group>"; };
-		8026241520FF445F009D7988 /* LabelTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTextField.swift; sourceTree = "<group>"; };
+		8026241520FF445F009D7988 /* TTTokenField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTTokenField.swift; sourceTree = "<group>"; };
 		8030E00020FC8F0C006B4AE8 /* ActionTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTableView.swift; sourceTree = "<group>"; };
 		8030E00620FC9749006B4AE8 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		8030E00820FC9A91006B4AE8 /* SwiftPriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPriorityQueue.swift; sourceTree = "<group>"; };
@@ -223,7 +223,7 @@
 		806EFC26204B65C10079DBAA /* PlaylistProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistProtocol.swift; sourceTree = "<group>"; };
 		807092E920C69D8F00DFED53 /* ExportPlaylistsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPlaylistsController.swift; sourceTree = "<group>"; };
 		807092EA20C69D8F00DFED53 /* ExportPlaylistsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExportPlaylistsController.xib; sourceTree = "<group>"; };
-		8079F6D12106551100B7A278 /* TrackLabelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackLabelController.swift; sourceTree = "<group>"; };
+		8079F6D12106551100B7A278 /* SmartPlaylistRulesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartPlaylistRulesController.swift; sourceTree = "<group>"; };
 		8079F6D22106551100B7A278 /* TrackLabelController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackLabelController.xib; sourceTree = "<group>"; };
 		8079F6D52106661A00B7A278 /* HideableBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableBar.swift; sourceTree = "<group>"; };
 		8079F6D62106661A00B7A278 /* HideableBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HideableBar.xib; sourceTree = "<group>"; };
@@ -235,7 +235,7 @@
 		8079F6E7211B015B00B7A278 /* RecursionGuard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecursionGuard.swift; sourceTree = "<group>"; };
 		8079F6E9211B822900B7A278 /* UnscalingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnscalingMenu.swift; sourceTree = "<group>"; };
 		8079F6EB211B87A700B7A278 /* SpinningButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinningButton.swift; sourceTree = "<group>"; };
-		807E289D2101291B0080F332 /* PlaylistRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistRules.swift; sourceTree = "<group>"; };
+		807E289D2101291B0080F332 /* SmartPlaylistRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartPlaylistRules.swift; sourceTree = "<group>"; };
 		807E4B46206428260051C028 /* ScrollableSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableSlider.swift; sourceTree = "<group>"; };
 		807F6A302101F986002048B1 /* PlaylistCartesian.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistCartesian.swift; sourceTree = "<group>"; };
 		807F6A332101F9EE002048B1 /* PlaylistCarthesian+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistCarthesian+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -455,7 +455,7 @@
 				80F9703220962EA200A989D8 /* PopupEnum.swift */,
 				80B68B9F21011D0300A32E3D /* SMButtonWithMenu.h */,
 				80B68B9D21011CC100A32E3D /* SMButtonWithMenu.m */,
-				8026241520FF445F009D7988 /* LabelTextField.swift */,
+				8026241520FF445F009D7988 /* TTTokenField.swift */,
 				8079F6D52106661A00B7A278 /* HideableBar.swift */,
 				8079F6D62106661A00B7A278 /* HideableBar.xib */,
 			);
@@ -481,7 +481,7 @@
 				80E2C9F4204B40A000298E81 /* PlaylistManual+CoreDataProperties.swift */,
 				80B68BA52101204200A32E3D /* PlaylistSmart.swift */,
 				80B68BA42101204200A32E3D /* PlaylistSmart+CoreDataProperties.swift */,
-				807E289D2101291B0080F332 /* PlaylistRules.swift */,
+				807E289D2101291B0080F332 /* SmartPlaylistRules.swift */,
 				8079F6E3210A2C5300B7A278 /* PlaylistRules+Labels.swift */,
 			);
 			path = Manual;
@@ -645,7 +645,7 @@
 				80F8F6F12053EA2C004A07D6 /* TrackEditor.swift */,
 				806611892125B9BF00C3948E /* TrackEditor+Tags.swift */,
 				80F8F6F22053EA2C004A07D6 /* TrackEditor.xib */,
-				8079F6D12106551100B7A278 /* TrackLabelController.swift */,
+				8079F6D12106551100B7A278 /* SmartPlaylistRulesController.swift */,
 				8079F6D22106551100B7A278 /* TrackLabelController.xib */,
 				8079F6D92106745600B7A278 /* CartesianLabelController.swift */,
 				8079F6DA2106745600B7A278 /* CartesianLabelController.xib */,
@@ -848,7 +848,7 @@
 				80F11E5920CA732E00331D12 /* Library+Symlink.swift in Sources */,
 				803E972F20C7EF2C00D46565 /* LazyMap.swift in Sources */,
 				8087A494206597DC00CC9569 /* EnterReturningTextField.swift in Sources */,
-				8079F6D32106551100B7A278 /* TrackLabelController.swift in Sources */,
+				8079F6D32106551100B7A278 /* SmartPlaylistRulesController.swift in Sources */,
 				80CED03C20C88055001E710F /* AVFoundation+TT.swift in Sources */,
 				8079F6D72106661A00B7A278 /* HideableBar.swift in Sources */,
 				8030E00120FC8F0C006B4AE8 /* ActionTableView.swift in Sources */,
@@ -918,7 +918,7 @@
 				80F2C57F2038808000212739 /* TenTunes.xcdatamodeld in Sources */,
 				80CB65352052C9CC0031A6D7 /* CoreData+TT.swift in Sources */,
 				8093467320A628E1001D15CD /* Library+AudioFile.swift in Sources */,
-				807E289E2101291B0080F332 /* PlaylistRules.swift in Sources */,
+				807E289E2101291B0080F332 /* SmartPlaylistRules.swift in Sources */,
 				8087A406206D933F003F1821 /* Analysis.swift in Sources */,
 				80E4F9CE20A0DD7E0014532E /* Library+iTunes.swift in Sources */,
 				80F8F6F32053EA2C004A07D6 /* TrackEditor.swift in Sources */,
@@ -930,7 +930,7 @@
 				80F77BF5203D8B35001E397F /* Key.swift in Sources */,
 				80F2C57A2038808000212739 /* AppDelegate.swift in Sources */,
 				807F6A37210202A8002048B1 /* Library+Sanity.swift in Sources */,
-				8026241620FF445F009D7988 /* LabelTextField.swift in Sources */,
+				8026241620FF445F009D7988 /* TTTokenField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

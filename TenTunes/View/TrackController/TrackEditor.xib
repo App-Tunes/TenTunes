@@ -112,7 +112,7 @@
                             <rect key="frame" x="0.0" y="8" width="286" height="291"/>
                             <clipView key="contentView" drawsBackground="NO" id="flI-e3-PP9">
                                 <rect key="frame" x="0.0" y="0.0" width="286" height="291"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="23" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="3Ae-Tm-QZb" id="RRs-pC-UFg" customClass="ActionOutlineView" customModule="TenTunes" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="286" height="291"/>
@@ -208,7 +208,7 @@
                                                         <rect key="frame" x="0.0" y="50" width="286" height="23"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
-                                                            <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rRD-38-h8c" customClass="LabelTextField" customModule="TenTunes" customModuleProvider="target">
+                                                            <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rRD-38-h8c" customClass="TTTokenField" customModule="TenTunes" customModuleProvider="target">
                                                                 <rect key="frame" x="6" y="4" width="274" height="16"/>
                                                                 <tokenFieldCell key="cell" alignment="left" placeholderString=" Add Tag..." allowsEditingTextAttributes="YES" id="gt6-ZL-OQW">
                                                                     <font key="font" metaFont="cellTitle"/>

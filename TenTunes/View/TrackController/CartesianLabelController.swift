@@ -9,57 +9,57 @@
 import Cocoa
 
 @objc protocol CartesianLabelControllerDelegate {
-    @objc optional func labelsChanged(cartesianLabelController: CartesianLabelController, labels: [PlaylistLabel])
+    @objc optional func labelsChanged(cartesianLabelController: CartesianLabelController, labels: [CartesianRules.Token])
     
     @objc optional func editingEnded(cartesianLabelController: CartesianLabelController, notification: Notification)
 }
 
-class CartesianLabelController : NSViewController, LabelFieldDelegate {
+class CartesianLabelController : NSViewController, TTTokenFieldDelegate {
     @IBOutlet @objc weak open var delegate: CartesianLabelControllerDelegate?
     
-    @IBOutlet var _labelField: LabelTextField!
+    @IBOutlet var _labelField: TTTokenField!
     
-    var currentLabels: [PlaylistLabel] {
-        get { return _labelField.currentLabels as! [PlaylistLabel] }
-        set { _labelField.currentLabels = newValue }
+    var currentLabels: [CartesianRules.Token] {
+        get { return _labelField.tokens as! [CartesianRules.Token] }
+        set { _labelField.tokens = newValue }
     }
     
     var folders: [PlaylistFolder] {
         return Library.shared.allPlaylists().compactMap { $0 as? PlaylistFolder}
     }
     
-    func tokenField(_ tokenField: NSTokenField, completionGroupsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [LabelGroup]? {
+    func tokenField(_ tokenField: NSTokenField, completionGroupsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [TTTokenField.TokenGroup]? {
         let compareSubstring = substring.lowercased()
         
-        var groups: [LabelGroup] = []
+        var groups: [TTTokenField.TokenGroup] = []
 
-        groups.append(LabelGroup(title: "Folder", contents: folderResults(search: compareSubstring)))
+        groups.append(.init(title: "Folder", contents: folderResults(search: compareSubstring)))
         
         return groups
     }
     
-    static func sorted<L : PlaylistLabel>(labels: [L]) -> [L] {
+    static func sorted<L : CartesianRules.Token>(labels: [L]) -> [L] {
         return labels.sorted { (a, b) -> Bool in
             a.representation(in: Library.shared.viewContext).count < b.representation(in: Library.shared.viewContext).count
         }
     }
     
-    func folderResults(search: String) -> [PlaylistLabel] {
+    func folderResults(search: String) -> [CartesianRules.Token] {
         let found = search.count > 0 ? folders.filter({ $0.name.lowercased().range(of: search) != nil }) : folders
-        return CartesianLabelController.sorted(labels: found.map({ PlaylistLabel.Folder(playlist: $0) }))
+        return CartesianLabelController.sorted(labels: found.map({ .Folder(playlist: $0) }))
     }
     
     func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {
-        return (representedObject as? PlaylistLabel)?.representation(in: Library.shared.viewContext)
+        return (representedObject as? CartesianRules.Token)?.representation(in: Library.shared.viewContext)
     }
     
     func tokenFieldChangedLabels(_ tokenField: NSTokenField, labels: [Any]) {
-        delegate?.labelsChanged?(cartesianLabelController: self, labels: labels as! [PlaylistLabel])
+        delegate?.labelsChanged?(cartesianLabelController: self, labels: labels as! [CartesianRules.Token])
     }
     
     func tokenField(_ tokenField: NSTokenField, shouldAdd tokens: [Any], at index: Int) -> [Any] {
         return tokens.compactMap {
-            if $0 is PlaylistLabel {
+            if $0 is CartesianRules.Token {
                 return $0
             }
             else if let substring = $0 as? String {
@@ -75,11 +75,11 @@ class CartesianLabelController : NSViewController, LabelFieldDelegate {
     
     override func controlTextDidChange(_ obj: Notification) {
         // TODO Hack, let LabelTextField observe this instead
-        (obj.object as! LabelTextField).controlTextDidChange(obj)
+        (obj.object as! TTTokenField).controlTextDidChange(obj)
     }
     
     override func controlTextDidEndEditing(_ obj: Notification) {
         delegate?.editingEnded?(cartesianLabelController: self, notification: obj)
-        (obj.object as? LabelTextField)?.autocomplete(with: nil)
+        (obj.object as? TTTokenField)?.autocomplete(with: nil)
     }
 }

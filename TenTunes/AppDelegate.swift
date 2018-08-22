@@ -17,6 +17,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var exportPlaylistsController: ExportPlaylistsController!
 
     func applicationWillFinishLaunching(_ notification: Notification) {
+        setupBackwardsCompatibility()
+        
         var location: URL!
         var create: Bool?
         
@@ -76,6 +78,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let libraryStoryboard = NSStoryboard(name: .init("Library"), bundle: nil)
         libraryWindowController = libraryStoryboard.instantiateInitialController() as! NSWindowController
         ViewController.shared.view.window!.makeKeyAndOrderFront(self)
+    }
+    
+    func setupBackwardsCompatibility() {
+        let renamedClasses: [(AnyClass, String)] = [
+            (SmartPlaylistRules.self, "TenTunes.PlaylistRules"),
+            (SmartPlaylistRules.Token.InPlaylist.self, "_TtCC8TenTunes10TrackLabel10InPlaylist"),
+            (CartesianRules.Token.Folder.self, "_TtCC8TenTunes13PlaylistLabel6Folder"),
+            (CartesianRules.Token.Folder.self, "_TtCCC8TenTunes14CartesianRules5Token6Folder"),
+            (SmartPlaylistRules.Token.MinBitrate.self, "_TtCC8TenTunes10TrackLabel10MinBitrate"),
+        ]
+        
+        for (new, old) in renamedClasses {
+            NSKeyedUnarchiver.setClass(new, forClassName: old)
+        }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

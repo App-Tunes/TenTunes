@@ -32,7 +32,7 @@ extension TrackController: NSUserInterfaceValidations {
     
     func openFindPanel() {
         filterBar.open()
-        filterController._labelField.notifyLabelChange() // Get our initial filter on
+        filterController._labelField.notifyTokenChange() // Get our initial filter on
     }
     
     @IBAction func delete(_ sender: AnyObject) {

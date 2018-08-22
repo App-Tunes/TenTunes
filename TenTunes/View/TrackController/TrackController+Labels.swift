@@ -39,7 +39,7 @@ extension TrackController {
 }
 
 extension TrackController : TrackLabelControllerDelegate {
-    func labelsChanged(trackLabelController: TrackLabelController, rules: PlaylistRules) {
+    func labelsChanged(trackLabelController: SmartPlaylistRulesController, rules: SmartPlaylistRules) {
         // TODO Live search
         if trackLabelController == smartPlaylistRuleController, let playlist = history.playlist as? PlaylistSmart {
             if playlist.rrules != rules {
@@ -54,7 +54,7 @@ extension TrackController : TrackLabelControllerDelegate {
 }
 
 extension TrackController : CartesianLabelControllerDelegate {
-    func labelsChanged(cartesianLabelController: CartesianLabelController, labels: [PlaylistLabel]) {
+    func labelsChanged(cartesianLabelController: CartesianLabelController, labels: [CartesianRules.Token]) {
         if cartesianLabelController == smartFolderRuleController, let playlist = history.playlist as? PlaylistCartesian {
             if playlist.rules.labels != labels {
                 playlist.rules.labels = labels

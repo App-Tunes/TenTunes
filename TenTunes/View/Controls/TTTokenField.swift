@@ -8,42 +8,13 @@
 
 import Cocoa
 
-class LabelGroup {
-    let title: String
-    var contents: [Any] = []
+protocol TTTokenFieldDelegate : NSTokenFieldDelegate {
+    func tokenField(_ tokenField: NSTokenField, completionGroupsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [TTTokenField.TokenGroup]?
     
-    init(title: String, contents: [Any]) {
-        self.title = title
-        self.contents = contents
-    }
-}
-
-protocol LabelFieldDelegate : NSTokenFieldDelegate {
-    func tokenField(_ tokenField: NSTokenField, completionGroupsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [LabelGroup]?
-
     func tokenFieldChangedLabels(_ tokenField: NSTokenField, labels: [Any])
 }
 
-class LabelAutocompleteViewController : NSViewController {
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    override func loadView() {
-        view = TagContentView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-    }
-}
-
-class TagContentView : NSView, PopoverFirstResponderStealingSuppression {
-    var suppressFirstResponderWhenPopoverShows: Bool { return true }
-}
-
-class LabelTextField: NSTokenField {
+class TTTokenField: NSTokenField {
     let maxButtonsPerRow = 10
     
     var _autocompletePopover: NSPopover?
@@ -56,7 +27,7 @@ class LabelTextField: NSTokenField {
     var autocompletePopover: NSPopover {
         if _autocompletePopover == nil {
             _autocompletePopover = NSPopover()
-            _autocompletePopover!.contentViewController = LabelAutocompleteViewController()
+            _autocompletePopover!.contentViewController = AutocompleteViewController()
             _autocompletePopover!.animates = true
             _autocompletePopover!.behavior = .transient
             _autocompletePopover!.appearance = window!.appearance
@@ -65,14 +36,14 @@ class LabelTextField: NSTokenField {
         return _autocompletePopover!
     }
     
-    @objc dynamic var currentLabels: [Any] {
+    @objc dynamic var tokens: [Any] {
         get { return (objectValue as? NSArray)?.filter { !($0 is String) } ?? [] }
         set { objectValue = newValue as NSArray }
     }
     
-    func reloadLabels() {
-        let value = currentLabels
-        objectValue = value
+    func reloadTokens() {
+        let value = tokens
+        tokens = value
     }
     
     fileprivate class Row {
@@ -157,24 +128,24 @@ class LabelTextField: NSTokenField {
         return array[editingIndex] as? String ?? ""
     }
     
-    func notifyLabelChange() {
-        if let delegate = self.delegate as? LabelFieldDelegate {
-            delegate.tokenFieldChangedLabels(self, labels: self.currentLabels)
+    func notifyTokenChange() {
+        if let delegate = self.delegate as? TTTokenFieldDelegate {
+            delegate.tokenFieldChangedLabels(self, labels: self.tokens)
         }
     }
     
     override func awakeFromNib() {
         objectValueObservation = self.observe(\.objectValue, options: [.new]) { [unowned self] object, change in
-            self.notifyLabelChange()
+            self.notifyTokenChange()
         }
     }
     
     override func controlTextDidChange(_ obj: Notification) {
         let editingString = self.editingString
         
-        guard let delegate = delegate as? LabelFieldDelegate, editingString.count > 0 else {
+        guard let delegate = delegate as? TTTokenFieldDelegate, editingString.count > 0 else {
             _autocompletePopover?.close()
-            notifyLabelChange()
+            notifyTokenChange()
             return
         }
         
@@ -229,16 +200,47 @@ class LabelTextField: NSTokenField {
     func autocomplete(with: Any?) {
         let idx = editingIndex
         if let with = with {
-            // Strip away unfinished strings by using currentLabels rather than objectValue
-            currentLabels.insert(with, at: idx)
+            // Strip away unfinished strings by using 'tokens' rather than objectValue
+            tokens.insert(with, at: idx)
         }
         else {
-            let labels = currentLabels
-            currentLabels = labels
+            // Again, strip tokens
+            reloadTokens()
         }
-        // When we have no strings, location is equal to the number of labels
+        // When we have no strings, location is equal to the number of tokens
         currentEditor()?.selectedRange = NSMakeRange(idx + 1, 0)
         
         self.autocompletePopover.close()
+    }
+}
+
+extension TTTokenField {
+    class TokenGroup {
+        let title: String
+        var contents: [Any] = []
+        
+        init(title: String, contents: [Any]) {
+            self.title = title
+            self.contents = contents
+        }
+    }
+    
+    class AutocompleteViewController : NSViewController {
+        init() {
+            super.init(nibName: nil, bundle: nil)
+        }
+        
+        required init?(coder: NSCoder) {
+            super.init(coder: coder)
+        }
+        
+        override func loadView() {
+            view = ContentView()
+            view.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        class ContentView : NSView, PopoverFirstResponderStealingSuppression {
+            var suppressFirstResponderWhenPopoverShows: Bool { return true }
+        }
     }
 }

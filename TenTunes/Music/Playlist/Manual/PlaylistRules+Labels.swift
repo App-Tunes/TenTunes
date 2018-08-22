@@ -8,8 +8,8 @@
 
 import Cocoa
 
-extension TrackLabel {
-    class Search : TrackLabel {
+extension SmartPlaylistRules.Token {
+    class Search : SmartPlaylistRules.Token {
         var string: String
         
         init(string: String) {
@@ -39,7 +39,7 @@ extension TrackLabel {
         }
     }
     
-    class InPlaylist : TrackLabel {
+    class InPlaylist : SmartPlaylistRules.Token {
         var playlistID: NSManagedObjectID?
         var isTag: Bool
         
@@ -86,7 +86,7 @@ extension TrackLabel {
         }
     }
     
-    class Author : TrackLabel {
+    class Author : SmartPlaylistRules.Token {
         var author: String
         
         init(author: String) {
@@ -117,7 +117,7 @@ extension TrackLabel {
         }
     }
     
-    class InAlbum : TrackLabel {
+    class InAlbum : SmartPlaylistRules.Token {
         var album: Album
         
         init(album: Album) {
@@ -148,7 +148,7 @@ extension TrackLabel {
         }
     }
     
-    class Genre : TrackLabel {
+    class Genre : SmartPlaylistRules.Token {
         var genre: String
         
         init(genre: String) {
@@ -179,7 +179,7 @@ extension TrackLabel {
         }
     }
     
-    class MinBitrate : TrackLabel {
+    class MinBitrate : SmartPlaylistRules.Token {
         var bitrate: Int
         
         init(bitrate: Int, above: Bool) {

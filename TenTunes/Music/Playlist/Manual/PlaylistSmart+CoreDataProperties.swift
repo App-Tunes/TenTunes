@@ -14,18 +14,18 @@ extension PlaylistSmart {
         return NSFetchRequest<PlaylistSmart>(entityName: "PlaylistSmart")
     }
     
-    @NSManaged public var rules: PlaylistRules!
+    @NSManaged public var rules: SmartPlaylistRules!
 
-    var rrules: PlaylistRules {
-        return rules ?? PlaylistRules()
+    var rrules: SmartPlaylistRules {
+        return rules ?? SmartPlaylistRules()
     }
 
     public override func awakeFromInsert() {
         super.awakeFromInsert()
-        if rules == nil { rules = PlaylistRules() }
+        if rules == nil { rules = SmartPlaylistRules() }
     }
     
     public override func awakeFromFetch() {
-        if rules == nil { rules = PlaylistRules() }
+        if rules == nil { rules = SmartPlaylistRules() }
     }
 }

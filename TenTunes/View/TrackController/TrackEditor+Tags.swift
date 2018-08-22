@@ -8,7 +8,7 @@
 
 import Cocoa
 
-extension TrackEditor : LabelFieldDelegate {
+extension TrackEditor : TTTokenFieldDelegate {
     var viewTags : [Any] {
         return _editorOutline.children(ofItem: data[0]).compactMap { item in
             let view = _editorOutline.view(atColumn: 0, forItem: item, makeIfNecessary: false) as! NSTableCellView
@@ -36,11 +36,11 @@ extension TrackEditor : LabelFieldDelegate {
             .sorted { (a, b) in a.name.count < b.name.count }
     }
     
-    func tokenField(_ tokenField: NSTokenField, completionGroupsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [LabelGroup]? {
+    func tokenField(_ tokenField: NSTokenField, completionGroupsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [TTTokenField.TokenGroup]? {
         let compareSubstring = substring.lowercased()
-        var groups: [LabelGroup] = []
+        var groups: [TTTokenField.TokenGroup] = []
         
-        groups.append(LabelGroup(title: "Tag", contents: tagResults(search: compareSubstring)))
+        groups.append(.init(title: "Tag", contents: tagResults(search: compareSubstring)))
         
         return groups
     }
@@ -93,7 +93,7 @@ extension TrackEditor : LabelFieldDelegate {
     
     override func controlTextDidChange(_ obj: Notification) {
         // TODO Hack, let LabelTextField observe this instead
-        (obj.object as? LabelTextField)?.controlTextDidChange(obj)
+        (obj.object as? TTTokenField)?.controlTextDidChange(obj)
     }
     
     func tokenField(_ tokenField: NSTokenField, shouldAdd tokens: [Any], at index: Int) -> [Any] {
@@ -113,7 +113,7 @@ extension TrackEditor : LabelFieldDelegate {
     }
     
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
-        guard let labelField = control as? LabelTextField else {
+        guard let labelField = control as? TTTokenField else {
             return false
         }
         
@@ -134,7 +134,7 @@ extension TrackEditor : LabelFieldDelegate {
     }
     
     override func controlTextDidEndEditing(_ obj: Notification) {
-        if let labelField = obj.object as? LabelTextField {
+        if let labelField = obj.object as? TTTokenField {
             labelField.objectValue = [] // Clear instead of letting it become a Token
         }
     }

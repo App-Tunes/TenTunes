@@ -11,9 +11,9 @@ import Cocoa
 @objc public class CartesianRules : NSObject, NSCoding {
     struct Combination : Hashable {
         let name: String
-        let rules: PlaylistRules
+        let rules: SmartPlaylistRules
         
-        init(name: String, rules: PlaylistRules) {
+        init(name: String, rules: SmartPlaylistRules) {
             self.name = name
             self.rules = rules
         }
@@ -35,14 +35,14 @@ import Cocoa
         }
     }
 
-    var labels: [PlaylistLabel]
+    var labels: [CartesianRules.Token]
     
     public func encode(with aCoder: NSCoder) {
         aCoder.encode(labels, forKey: "labels")
     }
     
     public required init?(coder aDecoder: NSCoder) {
-        labels = (aDecoder.decodeObject(forKey: "labels") as? [PlaylistLabel?])?.compactMap { $0 } ?? []
+        labels = (aDecoder.decodeObject(forKey: "labels") as? [CartesianRules.Token?])?.compactMap { $0 } ?? []
     }
     
     func combinedFilter(in context: NSManagedObjectContext) -> (Track) -> Bool {
@@ -63,22 +63,22 @@ import Cocoa
     func crossProduct(in context: NSManagedObjectContext) -> [Combination] {
         guard labels.count == 2 else {
             return labels.first?.matches(in: context).map { source in
-                let rules = PlaylistRules(labels: [TrackLabel.InPlaylist(playlist: source, isTag: false)])
+                let rules = SmartPlaylistRules(labels: [.InPlaylist(playlist: source, isTag: false)])
                 return Combination(name: source.name, rules: rules)
                 } ?? []
         }
         
         return labels.first!.matches(in: context).crossProduct(labels.last!.matches(in: context)).map { (left, right) in
             let name = "\(left.name) | \(right.name)"
-            let rules = PlaylistRules(labels: [
-                TrackLabel.InPlaylist(playlist: left, isTag: false),
-                TrackLabel.InPlaylist(playlist: right, isTag: false)
+            let rules = SmartPlaylistRules(labels: [
+                .InPlaylist(playlist: left, isTag: false),
+                .InPlaylist(playlist: right, isTag: false)
                 ])
             return Combination(name: name, rules: rules)
         }
     }
     
-    init(labels: [PlaylistLabel] = []) {
+    init(labels: [CartesianRules.Token] = []) {
         self.labels = labels
     }
     
@@ -93,45 +93,45 @@ import Cocoa
     }
     
     override public func isEqual(_ object: Any?) -> Bool {
-        guard let object = object as? PlaylistRules else {
+        guard let object = object as? SmartPlaylistRules else {
             return false
         }
         
         return labels == object.labels
     }
-}
-
-@objc class PlaylistLabel : NSObject, NSCoding {
-    func encode(with aCoder: NSCoder) {
-        
-    }
     
-    override init() {
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        
-    }
-    
-    func matches(in context: NSManagedObjectContext) -> [Playlist] {
-        return []
-    }
-    
-    func representation(in context: NSManagedObjectContext? = nil) -> String { return "" }
-    
-    var data : NSData { return NSKeyedArchiver.archivedData(withRootObject: self) as NSData }
-    
-    override func isEqual(_ object: Any?) -> Bool {
-        guard let object = object as? PlaylistLabel else {
-            return false
+    @objc(TenTunes_CartesianRules_Token) class Token : NSObject, NSCoding {
+        func encode(with aCoder: NSCoder) {
+            
         }
-        return data == object.data
+        
+        override init() {
+            
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            
+        }
+        
+        func matches(in context: NSManagedObjectContext) -> [Playlist] {
+            return []
+        }
+        
+        func representation(in context: NSManagedObjectContext? = nil) -> String { return "" }
+        
+        var data : NSData { return NSKeyedArchiver.archivedData(withRootObject: self) as NSData }
+        
+        override func isEqual(_ object: Any?) -> Bool {
+            guard let object = object as? CartesianRules.Token else {
+                return false
+            }
+            return data == object.data
+        }
     }
 }
 
-extension PlaylistLabel {
-    @objc class Folder : PlaylistLabel {
+extension CartesianRules.Token {
+    class Folder : CartesianRules.Token {
         var playlistID: NSManagedObjectID?
         
         init(playlist: PlaylistFolder?) {

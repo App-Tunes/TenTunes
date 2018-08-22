@@ -41,11 +41,11 @@ class TrackController: NSViewController {
     
     @IBOutlet var _trackEditorView: NSView!
     
-    @IBOutlet var filterController: TrackLabelController!
+    @IBOutlet var filterController: SmartPlaylistRulesController!
     @IBOutlet var filterBar: HideableBar!
     @IBOutlet var _filterBarContainer: NSView!
 
-    @IBOutlet var smartPlaylistRuleController: TrackLabelController!
+    @IBOutlet var smartPlaylistRuleController: SmartPlaylistRulesController!
     @IBOutlet var smartFolderRuleController: CartesianLabelController!
     @IBOutlet var ruleBar: HideableBar!
     @IBOutlet var _ruleBarContainer: NSView!
@@ -141,7 +141,7 @@ class TrackController: NSViewController {
         filterBar.delegate = self
         _filterBarContainer.setFullSizeContent(filterBar.view)
         
-        filterController = TrackLabelController(nibName: .init(rawValue: "TrackLabelController"), bundle: nil)
+        filterController = SmartPlaylistRulesController(nibName: .init(rawValue: "TrackLabelController"), bundle: nil)
         filterController.delegate = self
         filterBar.contentView = filterController.view
 
@@ -150,7 +150,7 @@ class TrackController: NSViewController {
         ruleBar.delegate = self
         _ruleBarContainer.setFullSizeContent(ruleBar.view)
 
-        smartPlaylistRuleController = TrackLabelController(nibName: .init(rawValue: "TrackLabelController"), bundle: nil)
+        smartPlaylistRuleController = SmartPlaylistRulesController(nibName: .init(rawValue: "TrackLabelController"), bundle: nil)
         smartPlaylistRuleController.delegate = self
         ruleBar.contentView = smartPlaylistRuleController.view
         

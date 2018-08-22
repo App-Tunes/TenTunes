@@ -9,15 +9,15 @@
 import Cocoa
 
 @objc protocol TrackLabelControllerDelegate {
-    @objc optional func labelsChanged(trackLabelController: TrackLabelController, rules: PlaylistRules)
+    @objc optional func labelsChanged(trackLabelController: SmartPlaylistRulesController, rules: SmartPlaylistRules)
     
-    @objc optional func editingEnded(labelManager: TrackLabelController, notification: Notification)
+    @objc optional func editingEnded(labelManager: SmartPlaylistRulesController, notification: Notification)
 }
 
-class TrackLabelController : NSViewController, LabelFieldDelegate {
+class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
     @IBOutlet @objc weak open var delegate: TrackLabelControllerDelegate?
     
-    @IBOutlet var _labelField: LabelTextField!
+    @IBOutlet var _labelField: TTTokenField!
     
     @IBOutlet var _labelMenu: NSMenu!
     
@@ -40,20 +40,20 @@ class TrackLabelController : NSViewController, LabelFieldDelegate {
         PopupEnum.represent(in: _accumulationType, with: [Accumulation.all, Accumulation.any], title: { $0.title })
     }
     
-    var rules: PlaylistRules {
+    var rules: SmartPlaylistRules {
         get {
             let acc = _accumulationType.selectedItem?.representedObject as! Accumulation
-            return PlaylistRules(labels: currentLabels, any: acc == .any)
+            return SmartPlaylistRules(labels: tokens, any: acc == .any)
         }
         set {
             _accumulationType.select(_accumulationType.menu!.item(withRepresentedObject: newValue.any ? Accumulation.any : Accumulation.all))
-            currentLabels = newValue.labels
+            tokens = newValue.labels
         }
     }
     
-    var currentLabels: [TrackLabel] {
-        get { return _labelField.currentLabels as! [TrackLabel] }
-        set { _labelField.currentLabels = newValue }
+    var tokens: [SmartPlaylistRules.Token] {
+        get { return _labelField.tokens as! [SmartPlaylistRules.Token] }
+        set { _labelField.tokens = newValue }
     }
     
     var playlists: [Playlist] {
@@ -62,57 +62,57 @@ class TrackLabelController : NSViewController, LabelFieldDelegate {
         }
     }
     
-    func tokenField(_ tokenField: NSTokenField, completionGroupsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [LabelGroup]? {
+    func tokenField(_ tokenField: NSTokenField, completionGroupsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [TTTokenField.TokenGroup]? {
         let compareSubstring = substring.lowercased()
         
-        var groups: [LabelGroup] = [
-            LabelGroup(title: "Search For", contents: [TrackLabel.Search(string: substring)]),
+        var groups: [TTTokenField.TokenGroup] = [
+            .init(title: "Search For", contents: [SmartPlaylistRules.Token.Search(string: substring)]),
             ]
         
         if let int = Int(substring), int > 0 {
-            groups.append(LabelGroup(title: "Kbps", contents: [
-                TrackLabel.MinBitrate(bitrate: int, above: true),
-                TrackLabel.MinBitrate(bitrate: int, above: false)
+            groups.append(.init(title: "Kbps", contents: [
+                SmartPlaylistRules.Token.MinBitrate(bitrate: int, above: true),
+                SmartPlaylistRules.Token.MinBitrate(bitrate: int, above: false)
                 ]))
         }
         
-        groups.append(LabelGroup(title: "Has Tag", contents: playlistResults(search: compareSubstring, tag: true)))
-        groups.append(LabelGroup(title: "Contained In Playlist", contents: playlistResults(search: compareSubstring, tag: false)))
-        groups.append(LabelGroup(title: "Created By", contents: authorResults(search: compareSubstring)))
-        groups.append(LabelGroup(title: "Released on Album", contents: albumResults(search: compareSubstring)))
-        groups.append(LabelGroup(title: "Genre", contents: genreResults(search: compareSubstring)))
+        groups.append(.init(title: "Has Tag", contents: playlistResults(search: compareSubstring, tag: true)))
+        groups.append(.init(title: "Contained In Playlist", contents: playlistResults(search: compareSubstring, tag: false)))
+        groups.append(.init(title: "Created By", contents: authorResults(search: compareSubstring)))
+        groups.append(.init(title: "Released on Album", contents: albumResults(search: compareSubstring)))
+        groups.append(.init(title: "Genre", contents: genreResults(search: compareSubstring)))
         
         return groups
     }
     
-    static func sorted<L : TrackLabel>(labels: [L]) -> [L] {
+    static func sorted<L : SmartPlaylistRules.Token>(labels: [L]) -> [L] {
         return labels.sorted { (a, b) -> Bool in
             a.representation(in: Library.shared.viewContext).count < b.representation(in: Library.shared.viewContext).count
         }
     }
     
-    func genreResults(search: String) -> [TrackLabel.Genre] {
+    func genreResults(search: String) -> [SmartPlaylistRules.Token.Genre] {
         let found = search.count > 0 ? Library.shared.allGenres.filter({ $0.lowercased().range(of: search) != nil }) : Library.shared.allGenres
-        return TrackLabelController.sorted(labels: found.map { TrackLabel.Genre(genre: $0) })
+        return SmartPlaylistRulesController.sorted(labels: found.map { SmartPlaylistRules.Token.Genre(genre: $0) })
     }
     
-    func albumResults(search: String) -> [TrackLabel.InAlbum] {
+    func albumResults(search: String) -> [SmartPlaylistRules.Token.InAlbum] {
         let found = search.count > 0 ? Library.shared.allAlbums.filter({ $0.title.lowercased().range(of: search) != nil }) : Library.shared.allAlbums
-        return TrackLabelController.sorted(labels: found.map { TrackLabel.InAlbum(album: $0) })
+        return SmartPlaylistRulesController.sorted(labels: found.map { SmartPlaylistRules.Token.InAlbum(album: $0) })
     }
     
-    func authorResults(search: String) -> [TrackLabel.Author] {
+    func authorResults(search: String) -> [SmartPlaylistRules.Token.Author] {
         let found = search.count > 0 ? Library.shared.allAuthors.filter({ $0.lowercased().range(of: search) != nil }) : Library.shared.allAuthors
-        return TrackLabelController.sorted(labels: found.map { TrackLabel.Author(author: $0) })
+        return SmartPlaylistRulesController.sorted(labels: found.map { SmartPlaylistRules.Token.Author(author: $0) })
     }
     
-    func playlistResults(search: String, tag: Bool) -> [TrackLabel.InPlaylist] {
+    func playlistResults(search: String, tag: Bool) -> [SmartPlaylistRules.Token.InPlaylist] {
         let found = search.count > 0 ? (tag ? Library.shared.allTags() : playlists).filter({ $0.name.lowercased().range(of: search) != nil }) : playlists
-        return TrackLabelController.sorted(labels: found.map({ TrackLabel.InPlaylist(playlist: $0, isTag: tag) }))
+        return SmartPlaylistRulesController.sorted(labels: found.map({ SmartPlaylistRules.Token.InPlaylist(playlist: $0, isTag: tag) }))
     }
     
     func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {
-        return (representedObject as? TrackLabel)?.representation(in: Library.shared.viewContext)
+        return (representedObject as? SmartPlaylistRules.Token)?.representation(in: Library.shared.viewContext)
     }
     
     func tokenFieldChangedLabels(_ tokenField: NSTokenField, labels: [Any]) {
@@ -120,11 +120,11 @@ class TrackLabelController : NSViewController, LabelFieldDelegate {
     }
     
     func tokenField(_ tokenField: NSTokenField, shouldAdd tokens: [Any], at index: Int) -> [Any] {
-        return tokens.map { $0 is TrackLabel ? $0 : TrackLabel.Search(string: $0 as! String) }
+        return tokens.map { $0 is SmartPlaylistRules.Token ? $0 : SmartPlaylistRules.Token.Search(string: $0 as! String) }
     }
     
     func tokenField(_ tokenField: NSTokenField, hasMenuForRepresentedObject representedObject: Any) -> Bool {
-        return !(representedObject is TrackLabel.Search)
+        return !(representedObject is SmartPlaylistRules.Token.Search)
     }
     
     func tokenField(_ tokenField: NSTokenField, menuForRepresentedObject representedObject: Any) -> NSMenu? {
@@ -133,33 +133,33 @@ class TrackLabelController : NSViewController, LabelFieldDelegate {
     }
     
     @IBAction func invertLabel(_ sender: Any) {
-        let label = (sender as! NSMenuItem).representedObject as! TrackLabel
+        let label = (sender as! NSMenuItem).representedObject as! SmartPlaylistRules.Token
         let inverted = label.inverted()
         
-        currentLabels[currentLabels.index(of: label)!] = inverted
-        _labelField.notifyLabelChange()
+        tokens[tokens.index(of: label)!] = inverted
+        _labelField.notifyTokenChange()
         
-        _labelField.reloadLabels()
+        _labelField.reloadTokens()
     }
     
     override func controlTextDidChange(_ obj: Notification) {
         // TODO Hack, let LabelTextField observe this instead
-        (obj.object as! LabelTextField).controlTextDidChange(obj)
+        (obj.object as! TTTokenField).controlTextDidChange(obj)
     }
     
     override func controlTextDidEndEditing(_ obj: Notification) {
         delegate?.editingEnded?(labelManager: self, notification: obj)
         
-        if let labelField = obj.object as? LabelTextField {
+        if let labelField = obj.object as? TTTokenField {
             let editing = labelField.editingString
             if editing.count > 0 {
-                labelField.autocomplete(with: TrackLabel.Search(string: labelField.editingString))
+                labelField.autocomplete(with: SmartPlaylistRules.Token.Search(string: labelField.editingString))
             }
         }
     }
     
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
-        let labelField = control as! LabelTextField
+        let labelField = control as! TTTokenField
         
         if commandSelector == #selector(NSResponder.insertNewlineIgnoringFieldEditor(_:)) {
             // Use the first matching tag

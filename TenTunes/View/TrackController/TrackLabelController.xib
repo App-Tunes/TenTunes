@@ -5,7 +5,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="TrackLabelController" customModule="TenTunes" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="SmartPlaylistRulesController" customModule="TenTunes" customModuleProvider="target">
             <connections>
                 <outlet property="_accumulationType" destination="46r-eQ-QvF" id="GxD-VS-H5Q"/>
                 <outlet property="_labelField" destination="oy3-NO-azg" id="U2T-On-voe"/>
@@ -18,7 +18,7 @@
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-mo-xeY">
             <rect key="frame" x="0.0" y="0.0" width="480" height="31"/>
             <subviews>
-                <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oy3-NO-azg" customClass="LabelTextField" customModule="TenTunes" customModuleProvider="target">
+                <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oy3-NO-azg" customClass="TTTokenField" customModule="TenTunes" customModuleProvider="target">
                     <rect key="frame" x="14" y="4" width="383" height="24"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="hfT-Zd-bDt"/>

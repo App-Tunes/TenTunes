@@ -22,9 +22,14 @@
                                         <rect key="frame" x="0.0" y="0.0" width="1292" height="92"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
-                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="o1F-mb-bFA" customClass="NSImageViewAspectFill" customModule="TenTunes" customModuleProvider="target">
+                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="w8H-st-uUl">
                                                 <rect key="frame" x="0.0" y="0.0" width="1292" height="92"/>
-                                            </customView>
+                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="tuS-iy-Wnr"/>
+                                            </imageView>
+                                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" fixedFrame="YES" blendingMode="withinWindow" material="appearanceBased" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="ffx-Mi-FNH">
+                                                <rect key="frame" x="0.0" y="0.0" width="1292" height="92"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            </visualEffectView>
                                             <customView verticalHuggingPriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="TnY-8S-uno" customClass="WaveformView" customModule="TenTunes" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="1292" height="43"/>
                                                 <subviews>
@@ -175,22 +180,23 @@ IA
                                         <constraints>
                                             <constraint firstItem="ETj-HU-NV5" firstAttribute="width" secondItem="ETj-HU-NV5" secondAttribute="height" multiplier="1:1" id="0dk-4x-AQr"/>
                                             <constraint firstItem="vGp-jR-JQ9" firstAttribute="centerY" secondItem="4Fc-0r-wVE" secondAttribute="centerY" id="2ny-ao-zVy"/>
-                                            <constraint firstItem="o1F-mb-bFA" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" id="37u-Jm-jrP"/>
                                             <constraint firstItem="ETj-HU-NV5" firstAttribute="leading" secondItem="9Xs-lc-aS8" secondAttribute="trailing" constant="16" id="4yn-NV-s13"/>
                                             <constraint firstItem="9Xs-lc-aS8" firstAttribute="leading" secondItem="7Y2-7h-2Y4" secondAttribute="trailing" constant="16" id="5N5-Tv-tpk"/>
                                             <constraint firstItem="NC3-8V-1wQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ws9-gx-fi8" secondAttribute="trailing" constant="30" id="7wW-14-RBF"/>
                                             <constraint firstItem="ETj-HU-NV5" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="14" id="8TE-zh-6Xg"/>
                                             <constraint firstItem="vGp-jR-JQ9" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" constant="97" id="Ak8-DA-NJT"/>
+                                            <constraint firstItem="w8H-st-uUl" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" id="DDx-XK-Xng"/>
                                             <constraint firstItem="7Y2-7h-2Y4" firstAttribute="leading" secondItem="weN-hW-VXM" secondAttribute="trailing" constant="16" id="DSC-bJ-QKK"/>
+                                            <constraint firstItem="w8H-st-uUl" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" id="Df9-If-Dwu"/>
                                             <constraint firstItem="4Fc-0r-wVE" firstAttribute="leading" secondItem="vGp-jR-JQ9" secondAttribute="trailing" constant="8" symbolic="YES" id="F1p-Yh-tF4"/>
                                             <constraint firstItem="weN-hW-VXM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NC3-8V-1wQ" secondAttribute="trailing" constant="30" id="HQb-Dl-Lp6"/>
                                             <constraint firstItem="vGp-jR-JQ9" firstAttribute="bottom" secondItem="4Fc-0r-wVE" secondAttribute="bottom" constant="-4" id="Hdu-CG-TQ4"/>
+                                            <constraint firstAttribute="trailing" secondItem="w8H-st-uUl" secondAttribute="trailing" id="IGX-a1-yOD"/>
                                             <constraint firstItem="weN-hW-VXM" firstAttribute="centerY" secondItem="7Y2-7h-2Y4" secondAttribute="centerY" id="JOg-1S-jWD"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="NC3-8V-1wQ" secondAttribute="bottom" constant="7" id="KBD-pX-2GJ"/>
                                             <constraint firstItem="9Xs-lc-aS8" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="14" id="MVV-2g-mOg"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="9Xs-lc-aS8" secondAttribute="bottom" constant="14" id="Pqa-Co-VB3"/>
                                             <constraint firstItem="weN-hW-VXM" firstAttribute="leading" relation="lessThanOrEqual" secondItem="NC3-8V-1wQ" secondAttribute="trailing" priority="10" constant="10" id="TSE-kL-kgl"/>
-                                            <constraint firstItem="o1F-mb-bFA" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" id="Tfj-Fh-ooz"/>
                                             <constraint firstAttribute="trailing" secondItem="TnY-8S-uno" secondAttribute="trailing" id="ZOi-Zw-7Sx"/>
                                             <constraint firstItem="7Y2-7h-2Y4" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="14" id="c3R-Ek-gmG"/>
                                             <constraint firstItem="vGp-jR-JQ9" firstAttribute="firstBaseline" secondItem="Ws9-gx-fi8" secondAttribute="firstBaseline" id="dl3-k3-IVH"/>
@@ -198,12 +204,11 @@ IA
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="4Fc-0r-wVE" secondAttribute="bottom" constant="13" id="fxo-uM-5FA"/>
                                             <constraint firstItem="NC3-8V-1wQ" firstAttribute="centerX" secondItem="CJ8-Em-XgG" secondAttribute="centerX" id="i3i-pO-6IN"/>
                                             <constraint firstItem="4Fc-0r-wVE" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="13" id="ivH-Kr-erJ"/>
-                                            <constraint firstAttribute="trailing" secondItem="o1F-mb-bFA" secondAttribute="trailing" id="kcG-rB-AwR"/>
-                                            <constraint firstAttribute="bottom" secondItem="o1F-mb-bFA" secondAttribute="bottom" id="lus-gC-hse"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="ETj-HU-NV5" secondAttribute="bottom" constant="14" id="mSY-SA-lDg"/>
                                             <constraint firstAttribute="bottom" secondItem="TnY-8S-uno" secondAttribute="bottom" id="mm5-D9-4tj"/>
                                             <constraint firstAttribute="trailing" secondItem="ETj-HU-NV5" secondAttribute="trailing" constant="20" id="oKp-fI-pwe"/>
                                             <constraint firstItem="vGp-jR-JQ9" firstAttribute="baseline" secondItem="Ws9-gx-fi8" secondAttribute="baseline" id="p3y-sr-YYy"/>
+                                            <constraint firstAttribute="bottom" secondItem="w8H-st-uUl" secondAttribute="bottom" id="tT1-6k-n2K"/>
                                             <constraint firstItem="NC3-8V-1wQ" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="7" id="w9Y-w4-DQt"/>
                                             <constraint firstItem="Ws9-gx-fi8" firstAttribute="leading" secondItem="4Fc-0r-wVE" secondAttribute="trailing" constant="8" symbolic="YES" id="wEc-11-xbf"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" id="zi4-6q-OKg"/>
@@ -253,7 +258,7 @@ IA
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="_coverImage" destination="o1F-mb-bFA" id="tRL-t8-vgn"/>
+                        <outlet property="_coverImage" destination="w8H-st-uUl" id="e7N-Kw-sIr"/>
                         <outlet property="_next" destination="Ws9-gx-fi8" id="l56-Fl-VBO"/>
                         <outlet property="_play" destination="4Fc-0r-wVE" id="DPb-N7-0hb"/>
                         <outlet property="_playingTrackView" destination="VMd-f1-c9v" id="Upy-TT-ws2"/>
@@ -271,7 +276,7 @@ IA
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-91" y="1008"/>
+            <point key="canvasLocation" x="-91" y="1007.5"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="BcV-A1-hzE">

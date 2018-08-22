@@ -56,7 +56,7 @@
 		8079F6DC2106745600B7A278 /* CartesianRulesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8079F6DA2106745600B7A278 /* CartesianRulesController.xib */; };
 		8079F6DE210674F700B7A278 /* CartesianRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6DD210674F700B7A278 /* CartesianRules.swift */; };
 		8079F6E0210A268900B7A278 /* Track+Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6DF210A268900B7A278 /* Track+Metadata.swift */; };
-		8079F6E4210A2C5400B7A278 /* PlaylistRules+Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6E3210A2C5300B7A278 /* PlaylistRules+Labels.swift */; };
+		8079F6E4210A2C5400B7A278 /* PlaylistRules+Tokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6E3210A2C5300B7A278 /* PlaylistRules+Tokens.swift */; };
 		8079F6E8211B015B00B7A278 /* RecursionGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6E7211B015B00B7A278 /* RecursionGuard.swift */; };
 		8079F6EA211B822900B7A278 /* UnscalingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6E9211B822900B7A278 /* UnscalingMenu.swift */; };
 		8079F6EC211B87A700B7A278 /* SpinningButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6EB211B87A700B7A278 /* SpinningButton.swift */; };
@@ -231,7 +231,7 @@
 		8079F6DA2106745600B7A278 /* CartesianRulesController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartesianRulesController.xib; sourceTree = "<group>"; };
 		8079F6DD210674F700B7A278 /* CartesianRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartesianRules.swift; sourceTree = "<group>"; };
 		8079F6DF210A268900B7A278 /* Track+Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Track+Metadata.swift"; sourceTree = "<group>"; };
-		8079F6E3210A2C5300B7A278 /* PlaylistRules+Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistRules+Labels.swift"; sourceTree = "<group>"; };
+		8079F6E3210A2C5300B7A278 /* PlaylistRules+Tokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistRules+Tokens.swift"; sourceTree = "<group>"; };
 		8079F6E7211B015B00B7A278 /* RecursionGuard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecursionGuard.swift; sourceTree = "<group>"; };
 		8079F6E9211B822900B7A278 /* UnscalingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnscalingMenu.swift; sourceTree = "<group>"; };
 		8079F6EB211B87A700B7A278 /* SpinningButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinningButton.swift; sourceTree = "<group>"; };
@@ -482,7 +482,7 @@
 				80B68BA52101204200A32E3D /* PlaylistSmart.swift */,
 				80B68BA42101204200A32E3D /* PlaylistSmart+CoreDataProperties.swift */,
 				807E289D2101291B0080F332 /* SmartPlaylistRules.swift */,
-				8079F6E3210A2C5300B7A278 /* PlaylistRules+Labels.swift */,
+				8079F6E3210A2C5300B7A278 /* PlaylistRules+Tokens.swift */,
 			);
 			path = Manual;
 			sourceTree = "<group>";
@@ -877,7 +877,7 @@
 				80B3BE12207514D200B93961 /* Player.swift in Sources */,
 				80F9703320962EA200A989D8 /* PopupEnum.swift in Sources */,
 				80E2C9FC204B40A000298E81 /* PlaylistFolder+CoreDataProperties.swift in Sources */,
-				8079F6E4210A2C5400B7A278 /* PlaylistRules+Labels.swift in Sources */,
+				8079F6E4210A2C5400B7A278 /* PlaylistRules+Tokens.swift in Sources */,
 				8079F6DB2106745600B7A278 /* CartesianRulesController.swift in Sources */,
 				80B68BA92101255D00A32E3D /* TrackController+Labels.swift in Sources */,
 				807092EB20C69D8F00DFED53 /* ExportPlaylistsController.swift in Sources */,

@@ -93,9 +93,7 @@ class TrackEditor: NSViewController {
 //        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy // User is always right
         context = Library.shared.viewContext
         self.tracks = context.compactConvert(tracks)
-        
-        _editorOutline.deselectAll(self) // Hack because selection looks shit but we need it for now
-        
+                
         for track in self.tracks {
             try! track.fetchMetadata()
         }

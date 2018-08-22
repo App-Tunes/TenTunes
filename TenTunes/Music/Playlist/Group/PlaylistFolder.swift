@@ -32,7 +32,10 @@ public class PlaylistFolder: Playlist {
         }
     }
     
-    // TODO
+    var automatesChildren: Bool {
+        return false
+    }
+    
     override func _freshTracksList(rguard: RecursionGuard<Playlist>) -> [Track] {
         return (childrenList.flatMap { $0.guardedTracksList(rguard: rguard) }).uniqueElements
     }

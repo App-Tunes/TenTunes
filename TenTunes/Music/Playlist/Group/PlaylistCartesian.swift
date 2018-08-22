@@ -42,6 +42,10 @@ class PlaylistCartesian: PlaylistFolder {
         }
     }
     
+    override var automatesChildren: Bool {
+        return true
+    }
+    
     override func _freshTracksList(rguard: RecursionGuard<Playlist>) -> [Track] {
         guard rguard.push(self) else {
             return [] // TODO Find a better way

@@ -37,8 +37,8 @@ extension PlaylistController {
             return Library.shared.isEditable(playlist: playlist) ? .move : []
         case Playlist.pasteboardType:
             // We can always rearrange, except into playlists
-            let parent = (item as? Playlist) ?? masterPlaylist!
-            guard parent is PlaylistFolder else {
+            let item = (item as? Playlist) ?? masterPlaylist!
+            guard let parent = item as? PlaylistFolder, !parent.automatesChildren else {
                 return []
             }
             let playlists = (pasteboard.pasteboardItems ?? []).compactMap(Library.shared.readPlaylist)

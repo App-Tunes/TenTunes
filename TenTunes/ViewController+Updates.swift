@@ -32,6 +32,7 @@ extension ViewController {
             // Modified track info?
             if let track = update as? Track {
                 trackController.reload(track: track)
+                playingTrackController.reload(track: track)
             }
             
             // Modified playlist contents?

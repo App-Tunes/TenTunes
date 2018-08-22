@@ -140,7 +140,9 @@ class TTTokenField: NSTokenField {
         }
     }
     
-    override func controlTextDidChange(_ obj: Notification) {
+    override func textDidChange(_ notification: Notification) {
+        super.textDidChange(notification)
+        
         let editingString = self.editingString
         
         guard let delegate = delegate as? TTTokenFieldDelegate, editingString.count > 0 else {
@@ -168,7 +170,7 @@ class TTTokenField: NSTokenField {
                 row.view.isHidden = true
                 continue
             }
-
+            
             row.view.isHidden = false
             row.title.stringValue = group.title
             

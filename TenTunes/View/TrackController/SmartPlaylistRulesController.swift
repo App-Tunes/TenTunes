@@ -142,11 +142,6 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
         _tokenField.reloadTokens()
     }
     
-    override func controlTextDidChange(_ obj: Notification) {
-        // TODO Hack, let LabelTextField observe this instead
-        (obj.object as! TTTokenField).controlTextDidChange(obj)
-    }
-    
     override func controlTextDidEndEditing(_ obj: Notification) {
         delegate?.editingEnded?(smartPlaylistRulesController: self, notification: obj)
         

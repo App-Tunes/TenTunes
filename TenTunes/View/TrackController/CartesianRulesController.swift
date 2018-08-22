@@ -73,11 +73,6 @@ class CartesianRulesController : NSViewController, TTTokenFieldDelegate {
         }
     }
     
-    override func controlTextDidChange(_ obj: Notification) {
-        // TODO Hack, let TTTokenField observe this instead
-        (obj.object as! TTTokenField).controlTextDidChange(obj)
-    }
-    
     override func controlTextDidEndEditing(_ obj: Notification) {
         delegate?.editingEnded?(cartesianRulesController: self, notification: obj)
         (obj.object as? TTTokenField)?.autocomplete(with: nil)

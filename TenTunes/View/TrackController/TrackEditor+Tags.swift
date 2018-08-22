@@ -91,11 +91,6 @@ extension TrackEditor : TTTokenFieldDelegate {
         }
     }
     
-    override func controlTextDidChange(_ obj: Notification) {
-        // TODO Hack, let LabelTextField observe this instead
-        (obj.object as? TTTokenField)?.controlTextDidChange(obj)
-    }
-    
     func tokenField(_ tokenField: NSTokenField, shouldAdd tokens: [Any], at index: Int) -> [Any] {
         return tokens.compactMap {
             guard let compareSubstring = ($0 as? String)?.lowercased() else {

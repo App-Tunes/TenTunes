@@ -8,18 +8,18 @@
 
 import Cocoa
 
-@objc protocol TrackLabelControllerDelegate {
-    @objc optional func labelsChanged(trackLabelController: SmartPlaylistRulesController, rules: SmartPlaylistRules)
+@objc protocol SmartPlaylistRulesControllerDelegate {
+    @objc optional func smartPlaylistRulesController(_ controller: SmartPlaylistRulesController, changedRules rules: SmartPlaylistRules)
     
-    @objc optional func editingEnded(labelManager: SmartPlaylistRulesController, notification: Notification)
+    @objc optional func editingEnded(smartPlaylistRulesController: SmartPlaylistRulesController, notification: Notification)
 }
 
 class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
-    @IBOutlet @objc weak open var delegate: TrackLabelControllerDelegate?
+    @IBOutlet @objc weak open var delegate: SmartPlaylistRulesControllerDelegate?
     
-    @IBOutlet var _labelField: TTTokenField!
+    @IBOutlet var _tokenField: TTTokenField!
     
-    @IBOutlet var _labelMenu: NSMenu!
+    @IBOutlet var _tokenMenu: NSMenu!
     
     @IBOutlet var _accumulationType: NSPopUpButton!
 
@@ -43,17 +43,17 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
     var rules: SmartPlaylistRules {
         get {
             let acc = _accumulationType.selectedItem?.representedObject as! Accumulation
-            return SmartPlaylistRules(labels: tokens, any: acc == .any)
+            return SmartPlaylistRules(tokens: tokens, any: acc == .any)
         }
         set {
             _accumulationType.select(_accumulationType.menu!.item(withRepresentedObject: newValue.any ? Accumulation.any : Accumulation.all))
-            tokens = newValue.labels
+            tokens = newValue.tokens
         }
     }
     
     var tokens: [SmartPlaylistRules.Token] {
-        get { return _labelField.tokens as! [SmartPlaylistRules.Token] }
-        set { _labelField.tokens = newValue }
+        get { return _tokenField.tokens as! [SmartPlaylistRules.Token] }
+        set { _tokenField.tokens = newValue }
     }
     
     var playlists: [Playlist] {
@@ -85,38 +85,38 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
         return groups
     }
     
-    static func sorted<L : SmartPlaylistRules.Token>(labels: [L]) -> [L] {
-        return labels.sorted { (a, b) -> Bool in
+    static func sorted<L : SmartPlaylistRules.Token>(tokens: [L]) -> [L] {
+        return tokens.sorted { (a, b) -> Bool in
             a.representation(in: Library.shared.viewContext).count < b.representation(in: Library.shared.viewContext).count
         }
     }
     
     func genreResults(search: String) -> [SmartPlaylistRules.Token.Genre] {
         let found = search.count > 0 ? Library.shared.allGenres.filter({ $0.lowercased().range(of: search) != nil }) : Library.shared.allGenres
-        return SmartPlaylistRulesController.sorted(labels: found.map { SmartPlaylistRules.Token.Genre(genre: $0) })
+        return SmartPlaylistRulesController.sorted(tokens: found.map { SmartPlaylistRules.Token.Genre(genre: $0) })
     }
     
     func albumResults(search: String) -> [SmartPlaylistRules.Token.InAlbum] {
         let found = search.count > 0 ? Library.shared.allAlbums.filter({ $0.title.lowercased().range(of: search) != nil }) : Library.shared.allAlbums
-        return SmartPlaylistRulesController.sorted(labels: found.map { SmartPlaylistRules.Token.InAlbum(album: $0) })
+        return SmartPlaylistRulesController.sorted(tokens: found.map { SmartPlaylistRules.Token.InAlbum(album: $0) })
     }
     
     func authorResults(search: String) -> [SmartPlaylistRules.Token.Author] {
         let found = search.count > 0 ? Library.shared.allAuthors.filter({ $0.lowercased().range(of: search) != nil }) : Library.shared.allAuthors
-        return SmartPlaylistRulesController.sorted(labels: found.map { SmartPlaylistRules.Token.Author(author: $0) })
+        return SmartPlaylistRulesController.sorted(tokens: found.map { SmartPlaylistRules.Token.Author(author: $0) })
     }
     
     func playlistResults(search: String, tag: Bool) -> [SmartPlaylistRules.Token.InPlaylist] {
         let found = search.count > 0 ? (tag ? Library.shared.allTags() : playlists).filter({ $0.name.lowercased().range(of: search) != nil }) : playlists
-        return SmartPlaylistRulesController.sorted(labels: found.map({ SmartPlaylistRules.Token.InPlaylist(playlist: $0, isTag: tag) }))
+        return SmartPlaylistRulesController.sorted(tokens: found.map({ SmartPlaylistRules.Token.InPlaylist(playlist: $0, isTag: tag) }))
     }
     
     func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {
         return (representedObject as? SmartPlaylistRules.Token)?.representation(in: Library.shared.viewContext)
     }
     
-    func tokenFieldChangedLabels(_ tokenField: NSTokenField, labels: [Any]) {
-        delegate?.labelsChanged?(trackLabelController: self, rules: rules)
+    func tokenField(_ tokenField: NSTokenField, changedTokens tokens: [Any]) {
+        delegate?.smartPlaylistRulesController?(self, changedRules: rules)
     }
     
     func tokenField(_ tokenField: NSTokenField, shouldAdd tokens: [Any], at index: Int) -> [Any] {
@@ -128,18 +128,18 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
     }
     
     func tokenField(_ tokenField: NSTokenField, menuForRepresentedObject representedObject: Any) -> NSMenu? {
-        for item in _labelMenu.items { item.representedObject = representedObject }
-        return _labelMenu
+        for item in _tokenMenu.items { item.representedObject = representedObject }
+        return _tokenMenu
     }
     
-    @IBAction func invertLabel(_ sender: Any) {
-        let label = (sender as! NSMenuItem).representedObject as! SmartPlaylistRules.Token
-        let inverted = label.inverted()
+    @IBAction func invertToken(_ sender: Any) {
+        let token = (sender as! NSMenuItem).representedObject as! SmartPlaylistRules.Token
+        let inverted = token.inverted()
         
-        tokens[tokens.index(of: label)!] = inverted
-        _labelField.notifyTokenChange()
+        tokens[tokens.index(of: token)!] = inverted
+        _tokenField.notifyTokenChange()
         
-        _labelField.reloadTokens()
+        _tokenField.reloadTokens()
     }
     
     override func controlTextDidChange(_ obj: Notification) {
@@ -148,7 +148,7 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
     }
     
     override func controlTextDidEndEditing(_ obj: Notification) {
-        delegate?.editingEnded?(labelManager: self, notification: obj)
+        delegate?.editingEnded?(smartPlaylistRulesController: self, notification: obj)
         
         if let labelField = obj.object as? TTTokenField {
             let editing = labelField.editingString
@@ -176,6 +176,6 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
     }
     
     @IBAction func accumulationChanged(_ sender: Any) {
-        delegate?.labelsChanged?(trackLabelController: self, rules: rules)
+        delegate?.smartPlaylistRulesController?(self, changedRules: rules)
     }
 }

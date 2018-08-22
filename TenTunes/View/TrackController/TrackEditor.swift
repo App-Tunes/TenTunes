@@ -62,7 +62,7 @@ class TrackEditor: NSViewController {
                 ]),
             ]
 
-    var labelTokens : [Any] = []
+    var tagTokens : [Any] = []
 
     override func viewDidLoad() {
         showError(text: "No Tracks Selected")
@@ -102,7 +102,7 @@ class TrackEditor: NSViewController {
         
         let (omittedTags, sharedTags) = findShares(in: tracks.map { $0.tags })
         let omittedPart = omittedTags.isEmpty ? [] : [omittedTags]
-        labelTokens = omittedPart as [Any] + sharedTags.sorted { $0.name < $1.name } as [Any] + [TrackEditor.addPlaceholder]
+        tagTokens = omittedPart as [Any] + sharedTags.sorted { $0.name < $1.name } as [Any] + [TrackEditor.addPlaceholder]
 
         _editorOutline.reloadItem(data[0], reloadChildren: true)
         
@@ -146,7 +146,7 @@ class TrackEditor: NSViewController {
         }
         
         _editorOutline.animateDelete(elements: items)
-        labelTokens = labelTokens.filter { label in !items.contains { (label as AnyObject) === ($0 as AnyObject) }}
+        tagTokens = tagTokens.filter { label in !items.contains { (label as AnyObject) === ($0 as AnyObject) }}
 
         tokensChanged()
     }
@@ -198,7 +198,7 @@ extension TrackEditor: NSOutlineViewDelegate {
         
         guard !group.data.isEmpty else {
             // Tag hack
-            return labelTokens.count
+            return tagTokens.count
         }
         
         return group.data.count
@@ -253,7 +253,7 @@ extension TrackEditor: NSOutlineViewDelegate {
         
         guard !group.data.isEmpty else {
             // Tag hack
-            return labelTokens[index]
+            return tagTokens[index]
         }
         
         return group.data[index]

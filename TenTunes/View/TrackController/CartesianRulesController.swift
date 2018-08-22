@@ -1,5 +1,5 @@
 //
-//  CartesianLabelController.swift
+//  CartesianRulesController.swift
 //  TenTunes
 //
 //  Created by Lukas Tenbrink on 23.07.18.
@@ -8,20 +8,20 @@
 
 import Cocoa
 
-@objc protocol CartesianLabelControllerDelegate {
-    @objc optional func labelsChanged(cartesianLabelController: CartesianLabelController, labels: [CartesianRules.Token])
+@objc protocol CartesianRulesControllerDelegate {
+    @objc optional func cartesianRulesController(_ controller: CartesianRulesController, changedTokens tokens: [CartesianRules.Token])
     
-    @objc optional func editingEnded(cartesianLabelController: CartesianLabelController, notification: Notification)
+    @objc optional func editingEnded(cartesianRulesController: CartesianRulesController, notification: Notification)
 }
 
-class CartesianLabelController : NSViewController, TTTokenFieldDelegate {
-    @IBOutlet @objc weak open var delegate: CartesianLabelControllerDelegate?
+class CartesianRulesController : NSViewController, TTTokenFieldDelegate {
+    @IBOutlet @objc weak open var delegate: CartesianRulesControllerDelegate?
     
-    @IBOutlet var _labelField: TTTokenField!
+    @IBOutlet var _tokenField: TTTokenField!
     
-    var currentLabels: [CartesianRules.Token] {
-        get { return _labelField.tokens as! [CartesianRules.Token] }
-        set { _labelField.tokens = newValue }
+    var tokens: [CartesianRules.Token] {
+        get { return _tokenField.tokens as! [CartesianRules.Token] }
+        set { _tokenField.tokens = newValue }
     }
     
     var folders: [PlaylistFolder] {
@@ -38,23 +38,23 @@ class CartesianLabelController : NSViewController, TTTokenFieldDelegate {
         return groups
     }
     
-    static func sorted<L : CartesianRules.Token>(labels: [L]) -> [L] {
-        return labels.sorted { (a, b) -> Bool in
+    static func sorted<L : CartesianRules.Token>(tokens: [L]) -> [L] {
+        return tokens.sorted { (a, b) -> Bool in
             a.representation(in: Library.shared.viewContext).count < b.representation(in: Library.shared.viewContext).count
         }
     }
     
     func folderResults(search: String) -> [CartesianRules.Token] {
         let found = search.count > 0 ? folders.filter({ $0.name.lowercased().range(of: search) != nil }) : folders
-        return CartesianLabelController.sorted(labels: found.map({ .Folder(playlist: $0) }))
+        return CartesianRulesController.sorted(tokens: found.map({ .Folder(playlist: $0) }))
     }
     
     func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {
         return (representedObject as? CartesianRules.Token)?.representation(in: Library.shared.viewContext)
     }
     
-    func tokenFieldChangedLabels(_ tokenField: NSTokenField, labels: [Any]) {
-        delegate?.labelsChanged?(cartesianLabelController: self, labels: labels as! [CartesianRules.Token])
+    func tokenField(_ tokenField: NSTokenField, changedTokens tokens: [Any]) {
+        delegate?.cartesianRulesController?(self, changedTokens: self.tokens)
     }
     
     func tokenField(_ tokenField: NSTokenField, shouldAdd tokens: [Any], at index: Int) -> [Any] {
@@ -74,12 +74,12 @@ class CartesianLabelController : NSViewController, TTTokenFieldDelegate {
     }
     
     override func controlTextDidChange(_ obj: Notification) {
-        // TODO Hack, let LabelTextField observe this instead
+        // TODO Hack, let TTTokenField observe this instead
         (obj.object as! TTTokenField).controlTextDidChange(obj)
     }
     
     override func controlTextDidEndEditing(_ obj: Notification) {
-        delegate?.editingEnded?(cartesianLabelController: self, notification: obj)
+        delegate?.editingEnded?(cartesianRulesController: self, notification: obj)
         (obj.object as? TTTokenField)?.autocomplete(with: nil)
     }
 }

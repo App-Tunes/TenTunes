@@ -46,7 +46,7 @@ class TrackController: NSViewController {
     @IBOutlet var _filterBarContainer: NSView!
 
     @IBOutlet var smartPlaylistRuleController: SmartPlaylistRulesController!
-    @IBOutlet var smartFolderRuleController: CartesianLabelController!
+    @IBOutlet var smartFolderRuleController: CartesianRulesController!
     @IBOutlet var ruleBar: HideableBar!
     @IBOutlet var _ruleBarContainer: NSView!
     @IBOutlet var _ruleButton: NSButton!
@@ -55,9 +55,6 @@ class TrackController: NSViewController {
     @IBOutlet var _playlistInfoBarHeight: NSLayoutConstraint!
     
     var trackEditor : TrackEditor!
-    
-    @IBOutlet weak var _sortLabel: NSTextField!
-    @IBOutlet weak var _sortBar: NSView!
     
     var playTrack: ((Int, Double?) -> Swift.Void)?
     var playTrackNext: ((Int) -> Swift.Void)?
@@ -78,8 +75,8 @@ class TrackController: NSViewController {
             }
             else if let playlist = history.playlist as? PlaylistCartesian {
                 _ruleButton.isHidden = false
-                if smartFolderRuleController.currentLabels != playlist.rules.labels {
-                    smartFolderRuleController.currentLabels = playlist.rules.labels
+                if smartFolderRuleController.tokens != playlist.rules.tokens {
+                    smartFolderRuleController.tokens = playlist.rules.tokens
                 }
                 ruleBar.contentView = smartFolderRuleController.view
             }
@@ -141,7 +138,7 @@ class TrackController: NSViewController {
         filterBar.delegate = self
         _filterBarContainer.setFullSizeContent(filterBar.view)
         
-        filterController = SmartPlaylistRulesController(nibName: .init(rawValue: "TrackLabelController"), bundle: nil)
+        filterController = SmartPlaylistRulesController(nibName: .init(rawValue: "SmartPlaylistRulesController"), bundle: nil)
         filterController.delegate = self
         filterBar.contentView = filterController.view
 
@@ -150,11 +147,11 @@ class TrackController: NSViewController {
         ruleBar.delegate = self
         _ruleBarContainer.setFullSizeContent(ruleBar.view)
 
-        smartPlaylistRuleController = SmartPlaylistRulesController(nibName: .init(rawValue: "TrackLabelController"), bundle: nil)
+        smartPlaylistRuleController = SmartPlaylistRulesController(nibName: .init(rawValue: "SmartPlaylistRulesController"), bundle: nil)
         smartPlaylistRuleController.delegate = self
         ruleBar.contentView = smartPlaylistRuleController.view
         
-        smartFolderRuleController = CartesianLabelController(nibName: .init(rawValue: "CartesianLabelController"), bundle: nil)
+        smartFolderRuleController = CartesianRulesController(nibName: .init(rawValue: "CartesianRulesController"), bundle: nil)
         smartFolderRuleController.delegate = self
         smartFolderRuleController.loadView()
     }
@@ -443,13 +440,13 @@ extension TrackController : HideableBarDelegate {
             _ruleButton.state = state ? .on : .off
             
             if state == false {
-                smartPlaylistRuleController._labelField.resignFirstResponder()
+                smartPlaylistRuleController._tokenField.resignFirstResponder()
             }
         }
         else if bar == filterBar {
             if state == false {
                 desired.filter = nil
-                filterController._labelField.resignFirstResponder()
+                filterController._tokenField.resignFirstResponder()
             }
         }
         

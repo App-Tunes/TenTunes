@@ -49,11 +49,11 @@
 		807092EB20C69D8F00DFED53 /* ExportPlaylistsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807092E920C69D8F00DFED53 /* ExportPlaylistsController.swift */; };
 		807092EC20C69D8F00DFED53 /* ExportPlaylistsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 807092EA20C69D8F00DFED53 /* ExportPlaylistsController.xib */; };
 		8079F6D32106551100B7A278 /* SmartPlaylistRulesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6D12106551100B7A278 /* SmartPlaylistRulesController.swift */; };
-		8079F6D42106551100B7A278 /* TrackLabelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8079F6D22106551100B7A278 /* TrackLabelController.xib */; };
+		8079F6D42106551100B7A278 /* SmartPlaylistRulesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8079F6D22106551100B7A278 /* SmartPlaylistRulesController.xib */; };
 		8079F6D72106661A00B7A278 /* HideableBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6D52106661A00B7A278 /* HideableBar.swift */; };
 		8079F6D82106661A00B7A278 /* HideableBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8079F6D62106661A00B7A278 /* HideableBar.xib */; };
-		8079F6DB2106745600B7A278 /* CartesianLabelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6D92106745600B7A278 /* CartesianLabelController.swift */; };
-		8079F6DC2106745600B7A278 /* CartesianLabelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8079F6DA2106745600B7A278 /* CartesianLabelController.xib */; };
+		8079F6DB2106745600B7A278 /* CartesianRulesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6D92106745600B7A278 /* CartesianRulesController.swift */; };
+		8079F6DC2106745600B7A278 /* CartesianRulesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8079F6DA2106745600B7A278 /* CartesianRulesController.xib */; };
 		8079F6DE210674F700B7A278 /* CartesianRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6DD210674F700B7A278 /* CartesianRules.swift */; };
 		8079F6E0210A268900B7A278 /* Track+Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6DF210A268900B7A278 /* Track+Metadata.swift */; };
 		8079F6E4210A2C5400B7A278 /* PlaylistRules+Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6E3210A2C5300B7A278 /* PlaylistRules+Labels.swift */; };
@@ -224,11 +224,11 @@
 		807092E920C69D8F00DFED53 /* ExportPlaylistsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPlaylistsController.swift; sourceTree = "<group>"; };
 		807092EA20C69D8F00DFED53 /* ExportPlaylistsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExportPlaylistsController.xib; sourceTree = "<group>"; };
 		8079F6D12106551100B7A278 /* SmartPlaylistRulesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartPlaylistRulesController.swift; sourceTree = "<group>"; };
-		8079F6D22106551100B7A278 /* TrackLabelController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackLabelController.xib; sourceTree = "<group>"; };
+		8079F6D22106551100B7A278 /* SmartPlaylistRulesController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SmartPlaylistRulesController.xib; sourceTree = "<group>"; };
 		8079F6D52106661A00B7A278 /* HideableBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableBar.swift; sourceTree = "<group>"; };
 		8079F6D62106661A00B7A278 /* HideableBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HideableBar.xib; sourceTree = "<group>"; };
-		8079F6D92106745600B7A278 /* CartesianLabelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartesianLabelController.swift; sourceTree = "<group>"; };
-		8079F6DA2106745600B7A278 /* CartesianLabelController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartesianLabelController.xib; sourceTree = "<group>"; };
+		8079F6D92106745600B7A278 /* CartesianRulesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartesianRulesController.swift; sourceTree = "<group>"; };
+		8079F6DA2106745600B7A278 /* CartesianRulesController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartesianRulesController.xib; sourceTree = "<group>"; };
 		8079F6DD210674F700B7A278 /* CartesianRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartesianRules.swift; sourceTree = "<group>"; };
 		8079F6DF210A268900B7A278 /* Track+Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Track+Metadata.swift"; sourceTree = "<group>"; };
 		8079F6E3210A2C5300B7A278 /* PlaylistRules+Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistRules+Labels.swift"; sourceTree = "<group>"; };
@@ -646,9 +646,9 @@
 				806611892125B9BF00C3948E /* TrackEditor+Tags.swift */,
 				80F8F6F22053EA2C004A07D6 /* TrackEditor.xib */,
 				8079F6D12106551100B7A278 /* SmartPlaylistRulesController.swift */,
-				8079F6D22106551100B7A278 /* TrackLabelController.xib */,
-				8079F6D92106745600B7A278 /* CartesianLabelController.swift */,
-				8079F6DA2106745600B7A278 /* CartesianLabelController.xib */,
+				8079F6D22106551100B7A278 /* SmartPlaylistRulesController.xib */,
+				8079F6D92106745600B7A278 /* CartesianRulesController.swift */,
+				8079F6DA2106745600B7A278 /* CartesianRulesController.xib */,
 			);
 			path = TrackController;
 			sourceTree = "<group>";
@@ -759,14 +759,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8079F6D42106551100B7A278 /* TrackLabelController.xib in Resources */,
+				8079F6D42106551100B7A278 /* SmartPlaylistRulesController.xib in Resources */,
 				80F8F6F42053EA2C004A07D6 /* TrackEditor.xib in Resources */,
 				807092EC20C69D8F00DFED53 /* ExportPlaylistsController.xib in Resources */,
 				8079F6D82106661A00B7A278 /* HideableBar.xib in Resources */,
 				80F97031209625E800A989D8 /* PreferencesWindowController.xib in Resources */,
 				8093467720A99112001D15CD /* DefaultPreferences.plist in Resources */,
 				80F2C5812038808000212739 /* Assets.xcassets in Resources */,
-				8079F6DC2106745600B7A278 /* CartesianLabelController.xib in Resources */,
+				8079F6DC2106745600B7A278 /* CartesianRulesController.xib in Resources */,
 				80074CFD204584980055B87E /* PlaylistController.xib in Resources */,
 				8030E01520FCBDAA006B4AE8 /* TaskViewController.xib in Resources */,
 				806611812124622100C3948E /* Library.storyboard in Resources */,
@@ -878,7 +878,7 @@
 				80F9703320962EA200A989D8 /* PopupEnum.swift in Sources */,
 				80E2C9FC204B40A000298E81 /* PlaylistFolder+CoreDataProperties.swift in Sources */,
 				8079F6E4210A2C5400B7A278 /* PlaylistRules+Labels.swift in Sources */,
-				8079F6DB2106745600B7A278 /* CartesianLabelController.swift in Sources */,
+				8079F6DB2106745600B7A278 /* CartesianRulesController.swift in Sources */,
 				80B68BA92101255D00A32E3D /* TrackController+Labels.swift in Sources */,
 				807092EB20C69D8F00DFED53 /* ExportPlaylistsController.swift in Sources */,
 				806AC1432041EF1900857B1B /* SPAnalyzer.mm in Sources */,

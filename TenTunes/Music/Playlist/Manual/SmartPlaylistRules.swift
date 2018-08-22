@@ -1,5 +1,5 @@
 //
-//  Label.swift
+//  SmartPlaylistRules.swift
 //  TenTunes
 //
 //  Created by Lukas Tenbrink on 19.07.18.
@@ -9,13 +9,13 @@
 import Cocoa
 
 @objc public class SmartPlaylistRules : NSObject, NSCoding {
-    let labels: [SmartPlaylistRules.Token]
+    let tokens: [SmartPlaylistRules.Token]
     let any: Bool
     
     func filter(in context: NSManagedObjectContext, rguard: RecursionGuard<Playlist>? = nil) -> ((Track) -> Bool) {
         let rguard = rguard ?? RecursionGuard()
         
-        let filters = labels.map { $0.filter(in: context, rguard: rguard) }
+        let filters = tokens.map { $0.filter(in: context, rguard: rguard) }
         let any = self.any
         
         return { track in
@@ -24,26 +24,26 @@ import Cocoa
     }
 
     public func encode(with aCoder: NSCoder) {
-        aCoder.encode(labels, forKey: "labels")
+        aCoder.encode(tokens, forKey: "labels")
         aCoder.encode(any, forKey: "modeAny")
     }
 
     public required init?(coder aDecoder: NSCoder) {
-        labels = (aDecoder.decodeObject(forKey: "labels") as? [SmartPlaylistRules.Token?])?.compactMap { $0 } ?? []
+        tokens = (aDecoder.decodeObject(forKey: "labels") as? [SmartPlaylistRules.Token?])?.compactMap { $0 } ?? []
         any = aDecoder.decodeBool(forKey: "modeAny")
     }
     
-    init(labels: [SmartPlaylistRules.Token] = [], any: Bool = false) {
-        self.labels = labels
+    init(tokens: [SmartPlaylistRules.Token] = [], any: Bool = false) {
+        self.tokens = tokens
         self.any = any
     }
     
     public override var description: String {
-        return "[\((labels.map { $0.representation() }).joined(separator: any ? " | " : ", "))]"
+        return "[\((tokens.map { $0.representation() }).joined(separator: any ? " | " : ", "))]"
     }
     
     public override var hashValue: Int {
-        return (labels.map { $0.representation() }).reduce(0, { (hash, string) in
+        return (tokens.map { $0.representation() }).reduce(0, { (hash, string) in
             hash ^ string.hash
         }) * (any ? -1 : 1)
     }
@@ -53,7 +53,7 @@ import Cocoa
             return false
         }
         
-        return labels == object.labels && any == object.any
+        return tokens == object.tokens && any == object.any
     }
     
     @objc(TenTunes_SmartPlaylistRules_Token) class Token : NSObject, NSCoding {

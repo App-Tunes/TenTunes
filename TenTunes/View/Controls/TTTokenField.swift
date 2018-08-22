@@ -1,5 +1,5 @@
 //
-//  LabelTextField.swift
+//  TTTokenField.swift
 //  TenTunes
 //
 //  Created by Lukas Tenbrink on 18.07.18.
@@ -11,7 +11,7 @@ import Cocoa
 protocol TTTokenFieldDelegate : NSTokenFieldDelegate {
     func tokenField(_ tokenField: NSTokenField, completionGroupsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [TTTokenField.TokenGroup]?
     
-    func tokenFieldChangedLabels(_ tokenField: NSTokenField, labels: [Any])
+    func tokenField(_ tokenField: NSTokenField, changedTokens tokens: [Any])
 }
 
 class TTTokenField: NSTokenField {
@@ -130,7 +130,7 @@ class TTTokenField: NSTokenField {
     
     func notifyTokenChange() {
         if let delegate = self.delegate as? TTTokenFieldDelegate {
-            delegate.tokenFieldChangedLabels(self, labels: self.tokens)
+            delegate.tokenField(self, changedTokens: self.tokens)
         }
     }
     

@@ -13,10 +13,10 @@ extension TrackController {
         // TODO Move this to the Hideable Bar class
         let firstResponder = view.window?.firstResponder
         
-        if firstResponder == filterController._labelField.currentEditor() {
+        if firstResponder == filterController._tokenField.currentEditor() {
             filterBar.close()
         }
-        else if firstResponder == smartPlaylistRuleController._labelField.currentEditor() {
+        else if firstResponder == smartPlaylistRuleController._tokenField.currentEditor() {
             ruleBar.close()
         }
     }
@@ -29,19 +29,19 @@ extension TrackController {
             ruleBar.open()
             
             if ruleBar.contentView == smartPlaylistRuleController {
-                view.window?.makeFirstResponder(smartPlaylistRuleController._labelField)
+                view.window?.makeFirstResponder(smartPlaylistRuleController._tokenField)
             }
             else if ruleBar.contentView == smartFolderRuleController {
-                view.window?.makeFirstResponder(smartFolderRuleController._labelField)
+                view.window?.makeFirstResponder(smartFolderRuleController._tokenField)
             }
         }
     }
 }
 
-extension TrackController : TrackLabelControllerDelegate {
-    func labelsChanged(trackLabelController: SmartPlaylistRulesController, rules: SmartPlaylistRules) {
+extension TrackController : SmartPlaylistRulesControllerDelegate {
+    func smartPlaylistRulesController(_ controller: SmartPlaylistRulesController, changedRules rules: SmartPlaylistRules) {
         // TODO Live search
-        if trackLabelController == smartPlaylistRuleController, let playlist = history.playlist as? PlaylistSmart {
+        if controller == smartPlaylistRuleController, let playlist = history.playlist as? PlaylistSmart {
             if playlist.rrules != rules {
                 playlist.rules = rules
                 try! Library.shared.viewContext.save()
@@ -53,11 +53,11 @@ extension TrackController : TrackLabelControllerDelegate {
     }
 }
 
-extension TrackController : CartesianLabelControllerDelegate {
-    func labelsChanged(cartesianLabelController: CartesianLabelController, labels: [CartesianRules.Token]) {
-        if cartesianLabelController == smartFolderRuleController, let playlist = history.playlist as? PlaylistCartesian {
-            if playlist.rules.labels != labels {
-                playlist.rules.labels = labels
+extension TrackController : CartesianRulesControllerDelegate {
+    func cartesianRulesController(_ controller: CartesianRulesController, changedTokens tokens: [CartesianRules.Token]) {
+        if controller == smartFolderRuleController, let playlist = history.playlist as? PlaylistCartesian {
+            if playlist.rules.tokens != tokens {
+                playlist.rules.tokens = tokens
                 NSManagedObject.markDirty(playlist, \.rules)
                 try! Library.shared.viewContext.save()
             }

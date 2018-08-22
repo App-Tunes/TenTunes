@@ -5,9 +5,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="CartesianLabelController" customModule="TenTunes" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="CartesianRulesController" customModule="TenTunes" customModuleProvider="target">
             <connections>
-                <outlet property="_labelField" destination="gdZ-4S-w0E" id="gZu-cI-Wb2"/>
+                <outlet property="_tokenField" destination="gdZ-4S-w0E" id="gZu-cI-Wb2"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>

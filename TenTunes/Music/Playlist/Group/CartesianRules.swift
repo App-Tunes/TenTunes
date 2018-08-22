@@ -35,14 +35,14 @@ import Cocoa
         }
     }
 
-    var labels: [CartesianRules.Token]
+    var tokens: [CartesianRules.Token]
     
     public func encode(with aCoder: NSCoder) {
-        aCoder.encode(labels, forKey: "labels")
+        aCoder.encode(tokens, forKey: "labels")
     }
     
     public required init?(coder aDecoder: NSCoder) {
-        labels = (aDecoder.decodeObject(forKey: "labels") as? [CartesianRules.Token?])?.compactMap { $0 } ?? []
+        tokens = (aDecoder.decodeObject(forKey: "labels") as? [CartesianRules.Token?])?.compactMap { $0 } ?? []
     }
     
     func combinedFilter(in context: NSManagedObjectContext) -> (Track) -> Bool {
@@ -57,20 +57,20 @@ import Cocoa
     }
     
     func combinedMatches(in context: NSManagedObjectContext) -> [[Playlist]] {
-        return labels.map({ $0.matches(in: context) })
+        return tokens.map({ $0.matches(in: context) })
     }
 
     func crossProduct(in context: NSManagedObjectContext) -> [Combination] {
-        guard labels.count == 2 else {
-            return labels.first?.matches(in: context).map { source in
-                let rules = SmartPlaylistRules(labels: [.InPlaylist(playlist: source, isTag: false)])
+        guard tokens.count == 2 else {
+            return tokens.first?.matches(in: context).map { source in
+                let rules = SmartPlaylistRules(tokens: [.InPlaylist(playlist: source, isTag: false)])
                 return Combination(name: source.name, rules: rules)
                 } ?? []
         }
         
-        return labels.first!.matches(in: context).crossProduct(labels.last!.matches(in: context)).map { (left, right) in
+        return tokens.first!.matches(in: context).crossProduct(tokens.last!.matches(in: context)).map { (left, right) in
             let name = "\(left.name) | \(right.name)"
-            let rules = SmartPlaylistRules(labels: [
+            let rules = SmartPlaylistRules(tokens: [
                 .InPlaylist(playlist: left, isTag: false),
                 .InPlaylist(playlist: right, isTag: false)
                 ])
@@ -78,16 +78,16 @@ import Cocoa
         }
     }
     
-    init(labels: [CartesianRules.Token] = []) {
-        self.labels = labels
+    init(tokens: [CartesianRules.Token] = []) {
+        self.tokens = tokens
     }
     
     public override var description: String {
-        return "[\((labels.map { $0.representation() }).joined(separator: ", "))]"
+        return "[\((tokens.map { $0.representation() }).joined(separator: ", "))]"
     }
     
     public override var hashValue: Int {
-        return (labels.map { $0.representation() }).reduce(0, { (hash, string) in
+        return (tokens.map { $0.representation() }).reduce(0, { (hash, string) in
             hash ^ string.hash
         })
     }
@@ -97,7 +97,7 @@ import Cocoa
             return false
         }
         
-        return labels == object.labels
+        return tokens == object.tokens
     }
     
     @objc(TenTunes_CartesianRules_Token) class Token : NSObject, NSCoding {

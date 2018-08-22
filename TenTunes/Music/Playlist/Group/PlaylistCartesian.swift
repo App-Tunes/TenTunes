@@ -18,7 +18,7 @@ class PlaylistCartesian: PlaylistFolder {
         let childrenRules = childrenList.compactMap(CartesianRules.Combination.init)
         
         if cross.count != childrenList.count || cross != childrenRules {
-            for (required, existing) in longZip(cross, childrenList) {
+            for (index, (required, existing)) in longZip(cross, childrenList).enumerated() {
                 guard required?.rules.labels != (existing as? PlaylistSmart)?.rules?.labels || required?.name != existing?.name else {
                     continue
                 }
@@ -33,6 +33,10 @@ class PlaylistCartesian: PlaylistFolder {
                     playlist.name = required.name
                     // TODO Fix the program trying to autoname these
                     addToChildren(playlist)
+                    
+                    if existing != nil { // Deleted one as well, means we're in the middle
+                        children = children.rearranged(elements: [playlist], to: index)
+                    }
                 }
             }
         }

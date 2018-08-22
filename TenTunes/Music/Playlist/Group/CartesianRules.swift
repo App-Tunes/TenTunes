@@ -46,11 +46,13 @@ import Cocoa
     }
     
     func combinedFilter(in context: NSManagedObjectContext) -> (Track) -> Bool {
-        let matches = combinedMatches(in: context)
+        // Every group of playlists must have at least one that contains the track
+        // So we build a set of all tracks from each group 
+        let matches = combinedMatches(in: context).map {
+            Set($0.flatMap { $0.tracksList })
+        }
         return { track in
-            // Slow this down... :
-            // Every group of playlists must have at least one that contains the track
-            matches.allMatch { $0.anyMatch { $0.tracksList.contains(track) } }
+            matches.allMatch { $0.contains(track) }
         }
     }
     

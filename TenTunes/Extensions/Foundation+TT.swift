@@ -480,6 +480,10 @@ extension String {
             .replacingOccurrences(of: "/", with: ":") // : is a slash in filenames
     }
     
+    func startsOrIsStarted(by string: String) -> Bool {
+        return string.count > count ? string.starts(with: self) : starts(with: string)
+    }
+    
     static func random16Hex() -> String {
         return String(format:"%08X%08X", arc4random(), arc4random())
     }

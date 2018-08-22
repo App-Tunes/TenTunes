@@ -76,6 +76,13 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
                 ]))
         }
         
+        if "media".starts(with: compareSubstring) || "location".starts(with: compareSubstring) || "directory".starts(with: compareSubstring) {
+            groups.append(.init(title: "File Location", contents: [
+                SmartPlaylistRules.Token.InMediaDirectory(true),
+                SmartPlaylistRules.Token.InMediaDirectory(false)
+                ]))
+        }
+        
         groups.append(.init(title: "Has Tag", contents: playlistResults(search: compareSubstring, tag: true)))
         groups.append(.init(title: "Contained In Playlist", contents: playlistResults(search: compareSubstring, tag: false)))
         groups.append(.init(title: "Created By", contents: authorResults(search: compareSubstring)))

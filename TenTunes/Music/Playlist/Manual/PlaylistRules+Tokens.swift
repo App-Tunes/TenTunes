@@ -206,4 +206,26 @@ extension SmartPlaylistRules.Token {
             return "kbps \(not ? "<" : "≥") \(bitrate)"
         }
     }
+    
+    class InMediaDirectory : SmartPlaylistRules.Token {
+        init(_ usesMediaDirectory: Bool) {
+            super.init(not: !usesMediaDirectory)
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            super.init(coder: aDecoder)
+        }
+        
+        override func encode(with aCoder: NSCoder) {
+            super.encode(with: aCoder)
+        }
+        
+        override func positiveFilter(in context: NSManagedObjectContext?, rguard: RecursionGuard<Playlist>) -> (Track) -> Bool {
+            return { $0.usesMediaDirectory }
+        }
+        
+        override func representation(in context: NSManagedObjectContext?) -> String {
+            return not ? "Linked File" : "In Media Directory"
+        }
+    }
 }

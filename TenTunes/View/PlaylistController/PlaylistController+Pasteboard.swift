@@ -77,6 +77,8 @@ extension PlaylistController {
             return true
         case Playlist.pasteboardType:
             let playlists = (pasteboard.pasteboardItems ?? []).compactMap(Library.shared.readPlaylist)
+                // Duplicate before dropping if we aren't supposed to edit the source
+                .map { $0.parent!.automatesChildren ? $0.duplicate() : $0 }
             
             for playlist in playlists {
                 (parent as! PlaylistFolder).addPlaylist(playlist, above: index >= 0 ? index : nil)

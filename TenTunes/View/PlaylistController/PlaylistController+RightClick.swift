@@ -34,7 +34,7 @@ extension PlaylistController: NSMenuDelegate {
     
     @IBAction func duplicatePlaylist(_ sender: Any) {
         for playlist in menuPlaylists {
-            let copy = playlist.duplicate(except: ["id", "creationDate", "parent"], deep: ["children"]) as! Playlist
+            let copy = playlist.duplicate()
             let idx = playlist.parent!.children.index(of: playlist)
             
             playlist.parent!.addPlaylist(copy, above: idx)

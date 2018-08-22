@@ -230,10 +230,16 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="K5T-46-pVW"/>
-                <menuItem title="Untangle" id="EL6-rp-IjK">
+                <menuItem title="Untangle Children" id="EL6-rp-IjK">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="untanglePlaylist:" target="-2" id="1fh-2Y-7d4"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Sort Children" id="kcf-tb-FJG">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="sortPlaylistChildren:" target="-2" id="G6f-CN-mNd"/>
                     </connections>
                 </menuItem>
                 <menuItem title="Duplicate" id="xYA-qX-gKO">

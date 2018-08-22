@@ -56,14 +56,6 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OhU-Hj-YaW">
-                        <rect key="frame" x="264" y="248" width="196" height="19"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="0.40000000000000002" doubleValue="0.10000000000000001" tickMarkPosition="above" sliderType="linear" id="sdL-HN-lnT"/>
-                        <connections>
-                            <binding destination="JLH-og-fhR" name="value" keyPath="values.titleBarStylization" id="HZR-6O-rut"/>
-                        </connections>
-                    </slider>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sjg-fU-sbP">
                         <rect key="frame" x="18" y="215" width="113" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -196,6 +188,14 @@
                             <binding destination="JLH-og-fhR" name="value" keyPath="values.autoAnalyzeTracksOnAdd" id="cdI-VK-Ugd"/>
                         </connections>
                     </button>
+                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OhU-Hj-YaW">
+                        <rect key="frame" x="266" y="246" width="196" height="24"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="0.40000000000000002" doubleValue="0.10000000000000001" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="sdL-HN-lnT"/>
+                        <connections>
+                            <binding destination="JLH-og-fhR" name="value" keyPath="values.titleBarStylization" id="HZR-6O-rut"/>
+                        </connections>
+                    </slider>
                 </subviews>
             </view>
             <connections>

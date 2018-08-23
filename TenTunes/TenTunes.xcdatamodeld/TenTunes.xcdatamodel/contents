@@ -25,6 +25,7 @@
         <attribute name="analysisData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="artworkData" optional="YES" transient="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="artworkPreview" optional="YES" attributeType="Transformable" valueTransformerName="NSImageTransformer" allowsExternalBinaryDataStorage="YES" customClassName="NSImage" syncable="YES"/>
+        <attribute name="attribute" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="bitrate" optional="YES" attributeType="Float" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="bpmString" optional="YES" attributeType="String" syncable="YES"/>
@@ -48,6 +49,6 @@
         <element name="PlaylistFolder" positionX="-218" positionY="171" width="128" height="60"/>
         <element name="PlaylistManual" positionX="-218" positionY="252" width="128" height="58"/>
         <element name="PlaylistSmart" positionX="-216" positionY="108" width="128" height="60"/>
-        <element name="Track" positionX="-414" positionY="261" width="128" height="360"/>
+        <element name="Track" positionX="-414" positionY="261" width="128" height="375"/>
     </elements>
 </model>

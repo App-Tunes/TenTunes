@@ -24,6 +24,8 @@ extension Library.Import {
         
         context.insert(track)
         
+        Library.shared.initialAdd(track: track)
+        
         return track
     }
 }

@@ -235,6 +235,17 @@ class Library : NSPersistentContainer {
             return playlist.icon
         }
     }
+    
+    // Adding
+    
+    func initialAdd(track: Track, moveAction: Preferences.FileLocationOnAdd? = nil) {
+        let moveAction = moveAction ?? .current
+        
+        if moveAction  == .copy || moveAction == .move {
+            ViewController.shared.tasker.enqueue(task: MoveTrackToMediaLocation(track: track, copy: moveAction == .copy))
+        }
+
+    }
 }
 
 extension Library {
@@ -248,14 +259,6 @@ extension Library {
         let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject> ?? Set()
         let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject> ?? Set()
         let deletes = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject> ?? Set()
-
-        for insert in inserts {
-            if let track = insert as? Track {
-                if Preferences.FileLocationOnAdd.current == .copy || Preferences.FileLocationOnAdd.current == .move {
-                    ViewController.shared.tasker.enqueue(task: MoveTrackToMediaLocation(track: track, copy: Preferences.FileLocationOnAdd.current == .copy))
-                }
-            }
-        }
         
         for delete in deletes {
             if let track = delete as? Track {

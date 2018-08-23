@@ -181,6 +181,10 @@ extension Library.Import {
         
         try! context.save()
         
+        for track in existingTracks.values {
+            Library.shared.initialAdd(track: track, moveAction: .link)
+        }
+        
         return true
     }
 }

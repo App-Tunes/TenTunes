@@ -171,6 +171,16 @@ class ViewController: NSViewController {
             _previous.set(color: NSColor.lightGray)
             _next.set(color: NSColor.lightGray)
         }
+        
+        playingTrackController.view.superview!.wantsLayer = true
+        let gradient = CAGradientLayer()
+        gradient.colors = [
+            NSColor(white: 0.18, alpha: 0.3).cgColor,
+            NSColor(white: 0.12, alpha: 0.3).cgColor,
+            NSColor(white: 0.08, alpha: 0.3).cgColor,
+        ]
+        gradient.locations = [ NSNumber(value: 0), NSNumber(value: 0.2), NSNumber(value: 1) ]
+        playingTrackController.view.superview!.layer = gradient
     }
         
     func keyDown(with event: NSEvent) -> NSEvent? {
@@ -205,11 +215,16 @@ class ViewController: NSViewController {
         }
         
         _play.image = player.isPaused ? #imageLiteral(resourceName: "play") : #imageLiteral(resourceName: "pause")
-
-        let titleHistory = PlayHistory(playlist: PlaylistEmpty())
-        titleHistory.insert(tracks: [track], before: 0)
-        titleHistory.playingIndex = 0
-        playingTrackController.history = titleHistory
+        
+        if playingTrackController.history.track(at: 0) != track {
+            // Two-step to get the animation rollin
+            playingTrackController.history = PlayHistory(playlist: PlaylistEmpty())
+            
+            let titleHistory = PlayHistory(playlist: PlaylistEmpty())
+            titleHistory.insert(tracks: [track], before: 0)
+            titleHistory.playingIndex = 0
+            playingTrackController.history = titleHistory
+        }
 
         _coverImage.image = track.artworkPreview
         _waveformView.analysis = track.analysis

@@ -31,9 +31,10 @@ extension AVPlayer {
 class Player {
     var history: PlayHistory?
     var player: AKPlayer!
+    var backingPlayer: AKPlayer!
     var playing: Track?
     
-    var completionTimer: Timer?
+    var completionTimers: (Timer?, Timer?)
     
     var updatePlaying: ((Track?) -> Swift.Void)?
     var historyProvider: (() -> PlayHistory)?
@@ -46,16 +47,19 @@ class Player {
 
     init() {
         player = AKPlayer()
+        backingPlayer = AKPlayer()
         // The completion handler sucks...
         // TODO When it stops sucking, replace our completion timer hack
         //        self.player.completionHandler =
-        completionTimer = player.createFakeCompletionHandler { [unowned self] in
+        completionTimers = (player.createFakeCompletionHandler { [unowned self] in
             self.play(moved: 1)
-        }
+            }, backingPlayer.createFakeCompletionHandler { [unowned self] in
+                self.play(moved: 1)
+        })
     }
     
     func start() {
-        AudioKit.output = self.player
+        AudioKit.output = AKMixer(player, backingPlayer)
     }
     
     
@@ -167,6 +171,7 @@ class Player {
                 do {
                     let akfile = try AKAudioFile(forReading: url)
                     player.load(audioFile: akfile)
+                    backingPlayer.load(audioFile: akfile)
                 } catch let error {
                     print(error.localizedDescription)
                     player.stop()
@@ -233,7 +238,31 @@ class Player {
         guard abs(time - player.currentTime) > 0.04 else {
             return // Baaasically the same, so skip doing extra work
         }
-        player.setPosition(time)
+        
+        guard isPlaying else {
+            player.setPosition(time)
+            return
+        }
+        
+        // This code block makes jumping the tiniest bit smoother
+        // TODO Maybe determine this heuristically? lol
+        let magicAdd = 0.04 // Hacky absolute that makes it even smoother
+        backingPlayer.setPosition(time + magicAdd)
+        backingPlayer.volume = 0
+        backingPlayer.play()
+        
+        let _player = self.player
+        self.player = self.backingPlayer
+        self.backingPlayer = _player
+
+        // Slowly switch states. Kinda hacky but improves listening result
+        for _ in 0..<100 {
+            self.player.volume += 1.0 / 100
+            self.backingPlayer.volume -= 1.0 / 100
+            Thread.sleep(forTimeInterval: 0.001)
+        }
+        
+        self.backingPlayer.stop()
     }
     
     func pause() {

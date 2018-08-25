@@ -13,6 +13,6 @@
 	<key>autoPlayTracksOnOpen</key>
 	<true/>
 	<key>titleBarStylization</key>
-	<real>0.1</real>
+	<real>0.5</real>
 </dict>
 </plist>

@@ -191,7 +191,7 @@
                     <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OhU-Hj-YaW">
                         <rect key="frame" x="266" y="246" width="196" height="24"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="0.40000000000000002" doubleValue="0.10000000000000001" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="sdL-HN-lnT"/>
+                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.25" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="sdL-HN-lnT"/>
                         <connections>
                             <binding destination="JLH-og-fhR" name="value" keyPath="values.titleBarStylization" id="HZR-6O-rut"/>
                         </connections>

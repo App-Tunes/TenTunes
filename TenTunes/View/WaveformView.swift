@@ -124,10 +124,12 @@ class WaveformLayer : CALayer {
         _barsLayer.actions = actions
         _bgLayer.actions = actions
 
-        _bgLayer.colors = [
-            NSColor.black.withAlphaComponent(0.4).cgColor,
-            NSColor.clear.cgColor
-        ]
+        let gradientSteps = 10
+        _bgLayer.colors = (0 ... gradientSteps).reversed().map {
+            NSColor.black.withAlphaComponent(CGFloat($0 * 0.5) / CGFloat(gradientSteps)).cgColor
+        }
+        // "Ease In"
+        _bgLayer.locations = (0 ... gradientSteps).map { NSNumber(value: pow(Double($0) / Double(gradientSteps), 2)) }
         _bgLayer.zPosition = -2
         addSublayer(_bgLayer)
         

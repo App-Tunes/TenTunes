@@ -76,6 +76,15 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
                 ]))
         }
         
+        let dateFormatter = DateFormatter() // TODO Parse better
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        if let date = dateFormatter.date(from: compareSubstring) {
+            groups.append(.init(title: "Added After", contents: [
+                SmartPlaylistRules.Token.AddedAfter(date: date, after: true),
+                SmartPlaylistRules.Token.AddedAfter(date: date, after: false)
+                ]))
+        }
+        
         if "media".starts(with: compareSubstring) || "location".starts(with: compareSubstring) || "directory".starts(with: compareSubstring) {
             groups.append(.init(title: "File Location", contents: [
                 SmartPlaylistRules.Token.InMediaDirectory(true),

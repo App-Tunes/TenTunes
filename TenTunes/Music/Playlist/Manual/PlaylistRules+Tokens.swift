@@ -228,4 +228,40 @@ extension SmartPlaylistRules.Token {
             return not ? "Linked File" : "In Media Directory"
         }
     }
+    
+    class AddedAfter : SmartPlaylistRules.Token {
+        var date: Date
+        
+        init(date: Date, after: Bool) {
+            self.date = date
+            super.init(not: !after)
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            guard let date = aDecoder.decodeObject(forKey: "date") as? Date else {
+                return nil
+            }
+            self.date = date
+            super.init(coder: aDecoder)
+        }
+        
+        override func encode(with aCoder: NSCoder) {
+            aCoder.encode(date, forKey: "date")
+            super.encode(with: aCoder)
+        }
+        
+        override func filter(in context: NSManagedObjectContext, rguard: RecursionGuard<Playlist>) -> (Track) -> Bool {
+            return {
+//                guard let url = $0.url, let attributes = try? FileManager.default.attributesOfItem(atPath: url.path), let date = attributes[.creationDate] as? NSDate else {
+//                    return false
+//                }
+                let date = $0.creationDate
+                return (date.timeIntervalSinceReferenceDate > self.date.timeIntervalSinceReferenceDate) != self.not
+            }
+        }
+        
+        override func representation(in context: NSManagedObjectContext?) -> String {
+            return (not ? "Before " : "After ") + "\(self.date.description)"
+        }
+    }
 }

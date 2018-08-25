@@ -66,6 +66,10 @@ class TrackController: NSViewController {
             _playlistTitle.stringValue = history.playlist.name
             _trackCounter.stringValue = String(history.size) + (history.size != 1 ? " tracks" : " track")
             
+            guard mode == .tracksList else {
+                return
+            }
+            
             if let playlist = history.playlist as? PlaylistSmart {
                 _ruleButton.isHidden = false
                 if smartPlaylistRuleController.rules != playlist.rrules {

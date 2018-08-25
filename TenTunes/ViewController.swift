@@ -217,13 +217,14 @@ class ViewController: NSViewController {
         _play.image = player.isPaused ? #imageLiteral(resourceName: "play") : #imageLiteral(resourceName: "pause")
         
         if playingTrackController.history.track(at: 0) != track {
-            // Two-step to get the animation rollin
-            playingTrackController.history = PlayHistory(playlist: PlaylistEmpty())
-            
-            let titleHistory = PlayHistory(playlist: PlaylistEmpty())
-            titleHistory.insert(tracks: [track], before: 0)
-            titleHistory.playingIndex = 0
-            playingTrackController.history = titleHistory
+            playingTrackController.history.insert(tracks: [track], before: 0)
+            playingTrackController._tableView.insertRows(at: IndexSet(integer: 0), withAnimation: .slideDown)
+
+            if playingTrackController.history.size > 1 {
+                // Two-step to get the animation rollin
+                playingTrackController.history.remove(indices: [1])
+                playingTrackController._tableView.removeRows(at: IndexSet(integer: 1), withAnimation: .effectFade)
+            }
         }
 
         _coverImage.image = track.artworkPreview

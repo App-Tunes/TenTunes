@@ -229,6 +229,28 @@ extension SmartPlaylistRules.Token {
         }
     }
     
+    class FileMissing : SmartPlaylistRules.Token {
+        init(_ missing: Bool) {
+            super.init(not: !missing)
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            super.init(coder: aDecoder)
+        }
+        
+        override func encode(with aCoder: NSCoder) {
+            super.encode(with: aCoder)
+        }
+        
+        override func positiveFilter(in context: NSManagedObjectContext?, rguard: RecursionGuard<Playlist>) -> (Track) -> Bool {
+            return { $0.url == nil }
+        }
+        
+        override func representation(in context: NSManagedObjectContext?) -> String {
+            return not ? "File Exists" : "File Missing"
+        }
+    }
+    
     class AddedAfter : SmartPlaylistRules.Token {
         var date: Date
         

@@ -92,6 +92,13 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
                 ]))
         }
         
+        if "missing".starts(with: compareSubstring) || "file".starts(with: compareSubstring) || "exists".starts(with: compareSubstring) {
+            groups.append(.init(title: "File Missing", contents: [
+                SmartPlaylistRules.Token.FileMissing(true),
+                SmartPlaylistRules.Token.FileMissing(false)
+                ]))
+        }
+        
         groups.append(.init(title: "Has Tag", contents: playlistResults(search: compareSubstring, tag: true)))
         groups.append(.init(title: "Contained In Playlist", contents: playlistResults(search: compareSubstring, tag: false)))
         groups.append(.init(title: "Created By", contents: authorResults(search: compareSubstring)))

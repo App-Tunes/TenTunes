@@ -149,7 +149,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnSelection="YES" rowHeight="30" headerView="sMk-yA-QjA" viewBased="YES" floatsGroupRows="NO" id="4mk-XS-5ci" customClass="ActionTableView" customModule="TenTunes" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="669" height="334"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="669" height="311"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <size key="intercellSpacing" width="3" height="2"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -403,6 +403,7 @@
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="300" id="407-lR-Mkm"/>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="FWw-0K-SmB"/>
                             </constraints>
+                            <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="23"/>
                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="HkI-Mp-Jrn">
                                 <rect key="frame" x="-100" y="-100" width="528" height="16"/>
                                 <autoresizingMask key="autoresizingMask"/>
@@ -422,6 +423,9 @@
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="no2-Pk-ubw">
                             <rect key="frame" x="0.0" y="0.0" width="669" height="25"/>
                             <subviews>
+                                <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="ultraDark" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="RrY-WV-3rf">
+                                    <rect key="frame" x="0.0" y="0.0" width="669" height="25"/>
+                                </visualEffectView>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yA3-8B-zr1">
                                     <rect key="frame" x="2" y="4" width="84" height="17"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Playlist Title" id="ort-dC-9bO">
@@ -450,11 +454,15 @@
                                 </textField>
                             </subviews>
                             <constraints>
+                                <constraint firstAttribute="bottom" secondItem="RrY-WV-3rf" secondAttribute="bottom" id="1eg-bs-aUU"/>
                                 <constraint firstItem="yA3-8B-zr1" firstAttribute="centerY" secondItem="no2-Pk-ubw" secondAttribute="centerY" id="5dD-o0-7Dr"/>
+                                <constraint firstItem="RrY-WV-3rf" firstAttribute="leading" secondItem="no2-Pk-ubw" secondAttribute="leading" id="9yu-ha-Phf"/>
                                 <constraint firstItem="Xki-oe-dMl" firstAttribute="centerY" secondItem="no2-Pk-ubw" secondAttribute="centerY" id="MQi-gt-Jp1"/>
                                 <constraint firstItem="Xki-oe-dMl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yA3-8B-zr1" secondAttribute="trailing" constant="20" id="VbX-7e-5se"/>
+                                <constraint firstItem="RrY-WV-3rf" firstAttribute="top" secondItem="no2-Pk-ubw" secondAttribute="top" id="XXb-PR-STi"/>
                                 <constraint firstItem="RVc-tT-TEm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Xki-oe-dMl" secondAttribute="trailing" constant="20" id="Yx8-mP-kZM"/>
                                 <constraint firstItem="RVc-tT-TEm" firstAttribute="centerY" secondItem="no2-Pk-ubw" secondAttribute="centerY" id="cjB-JQ-RLn"/>
+                                <constraint firstAttribute="trailing" secondItem="RrY-WV-3rf" secondAttribute="trailing" id="knw-WV-Qj7"/>
                                 <constraint firstItem="Xki-oe-dMl" firstAttribute="centerX" secondItem="no2-Pk-ubw" secondAttribute="centerX" id="mCT-Xy-x6z"/>
                                 <constraint firstAttribute="trailing" secondItem="RVc-tT-TEm" secondAttribute="trailing" constant="20" id="rFb-qp-PVH"/>
                                 <constraint firstAttribute="height" constant="25" id="uIC-33-LVc"/>
@@ -500,7 +508,7 @@
                         <constraint firstAttribute="trailing" secondItem="49r-TX-xMK" secondAttribute="trailing" id="LkI-69-5rA"/>
                         <constraint firstItem="49r-TX-xMK" firstAttribute="leading" secondItem="xJh-CN-pmz" secondAttribute="leading" id="OKw-kd-7uA"/>
                         <constraint firstItem="utN-ND-KA3" firstAttribute="leading" secondItem="xJh-CN-pmz" secondAttribute="leading" id="Vzl-Yt-XOz"/>
-                        <constraint firstItem="49r-TX-xMK" firstAttribute="top" secondItem="J4f-bg-DFw" secondAttribute="bottom" id="bwF-h7-RhZ"/>
+                        <constraint firstItem="49r-TX-xMK" firstAttribute="top" secondItem="J4f-bg-DFw" secondAttribute="bottom" constant="-23" id="bwF-h7-RhZ"/>
                         <constraint firstAttribute="trailing" secondItem="no2-Pk-ubw" secondAttribute="trailing" id="cu7-TG-cFD"/>
                         <constraint firstAttribute="bottom" secondItem="no2-Pk-ubw" secondAttribute="bottom" id="nj9-83-RAH"/>
                         <constraint firstAttribute="trailing" secondItem="utN-ND-KA3" secondAttribute="trailing" id="rYE-YT-YTi"/>

@@ -227,7 +227,7 @@ class ViewController: NSViewController {
             }
         }
 
-        _coverImage.image = track.artworkPreview
+        _coverImage.transitionWithImage(image: track.artworkPreview)
         _waveformView.analysis = track.analysis
         
         if let bpm = track.bpm {

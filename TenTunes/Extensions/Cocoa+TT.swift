@@ -265,3 +265,18 @@ extension NSView {
         addConstraint(NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0))
     }
 }
+
+extension NSImageView {
+    func transitionWithImage(image: NSImage?, duration: Double = 0.2) {
+        let transition = CATransition()
+        transition.duration = duration
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.type = kCATransitionFade
+        
+        wantsLayer = true
+        layer?.add(transition, forKey: kCATransition)
+        
+        self.image = image
+    }
+}
+

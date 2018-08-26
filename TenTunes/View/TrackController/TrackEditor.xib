@@ -112,7 +112,7 @@
                             <rect key="frame" x="0.0" y="8" width="286" height="291"/>
                             <clipView key="contentView" drawsBackground="NO" id="flI-e3-PP9">
                                 <rect key="frame" x="0.0" y="0.0" width="286" height="291"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="23" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="3Ae-Tm-QZb" id="RRs-pC-UFg" customClass="ActionOutlineView" customModule="TenTunes" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="286" height="291"/>
@@ -142,6 +142,7 @@
                                                                 <rect key="frame" x="3" y="3" width="14" height="14"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="QZf-LH-0CZ" secondAttribute="height" multiplier="1:1" id="1yl-GL-i1m"/>
+                                                                    <constraint firstAttribute="width" constant="14" id="LLy-Ez-xTe"/>
                                                                 </constraints>
                                                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="3mY-zd-ODS"/>
                                                             </imageView>

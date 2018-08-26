@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="kJo-kH-Lbg">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -23,7 +22,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="1292" height="92"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
-                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="w8H-st-uUl">
+                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="100" verticalCompressionResistancePriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="w8H-st-uUl">
                                                 <rect key="frame" x="0.0" y="0.0" width="1292" height="92"/>
                                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="tuS-iy-Wnr"/>
                                             </imageView>
@@ -63,6 +62,7 @@
                                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="80" id="baI-h5-Y4G"/>
                                                     <constraint firstItem="9Bx-lC-97p" firstAttribute="top" secondItem="TnY-8S-uno" secondAttribute="top" constant="2" id="dbD-Ic-YNJ"/>
                                                     <constraint firstItem="1Xa-l4-VRg" firstAttribute="leading" secondItem="TnY-8S-uno" secondAttribute="leading" constant="8" id="mBg-Qf-gBM"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="8" id="unc-AS-PFO"/>
                                                 </constraints>
                                                 <connections>
                                                     <action selector="waveformViewClicked:" target="XfG-lQ-9wD" id="8oE-Da-U9p"/>
@@ -188,12 +188,12 @@ IA
                                         <constraints>
                                             <constraint firstItem="ETj-HU-NV5" firstAttribute="width" secondItem="ETj-HU-NV5" secondAttribute="height" multiplier="1:1" id="0dk-4x-AQr"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="YW0-i6-Krb" secondAttribute="bottom" constant="4" id="2T8-Fa-sMO"/>
-                                            <constraint firstItem="vGp-jR-JQ9" firstAttribute="centerY" secondItem="4Fc-0r-wVE" secondAttribute="centerY" id="2ny-ao-zVy"/>
                                             <constraint firstItem="ETj-HU-NV5" firstAttribute="leading" secondItem="9Xs-lc-aS8" secondAttribute="trailing" constant="16" id="4yn-NV-s13"/>
                                             <constraint firstItem="9Xs-lc-aS8" firstAttribute="leading" secondItem="7Y2-7h-2Y4" secondAttribute="trailing" constant="16" id="5N5-Tv-tpk"/>
                                             <constraint firstItem="YW0-i6-Krb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ws9-gx-fi8" secondAttribute="trailing" constant="30" id="7wW-14-RBF"/>
                                             <constraint firstItem="ETj-HU-NV5" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="14" id="8TE-zh-6Xg"/>
                                             <constraint firstItem="vGp-jR-JQ9" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" constant="97" id="Ak8-DA-NJT"/>
+                                            <constraint firstItem="4Fc-0r-wVE" firstAttribute="bottom" secondItem="Ws9-gx-fi8" secondAttribute="bottom" constant="4" id="Bp8-TK-6iM"/>
                                             <constraint firstItem="w8H-st-uUl" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" id="DDx-XK-Xng"/>
                                             <constraint firstItem="7Y2-7h-2Y4" firstAttribute="leading" secondItem="weN-hW-VXM" secondAttribute="trailing" constant="16" id="DSC-bJ-QKK"/>
                                             <constraint firstItem="w8H-st-uUl" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" id="Df9-If-Dwu"/>
@@ -204,6 +204,7 @@ IA
                                             <constraint firstAttribute="trailing" secondItem="w8H-st-uUl" secondAttribute="trailing" id="IGX-a1-yOD"/>
                                             <constraint firstItem="weN-hW-VXM" firstAttribute="centerY" secondItem="7Y2-7h-2Y4" secondAttribute="centerY" id="JOg-1S-jWD"/>
                                             <constraint firstItem="9Xs-lc-aS8" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="14" id="MVV-2g-mOg"/>
+                                            <constraint firstItem="Ws9-gx-fi8" firstAttribute="top" secondItem="4Fc-0r-wVE" secondAttribute="top" constant="4" id="MXG-Xg-CNw"/>
                                             <constraint firstAttribute="bottom" secondItem="ffx-Mi-FNH" secondAttribute="bottom" id="Mpz-rR-kb3"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="9Xs-lc-aS8" secondAttribute="bottom" constant="14" id="Pqa-Co-VB3"/>
                                             <constraint firstItem="ffx-Mi-FNH" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" id="Q4z-g0-Va4"/>
@@ -212,14 +213,13 @@ IA
                                             <constraint firstAttribute="trailing" secondItem="TnY-8S-uno" secondAttribute="trailing" id="ZOi-Zw-7Sx"/>
                                             <constraint firstItem="YW0-i6-Krb" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="-5" id="alc-QM-M2N"/>
                                             <constraint firstItem="7Y2-7h-2Y4" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="14" id="c3R-Ek-gmG"/>
-                                            <constraint firstItem="vGp-jR-JQ9" firstAttribute="firstBaseline" secondItem="Ws9-gx-fi8" secondAttribute="firstBaseline" id="dl3-k3-IVH"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="7Y2-7h-2Y4" secondAttribute="bottom" constant="14" id="eOK-zm-vOj"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="4Fc-0r-wVE" secondAttribute="bottom" constant="13" id="fxo-uM-5FA"/>
                                             <constraint firstItem="4Fc-0r-wVE" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="13" id="ivH-Kr-erJ"/>
+                                            <constraint firstItem="vGp-jR-JQ9" firstAttribute="top" secondItem="4Fc-0r-wVE" secondAttribute="top" constant="4" id="jo0-xB-QuJ"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="ETj-HU-NV5" secondAttribute="bottom" constant="14" id="mSY-SA-lDg"/>
                                             <constraint firstAttribute="bottom" secondItem="TnY-8S-uno" secondAttribute="bottom" id="mm5-D9-4tj"/>
                                             <constraint firstAttribute="trailing" secondItem="ETj-HU-NV5" secondAttribute="trailing" constant="20" id="oKp-fI-pwe"/>
-                                            <constraint firstItem="vGp-jR-JQ9" firstAttribute="baseline" secondItem="Ws9-gx-fi8" secondAttribute="baseline" id="p3y-sr-YYy"/>
                                             <constraint firstItem="YW0-i6-Krb" firstAttribute="centerX" secondItem="CJ8-Em-XgG" secondAttribute="centerX" id="ptf-ji-G2W"/>
                                             <constraint firstAttribute="bottom" secondItem="w8H-st-uUl" secondAttribute="bottom" id="tT1-6k-n2K"/>
                                             <constraint firstItem="Ws9-gx-fi8" firstAttribute="leading" secondItem="4Fc-0r-wVE" secondAttribute="trailing" constant="8" symbolic="YES" id="wEc-11-xbf"/>

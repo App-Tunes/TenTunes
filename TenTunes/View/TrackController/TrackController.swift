@@ -172,7 +172,16 @@ class TrackController: NSViewController {
             header.wantsLayer = true
             header.layer!.borderColor = (isDark ? NSColor(white: 0.12, alpha: 1.0) : NSColor(white: 1, alpha: 1.0)).cgColor
             header.layer!.borderWidth = 1
-        }        
+            
+//            let visual = NSVisualEffectView()
+//            header.addSubview(visual, positioned: .below, relativeTo: nil)
+//            header.frame = NSMakeRect(0, 0, header.frame.size.height, header.frame.size.width)
+//            header.addFullSizeConstraints(for: visual)
+//
+//            visual.blendingMode = .withinWindow
+//            visual.state = .active
+//            visual.material = .ultraDark
+        }
     }
         
     func queueify() {

@@ -259,6 +259,10 @@ extension NSView {
         view.frame = bounds
         addSubview(view)
         
+        addFullSizeConstraints(for: view)
+    }
+    
+    func addFullSizeConstraints(for view: NSView) {
         addConstraint(NSLayoutConstraint(item: view, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 0))
         addConstraint(NSLayoutConstraint(item: view, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: 0))
         addConstraint(NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0))

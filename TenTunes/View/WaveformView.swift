@@ -228,8 +228,8 @@ class WaveformView: NSControl, CALayerDelegate {
             }
         }
     }
-    var lerpRatio = CGFloat(1.0 / 5.0)
-    var completeTransitionSteps = 120
+    var lerpRatio = CGFloat(1.0 / 4.0)
+    var completeTransitionSteps = 100
 
     var barWidth: Int {
         set(barWidth) { waveformLayer._barsLayer.barWidth = barWidth }

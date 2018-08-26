@@ -41,7 +41,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="286" height="382"/>
                     <subviews>
                         <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vc8-yo-YBx">
-                            <rect key="frame" x="106" y="357" width="174" height="17"/>
+                            <rect key="frame" x="106" y="357" width="170" height="17"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="WGd-AA-e84"/>
                             </constraints>
@@ -63,7 +63,7 @@
                             </connections>
                         </textField>
                         <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IxQ-nY-WjC">
-                            <rect key="frame" x="106" y="332" width="174" height="17"/>
+                            <rect key="frame" x="106" y="332" width="170" height="17"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" placeholderString="Unknown Author" id="dHl-D9-I7J">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -81,7 +81,7 @@
                             </connections>
                         </textField>
                         <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mfs-pi-vdb">
-                            <rect key="frame" x="106" y="307" width="174" height="17"/>
+                            <rect key="frame" x="106" y="307" width="170" height="17"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" placeholderString="No Album" id="qyN-oT-Uof">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -185,7 +185,7 @@
                                                                 </textFieldCell>
                                                             </textField>
                                                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WK4-jO-DQ1">
-                                                                <rect key="frame" x="128" y="3" width="152" height="17"/>
+                                                                <rect key="frame" x="128" y="3" width="148" height="17"/>
                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" placeholderString="..." id="2rv-HK-SP9">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -197,7 +197,7 @@
                                                             <constraint firstItem="WK4-jO-DQ1" firstAttribute="leading" secondItem="rdZ-7T-bTY" secondAttribute="trailing" constant="8" id="Aqe-Ak-8SF"/>
                                                             <constraint firstItem="WK4-jO-DQ1" firstAttribute="centerY" secondItem="1tv-sa-C3h" secondAttribute="centerY" id="eNY-BQ-xmK"/>
                                                             <constraint firstItem="rdZ-7T-bTY" firstAttribute="centerY" secondItem="1tv-sa-C3h" secondAttribute="centerY" id="gWT-eC-PSW"/>
-                                                            <constraint firstAttribute="trailing" secondItem="WK4-jO-DQ1" secondAttribute="trailing" constant="8" id="k4R-8Z-ggA"/>
+                                                            <constraint firstAttribute="trailing" secondItem="WK4-jO-DQ1" secondAttribute="trailing" constant="12" id="k4R-8Z-ggA"/>
                                                             <constraint firstItem="rdZ-7T-bTY" firstAttribute="leading" secondItem="1tv-sa-C3h" secondAttribute="leading" constant="2" id="u9t-dN-XBt"/>
                                                         </constraints>
                                                         <connections>
@@ -273,7 +273,7 @@
                     <constraints>
                         <constraint firstItem="Rdg-Wt-HDc" firstAttribute="top" secondItem="GGH-Dw-GOG" secondAttribute="top" constant="1" id="6v0-9v-Mln"/>
                         <constraint firstItem="GGH-Dw-GOG" firstAttribute="top" secondItem="fry-a8-cnm" secondAttribute="top" constant="8" id="7Qo-Bg-JAo"/>
-                        <constraint firstAttribute="trailing" secondItem="IxQ-nY-WjC" secondAttribute="trailing" constant="8" id="AIm-mY-1Db"/>
+                        <constraint firstAttribute="trailing" secondItem="IxQ-nY-WjC" secondAttribute="trailing" constant="12" id="AIm-mY-1Db"/>
                         <constraint firstItem="Axn-Tv-fVt" firstAttribute="top" secondItem="j3A-SG-yXW" secondAttribute="bottom" constant="10" id="AVD-Ny-chn"/>
                         <constraint firstItem="u4S-uV-C4C" firstAttribute="leading" secondItem="fry-a8-cnm" secondAttribute="leading" id="CtK-Kb-pLE"/>
                         <constraint firstItem="j3A-SG-yXW" firstAttribute="leading" secondItem="GGH-Dw-GOG" secondAttribute="trailing" constant="8" id="EeK-lF-Vc5"/>
@@ -294,8 +294,8 @@
                         <constraint firstAttribute="bottom" secondItem="u4S-uV-C4C" secondAttribute="bottom" constant="8" id="o7a-cA-t8D"/>
                         <constraint firstItem="GGH-Dw-GOG" firstAttribute="bottom" secondItem="Mfs-pi-vdb" secondAttribute="bottom" id="qMv-9C-kHZ"/>
                         <constraint firstItem="Rdg-Wt-HDc" firstAttribute="leading" secondItem="GGH-Dw-GOG" secondAttribute="trailing" constant="8" id="sao-H8-Gku"/>
-                        <constraint firstAttribute="trailing" secondItem="vc8-yo-YBx" secondAttribute="trailing" constant="8" id="ux1-KO-YLX"/>
-                        <constraint firstAttribute="trailing" secondItem="Mfs-pi-vdb" secondAttribute="trailing" constant="8" id="yJ1-CW-O2S"/>
+                        <constraint firstAttribute="trailing" secondItem="vc8-yo-YBx" secondAttribute="trailing" constant="12" id="ux1-KO-YLX"/>
+                        <constraint firstAttribute="trailing" secondItem="Mfs-pi-vdb" secondAttribute="trailing" constant="12" id="yJ1-CW-O2S"/>
                         <constraint firstItem="j3A-SG-yXW" firstAttribute="leading" secondItem="GGH-Dw-GOG" secondAttribute="trailing" constant="8" id="z2Y-xi-GQp"/>
                         <constraint firstItem="Axn-Tv-fVt" firstAttribute="leading" secondItem="GGH-Dw-GOG" secondAttribute="trailing" constant="8" id="ziu-64-dQH"/>
                     </constraints>

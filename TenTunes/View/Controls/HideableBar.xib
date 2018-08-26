@@ -19,6 +19,9 @@
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-mo-xeY">
             <rect key="frame" x="0.0" y="0.0" width="639" height="28"/>
             <subviews>
+                <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="ultraDark" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="Cxr-sO-VUi">
+                    <rect key="frame" x="0.0" y="0.0" width="639" height="28"/>
+                </visualEffectView>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vTo-Jz-EaG">
                     <rect key="frame" x="608" y="4" width="23" height="19"/>
                     <buttonCell key="cell" type="recessed" title="X" bezelStyle="recessed" alignment="center" state="on" borderStyle="border" inset="2" id="0yw-si-hiD">
@@ -50,10 +53,14 @@ Gw
             </subviews>
             <constraints>
                 <constraint firstItem="vTo-Jz-EaG" firstAttribute="leading" secondItem="oaQ-87-y1R" secondAttribute="trailing" constant="8" id="7dy-SM-eqt"/>
+                <constraint firstItem="Cxr-sO-VUi" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="CMs-ad-sQD"/>
+                <constraint firstAttribute="trailing" secondItem="Cxr-sO-VUi" secondAttribute="trailing" id="GtK-sM-k15"/>
                 <constraint firstItem="vTo-Jz-EaG" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="MEf-12-T0n"/>
                 <constraint firstAttribute="bottom" secondItem="oaQ-87-y1R" secondAttribute="bottom" id="NGr-WC-EBP"/>
                 <constraint firstItem="oaQ-87-y1R" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="V5C-1E-GKb"/>
+                <constraint firstItem="Cxr-sO-VUi" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="gkT-nt-eX2"/>
                 <constraint firstItem="oaQ-87-y1R" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="sdh-lU-Xfd"/>
+                <constraint firstAttribute="bottom" secondItem="Cxr-sO-VUi" secondAttribute="bottom" id="z1h-mo-xhw"/>
                 <constraint firstAttribute="trailing" secondItem="vTo-Jz-EaG" secondAttribute="trailing" constant="8" id="zf4-An-JUf"/>
             </constraints>
             <point key="canvasLocation" x="218.5" y="80"/>

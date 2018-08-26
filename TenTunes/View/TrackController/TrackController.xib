@@ -142,14 +142,14 @@
                     <rect key="frame" x="0.0" y="0.0" width="669" height="360"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <subviews>
-                        <scrollView verticalCompressionResistancePriority="300" ambiguous="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="J4f-bg-DFw">
-                            <rect key="frame" x="0.0" y="-25" width="669" height="357"/>
-                            <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="FmM-r7-abk">
-                                <rect key="frame" x="0.0" y="0.0" width="669" height="357"/>
+                        <scrollView verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="J4f-bg-DFw">
+                            <rect key="frame" x="0.0" y="30" width="669" height="302"/>
+                            <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="FmM-r7-abk">
+                                <rect key="frame" x="0.0" y="0.0" width="669" height="302"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnSelection="YES" rowHeight="30" headerView="sMk-yA-QjA" viewBased="YES" floatsGroupRows="NO" id="4mk-XS-5ci" customClass="ActionTableView" customModule="TenTunes" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="669" height="311"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="669" height="256"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <size key="intercellSpacing" width="3" height="2"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -469,11 +469,14 @@
                                 <constraint firstItem="yA3-8B-zr1" firstAttribute="leading" secondItem="no2-Pk-ubw" secondAttribute="leading" constant="4" id="wTP-6K-6yt"/>
                             </constraints>
                         </customView>
-                        <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="utN-ND-KA3">
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="utN-ND-KA3">
                             <rect key="frame" x="0.0" y="332" width="669" height="28"/>
                             <subviews>
-                                <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5dq-V7-Pxb">
+                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="5dq-V7-Pxb">
                                     <rect key="frame" x="0.0" y="0.0" width="669" height="28"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="28" placeholder="YES" id="JCI-nb-5Nt"/>
+                                    </constraints>
                                 </customView>
                             </subviews>
                             <constraints>
@@ -483,11 +486,14 @@
                                 <constraint firstItem="5dq-V7-Pxb" firstAttribute="leading" secondItem="utN-ND-KA3" secondAttribute="leading" id="rat-rk-gjR"/>
                             </constraints>
                         </customView>
-                        <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="49r-TX-xMK">
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="49r-TX-xMK">
                             <rect key="frame" x="0.0" y="25" width="669" height="28"/>
                             <subviews>
-                                <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZeZ-1Q-VgQ">
+                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="ZeZ-1Q-VgQ">
                                     <rect key="frame" x="0.0" y="0.0" width="669" height="28"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="28" placeholder="YES" id="ypl-AS-NeQ"/>
+                                    </constraints>
                                 </customView>
                             </subviews>
                             <constraints>

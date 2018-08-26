@@ -210,7 +210,7 @@
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rRD-38-h8c" customClass="TTTokenField" customModule="TenTunes" customModuleProvider="target">
-                                                                <rect key="frame" x="6" y="4" width="274" height="16"/>
+                                                                <rect key="frame" x="6" y="4" width="270" height="16"/>
                                                                 <tokenFieldCell key="cell" alignment="left" placeholderString=" Add Tag..." allowsEditingTextAttributes="YES" id="gt6-ZL-OQW">
                                                                     <font key="font" metaFont="cellTitle"/>
                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -221,7 +221,7 @@
                                                         <constraints>
                                                             <constraint firstItem="rRD-38-h8c" firstAttribute="leading" secondItem="32i-fz-tGp" secondAttribute="leading" constant="8" id="kQW-N6-kj6"/>
                                                             <constraint firstItem="rRD-38-h8c" firstAttribute="centerY" secondItem="32i-fz-tGp" secondAttribute="centerY" id="trd-zh-qz5"/>
-                                                            <constraint firstAttribute="trailing" secondItem="rRD-38-h8c" secondAttribute="trailing" constant="8" id="xsf-32-igc"/>
+                                                            <constraint firstAttribute="trailing" secondItem="rRD-38-h8c" secondAttribute="trailing" constant="12" id="xsf-32-igc"/>
                                                         </constraints>
                                                         <connections>
                                                             <outlet property="textField" destination="rRD-38-h8c" id="Dhl-OX-IfD"/>

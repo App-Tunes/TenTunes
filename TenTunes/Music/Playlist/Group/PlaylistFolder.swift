@@ -45,3 +45,33 @@ public class PlaylistFolder: Playlist {
         return #imageLiteral(resourceName: "folder")
     }
 }
+
+extension PlaylistFolder : ModifiablePlaylist {
+    var modifableChildrenList: [ModifiablePlaylist]? {
+        return childrenList as? [ModifiablePlaylist]
+    }
+    
+    func supports(action: ModifyingAction) -> Bool {
+        // Can only delete, if we want to add then what do we even add to??
+        guard action == .delete else {
+            return false
+        }
+        
+        return modifableChildrenList?.allMatch { $0.supports(action: action) } ?? false
+    }
+    
+    func confirm(action: ModifyingAction) -> Bool {
+        switch action {
+        case .delete:
+            return NSAlert.confirm(action: "Remove from all playlists", text: "The tracks will be removed from all playlists in this group (\( modifableChildrenList!.count )).")
+        default:
+            return true
+        }
+    }
+    
+    func removeTracks(_ tracks: [Track]) {
+        for playlist in modifableChildrenList! {
+            playlist.removeTracks(tracks)
+        }
+    }
+}

@@ -12,11 +12,28 @@
 
 - (void)analyze:(NSURL *)url progressHandler: (void(^)(float, float*, int))progressHandler;
 
-- (unsigned char *)waveform;
-- (unsigned char *)lowWaveform;
-- (unsigned char *)midWaveform;
-- (unsigned char *)highWaveform;
-- (int)waveformSize;
+@property float progress;
+
+@property unsigned char *averageWaveform;
+@property unsigned char *lowWaveform;
+@property unsigned char *midWaveform;
+@property unsigned char *highWaveform;
+
+@property unsigned char *peakWaveform;
+@property unsigned char *notes;
+@property char *overviewWaveform;
+
+@property int waveformSize;
+
+@property int overviewSize;
+@property int keyIndex;
+
+@property float loudpartsAverageDecibel;
+@property float peakDecibel;
+@property float averageDecibel;
+
+@property float bpm;
+@property float beatgridStartMs;
 
 @end
 

@@ -22,44 +22,17 @@
 
 #pragma GCC diagnostic pop
 
-@implementation SPAnalyzer {
-    float progress;
-
-    unsigned char *averageWaveform, *lowWaveform, *midWaveform, *highWaveform, *peakWaveform, *notes;
-    int waveformSize, overviewSize, keyIndex;
-    char *overviewWaveform;
-    float loudpartsAverageDecibel, peakDecibel, bpm, averageDecibel, beatgridStartMs;
-}
+@implementation SPAnalyzer
 
 - (void)dealloc
 {
-    if (averageWaveform) free(averageWaveform);
-    if (lowWaveform) free(lowWaveform);
-    if (midWaveform) free(midWaveform);
-    if (highWaveform) free(highWaveform);
-    if (peakWaveform) free(peakWaveform);
-    if (notes) free(notes);
-    if (overviewWaveform) free(overviewWaveform);
-}
-
-- (unsigned char *)waveform {
-    return averageWaveform;
-}
-
-- (unsigned char *)lowWaveform {
-    return lowWaveform;
-}
-
-- (unsigned char *)midWaveform {
-    return midWaveform;
-}
-
-- (unsigned char *)highWaveform {
-    return highWaveform;
-}
-
-- (int)waveformSize {
-    return waveformSize;
+    if (_averageWaveform) free(_averageWaveform);
+    if (_lowWaveform) free(_lowWaveform);
+    if (_midWaveform) free(_midWaveform);
+    if (_highWaveform) free(_highWaveform);
+    if (_peakWaveform) free(_peakWaveform);
+    if (_notes) free(_notes);
+    if (_overviewWaveform) free(_overviewWaveform);
 }
 
 - (void)analyze:(NSURL *)url progressHandler: (void(^)(float, float*, int))progressHandler {
@@ -94,12 +67,12 @@
         analyzer->process(floatBuffer, samplesDecoded);
         
         // Update the progress indicator.
-        progress = (double)decoder->samplePosition / (double)decoder->durationSamples;
-        progressHandler(progress, floatBuffer, (int)samplesDecoded);
+        _progress = (double)decoder->samplePosition / (double)decoder->durationSamples;
+        progressHandler(_progress, floatBuffer, (int)samplesDecoded);
     };
     
     // Get the result.
-    analyzer->getresults(&averageWaveform, &peakWaveform, &lowWaveform, &midWaveform, &highWaveform, &notes, &waveformSize, &overviewWaveform, &overviewSize, &averageDecibel, &loudpartsAverageDecibel, &peakDecibel, &bpm, &beatgridStartMs, &keyIndex);
+    analyzer->getresults(&_averageWaveform, &_peakWaveform, &_lowWaveform, &_midWaveform, &_highWaveform, &_notes, &_waveformSize, &_overviewWaveform, &_overviewSize, &_averageDecibel, &_loudpartsAverageDecibel, &_peakDecibel, &_bpm, &_beatgridStartMs, &_keyIndex);
     
     // Cleanup.
     delete decoder;

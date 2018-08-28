@@ -11,7 +11,38 @@
 @implementation SMButtonWithMenu {
     NSTimer *_timer;
     BOOL _menuShown;
+    BOOL _showTriangle;
 }
+
+- (void)awakeFromNib {
+    [self addTrackingArea: [[NSTrackingArea alloc] initWithRect:self.bounds options:NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways owner:self userInfo:nil]];
+}
+
+- (void)drawRect:(NSRect)dirtyRect {
+    [super drawRect:dirtyRect];
+    
+    if (_showTriangle) {
+        CGContextRef ref = NSGraphicsContext.currentContext.CGContext;
+        
+        int triangleWidth = 8;
+        int triangleHeight = triangleWidth / 2 + 1;
+        int width = [self bounds].size.width, height = [self bounds].size.height;
+        int margin = 1;
+        
+        CGContextSetFillColorWithColor(ref, [NSColor labelColor].CGColor);
+        
+        CGContextBeginPath(ref);
+        CGContextMoveToPoint(ref, width - triangleWidth / 2 - margin, height - margin);
+        CGContextAddLineToPoint(ref, width - triangleWidth - margin, height - triangleHeight - margin);
+        CGContextAddLineToPoint(ref, width - margin, height - triangleHeight - margin);
+        CGContextAddLineToPoint(ref, width - triangleWidth / 2 - margin, height - margin);
+        CGContextFillPath(ref);
+    }
+}
+
+//- (void)rightMouseDown:(NSEvent *)event {
+//    [self showContextMenu];
+//}
 
 - (void)mouseDown:(NSEvent *)theEvent {
     [self setHighlighted:YES];
@@ -43,9 +74,13 @@
         return;
     }
     
+    [self showContextMenu];
+}
+
+- (void)showContextMenu {
     _timer = nil;
     _menuShown = YES;
-        
+    
     [_holdMenu popUpMenuPositioningItem:nil atLocation:NSMakePoint(self.bounds.size.width-8, self.bounds.size.height-1) inView:self];
     
     NSWindow* window = [self window];
@@ -65,12 +100,14 @@
     [self setState:NSOnState];
 }
 
-- (void)beep:(id)sender {
-    NSLog(@"beep");
+- (void)mouseEntered:(NSEvent *)event {
+    _showTriangle = true;
+    [self setNeedsDisplay:true];
 }
 
-- (void)honk:(id)sender {
-    NSLog(@"honk");
+- (void)mouseExited:(NSEvent *)event {
+    _showTriangle = false;
+    [self setNeedsDisplay:true];
 }
 
 @end

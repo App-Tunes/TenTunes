@@ -170,11 +170,11 @@
                             <rect key="frame" x="0.0" y="0.0" width="178" height="30"/>
                         </visualEffectView>
                         <button toolTip="Create Group" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s5V-cO-NDS" customClass="SMButtonWithMenu">
-                            <rect key="frame" x="110" y="5" width="20" height="20"/>
+                            <rect key="frame" x="110" y="7" width="24" height="16"/>
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="s5V-cO-NDS" secondAttribute="height" multiplier="1:1" id="iLc-oV-qb8"/>
+                                <constraint firstAttribute="width" secondItem="s5V-cO-NDS" secondAttribute="height" multiplier="1.5:1" id="iLc-oV-qb8"/>
                             </constraints>
-                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="folder" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="CcK-3A-aHk">
+                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="folder" imagePosition="leading" alignment="left" imageScaling="proportionallyDown" inset="2" id="CcK-3A-aHk">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -190,11 +190,11 @@
                             </constraints>
                         </customView>
                         <button toolTip="Create Playlist" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XDO-KJ-zFo" customClass="SMButtonWithMenu">
-                            <rect key="frame" x="49" y="5" width="20" height="20"/>
+                            <rect key="frame" x="45" y="7" width="24" height="16"/>
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="XDO-KJ-zFo" secondAttribute="height" multiplier="1:1" id="IgZ-ie-N6E"/>
+                                <constraint firstAttribute="width" secondItem="XDO-KJ-zFo" secondAttribute="height" multiplier="1.5:1" id="IgZ-ie-N6E"/>
                             </constraints>
-                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="playlist" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="D5p-pT-g7N">
+                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="playlist" imagePosition="leading" alignment="center" imageScaling="proportionallyDown" inset="2" id="D5p-pT-g7N">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -210,12 +210,12 @@
                         <constraint firstAttribute="trailing" secondItem="RbJ-nq-hLm" secondAttribute="trailing" id="3aw-Vm-qyb"/>
                         <constraint firstItem="RbJ-nq-hLm" firstAttribute="leading" secondItem="FlW-e5-GJv" secondAttribute="leading" id="6QQ-wb-m5D"/>
                         <constraint firstItem="RbJ-nq-hLm" firstAttribute="top" secondItem="FlW-e5-GJv" secondAttribute="top" id="Scj-Fh-I0Q"/>
-                        <constraint firstAttribute="bottom" secondItem="XDO-KJ-zFo" secondAttribute="bottom" constant="5" id="V5p-uP-wan"/>
-                        <constraint firstItem="s5V-cO-NDS" firstAttribute="top" secondItem="FlW-e5-GJv" secondAttribute="top" constant="5" id="cSZ-T1-V7f"/>
+                        <constraint firstAttribute="bottom" secondItem="XDO-KJ-zFo" secondAttribute="bottom" constant="7" id="V5p-uP-wan"/>
+                        <constraint firstItem="s5V-cO-NDS" firstAttribute="top" secondItem="FlW-e5-GJv" secondAttribute="top" constant="7" id="cSZ-T1-V7f"/>
                         <constraint firstItem="Z3C-14-8qk" firstAttribute="leading" secondItem="XDO-KJ-zFo" secondAttribute="trailing" constant="20" id="ncf-P0-6UZ"/>
                         <constraint firstItem="XDO-KJ-zFo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FlW-e5-GJv" secondAttribute="leading" constant="30" id="osi-LX-YUo"/>
-                        <constraint firstItem="XDO-KJ-zFo" firstAttribute="top" secondItem="FlW-e5-GJv" secondAttribute="top" constant="5" id="ppf-hb-Rzj"/>
-                        <constraint firstAttribute="bottom" secondItem="s5V-cO-NDS" secondAttribute="bottom" constant="5" id="vZG-bZ-RUF"/>
+                        <constraint firstItem="XDO-KJ-zFo" firstAttribute="top" secondItem="FlW-e5-GJv" secondAttribute="top" constant="7" id="ppf-hb-Rzj"/>
+                        <constraint firstAttribute="bottom" secondItem="s5V-cO-NDS" secondAttribute="bottom" constant="7" id="vZG-bZ-RUF"/>
                         <constraint firstAttribute="bottom" secondItem="RbJ-nq-hLm" secondAttribute="bottom" id="vw7-3u-1gy"/>
                         <constraint firstItem="s5V-cO-NDS" firstAttribute="leading" secondItem="Z3C-14-8qk" secondAttribute="trailing" constant="20" id="xMg-ee-v2c"/>
                     </constraints>

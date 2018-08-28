@@ -41,6 +41,7 @@ extension TrackController: NSMenuDelegate {
         let someNeedAnalysis = menuTracks.anyMatch { $0.url != nil }
         _analyzeSubmenu.isVisible = someNeedAnalysis && menuTracks.anyMatch { $0.analysisData != nil } && menuTracks.anyMatch { $0.analysisData == nil }
         menu.item(withAction: #selector(menuAnalyze))?.isVisible = someNeedAnalysis && _analyzeSubmenu.isHidden
+        menu.item(withAction: #selector(menuAnalyzeMetadata))?.isVisible = someNeedAnalysis
 
         let deleteItem = menu.item(withAction: #selector(removeTrack))
         switch mode {

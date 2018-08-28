@@ -202,10 +202,6 @@ class Library : NSPersistentContainer {
         }
         return playlist != tagPlaylist
     }
-
-    func isEditable(playlist: PlaylistProtocol) -> Bool {
-        return playlist is PlaylistManual && isPlaylist(playlist: playlist)
-    }
             
     // iTunes
     

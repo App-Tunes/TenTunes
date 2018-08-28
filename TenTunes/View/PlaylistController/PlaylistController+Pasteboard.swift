@@ -31,10 +31,10 @@ extension PlaylistController {
         switch type {
         case Track.pasteboardType:
             let playlist = item as? Playlist ?? masterPlaylist!
-            return Library.shared.isEditable(playlist: playlist) ? .move : []
+            return ((playlist as? ModifiablePlaylist)?.supports(action: .add) ?? false) ? .move : []
         case .fileURL:
             let playlist = item as? Playlist ?? masterPlaylist!
-            return Library.shared.isEditable(playlist: playlist) ? .move : []
+            return ((playlist as? ModifiablePlaylist)?.supports(action: .add) ?? false) ? .move : []
         case Playlist.pasteboardType:
             // We can always rearrange, except into playlists
             let item = (item as? Playlist) ?? masterPlaylist!

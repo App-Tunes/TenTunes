@@ -14,3 +14,21 @@ protocol PlaylistProtocol : class {
     
     func convert(to: NSManagedObjectContext) -> Self?
 }
+
+enum ModifyingAction {
+    case add, delete, reorder
+}
+
+protocol ModifiablePlaylist : PlaylistProtocol {
+    func supports(action: ModifyingAction) -> Bool
+    
+    func addTracks(_ tracks: [Track], above: Int?)
+    
+    func removeTracks(_ tracks: [Track])
+}
+
+extension ModifiablePlaylist {
+    func addTracks(_ tracks: [Track], above: Int? = nil) {
+        addTracks(tracks, above: above)
+    }
+}

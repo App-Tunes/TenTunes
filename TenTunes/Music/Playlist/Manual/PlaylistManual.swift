@@ -15,8 +15,14 @@ public class PlaylistManual: Playlist {
     override func _freshTracksList(rguard: RecursionGuard<Playlist>) -> [Track] {
         return Array(tracks) as! [Track] 
     }
+}
+
+extension PlaylistManual : ModifiablePlaylist {
+    func supports(action: ModifyingAction) -> Bool {
+        return true
+    }
     
-    func addTracks(_ tracks: [Track], above: Int? = nil) {
+    func addTracks(_ tracks: [Track], above: Int?) {
         // Add the tracks we're missing
         // TODO Allow duplicates after asking
         // Is set so by default not allowed
@@ -28,6 +34,6 @@ public class PlaylistManual: Playlist {
     }
     
     func removeTracks(_ tracks: [Track]) {
-        removeFromTracks(NSOrderedSet(array: tracks))        
+        removeFromTracks(NSOrderedSet(array: tracks))
     }
 }

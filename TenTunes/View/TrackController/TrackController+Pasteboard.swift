@@ -30,7 +30,7 @@ extension TrackController {
             return dropOperation == .above ? .move : []
         }
         
-        if dropOperation == .above, Library.shared.isEditable(playlist: history.playlist), history.isUnsorted {
+        if dropOperation == .above, (history.playlist as? ModifiablePlaylist)?.supports(action: .reorder) ?? false, history.isUnsorted {
             return .move
         }
         

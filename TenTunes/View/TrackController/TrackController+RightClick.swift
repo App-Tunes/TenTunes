@@ -61,7 +61,7 @@ extension TrackController: NSMenuDelegate {
         }
         
         // Right Click Menu
-        if menuItem.action == #selector(removeTrack) { return mode == .queue || (mode == .tracksList && Library.shared.isEditable(playlist: history.playlist)) }
+        if menuItem.action == #selector(removeTrack) { return mode == .queue || (mode == .tracksList && ((history.playlist as? ModifiablePlaylist)?.supports(action: .delete) ?? false)) }
         if menuItem.action == #selector(menuShowInFinder) { return menuTracks.count == 1 && menuTracks.first!.url != nil }
         
         return true

@@ -115,6 +115,12 @@
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Analyze BPM &amp; Key" id="TvX-sn-O3O">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="menuAnalyzeMetadata:" target="-2" id="buT-HL-VKT"/>
+                    </connections>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="4aL-aX-gXq"/>
                 <menuItem title="Remove from Playlist" id="Ko5-yB-rKk">
                     <modifierMask key="keyEquivalentModifierMask"/>

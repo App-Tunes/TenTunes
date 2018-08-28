@@ -26,7 +26,7 @@
 @property int waveformSize;
 
 @property int overviewSize;
-@property int keyIndex;
+@property NSString *initialKey;
 
 @property float loudpartsAverageDecibel;
 @property float peakDecibel;

@@ -15,7 +15,15 @@ func simulateWave(_ pos: Float, _ size: Float, _ speed: Float, progress: Float, 
 }
 
 class SPInterpreter {
-    static func analyze(file: AVAudioFile, analysis: Analysis) {
+    struct Flags: OptionSet {
+        let rawValue: Int
+        
+        static let bpm = Flags(rawValue: 1 << 0)
+        static let key = Flags(rawValue: 1 << 1)
+    }
+    
+    static func analyze(file: AVAudioFile, track: Track, flags: Flags = []) {
+        let analysis = track.analysis!
         let analyzer = SPAnalyzer()
         
         let previewSamplesTotal = 20000
@@ -102,5 +110,13 @@ class SPInterpreter {
         // Normalize waveform but only a little bit
         analysis.values = [wf, lows, mids, highs]
         analysis.complete = true
+        
+        if flags.contains(.bpm) {
+            track.bpm = Double(analyzer.bpm)
+        }
+        
+        if flags.contains(.key) {
+            track.key = Key.parse(analyzer.initialKey)
+        }
     }
 }

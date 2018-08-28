@@ -71,8 +71,12 @@
         progressHandler(_progress, floatBuffer, (int)samplesDecoded);
     };
     
+    int keyIndex;
+    
     // Get the result.
-    analyzer->getresults(&_averageWaveform, &_peakWaveform, &_lowWaveform, &_midWaveform, &_highWaveform, &_notes, &_waveformSize, &_overviewWaveform, &_overviewSize, &_averageDecibel, &_loudpartsAverageDecibel, &_peakDecibel, &_bpm, &_beatgridStartMs, &_keyIndex);
+    analyzer->getresults(&_averageWaveform, &_peakWaveform, &_lowWaveform, &_midWaveform, &_highWaveform, &_notes, &_waveformSize, &_overviewWaveform, &_overviewSize, &_averageDecibel, &_loudpartsAverageDecibel, &_peakDecibel, &_bpm, &_beatgridStartMs, &keyIndex);
+    
+    _initialKey = [NSString stringWithCString:openkeyChordNames[keyIndex] encoding:NSASCIIStringEncoding];
     
     // Cleanup.
     delete decoder;

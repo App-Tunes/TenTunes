@@ -43,13 +43,15 @@ class TrackTask: Task {
 
 class AnalyzeTrack: TrackTask {
     var read: Bool
+    var analyzeFlags: SPInterpreter.Flags
     
-    init(track: Track, read: Bool, priority: Float = 20) {
+    init(track: Track, read: Bool, analyzeFlags: SPInterpreter.Flags = [], priority: Float = 20) {
         self.read = read
+        self.analyzeFlags = analyzeFlags
         super.init(track: track, priority: priority)
     }
         
-    override var title: String { return "Analyze Track" }
+    override var title: String { return analyzeFlags.isEmpty ? "Analyze Track" : "Analyze Track Metadata" }
     
     // If not read we were specifically asked to re-analyze
     override var preventsQuit: Bool { return !read }
@@ -88,8 +90,12 @@ class AnalyzeTrack: TrackTask {
             if !read || !asyncTrack.readAnalysis() {
                 // TODO Merge with metadata fetch etc
                 let audioFile = try! AKAudioFile(forReading: url)
-                SPInterpreter.analyze(file: audioFile, analysis: asyncTrack.analysis!)
+                SPInterpreter.analyze(file: audioFile, track: asyncTrack, flags: self.analyzeFlags)
+                
                 asyncTrack.writeAnalysis()
+                if !self.analyzeFlags.isEmpty {
+                    asyncTrack.writeMetadata()
+                }
             }
             try! mox.save()
             
@@ -98,6 +104,7 @@ class AnalyzeTrack: TrackTask {
     }
     
     override func eq(other: Task) -> Bool {
-        return super.eq(other: other) && read == (other as! AnalyzeTrack).read
+        let other = other as! AnalyzeTrack
+        return super.eq(other: other) && read == other.read && analyzeFlags == other.analyzeFlags
     }
 }

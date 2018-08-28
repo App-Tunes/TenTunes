@@ -89,7 +89,7 @@ public class Track: NSManagedObject {
             return NSAttributedString()
         }
         
-        let title = (bpm ?=> String.init) ?? ""
+        let title = String(format: "%.1f", bpm)
         let color = NSColor(hue: CGFloat(0.5 + (0...0.3).clamp((bpm - 70.0) / 300.0)), saturation: CGFloat(0.3), brightness: CGFloat(0.65), alpha: CGFloat(1.0))
         
         return NSAttributedString(string: title, attributes: [.foregroundColor: color])

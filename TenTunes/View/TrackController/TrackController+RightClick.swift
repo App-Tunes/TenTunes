@@ -139,6 +139,12 @@ extension TrackController: NSMenuDelegate {
         }
     }
     
+    @IBAction func menuAnalyzeMetadata(_ sender: Any) {
+        for track in menuTracks {
+            ViewController.shared.tasker.enqueue(task: AnalyzeTrack(track: track, read: false, analyzeFlags: [.bpm, .key]))
+        }
+    }
+    
     @IBAction func removeTrack(_ sender: Any) {
         remove(indices: _tableView.clickedRows)
     }

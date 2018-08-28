@@ -287,8 +287,14 @@ class TrackController: NSViewController {
             _tableView.animateDifference(from: tracksBefore, to: history.tracks)
             return
         }
+        
+        let playlist = (history.playlist as! ModifiablePlaylist)
+        
+        guard playlist.confirm(action: .delete) else {
+            return
+        }
 
-        (history.playlist as! PlaylistManual).removeTracks(indices.compactMap { history.track(at: $0) })
+        playlist.removeTracks(indices.compactMap { history.track(at: $0) })
         // Don't reload data, we'll be updated in async
     }    
 }

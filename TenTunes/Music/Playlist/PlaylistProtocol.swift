@@ -22,13 +22,23 @@ enum ModifyingAction {
 protocol ModifiablePlaylist : PlaylistProtocol {
     func supports(action: ModifyingAction) -> Bool
     
+    func confirm(action: ModifyingAction) -> Bool
+    
     func addTracks(_ tracks: [Track], above: Int?)
     
     func removeTracks(_ tracks: [Track])
 }
 
 extension ModifiablePlaylist {
+    func confirm(action: ModifyingAction) -> Bool {
+        return true
+    }
+    
     func addTracks(_ tracks: [Track], above: Int? = nil) {
         addTracks(tracks, above: above)
+    }
+    
+    func removeTracks(_ tracks: [Track]) {
+        
     }
 }

@@ -67,13 +67,21 @@ extension PlaylistController {
         
         switch type {
         case Track.pasteboardType:
+            guard (parent as! ModifiablePlaylist).confirm(action: .add) else {
+                return false
+            }
+            
             let tracks = (pasteboard.pasteboardItems ?? []).compactMap(Library.shared.readTrack)
-            (parent as! PlaylistManual).addTracks(tracks)
+            (parent as! ModifiablePlaylist).addTracks(tracks)
             return true
         case .fileURL:
+            guard (parent as! ModifiablePlaylist).confirm(action: .add) else {
+                return false
+            }
+
             let urls = pasteboard.readObjects(forClasses: [NSURL.self], options: [.urlReadingFileURLsOnly: true])
             let tracks = (urls as! [NSURL]).compactMap { Library.shared.import().track(url: $0 as URL) }
-            (parent as! PlaylistManual).addTracks(tracks)
+            (parent as! ModifiablePlaylist).addTracks(tracks)
             return true
         case Playlist.pasteboardType:
             let playlists = (pasteboard.pasteboardItems ?? []).compactMap(Library.shared.readPlaylist)

@@ -45,7 +45,7 @@
                         </menu>
                     </popUpButtonCell>
                     <connections>
-                        <action selector="invertToken:" target="-2" id="3zM-Zb-Idw"/>
+                        <action selector="accumulationChanged:" target="-2" id="ysy-kH-U2Y"/>
                     </connections>
                 </popUpButton>
             </subviews>

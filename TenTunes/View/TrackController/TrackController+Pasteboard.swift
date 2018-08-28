@@ -68,7 +68,13 @@ extension TrackController {
             _tableView.animateDifference(from: tracksBefore, to: history.tracks)
         }
         else if mode == .tracksList {
-            (history.playlist as! PlaylistManual).addTracks(tracks, above: row)
+            let playlist = (history.playlist as! ModifiablePlaylist)
+            
+            guard playlist.confirm(action: .reorder) else {
+                return false
+            }
+            
+            playlist.addTracks(tracks, above: row)
             try! Library.shared.viewContext.save()
         }
         

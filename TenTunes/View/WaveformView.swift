@@ -219,8 +219,7 @@ class WaveformView: NSControl, CALayerDelegate {
             }
         }
     }
-    var lerpRatio = CGFloat(1.0 / 4.0)
-    var completeTransitionSteps = 100
+    var completeTransitionSteps = 10 // 1/3 Second
 
     var barWidth: Int {
         set(barWidth) { waveformLayer._barsLayer.barWidth = barWidth }
@@ -304,7 +303,14 @@ class WaveformView: NSControl, CALayerDelegate {
             
             let drawValues = self.analysis?.values ?? BarsLayer.defaultValues
 
-            self.waveformLayer._barsLayer.values = (0..<4).map { Interpolation.linear(self.waveformLayer._barsLayer.values[$0], drawValues[$0], amount: self.lerpRatio) }
+            self.waveformLayer._barsLayer.values = (0..<4).map {
+                if self.analysis?.complete ?? true {
+                    return Interpolation.atan(self.waveformLayer._barsLayer.values[$0], drawValues[$0], step: self.completeTransitionSteps - self.transitionSteps, max: self.completeTransitionSteps)
+                }
+                else {
+                    return Interpolation.linear(self.waveformLayer._barsLayer.values[$0], drawValues[$0], amount: 0.2)
+                }
+            }
 
             CATransaction.commit()
         }

@@ -19,4 +19,13 @@ class Interpolation {
     static func linear(_ left: [CGFloat], _ right: [CGFloat], amount: CGFloat) -> [CGFloat] {
         return zip(left, right).map { Interpolation.linear($0, $1, amount: amount) }
     }
+    
+    static func atan(_ left: [CGFloat], _ right: [CGFloat], step: Int, max: Int, steepness: CGFloat = 10) -> [CGFloat] {
+        if step >= (max - 1) { return right }
+        
+        let x = ((CGFloat(step) / CGFloat(max)) - 0.5) * steepness
+        let stepSize = CGFloat(1) / CGFloat(max) * steepness
+
+        return linear(left, right, amount: stepSize / (1.0 + pow(x, 2)))
+    }
 }

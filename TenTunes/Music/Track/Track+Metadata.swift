@@ -26,10 +26,13 @@ extension Track {
             throw MetadataError.fileNotFound
         }
         
-        var title: String? = nil
+        let prevTitle = title
+        let prevAlbum = album
+        let prevAuthor = author
         
-        var album: String? = nil
-        var author: String? = nil
+        let prevGenre = genre
+        let prevKeyString = keyString
+        let prevBPM = speed
 
         // TODO Duration
         
@@ -48,8 +51,8 @@ extension Track {
             
             artwork = importer.image
             
-            key = Key.parse(importer.initialKey ?? "")
-            bpm = Double(importer.bpm ?? "")
+            keyString = importer.initialKey
+            bpmString = importer.bpm
             
             // "Nullable" -> 0 = nil anyway
             year = importer.year
@@ -82,7 +85,7 @@ extension Track {
         artwork = artwork ?? avImporter.image(withKey: .commonKeyArtwork, keySpace: .common)
         artwork = artwork ?? avImporter.image(withKey: .iTunesMetadataKeyCoverArt, keySpace: .iTunes)
         
-        bpm = bpm ?? Double(avImporter.string(withKey: .iTunesMetadataKeyBeatsPerMin, keySpace: .iTunes) ?? "")
+        bpmString = bpmString ?? avImporter.string(withKey: .iTunesMetadataKeyBeatsPerMin, keySpace: .iTunes)
 
         // For videos, generate thumbnails
         if artwork == nil {
@@ -109,11 +112,14 @@ extension Track {
             readAnalysis()
         }
         
-        // Always prefer the data we read if any
-        self.title = title ?? self.title
+        // Some files don't store metadata at all; if we can't read these then use the values we had previously
+        title = title ?? prevTitle
+        album = album ?? prevAlbum
+        author = author ?? prevAuthor
         
-        self.album = album ?? self.album
-        self.author = author ?? self.author
+        genre = genre ?? prevGenre
+        keyString = keyString ?? prevKeyString
+        speed = speed ?? prevBPM
 
         if let artwork = artwork {
             self.artworkPreview = artwork.resized(w: 64, h: 64)

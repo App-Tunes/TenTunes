@@ -58,14 +58,14 @@ public class Track: NSManagedObject {
         return Int(CMTimeGetSeconds(duration))
     }
     
-    var bpm: Double? {
-        get { return bpmString ?=> Double.init }
-        set(bpm) { bpmString = bpm ?=> String.init }
+    var speed: Speed? {
+        get { return bpmString ?=> Speed.init }
+        set { bpmString = newValue?.write }
     }
     
     var key: Key? {
         get { return keyString ?=> Key.parse }
-        set(key) { keyString = key?.write }
+        set { keyString = newValue?.write }
     }
     
     var rTitle: String {
@@ -82,25 +82,6 @@ public class Track: NSManagedObject {
     
     var rAlbum: String {
         return album ?? ""
-    }
-    
-    var rBPM: NSAttributedString {
-        guard let bpm = bpm else {
-            return NSAttributedString()
-        }
-        
-        let title = String(format: "%.1f", bpm)
-        let color = NSColor(hue: CGFloat(0.5 + (0...0.3).clamp((bpm - 70.0) / 300.0)), saturation: CGFloat(0.3), brightness: CGFloat(0.65), alpha: CGFloat(1.0))
-        
-        return NSAttributedString(string: title, attributes: [.foregroundColor: color])
-    }
-    
-    var rKey: NSAttributedString {
-        guard let key = self.key else {
-            return NSAttributedString()
-        }
-        
-        return key.description
     }
     
     var rArtwork: NSImage {
@@ -138,5 +119,47 @@ public class Track: NSManagedObject {
             let containing = containingPlaylists as! Set<PlaylistManual>
             return containing.filter { Library.shared.isTag(playlist: $0) }
         }
+    }
+}
+
+extension Track {
+    struct Speed : Comparable {
+        static func < (lhs: Track.Speed, rhs: Track.Speed) -> Bool {
+            return lhs.beatsPerMinute < rhs.beatsPerMinute
+        }
+        
+        static let zero = Speed(beatsPerMinute: 0)
+        
+        let beatsPerMinute: Double
+        
+        var beatsPerSecond: Double { return beatsPerMinute / 60 }
+        
+        var secondsPerBeat: Double { return 1 / beatsPerSecond }
+        
+        init(beatsPerMinute: Double) {
+            self.beatsPerMinute = beatsPerMinute
+        }
+
+        init?(parse string: String) {
+            guard let parsed = Double(string) else { return nil }
+            self.init(beatsPerMinute: parsed)
+        }
+    }
+}
+
+extension Track.Speed : CustomStringConvertible {
+    var write: String {
+        return String(beatsPerMinute)
+    }
+    
+    var description: String {
+        return String(format: "%.1f", beatsPerMinute)
+    }
+ 
+    var attributedDescription: NSAttributedString {
+        let title = description
+        let color = NSColor(hue: CGFloat(0.5 + (0...0.3).clamp((beatsPerMinute - 70.0) / 300.0)), saturation: CGFloat(0.3), brightness: CGFloat(0.65), alpha: CGFloat(1.0))
+        
+        return NSAttributedString(string: title, attributes: [.foregroundColor: color])
     }
 }

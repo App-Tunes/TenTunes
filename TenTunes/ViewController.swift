@@ -230,9 +230,9 @@ class ViewController: NSViewController {
         _coverImage.transitionWithImage(image: track.artworkPreview)
         _waveformView.analysis = track.analysis
         
-        if let bpm = track.bpm {
+        if let speed = track.speed {
             // Always jump 16 beats
-            _waveformView.jumpSegment = (1 / (bpm / 60) * 16) / player.player.duration
+            _waveformView.jumpSegment = (speed.secondsPerBeat * 16) / player.player.duration
         }
         else {
             _waveformView.jumpSegment = 0

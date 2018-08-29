@@ -36,7 +36,7 @@ extension Library.Export {
             trackDict["Album"] = track.album
             trackDict["Location"] = track.path
             trackDict["Genre"] = track.genre
-            trackDict["BPM"] = track.bpm ?=> Int.init
+            trackDict["BPM"] = track.bpmString ?=> Int.init // Needs an int?
             trackDict["Persistent ID"] = track.iTunesID ?? to16Hex(track.id) // TODO
             
             return (String(idx), trackDict)

@@ -363,11 +363,11 @@ extension TrackController: NSTableViewDelegate {
             return view
         }
         else if tableColumn?.identifier == ColumnIdentifiers.bpm, let view = tableView.makeView(withIdentifier: CellIdentifiers.bpm, owner: nil) as? NSTableCellView {
-            view.textField?.attributedStringValue = track.rBPM.with(alignment: .right)
+            view.textField?.attributedStringValue = track.speed?.attributedDescription.with(alignment: .right) ?? NSAttributedString()
             return view
         }
         else if tableColumn?.identifier == ColumnIdentifiers.key, let view = tableView.makeView(withIdentifier: CellIdentifiers.key, owner: nil) as? NSTableCellView {
-            view.textField?.attributedStringValue = track.rKey
+            view.textField?.attributedStringValue = track.key?.description ?? NSAttributedString()
             view.textField?.setAlignment(.center) // Is reset when setting attributed string
             return view
         }
@@ -414,7 +414,7 @@ extension TrackController: NSTableViewDelegate {
             case "key":
                 desired.sort = { Optional<Key>.compare($0.key, $1.key) }
             case "bpm":
-                desired.sort = { ($0.bpm ?? 0) < ($1.bpm ?? 0)  }
+                desired.sort = { ($0.speed ?? Track.Speed.zero) < ($1.speed ?? Track.Speed.zero)  }
             case "duration":
                 desired.sort = { ($0.duration ?? kCMTimeZero) < ($1.duration ?? kCMTimeZero)  }
             default:

@@ -18,7 +18,7 @@ class SPInterpreter {
     struct Flags: OptionSet {
         let rawValue: Int
         
-        static let bpm = Flags(rawValue: 1 << 0)
+        static let speed = Flags(rawValue: 1 << 0)
         static let key = Flags(rawValue: 1 << 1)
     }
     
@@ -111,11 +111,12 @@ class SPInterpreter {
         analysis.values = [wf, lows, mids, highs]
         analysis.complete = true
         
-        if flags.contains(.bpm) {
-            track.bpm = Double(analyzer.bpm)
+        if flags.contains(.speed) {
+            track.speed = Track.Speed(beatsPerMinute: Double(analyzer.bpm))
         }
         
         if flags.contains(.key) {
+            // Set rKey since only the Key class decides how the user wants to write his keys
             track.key = Key.parse(analyzer.initialKey)
         }
     }

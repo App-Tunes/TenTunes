@@ -92,7 +92,7 @@ public class Track: NSManagedObject {
         return self.artworkPreview ?? NSImage(named: NSImage.Name(rawValue: "music_missing"))!
     }
     
-    var rLength: String {
+    var rDuration: String {
         guard let duration = duration else { return "" }
         return Int(CMTimeGetSeconds(duration)).timeString
     }

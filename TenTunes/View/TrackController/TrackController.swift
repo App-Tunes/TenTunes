@@ -372,7 +372,7 @@ extension TrackController: NSTableViewDelegate {
             return view
         }
         else if tableColumn?.identifier == ColumnIdentifiers.duration, let view = tableView.makeView(withIdentifier: CellIdentifiers.duration, owner: nil) as? NSTableCellView {
-            view.textField?.stringValue = track.rLength 
+            view.textField?.stringValue = track.rDuration 
             return view
         }
 

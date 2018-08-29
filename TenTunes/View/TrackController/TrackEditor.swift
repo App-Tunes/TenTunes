@@ -72,7 +72,7 @@ class TrackEditor: NSViewController {
             EditData(title: "Track No.", path: "trackNumber", options: [.valueTransformerName: "IntStringNullable"]),
             ]),
         GroupData(title: "Info", icon: #imageLiteral(resourceName: "info"), data: [
-            InfoData(title: "Duration") { $0.rLength },
+            InfoData(title: "Duration") { $0.rDuration },
             InfoData(title: "Kbps") { String(format: "%0.2f", $0.bitrate / 1024) },
             InfoData(title: "Location") { $0.path ?? "" },
             ]),

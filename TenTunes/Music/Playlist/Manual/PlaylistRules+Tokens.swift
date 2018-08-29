@@ -139,7 +139,7 @@ extension SmartPlaylistRules.Token {
         }
         
         override func positiveFilter(in context: NSManagedObjectContext?, rguard: RecursionGuard<Playlist>) -> (Track) -> Bool {
-            return { Album(of: $0) == self.album }
+            return { $0.rAlbum == self.album }
         }
         
         override func positiveRepresentation(in context: NSManagedObjectContext? = nil) -> String {

@@ -73,15 +73,15 @@ public class Track: NSManagedObject {
     }
     
     var rSource: String {
-        return album != nil ? "\(author ?? Artist.unknown) - \(rAlbum)" : (author ?? Artist.unknown)
+        return album != nil ? "\(author ?? Artist.unknown) - \(album!)" : (author ?? Artist.unknown)
     }
         
     var authors: [Artist] {
         return ((author ?=> Artist.all) ?? []) + Array(compact: remixAuthor ?=> Artist.init)
     }
     
-    var rAlbum: String {
-        return album ?? ""
+    var rAlbum: Album? {
+        return album.map { Album(title: $0, by: (self.albumArtist ?=> Artist.init) ?? self.authors.first) }
     }
     
     var rArtwork: NSImage {
@@ -107,7 +107,7 @@ public class Track: NSManagedObject {
     }
     
     var searchable: [String] {
-        return [rTitle, author ?? Artist.unknown, rAlbum, remixAuthor].compactMap { $0 }
+        return [rTitle, author ?? Artist.unknown, album ?? Album.unknown, remixAuthor].compactMap { $0 }
     }
     
     var tags: Set<PlaylistManual> {

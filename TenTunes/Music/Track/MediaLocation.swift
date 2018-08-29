@@ -109,7 +109,7 @@ class MediaLocation {
     func desiredLocation(for track: Track) -> URL {
         let pathExtension = track.url?.pathExtension ?? ""
         return directory.appendingPathComponent(Artist.describe(track.authors).asFileName)
-                        .appendingPathComponent(track.rAlbum.asFileName)
+                        .appendingPathComponent((track.album ?? Album.unknown).asFileName)
                         .appendingPathComponent(track.rTitle)
                         .appendingPathExtension(pathExtension)
     }

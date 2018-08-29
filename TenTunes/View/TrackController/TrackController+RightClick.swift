@@ -104,7 +104,7 @@ extension TrackController: NSMenuDelegate {
         let track = menuTracks.first!
         
         ViewController.shared.trackController.openFindPanel()
-        ViewController.shared.trackController.filterController.rules = SmartPlaylistRules(tokens: [.InAlbum(album: Album(of: track))])
+        ViewController.shared.trackController.filterController.rules = SmartPlaylistRules(tokens: [.InAlbum(album: track.rAlbum!)])
     }
 
     @IBAction func menuShowInFinder(_ sender: Any) {

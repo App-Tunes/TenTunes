@@ -113,8 +113,7 @@ class Library : NSPersistentContainer {
     var _allAuthors: Set<Artist>?
     var allAuthors: Set<Artist> {
         if _allAuthors == nil {
-            _allAuthors = Set(allTracks.tracksList
-                .flatMap { $0.authors })
+            _allAuthors = Set(allTracks.tracksList.flatMap { $0.authors })
         }
         return _allAuthors!
     }
@@ -122,8 +121,7 @@ class Library : NSPersistentContainer {
     var _allGenres: Set<String>?
     var allGenres: Set<String> {
         if _allGenres == nil {
-            _allGenres = Set(allTracks.tracksList
-                .compactMap({ track in track.genre }))
+            _allGenres = Set(allTracks.tracksList.compactMap { $0.genre })
         }
         return _allGenres!
     }
@@ -131,9 +129,7 @@ class Library : NSPersistentContainer {
     var _allAlbums: Set<Album>?
     var allAlbums: Set<Album> {
         if _allAlbums == nil {
-            _allAlbums = Set(allTracks.tracksList
-                .map { track in Album(of: track) }
-            )
+            _allAlbums = Set(allTracks.tracksList.compactMap { $0.rAlbum })
         }
         return _allAlbums!
     }

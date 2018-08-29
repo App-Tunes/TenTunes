@@ -308,7 +308,7 @@ class WaveformView: NSControl, CALayerDelegate {
                     return Interpolation.atan(self.waveformLayer._barsLayer.values[$0], drawValues[$0], step: self.completeTransitionSteps - self.transitionSteps, max: self.completeTransitionSteps)
                 }
                 else {
-                    return Interpolation.linear(self.waveformLayer._barsLayer.values[$0], drawValues[$0], amount: 0.2)
+                    return Interpolation.linear(self.waveformLayer._barsLayer.values[$0], drawValues[$0], amount: CGFloat(6 * self.updateTime))
                 }
             }
 

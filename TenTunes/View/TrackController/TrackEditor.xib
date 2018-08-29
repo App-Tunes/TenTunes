@@ -157,12 +157,11 @@
                                                         </subviews>
                                                         <constraints>
                                                             <constraint firstItem="4YU-t3-8TW" firstAttribute="leading" secondItem="QZf-LH-0CZ" secondAttribute="trailing" constant="6" id="265-Ck-WcH"/>
-                                                            <constraint firstItem="QZf-LH-0CZ" firstAttribute="top" secondItem="Cy6-Kp-4SX" secondAttribute="top" constant="5" id="Wsb-Px-RTl"/>
+                                                            <constraint firstItem="QZf-LH-0CZ" firstAttribute="centerY" secondItem="Cy6-Kp-4SX" secondAttribute="centerY" constant="1" id="Rxz-oY-iqQ"/>
                                                             <constraint firstAttribute="bottom" secondItem="4YU-t3-8TW" secondAttribute="bottom" constant="2" id="kPB-lA-Gff"/>
                                                             <constraint firstItem="4YU-t3-8TW" firstAttribute="top" secondItem="Cy6-Kp-4SX" secondAttribute="top" constant="3" id="kaW-Hb-Dqz"/>
                                                             <constraint firstItem="QZf-LH-0CZ" firstAttribute="leading" secondItem="Cy6-Kp-4SX" secondAttribute="leading" constant="3" id="nE4-cz-hC4"/>
                                                             <constraint firstAttribute="trailing" secondItem="4YU-t3-8TW" secondAttribute="trailing" constant="8" id="qSu-o5-UBj"/>
-                                                            <constraint firstAttribute="bottom" secondItem="QZf-LH-0CZ" secondAttribute="bottom" constant="3" id="zJY-HU-gmx"/>
                                                         </constraints>
                                                         <connections>
                                                             <outlet property="imageView" destination="QZf-LH-0CZ" id="OYa-t4-Onx"/>

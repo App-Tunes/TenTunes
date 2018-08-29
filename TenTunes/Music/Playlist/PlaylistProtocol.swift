@@ -20,8 +20,8 @@ enum ModifyingAction {
 }
 
 protocol ModifiablePlaylist : PlaylistProtocol {
-    func supports(action: ModifyingAction) -> Bool
-    
+    func _supports(action: ModifyingAction, rguard: RecursionGuard<Playlist>) -> Bool
+
     func confirm(action: ModifyingAction) -> Bool
     
     func addTracks(_ tracks: [Track], above: Int?)
@@ -30,6 +30,10 @@ protocol ModifiablePlaylist : PlaylistProtocol {
 }
 
 extension ModifiablePlaylist {
+    func supports(action: ModifyingAction) -> Bool {
+        return _supports(action: action, rguard: RecursionGuard())
+    }
+
     func confirm(action: ModifyingAction) -> Bool {
         return true
     }

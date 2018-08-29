@@ -46,9 +46,6 @@ public class Playlist: NSManagedObject, PlaylistProtocol {
     func guardedTracksList(rguard: RecursionGuard<Playlist>) -> [Track] {
         if _tracksList == nil {
             _tracksList = _freshTracksList(rguard: rguard)
-            if rguard.hasFailed {
-                _tracksList = []
-            }
         }
         
         return _tracksList!

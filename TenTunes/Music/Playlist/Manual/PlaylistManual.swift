@@ -18,7 +18,7 @@ public class PlaylistManual: Playlist {
 }
 
 extension PlaylistManual : ModifiablePlaylist {
-    func supports(action: ModifyingAction) -> Bool {
+    func _supports(action: ModifyingAction, rguard: RecursionGuard<Playlist>) -> Bool {
         return true
     }
     

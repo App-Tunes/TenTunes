@@ -38,7 +38,9 @@ public class PlaylistFolder: Playlist {
     }
     
     override func _freshTracksList(rguard: RecursionGuard<Playlist>) -> [Track] {
-        return (childrenList.flatMap { $0.guardedTracksList(rguard: rguard) }).uniqueElements
+        return rguard.protected(self) {
+            return self.childrenList.flatMap { $0.guardedTracksList(rguard: rguard) } .uniqueElements
+        } ?? []
     }
     
     override var icon: NSImage {
@@ -51,13 +53,15 @@ extension PlaylistFolder : ModifiablePlaylist {
         return childrenList as? [ModifiablePlaylist]
     }
     
-    func supports(action: ModifyingAction) -> Bool {
+    func _supports(action: ModifyingAction, rguard: RecursionGuard<Playlist>) -> Bool {
         // Can only delete, if we want to add then what do we even add to??
         guard action == .delete else {
             return false
         }
         
-        return modifableChildrenList?.allMatch { $0.supports(action: action) } ?? false
+        return rguard.protected(self) {
+            return self.modifableChildrenList?.allMatch { $0.supports(action: action) } ?? false
+        } ?? false
     }
     
     func confirm(action: ModifyingAction) -> Bool {

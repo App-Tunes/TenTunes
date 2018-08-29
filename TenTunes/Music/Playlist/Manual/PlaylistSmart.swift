@@ -12,16 +12,10 @@ import CoreData
 @objc(PlaylistSmart)
 public class PlaylistSmart: Playlist {
     override func _freshTracksList(rguard: RecursionGuard<Playlist>) -> [Track] {
-        guard rguard.push(self) else {
-            return []
-        }
-        
-        let all = Library.shared.allTracks.convert(to: managedObjectContext!)!.tracksList
-        let tracks = all.filter(filter(in: managedObjectContext!, rguard: rguard))
-        
-        rguard.pop(self)
-        
-        return tracks
+        return rguard.protected(self) {
+            let all = Library.shared.allTracks.convert(to: managedObjectContext!)!.tracksList
+            return all.filter(filter(in: managedObjectContext!, rguard: rguard))
+        } ?? []
     }
         
     func filter(in context: NSManagedObjectContext, rguard: RecursionGuard<Playlist>) -> (Track) -> Bool {
@@ -42,13 +36,15 @@ extension PlaylistSmart : ModifiablePlaylist {
         return playlistTokens.map({ $0.playlist(in: self.managedObjectContext!) }) as? [ModifiablePlaylist]
     }
     
-    func supports(action: ModifyingAction) -> Bool {
+    func _supports(action: ModifyingAction, rguard: RecursionGuard<Playlist>) -> Bool {
         // Add to all on all add, remove from all on any delete
         guard (action == .add && !rrules.any) || (action == .delete && rules.any) else {
             return false
         }
         
-        return modifableTokenPlaylists?.allMatch { $0.supports(action: action) } ?? false
+        return rguard.protected(self) {
+            return modifableTokenPlaylists?.allMatch { $0.supports(action: action) } ?? false
+        } ?? false
     }
     
     func confirm(action: ModifyingAction) -> Bool {

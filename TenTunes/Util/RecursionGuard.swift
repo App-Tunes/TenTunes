@@ -17,6 +17,17 @@ class RecursionGuard<E: Hashable> {
         return failed.last!
     }
     
+    func protected<T>(_ e: E, block: () -> T) -> T? {
+        if !push(e) {
+            return nil
+        }
+        
+        let result = block()
+        pop(e)
+        
+        return hasFailed ? nil : result
+    }
+    
     func push(_ e: E) -> Bool {
         let (inserted, _) = stack.insert(e)
         if !inserted {

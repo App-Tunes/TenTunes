@@ -13,7 +13,7 @@ class Album {
     let author: Artist?
     
     convenience init(of track: Track) {
-        self.init(title: track.rAlbum, by: (track.albumArtist ?=> Artist.init) ?? track.rAuthor)
+        self.init(title: track.rAlbum, by: (track.albumArtist ?=> Artist.init) ?? track.authors.first)
     }
     
     init(title: String, by author: Artist?) {

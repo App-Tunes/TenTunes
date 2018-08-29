@@ -108,7 +108,7 @@ extension SmartPlaylistRules.Token {
         }
         
         override func positiveFilter(in context: NSManagedObjectContext?, rguard: RecursionGuard<Playlist>) -> (Track) -> Bool {
-            return { $0.rAuthor == self.author }
+            return { $0.authors.contains(self.author) }
         }
         
         override func positiveRepresentation(in context: NSManagedObjectContext? = nil) -> String {

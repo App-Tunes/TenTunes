@@ -9,20 +9,27 @@
 import Cocoa
 
 class Artist {
+    static let splitRegex = try! NSRegularExpression(pattern: "\\S*(,|(f(ea)?t(uring)?(.)?))\\S*", options: [])
+    static let unknown = "Unknown Artist"
+    
     let name: String
     
     init(name: String) {
         self.name = name
     }
 
-    //    class func authors(of track: Track) -> [Artist] {
-//        return [Artist(name: track.rAuthor)]
-//    }
+    class func all(in string: String) -> [Artist] {
+        return splitRegex.split(string: string).map(Artist.init)
+    }
 }
 
 extension Artist : CustomStringConvertible {
     class func describe(_ artist: Artist?) -> String {
-        return artist?.description ?? "Unknown Artist"
+        return artist?.description ?? Artist.unknown
+    }
+    
+    class func describe(_ artists: [Artist]) -> String {
+        return artists.isEmpty ? Artist.unknown : artists.map { $0.description }.joined(separator: ", ")
     }
     
     var description: String {

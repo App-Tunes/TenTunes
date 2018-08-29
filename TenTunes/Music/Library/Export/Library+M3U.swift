@@ -25,7 +25,7 @@ extension Library.Export {
     
     static func m3u(playlist: Playlist, to: URL, pather: (Track, URL) -> String?) {
         let tracks: [String] = playlist.tracksList.map { track in
-            let info = "#EXTINF:\(track.durationSeconds ?? 0),\(track.rAuthor) - \(track.rTitle)"
+            let info = "#EXTINF:\(track.durationSeconds ?? 0),\(track.author ?? Artist.unknown) - \(track.rTitle)"
             
             // TODO Put in path whether it exists or not
             if let path = pather(track, to.deletingLastPathComponent()) {

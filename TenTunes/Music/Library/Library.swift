@@ -114,7 +114,7 @@ class Library : NSPersistentContainer {
     var allAuthors: Set<Artist> {
         if _allAuthors == nil {
             _allAuthors = Set(allTracks.tracksList
-                .compactMap { track in track.rAuthor })
+                .flatMap { $0.authors })
         }
         return _allAuthors!
     }

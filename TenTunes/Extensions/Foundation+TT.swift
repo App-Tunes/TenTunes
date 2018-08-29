@@ -134,6 +134,10 @@ extension Array {
     var uniqueElements: [Element] {
         return Array<Any>(NSOrderedSet(array: self)) as! [Element]
     }
+    
+    var neighbors: Zip2Sequence<ArraySlice<Element>, ArraySlice<Element>> {
+        return zip(self.dropLast(), self.dropFirst())
+    }
 }
 
 extension NSMutableOrderedSet {
@@ -561,6 +565,26 @@ extension Timer {
                 blocks[idx % blocks.count]()
                 idx += 1
             }
+        }
+    }
+}
+
+extension NSRegularExpression {
+    func matchStrings(in string: String) -> [String] {
+        let results = matches(in: string, range: NSRange(string.startIndex..., in: string))
+        return results.map {
+            String(string[Range($0.range, in: string)!])
+        }
+    }
+
+    func split(string: String) -> [String] {
+        let results = matches(in: string, range: NSRange(string.startIndex..., in: string))
+        let indices = [NSMakeRange(0, string.startIndex.encodedOffset)] + results.map { $0.range } + [NSMakeRange(string.endIndex.encodedOffset, 0)]
+        
+        return indices.neighbors.map { arg in
+            let (prev, next) = arg
+            let middle = NSMakeRange(prev.upperBound, next.lowerBound - prev.upperBound)
+            return String(string[Range(middle, in: string)!])
         }
     }
 }

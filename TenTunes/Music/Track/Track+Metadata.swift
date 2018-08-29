@@ -27,9 +27,12 @@ extension Track {
         }
         
         var title: String? = nil
+        
         var album: String? = nil
         var albumArtist: String? = nil
         var author: String? = nil
+        var remixAuthor: String? = nil
+
         var genre: String? = nil
         var key: Key? = nil
         var bpm: Double? = nil
@@ -47,6 +50,8 @@ extension Track {
             album = importer.album
             albumArtist = importer.albumArtist
             author = importer.artist
+            remixAuthor = importer.remixArtist
+            
             genre = parseGenre(importer.genre)
             
             artwork = importer.image
@@ -113,9 +118,12 @@ extension Track {
         
         // Always prefer the data we read if any
         self.title = title ?? self.title
+        
         self.album = album ?? self.album
         self.albumArtist = albumArtist ?? self.albumArtist
         self.author = author ?? self.author
+        self.remixAuthor = remixAuthor ?? self.remixAuthor
+        
         self.genre = genre ?? self.genre
         self.key = key ?? self.key
         self.bpm = bpm ?? self.bpm
@@ -139,9 +147,12 @@ extension Track {
         
         do {
             importer.title = title
+            
             importer.album = album
             importer.albumArtist = albumArtist
             importer.artist = author
+            importer.remixArtist = remixAuthor
+
             importer.genre = genre
             
             importer.initialKey = keyString

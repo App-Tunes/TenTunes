@@ -148,6 +148,8 @@ inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFram
                 [self setBpm: textString];
             } else if(frame_id == AVMetadataID3MetadataKeyBand.UTF8String) {
                 [self setAlbumArtist: textString];
+            } else if(frame_id == AVMetadataID3MetadataKeyModifiedBy.UTF8String) {
+                [self setRemixArtist: textString];
             }
         }
 //        } else if(auto comment_frame = dynamic_cast<TagLib::ID3v2::CommentsFrame *>(frame)) {
@@ -226,6 +228,7 @@ inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFram
     [TagLibImporter replaceFrame:tag name:AVMetadataID3MetadataKeyInitialKey text:_initialKey];
     [TagLibImporter replaceFrame:tag name:AVMetadataID3MetadataKeyBeatsPerMinute text:_bpm];
     [TagLibImporter replaceFrame:tag name:AVMetadataID3MetadataKeyBand text:_albumArtist];
+    [TagLibImporter replaceFrame:tag name:AVMetadataID3MetadataKeyModifiedBy text:_remixArtist];
 }
 
 @end

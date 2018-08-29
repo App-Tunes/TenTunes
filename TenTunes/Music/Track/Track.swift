@@ -77,7 +77,7 @@ public class Track: NSManagedObject {
     }
         
     var authors: [Artist] {
-        return (author ?=> Artist.all) ?? []
+        return ((author ?=> Artist.all) ?? []) + Array(compact: remixAuthor ?=> Artist.init)
     }
     
     var rAlbum: String {
@@ -126,7 +126,7 @@ public class Track: NSManagedObject {
     }
     
     var searchable: [String] {
-        return [rTitle, author ?? Artist.unknown, rAlbum]
+        return [rTitle, author ?? Artist.unknown, rAlbum, remixAuthor].compactMap { $0 }
     }
     
     var tags: Set<PlaylistManual> {

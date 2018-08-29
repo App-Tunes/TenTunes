@@ -138,6 +138,10 @@ extension Array {
     var neighbors: Zip2Sequence<ArraySlice<Element>, ArraySlice<Element>> {
         return zip(self.dropLast(), self.dropFirst())
     }
+    
+    init(compact element: Element?) {
+        self = element != nil ? [element!] : []
+    }
 }
 
 extension NSMutableOrderedSet {

@@ -35,6 +35,7 @@ extension Track {
     @NSManaged public var keyString: String?
     @NSManaged public var metadataFetched: Bool
     @NSManaged public var path: String?
+    @NSManaged public var remixAuthor: String?
     @NSManaged public var title: String?
     @NSManaged public var trackNumber: Int16
     @NSManaged public var usesMediaDirectory: Bool

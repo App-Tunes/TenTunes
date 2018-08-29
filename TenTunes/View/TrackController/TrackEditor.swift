@@ -66,7 +66,8 @@ class TrackEditor: NSViewController {
             EditData(title: "Initial Key", path: "keyString", options: nil),
             ]),
         GroupData(title: "Album", icon: #imageLiteral(resourceName: "album"), data: [
-            EditData(title: "Album Artist", path: "albumArtist", options: nil),
+            EditData(title: "Album Author", path: "albumArtist", options: nil),
+            EditData(title: "Remix Author", path: "remixAuthor", options: nil),
             EditData(title: "Year", path: "year", options: [.valueTransformerName: "IntStringNullable"]),
             EditData(title: "Track No.", path: "trackNumber", options: [.valueTransformerName: "IntStringNullable"]),
             ]),

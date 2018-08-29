@@ -142,6 +142,7 @@ inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFram
 		} else if(auto text_frame = dynamic_cast<TagLib::ID3v2::TextIdentificationFrame *>(frame)) {
             auto frame_id = text_frame->frameID();
             NSString *textString = TagLibTextFrameToNS(text_frame);
+            
             if (frame_id == AVMetadataID3MetadataKeyInitialKey.UTF8String) {
                 [self setInitialKey: textString];
             } else if(frame_id == AVMetadataID3MetadataKeyBeatsPerMinute.UTF8String) {
@@ -219,7 +220,9 @@ inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFram
     // Add new
     if (text != nil) {
         TagLib::String tText = TagLibStringFromNS(text);
-        tag->addFrame(TagLib::ID3v2::Frame::createTextualFrame(tName, tText));
+        TagLib::ID3v2::TextIdentificationFrame *frame = new TagLib::ID3v2::TextIdentificationFrame(name.UTF8String, TagLib::String::UTF8);
+        frame->setText(tText);
+        tag->addFrame(frame);
     }
 }
 

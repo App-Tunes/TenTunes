@@ -29,16 +29,7 @@ extension Track {
         var title: String? = nil
         
         var album: String? = nil
-        var albumArtist: String? = nil
         var author: String? = nil
-        var remixAuthor: String? = nil
-
-        var genre: String? = nil
-        var key: Key? = nil
-        var bpm: Double? = nil
-        var artwork: NSImage? = nil
-        var year: Int16? = nil
-        var trackNumber: Int16? = nil
 
         // TODO Duration
         
@@ -48,8 +39,9 @@ extension Track {
             
             title = importer.title
             album = importer.album
-            albumArtist = importer.albumArtist
             author = importer.artist
+
+            albumArtist = importer.albumArtist
             remixAuthor = importer.remixArtist
             
             genre = parseGenre(importer.genre)
@@ -59,8 +51,9 @@ extension Track {
             key = Key.parse(importer.initialKey ?? "")
             bpm = Double(importer.bpm ?? "")
             
-            year = importer.year > 0 ? importer.year : nil
-            trackNumber = importer.trackNumber > 0 ? importer.trackNumber : nil
+            // "Nullable" -> 0 = nil anyway
+            year = importer.year
+            trackNumber = importer.trackNumber
         }
         catch let error {
             print(error)
@@ -120,16 +113,7 @@ extension Track {
         self.title = title ?? self.title
         
         self.album = album ?? self.album
-        self.albumArtist = albumArtist ?? self.albumArtist
         self.author = author ?? self.author
-        self.remixAuthor = remixAuthor ?? self.remixAuthor
-        
-        self.genre = genre ?? self.genre
-        self.key = key ?? self.key
-        self.bpm = bpm ?? self.bpm
-        self.artwork = artwork ?? self.artwork
-        self.year = year ?? self.year
-        self.trackNumber = trackNumber ?? self.trackNumber
 
         if let artwork = artwork {
             self.artworkPreview = artwork.resized(w: 64, h: 64)

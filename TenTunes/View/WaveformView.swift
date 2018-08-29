@@ -9,15 +9,6 @@
 import Cocoa
 import QuartzCore
 
-func lerp(_ left: [CGFloat], _ right: [CGFloat], _ amount: CGFloat) -> [CGFloat] {
-    return zip(left, right).map { (cur, dest) in
-        if amount >= 1 { return dest }
-        else if amount <= 0 { return cur }
-        
-        return cur * (CGFloat(1.0) - amount) + dest * amount
-    }
-}
-
 class BarsLayer: CALayer {
     static var defaultValues: [[CGFloat]] {
         return Array(repeating: Array(repeating: 0.1, count: Analysis.sampleCount), count: 4)
@@ -313,7 +304,7 @@ class WaveformView: NSControl, CALayerDelegate {
             
             let drawValues = self.analysis?.values ?? BarsLayer.defaultValues
 
-            self.waveformLayer._barsLayer.values = (0..<4).map { lerp(self.waveformLayer._barsLayer.values[$0], drawValues[$0], self.lerpRatio) }
+            self.waveformLayer._barsLayer.values = (0..<4).map { Interpolation.linear(self.waveformLayer._barsLayer.values[$0], drawValues[$0], amount: self.lerpRatio) }
 
             CATransaction.commit()
         }

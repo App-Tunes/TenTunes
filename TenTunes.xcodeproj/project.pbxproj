@@ -49,6 +49,7 @@
 		807092EB20C69D8F00DFED53 /* ExportPlaylistsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807092E920C69D8F00DFED53 /* ExportPlaylistsController.swift */; };
 		807092EC20C69D8F00DFED53 /* ExportPlaylistsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 807092EA20C69D8F00DFED53 /* ExportPlaylistsController.xib */; };
 		8074044921367A1F007E0B4C /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8074044821367A1F007E0B4C /* Artist.swift */; };
+		8074044C2136CE68007E0B4C /* Interpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8074044B2136CE68007E0B4C /* Interpolation.swift */; };
 		8079F6D32106551100B7A278 /* SmartPlaylistRulesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6D12106551100B7A278 /* SmartPlaylistRulesController.swift */; };
 		8079F6D42106551100B7A278 /* SmartPlaylistRulesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8079F6D22106551100B7A278 /* SmartPlaylistRulesController.xib */; };
 		8079F6D72106661A00B7A278 /* HideableBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6D52106661A00B7A278 /* HideableBar.swift */; };
@@ -225,6 +226,7 @@
 		807092E920C69D8F00DFED53 /* ExportPlaylistsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPlaylistsController.swift; sourceTree = "<group>"; };
 		807092EA20C69D8F00DFED53 /* ExportPlaylistsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExportPlaylistsController.xib; sourceTree = "<group>"; };
 		8074044821367A1F007E0B4C /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
+		8074044B2136CE68007E0B4C /* Interpolation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interpolation.swift; sourceTree = "<group>"; };
 		8079F6D12106551100B7A278 /* SmartPlaylistRulesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartPlaylistRulesController.swift; sourceTree = "<group>"; };
 		8079F6D22106551100B7A278 /* SmartPlaylistRulesController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SmartPlaylistRulesController.xib; sourceTree = "<group>"; };
 		8079F6D52106661A00B7A278 /* HideableBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableBar.swift; sourceTree = "<group>"; };
@@ -558,6 +560,7 @@
 				8030E01620FE2C3B006B4AE8 /* Alerts.swift */,
 				8079F6E7211B015B00B7A278 /* RecursionGuard.swift */,
 				80BF21C2212AD9D500B9F0AB /* History.swift */,
+				8074044B2136CE68007E0B4C /* Interpolation.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -902,6 +905,7 @@
 				80BF21C3212AD9D500B9F0AB /* History.swift in Sources */,
 				8030E01120FCB33C006B4AE8 /* FetchTrackMetadata.swift in Sources */,
 				80CB652F2052C6CD0031A6D7 /* Operators.swift in Sources */,
+				8074044C2136CE68007E0B4C /* Interpolation.swift in Sources */,
 				80E2C9F7204B40A000298E81 /* Playlist.swift in Sources */,
 				8030E01B20FE7AAC006B4AE8 /* MoveTrackToMediaLocation.swift in Sources */,
 				8093466E20A62249001D15CD /* PlaylistController+Pasteboard.swift in Sources */,

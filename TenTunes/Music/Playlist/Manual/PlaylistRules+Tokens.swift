@@ -87,9 +87,9 @@ extension SmartPlaylistRules.Token {
     }
     
     class Author : SmartPlaylistRules.Token {
-        var author: String
+        var author: Artist
         
-        init(author: String) {
+        init(author: Artist) {
             self.author = author
             super.init()
         }
@@ -98,22 +98,21 @@ extension SmartPlaylistRules.Token {
             guard let author = aDecoder.decodeObject(forKey: "author") as? String else {
                 return nil
             }
-            self.author = author
+            self.author = Artist(name: author)
             super.init(coder: aDecoder)
         }
         
         override func encode(with aCoder: NSCoder) {
-            aCoder.encode(author, forKey: "author")
+            aCoder.encode(author.description, forKey: "author")
             super.encode(with: aCoder)
         }
         
         override func positiveFilter(in context: NSManagedObjectContext?, rguard: RecursionGuard<Playlist>) -> (Track) -> Bool {
-            let lowerAuthor = author.lowercased()
-            return { $0.rAuthor.lowercased() == lowerAuthor }
+            return { $0.rAuthor == self.author }
         }
         
         override func positiveRepresentation(in context: NSManagedObjectContext? = nil) -> String {
-            return "👤 " + author
+            return "👤 " + author.description
         }
     }
     
@@ -129,7 +128,7 @@ extension SmartPlaylistRules.Token {
             guard let title = aDecoder.decodeObject(forKey: "title") as? String, let author = aDecoder.decodeObject(forKey: "author") as? String else {
                 return nil
             }
-            self.album = Album(title: title, by: author)
+            self.album = Album(title: title, by: Artist(name: author))
             super.init(coder: aDecoder)
         }
         
@@ -144,7 +143,7 @@ extension SmartPlaylistRules.Token {
         }
         
         override func positiveRepresentation(in context: NSManagedObjectContext? = nil) -> String {
-            return "💿 \(album.title) 👤 \(album.author)"
+            return "💿 \(album.title) 👤 \(Artist.describe(album.author))"
         }
     }
     

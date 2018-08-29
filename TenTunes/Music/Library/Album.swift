@@ -10,13 +10,13 @@ import Cocoa
 
 class Album {
     let title: String
-    let author: String
+    let author: Artist?
     
     convenience init(of track: Track) {
-        self.init(title: track.rAlbum, by: track.albumArtist ?? track.rAuthor)
+        self.init(title: track.rAlbum, by: (track.albumArtist ?=> Artist.init) ?? track.rAuthor)
     }
     
-    init(title: String, by author: String) {
+    init(title: String, by author: Artist?) {
         self.title = title
         self.author = author
     }
@@ -24,11 +24,11 @@ class Album {
 
 extension Album : Hashable {
     var hashValue: Int {
-        return title.hashValue ^ author.hashValue
+        return title.lowercased().hashValue ^ (author?.hashValue ?? 0)
     }
     
     static func == (lhs: Album, rhs: Album) -> Bool {
         return lhs.title.lowercased() == rhs.title.lowercased() &&
-            lhs.author.lowercased() == rhs.author.lowercased()
+            lhs.author == rhs.author
     }
 }

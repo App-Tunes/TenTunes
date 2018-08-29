@@ -125,7 +125,7 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
     }
     
     func authorResults(search: String) -> [SmartPlaylistRules.Token.Author] {
-        let found = search.count > 0 ? Library.shared.allAuthors.filter({ $0.lowercased().range(of: search) != nil }) : Library.shared.allAuthors
+        let found = search.count > 0 ? Library.shared.allAuthors.filter({ $0.description.lowercased().range(of: search) != nil }) : Library.shared.allAuthors
         return SmartPlaylistRulesController.sorted(tokens: found.map { SmartPlaylistRules.Token.Author(author: $0) })
     }
     

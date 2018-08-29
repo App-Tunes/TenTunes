@@ -73,11 +73,11 @@ public class Track: NSManagedObject {
     }
     
     var rSource: String {
-        return album != nil ? "\(rAuthor) - \(rAlbum)" : rAuthor
+        return album != nil ? "\(Artist.describe(rAuthor)) - \(rAlbum)" : Artist.describe(rAuthor)
     }
     
-    var rAuthor: String {
-        return author ?? Track.unknownAuthor
+    var rAuthor: Artist? {
+        return author ?=> Artist.init
     }
     
     var rAlbum: String {
@@ -126,7 +126,7 @@ public class Track: NSManagedObject {
     }
     
     var searchable: [String] {
-        return [rTitle, rAuthor, rAlbum]
+        return [rTitle, Artist.describe(rAuthor), rAlbum]
     }
     
     var tags: Set<PlaylistManual> {

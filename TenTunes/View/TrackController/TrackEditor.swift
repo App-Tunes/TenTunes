@@ -145,7 +145,7 @@ class TrackEditor: NSViewController {
         try! context.save()
 
         for track in tracks {
-            track.writeMetadata()
+            try! track.writeMetadata()
         }
     }
     

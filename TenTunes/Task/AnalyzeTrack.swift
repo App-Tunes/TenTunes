@@ -94,7 +94,7 @@ class AnalyzeTrack: TrackTask {
                 
                 asyncTrack.writeAnalysis()
                 if !self.analyzeFlags.isEmpty {
-                    asyncTrack.writeMetadata()
+                    try! asyncTrack.writeMetadata()
                 }
             }
             try! mox.save()

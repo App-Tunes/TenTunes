@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0418D7C40668030CCFCB5446 /* Pods_TenTunes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F519690AE56FC5800E060F88 /* Pods_TenTunes.framework */; };
+		800134A8213835C0001FB5CE /* TagLibFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 800134A7213835C0001FB5CE /* TagLibFile.mm */; };
 		80074CF9204583CF0055B87E /* TrackController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80074CF7204583CF0055B87E /* TrackController.xib */; };
 		80074CFD204584980055B87E /* PlaylistController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80074CFB204584980055B87E /* PlaylistController.xib */; };
 		80074CFF2046BB0C0055B87E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80074CFE2046BB0B0055B87E /* QuartzCore.framework */; };
@@ -95,7 +96,6 @@
 		80CB65352052C9CC0031A6D7 /* CoreData+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB65342052C9CC0031A6D7 /* CoreData+TT.swift */; };
 		80CED03C20C88055001E710F /* AVFoundation+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CED03B20C88055001E710F /* AVFoundation+TT.swift */; };
 		80CFDA0A203C4E2300C7A506 /* LazyVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CFDA09203C4E2300C7A506 /* LazyVar.swift */; };
-		80DCA9B3203F636F00B1E9B1 /* TagLibImporter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80DCA9B2203F636E00B1E9B1 /* TagLibImporter.mm */; };
 		80E0885020FFB3A3001FFE26 /* TTWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E0884F20FFB3A3001FFE26 /* TTWindow.swift */; };
 		80E092A12066C42D000CA4D5 /* MediaLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E092A02066C42D000CA4D5 /* MediaLocation.swift */; };
 		80E2C9E0204AE18E00298E81 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E2C9DC204AE18E00298E81 /* Track.swift */; };
@@ -156,6 +156,8 @@
 
 /* Begin PBXFileReference section */
 		1AF69E4F3445C52AF8BD712B /* Pods-TenTunes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenTunes.release.xcconfig"; path = "Pods/Target Support Files/Pods-TenTunes/Pods-TenTunes.release.xcconfig"; sourceTree = "<group>"; };
+		800134A6213835C0001FB5CE /* TagLibFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagLibFile.h; sourceTree = "<group>"; };
+		800134A7213835C0001FB5CE /* TagLibFile.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TagLibFile.mm; sourceTree = "<group>"; };
 		80074CF7204583CF0055B87E /* TrackController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackController.xib; sourceTree = "<group>"; };
 		80074CFB204584980055B87E /* PlaylistController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistController.xib; sourceTree = "<group>"; };
 		80074CFE2046BB0B0055B87E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -276,8 +278,6 @@
 		80CFDA09203C4E2300C7A506 /* LazyVar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyVar.swift; sourceTree = "<group>"; };
 		80D8A0FC212460BE003E1F11 /* Library.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Library.storyboard; path = "/Users/lukas/XCode Projects/TenTunes/TenTunes/Library.storyboard"; sourceTree = "<absolute>"; };
 		80DCA9B0203F636900B1E9B1 /* TenTunes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TenTunes-Bridging-Header.h"; sourceTree = "<group>"; };
-		80DCA9B1203F636D00B1E9B1 /* TagLibImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagLibImporter.h; sourceTree = "<group>"; };
-		80DCA9B2203F636E00B1E9B1 /* TagLibImporter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TagLibImporter.mm; sourceTree = "<group>"; };
 		80E0884F20FFB3A3001FFE26 /* TTWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTWindow.swift; sourceTree = "<group>"; };
 		80E092A02066C42D000CA4D5 /* MediaLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaLocation.swift; sourceTree = "<group>"; };
 		80E2C9DC204AE18E00298E81 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
@@ -443,8 +443,8 @@
 				8093467420A629A7001D15CD /* Library+Pasteboard.swift */,
 				807F6A36210202A8002048B1 /* Library+Sanity.swift */,
 				807F6A352102029B002048B1 /* Export */,
-				80DCA9B1203F636D00B1E9B1 /* TagLibImporter.h */,
-				80DCA9B2203F636E00B1E9B1 /* TagLibImporter.mm */,
+				800134A6213835C0001FB5CE /* TagLibFile.h */,
+				800134A7213835C0001FB5CE /* TagLibFile.mm */,
 				808161CE2040520900AEA64F /* AVFoundationImporter.swift */,
 				80C8559D210512B400177035 /* Album.swift */,
 				8074044821367A1F007E0B4C /* Artist.swift */,
@@ -870,7 +870,6 @@
 				806AC1332040D7C700857B1B /* PlayHistory.swift in Sources */,
 				80F8550620691897009A8FBE /* PlaylistController+RightClick.swift in Sources */,
 				8093467520A629A7001D15CD /* Library+Pasteboard.swift in Sources */,
-				80DCA9B3203F636F00B1E9B1 /* TagLibImporter.mm in Sources */,
 				80E092A12066C42D000CA4D5 /* MediaLocation.swift in Sources */,
 				8074044921367A1F007E0B4C /* Artist.swift in Sources */,
 				80802586203EFCC0008D4168 /* Foundation+TT.swift in Sources */,
@@ -924,6 +923,7 @@
 				808161D2204059FE00AEA64F /* TrackController.swift in Sources */,
 				806EFC22204B63620079DBAA /* PlaylistLibrary.swift in Sources */,
 				80F2C57F2038808000212739 /* TenTunes.xcdatamodeld in Sources */,
+				800134A8213835C0001FB5CE /* TagLibFile.mm in Sources */,
 				80CB65352052C9CC0031A6D7 /* CoreData+TT.swift in Sources */,
 				8093467320A628E1001D15CD /* Library+AudioFile.swift in Sources */,
 				807E289E2101291B0080F332 /* SmartPlaylistRules.swift in Sources */,

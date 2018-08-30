@@ -36,32 +36,29 @@ extension Track {
 
         // TODO Duration
         
-        let importer = TagLibImporter(url: url)
-        do {
-            try importer.import()
+        if let tagLibFile = TagLibFile(url: url) {
+            title = tagLibFile.title
+            album = tagLibFile.album
+            author = tagLibFile.artist
             
-            title = importer.title
-            album = importer.album
-            author = importer.artist
-
-            albumArtist = importer.albumArtist
-            remixAuthor = importer.remixArtist
+            albumArtist = tagLibFile.band // Used this way by other editors e.g. iTunes
+            remixAuthor = tagLibFile.remixArtist
             
-            genre = parseGenre(importer.genre)
+            genre = parseGenre(tagLibFile.genre)
             
-            artwork = importer.image
+            artwork = tagLibFile.image
             
-            keyString = importer.initialKey
-            bpmString = importer.bpm
+            keyString = tagLibFile.initialKey
+            bpmString = tagLibFile.bpm
             
             // "Nullable" -> 0 = nil anyway
-            year = importer.year
-            trackNumber = importer.trackNumber
+            year = Int16(tagLibFile.year)
+            trackNumber = Int16(tagLibFile.trackNumber)
             
-            comments = importer.comments as NSString?
+            comments = tagLibFile.comments as NSString?
         }
-        catch let error {
-            print(error)
+        else {
+            print("Failed to load TagLibFile for \(url)")
         }
         
         let avImporter = AVFoundationImporter(url: url)
@@ -129,36 +126,40 @@ extension Track {
         }
     }
     
-    func writeMetadata() {
+    class NoPathError : NSError {
+        
+    }
+    
+    class FileNotFoundError : NSError {
+        
+    }
+    
+    func writeMetadata() throws {
         guard let url = self.url else {
-            print("Tried to write to track without file!")
-            return
+            throw NoPathError()
         }
         
-        let importer = TagLibImporter(url: url)
+        guard let tagLibFile = TagLibFile(url: url) else {
+            throw FileNotFoundError()
+        }
         
-        do {
-            importer.title = title
-            
-            importer.album = album
-            importer.albumArtist = albumArtist
-            importer.artist = author
-            importer.remixArtist = remixAuthor
-
-            importer.genre = genre
-            
-            importer.initialKey = keyString
-            importer.bpm = bpmString
-            importer.year = year
-            importer.trackNumber = trackNumber
-            
-            importer.comments = comments as String?
-
-            try importer.write()
-            // TODO Artwork
-        }
-        catch let error {
-            print(error)
-        }
+        tagLibFile.title = title
+        
+        tagLibFile.album = album
+        tagLibFile.band = albumArtist
+        tagLibFile.artist = author
+        tagLibFile.remixArtist = remixAuthor
+        
+        tagLibFile.genre = genre
+        
+        tagLibFile.initialKey = keyString
+        tagLibFile.bpm = bpmString
+        tagLibFile.year = UInt32(year)
+        tagLibFile.trackNumber = UInt32(trackNumber)
+        
+        tagLibFile.comments = comments as String?
+        
+        try tagLibFile.write()
+        // TODO Artwork
     }
 }

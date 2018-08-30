@@ -20,7 +20,10 @@
 
 #import <rifffile.h>
 #import <aifffile.h>
-#include <mpegfile.h>
+#import <wavfile.h>
+#import <mpegfile.h>
+#import <flacfile.h>
+#import <trueaudiofile.h>
 
 #include <id3v2tag.h>
 #include <id3v2frame.h>
@@ -152,7 +155,7 @@ inline const TagLib::String TagLibStringFromNS(NSString *string) {
 }
 
 - (void)setImage:(NSImage *)image {
-    // TODO
+    // DON'T remove existing images. Each have different attributes. Only remove the one we're setting
 }
 
 - (NSImage *)image {
@@ -220,9 +223,11 @@ inline const TagLib::String TagLibStringFromNS(NSString *string) {
     return [self tag]->track();
 }
 
+// ID3v1 is auto-supported with taglib's default setters and getters
 #pragma mark ID3v2
 
 - (TagLib::ID3v2::Tag *)id3v2Tag:(BOOL)create {
+    // TODO Create
     if (TagLib::MPEG::File *file = dynamic_cast<TagLib::MPEG::File *>(_fileRef.file())) {
         if (file->hasID3v2Tag()) {
             return file->ID3v2Tag();
@@ -233,7 +238,22 @@ inline const TagLib::String TagLibStringFromNS(NSString *string) {
             return file->tag();
         }
     }
-    
+    else if (TagLib::RIFF::WAV::File *file = dynamic_cast<TagLib::RIFF::WAV::File *>(_fileRef.file())) {
+        if (file->hasID3v2Tag()) {
+            return file->ID3v2Tag();
+        }
+    }
+    else if (TagLib::FLAC::File *file = dynamic_cast<TagLib::FLAC::File *>(_fileRef.file())) {
+        if (file->hasID3v2Tag()) {
+            return file->ID3v2Tag();
+        }
+    }
+    else if (TagLib::TrueAudio::File *file = dynamic_cast<TagLib::TrueAudio::File *>(_fileRef.file())) {
+        if (file->hasID3v2Tag()) {
+            return file->ID3v2Tag();
+        }
+    }
+
     return nil;
 }
 

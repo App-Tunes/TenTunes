@@ -87,6 +87,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             (CartesianRules.Token.Folder.self, "_TtCC8TenTunes13PlaylistLabel6Folder"),
             (CartesianRules.Token.Folder.self, "_TtCCC8TenTunes14CartesianRules5Token6Folder"),
             (SmartPlaylistRules.Token.MinBitrate.self, "_TtCC8TenTunes10TrackLabel10MinBitrate"),
+            (SmartPlaylistRules.Token.Author.self, "_TtCC8TenTunes10TrackLabel6Author"),
         ]
         
         for (new, old) in renamedClasses {

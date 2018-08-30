@@ -57,6 +57,8 @@ extension Track {
             // "Nullable" -> 0 = nil anyway
             year = importer.year
             trackNumber = importer.trackNumber
+            
+            comments = importer.comments as NSString?
         }
         catch let error {
             print(error)
@@ -149,6 +151,8 @@ extension Track {
             importer.bpm = bpmString
             importer.year = year
             importer.trackNumber = trackNumber
+            
+            importer.comments = comments as String?
 
             try importer.write()
             // TODO Artwork

@@ -28,6 +28,7 @@ extension Track {
     @NSManaged public var author: String?
     @NSManaged public var bpmString: String?
     @NSManaged public var bitrate: Float
+    @NSManaged public var comments: NSString?
     @NSManaged public var containingPlaylists: NSSet
     @NSManaged public var durationR: Int64
     @NSManaged public var genre: String?

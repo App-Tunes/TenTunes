@@ -29,6 +29,7 @@
         <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="bitrate" optional="YES" attributeType="Float" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="bpmString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comments" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="creationDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="durationR" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="genre" optional="YES" attributeType="String" syncable="YES"/>
@@ -50,6 +51,6 @@
         <element name="PlaylistFolder" positionX="-218" positionY="171" width="128" height="60"/>
         <element name="PlaylistManual" positionX="-218" positionY="252" width="128" height="58"/>
         <element name="PlaylistSmart" positionX="-216" positionY="108" width="128" height="60"/>
-        <element name="Track" positionX="-414" positionY="261" width="128" height="390"/>
+        <element name="Track" positionX="-414" positionY="261" width="128" height="405"/>
     </elements>
 </model>

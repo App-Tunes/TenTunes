@@ -43,7 +43,7 @@
 inline NSString *TagLibStringToNS(const TagLib::String &tagString) {
     if (tagString == TagLib::ByteVector::null)
         return nil;
-    return [NSString stringWithUTF8String:tagString.toCString()];
+    return [NSString stringWithUTF8String:tagString.toCString(true)];
 }
 
 inline const TagLib::String TagLibStringFromNS(NSString *string) {
@@ -51,11 +51,6 @@ inline const TagLib::String TagLibStringFromNS(NSString *string) {
         return TagLib::ByteVector::null;
     return TagLib::String([string UTF8String], TagLib::String::UTF8);
 }
-
-inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFrame *frame) {
-    return [NSString stringWithUTF8String:frame->toString().toCString(true)];
-}
-
 
 @interface TagLibImporter() {
     TagLib::ID3v2::AttachedPictureFrame::Type currentPictureType;
@@ -141,7 +136,7 @@ inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFram
 			}
 		} else if(auto text_frame = dynamic_cast<TagLib::ID3v2::TextIdentificationFrame *>(frame)) {
             auto frame_id = text_frame->frameID();
-            NSString *textString = TagLibTextFrameToNS(text_frame);
+            NSString *textString = TagLibStringToNS(frame->toString());
             
             if (frame_id == AVMetadataID3MetadataKeyInitialKey.UTF8String) {
                 [self setInitialKey: textString];
@@ -152,7 +147,11 @@ inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFram
             } else if(frame_id == AVMetadataID3MetadataKeyModifiedBy.UTF8String) {
                 [self setRemixArtist: textString];
             }
+        } else if(auto comments_frame = dynamic_cast<TagLib::ID3v2::CommentsFrame *>(frame)) {
+            NSString *textString = TagLibStringToNS(comments_frame->text());
+            [self setComments:textString];
         }
+        
 //        } else if(auto comment_frame = dynamic_cast<TagLib::ID3v2::CommentsFrame *>(frame)) {
 //            self.track.comment = JUKTagLibCommentFrameToNS(comment_frame);
 //        }
@@ -212,8 +211,6 @@ inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFram
 }
 
 +(void)replaceFrame:(TagLib::ID3v2::Tag *) tag name:(NSString *)name text:(NSString *)text {
-    TagLib::String tName = TagLibStringFromNS(name);
-
     // Remove existing
     tag->removeFrames(name.UTF8String);
     
@@ -226,12 +223,23 @@ inline NSString *TagLibTextFrameToNS(const TagLib::ID3v2::TextIdentificationFram
     }
 }
 
++(void)replaceComments:(TagLib::ID3v2::Tag *) tag text:(NSString *)text {
+    tag->removeFrames(AVMetadataID3MetadataKeyComments.UTF8String);
+
+    if (text != nil) {
+        TagLib::ID3v2::CommentsFrame *frame = new TagLib::ID3v2::CommentsFrame(TagLib::String::UTF8);
+        frame->setText(TagLibStringFromNS(text));
+        tag->addFrame(frame);
+    }
+}
 
 -(void)writeID3v2:(TagLib::ID3v2::Tag *)tag {
     [TagLibImporter replaceFrame:tag name:AVMetadataID3MetadataKeyInitialKey text:_initialKey];
     [TagLibImporter replaceFrame:tag name:AVMetadataID3MetadataKeyBeatsPerMinute text:_bpm];
     [TagLibImporter replaceFrame:tag name:AVMetadataID3MetadataKeyBand text:_albumArtist];
     [TagLibImporter replaceFrame:tag name:AVMetadataID3MetadataKeyModifiedBy text:_remixArtist];
+    
+    [TagLibImporter replaceComments:tag text:_comments];
 }
 
 @end

@@ -70,6 +70,7 @@ class TrackEditor: NSViewController {
             EditData(title: "Remix Author", path: "remixAuthor", options: nil),
             EditData(title: "Year", path: "year", options: [.valueTransformerName: "IntStringNullable"]),
             EditData(title: "Track No.", path: "trackNumber", options: [.valueTransformerName: "IntStringNullable"]),
+            EditData(title: "Comments", path: "comments", options: nil),
             ]),
         GroupData(title: "Info", icon: #imageLiteral(resourceName: "info"), data: [
             InfoData(title: "Duration") { $0.rDuration },

@@ -32,6 +32,9 @@
 @property(nullable) NSString *initialKey;
 @property(nullable) NSString *bpm;
 
+@property(nullable) NSString *comments;
+
+
 @property short year;
 @property short trackNumber;
 

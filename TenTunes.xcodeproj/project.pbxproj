@@ -294,7 +294,7 @@
 		80E6811C2057479B00DA5702 /* ValueTransformers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueTransformers.swift; sourceTree = "<group>"; };
 		80E937582039C2850014C835 /* Keycodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keycodes.swift; sourceTree = "<group>"; };
 		80F11E5820CA732E00331D12 /* Library+Symlink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Symlink.swift"; sourceTree = "<group>"; };
-		80F2C5762038808000212739 /* TenTunes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TenTunes.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		80F2C5762038808000212739 /* Ten Tunes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ten Tunes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		80F2C5792038808000212739 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80F2C57B2038808000212739 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		80F2C57E2038808000212739 /* TenTunes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TenTunes.xcdatamodel; sourceTree = "<group>"; };
@@ -610,7 +610,7 @@
 		80F2C5772038808000212739 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				80F2C5762038808000212739 /* TenTunes.app */,
+				80F2C5762038808000212739 /* Ten Tunes.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -701,7 +701,7 @@
 			);
 			name = TenTunes;
 			productName = TenTunes;
-			productReference = 80F2C5762038808000212739 /* TenTunes.app */;
+			productReference = 80F2C5762038808000212739 /* Ten Tunes.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1091,7 +1091,8 @@
 				);
 				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = ivorius.TenTunes;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = TenTunes;
+				PRODUCT_NAME = "Ten Tunes";
 				SWIFT_OBJC_BRIDGING_HEADER = "TenTunes/TenTunes-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -1123,7 +1124,8 @@
 				);
 				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = ivorius.TenTunes;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = TenTunes;
+				PRODUCT_NAME = "Ten Tunes";
 				SWIFT_OBJC_BRIDGING_HEADER = "TenTunes/TenTunes-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};

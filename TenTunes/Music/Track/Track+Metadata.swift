@@ -47,6 +47,7 @@ extension Track {
             genre = parseGenre(tagLibFile.genre)
             
             artworkData = tagLibFile.image as NSData?
+            generateArtworkPreview()
             
             keyString = tagLibFile.initialKey
             bpmString = tagLibFile.bpm

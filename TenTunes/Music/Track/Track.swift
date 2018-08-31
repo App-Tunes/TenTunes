@@ -21,7 +21,10 @@ public class Track: NSManagedObject {
     var analysis: Analysis?
     
     @objc dynamic var artwork: NSImage? {
-        didSet {
+        get {
+            return artworkData.flatMap { NSImage(data: $0 as Data) }
+        }
+        set {
             artworkData = artwork?.jpgRepresentation as NSData?
             generateArtworkPreview()
         }

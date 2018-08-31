@@ -87,11 +87,11 @@ extension Track {
         bpmString = bpmString ?? avImporter.string(withKey: .iTunesMetadataKeyBeatsPerMin, keySpace: .iTunes)
 
         // For videos, generate thumbnails
-        if artwork == nil {
+        if artworkData == nil {
             let imgGenerator = AVAssetImageGenerator(asset: AVURLAsset(url: url))
             do {
                 let img = try imgGenerator.copyCGImage(at: CMTimeMake(0, 60), actualTime: nil)
-                artwork = NSImage(cgImage: img, size: NSZeroSize)
+                artworkData = NSImage(cgImage: img, size: NSZeroSize).jpgRepresentation as NSData?
             }
             catch {
                 // print(err.localizedDescription)

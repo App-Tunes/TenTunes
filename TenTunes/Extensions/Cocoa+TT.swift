@@ -44,8 +44,14 @@ extension NSImage {
     }
     
     var jpgRepresentation : Data? {
+        // Try direct conversion first
+        if let jpg = representations.of(type: NSBitmapImageRep.self).compactMap({ $0.representation(using: .jpeg, properties: [:]) }).first {
+            return jpg
+        }
+        
+        // Else, convert to tiff first, almost any rep supports that
         guard let tiffData = tiffRepresentation else {
-            return nil
+            return nil // Eh
         }
         let imageRep = NSBitmapImageRep(data: tiffData)
         return imageRep?.representation(using: .jpeg, properties: [:])

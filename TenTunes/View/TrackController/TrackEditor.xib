@@ -40,7 +40,7 @@
                 <view translatesAutoresizingMaskIntoConstraints="NO" id="fry-a8-cnm">
                     <rect key="frame" x="0.0" y="0.0" width="286" height="382"/>
                     <subviews>
-                        <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vc8-yo-YBx">
+                        <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vc8-yo-YBx" customClass="EnterReturningTextField" customModule="TenTunes" customModuleProvider="target">
                             <rect key="frame" x="106" y="357" width="170" height="17"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="WGd-AA-e84"/>
@@ -62,7 +62,7 @@
                                 </binding>
                             </connections>
                         </textField>
-                        <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IxQ-nY-WjC">
+                        <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IxQ-nY-WjC" customClass="EnterReturningTextField" customModule="TenTunes" customModuleProvider="target">
                             <rect key="frame" x="106" y="332" width="170" height="17"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" placeholderString="Unknown Author" id="dHl-D9-I7J">
                                 <font key="font" metaFont="system"/>
@@ -80,7 +80,7 @@
                                 </binding>
                             </connections>
                         </textField>
-                        <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mfs-pi-vdb">
+                        <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mfs-pi-vdb" customClass="EnterReturningTextField" customModule="TenTunes" customModuleProvider="target">
                             <rect key="frame" x="106" y="307" width="170" height="17"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" placeholderString="No Album" id="qyN-oT-Uof">
                                 <font key="font" metaFont="system"/>

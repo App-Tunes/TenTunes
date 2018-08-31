@@ -93,9 +93,17 @@ class AnalyzeTrack: TrackTask {
                 SPInterpreter.analyze(file: audioFile, track: asyncTrack, flags: self.analyzeFlags)
                 
                 asyncTrack.writeAnalysis()
-                if !self.analyzeFlags.isEmpty {
-                    try! asyncTrack.writeMetadata()
-                }
+
+                try! asyncTrack.writeMetadata(values: self.analyzeFlags.components.compactMap {
+                    switch $0 {
+                    case SPInterpreter.Flags.key:
+                        return \Track.keyString
+                    case SPInterpreter.Flags.speed:
+                        return \Track.bpmString
+                    default:
+                        return nil
+                    }
+                })
             }
             try! mox.save()
             

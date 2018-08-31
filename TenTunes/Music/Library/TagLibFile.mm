@@ -156,6 +156,30 @@ inline const TagLib::String TagLibStringFromNS(NSString *string) {
 
 - (void)setImage:(NSImage *)image {
     // DON'T remove existing images. Each have different attributes. Only remove the one we're setting
+    auto tag = [self id3v2Tag: false];
+    if (tag) {
+        auto desiredType = TagLib::ID3v2::AttachedPictureFrame::FrontCover;
+        
+        // Remove old one
+        TagLib::ID3v2::FrameList::ConstIterator it = tag->frameList().begin();
+        for(; it != tag->frameList().end(); it++) {
+            if(auto picture_frame = dynamic_cast<TagLib::ID3v2::AttachedPictureFrame *>(*it)) {
+                if (picture_frame->type() == desiredType) {
+                    tag->removeFrame(picture_frame);
+                    break;
+                }
+            }
+        }
+        
+        // Add new as front cover
+        TagLib::ID3v2::AttachedPictureFrame *frame = new TagLib::ID3v2::AttachedPictureFrame();
+        NSData *imageData = [image TIFFRepresentation];
+        TagLib::ByteVector *imgVector = new TagLib::ByteVector((const char *)imageData.bytes, (unsigned int)imageData.length);
+        frame->setData(*imgVector);
+        frame->setType(desiredType);
+        frame->setMimeType("TIFF");
+        tag->addFrame(frame);
+    }
 }
 
 - (NSImage *)image {

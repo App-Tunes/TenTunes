@@ -24,6 +24,8 @@ class TrackEditor: NSViewController {
     
     @IBOutlet var _editorOutline: ActionOutlineView!
     
+    let editActionStubs = ActionStubs()
+    
     class GroupData {
         let title: String
         let icon: NSImage
@@ -38,10 +40,10 @@ class TrackEditor: NSViewController {
     
     class EditData {
         let title: String
-        let path: String
+        let path: PartialKeyPath<Track>
         let options: [NSBindingOption: Any]?
         
-        init(title: String, path: String, options: [NSBindingOption: Any]?) {
+        init(title: String, path: PartialKeyPath<Track>, options: [NSBindingOption: Any]?) {
             self.title = title
             self.path = path
             self.options = options
@@ -61,16 +63,16 @@ class TrackEditor: NSViewController {
     var data : [GroupData] = [
         GroupData(title: "Tags", icon: #imageLiteral(resourceName: "tag"), data: []),
         GroupData(title: "Musical", icon: #imageLiteral(resourceName: "music"), data: [
-            EditData(title: "Genre", path: "genre", options: nil),
-            EditData(title: "BPM", path: "bpmString", options: nil),
-            EditData(title: "Initial Key", path: "keyString", options: nil),
+            EditData(title: "Genre", path: \Track.genre, options: nil),
+            EditData(title: "BPM", path: \Track.bpmString, options: nil),
+            EditData(title: "Initial Key", path: \Track.keyString, options: nil),
             ]),
         GroupData(title: "Album", icon: #imageLiteral(resourceName: "album"), data: [
-            EditData(title: "Album Author", path: "albumArtist", options: nil),
-            EditData(title: "Remix Author", path: "remixAuthor", options: nil),
-            EditData(title: "Year", path: "year", options: [.valueTransformerName: "IntStringNullable"]),
-            EditData(title: "Track No.", path: "trackNumber", options: [.valueTransformerName: "IntStringNullable"]),
-            EditData(title: "Comments", path: "comments", options: nil),
+            EditData(title: "Album Author", path: \Track.albumArtist, options: nil),
+            EditData(title: "Remix Author", path: \Track.remixAuthor, options: nil),
+            EditData(title: "Year", path: \Track.year, options: [.valueTransformerName: "IntStringNullable"]),
+            EditData(title: "Track No.", path: \Track.trackNumber, options: [.valueTransformerName: "IntStringNullable"]),
+            EditData(title: "Comments", path: \Track.comments, options: nil),
             ]),
         GroupData(title: "Info", icon: #imageLiteral(resourceName: "info"), data: [
             InfoData(title: "Duration") { $0.rDuration },
@@ -134,19 +136,6 @@ class TrackEditor: NSViewController {
         manyTracks = tracks
         
         view.setFullSizeContent(_manyPlaceholder)
-    }
-    
-    @IBAction func trackChanged(_ sender: Any) {
-        for track in tracks {
-            // Don't call the collection method since it auto-saves in the wrong context
-            Library.shared.mediaLocation.updateLocation(of: track)
-        }
-        
-        try! context.save()
-
-        for track in tracks {
-            try! track.writeMetadata()
-        }
     }
     
     @IBAction func showSuggestedTracks(_ sender: Any) {
@@ -233,9 +222,22 @@ extension TrackEditor: NSOutlineViewDelegate {
             if let view = outlineView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? TrackDataCell {
                 view.textField?.stringValue = data.title
                 
-                view.valueTextField?.bind(.value, to: tracksController, withKeyPath: "selection." + data.path, options: (data.options ?? [:]).merging([.nullPlaceholder: "..."], uniquingKeysWith: { (a, _) in a }))
-                view.valueTextField?.action = #selector(trackChanged(_:))
-                view.valueTextField?.target = self
+                view.valueTextField?.bind(.value, to: tracksController, withKeyPath: "selection." + data.path._kvcKeyPathString!, options: (data.options ?? [:]).merging([.nullPlaceholder: "..."], uniquingKeysWith: { (a, _) in a }))
+                
+                editActionStubs.bind(view.valueTextField!) { _ in
+                    // After bound values have been updated
+                    // ...change location and save
+                    for track in self.tracks {
+                        // Don't call the collection method since it auto-saves in the wrong context
+                        Library.shared.mediaLocation.updateLocation(of: track)
+                    }
+                    
+                    try! self.context.save()
+                    
+                    for track in self.tracks {
+                        try! track.writeMetadata(values: [data.path])
+                    }
+                }
                 
                 return view
             }

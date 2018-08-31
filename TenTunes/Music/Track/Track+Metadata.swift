@@ -126,38 +126,57 @@ extension Track {
         }
     }
     
-    class NoPathError : NSError {
-        
+    enum MetadataWriteError : Error {
+        case noPath, fileNotFound
     }
     
-    class FileNotFoundError : NSError {
+    func writeMetadata(values: [PartialKeyPath<Track>]) throws {
+        guard !values.isEmpty else {
+            return
+        }
         
-    }
-    
-    func writeMetadata() throws {
         guard let url = self.url else {
-            throw NoPathError()
+            throw MetadataWriteError.noPath
         }
         
         guard let tagLibFile = TagLibFile(url: url) else {
-            throw FileNotFoundError()
+            throw MetadataWriteError.fileNotFound
         }
         
-        tagLibFile.title = title
-        
-        tagLibFile.album = album
-        tagLibFile.band = albumArtist
-        tagLibFile.artist = author
-        tagLibFile.remixArtist = remixAuthor
-        
-        tagLibFile.genre = genre
-        
-        tagLibFile.initialKey = keyString
-        tagLibFile.bpm = bpmString
-        tagLibFile.year = UInt32(year)
-        tagLibFile.trackNumber = UInt32(trackNumber)
-        
-        tagLibFile.comments = comments as String?
+        for path in values {
+            switch path {
+            case \Track.title:
+                tagLibFile.title = title
+                
+            case \Track.album:
+                tagLibFile.album = album
+            case \Track.author:
+                tagLibFile.artist = author
+            case \Track.albumArtist:
+                tagLibFile.band = albumArtist
+            case \Track.remixAuthor:
+                tagLibFile.remixArtist = remixAuthor
+
+            case \Track.genre:
+                tagLibFile.genre = genre
+
+            case \Track.keyString:
+                tagLibFile.initialKey = keyString
+            case \Track.bpmString:
+                tagLibFile.bpm = bpmString
+
+            case \Track.year:
+                tagLibFile.year = UInt32(year)
+            case \Track.trackNumber:
+                tagLibFile.trackNumber = UInt32(trackNumber)
+
+            case \Track.trackNumber:
+                tagLibFile.comments = comments as String?
+
+            default:
+                fatalError("Unwriteable Path: \(path)")
+            }
+        }
         
         try tagLibFile.write()
         // TODO Artwork

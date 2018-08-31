@@ -393,6 +393,14 @@ extension Int {
         let (m, s) = minutesSeconds
         return String(format: "\(m):%02d", s)
     }
+    
+    init(bitComponents : [Int]) {
+        self = bitComponents.reduce(0, +)
+    }
+    
+    var bitComponents : [Int] {
+        return (0 ..< Int.bitWidth).map { 1 << $0 } .filter { self & $0 != 0 }
+    }
 }
 
 extension ClosedRange where Bound == CGFloat {
@@ -590,5 +598,11 @@ extension NSRegularExpression {
             let middle = NSMakeRange(prev.upperBound, next.lowerBound - prev.upperBound)
             return String(string[Range(middle, in: string)!])
         }
+    }
+}
+
+extension OptionSet where RawValue == Int, Self == Self.Element {
+    var components : [Self] {
+        return rawValue.bitComponents.map { return type(of: self).init(rawValue: $0) }
     }
 }

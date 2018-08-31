@@ -42,6 +42,14 @@ extension NSImage {
         
         return NSImage(cgImage: cgImage, size: size)
     }
+    
+    var jpgRepresentation : Data? {
+        guard let tiffData = tiffRepresentation else {
+            return nil
+        }
+        let imageRep = NSBitmapImageRep(data: tiffData)
+        return imageRep?.representation(using: .jpeg, properties: [:])
+    }
 }
 
 extension NSTextField {

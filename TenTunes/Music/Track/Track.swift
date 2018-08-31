@@ -20,7 +20,12 @@ public class Track: NSManagedObject {
 
     var analysis: Analysis?
     
-    @objc dynamic var artwork: NSImage?
+    @objc dynamic var artwork: NSImage? {
+        didSet {
+            artworkData = artwork?.jpgRepresentation as NSData?
+            generateArtworkPreview()
+        }
+    }
 
     @discardableResult
     func readAnalysis() -> Bool {

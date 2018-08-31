@@ -46,7 +46,7 @@ extension Track {
             
             genre = parseGenre(tagLibFile.genre)
             
-            artwork = tagLibFile.image
+            artworkData = tagLibFile.image as NSData?
             
             keyString = tagLibFile.initialKey
             bpmString = tagLibFile.bpm
@@ -119,11 +119,10 @@ extension Track {
         genre = genre ?? prevGenre
         keyString = keyString ?? prevKeyString
         speed = speed ?? prevBPM
-
-        if let artwork = artwork {
-            self.artworkPreview = artwork.resized(w: 64, h: 64)
-            // TODO Write both to data
-        }
+    }
+    
+    func generateArtworkPreview() {
+        self.artworkPreview = artwork?.resized(w: 64, h: 64)
     }
     
     enum MetadataWriteError : Error {
@@ -172,6 +171,9 @@ extension Track {
 
             case \Track.trackNumber:
                 tagLibFile.comments = comments as String?
+
+            case \Track.artworkData:
+                tagLibFile.image = artworkData as Data?
 
             default:
                 fatalError("Unwriteable Path: \(path)")

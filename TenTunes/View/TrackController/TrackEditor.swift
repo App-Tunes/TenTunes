@@ -187,6 +187,14 @@ class TrackEditor: NSViewController {
             toggleEdit(textField: textField)
         }
     }
+    
+    @IBAction func imageUpdated(_ sender: Any) {
+        try! self.context.save()
+        
+        for track in self.tracks {
+            try! track.writeMetadata(values: [\Track.artworkData])
+        }
+    }
 }
 
 extension TrackEditor: NSOutlineViewDelegate {

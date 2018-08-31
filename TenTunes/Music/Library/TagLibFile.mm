@@ -154,7 +154,7 @@ inline const TagLib::String TagLibStringFromNS(NSString *string) {
     }
 }
 
-- (void)setImage:(NSImage *)image {
+- (void)setImage:(NSData *)image {
     // DON'T remove existing images. Each have different attributes. Only remove the one we're setting
     auto tag = [self id3v2Tag: false];
     if (tag) {
@@ -173,20 +173,20 @@ inline const TagLib::String TagLibStringFromNS(NSString *string) {
         
         // Add new as front cover
         TagLib::ID3v2::AttachedPictureFrame *frame = new TagLib::ID3v2::AttachedPictureFrame();
-        NSData *imageData = [image TIFFRepresentation];
-        TagLib::ByteVector *imgVector = new TagLib::ByteVector((const char *)imageData.bytes, (unsigned int)imageData.length);
-        frame->setData(*imgVector);
+        frame->setPicture(TagLib::ByteVector((const char *)image.bytes, (unsigned int)image.length));
         frame->setType(desiredType);
-        frame->setMimeType("TIFF");
+        frame->setMimeType("image/jpeg");
+        frame->setDescription(TagLibStringFromNS(@"Artwork"));
+        frame->setTextEncoding(TagLib::String::Type::UTF8);
         tag->addFrame(frame);
     }
 }
 
-- (NSImage *)image {
+- (NSData *)image {
     auto tag = [self id3v2Tag: false];
     if (tag) {
         TagLib::ID3v2::AttachedPictureFrame::Type currentPictureType = TagLib::ID3v2::AttachedPictureFrame::Type::Other;
-        NSImage *image = nil;
+        NSData *image = nil;
         
         TagLib::ID3v2::FrameList::ConstIterator it = tag->frameList().begin();
         for(; it != tag->frameList().end(); it++) {
@@ -194,8 +194,7 @@ inline const TagLib::String TagLibStringFromNS(NSString *string) {
                 if (image == nil || ([TagLibFile priority: picture_frame->type()] < [TagLibFile priority: currentPictureType])) {
                     
                     TagLib::ByteVector imgVector = picture_frame->picture();
-                    NSData *data = [NSData dataWithBytes:imgVector.data() length:imgVector.size()];
-                    image = [[NSImage alloc] initWithData: data];
+                    image = [NSData dataWithBytes:imgVector.data() length:imgVector.size()];
                     currentPictureType = picture_frame->type();
                 }
             }

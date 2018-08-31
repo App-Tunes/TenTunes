@@ -22,7 +22,7 @@
 
 @property(nullable) NSString *genre;
 
-@property(nullable) NSImage *image;
+@property(nullable) NSData *image;
 
 @property(nullable) NSString *initialKey;
 @property(nullable) NSString *bpm;

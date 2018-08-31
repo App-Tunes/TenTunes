@@ -15,7 +15,7 @@ class TrackEditor: NSViewController {
     @objc dynamic var tracks: [Track] = []
     @IBOutlet var tracksController: NSArrayController!
     
-    var manyTracks: [Track] = []
+    var delayedTracks: [Track]? = nil
     
     @IBOutlet var _contentView: NSView!
     @IBOutlet var _manyPlaceholder: NSView!
@@ -114,8 +114,22 @@ class TrackEditor: NSViewController {
         _editorOutline.target = self
         _editorOutline.enterAction = #selector(outlineViewAction(_:))
     }
+    
+    override func viewWillAppear() {
+        // Kinda Hacky but eh
+        if _errorTextField.stringValue == "View Hidden", let delayedTracks = delayedTracks {
+            present(tracks: delayedTracks) // Try again
+        }
+    }
         
     func present(tracks: [Track]) {
+        guard !view.isHidden else {
+            delayedTracks = tracks
+            showError(text: "View Hidden")
+            return
+        }
+        delayedTracks = nil
+        
         if tracks.count == 0 {
             showError(text: "No Tracks Selected")
         }
@@ -157,13 +171,14 @@ class TrackEditor: NSViewController {
     }
     
     func suggest(tracks: [Track]) {
-        manyTracks = tracks
+        delayedTracks = tracks
         
         view.setFullSizeContent(_manyPlaceholder)
     }
     
     @IBAction func showSuggestedTracks(_ sender: Any) {
-        show(tracks: manyTracks)
+        delayedTracks ?=> show
+        delayedTracks = nil
     }
     
     @IBAction func delete(_ sender: AnyObject) {

@@ -51,7 +51,7 @@
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                             </textFieldCell>
                             <connections>
-                                <action selector="trackChanged:" target="-2" id="Jb7-TC-z7l"/>
+                                <action selector="titleChanged:" target="-2" id="t6h-yi-cFw"/>
                                 <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.title" id="hky-lX-dDj">
                                     <dictionary key="options">
                                         <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
@@ -70,7 +70,7 @@
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                             </textFieldCell>
                             <connections>
-                                <action selector="trackChanged:" target="-2" id="x0i-vb-bPA"/>
+                                <action selector="authorChanged:" target="-2" id="1ju-FU-9Pf"/>
                                 <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.author" id="Uxw-Sv-Sc2">
                                     <dictionary key="options">
                                         <bool key="NSContinuouslyUpdatesValue" value="YES"/>
@@ -88,7 +88,7 @@
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                             </textFieldCell>
                             <connections>
-                                <action selector="trackChanged:" target="-2" id="93r-Ge-tVt"/>
+                                <action selector="albumChanged:" target="-2" id="e4v-2s-Gk7"/>
                                 <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.album" id="Duf-VN-ZdA">
                                     <dictionary key="options">
                                         <bool key="NSContinuouslyUpdatesValue" value="YES"/>

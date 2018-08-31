@@ -83,6 +83,30 @@ class TrackEditor: NSViewController {
 
     var tagTokens : [Any] = []
 
+    @IBAction func titleChanged(_ sender: Any) {
+        try! self.context.save()
+        
+        for track in self.tracks {
+            try! track.writeMetadata(values: [\Track.title])
+        }
+    }
+    
+    @IBAction func authorChanged(_ sender: Any) {
+        try! self.context.save()
+        
+        for track in self.tracks {
+            try! track.writeMetadata(values: [\Track.author])
+        }
+    }
+    
+    @IBAction func albumChanged(_ sender: Any) {
+        try! self.context.save()
+        
+        for track in self.tracks {
+            try! track.writeMetadata(values: [\Track.album])
+        }
+    }
+    
     override func viewDidLoad() {
         showError(text: "No Tracks Selected")
         _editorOutline.expandItem(nil, expandChildren: true)

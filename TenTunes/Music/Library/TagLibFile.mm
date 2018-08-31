@@ -102,7 +102,7 @@ inline const TagLib::String TagLibStringFromNS(NSString *string) {
 }
 
 - (NSString *)artist {
-    return TagLibStringToNS([self tag]->title());
+    return TagLibStringToNS([self tag]->artist());
 }
 
 - (void)setAlbum:(NSString *)album {

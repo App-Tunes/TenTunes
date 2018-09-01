@@ -9,12 +9,16 @@
 import Cocoa
 
 extension NSAlert {
-    static func informational(title: String, text: String) {
+    static func informational(title: String, text: String, confirm: String? = nil) {
         let alert = NSAlert()
         alert.messageText = title
         alert.informativeText = text
         alert.alertStyle = .informational
         alert.runModal()
+    }
+    
+    static func tutorial(topic: String, text: String) {
+        informational(title: topic, text: text, confirm: "Got it!")
     }
     
     static func ensure(intent: Bool, action: String, text: String) -> Bool {

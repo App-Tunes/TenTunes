@@ -211,6 +211,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 alert.addButton(withTitle: "OK")
                 alert.runModal()
             }
+            
+            if UserDefaults.standard.consume(toggle: "iTunesImportTutorial") {
+                NSAlert.tutorial(topic: "iTunes Import", text: "On iTunes imports, imported tracks will not be automatically moved to your media directory.")
+            }
         }
     }
     
@@ -263,6 +267,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         try! Library.shared.viewContext.save()
         
+        if UserDefaults.standard.consume(toggle: "fileImportTutorial") {
+            NSAlert.tutorial(topic: "Importing Tracks", text: "When adding tracks to your library, the files will automatically be copied to your media directory. You can change this behavior in the preferences.")
+        }
+
         let tracks = objects.compactMap { $0 as? Track }
         if tracks.count > 0, Preferences.PlayOpenedFiles.current == .play {
             ViewController.shared.player.enqueue(tracks: tracks)

@@ -47,7 +47,7 @@
         <attribute name="analysis" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="artwork" optional="YES" transient="YES" attributeType="Binary" valueTransformerName="NSImageTransformerJPG" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="artworkPreview" optional="YES" attributeType="Transformable" valueTransformerName="NSImageTransformerJPG" syncable="YES"/>
-        <relationship name="track" maxCount="1" deletionRule="Cascade" destinationEntity="Track" inverseName="visuals" inverseEntity="Track" syncable="YES"/>
+        <relationship name="track" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Track" inverseName="visuals" inverseEntity="Track" syncable="YES"/>
     </entity>
     <elements>
         <element name="Playlist" positionX="-416" positionY="113" width="128" height="120"/>

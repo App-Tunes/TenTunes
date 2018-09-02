@@ -43,6 +43,10 @@ extension Library {
             for case let playlist as PlaylistCartesian in allPlaylists {
                 playlist.checkSanity(in: context)
             }
+            
+            let brokenVisualsRequest: NSFetchRequest<NSFetchRequestResult> = TrackVisuals.fetchRequest()
+            brokenVisualsRequest.predicate = NSPredicate(format: "track == nil")
+            try! context.execute(NSBatchDeleteRequest(fetchRequest: brokenVisualsRequest))
 
             try! context.save()
         }

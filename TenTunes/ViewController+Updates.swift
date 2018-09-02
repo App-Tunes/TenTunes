@@ -56,9 +56,8 @@ extension ViewController {
         if trackInserts.count > 0 || trackUpdates.count > 0 || trackDeletes.count > 0 {
             // Modified library?
             if trackInserts.count > 0 || trackDeletes.count > 0 {
-                if trackController.history.playlist is PlaylistLibrary {
-                    trackController.desired._changed = true
-                }
+                 // Honestly, this happens so rarely that it doesn't really matter what was actually changed. Just reload, man.
+                trackController.desired._changed = true
             }
 
             // Invalidate caches

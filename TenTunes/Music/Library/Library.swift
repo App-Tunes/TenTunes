@@ -157,7 +157,7 @@ class Library : NSPersistentContainer {
     }
     
     func isAffected(playlist: PlaylistProtocol, whenChanging: Playlist) -> Bool {
-        if let playlist = playlist as? Playlist, path(of: whenChanging).contains(playlist) {
+        if let playlist = playlist as? PlaylistFolder, path(of: whenChanging).contains(playlist) {
             return true
         }
         if playlist is PlaylistSmart {

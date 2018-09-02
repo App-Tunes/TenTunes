@@ -123,10 +123,11 @@ public class Track: NSManagedObject {
     
     var url: URL? {
         get {
-            if let url = path != nil ? URL(string: path!, relativeTo: library.mediaLocation.directory) : nil {
-                return FileManager.default.fileExists(atPath: url.path) ? url : nil
+            guard let path = path, let url = path.starts(with: "file://") ? URL(string: path) : URL(fileURLWithPath: path, relativeTo: library.mediaLocation.directory) else {
+                return nil
             }
-            return nil
+            
+            return FileManager.default.fileExists(atPath: url.path) ? url : nil
         }
     }
     

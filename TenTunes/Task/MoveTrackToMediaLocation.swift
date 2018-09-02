@@ -25,6 +25,8 @@ class MoveTrackToMediaLocation: TrackTask {
                 return
             }
             
+            try! track.fetchMetadata() // Make sure we know title, artist etc.
+            
             guard !track.usesMediaDirectory else {
                 self.finish()
                 return
@@ -32,6 +34,8 @@ class MoveTrackToMediaLocation: TrackTask {
             
             track.usesMediaDirectory = true
             Library.shared.mediaLocation.updateLocations(of: [track], copy: self.copy)
+            
+            try! mox.save()
             
             self.finish()
             return

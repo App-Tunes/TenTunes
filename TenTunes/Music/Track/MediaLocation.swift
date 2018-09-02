@@ -37,7 +37,7 @@ class MediaLocation {
             return
         }
         
-        let dst = location(for: track)
+        let dst = realisticLocation(for: track)
         
         guard dst != src else {
             return
@@ -83,7 +83,7 @@ class MediaLocation {
         }
     }
     
-    func location(for track: Track) -> URL {
+    func realisticLocation(for track: Track) -> URL {
         var desired = desiredLocation(for: track)
         
         if desired == track.url {

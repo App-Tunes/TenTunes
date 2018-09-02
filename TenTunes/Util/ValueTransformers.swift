@@ -15,11 +15,16 @@ class ValueTransformers {
                                                  back: { $0?.write as AnyObject }
         )
         
-        SimpleTransformer<NSData, NSImage>.simple("NSImageTransformer",
+        SimpleTransformer<NSData, NSImage>.simple("NSImageTransformerTIFF",
                                                   there: { $0?.tiffRepresentation as NSData? },
                                                   back: { $0 != nil ? NSImage(data: $0! as Data) : nil }
         )
-
+        
+        SimpleTransformer<NSData, NSImage>.simple("NSImageTransformerJPG",
+                                                  there: { $0?.jpgRepresentation as NSData? },
+                                                  back: { $0 != nil ? NSImage(data: $0! as Data) : nil }
+        )
+        
         SimpleTransformer<NSString, NSNumber>.simple("IntString",
                                                      there: { ($0 ?=> String.init) ?=> NSString.init },
                                                      back: { (($0 ?=> String.init) ?=> Int.init) ?=> NSNumber.init }

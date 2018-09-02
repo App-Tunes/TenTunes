@@ -277,6 +277,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             ViewController.shared.player.play(moved: 1)
         }
     }
+    
+    @IBAction
+    func refreshMetadata(sender: Any?) {
+        for track in Library.shared.allTracks.tracksList {
+            track.metadataFetched = false
+        }
+    }
 }
 
 extension AppDelegate : NSUserNotificationCenterDelegate {

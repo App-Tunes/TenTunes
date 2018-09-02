@@ -670,6 +670,19 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Music" id="V02-Is-0ox">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Music" id="P6h-py-Xri">
+                                    <items>
+                                        <menuItem title="Refresh Metadata" id="ej7-s9-HcZ">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="refreshMetadataWithSender:" target="Voe-Tx-rLC" id="3Dv-UU-e7t"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                             <menuItem title="Window" id="aUF-d1-5bR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">

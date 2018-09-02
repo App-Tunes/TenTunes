@@ -28,12 +28,22 @@ public class Track: NSManagedObject {
     
     @objc dynamic var artwork: NSImage? {
         get {
-            return artworkData.flatMap { NSImage(data: $0 as Data) }
+            return visuals?.artwork.flatMap { NSImage(data: $0 as Data) }
         }
         set {
-            artworkData = artwork?.jpgRepresentation as NSData?
+            forcedVisuals.artwork = artwork?.jpgRepresentation as NSData?
             generateArtworkPreview()
         }
+    }
+    
+    var artworkPreview: NSImage? {
+        get { return visuals?.artworkPreview }
+        set { forcedVisuals.artworkPreview = newValue }
+    }
+    
+    var analysisData: NSData? {
+        get { return visuals?.analysis }
+        set { forcedVisuals.analysis = analysisData }
     }
 
     @discardableResult
@@ -54,12 +64,12 @@ public class Track: NSManagedObject {
     }
     
     func writeAnalysis() {
-        analysisData = NSKeyedArchiver.archivedData(withRootObject: analysis!) as NSData
+        forcedVisuals.analysis = NSKeyedArchiver.archivedData(withRootObject: analysis!) as NSData
     }
     
     func copyTransient(from: Track) {
-        analysis = from.analysis
-        artwork = from.artwork
+        from.visuals?.analysis = from.visuals?.analysis
+        visuals?.artwork = from.visuals?.artwork
     }
     
     var duration: CMTime? {

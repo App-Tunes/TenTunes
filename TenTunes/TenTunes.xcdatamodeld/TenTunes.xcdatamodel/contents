@@ -22,9 +22,6 @@
     <entity name="Track" representedClassName="Track" syncable="YES">
         <attribute name="album" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="albumArtist" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="analysisData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
-        <attribute name="artworkData" optional="YES" transient="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
-        <attribute name="artworkPreview" optional="YES" attributeType="Transformable" valueTransformerName="NSImageTransformer" allowsExternalBinaryDataStorage="YES" customClassName="NSImage" syncable="YES"/>
         <attribute name="attribute" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="bitrate" optional="YES" attributeType="Float" usesScalarValueType="YES" syncable="YES"/>
@@ -44,6 +41,13 @@
         <attribute name="usesMediaDirectory" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="year" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="containingPlaylists" toMany="YES" deletionRule="Nullify" destinationEntity="PlaylistManual" inverseName="tracks" inverseEntity="PlaylistManual" syncable="YES"/>
+        <relationship name="visuals" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="TrackVisuals" inverseName="track" inverseEntity="TrackVisuals" syncable="YES"/>
+    </entity>
+    <entity name="TrackVisuals" representedClassName="TrackVisuals" syncable="YES">
+        <attribute name="analysis" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="artwork" optional="YES" transient="YES" attributeType="Binary" valueTransformerName="NSImageTransformerJPG" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="artworkPreview" optional="YES" attributeType="Transformable" valueTransformerName="NSImageTransformerJPG" syncable="YES"/>
+        <relationship name="track" maxCount="1" deletionRule="Cascade" destinationEntity="Track" inverseName="visuals" inverseEntity="Track" syncable="YES"/>
     </entity>
     <elements>
         <element name="Playlist" positionX="-416" positionY="113" width="128" height="120"/>
@@ -51,6 +55,7 @@
         <element name="PlaylistFolder" positionX="-218" positionY="171" width="128" height="60"/>
         <element name="PlaylistManual" positionX="-218" positionY="252" width="128" height="58"/>
         <element name="PlaylistSmart" positionX="-216" positionY="108" width="128" height="60"/>
-        <element name="Track" positionX="-414" positionY="261" width="128" height="405"/>
+        <element name="Track" positionX="-414" positionY="261" width="128" height="375"/>
+        <element name="TrackVisuals" positionX="-315" positionY="261" width="128" height="105"/>
     </elements>
 </model>

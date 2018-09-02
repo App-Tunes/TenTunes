@@ -21,7 +21,7 @@ class FetchTrackMetadata: TrackTask {
     override func execute() {
         // TODO We set this, but if we quit in between it will not have been fetched
         track.metadataFetched = true // So no other thread tries to enter
-        
+
         Library.shared.performChildBackgroundTask { mox in
             mox.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
             

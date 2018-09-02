@@ -46,7 +46,7 @@ extension Track {
             
             genre = parseGenre(tagLibFile.genre)
             
-            artworkData = tagLibFile.image as NSData?
+            forcedVisuals.artwork = tagLibFile.image as NSData?
             generateArtworkPreview()
             
             keyString = tagLibFile.initialKey
@@ -82,17 +82,17 @@ extension Track {
         genre = genre ?? parseGenre(avImporter.string(withKey: .iTunesMetadataKeyUserGenre, keySpace: .iTunes))
         genre = genre ?? parseGenre(avImporter.string(withKey: .iTunesMetadataKeyPredefinedGenre, keySpace: .iTunes))
         
-        artwork = artwork ?? avImporter.image(withKey: .commonKeyArtwork, keySpace: .common)
-        artwork = artwork ?? avImporter.image(withKey: .iTunesMetadataKeyCoverArt, keySpace: .iTunes)
-        
+        forcedVisuals.artwork = forcedVisuals.artwork ?? avImporter.image(withKey: .commonKeyArtwork, keySpace: .common)?.jpgRepresentation as NSData?
+        forcedVisuals.artwork = forcedVisuals.artwork ?? avImporter.image(withKey: .iTunesMetadataKeyCoverArt, keySpace: .iTunes)?.jpgRepresentation as NSData?
+
         bpmString = bpmString ?? avImporter.string(withKey: .iTunesMetadataKeyBeatsPerMin, keySpace: .iTunes)
 
         // For videos, generate thumbnails
-        if artworkData == nil {
+        if forcedVisuals.artwork == nil {
             let imgGenerator = AVAssetImageGenerator(asset: AVURLAsset(url: url))
             do {
                 let img = try imgGenerator.copyCGImage(at: CMTimeMake(0, 60), actualTime: nil)
-                artworkData = NSImage(cgImage: img, size: NSZeroSize).jpgRepresentation as NSData?
+                forcedVisuals.artwork = NSImage(cgImage: img, size: NSZeroSize).jpgRepresentation as NSData?
             }
             catch {
                 // print(err.localizedDescription)
@@ -108,10 +108,6 @@ extension Track {
         }
         self.bitrate = bitrate ?? self.bitrate
         
-        if analysis == nil {
-            readAnalysis()
-        }
-        
         // Some files don't store metadata at all; if we can't read these then use the values we had previously
         title = title ?? prevTitle
         album = album ?? prevAlbum
@@ -120,6 +116,10 @@ extension Track {
         genre = genre ?? prevGenre
         keyString = keyString ?? prevKeyString
         speed = speed ?? prevBPM
+        
+        if visuals?.artwork != nil {
+            generateArtworkPreview()
+        }
     }
     
     func generateArtworkPreview() {
@@ -173,8 +173,8 @@ extension Track {
             case \Track.trackNumber:
                 tagLibFile.comments = comments as String?
 
-            case \Track.artworkData:
-                tagLibFile.image = artworkData as Data?
+            case \Track.artwork:
+                tagLibFile.image = visuals?.artwork as Data?
 
             default:
                 fatalError("Unwriteable Path: \(path)")

@@ -231,7 +231,7 @@ class TrackEditor: NSViewController {
         try! self.context.save()
         
         for track in self.tracks {
-            try! track.writeMetadata(values: [\Track.artworkData])
+            try! track.writeMetadata(values: [\Track.artwork])
         }
     }
 }

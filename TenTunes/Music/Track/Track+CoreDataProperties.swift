@@ -16,15 +16,21 @@ extension Track {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Track> {
         return NSFetchRequest<Track>(entityName: "Track")
     }
+    
+    var forcedVisuals: TrackVisuals {
+        if let visuals = visuals {
+            return visuals
+        }
+        
+        visuals = TrackVisuals(context: managedObjectContext!)
+        return visuals!
+    }
 
     @NSManaged public var id: UUID
     @NSManaged public var creationDate: NSDate
     
     @NSManaged public var album: String?
     @NSManaged public var albumArtist: String?
-    @NSManaged public var analysisData: NSData?
-    @NSManaged public var artworkData: NSData?
-    @NSManaged public var artworkPreview: NSImage?
     @NSManaged public var author: String?
     @NSManaged public var bpmString: String?
     @NSManaged public var bitrate: Float
@@ -40,6 +46,7 @@ extension Track {
     @NSManaged public var title: String?
     @NSManaged public var trackNumber: Int16
     @NSManaged public var usesMediaDirectory: Bool
+    @NSManaged public var visuals: TrackVisuals?
     @NSManaged public var year: Int16
 
     public override func awakeFromInsert() {

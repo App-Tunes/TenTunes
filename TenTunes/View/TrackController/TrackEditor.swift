@@ -149,13 +149,15 @@ class TrackEditor: NSViewController {
 //        context = Library.shared.newConcurrentContext()
 //        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy // User is always right
         context = Library.shared.viewContext
-        self.tracks = context.compactConvert(tracks)
+        let converted = context.compactConvert(tracks)
         
-        for track in self.tracks {
+        for track in converted {
             try! track.fetchMetadata()
         }
         
-        let (omittedTags, sharedTags) = findShares(in: tracks.map { $0.tags })
+        self.tracks = converted
+        
+        let (omittedTags, sharedTags) = findShares(in: converted.map { $0.tags })
         let omittedPart = omittedTags.isEmpty ? [] : [omittedTags]
         tagTokens = omittedPart as [Any] + sharedTags.sorted { $0.name < $1.name } as [Any] + [TrackEditor.addPlaceholder]
 

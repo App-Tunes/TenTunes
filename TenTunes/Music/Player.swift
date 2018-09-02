@@ -85,26 +85,19 @@ class Player {
         }
         catch PlayError.missing {
             let track = track!
-            let alert: NSAlert = NSAlert()
             if track.path == nil {
-                alert.messageText = "Invalid File"
-                alert.informativeText = "The file could not be played since no path is provided"
+                if NSAlert.confirm(action: "Invalid File", text: "The file could not be played since no path was provided? That's kinda weird.", confirmTitle: "Choose file", style: .warning), askReplacement(for: track) {
+                    play(at: at, in: history)
+                }
             }
             else {
-                alert.messageText = "Missing File"
-                alert.informativeText = "The file could not be played since the file could not be found"
+                if NSAlert.confirm(action: "Missing File", text: "The file could not be played since the file could not be found.", confirmTitle: "Choose file", style: .warning), askReplacement(for: track) {
+                    play(at: at, in: history)
+                }
             }
-            alert.alertStyle = .warning
-            alert.addButton(withTitle: "OK")
-            alert.runModal()
         }
         catch PlayError.error(let message) {
-            let alert: NSAlert = NSAlert()
-            alert.messageText = "Error"
-            alert.informativeText = message ?? "An unknown error occured when playing the file"
-            alert.alertStyle = .warning
-            alert.addButton(withTitle: "OK")
-            alert.runModal()
+            NSAlert.warning(title: "Error", text: message ?? "An unknown error occured when playing the file.")
         }
         catch let error {
             fatalError(error.localizedDescription)
@@ -273,5 +266,21 @@ class Player {
         player.stop()
         
         updatePlaying?(playing)
+    }
+    
+    @discardableResult
+    func askReplacement(for track: Track) -> Bool {
+        let dialogue = Library.Import.dialogue(allowedFiles: .track)
+        dialogue.allowsMultipleSelection = false
+        dialogue.runModal()
+        
+        guard let url = dialogue.url else {
+            return false
+        }
+        
+        track.path = url.absoluteString
+        track.usesMediaDirectory = false
+        
+        return true
     }
 }

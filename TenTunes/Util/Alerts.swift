@@ -16,7 +16,15 @@ extension NSAlert {
         alert.alertStyle = .informational
         alert.runModal()
     }
-    
+
+    static func warning(title: String, text: String, confirm: String? = nil) {
+        let alert = NSAlert()
+        alert.messageText = title
+        alert.informativeText = text
+        alert.alertStyle = .warning
+        alert.runModal()
+    }
+
     static func tutorial(topic: String, text: String) {
         informational(title: topic, text: text, confirm: "Got it!")
     }
@@ -29,13 +37,12 @@ extension NSAlert {
         return true
     }
     
-    static func confirm(action: String, text: String) -> Bool {
+    static func confirm(action: String, text: String, confirmTitle: String = "OK", style: NSAlert.Style = .informational) -> Bool {
         let alert = NSAlert()
         alert.messageText = action
         alert.informativeText = text
-        alert.addButton(withTitle: "OK")
+        alert.addButton(withTitle: confirmTitle)
         alert.addButton(withTitle: "Cancel")
-        alert.alertStyle = .warning
         let response = alert.runModal()
         
         return response == .alertFirstButtonReturn

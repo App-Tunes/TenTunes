@@ -229,6 +229,10 @@ extension NSRegularExpression {
 }
 
 extension OptionSet where RawValue == Int, Self == Self.Element {
+    static var all : Self {
+        return self.init(rawValue: Int.max)
+    }
+    
     var components : [Self] {
         return rawValue.bitComponents.map { return type(of: self).init(rawValue: $0) }
     }

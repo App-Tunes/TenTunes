@@ -13,6 +13,13 @@ extension Library {
         return Import(library: self, context: context ?? viewContext)
     }
     
+    struct FileTypes: OptionSet {
+        let rawValue: Int
+        
+        static let track = FileTypes(rawValue: 1 << 0)
+        static let playlist = FileTypes(rawValue: 1 << 1)
+    }
+    
     class Import {
         let library: Library
         let context: NSManagedObjectContext
@@ -20,6 +27,18 @@ extension Library {
         init(library: Library, context: NSManagedObjectContext) {
             self.library = library
             self.context = context
+        }
+        
+        class func dialogue(allowedFiles: Library.FileTypes) -> NSOpenPanel {
+            // TODO honor the parameter
+            let dialog = NSOpenPanel()
+            
+            dialog.allowsMultipleSelection = true
+            
+            dialog.canChooseDirectories = false
+            dialog.canCreateDirectories = false
+            
+            return dialog
         }
         
         func guess(url: URL) -> AnyObject? {

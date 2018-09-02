@@ -244,9 +244,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func openDocument(_ sender: Any) {
-        let dialog = NSOpenPanel()
+        let dialog = Library.Import.dialogue(allowedFiles: Library.FileTypes.all)
 
-        dialog.allowsMultipleSelection = true
 
         // TODO Allow only audiovisual files, and m3u
 //        dialog.title                   = "Select an iTunes Library"

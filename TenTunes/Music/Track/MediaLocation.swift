@@ -53,7 +53,7 @@ class MediaLocation {
         }
         
         check(url: src.deletingLastPathComponent())
-        track.path = dst.absoluteString
+        track.path = dst.relativePath(from: directory)
     }
     
     func delete(track: Track) {

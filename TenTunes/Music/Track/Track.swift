@@ -20,6 +20,12 @@ public class Track: NSManagedObject {
 
     var analysis: Analysis?
     
+    var library : Library {
+        // Not entirely correct if more than one library exist
+        // But better than just using Library.shared everywhere to centralise acccesses for the future
+        return Library.shared
+    }
+    
     @objc dynamic var artwork: NSImage? {
         get {
             return artworkData.flatMap { NSImage(data: $0 as Data) }
@@ -107,7 +113,7 @@ public class Track: NSManagedObject {
     
     var url: URL? {
         get {
-            if let url = path != nil ? URL(string: path!) : nil {
+            if let url = path != nil ? URL(string: path!, relativeTo: library.mediaLocation.directory) : nil {
                 return FileManager.default.fileExists(atPath: url.path) ? url : nil
             }
             return nil
@@ -125,7 +131,7 @@ public class Track: NSManagedObject {
         get {
             // TODO Also consider smart playlists and folders?
             let containing = containingPlaylists as! Set<PlaylistManual>
-            return containing.filter { Library.shared.isTag(playlist: $0) }
+            return containing.filter { self.library.isTag(playlist: $0) }
         }
     }
 }

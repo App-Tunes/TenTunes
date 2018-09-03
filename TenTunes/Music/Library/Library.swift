@@ -160,10 +160,17 @@ class Library : NSPersistentContainer {
         if let playlist = playlist as? PlaylistFolder, path(of: whenChanging).contains(playlist) {
             return true
         }
-        if playlist is PlaylistSmart {
+        if playlist is PlaylistSmart || playlist is PlaylistCartesian {
             return true // TODO Only return true if actually affected (tags contain it or something)
         }
         return playlist is PlaylistLibrary
+    }
+    
+    func isAffected(playlist: PlaylistProtocol, whenModifying: Track) -> Bool {
+        // Also honestly, who the fuck knows currently if smart playlists need updates. Just update them always
+        // Every add to / remove from playlist type change (PlaylistManual) is handled by the above method
+        // TODO But maybe add getters in the future, maybe at least wager if we have the POTENTIAL to have to be updated
+        return playlist is PlaylistSmart || playlist is PlaylistCartesian
     }
 
     func path(of: Playlist) -> [Playlist] {

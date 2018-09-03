@@ -33,6 +33,10 @@ extension ViewController {
             if let track = update as? Track {
                 trackController.reload(track: track)
                 playingTrackController.reload(track: track)
+                
+                if library.isAffected(playlist: trackController.history.playlist, whenModifying: track) {
+                    trackController.desired._changed = true
+                }
             }
             
             // Modified playlist contents?
@@ -55,7 +59,7 @@ extension ViewController {
         
         if trackInserts.count > 0 || trackUpdates.count > 0 || trackDeletes.count > 0 {
             // Modified library?
-            if trackInserts.count > 0 || trackDeletes.count > 0 {
+            if trackInserts.count > 0 || trackDeletes.count > 0 || trackController.history.playlist is PlaylistSmart {
                  // Honestly, this happens so rarely that it doesn't really matter what was actually changed. Just reload, man.
                 trackController.desired._changed = true
             }

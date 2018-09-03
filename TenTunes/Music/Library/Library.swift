@@ -157,13 +157,19 @@ class Library : NSPersistentContainer {
     }
     
     func isAffected(playlist: PlaylistProtocol, whenChanging: Playlist) -> Bool {
+        if let playlist = playlist as? Playlist, whenChanging == playlist {
+            return true
+        }
+        
         if let playlist = playlist as? PlaylistFolder, path(of: whenChanging).contains(playlist) {
             return true
         }
+        
         if playlist is PlaylistSmart || playlist is PlaylistCartesian {
             return true // TODO Only return true if actually affected (tags contain it or something)
         }
-        return playlist is PlaylistLibrary
+        
+        return false
     }
     
     func isAffected(playlist: PlaylistProtocol, whenModifying: Track) -> Bool {

@@ -71,11 +71,13 @@ class Player {
         return !isPlaying
     }
 
-    func play(at: Int?, in history: PlayHistory) {
-        self.history = PlayHistory(from: history)
+    func play(at: Int?, in history: PlayHistory?) {
+        if let history = history {
+            self.history = PlayHistory(from: history)
+        }
         
         self.history!.move(to: at ?? -1)
-        if shuffle { self.history!.shuffle() } // Move there before shuffling so the position is retained
+        if shuffle && history != nil { self.history!.shuffle() } // Move there before shuffling so the position is retained
         if at == nil { self.history!.move(to: 0) }
         
         let track = self.history!.playingTrack

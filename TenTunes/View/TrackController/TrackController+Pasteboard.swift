@@ -23,11 +23,15 @@ extension TrackController {
     
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
         guard mode != .title else {
-            return []
+            return row == 1 || dropOperation == .on ? .move : [] // Works for on and above 1
+        }
+        
+        guard dropOperation == .above else {
+            return [] // What exactly do we drop ON tracks?
         }
         
         guard mode != .queue else {
-            return dropOperation == .above ? .move : []
+            return .move
         }
         
         if dropOperation == .above, (history.playlist as? ModifiablePlaylist)?.supports(action: .reorder) ?? false, history.isUnsorted {
@@ -66,6 +70,19 @@ extension TrackController {
             }
             
             _tableView.animateDifference(from: tracksBefore, to: history.tracks)
+        }
+        else if mode == .title {
+            let history = ViewController.shared.player.history
+            let player = ViewController.shared.player
+            
+            if dropOperation == .on {
+                player.enqueue(tracks: tracks)
+                if history!.playingIndex >= 0 { history?.remove(indices: [history!.playingIndex]) }
+                player.play(at: history!.playingIndex, in: nil) // Reload track
+            }
+            else {
+                player.enqueue(tracks: tracks)
+            }
         }
         else if mode == .tracksList {
             let playlist = (history.playlist as! ModifiablePlaylist)

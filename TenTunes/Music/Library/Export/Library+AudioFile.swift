@@ -11,9 +11,7 @@ import Cocoa
 extension Library.Import {
     func track(url: URL) -> Track? {
         // TODO Hash all audio some time and then check the hashes on import to avoid duplicates
-        let request = NSFetchRequest<Track>(entityName: "Track")
-        request.predicate = NSPredicate(format: "path == %@", url.absoluteString)
-        if let track = try! Library.shared.viewContext.fetch(request).first {
+        if let track = library.allTracks.tracksList.filter({ $0.url == url }).first {
             return track
         }
 

@@ -39,7 +39,7 @@ extension TrackController {
     
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
         let pasteboard = info.draggingPasteboard()
-        guard let type = info.draggingPasteboard().availableType(from: tableView.registeredDraggedTypes) else {
+        guard let type = info.draggingPasteboard().availableType(from: pasteboardTypes) else {
             return false
         }
 

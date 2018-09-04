@@ -24,7 +24,7 @@ extension PlaylistController {
     func outlineView(_ outlineView: NSOutlineView, validateDrop info: NSDraggingInfo, proposedItem item: Any?, proposedChildIndex index: Int) -> NSDragOperation {
         let pasteboard = info.draggingPasteboard()
         
-        guard let type = pasteboard.availableType(from: outlineView.registeredDraggedTypes) else {
+        guard let type = pasteboard.availableType(from: pasteboardTypes) else {
             return []
         }
         
@@ -59,7 +59,7 @@ extension PlaylistController {
     func outlineView(_ outlineView: NSOutlineView, acceptDrop info: NSDraggingInfo, item: Any?, childIndex index: Int) -> Bool {
         let pasteboard = info.draggingPasteboard()
         
-        guard let type = pasteboard.availableType(from: outlineView.registeredDraggedTypes) else {
+        guard let type = pasteboard.availableType(from: pasteboardTypes) else {
             return false
         }
         

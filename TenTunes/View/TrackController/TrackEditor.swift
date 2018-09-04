@@ -9,8 +9,6 @@
 import Cocoa
 
 class TrackEditor: NSViewController {
-    static let addPlaceholder = PlaylistEmpty()
-    
     var context: NSManagedObjectContext!
     @objc dynamic var tracks: [Track] = []
     @IBOutlet var tracksController: NSArrayController!
@@ -59,6 +57,26 @@ class TrackEditor: NSViewController {
             self.show = show
         }
     }
+    
+    enum ViewableTag : Equatable {
+        case tag(playlist: PlaylistManual)
+        case new
+        case many(playlists: Set<PlaylistManual>)
+        
+        static func ==(lhs: ViewableTag, rhs: ViewableTag) -> Bool {
+            switch (lhs, rhs) {
+            case (.tag(let a), .tag(let b)):
+                return a == b
+            case (.new, .new):
+                return true
+            case (.many(let a), .many(let b)):
+                return a == b
+
+            default:
+                return false
+            }
+        }
+    }
 
     var data : [GroupData] = [
         GroupData(title: "Tags", icon: #imageLiteral(resourceName: "tag"), data: []),
@@ -81,7 +99,7 @@ class TrackEditor: NSViewController {
             ]),
         ]
 
-    var tagTokens : [Any] = []
+    var tagTokens : [ViewableTag] = []
 
     @IBAction func titleChanged(_ sender: Any) {
         try! self.context.save()
@@ -113,8 +131,26 @@ class TrackEditor: NSViewController {
         
         _editorOutline.target = self
         _editorOutline.enterAction = #selector(outlineViewAction(_:))
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: .NSManagedObjectContextObjectsDidChange, object: Library.shared.viewContext)
     }
     
+    @IBAction func managedObjectContextObjectsDidChange(notification: NSNotification) {
+        guard let userInfo = notification.userInfo else { return }
+        
+        let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject> ?? Set()
+        
+        if updates.of(type: Playlist.self).anyMatch({
+            Library.shared.isTag(playlist: $0)
+        }) {
+            // TODO Animate
+            // Tags, better reload if some tag changed while we edit this.
+            let prev = tagTokens
+            calculateTagTokens()
+            _editorOutline.animateDifference(childrenOf: data[0], from: prev, to: tagTokens)
+        }
+    }
+
     override func viewWillAppear() {
         // Kinda Hacky but eh
         if _errorTextField.stringValue == "View Hidden", let delayedTracks = delayedTracks {
@@ -156,23 +192,31 @@ class TrackEditor: NSViewController {
         }
         
         self.tracks = converted
-        
-        let (omittedTags, sharedTags) = findShares(in: converted.map { $0.tags })
-        let omittedPart = omittedTags.isEmpty ? [] : [omittedTags]
-        tagTokens = omittedPart as [Any] + sharedTags.sorted { $0.name < $1.name } as [Any] + [TrackEditor.addPlaceholder]
 
-        _editorOutline.reloadItem(data[0], reloadChildren: true) // Tags
+        let prevTagTokens = tagTokens
+        calculateTagTokens()
+        _editorOutline.animateDifference(childrenOf: data[0], from: prevTagTokens, to: tagTokens)
+        
         _editorOutline.reloadItem(data.last, reloadChildren: true) // Info, both computed rather than bound
 
         view.setFullSizeContent(_contentView)
     }
     
+    func calculateTagTokens() {
+        let (omittedTags, sharedTags) = findShares(in: tracks.map { $0.tags })
+        let omittedPart : [ViewableTag] = omittedTags.isEmpty ? [] : [.many(playlists: omittedTags)]
+        tagTokens = omittedPart + sharedTags.sorted { $0.name < $1.name }.map { .tag(playlist: $0) } + [.new]
+    }
+    
     func showError(text: String) {
+        tracks = []
+        
         _errorTextField.stringValue = text
         view.setFullSizeContent(_errorPlaceholder)
     }
     
     func suggest(tracks: [Track]) {
+        self.tracks = []
         delayedTracks = tracks
         
         view.setFullSizeContent(_manyPlaceholder)
@@ -301,22 +345,26 @@ extension TrackEditor: NSOutlineViewDelegate {
                 return view
             }
         }
-        else if let multiple = item as? Set<Playlist> {
-            if let view = outlineView.makeView(withIdentifier: CellIdentifiers.TokenCell, owner: nil) as? NSTableCellView, let tokenField = view.textField as? NSTokenField {
-                tokenField.delegate = self
-                tokenField.objectValue = [multiple]
-                
-                return view
-            }
-        }
-        else if let tag = item as? PlaylistProtocol {
-            if let view = outlineView.makeView(withIdentifier: CellIdentifiers.TokenCell, owner: nil) as? NSTableCellView, let tokenField = view.textField as? NSTokenField {
-                tokenField.delegate = nil // Kinda hacky tho, to make sure we get no change notification
-                tokenField.objectValue = (tag is Playlist ? [tag] : [])
-                tokenField.delegate = self
-                tokenField.isEditable = tag is PlaylistEmpty
-                
-                return view
+        else if let viewableTag = item as? ViewableTag {
+            switch viewableTag {
+            case .tag(let playlist):
+                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.TokenCell, owner: nil) as? NSTableCellView, let tokenField = view.textField as? NSTokenField {
+                    tokenField.delegate = nil // Kinda hacky tho, to make sure we get no change notification
+                    tokenField.objectValue = [playlist]
+                    tokenField.delegate = self
+                    tokenField.isEditable = false
+                    
+                    return view
+                }
+            case .new:
+                return outlineView.makeView(withIdentifier: CellIdentifiers.TokenCell, owner: nil) as? NSTableCellView
+            case .many(let playlists):
+                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.TokenCell, owner: nil) as? NSTableCellView, let tokenField = view.textField as? NSTokenField {
+                    tokenField.delegate = self
+                    tokenField.objectValue = [playlists]
+                    
+                    return view
+                }
             }
         }
         

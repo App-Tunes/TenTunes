@@ -50,27 +50,27 @@ extension TrackEditor : TTTokenFieldDelegate {
     }
     
     func tokenField(_ tokenField: NSTokenField, changedTokens tokens: [Any]) {
-        let newLabels = (tokenField.objectValue as! [Any]).of(type: Playlist.self) // First might be multiple values
+        let newLabels = (tokenField.objectValue as! [Any]).of(type: PlaylistManual.self) // First might be multiple values
         
         guard newLabels.count > 0 else {
             return
         }
         
-        let labelPlaylists = tagTokens.of(type: Playlist.self)
+        let labelPlaylists = tagTokens.of(type: PlaylistManual.self)
         
         // Insert we don't add after add element
-        let addLabels = newLabels.filter { label in !labelPlaylists.contains { $0 == label } } as [Any]
-        tagTokens.insert(contentsOf: addLabels, at: tagTokens.count - 1)
+        let addLabels = newLabels.filter { label in !labelPlaylists.contains { $0 == label } }
+        tagTokens.insert(contentsOf: addLabels.map { .tag(playlist: $0) }, at: tagTokens.count - 1)
         
-        if var omitted = tagTokens[0] as? Set<Playlist> {
-            omitted.remove(contentsOf: Set(newLabels.of(type: Playlist.self)))
+        if case var TrackEditor.ViewableTag.many(omitted) = tagTokens[0] {
+            omitted.remove(contentsOf: Set(newLabels.of(type: PlaylistManual.self)))
             if omitted.isEmpty {
                 tagTokens.remove(at: 0)
                 // Little hacky but multiple values are always the first, and remove by item doesn't work because it's an array (copy by value)
                 _editorOutline.removeItems(at: IndexSet(integer: 0), inParent: data[0], withAnimation: .slideDown)
             }
             else {
-                tagTokens[0] = omitted
+                tagTokens[0] = .many(playlists: omitted)
             }
         }
         

@@ -177,6 +177,24 @@ extension NSOutlineView {
         editColumn(0, row: row, with: event, select: select)
     }
     
+    func animateDifference<Element : Equatable>(childrenOf parent: Any?, from: [Element]?, to: [Element]?) {
+        if let from = from, let to = to, let (left, right) = from.difference(from: to) {
+            if (left ?? right!).count > 100 {
+                // Give up, this will look shite anyhow
+                reloadData()
+            }
+            else if let removed = left {
+                removeItems(at: IndexSet(removed), inParent: parent, withAnimation: .slideDown)
+            }
+            else if let added = right {
+                insertItems(at: IndexSet(added), inParent: parent, withAnimation: .slideUp)
+            }
+        }
+        else {
+            reloadItem(parent, reloadChildren: true)
+        }
+    }
+
     func animateDelete(elements: [Any]) {
         guard elements.count < 100 else {
             reloadData()

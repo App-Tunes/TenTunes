@@ -237,3 +237,15 @@ extension OptionSet where RawValue == Int, Self == Self.Element {
         return rawValue.bitComponents.map { return type(of: self).init(rawValue: $0) }
     }
 }
+
+extension Mirror {
+    func child(withName name: String) -> Mirror.Child? {
+        for child in children {
+            if child.label == name {
+                return child
+            }
+        }
+        
+        return nil
+    }
+}

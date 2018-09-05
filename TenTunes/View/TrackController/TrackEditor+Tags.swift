@@ -50,20 +50,19 @@ extension TrackEditor : TTTokenFieldDelegate {
     }
     
     func tokenField(_ tokenField: NSTokenField, changedTokens tokens: [Any]) {
-        let newLabels = (tokenField.objectValue as! [Any]).of(type: PlaylistManual.self) // First might be multiple values
+        let newTags = (tokenField.objectValue as! [Any]).of(type: PlaylistManual.self) // First might be multiple values
         
-        guard newLabels.count > 0 else {
+        guard newTags.count > 0 else {
             return
         }
         
-        let labelPlaylists = tagTokens.of(type: PlaylistManual.self)
+        let existingTags = tagTokens.caseLet(ViewableTag.tag)
         
-        // Insert we don't add after add element
-        let addLabels = newLabels.filter { label in !labelPlaylists.contains { $0 == label } }
-        tagTokens.insert(contentsOf: addLabels.map { .tag(playlist: $0) }, at: tagTokens.count - 1)
+        let addTags = newTags.filter { !existingTags.contains($0) }
+        tagTokens.append(contentsOf: addTags.map { .tag(playlist: $0) })
         
-        if case var TrackEditor.ViewableTag.many(omitted) = tagTokens[0] {
-            omitted.remove(contentsOf: Set(newLabels.of(type: PlaylistManual.self)))
+        if case .many(var omitted) = tagTokens[0] {
+            omitted.remove(contentsOf: Set(newTags.of(type: PlaylistManual.self)))
             if omitted.isEmpty {
                 tagTokens.remove(at: 0)
                 // Little hacky but multiple values are always the first, and remove by item doesn't work because it's an array (copy by value)
@@ -76,18 +75,19 @@ extension TrackEditor : TTTokenFieldDelegate {
         
         tokensChanged()
         
-        _editorOutline.insertItems(at: IndexSet(integersIn: (tagTokens.count - 2)..<(tagTokens.count + addLabels.count - 2)), inParent: data[0], withAnimation: .slideDown)
+        _editorOutline.insertItems(at: IndexSet(integersIn: (outlineTokens.count - 2)..<(outlineTokens.count + addTags.count - 2)), inParent: data[0], withAnimation: .slideDown)
 
         tokenField.objectValue = []
     }
     
     func tokensChanged() {
         let labels = tagTokens
-        let allowedOthers = labels.of(type: Set<PlaylistManual>.self).first ?? Set()
-        let newTags = Set(labels.of(type: PlaylistManual.self))
+        let allowedOthers = labels.caseLet(ViewableTag.many).first ?? Set()
+        let sharedTags = Set(labels.caseLet(ViewableTag.tag))
         
-        for track in tracks where track.tags != newTags {
-            track.tags = newTags.union(track.tags.intersection(allowedOthers))
+        for track in tracks {
+            let new = sharedTags.union(track.tags.intersection(allowedOthers))
+            if new != track.tags { track.tags = new }
         }
     }
     

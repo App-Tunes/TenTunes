@@ -195,13 +195,13 @@ extension NSOutlineView {
         }
     }
 
-    func animateDelete(elements: [Any]) {
-        guard elements.count < 100 else {
+    func animateDelete(items: [Any]) {
+        guard items.count < 100 else {
             reloadData()
             return
         }
         
-        for element in elements {
+        for element in items {
             let idx = childIndex(forItem: element)
             if idx >= 0 {
                 removeItems(at: IndexSet(integer: idx), inParent: parent(forItem: element), withAnimation: .slideDown)
@@ -209,13 +209,13 @@ extension NSOutlineView {
         }
     }
     
-    func animateInsert<T>(elements: [T], position: (T) -> (Int, T?)?) {
-        guard elements.count < 100 else {
+    func animateInsert<T>(items: [T], position: (T) -> (Int, T?)?) {
+        guard items.count < 100 else {
             reloadData()
             return
         }
         
-        for t in elements {
+        for t in items {
             if let (pos, parent) = position(t) {
                 insertItems(at: IndexSet(integer: pos), inParent: parent, withAnimation: .slideUp)
             }

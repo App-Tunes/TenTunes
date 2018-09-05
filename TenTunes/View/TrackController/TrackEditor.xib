@@ -211,7 +211,7 @@
                                                         <subviews>
                                                             <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rRD-38-h8c" customClass="TTTokenField" customModule="TenTunes" customModuleProvider="target">
                                                                 <rect key="frame" x="6" y="4" width="270" height="16"/>
-                                                                <tokenFieldCell key="cell" alignment="left" placeholderString=" Add Tag..." allowsEditingTextAttributes="YES" id="gt6-ZL-OQW">
+                                                                <tokenFieldCell key="cell" selectable="YES" editable="YES" alignment="left" placeholderString=" Add Tag..." allowsEditingTextAttributes="YES" id="gt6-ZL-OQW">
                                                                     <font key="font" metaFont="cellTitle"/>
                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

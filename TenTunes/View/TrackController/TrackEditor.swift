@@ -100,6 +100,7 @@ class TrackEditor: NSViewController {
         ]
 
     var tagTokens : [ViewableTag] = []
+    var outlineTokens : [ViewableTag] { return tagTokens + [.new] }
 
     @IBAction func titleChanged(_ sender: Any) {
         try! self.context.save()
@@ -143,11 +144,10 @@ class TrackEditor: NSViewController {
         if updates.of(type: Playlist.self).anyMatch({
             Library.shared.isTag(playlist: $0)
         }) {
-            // TODO Animate
             // Tags, better reload if some tag changed while we edit this.
-            let prev = tagTokens
+            let prev = outlineTokens
             calculateTagTokens()
-            _editorOutline.animateDifference(childrenOf: data[0], from: prev, to: tagTokens)
+            _editorOutline.animateDifference(childrenOf: data[0], from: prev, to: outlineTokens)
         }
     }
 
@@ -193,9 +193,9 @@ class TrackEditor: NSViewController {
         
         self.tracks = converted
 
-        let prevTagTokens = tagTokens
+        let prevTokens = outlineTokens
         calculateTagTokens()
-        _editorOutline.animateDifference(childrenOf: data[0], from: prevTagTokens, to: tagTokens)
+        _editorOutline.animateDifference(childrenOf: data[0], from: prevTokens, to: outlineTokens)
         
         _editorOutline.reloadItem(data.last, reloadChildren: true) // Info, both computed rather than bound
 
@@ -205,7 +205,7 @@ class TrackEditor: NSViewController {
     func calculateTagTokens() {
         let (omittedTags, sharedTags) = findShares(in: tracks.map { $0.tags })
         let omittedPart : [ViewableTag] = omittedTags.isEmpty ? [] : [.many(playlists: omittedTags)]
-        tagTokens = omittedPart + sharedTags.sorted { $0.name < $1.name }.map { .tag(playlist: $0) } + [.new]
+        tagTokens = omittedPart + sharedTags.sorted { $0.name < $1.name }.map { .tag(playlist: $0) }
     }
     
     func showError(text: String) {
@@ -228,15 +228,17 @@ class TrackEditor: NSViewController {
     }
     
     @IBAction func delete(_ sender: AnyObject) {
-        let items = _editorOutline.selectedRowIndexes.compactMap({ _editorOutline.item(atRow: $0) })
-        
-        guard items.allMatch({ $0 is Playlist || $0 is Set<Playlist>}) else {
-            // Make sure it's deletable
-            return
+        guard let items = _editorOutline.selectedRowIndexes.compactMap({ _editorOutline.item(atRow: $0) }) as? [ViewableTag] else {
+            return // Can only delete tags
         }
         
-        _editorOutline.animateDelete(elements: items)
-        tagTokens = tagTokens.filter { label in !items.contains { (label as AnyObject) === ($0 as AnyObject) }}
+        guard !items.contains(ViewableTag.new) else {
+            return // Make sure all are deletable
+        }
+        
+        // Can't use remove elements since enum.case !== enum.case (copy by value)
+        _editorOutline.removeItems(at: IndexSet(items.map { tagTokens.index(of: $0)! }), inParent: data[0], withAnimation: .slideDown)
+        tagTokens = tagTokens.filter { !items.contains($0) }
 
         tokensChanged()
     }
@@ -296,7 +298,7 @@ extension TrackEditor: NSOutlineViewDelegate {
         
         guard !group.data.isEmpty else {
             // Tag hack
-            return tagTokens.count
+            return outlineTokens.count
         }
         
         return group.data.count
@@ -353,11 +355,19 @@ extension TrackEditor: NSOutlineViewDelegate {
                     tokenField.objectValue = [playlist]
                     tokenField.delegate = self
                     tokenField.isEditable = false
+                    tokenField.isSelectable = false
                     
                     return view
                 }
             case .new:
-                return outlineView.makeView(withIdentifier: CellIdentifiers.TokenCell, owner: nil) as? NSTableCellView
+                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.TokenCell, owner: nil) as? NSTableCellView, let tokenField = view.textField as? NSTokenField {
+                    tokenField.delegate = self
+                    tokenField.objectValue = []
+                    tokenField.isEditable = true
+                    tokenField.isSelectable = true
+
+                    return view
+                }
             case .many(let playlists):
                 if let view = outlineView.makeView(withIdentifier: CellIdentifiers.TokenCell, owner: nil) as? NSTableCellView, let tokenField = view.textField as? NSTokenField {
                     tokenField.delegate = self
@@ -378,7 +388,7 @@ extension TrackEditor: NSOutlineViewDelegate {
         
         guard !group.data.isEmpty else {
             // Tag hack
-            return tagTokens[index]
+            return outlineTokens[index]
         }
         
         return group.data[index]
@@ -390,7 +400,7 @@ extension TrackEditor: NSOutlineViewDelegate {
     
     func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
         // TODO With these unselectable we can't edit the cells
-        return item is Set<Playlist> || item is Playlist
+        return item is ViewableTag && (item as! ViewableTag) != .new
     }
 }
 

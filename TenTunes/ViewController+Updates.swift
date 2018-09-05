@@ -79,7 +79,7 @@ extension ViewController {
         // Use while so we can use break to nope out lol
         while !playlistUpdates.isEmpty || !playlistDeletes.isEmpty || !playlistInserts.isEmpty {
             if !playlistInserts.isEmpty && playlistUpdates.uniqueElement == playlistInserts.uniqueElement?.parent {
-                playlistController._outlineView.animateInsert(elements: Array(playlistInserts)) {
+                playlistController._outlineView.animateInsert(items: Array(playlistInserts)) {
                     guard let (parent, idx) = library.position(of: $0) else {
                         return nil
                     }
@@ -95,7 +95,7 @@ extension ViewController {
             }
             
             if !playlistDeletes.isEmpty && playlistUpdates.uniqueElement == playlistDeletes.uniqueElement?.parent {
-                playlistController._outlineView.animateDelete(elements: Array(deletes.of(type: Playlist.self)))
+                playlistController._outlineView.animateDelete(items: Array(deletes.of(type: Playlist.self)))
                 break
             }
                 

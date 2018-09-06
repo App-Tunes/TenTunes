@@ -84,17 +84,24 @@ extension TrackEditor : TTTokenFieldDelegate {
     
     func tokenField(_ tokenField: NSTokenField, shouldAdd tokens: [Any], at index: Int) -> [Any] {
         return tokens.compactMap {
-            guard let compareSubstring = ($0 as? String)?.lowercased() else {
+            guard let string = $0 as? String else {
                 return $0
             }
             
-            if let match = tagResults(search: compareSubstring, exact: true).first {
+            if let match = tagResults(search: string.lowercased(), exact: true).first {
                 return match
             }
             
             // Must create a new one
-            // TODO
-            return nil
+            if NSAlert.confirm(action: "Create New Tag", text: "The tag '\(string)' is unknown. Do you want to create it?") {
+                let newTag = PlaylistManual(context: Library.shared.viewContext)
+                newTag.name = string
+                Library.shared.tagPlaylist.addPlaylist(newTag)
+                
+                return newTag
+            }
+            
+            return nil // Decide not to
         }
     }
     

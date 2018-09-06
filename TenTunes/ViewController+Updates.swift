@@ -86,8 +86,8 @@ extension ViewController {
                     return (idx, parent == library.masterPlaylist ? nil : parent)
                 }
                 
-                if let insertedPlaylist = playlistInserts.uniqueElement, library.isPlaylist(playlist: insertedPlaylist) {
-                    // Let's hope that playlists don't get inserted other than when creating a new one, otherwise we need another solution
+                if let insertedPlaylist = playlistInserts.uniqueElement, library.isPlaylist(playlist: insertedPlaylist), insertedPlaylist.name.contains("Unnamed") {
+                    // If the name contains "Unnamed" it's proooobably safe to say we should name it
                     playlistController.select(playlist: insertedPlaylist, editTitle: true)
                 }
                 

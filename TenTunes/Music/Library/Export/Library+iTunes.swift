@@ -60,8 +60,8 @@ extension Library.Export {
             playlistDict["Playlist ID"] = idx
             playlistDict["Name"] = playlist.name
             playlistDict["Playlist Persistent ID"] = playlistPersistentID(playlist)
-            if playlist.parent != nil {
-                playlistDict["Parent Persistent ID"] = playlistPersistentID(playlist.parent!)
+            if let parent = playlist.parent, parent.objectID != library.masterPlaylist.objectID {
+                playlistDict["Parent Persistent ID"] = playlistPersistentID(parent)
             }
             
             var tracks = playlist.tracksList

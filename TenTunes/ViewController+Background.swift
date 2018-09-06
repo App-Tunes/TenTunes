@@ -115,7 +115,7 @@ extension ViewController {
                     analysisRequest.predicate = NSPredicate(format: "analysis == nil")
                     analysisRequest.fetchLimit = 100
                     let tracks = Library.shared.viewContext.compactConvert(try! mox.fetch(analysisRequest))
-                        .map { $0.track }
+                        .compactMap { $0.track } // Who knows, might be gone 
                         .filter { $0.url != nil }
 
                     // Need to do this in sync because we use tasker.enqueue

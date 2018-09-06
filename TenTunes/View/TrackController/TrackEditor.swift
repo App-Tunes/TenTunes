@@ -197,7 +197,11 @@ class TrackEditor: NSViewController {
         calculateTagTokens()
         _editorOutline.animateDifference(childrenOf: data[0], from: prevTokens, to: outlineTokens)
         
-        _editorOutline.reloadItem(data.last, reloadChildren: true) // Info, both computed rather than bound
+        for item in data.last!.data {
+            _editorOutline.reloadItem(item, reloadChildren: false)
+            // Use a for loop instead of the below since the below actually animates the change, removing all children and re-adding them
+//            _editorOutline.reloadItem(data.last, reloadChildren: true) // Info, both computed rather than bound
+        }
 
         view.setFullSizeContent(_contentView)
     }

@@ -14,5 +14,7 @@
 	<true/>
 	<key>titleBarStylization</key>
 	<real>0.5</real>
+	<key>updatingTrackUpdatesAlbum</key>
+	<true/>
 </dict>
 </plist>

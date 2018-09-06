@@ -103,7 +103,7 @@ extension SmartPlaylistRules.Token {
         }
         
         override func encode(with aCoder: NSCoder) {
-            aCoder.encode(author.description, forKey: "author")
+            aCoder.encode(author.name, forKey: "author")
             super.encode(with: aCoder)
         }
         
@@ -134,7 +134,7 @@ extension SmartPlaylistRules.Token {
         
         override func encode(with aCoder: NSCoder) {
             aCoder.encode(album.title, forKey: "title")
-            aCoder.encode(album.author, forKey: "author")
+            aCoder.encode(album.author?.name, forKey: "author")
             super.encode(with: aCoder)
         }
         

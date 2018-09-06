@@ -47,7 +47,6 @@ extension Track {
             genre = parseGenre(tagLibFile.genre)
             
             forcedVisuals.artwork = tagLibFile.image as NSData?
-            generateArtworkPreview()
             
             keyString = tagLibFile.initialKey
             bpmString = tagLibFile.bpm
@@ -118,13 +117,9 @@ extension Track {
         speed = speed ?? prevBPM
         
         // Also generate if artwork is nil since preview gets set to nil then too
-        generateArtworkPreview()
+        forcedVisuals.artworkPreview = Album.preview(for: artwork)
     }
-    
-    func generateArtworkPreview() {
-        self.artworkPreview = artwork?.resized(w: 64, h: 64)
-    }
-    
+        
     enum MetadataWriteError : Error {
         case noPath, fileNotFound
     }

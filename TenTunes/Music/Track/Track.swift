@@ -32,7 +32,7 @@ public class Track: NSManagedObject {
         }
         set {
             forcedVisuals.artwork = newValue?.jpgRepresentation as NSData?
-            generateArtworkPreview()
+            forcedVisuals.artworkPreview = Album.preview(for: newValue)
         }
     }
     
@@ -106,14 +106,6 @@ public class Track: NSManagedObject {
     
     var rAlbum: Album? {
         return album.map { Album(title: $0, by: (self.albumArtist ?=> Artist.init) ?? self.authors.first) }
-    }
-    
-    var rArtwork: NSImage {
-        return self.artwork ?? NSImage(named: NSImage.Name(rawValue: "music_missing"))!
-    }
-    
-    var rPreview: NSImage {
-        return self.artworkPreview ?? NSImage(named: NSImage.Name(rawValue: "music_missing"))!
     }
     
     var rDuration: String {

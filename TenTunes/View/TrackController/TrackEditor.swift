@@ -223,11 +223,19 @@ class TrackEditor: NSViewController {
     }
     
     @IBAction func imageUpdated(_ sender: Any) {
-        try! self.context.save()
+        let image = (sender as! NSImageView).image
         
         for track in self.tracks {
-            try! track.writeMetadata(values: [\Track.artwork])
+            if Preferences.EditingTrackUpdatesAlbum.current == .update, let album = track.rAlbum {
+                album.artwork = image
+                try! album.writeMetadata()
+            }
+            else {
+                try! track.writeMetadata(values: [\Track.artwork])
+            }
         }
+        
+        try! self.context.save()
     }
 }
 

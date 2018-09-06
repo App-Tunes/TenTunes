@@ -111,7 +111,7 @@ class Player {
         notification.title = of.rTitle
         notification.subtitle = of.rSource
         if notification.responds(to: Selector(("set_identityImage:"))) {
-            notification.perform(Selector(("set_identityImage:")), with: of.rPreview)
+            notification.perform(Selector(("set_identityImage:")), with: of.artworkPreview ?? Album.missingArtwork)
         }
         else {
             print("Failed to set identity image of notification!")

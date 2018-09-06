@@ -331,7 +331,7 @@ extension TrackController: NSTableViewDelegate {
             view.layer!.cornerRadius = 3.0
             view.layer!.masksToBounds = true
 
-            view.image = track.rPreview
+            view.image = track.artworkPreview ?? Album.missingArtwork
 
             return view
         }

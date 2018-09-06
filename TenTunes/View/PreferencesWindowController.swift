@@ -117,6 +117,16 @@ class Preferences {
             return UserDefaults.standard.bool(forKey: key) ? play : dont
         }
     }
+    
+    enum EditingTrackUpdatesAlbum {
+        static let key: String = "updatingTrackUpdatesAlbum"
+        
+        case update, dont
+        
+        static var current: EditingTrackUpdatesAlbum {
+            return UserDefaults.standard.bool(forKey: key) ? update : dont
+        }
+    }
 }
 
 class PreferencesWindowController: NSWindowController {

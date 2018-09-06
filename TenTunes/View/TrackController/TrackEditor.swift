@@ -31,7 +31,7 @@ class TrackEditor: NSViewController {
             EditData(title: "BPM", path: \Track.bpmString, options: nil),
             EditData(title: "Initial Key", path: \Track.keyString, options: nil),
             ]),
-        GroupData(title: "Album", icon: #imageLiteral(resourceName: "advanced-info"), data: [
+        GroupData(title: "Metadata", icon: #imageLiteral(resourceName: "advanced-info"), data: [
             EditData(title: "Remix Author", path: \Track.remixAuthor, options: nil),
             EditData(title: "Comments", path: \Track.comments, options: nil),
             ]),

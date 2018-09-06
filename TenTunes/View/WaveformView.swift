@@ -344,9 +344,11 @@ class WaveformView: NSControl, CALayerDelegate {
         return location + ((position - location) / jumpSegment).rounded() * jumpSegment
     }
     
-    override func mouseDragged(with event: NSEvent) {
-        self.click(at: relativeX(event.locationInWindow))
-    }
+// If anything, play at increased or decreased speeds. But just setting position sounds crap
+// TODO Re-enable this but during drag, pause current track
+//    override func mouseDragged(with event: NSEvent) {
+//        self.click(at: relativeX(event.locationInWindow))
+//    }
     
     override func mouseDown(with event: NSEvent) {
         self.click(at: relativeX(event.locationInWindow))

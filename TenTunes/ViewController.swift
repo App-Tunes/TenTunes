@@ -98,6 +98,7 @@ class ViewController: NSViewController {
             return self.trackController.history
         }
         player.start()
+        player.history = queueController.history // Empty but != nil
                 
         self.playlistController.selectionDidChange = { [unowned self] in
             self.playlistSelected($0)
@@ -220,7 +221,7 @@ class ViewController: NSViewController {
             playingTrackController.history.insert(tracks: [track], before: 0)
             playingTrackController._tableView.insertRows(at: IndexSet(integer: 0), withAnimation: .slideDown)
 
-            if playingTrackController.history.size > 1 {
+            if playingTrackController.history.count > 1 {
                 // Two-step to get the animation rollin
                 playingTrackController.history.remove(indices: [1])
                 playingTrackController._tableView.removeRows(at: IndexSet(integer: 1), withAnimation: .effectFade)

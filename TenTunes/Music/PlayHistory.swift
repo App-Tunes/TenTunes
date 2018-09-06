@@ -126,7 +126,7 @@ class PlayHistory {
     
     // Query
     
-    var size: Int { return tracks.count }
+    var count: Int { return tracks.count }
     
     var tracks: [Track] {
         return shuffled ?? order

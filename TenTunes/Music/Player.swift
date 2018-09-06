@@ -202,7 +202,7 @@ class Player {
     }
     
     func play(moved: Int) {
-        if history == nil {
+        if (history?.count ?? 0) == 0 {
             guard let historyProvider = historyProvider else {
                 return
             }

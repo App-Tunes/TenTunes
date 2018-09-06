@@ -64,7 +64,7 @@ class TrackController: NSViewController {
             _tableView?.animateDifference(from: oldValue.tracks, to: history.tracks)
             
             _playlistTitle.stringValue = history.playlist.name
-            _trackCounter.stringValue = String(history.size) + (history.size != 1 ? " tracks" : " track")
+            _trackCounter.stringValue = String(history.count) + (history.count != 1 ? " tracks" : " track")
             
             guard mode == .tracksList else {
                 return
@@ -455,7 +455,7 @@ extension TrackController: NSTableViewDelegate {
 
 extension TrackController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return history.size
+        return history.count
     }
 }
 

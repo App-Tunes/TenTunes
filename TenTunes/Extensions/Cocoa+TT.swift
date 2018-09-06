@@ -181,7 +181,7 @@ extension NSOutlineView {
         if let from = from, let to = to, let (left, right) = from.difference(from: to) {
             if (left ?? right!).count > 100 {
                 // Give up, this will look shite anyhow
-                reloadData()
+                reloadItem(parent, reloadChildren: true)
             }
             else if let removed = left {
                 removeItems(at: IndexSet(removed), inParent: parent, withAnimation: .slideDown)

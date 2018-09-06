@@ -372,7 +372,9 @@ extension TrackEditor: NSOutlineViewDelegate {
                 if let view = outlineView.makeView(withIdentifier: CellIdentifiers.TokenCell, owner: nil) as? NSTableCellView, let tokenField = view.textField as? NSTokenField {
                     tokenField.delegate = self
                     tokenField.objectValue = [playlists]
-                    
+                    tokenField.isEditable = false
+                    tokenField.isSelectable = false
+
                     return view
                 }
             }

@@ -176,6 +176,9 @@ extension Track {
             case \Track.artwork:
                 tagLibFile.image = visuals?.artwork as Data?
 
+            case \Track.comments:
+                tagLibFile.comments = comments as String?
+
             default:
                 fatalError("Unwriteable Path: \(path)")
             }

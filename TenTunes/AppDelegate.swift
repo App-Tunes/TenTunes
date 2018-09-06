@@ -39,8 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 case .alertSecondButtonReturn:
                     let dialog = NSSavePanel()
                     
-                    dialog.runModal()
-                    location = dialog.url
+                    location = dialog.runModal() == .OK ? dialog.url : nil
                     create = true
                 case .alertFirstButtonReturn:
                     let dialog = NSOpenPanel()
@@ -49,8 +48,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     dialog.canChooseDirectories = true
                     dialog.directoryURL = defaultURL()
                     
-                    dialog.runModal()
-                    location = dialog.url
+                    location = dialog.runModal() == .OK ? dialog.url : nil
                     create = false
                 default:
                     NSApp.terminate(self)

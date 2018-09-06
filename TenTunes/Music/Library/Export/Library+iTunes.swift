@@ -66,7 +66,7 @@ extension Library.Export {
             
             var tracks = playlist.tracksList
             if playlist.objectID == library.masterPlaylist.objectID {
-                tracks = library.allTracks.tracksList
+                tracks = library.allTracks.convert(to: context)!.tracksList
                 playlistDict["Master"] = true
                 playlistDict["All Items"] = true
                 playlistDict["Visible"] = false

@@ -22,6 +22,8 @@ public class PlaylistSmart: Playlist {
         return rrules.filter(in: context, rguard: rguard)
     }
     
+    override var isTrivial: Bool { return rules?.tokens.isEmpty ?? true }
+    
     override var icon: NSImage {
         return #imageLiteral(resourceName: "playlist-smart")
     }

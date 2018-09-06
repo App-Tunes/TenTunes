@@ -61,6 +61,8 @@ class PlaylistCartesian: PlaylistFolder {
         return rules.crossProduct(in: context)
     }
     
+    override var isTrivial: Bool { return rules?.tokens.isEmpty ?? true }
+    
     override var icon: NSImage {
         return #imageLiteral(resourceName: "playlist-cartesian")
     }

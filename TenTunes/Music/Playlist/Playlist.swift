@@ -66,6 +66,8 @@ public class Playlist: NSManagedObject, PlaylistProtocol {
     func duplicate() -> Playlist {
         return duplicate(except: ["id", "creationDate", "parent"], deep: ["children"]) as! Playlist
     }
+    
+    var isTrivial: Bool { return false }
 
     var icon: NSImage {
         return #imageLiteral(resourceName: "playlist")

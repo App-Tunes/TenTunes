@@ -43,6 +43,8 @@ public class PlaylistFolder: Playlist {
         } ?? []
     }
     
+    override var isTrivial: Bool { return children.count == 0 }
+    
     override var icon: NSImage {
         return #imageLiteral(resourceName: "folder")
     }

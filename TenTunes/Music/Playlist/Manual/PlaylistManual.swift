@@ -15,6 +15,8 @@ public class PlaylistManual: Playlist {
     override func _freshTracksList(rguard: RecursionGuard<Playlist>) -> [Track] {
         return Array(tracks) as! [Track] 
     }
+    
+    override var isTrivial: Bool { return tracks.count == 0 }
 }
 
 extension PlaylistManual : ModifiablePlaylist {

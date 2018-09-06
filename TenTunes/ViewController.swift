@@ -105,7 +105,14 @@ class ViewController: NSViewController {
         }
         self.playlistController.playPlaylist = { [unowned self] in
             self.playlistSelected($0)
-            self.player.play(at: nil, in: self.trackController.history)
+            if (self.trackController.history.playlist as? Playlist) == ($0 as? Playlist) {
+                // Use the existing history because of possible sort etc.
+                self.player.play(at: nil, in: self.trackController.history)
+            }
+            else {
+                // Playlist isn't loaded yet in track controller, just play with default sort
+                self.player.play(at: nil, in: PlayHistory(playlist: $0))
+            }
         }
         self.playlistController.masterPlaylist = Library.shared.masterPlaylist
         self.playlistController.library = Library.shared.allTracks

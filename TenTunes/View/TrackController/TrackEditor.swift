@@ -93,7 +93,7 @@ class TrackEditor: NSViewController {
             // Tags, better reload if some tag changed while we edit this.
             let newTokens = TrackEditor.desiredTagTokens(tracks: tracks)
             if Set(newTokens) != Set(tagTokens) {
-                let prev = tagTokens
+                let prev = outlineTokens
                 tagTokens = newTokens
                 _editorOutline.animateDifference(childrenOf: data[0], from: prev, to: outlineTokens)
             }

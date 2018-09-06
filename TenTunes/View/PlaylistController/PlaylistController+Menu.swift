@@ -19,10 +19,17 @@ extension PlaylistController: NSUserInterfaceValidations {
         }
         if action == #selector(performFindPanelAction) { return true }
         
+        if action == #selector(newDocument(_:)) { return true }
+        if action == #selector(createGroup(_:)) { return true }
+
         return false
     }
     
     @IBAction func delete(_ sender: AnyObject) {
         delete(indices: Array(_outlineView.selectedRowIndexes))
+    }
+    
+    @IBAction func newDocument(_ sender: Any) {
+        createPlaylist(sender)
     }
 }

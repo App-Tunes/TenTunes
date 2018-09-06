@@ -9,6 +9,8 @@
 import Cocoa
 
 extension Library.Export {
+    static let keyWhitespaceDeleteRegex = try! NSRegularExpression(pattern: "</key>\\s*", options: [])
+    
     func iTunesLibraryXML(tracks: [Track], playlists: [Playlist]) {
         var dict: [String: Any] = [:]
         
@@ -82,7 +84,16 @@ extension Library.Export {
         
         let url = self.url(title: "iTunes Library.xml", directory: false)
         try! url.ensurePath()
-        (dict as NSDictionary).write(toFile: url.path, atomically: true)
+//        (dict as NSDictionary).write(toFile: url.path, atomically: true)
+//        let resultFile = try! String(contentsOfFile: url.path)
+
+        let writtenData = try! PropertyListSerialization.data(fromPropertyList: dict, format: .xml, options: 0)
+        let writtenString = String(data: writtenData, encoding: .utf8)!
+
+        // Hack to delete whitespace after </key>, since itunes doesn't do it
+        let finalString = Library.Export.keyWhitespaceDeleteRegex.split(string: writtenString).joined(separator: "</key>")
+
+        try! finalString.write(to: url, atomically: true, encoding: .utf8)
     }
 }
 

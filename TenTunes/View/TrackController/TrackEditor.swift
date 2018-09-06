@@ -23,60 +23,6 @@ class TrackEditor: NSViewController {
     @IBOutlet var _editorOutline: ActionOutlineView!
     
     let editActionStubs = ActionStubs()
-    
-    class GroupData {
-        let title: String
-        let icon: NSImage
-        let data: [Any]
-        
-        init(title: String, icon: NSImage, data: [Any]) {
-            self.title = title
-            self.icon = icon
-            self.data = data
-        }
-    }
-    
-    class EditData {
-        let title: String
-        let path: PartialKeyPath<Track>
-        let options: [NSBindingOption: Any]?
-        
-        init(title: String, path: PartialKeyPath<Track>, options: [NSBindingOption: Any]?) {
-            self.title = title
-            self.path = path
-            self.options = options
-        }
-    }
-
-    class InfoData {
-        let title: String
-        let show: (Track) -> String
-        
-        init(title: String, show: @escaping (Track) -> String) {
-            self.title = title
-            self.show = show
-        }
-    }
-    
-    enum ViewableTag : Equatable {
-        case tag(playlist: PlaylistManual)
-        case new
-        case many(playlists: Set<PlaylistManual>)
-        
-        static func ==(lhs: ViewableTag, rhs: ViewableTag) -> Bool {
-            switch (lhs, rhs) {
-            case (.tag(let a), .tag(let b)):
-                return a == b
-            case (.new, .new):
-                return true
-            case (.many(let a), .many(let b)):
-                return a == b
-
-            default:
-                return false
-            }
-        }
-    }
 
     var data : [GroupData] = [
         GroupData(title: "Tags", icon: #imageLiteral(resourceName: "tag"), data: []),
@@ -145,9 +91,12 @@ class TrackEditor: NSViewController {
             Library.shared.isTag(playlist: $0)
         }) {
             // Tags, better reload if some tag changed while we edit this.
-            let prev = outlineTokens
-            calculateTagTokens()
-            _editorOutline.animateDifference(childrenOf: data[0], from: prev, to: outlineTokens)
+            let newTokens = TrackEditor.desiredTagTokens(tracks: tracks)
+            if Set(newTokens) != Set(tagTokens) {
+                let prev = tagTokens
+                tagTokens = newTokens
+                _editorOutline.animateDifference(childrenOf: data[0], from: prev, to: outlineTokens)
+            }
         }
     }
 
@@ -194,7 +143,7 @@ class TrackEditor: NSViewController {
         self.tracks = converted
 
         let prevTokens = outlineTokens
-        calculateTagTokens()
+        tagTokens = TrackEditor.desiredTagTokens(tracks: tracks)
         _editorOutline.animateDifference(childrenOf: data[0], from: prevTokens, to: outlineTokens)
         
         for item in data.last!.data {
@@ -205,13 +154,7 @@ class TrackEditor: NSViewController {
 
         view.setFullSizeContent(_contentView)
     }
-    
-    func calculateTagTokens() {
-        let (omittedTags, sharedTags) = findShares(in: tracks.map { $0.tags })
-        let omittedPart : [ViewableTag] = omittedTags.isEmpty ? [] : [.many(playlists: omittedTags)]
-        tagTokens = omittedPart + sharedTags.sorted { $0.name < $1.name }.map { .tag(playlist: $0) }
-    }
-    
+        
     func showError(text: String) {
         tracks = []
         
@@ -418,3 +361,69 @@ class TrackDataCell: NSTableCellView {
     @IBOutlet var valueTextField: NSTextField?
 }
 
+extension TrackEditor {
+    class GroupData {
+        let title: String
+        let icon: NSImage
+        let data: [Any]
+        
+        init(title: String, icon: NSImage, data: [Any]) {
+            self.title = title
+            self.icon = icon
+            self.data = data
+        }
+    }
+    
+    class EditData {
+        let title: String
+        let path: PartialKeyPath<Track>
+        let options: [NSBindingOption: Any]?
+        
+        init(title: String, path: PartialKeyPath<Track>, options: [NSBindingOption: Any]?) {
+            self.title = title
+            self.path = path
+            self.options = options
+        }
+    }
+    
+    class InfoData {
+        let title: String
+        let show: (Track) -> String
+        
+        init(title: String, show: @escaping (Track) -> String) {
+            self.title = title
+            self.show = show
+        }
+    }
+    
+    enum ViewableTag : Hashable {
+        case tag(playlist: PlaylistManual)
+        case new
+        case many(playlists: Set<PlaylistManual>)
+        
+        static func ==(lhs: ViewableTag, rhs: ViewableTag) -> Bool {
+            switch (lhs, rhs) {
+            case (.tag(let a), .tag(let b)):
+                return a == b
+            case (.new, .new):
+                return true
+            case (.many(let a), .many(let b)):
+                return a == b
+                
+            default:
+                return false
+            }
+        }
+        
+        var hashValue: Int {
+            switch self {
+            case .tag(let playlist):
+                return playlist.hashValue
+            case .new:
+                return 1
+            case .many(let playlists):
+                return playlists.hashValue
+            }
+        }
+    }
+}

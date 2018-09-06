@@ -379,4 +379,19 @@ extension Set {
     static func +(lhs: Set, rhs: Set) -> Set {
         return lhs.union(rhs)
     }
+    
+    static func shares(in ts: [Set]) -> (Set, Set) {
+        guard !ts.isEmpty else {
+            return (Set(), Set())
+        }
+        
+        return ts.dropFirst().reduce((Set(), ts.first!)) { (acc, t) in
+            var (omitted, shared) = acc
+            
+            omitted = omitted.union(t.symmetricDifference(shared))
+            shared = shared.intersection(t)
+            
+            return (omitted, shared)
+        }
+    }
 }

@@ -15,20 +15,11 @@ extension TrackEditor : TTTokenFieldDelegate {
             return view.textField!.objectValue as! [Any]
         }
     }
-    
-    func findShares<T : Hashable>(in ts: [Set<T>]) -> (Set<T>, Set<T>) {
-        guard !ts.isEmpty else {
-            return (Set(), Set())
-        }
         
-        return ts.dropFirst().reduce((Set(), ts.first!)) { (acc, t) in
-            var (omitted, shared) = acc
-            
-            omitted = omitted.union(t.symmetricDifference(shared))
-            shared = shared.intersection(t)
-            
-            return (omitted, shared)
-        }
+    static func desiredTagTokens(tracks: [Track]) -> [ViewableTag] {
+        let (omittedTags, sharedTags) = Set.shares(in: tracks.map { $0.tags })
+        let omittedPart : [ViewableTag] = omittedTags.isEmpty ? [] : [.many(playlists: omittedTags)]
+        return omittedPart + sharedTags.sorted { $0.name < $1.name }.map { .tag(playlist: $0) }
     }
 
     func tagResults(search: String, exact: Bool = false) -> [PlaylistManual] {

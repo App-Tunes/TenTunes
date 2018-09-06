@@ -185,6 +185,5 @@ extension Track {
         }
         
         try tagLibFile.write()
-        // TODO Artwork
     }
 }

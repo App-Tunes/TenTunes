@@ -131,7 +131,7 @@ import Cocoa
 }
 
 extension CartesianRules.Token {
-    class Folder : CartesianRules.Token {
+    @objc(TenTunes_CartesianRules_Token_Folder) class Folder : CartesianRules.Token {
         var playlistID: NSManagedObjectID?
         
         init(playlist: PlaylistFolder?) {

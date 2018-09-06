@@ -82,10 +82,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let renamedClasses: [(AnyClass, String)] = [
             (SmartPlaylistRules.self, "TenTunes.PlaylistRules"),
             (SmartPlaylistRules.Token.InPlaylist.self, "_TtCC8TenTunes10TrackLabel10InPlaylist"),
+            (SmartPlaylistRules.Token.InPlaylist.self, "_TtCCC8TenTunes18SmartPlaylistRules5Token10InPlaylist"),
+            (SmartPlaylistRules.Token.MinBitrate.self, "_TtCC8TenTunes10TrackLabel10MinBitrate"),
+            (SmartPlaylistRules.Token.MinBitrate.self, "_TtCCC8TenTunes18SmartPlaylistRules5Token10MinBitrate"),
+            
             (CartesianRules.Token.Folder.self, "_TtCC8TenTunes13PlaylistLabel6Folder"),
             (CartesianRules.Token.Folder.self, "_TtCCC8TenTunes14CartesianRules5Token6Folder"),
-            (SmartPlaylistRules.Token.MinBitrate.self, "_TtCC8TenTunes10TrackLabel10MinBitrate"),
-            (SmartPlaylistRules.Token.Author.self, "_TtCC8TenTunes10TrackLabel6Author"),
         ]
         
         for (new, old) in renamedClasses {

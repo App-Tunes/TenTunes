@@ -9,6 +9,7 @@
 import Cocoa
 
 extension SmartPlaylistRules.Token {
+    @objc(TenTunes_SmartPlaylistRules_Token_Search)
     class Search : SmartPlaylistRules.Token {
         var string: String
         
@@ -39,6 +40,7 @@ extension SmartPlaylistRules.Token {
         }
     }
     
+    @objc(TenTunes_SmartPlaylistRules_Token_InPlaylist)
     class InPlaylist : SmartPlaylistRules.Token {
         var playlistID: NSManagedObjectID?
         var isTag: Bool
@@ -86,6 +88,7 @@ extension SmartPlaylistRules.Token {
         }
     }
     
+    @objc(TenTunes_SmartPlaylistRules_Token_Author)
     class Author : SmartPlaylistRules.Token {
         var author: Artist
         
@@ -116,6 +119,7 @@ extension SmartPlaylistRules.Token {
         }
     }
     
+    @objc(TenTunes_SmartPlaylistRules_Token_InAlbum)
     class InAlbum : SmartPlaylistRules.Token {
         var album: Album
         
@@ -147,6 +151,7 @@ extension SmartPlaylistRules.Token {
         }
     }
     
+    @objc(TenTunes_SmartPlaylistRules_Token_Genre)
     class Genre : SmartPlaylistRules.Token {
         var genre: String
         
@@ -178,6 +183,7 @@ extension SmartPlaylistRules.Token {
         }
     }
     
+    @objc(TenTunes_SmartPlaylistRules_Token_MinBitrate)
     class MinBitrate : SmartPlaylistRules.Token {
         var bitrate: Int
         
@@ -206,6 +212,7 @@ extension SmartPlaylistRules.Token {
         }
     }
     
+    @objc(TenTunes_SmartPlaylistRules_Token_InMediaDirectory)
     class InMediaDirectory : SmartPlaylistRules.Token {
         init(_ usesMediaDirectory: Bool) {
             super.init(not: !usesMediaDirectory)
@@ -228,6 +235,7 @@ extension SmartPlaylistRules.Token {
         }
     }
     
+    @objc(TenTunes_SmartPlaylistRules_Token_FileMissing)
     class FileMissing : SmartPlaylistRules.Token {
         init(_ missing: Bool) {
             super.init(not: !missing)
@@ -250,6 +258,7 @@ extension SmartPlaylistRules.Token {
         }
     }
     
+    @objc(TenTunes_SmartPlaylistRules_Token_AddedAfter)
     class AddedAfter : SmartPlaylistRules.Token {
         var date: Date
         

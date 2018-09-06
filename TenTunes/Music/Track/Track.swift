@@ -31,7 +31,7 @@ public class Track: NSManagedObject {
             return visuals?.artwork.flatMap { NSImage(data: $0 as Data) }
         }
         set {
-            forcedVisuals.artwork = artwork?.jpgRepresentation as NSData?
+            forcedVisuals.artwork = newValue?.jpgRepresentation as NSData?
             generateArtworkPreview()
         }
     }

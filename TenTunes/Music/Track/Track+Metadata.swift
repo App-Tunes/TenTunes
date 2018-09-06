@@ -117,9 +117,8 @@ extension Track {
         keyString = keyString ?? prevKeyString
         speed = speed ?? prevBPM
         
-        if visuals?.artwork != nil {
-            generateArtworkPreview()
-        }
+        // Also generate if artwork is nil since preview gets set to nil then too
+        generateArtworkPreview()
     }
     
     func generateArtworkPreview() {

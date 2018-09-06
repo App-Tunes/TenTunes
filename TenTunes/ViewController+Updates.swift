@@ -30,7 +30,7 @@ extension ViewController {
         
         for update in updates {
             // Modified track info?
-            if let track = update as? Track {
+            if let track = (update as? Track) ?? (update as? TrackVisuals)?.track {
                 trackController.reload(track: track)
                 playingTrackController.reload(track: track)
                 

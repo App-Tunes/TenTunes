@@ -31,12 +31,14 @@ class TrackEditor: NSViewController {
             EditData(title: "BPM", path: \Track.bpmString, options: nil),
             EditData(title: "Initial Key", path: \Track.keyString, options: nil),
             ]),
+        GroupData(title: "Album", icon: #imageLiteral(resourceName: "advanced-info"), data: [
+            EditData(title: "Remix Author", path: \Track.remixAuthor, options: nil),
+            EditData(title: "Comments", path: \Track.comments, options: nil),
+            ]),
         GroupData(title: "Album", icon: #imageLiteral(resourceName: "album"), data: [
             EditData(title: "Album Author", path: \Track.albumArtist, options: nil),
-            EditData(title: "Remix Author", path: \Track.remixAuthor, options: nil),
             EditData(title: "Year", path: \Track.year, options: [.valueTransformerName: "IntStringNullable"]),
             EditData(title: "Track No.", path: \Track.trackNumber, options: [.valueTransformerName: "IntStringNullable"]),
-            EditData(title: "Comments", path: \Track.comments, options: nil),
             ]),
         GroupData(title: "Info", icon: #imageLiteral(resourceName: "info"), data: [
             InfoData(title: "Duration") { $0.rDuration },

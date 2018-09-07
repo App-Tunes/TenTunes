@@ -38,8 +38,8 @@ class Analysis : NSObject, NSCoding {
         }
         
         values = values.map { $0.map {
-            guard $0.isNormal else {
-                print(String(format: "Found %f in %s", $0, self))
+            guard $0.isNormal || $0.isZero else {
+                print(String(format: "Found %f in analysis %s", $0, self))
                 return 0
             }
             

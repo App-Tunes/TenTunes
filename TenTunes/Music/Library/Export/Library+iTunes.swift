@@ -32,13 +32,14 @@ extension Library.Export {
             
             var trackDict: [String: Any] = [:]
             
+            // Dicts cannot contain nil
             trackDict["Track ID"] = idx
-            trackDict["Name"] = track.title
-            trackDict["Artist"] = track.author
-            trackDict["Album"] = track.album
-            trackDict["Location"] = track.path
-            trackDict["Genre"] = track.genre
-            trackDict["BPM"] = track.bpmString ?=> Int.init // Needs an int?
+            trackDict["Name"] = track.rTitle
+            trackDict["Artist"] = track.author ?? Artist.unknown
+            trackDict["Album"] = track.album ?? Album.unknown
+            trackDict["Location"] = track.path ?? ""
+            if let genre = track.genre { trackDict["Genre"] = genre }
+            if let bpm = track.bpmString ?=> Int.init { trackDict["BPM"] = bpm } // Needs an int?
             trackDict["Persistent ID"] = track.iTunesID ?? to16Hex(track.id) // TODO
             
             return (String(idx), trackDict)

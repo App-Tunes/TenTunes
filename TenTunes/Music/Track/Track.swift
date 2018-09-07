@@ -15,7 +15,6 @@ import AVFoundation
 public class Track: NSManagedObject {
     static let pasteboardType = NSPasteboard.PasteboardType(rawValue: "tentunes.track")
     
-    static let unknownAuthor = "Unknown Author"
     static let unknownTitle = "Unknown Title"
 
     var analysis: Analysis?

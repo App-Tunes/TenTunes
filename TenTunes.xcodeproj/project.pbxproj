@@ -93,6 +93,7 @@
 		80C1F14E213C77440032E554 /* TrackVisuals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C1F14C213C77440032E554 /* TrackVisuals.swift */; };
 		80C1F14F213C77440032E554 /* TrackVisuals+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C1F14D213C77440032E554 /* TrackVisuals+CoreDataProperties.swift */; };
 		80C1F151214033C40032E554 /* Enumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C1F150214033C40032E554 /* Enumerations.swift */; };
+		80C1F1552141F5430032E554 /* Foundation+async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C1F1542141F5430032E554 /* Foundation+async.swift */; };
 		80C8559E210512B400177035 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C8559D210512B400177035 /* Album.swift */; };
 		80CB652C20514E050031A6D7 /* Library+Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652B20514E050031A6D7 /* Library+Files.swift */; };
 		80CB652F2052C6CD0031A6D7 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652E2052C6CD0031A6D7 /* Operators.swift */; };
@@ -277,6 +278,7 @@
 		80C1F14C213C77440032E554 /* TrackVisuals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackVisuals.swift; sourceTree = "<group>"; };
 		80C1F14D213C77440032E554 /* TrackVisuals+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackVisuals+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		80C1F150214033C40032E554 /* Enumerations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enumerations.swift; sourceTree = "<group>"; };
+		80C1F1542141F5430032E554 /* Foundation+async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Foundation+async.swift"; sourceTree = "<group>"; };
 		80C8559D210512B400177035 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		80CB652B20514E050031A6D7 /* Library+Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Files.swift"; sourceTree = "<group>"; };
 		80CB652E2052C6CD0031A6D7 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
@@ -526,6 +528,7 @@
 				80CB652E2052C6CD0031A6D7 /* Operators.swift */,
 				80802585203EFCC0008D4168 /* Foundation+TT.swift */,
 				80C1F142213B1DE80032E554 /* Foundation+Collections.swift */,
+				80C1F1542141F5430032E554 /* Foundation+async.swift */,
 				80CB65322052C9530031A6D7 /* Cocoa+TT.swift */,
 				80CB65342052C9CC0031A6D7 /* CoreData+TT.swift */,
 				80CED03B20C88055001E710F /* AVFoundation+TT.swift */,
@@ -865,6 +868,7 @@
 				80E2C9E1204AE18E00298E81 /* Track+CoreDataProperties.swift in Sources */,
 				80F11E5920CA732E00331D12 /* Library+Symlink.swift in Sources */,
 				803E972F20C7EF2C00D46565 /* LazyMap.swift in Sources */,
+				80C1F1552141F5430032E554 /* Foundation+async.swift in Sources */,
 				8087A494206597DC00CC9569 /* EnterReturningTextField.swift in Sources */,
 				8079F6D32106551100B7A278 /* SmartPlaylistRulesController.swift in Sources */,
 				80CED03C20C88055001E710F /* AVFoundation+TT.swift in Sources */,

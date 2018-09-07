@@ -142,13 +142,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return .terminateNow // We aren't fully launched yet anyway! Who the fuck cares!
         }
         
-        let tasksPreventingQuit = (ViewController.shared.tasker.queue + ViewController.shared.runningTasks).filter { $0.preventsQuit }
+        let runningTasks = ViewController.shared.runningTasks
+        let tasksPreventingQuit = (ViewController.shared.tasker.queue + runningTasks).filter { $0.preventsQuit }
         
         // TODO Live update this
         guard NSAlert.ensure(intent: tasksPreventingQuit.isEmpty, action: "Running Tasks", text: "There are currently still \(tasksPreventingQuit.count) tasks running. Do you want to quit anyway?") else {
             return .terminateCancel
         }
         
+        ViewController.shared.tasker.queue.clear()
+        // Try to cancel to speed up quitting
+        for task in runningTasks {
+            task.cancel()
+        }
+                
         // Save changes in the application's managed object context before the application terminates.
         let context = persistentContainer.viewContext
         

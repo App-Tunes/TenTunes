@@ -8,8 +8,8 @@ out vec4 fragColour;
 
 //#extension GL_OES_standard_derivatives : enable
 
-const int freq_count = 10;
-const int point_count = 10;
+const int freq_count = 9;
+const int point_count = 9;
 const int points_per_freq = point_count / freq_count;
 const float decay = 0.000000000001;
 

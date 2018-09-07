@@ -19,19 +19,25 @@ extension GLSLView {
 }
 
 class VisualizerView: GLSLView {
+    static let frequencyCount = 9
 
-    var currentFrequencies: [CGFloat] = Array(repeating: 0, count: 10)
+    var currentFrequencies: [CGFloat] = Array(repeating: 0, count: VisualizerView.frequencyCount)
     
     var guFrequencies: GLint = -1
     var guFrequencyColors: GLint = -1
     
-    func update(withFFT: [Double]) {
-        let desired = withFFT.map { CGFloat($0) }
-            .dropLast(16)
-            .remap(toSize: currentFrequencies.count)
+    func update(withFFT fft: [Double]) {
+        
+        let desiredDoubles: [Double] = (0 ..< currentFrequencies.count).map { idx in
+            let start = Int((pow(2.0, Double(idx))) - 1)
+            let end = Int((pow(2.0, Double(idx) + 1)) - 1)
+            return fft[start ..< end].reduce(0, +)
+            }
+        
+        let desired = desiredDoubles.map { CGFloat($0) }
             .map { max(0, pow($0, 2) - 0.000001) }
 
-        currentFrequencies = Interpolation.linear(currentFrequencies, desired, amount: 0.2)
+        currentFrequencies = Interpolation.linear(currentFrequencies, desired, amount: 0.25)
     }
     
     override func setupShaders() {

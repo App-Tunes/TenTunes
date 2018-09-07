@@ -26,16 +26,29 @@ float dist(vec2 a, vec2 b) {
     return ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 }
 
-float influence(vec2 point, float freq) {
-    float dist = max(0.04, dist(gl_FragCoord.xy, point.xy) / (resolution.x * resolution.y));
-    return pow(freq / abs(dist), 5);
+float influence(vec2 point, vec2 pos, float freq) {
+    float dist = max(0.04, dist(pos, point.xy) / (resolution.x * resolution.y));
+    return pow(freq / dist, 3 + freq / 10);
 }
 
 void main( void ) {
     int points_per_freq = pointCount / freqCount;
+    vec2 pos = gl_FragCoord.xy;
     
+    float centerX = pos.x - resolution.x / 2;
+    float centerY = pos.y - resolution.y / 2;
+
+    // Position-shift based on time
+    float posChange = (sin(time * 0.2234 + centerX * centerY / (resolution.x * resolution.y) * 2) + 1) / 6;
+    pos = mod(pos, 6 + sin(time * 0.4123) * 2) * posChange + pos * (1 - posChange);
+
+    centerX = pos.x - resolution.x / 2;
+    centerY = pos.y - resolution.y / 2;
+
     float pTime = time * 0.1;
-    float fTime = time * 4.0;
+    // Time-shift depending on x/y coord for some cool patterns
+    pTime += sin(centerX * sin(time * 0.1) / 8.0 + centerY * sin(time * 0.11) / 8.0) * 0.01;
+    pTime += sin(centerX * sin(time * 0.212) / 2.0 + centerY * sin(time * 0.257) / 2.0) * 0.013;
 
     float points[MAX_POINT_COUNT * 2];
     for (int i = 0; i < pointCount; i++) {
@@ -48,7 +61,7 @@ void main( void ) {
     float individualOmega[MAX_POINT_COUNT];
     for (int i = 0; i < pointCount; i++) {
         vec2 point = vec2(points[i * 2 + 0], points[i * 2 + 1]);
-        float inf = influence(point, frequencies[i / points_per_freq]);
+        float inf = influence(point, pos, frequencies[i / points_per_freq]);
         
         totalOmega += inf;
         individualOmega[i] = inf;

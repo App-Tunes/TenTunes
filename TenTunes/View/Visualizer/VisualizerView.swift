@@ -27,21 +27,23 @@ class VisualizerView: GLSLView {
     var guPointCount: GLint = -1
 
     func update(withFFT fft: [Double]) {
-        let desiredLength = Int(log(Double(fft.count)) / log(2))
+        let desiredLength = Int(log(Double(fft.count - 1)) / log(2))
         if currentFrequencies.count != desiredLength {
             currentFrequencies = Array(repeating: 0, count: desiredLength)
         }
         
         let desiredDoubles: [Double] = (0 ..< currentFrequencies.count).map { idx in
             let start = Int((pow(2.0, Double(idx))) - 1)
-            let end = Int((pow(2.0, Double(idx) + 1)) - 1)
+            // We do +2 so we have an overlap between similar frequencies
+            let end = Int((pow(2.0, Double(idx) + 2)) - 1)
+            // Don't divide by size since this is how we hear it too
             return fft[start ..< end].reduce(0, +)
             }
         
         let desired = desiredDoubles.map { CGFloat($0) }
-            .map { max(0, $0 - 0.95) / 0.95 }
+            .map { max(0, $0 - 0.05) / 0.95 }
 
-        currentFrequencies = Interpolation.linear(currentFrequencies, desired, amount: 0.2)
+        currentFrequencies = Interpolation.linear(currentFrequencies, desired, amount: 0.15)
     }
     
     override func setupShaders() {

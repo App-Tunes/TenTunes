@@ -8,8 +8,8 @@ out vec4 fragColour;
 
 //#extension GL_OES_standard_derivatives : enable
 
-const int MAX_FREQ_COUNT = 12;
-const int MAX_POINT_COUNT = 12;
+const int MAX_FREQ_COUNT = 10;
+const int MAX_POINT_COUNT = 10;
 
 const float decay = 1;
 
@@ -35,6 +35,10 @@ void main( void ) {
     int points_per_freq = pointCount / freqCount;
     vec2 pos = gl_FragCoord.xy;
     
+    float lows = (0.5 + frequencies[0] * 0.1);
+    float mids = (0.5 + frequencies[int(float(freqCount) / 2)] * 0.1);
+    float highs = (0.5 + frequencies[freqCount - 1] * 0.1);
+
     float centerX = pos.x - resolution.x / 2;
     float centerY = pos.y - resolution.y / 2;
 
@@ -47,8 +51,9 @@ void main( void ) {
 
     float pTime = time * 0.1;
     // Time-shift depending on x/y coord for some cool patterns
-    pTime += sin(centerX * sin(time * 0.1) / 8.0 + centerY * sin(time * 0.11) / 8.0) * 0.01;
-    pTime += sin(centerX * sin(time * 0.212) / 2.0 + centerY * sin(time * 0.257) / 2.0) * 0.013;
+    pTime += sin(centerX * sin(time * 0.0754) / 32.0 + centerY * cos(time * 0.0834) / 32.0) * 0.07 * lows;
+    pTime += sin(centerX * cos(time * 0.1) / 8.0 + centerY * sin(time * 0.11) / 8.0) * 0.01 * mids;
+    pTime += sin(centerX * sin(time * 0.212) / 2.0 + centerY * sin(time * 0.257) / 2.0) * 0.013 * highs;
 
     float points[MAX_POINT_COUNT * 2];
     for (int i = 0; i < pointCount; i++) {

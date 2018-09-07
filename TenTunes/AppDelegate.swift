@@ -15,6 +15,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     var preferencesController: PreferencesWindowController!
     var exportPlaylistsController: ExportPlaylistsController!
+    var visualizerController: VisualizerWindowController!
 
     func applicationWillFinishLaunching(_ notification: Notification) {
         setupBackwardsCompatibility()
@@ -104,6 +105,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         exportPlaylistsController = ExportPlaylistsController(windowNibName: .init(rawValue: "ExportPlaylistsController"))
         
+        visualizerController = VisualizerWindowController(windowNibName: .init("VisualizerWindowController"))
+        visualizerController.showWindow(self)
+        
         NSUserNotificationCenter.default.delegate = self
     }
 
@@ -155,7 +159,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         for task in runningTasks {
             task.cancel()
         }
-                
+        
         // Save changes in the application's managed object context before the application terminates.
         let context = persistentContainer.viewContext
         

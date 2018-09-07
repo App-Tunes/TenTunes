@@ -22,7 +22,7 @@ extension Library {
         override var preventsQuit: Bool { return false }
         
         override func execute() {
-            library.performChildBackgroundTask { mox in
+            performChildBackgroundTask(for: library) { mox in
                 self.check(in: mox)
                 self.finish()
             }
@@ -39,10 +39,14 @@ extension Library {
                     master.addToChildren(playlist)
                 }
             }
+            
+            if self.checkCanceled() { return }
 
             for case let playlist as PlaylistCartesian in allPlaylists {
                 playlist.checkSanity(in: context)
             }
+            
+            if self.uncancelable() { return }
             
             let brokenVisualsRequest: NSFetchRequest<NSFetchRequestResult> = TrackVisuals.fetchRequest()
             brokenVisualsRequest.predicate = NSPredicate(format: "track == nil")

@@ -8,24 +8,19 @@ out vec4 fragColour;
 
 //#extension GL_OES_standard_derivatives : enable
 
-const int freq_count = 6;
-const int point_count = 12;
+const int freq_count = 10;
+const int point_count = 10;
 const int points_per_freq = point_count / freq_count;
-const float decay = 0.0000000001;
+const float decay = 0.000000000001;
 
 uniform float frequencies[freq_count];
+uniform float frequencyColors[freq_count * 3];
+
 uniform float time;
 uniform vec2 resolution;
 
 float dist(vec2 a, vec2 b) {
     return ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
-}
-
-vec3 hsv2rgb(vec3 c)
-{
-    vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
-    vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
-    return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
 }
 
 float influence(vec2 point, float freq) {
@@ -45,18 +40,22 @@ void main( void ) {
     }
 
     float totalOmega = decay / resolution.x;
+    float individualOmega[point_count];
     for (int i = 0; i < point_count; i++) {
         vec2 point = vec2(points[i * 2 + 0], points[i * 2 + 1]);
-        totalOmega += influence(point, frequencies[i / points_per_freq]);
+        float inf = influence(point, frequencies[i / points_per_freq]);
+        
+        totalOmega += inf;
+        individualOmega[i] = inf;
     }
 
-    vec4 color = vec4(0, 0, 0, 1);
+    vec3 color = vec3(0, 0, 0);
     
+    totalOmega = 1.0 / totalOmega;
     for (int i = 0; i < point_count; i++) {
-        vec2 point = vec2(points[i * 2 + 0], points[i * 2 + 1]);
-        vec3 pointColor = hsv2rgb(vec3(float(i / points_per_freq) / float(freq_count - 1) * 0.8, 0.7, 0.5));
-        color.rgb += pointColor * (influence(point, frequencies[i / points_per_freq]) / totalOmega);
+        vec3 pointColor = vec3(frequencyColors[i / points_per_freq * 3], frequencyColors[i / points_per_freq * 3 + 1], frequencyColors[i / points_per_freq * 3 + 2]);
+        color += pointColor * (individualOmega[i] * totalOmega);
     }
     
-    fragColour = color;
+    fragColour = vec4(color, 1);
 }

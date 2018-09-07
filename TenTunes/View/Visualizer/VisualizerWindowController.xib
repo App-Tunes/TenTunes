@@ -7,7 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="VisualizerWindowController" customModule="TenTunes" customModuleProvider="target">
             <connections>
-                <outlet property="_glslView" destination="zxW-aU-Jsz" id="bCa-jC-ctN"/>
+                <outlet property="_visualizerView" destination="zxW-aU-Jsz" id="bCa-jC-ctN"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -22,7 +22,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="zxW-aU-Jsz" customClass="GLSLView">
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="zxW-aU-Jsz" customClass="VisualizerView" customModule="TenTunes" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                     </customView>
                 </subviews>

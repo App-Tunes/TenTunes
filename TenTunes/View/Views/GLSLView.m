@@ -11,26 +11,9 @@
 
 @implementation GLSLView
 
-- (void)setFrequencies:(NSArray *)frequencies {
-    for (int i = 0; i < 6; i++) {
-        frequenciesArray[i] = [[frequencies objectAtIndex:i] floatValue];
-    }
-}
-
-- (NSArray *)getFrequencies {
-    NSMutableArray *array = [NSMutableArray array];
-    for (int i = 0; i < 6; i++) {
-        [array addObject:[NSNumber numberWithFloat:frequenciesArray[i]]];
-    }
-    return array;
-}
-
 - (void)awakeFromNib
 {
     [self setStartDate: [NSDate date]];
-    for (int i = 0; i < 6; i++) {
-        frequenciesArray[i] = 1;
-    }
     
     int error;
     
@@ -56,46 +39,9 @@
     if ((error = glGetError()) != 0) { NSLog(@"Setup GL Error: %d", error); }
 
     // 3. Define and compile vertex and fragment shaders
-    GLuint  vs;
-    GLuint  fs;
-    NSString *fragmentPath = [[NSBundle mainBundle] pathForResource:@"visualizer" ofType:@"fs"];
-    const char *fss = [[NSString stringWithContentsOfFile:fragmentPath encoding:NSUTF8StringEncoding error:nil] cStringUsingEncoding:NSUTF8StringEncoding];
+    [self setupShaders];
     
-    NSString *vertexPath = [[NSBundle mainBundle] pathForResource:@"visualizer" ofType:@"vs"];
-    const char *vss= [[NSString stringWithContentsOfFile:vertexPath encoding:NSUTF8StringEncoding error:nil] cStringUsingEncoding:NSUTF8StringEncoding];
-
-    vs = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vs, 1, &vss, NULL);
-    glCompileShader(vs);
-    if ((error = glGetError()) != 0) { NSLog(@"VS Compile GL Error: %d", error); }
-
-    fs = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fs, 1, &fss, NULL);
-    glCompileShader(fs);
-    if ((error = glGetError()) != 0) { NSLog(@"FS Compile GL Error: %d", error); }
-
-    // 4. Attach the shaders
-    shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vs);
-    glAttachShader(shaderProgram, fs);
-    glLinkProgram(shaderProgram);
-    
-    if ((error = glGetError()) != 0) { NSLog(@"Shader Link GL Error: %d", error); }
-
-    // 5. Get pointers to uniforms and attributes
-    positionUniform = glGetUniformLocation(shaderProgram, "p");
-    positionAttribute = glGetAttribLocation(shaderProgram, "position");
-    
-    timeAttribute = glGetUniformLocation(shaderProgram, "time");
-    resolutionAttribute = glGetUniformLocation(shaderProgram, "resolution");
-    frequenciesAttribute = glGetUniformLocation(shaderProgram, "frequencies");
-
-    if ((error = glGetError()) != 0) { NSLog(@"Attrib Link GL Error: %d", error); }
-
-    glDeleteShader(vs);
-    glDeleteShader(fs);
-    
-    // 6. Upload vertices (1st four values in a row) and colours (following four values)
+    // 6. Upload vertices 
     GLfloat vertexData[]= { -1,-1,0.0,1.0,
         -1, 1,0.0,1.0,
         1, 1,0.0,1.0,
@@ -114,17 +60,104 @@
     if ((error = glGetError()) != 0) { NSLog(@"Setup End GL Error: %d", error); }
 }
 
+- (void)setupShaders {
+    int error;
+    
+    GLuint  vs;
+    GLuint  fs;
+    NSString *fragmentPath = [[NSBundle mainBundle] pathForResource:@"visualizer" ofType:@"fs"];
+    const char *fss = [[NSString stringWithContentsOfFile:fragmentPath encoding:NSUTF8StringEncoding error:nil] cStringUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *vertexPath = [[NSBundle mainBundle] pathForResource:@"visualizer" ofType:@"vs"];
+    const char *vss= [[NSString stringWithContentsOfFile:vertexPath encoding:NSUTF8StringEncoding error:nil] cStringUsingEncoding:NSUTF8StringEncoding];
+    
+    vs = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vs, 1, &vss, NULL);
+    glCompileShader(vs);
+    if (![self checkCompiled: vs]) { return; }
+    
+    fs = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fs, 1, &fss, NULL);
+    glCompileShader(fs);
+    if (![self checkCompiled: fs]) { return; }
+    
+    // 4. Attach the shaders
+    shaderProgram = glCreateProgram();
+    glAttachShader(shaderProgram, vs);
+    glAttachShader(shaderProgram, fs);
+    glLinkProgram(shaderProgram);
+    
+    if ((error = glGetError()) != 0) { NSLog(@"Shader Link GL Error: %d", error); }
+    if (![self checkLinked: shaderProgram]) { return; }
+
+    // 5. Get pointers to uniforms and attributes
+    positionUniform = glGetUniformLocation(shaderProgram, "p");
+    positionAttribute = glGetAttribLocation(shaderProgram, "position");
+    
+    timeAttribute = glGetUniformLocation(shaderProgram, "time");
+    resolutionAttribute = glGetUniformLocation(shaderProgram, "resolution");
+    
+    if ((error = glGetError()) != 0) { NSLog(@"Attrib Link GL Error: %d", error); }
+    
+    glDeleteShader(vs);
+    glDeleteShader(fs);
+}
+
+- (BOOL)checkCompiled:(GLint)obj {
+    GLint isCompiled = 0;
+    glGetShaderiv(obj, GL_COMPILE_STATUS, &isCompiled);
+    if(isCompiled == GL_FALSE)
+    {
+        GLint maxLength = 0;
+        glGetShaderiv(obj, GL_INFO_LOG_LENGTH, &maxLength);
+        
+        GLchar *log = (GLchar *)malloc(maxLength);
+        glGetShaderInfoLog(obj, maxLength, &maxLength, log);
+        printf("Shader Compile Error: \n%s\n", log);
+        free(log);
+        
+        glDeleteShader(obj);
+        return NO;
+    }
+    
+    return YES;
+}
+
+- (BOOL)checkLinked:(GLint)obj {
+    int maxLength = 0;
+    glGetProgramiv(obj, GL_INFO_LOG_LENGTH, &maxLength);
+    if (maxLength > 0)
+    {
+        GLchar *log = (GLchar *)malloc(maxLength);
+        glGetProgramInfoLog(obj, maxLength, &maxLength, log);
+        printf("Shader Program Error: \n%s\n", log);
+        free(log);
+        
+        return NO;
+    }
+    
+    return YES;
+}
+
 - (void)drawFrame {
     glUseProgram(shaderProgram);
     
     glUniform1f(timeAttribute, -[[self startDate] timeIntervalSinceNow]);
     glUniform2f(resolutionAttribute, _bounds.size.width, _bounds.size.height);
-    
-    glUniform1fv(frequenciesAttribute, 6, frequenciesArray);
 
+    [self uploadUniforms];
+    
     GLfloat p[]={0,0};
     glUniform2fv(positionUniform, 1, (const GLfloat *)&p);
     glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+}
+
+- (GLint)findUniform:(NSString *)name {
+    return glGetUniformLocation(shaderProgram, [name cStringUsingEncoding:NSASCIIStringEncoding]);
+}
+
+- (void)uploadUniforms {
+    
 }
 
 @end

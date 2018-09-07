@@ -17,12 +17,7 @@ extension ViewController {
     
     func startBackgroundTasks() {
         self.visualTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true ) { [unowned self] (timer) in
-            for (idx, tracker) in self.player.trackers.enumerated() {
-                self.player.trackedValues[idx] = Interpolation.linear(self.player.trackedValues[idx], CGFloat(tracker.amplitude), amount: 0.1)
-            }
-
-            let frequencies = self.player.trackedValues.map { CGFloat.maximum(0, pow($0, 2) - 0.0005) }
-            (NSApp.delegate as! AppDelegate).visualizerController._glslView.frequencies = frequencies
+            (NSApp.delegate as! AppDelegate).visualizerController._visualizerView.update(withFFT: self.player.fft.fftData)
 
             guard self.view.window?.isVisible ?? false else {
                 return

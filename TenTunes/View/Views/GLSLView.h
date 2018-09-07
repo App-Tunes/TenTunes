@@ -23,12 +23,13 @@
 
     GLint timeAttribute;
     GLint resolutionAttribute;
-    GLint frequenciesAttribute;
-    
-    GLfloat frequenciesArray[24];
 }
 
 @property NSDate *startDate;
-@property (nonatomic) NSArray *frequencies;
+
+- (void)setupShaders;
+
+- (GLint)findUniform:(NSString *)name;
+- (void)uploadUniforms;
 
 @end

@@ -10,7 +10,7 @@ import Cocoa
 
 class VisualizerWindowController: NSWindowController {
 
-    @IBOutlet var _glslView: GLSLView!
+    @IBOutlet var _visualizerView: VisualizerView!
     
     override func windowDidLoad() {
         super.windowDidLoad()

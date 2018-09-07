@@ -102,6 +102,7 @@
 		80C1F1682142928B0032E554 /* default.vs in Resources */ = {isa = PBXBuildFile; fileRef = 80C1F1672142928B0032E554 /* default.vs */; };
 		80C1F16A21429AC70032E554 /* visualizer.vs in Resources */ = {isa = PBXBuildFile; fileRef = 80C1F16921429AC70032E554 /* visualizer.vs */; };
 		80C1F16D2142AA010032E554 /* RFOpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C1F16C2142AA010032E554 /* RFOpenGLView.m */; };
+		80C1F16F2142E7E80032E554 /* VisualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C1F16E2142E7E80032E554 /* VisualizerView.swift */; };
 		80C8559E210512B400177035 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C8559D210512B400177035 /* Album.swift */; };
 		80CB652C20514E050031A6D7 /* Library+Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652B20514E050031A6D7 /* Library+Files.swift */; };
 		80CB652F2052C6CD0031A6D7 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652E2052C6CD0031A6D7 /* Operators.swift */; };
@@ -297,6 +298,7 @@
 		80C1F16921429AC70032E554 /* visualizer.vs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = visualizer.vs; sourceTree = "<group>"; };
 		80C1F16B2142AA010032E554 /* RFOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RFOpenGLView.h; sourceTree = "<group>"; };
 		80C1F16C2142AA010032E554 /* RFOpenGLView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RFOpenGLView.m; sourceTree = "<group>"; };
+		80C1F16E2142E7E80032E554 /* VisualizerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerView.swift; sourceTree = "<group>"; };
 		80C8559D210512B400177035 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		80CB652B20514E050031A6D7 /* Library+Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Files.swift"; sourceTree = "<group>"; };
 		80CB652E2052C6CD0031A6D7 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
@@ -440,6 +442,7 @@
 				807E4B44206428050051C028 /* Controls */,
 				80F8550220691866009A8FBE /* PlaylistController */,
 				80F854FC206917D6009A8FBE /* TrackController */,
+				80C1F1702142E9E60032E554 /* Visualizer */,
 				80F2C58E20389B9B00212739 /* WaveformView.swift */,
 				8058FABF2043409F0086FF8A /* VibrantTableRowView.swift */,
 				8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */,
@@ -450,8 +453,6 @@
 				807092EA20C69D8F00DFED53 /* ExportPlaylistsController.xib */,
 				8030E01220FCBDAA006B4AE8 /* TaskViewController.swift */,
 				8030E01320FCBDAA006B4AE8 /* TaskViewController.xib */,
-				80C1F15E214286A40032E554 /* VisualizerWindowController.swift */,
-				80C1F15F214286A40032E554 /* VisualizerWindowController.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -555,6 +556,16 @@
 				80C1F1672142928B0032E554 /* default.vs */,
 			);
 			path = Shader;
+			sourceTree = "<group>";
+		};
+		80C1F1702142E9E60032E554 /* Visualizer */ = {
+			isa = PBXGroup;
+			children = (
+				80C1F15E214286A40032E554 /* VisualizerWindowController.swift */,
+				80C1F15F214286A40032E554 /* VisualizerWindowController.xib */,
+				80C1F16E2142E7E80032E554 /* VisualizerView.swift */,
+			);
+			path = Visualizer;
 			sourceTree = "<group>";
 		};
 		80CB65302052C9180031A6D7 /* Extensions */ = {
@@ -954,6 +965,7 @@
 				80C1F143213B1DE80032E554 /* Foundation+Collections.swift in Sources */,
 				80F97030209625E800A989D8 /* PreferencesWindowController.swift in Sources */,
 				8093467120A62319001D15CD /* TrackController+Pasteboard.swift in Sources */,
+				80C1F16F2142E7E80032E554 /* VisualizerView.swift in Sources */,
 				80B68BA72101204200A32E3D /* PlaylistSmart.swift in Sources */,
 				80E937592039C2850014C835 /* Keycodes.swift in Sources */,
 				80E2C9FB204B40A000298E81 /* PlaylistFolder.swift in Sources */,

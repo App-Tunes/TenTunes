@@ -40,9 +40,7 @@ class Player {
     var historyProvider: (() -> PlayHistory)?
     
     var mixer: AKMixer
-    var trackers: [AKAmplitudeTracker] = []
-    var trackedValues: [CGFloat] = []
-    var outputNode: AKNode
+    var fft: AKFFTTap
 
     var shuffle = true {
         didSet {
@@ -54,26 +52,9 @@ class Player {
         player = AKPlayer()
         backingPlayer = AKPlayer()
         mixer = AKMixer(player, backingPlayer)
-        
-        outputNode = mixer // Just until the rest is initialized, kinda hacky
-        
-        var outputs: [AKNode] = [mixer]
-        let count = 6
-        for i in 0 ..< count {
-            let left = pow(10, log(20000) / log(10) * (Double(i + 2) / Double(count + 2)))
-            let right = pow(10, log(20000) / log(10) * (Double(i + 3) / Double(count + 2)))
-            let bandPass = AKBandPassButterworthFilter(mixer, centerFrequency: (left + right) / 2, bandwidth: (right - left) / 2)
-            
-            let tracker = AKAmplitudeTracker(bandPass)
-            trackers.append(tracker)
-            trackedValues.append(0)
-            
-            let gainer = AKBooster(tracker, gain: 0)
-            outputs.append(gainer)
-        }
-        
-        outputNode = AKMixer(outputs)
-        
+                
+        fft = AKFFTTap(player)
+
         // The completion handler sucks...
         // TODO When it stops sucking, replace our completion timer hack
         //        self.player.completionHandler =
@@ -85,7 +66,7 @@ class Player {
     }
     
     func start() {
-        AudioKit.output = outputNode
+        AudioKit.output = mixer
     }
     
     

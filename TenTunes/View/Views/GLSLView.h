@@ -23,8 +23,12 @@
 
     GLint timeAttribute;
     GLint resolutionAttribute;
+    GLint frequenciesAttribute;
+    
+    GLfloat frequenciesArray[24];
 }
 
 @property NSDate *startDate;
+@property (nonatomic) NSArray *frequencies;
 
 @end

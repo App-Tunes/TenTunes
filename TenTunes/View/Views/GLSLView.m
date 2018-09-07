@@ -11,9 +11,26 @@
 
 @implementation GLSLView
 
+- (void)setFrequencies:(NSArray *)frequencies {
+    for (int i = 0; i < 6; i++) {
+        frequenciesArray[i] = [[frequencies objectAtIndex:i] floatValue];
+    }
+}
+
+- (NSArray *)getFrequencies {
+    NSMutableArray *array = [NSMutableArray array];
+    for (int i = 0; i < 6; i++) {
+        [array addObject:[NSNumber numberWithFloat:frequenciesArray[i]]];
+    }
+    return array;
+}
+
 - (void)awakeFromNib
 {
     [self setStartDate: [NSDate date]];
+    for (int i = 0; i < 6; i++) {
+        frequenciesArray[i] = 1;
+    }
     
     int error;
     
@@ -71,6 +88,7 @@
     
     timeAttribute = glGetUniformLocation(shaderProgram, "time");
     resolutionAttribute = glGetUniformLocation(shaderProgram, "resolution");
+    frequenciesAttribute = glGetUniformLocation(shaderProgram, "frequencies");
 
     if ((error = glGetError()) != 0) { NSLog(@"Attrib Link GL Error: %d", error); }
 
@@ -102,6 +120,8 @@
     glUniform1f(timeAttribute, -[[self startDate] timeIntervalSinceNow]);
     glUniform2f(resolutionAttribute, _bounds.size.width, _bounds.size.height);
     
+    glUniform1fv(frequenciesAttribute, 6, frequenciesArray);
+
     GLfloat p[]={0,0};
     glUniform2fv(positionUniform, 1, (const GLfloat *)&p);
     glDrawArrays(GL_TRIANGLE_FAN, 0, 4);

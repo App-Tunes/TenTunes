@@ -4,5 +4,6 @@
 
 #import "TagLibFile.h"
 #import "SPAnalyzer.h"
+#import "GLSLView.h"
 
 #import <CommonCrypto/CommonCrypto.h>

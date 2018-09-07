@@ -17,6 +17,13 @@ extension ViewController {
     
     func startBackgroundTasks() {
         self.visualTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true ) { [unowned self] (timer) in
+            for (idx, tracker) in self.player.trackers.enumerated() {
+                self.player.trackedValues[idx] = Interpolation.linear(self.player.trackedValues[idx], CGFloat(tracker.amplitude), amount: 0.1)
+            }
+
+            let frequencies = self.player.trackedValues.map { CGFloat.maximum(0, pow($0, 2) - 0.0005) }
+            (NSApp.delegate as! AppDelegate).visualizerController._glslView.frequencies = frequencies
+
             guard self.view.window?.isVisible ?? false else {
                 return
             }
@@ -115,7 +122,7 @@ extension ViewController {
                     analysisRequest.predicate = NSPredicate(format: "analysis == nil")
                     analysisRequest.fetchLimit = 100
                     let tracks = Library.shared.viewContext.compactConvert(try! mox.fetch(analysisRequest))
-                        .compactMap { $0.track } // Who knows, might be gone 
+                        .compactMap { $0.track } // Who knows, might be gone
                         .filter { $0.url != nil }
 
                     // Need to do this in sync because we use tasker.enqueue

@@ -11,7 +11,7 @@ out vec4 fragColour;
 const int MAX_FREQ_COUNT = 12;
 const int MAX_POINT_COUNT = 12;
 
-const float decay = 0.000000000001;
+const float decay = 0.0000000001;
 
 uniform int freqCount;
 uniform int pointCount;
@@ -27,8 +27,8 @@ float dist(vec2 a, vec2 b) {
 }
 
 float influence(vec2 point, float freq) {
-    float dist = max(resolution.x / 3, dist(gl_FragCoord.xy, point.xy));
-    return freq / abs(dist);
+    float dist = max(0.04, dist(gl_FragCoord.xy, point.xy) / (resolution.x * resolution.y));
+    return pow(freq / abs(dist), 5);
 }
 
 void main( void ) {

@@ -39,9 +39,9 @@ class VisualizerView: GLSLView {
             }
         
         let desired = desiredDoubles.map { CGFloat($0) }
-            .map { max(0, $0 - 0.000001) }
+            .map { max(0, $0 - 0.95) / 0.95 }
 
-        currentFrequencies = Interpolation.linear(currentFrequencies, desired, amount: 0.25)
+        currentFrequencies = Interpolation.linear(currentFrequencies, desired, amount: 0.2)
     }
     
     override func setupShaders() {
@@ -59,7 +59,7 @@ class VisualizerView: GLSLView {
         glUniform1fv(currentFrequencies.map { GLfloat($0) }, as: guFrequencies)
         
         let colors = (0 ..< currentFrequencies.count).map {
-            NSColor(hue: CGFloat($0) / CGFloat(currentFrequencies.count) * 0.8, saturation: 0.8, brightness: 0.5, alpha: 1)
+            NSColor(hue: CGFloat($0) / CGFloat(currentFrequencies.count) * 0.8, saturation: 1.0, brightness: 0.5, alpha: 1)
         }
         glUniform1fv(colors.flatMap { [Float($0.redComponent), Float($0.greenComponent), Float($0.blueComponent)] }, as: guFrequencyColors)
     }

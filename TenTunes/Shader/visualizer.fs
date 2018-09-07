@@ -11,7 +11,7 @@ out vec4 fragColour;
 const int MAX_FREQ_COUNT = 12;
 const int MAX_POINT_COUNT = 12;
 
-const float decay = 0.0000000001;
+const float decay = 1;
 
 uniform int freqCount;
 uniform int pointCount;
@@ -27,7 +27,7 @@ float dist(vec2 a, vec2 b) {
 }
 
 float influence(vec2 point, vec2 pos, float freq) {
-    float dist = max(0.04, dist(pos, point.xy) / (resolution.x * resolution.y));
+    float dist = max(0.02 + freq / 100, dist(pos, point.xy) / (resolution.x * resolution.y));
     return pow(freq / dist, 3 + freq / 10);
 }
 
@@ -66,14 +66,15 @@ void main( void ) {
         totalOmega += inf;
         individualOmega[i] = inf;
     }
-
-    vec3 color = vec3(0, 0, 0);
     
+    vec4 color = vec4(0, 0, 0, 0);
+
     totalOmega = 1.0 / totalOmega;
     for (int i = 0; i < pointCount; i++) {
         vec3 pointColor = vec3(frequencyColors[i / points_per_freq * 3], frequencyColors[i / points_per_freq * 3 + 1], frequencyColors[i / points_per_freq * 3 + 2]);
-        color += pointColor * (individualOmega[i] * totalOmega);
+        color.rgb += pointColor * (individualOmega[i] * totalOmega);
+        color.a = min(color.a + frequencies[i / points_per_freq] / 100, 1);
     }
     
-    fragColour = vec4(color, 1);
+    fragColour = color;
 }

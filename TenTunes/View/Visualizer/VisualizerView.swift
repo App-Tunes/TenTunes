@@ -19,6 +19,8 @@ extension GLSLView {
 }
 
 class VisualizerView: GLSLView {
+    static let resonanceOverlap = 2
+    
     var currentFrequencies: [CGFloat] = []
     
     var guFrequencies: GLint = -1
@@ -27,7 +29,7 @@ class VisualizerView: GLSLView {
     var guPointCount: GLint = -1
 
     func update(withFFT fft: [Double]) {
-        let desiredLength = Int(log(Double(fft.count - 1)) / log(2))
+        let desiredLength = Int(log(Double(fft.count)) / log(2)) - VisualizerView.resonanceOverlap
         if currentFrequencies.count != desiredLength {
             currentFrequencies = Array(repeating: 0, count: desiredLength)
         }
@@ -35,13 +37,12 @@ class VisualizerView: GLSLView {
         let desiredDoubles: [Double] = (0 ..< currentFrequencies.count).map { idx in
             let start = Int((pow(2.0, Double(idx))) - 1)
             // We do +2 so we have an overlap between similar frequencies
-            let end = Int((pow(2.0, Double(idx) + 2)) - 1)
+            let end = Int((pow(2.0, Double(idx + VisualizerView.resonanceOverlap + 1))) - 1)
             // Don't divide by size since this is how we hear it too
             return fft[start ..< end].reduce(0, +)
             }
         
         let desired = desiredDoubles.map { CGFloat($0) }
-            .map { max(0, $0 - 0.05) / 0.95 }
 
         currentFrequencies = Interpolation.linear(currentFrequencies, desired, amount: 0.15)
     }
@@ -61,7 +62,7 @@ class VisualizerView: GLSLView {
         glUniform1fv(currentFrequencies.map { GLfloat($0) }, as: guFrequencies)
         
         let colors = (0 ..< currentFrequencies.count).map {
-            NSColor(hue: CGFloat($0) / CGFloat(currentFrequencies.count) * 0.8, saturation: 1.0, brightness: 0.5, alpha: 1)
+            NSColor(hue: CGFloat($0) / CGFloat(currentFrequencies.count - 1) * 0.8, saturation: 1.0, brightness: 0.5, alpha: 1)
         }
         glUniform1fv(colors.flatMap { [Float($0.redComponent), Float($0.greenComponent), Float($0.blueComponent)] }, as: guFrequencyColors)
     }

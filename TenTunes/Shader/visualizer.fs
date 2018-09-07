@@ -27,7 +27,7 @@ float dist(vec2 a, vec2 b) {
 }
 
 float influence(vec2 point, vec2 pos, float freq) {
-    float dist = max(0.02 + freq / 100, dist(pos, point.xy) / (resolution.x * resolution.y));
+    float dist = max(0.01 + freq / 100, dist(pos, point.xy) / (resolution.x * resolution.y));
     return pow(freq / dist, 3 + freq / 10);
 }
 
@@ -35,10 +35,6 @@ void main( void ) {
     int points_per_freq = pointCount / freqCount;
     vec2 pos = gl_FragCoord.xy;
     
-    float lows = (0.5 + frequencies[0] * 0.1);
-    float mids = (0.5 + frequencies[int(float(freqCount) / 2)] * 0.1);
-    float highs = (0.5 + frequencies[freqCount - 1] * 0.1);
-
     float centerX = pos.x - resolution.x / 2;
     float centerY = pos.y - resolution.y / 2;
 
@@ -51,10 +47,17 @@ void main( void ) {
 
     float pTime = time * 0.1;
     // Time-shift depending on x/y coord for some cool patterns
-    pTime += sin(centerX * sin(time * 0.0754) / 32.0 + centerY * cos(time * 0.0834) / 32.0) * 0.07 * lows;
-    pTime += sin(centerX * cos(time * 0.1) / 8.0 + centerY * sin(time * 0.11) / 8.0) * 0.01 * mids;
-    pTime += sin(centerX * sin(time * 0.212) / 2.0 + centerY * sin(time * 0.257) / 2.0) * 0.013 * highs;
+    for (int i = 0; i < pointCount; i+=2) {
+        float freqRatio = (float(i / points_per_freq) / freqCount);
+        pTime += sin(  centerX * sin(time * (0.0754 + freqRatio * 0.0154) + freqRatio) / ((1 - freqRatio) * 32)
+                     + centerY * cos(time * (0.0834 + freqRatio * 0.0146) + freqRatio) / ((1 - freqRatio) * 32))
+        * (0.0041 + (1 - freqRatio) * 0.0053) * frequencies[i / points_per_freq];
+    }
+//    pTime += sin(centerX * sin(time * 0.0754) / 32.0 + centerY * cos(time * 0.0834) / 32.0) * 0.07 * lows;
+//    pTime += sin(centerX * cos(time * 0.1) / 8.0 + centerY * sin(time * 0.11) / 8.0) * 0.01 * mids;
+//    pTime += sin(centerX * sin(time * 0.212) / 2.0 + centerY * sin(time * 0.257) / 2.0) * 0.013 * highs;
 
+    
     float points[MAX_POINT_COUNT * 2];
     for (int i = 0; i < pointCount; i++) {
         int freq = i / points_per_freq;

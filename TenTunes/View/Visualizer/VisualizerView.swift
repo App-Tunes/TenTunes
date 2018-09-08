@@ -51,7 +51,7 @@ class VisualizerView: GLSLView {
             return fft[start ..< end].enumerated().map { (idx, val) in
                 // Frequencies that are farther away shall not be picked up as strongly
                 // Multiply since this diminishes the carefully balanced values a bit
-                let steepness = 2.0
+                let steepness = 4.0
                 let gain = 1 / pow(0.5, steepness)
                 return val / (1 + pow((Double(idx) - middle) / length, steepness) * gain) * 1.5
                 }.reduce(0, +)

@@ -45,7 +45,7 @@ void main( void ) {
         float shiftSize = frequencyDistortionShiftSizes[i];
         pTime += sin(  centerX * sin(time * (0.0754 + freqRatio * 0.0154) + freqRatio) / shiftSize
                      + centerY * cos(time * (0.0834 + freqRatio * 0.0146) + freqRatio) / shiftSize)
-        * (0.0021 + (1 - freqRatio) * 0.0013) * pow(frequencies[i], 1.5);
+        * (0.0051 + (1 - freqRatio) * 0.0023) * frequencies[i];
     }
 //    pTime += sin(centerX * sin(time * 0.0754) / 32.0 + centerY * cos(time * 0.0834) / 32.0) * 0.07 * lows;
 //    pTime += sin(centerX * cos(time * 0.1) / 8.0 + centerY * sin(time * 0.11) / 8.0) * 0.01 * mids;

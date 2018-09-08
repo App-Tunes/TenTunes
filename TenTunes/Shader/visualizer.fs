@@ -43,9 +43,9 @@ void main( void ) {
     for (int i = 0; i < freqCount; i++) {
         float freqRatio = float(i) / float(freqCount);
         float shiftSize = frequencyDistortionShiftSizes[i];
-        pTime += sin(  centerX * sin(time * (0.0754 + freqRatio * 0.0154) + freqRatio) / shiftSize
-                     + centerY * cos(time * (0.0834 + freqRatio * 0.0146) + freqRatio) / shiftSize)
-        * (0.0031 + (1 - freqRatio) * 0.0023) * pow(frequencies[i], 1.3);
+        pTime += sin(  centerX * sin(time * (0.0754 + freqRatio * 0.0154125467) + freqRatio) / shiftSize
+                     + centerY * cos(time * (0.0834 + freqRatio * 0.0146145673) + freqRatio) / shiftSize)
+        * (0.00312 + (1 - freqRatio) * 0.001672) * (pow(1.3, frequencies[i]) - 1);
     }
 //    pTime += sin(centerX * sin(time * 0.0754) / 32.0 + centerY * cos(time * 0.0834) / 32.0) * 0.07 * lows;
 //    pTime += sin(centerX * cos(time * 0.1) / 8.0 + centerY * sin(time * 0.11) / 8.0) * 0.01 * mids;
@@ -56,8 +56,8 @@ void main( void ) {
     float totalOmega = decay;
     float prevOmega;
     for (int i = 0; i < freqCount; i++) {
-        vec2 point = vec2((sin(pTime * (float(i) + 1.0) + float(i)) + 1.0) / 2.0,
-                          (sin(pTime * 1.5 * (float(i) + 1.0) + float(i)) + 1.0) / 2.0);
+        vec2 point = vec2((sin(pTime * (float(i) * 1.04819 + 1.0) + float(i)) + 1.0) / 2.0,
+                          (sin(pTime * 1.5 * (float(i) * 1.09823 + 1.0) + float(i)) + 1.0) / 2.0);
         float inf = influence(point, pos, frequencies[i]);
         
         vec3 pointColor = mix(vec3(frequencyColors[i * 3], frequencyColors[i * 3 + 1], frequencyColors[i * 3 + 2]),

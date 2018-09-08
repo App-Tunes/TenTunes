@@ -11,12 +11,14 @@ out vec4 fragColour;
 const int MAX_FREQ_COUNT = 10;
 
 const float decay = 1;
+const float minDist = 0.01;
 
 uniform int freqCount;
 
 uniform float frequencies[MAX_FREQ_COUNT];
 uniform float frequencyDistortionShiftSizes[MAX_FREQ_COUNT];
 uniform float frequencyColors[MAX_FREQ_COUNT * 3];
+uniform float frequencyColorsSoon[MAX_FREQ_COUNT * 3];
 
 uniform float time;
 uniform vec2 resolution;
@@ -25,9 +27,9 @@ float dist(vec2 a, vec2 b) {
     return ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 }
 
-float influence(vec2 point, vec2 pos, float freq) {
-    float dist = max(0.01 + freq / 100, dist(pos, point.xy));
-    return pow(freq / dist, 3 + freq / 10);
+float influence(vec2 point, vec2 pos, float strength) {
+    float dist = max(minDist + strength / 100, dist(pos, point.xy));
+    return pow(strength / dist, 3 + strength / 10);
 }
 
 void main( void ) {
@@ -70,7 +72,9 @@ void main( void ) {
 
     totalOmega = 1.0 / totalOmega;
     for (int i = 0; i < freqCount; i++) {
-        vec3 pointColor = vec3(frequencyColors[i * 3], frequencyColors[i * 3 + 1], frequencyColors[i * 3 + 2]);
+        vec2 point = vec2(points[i * 2 + 0], points[i * 2 + 1]);
+        vec3 pointColor = mix(vec3(frequencyColors[i * 3], frequencyColors[i * 3 + 1], frequencyColors[i * 3 + 2]),
+                              vec3(frequencyColorsSoon[i * 3], frequencyColorsSoon[i * 3 + 1], frequencyColorsSoon[i * 3 + 2]), clamp(dist(point, pos) * 2, 0, 1));
         color.rgb += pointColor * (individualOmega[i] * totalOmega);
         color.a = min(color.a + frequencies[i] / 100, 1);
     }

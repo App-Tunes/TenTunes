@@ -49,8 +49,9 @@ void main( void ) {
     // Time-shift depending on x/y coord for some cool patterns
     for (int i = 0; i < pointCount; i++) {
         float freqRatio = (float(i / points_per_freq) / freqCount);
-        pTime += sin(  centerX * sin(time * (0.0754 + freqRatio * 0.0154) + freqRatio) / ((1 - freqRatio) * 32)
-                     + centerY * cos(time * (0.0834 + freqRatio * 0.0146) + freqRatio) / ((1 - freqRatio) * 32))
+        float shiftSize = pow((1 - freqRatio), 1.5) * 32;
+        pTime += sin(  centerX * sin(time * (0.0754 + freqRatio * 0.0154) + freqRatio) / shiftSize
+                     + centerY * cos(time * (0.0834 + freqRatio * 0.0146) + freqRatio) / shiftSize)
         * (0.0021 + (1 - freqRatio) * 0.0033) * frequencies[i / points_per_freq];
     }
 //    pTime += sin(centerX * sin(time * 0.0754) / 32.0 + centerY * cos(time * 0.0834) / 32.0) * 0.07 * lows;

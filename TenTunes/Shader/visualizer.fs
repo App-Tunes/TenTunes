@@ -51,31 +51,23 @@ void main( void ) {
 //    pTime += sin(centerX * cos(time * 0.1) / 8.0 + centerY * sin(time * 0.11) / 8.0) * 0.01 * mids;
 //    pTime += sin(centerX * sin(time * 0.212) / 2.0 + centerY * sin(time * 0.257) / 2.0) * 0.013 * highs;
 
-    
-    float points[MAX_FREQ_COUNT * 2];
-    for (int i = 0; i < freqCount; i++) {
-        points[i * 2 + 0] = (sin(pTime * (float(i) + 1.0) + float(i)) + 1.0) / 2.0; // X
-        points[i * 2 + 1] = (sin(pTime * 1.5 * (float(i) + 1.0) + float(i)) + 1.0) / 2.0; // Y
-    }
-
-    float totalOmega = decay;
-    float individualOmega[MAX_FREQ_COUNT];
-    for (int i = 0; i < freqCount; i++) {
-        vec2 point = vec2(points[i * 2 + 0], points[i * 2 + 1]);
-        float inf = influence(point, pos, frequencies[i]);
-        
-        totalOmega += inf;
-        individualOmega[i] = inf;
-    }
-    
     vec4 color = vec4(0, 0, 0, 0);
 
-    totalOmega = 1.0 / totalOmega;
+    float totalOmega = decay;
+    float prevOmega;
     for (int i = 0; i < freqCount; i++) {
-        vec2 point = vec2(points[i * 2 + 0], points[i * 2 + 1]);
+        vec2 point = vec2((sin(pTime * (float(i) + 1.0) + float(i)) + 1.0) / 2.0,
+                          (sin(pTime * 1.5 * (float(i) + 1.0) + float(i)) + 1.0) / 2.0);
+        float inf = influence(point, pos, frequencies[i]);
+        
         vec3 pointColor = mix(vec3(frequencyColors[i * 3], frequencyColors[i * 3 + 1], frequencyColors[i * 3 + 2]),
                               vec3(frequencyColorsSoon[i * 3], frequencyColorsSoon[i * 3 + 1], frequencyColorsSoon[i * 3 + 2]), clamp(dist(point, pos) * 2, 0, 1));
-        color.rgb += pointColor * (individualOmega[i] * totalOmega);
+
+        // Same as accumulating totalOmega and in a second cycle dividing inf by it
+        prevOmega = totalOmega;
+        totalOmega += inf;
+        
+        color.rgb = (color.rgb * (prevOmega + decay) + pointColor * inf) / (totalOmega + decay);
         color.a = min(color.a + frequencies[i] / 100, 1);
     }
     

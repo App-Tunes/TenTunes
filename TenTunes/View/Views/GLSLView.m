@@ -35,9 +35,6 @@
     [super awakeFromNib];
     
     if ((error = glGetError()) != 0) { NSLog(@"Setup GL Error: %d", error); }
-
-    // 3. Define and compile vertex and fragment shaders
-    [self setupShaders];
     
     // 6. Upload vertices
     GLfloat vertexData[]= { -1,-1,0.0,1.0,
@@ -58,16 +55,13 @@
     if ((error = glGetError()) != 0) { NSLog(@"Setup End GL Error: %d", error); }
 }
 
-- (void)setupShaders {
+- (void)compileShaders:(NSString *)vertex fragment:(NSString *)fragment {
     int error;
     
     GLuint  vs;
     GLuint  fs;
-    NSString *fragmentPath = [[NSBundle mainBundle] pathForResource:@"visualizer" ofType:@"fs"];
-    const char *fss = [[NSString stringWithContentsOfFile:fragmentPath encoding:NSUTF8StringEncoding error:nil] cStringUsingEncoding:NSUTF8StringEncoding];
-    
-    NSString *vertexPath = [[NSBundle mainBundle] pathForResource:@"visualizer" ofType:@"vs"];
-    const char *vss= [[NSString stringWithContentsOfFile:vertexPath encoding:NSUTF8StringEncoding error:nil] cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *fss = [fragment cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *vss= [vertex cStringUsingEncoding:NSUTF8StringEncoding];
     
     vs = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vs, 1, &vss, NULL);
@@ -87,12 +81,9 @@
     
     if ((error = glGetError()) != 0) { NSLog(@"Shader Link GL Error: %d", error); }
     if (![self checkLinked: shaderProgram]) { return; }
-
-    // 5. Get pointers to uniforms and attributes
-    positionUniform = glGetUniformLocation(shaderProgram, "p");
-    positionAttribute = glGetAttribLocation(shaderProgram, "position");
     
-    resolutionAttribute = glGetUniformLocation(shaderProgram, "resolution");
+    // 5. Get pointers to uniforms and attributes
+    positionAttribute = glGetAttribLocation(shaderProgram, "position");
     
     if ((error = glGetError()) != 0) { NSLog(@"Attrib Link GL Error: %d", error); }
     
@@ -139,12 +130,8 @@
 - (void)drawFrame {
     glUseProgram(shaderProgram);
     
-    glUniform2f(resolutionAttribute, _bounds.size.width, _bounds.size.height);
-
     [self uploadUniforms];
     
-    GLfloat p[]={0,0};
-    glUniform2fv(positionUniform, 1, (const GLfloat *)&p);
     glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 }
 

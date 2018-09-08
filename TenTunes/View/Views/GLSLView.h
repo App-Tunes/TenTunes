@@ -18,11 +18,10 @@
     GLuint vertexArrayObject;
     GLuint vertexBuffer;
     
-    GLint positionUniform;
     GLint positionAttribute;
-
-    GLint resolutionAttribute;
 }
+
+- (void)compileShaders:(NSString *)vertex fragment:(NSString *)fragment;
 
 - (void)setupShaders;
 

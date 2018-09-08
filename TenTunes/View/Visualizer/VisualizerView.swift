@@ -22,7 +22,9 @@ class VisualizerView: GLSLView {
     static let resonanceOverlap = 2
     
     var currentFrequencies: [CGFloat] = []
-    
+
+    var guResolution: GLint = -1
+
     var guFrequencies: GLint = -1
     var guFrequencyDistortionShiftSizes: GLint = -1
     var guFrequencyColors: GLint = -1
@@ -51,12 +53,27 @@ class VisualizerView: GLSLView {
         currentFrequencies = Interpolation.linear(currentFrequencies, desired, amount: 0.15)
     }
     
-    override func setupShaders() {
-        super.setupShaders()
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        guard let vertexPath = Bundle.main.path(forResource: "visualizer", ofType: "vs"),
+            let fragmentPath = Bundle.main.path(forResource: "visualizer", ofType: "fs"),
+            let vertex = try? String(contentsOfFile: vertexPath),
+            let fragment = try? String(contentsOfFile: fragmentPath)
+            else {
+                print("Failed to load shaders!")
+                return
+        }
+        
+        compileShaders(vertex, fragment: fragment)
+        
+        guResolution = findUniform("resolution")
+        
         guFrequencies = findUniform("frequencies")
         guFrequencyDistortionShiftSizes = findUniform("frequencyDistortionShiftSizes")
         guFrequencyColors = findUniform("frequencyColors")
         guFreqCount = findUniform("freqCount")
+        
         guTime = findUniform("time")
     }
     
@@ -65,6 +82,7 @@ class VisualizerView: GLSLView {
         
         let time = -startDate.timeIntervalSinceNow
         glUniform1f(guTime, GLfloat(time));
+        glUniform2f(guResolution, GLfloat(bounds.size.width), GLfloat(bounds.size.height));
 
         glUniform1i(guFreqCount, GLint(freqCount))
 

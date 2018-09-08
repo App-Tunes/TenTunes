@@ -40,6 +40,7 @@ class Player {
     var historyProvider: (() -> PlayHistory)?
     
     var mixer: AKMixer
+    var outputNode: AKBooster
     var fft: AKFFTTap
 
     var shuffle = true {
@@ -52,6 +53,7 @@ class Player {
         player = AKPlayer()
         backingPlayer = AKPlayer()
         mixer = AKMixer(player, backingPlayer)
+        outputNode = AKBooster(mixer)
                 
         fft = AKFFTTap(mixer)
 
@@ -66,7 +68,7 @@ class Player {
     }
     
     func start() {
-        AudioKit.output = mixer
+        AudioKit.output = outputNode
     }
     
     

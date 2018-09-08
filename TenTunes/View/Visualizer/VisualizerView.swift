@@ -46,8 +46,16 @@ class VisualizerView: GLSLView {
             // We do +2 so we have an overlap between similar frequencies
             let end = Int((pow(2.0, Double(idx + VisualizerView.resonanceOverlap + 1))) - 1)
             // Don't divide by size since this is how we hear it too
-            return fft[start ..< end].reduce(0, +)
-            }
+            let middle = Double(end - 1 - start)
+            let length = Double(end - start)
+            return fft[start ..< end].enumerated().map { (idx, val) in
+                // Frequencies that are farther away shall not be picked up as strongly
+                // Multiply since this diminishes the carefully balanced values a bit
+                let steepness = 2.0
+                let gain = 1 / pow(0.5, steepness)
+                return val / (1 + pow((Double(idx) - middle) / length, steepness) * gain) * 1.5
+                }.reduce(0, +)
+        }
         
         let desired = desiredDoubles.map { CGFloat($0) }
 
@@ -80,7 +88,8 @@ class VisualizerView: GLSLView {
     }
     
     func color(_ ratio: CGFloat, time: Double) -> NSColor {
-        return NSColor(hue: (ratio * 0.8 + CGFloat(time * 0.02321)).truncatingRemainder(dividingBy: 1), saturation: 1.0, brightness: 0.5, alpha: 1)
+        // 0.6 so that extremely high and low sounds are far apart in color
+        return NSColor(hue: (ratio * 0.6 + CGFloat(time * 0.02321)).truncatingRemainder(dividingBy: 1), saturation: 1.0, brightness: 0.5, alpha: 1)
     }
     
     func rgb(_ color: NSColor) -> [Float] {

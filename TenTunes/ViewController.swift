@@ -286,7 +286,7 @@ class ViewController: NSViewController {
     }
     
     @IBAction func volumeChanged(_ sender: Any) {
-        player.player.volume = Double(pow(Float(_volume.intValue) / 100, 2))
+        player.outputNode.gain = Double(pow(Float(_volume.intValue) / 100, 2))
     }
     
     @IBAction func showQueue(_ sender: Any) {

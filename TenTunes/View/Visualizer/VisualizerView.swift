@@ -24,9 +24,13 @@ class VisualizerView: GLSLView {
     var currentFrequencies: [CGFloat] = []
     
     var guFrequencies: GLint = -1
+    var guFrequencyDistortionShiftSizes: GLint = -1
     var guFrequencyColors: GLint = -1
     var guFreqCount: GLint = -1
-    var guPointCount: GLint = -1
+    
+    var guTime: GLint = -1
+    
+    var startDate = NSDate()
 
     func update(withFFT fft: [Double]) {
         let desiredLength = Int(log(Double(fft.count)) / log(2)) - VisualizerView.resonanceOverlap
@@ -50,19 +54,25 @@ class VisualizerView: GLSLView {
     override func setupShaders() {
         super.setupShaders()
         guFrequencies = findUniform("frequencies")
+        guFrequencyDistortionShiftSizes = findUniform("frequencyDistortionShiftSizes")
         guFrequencyColors = findUniform("frequencyColors")
         guFreqCount = findUniform("freqCount")
-        guPointCount = findUniform("pointCount")
+        guTime = findUniform("time")
     }
     
     override func uploadUniforms() {
-        glUniform1i(guFreqCount, GLint(currentFrequencies.count))
-        glUniform1i(guPointCount, GLint(currentFrequencies.count))
+        let freqCount = currentFrequencies.count
+        
+        let time = -startDate.timeIntervalSinceNow
+        glUniform1f(guTime, GLfloat(time));
+
+        glUniform1i(guFreqCount, GLint(freqCount))
 
         glUniform1fv(currentFrequencies.map { GLfloat($0) }, as: guFrequencies)
-        
-        let colors = (0 ..< currentFrequencies.count).map {
-            NSColor(hue: CGFloat($0) / CGFloat(currentFrequencies.count - 1) * 0.8, saturation: 1.0, brightness: 0.5, alpha: 1)
+        glUniform1fv((0 ..< freqCount).map { GLfloat(pow((1 - Float($0) / Float(freqCount)), 1.5) * 32) }, as: guFrequencyDistortionShiftSizes)
+
+        let colors = (0 ..< freqCount).map {
+            NSColor(hue: (CGFloat($0) / CGFloat(freqCount - 1) * 0.8 + CGFloat(time * 0.02321)).truncatingRemainder(dividingBy: 1), saturation: 1.0, brightness: 0.5, alpha: 1)
         }
         glUniform1fv(colors.flatMap { [Float($0.redComponent), Float($0.greenComponent), Float($0.blueComponent)] }, as: guFrequencyColors)
     }

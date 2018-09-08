@@ -12,9 +12,7 @@
 @implementation GLSLView
 
 - (void)awakeFromNib
-{
-    [self setStartDate: [NSDate date]];
-    
+{    
     int error;
     
     // 1. Create a context with opengl pixel format
@@ -41,7 +39,7 @@
     // 3. Define and compile vertex and fragment shaders
     [self setupShaders];
     
-    // 6. Upload vertices 
+    // 6. Upload vertices
     GLfloat vertexData[]= { -1,-1,0.0,1.0,
         -1, 1,0.0,1.0,
         1, 1,0.0,1.0,
@@ -94,7 +92,6 @@
     positionUniform = glGetUniformLocation(shaderProgram, "p");
     positionAttribute = glGetAttribLocation(shaderProgram, "position");
     
-    timeAttribute = glGetUniformLocation(shaderProgram, "time");
     resolutionAttribute = glGetUniformLocation(shaderProgram, "resolution");
     
     if ((error = glGetError()) != 0) { NSLog(@"Attrib Link GL Error: %d", error); }
@@ -142,7 +139,6 @@
 - (void)drawFrame {
     glUseProgram(shaderProgram);
     
-    glUniform1f(timeAttribute, -[[self startDate] timeIntervalSinceNow]);
     glUniform2f(resolutionAttribute, _bounds.size.width, _bounds.size.height);
 
     [self uploadUniforms];

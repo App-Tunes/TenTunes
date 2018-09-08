@@ -21,11 +21,8 @@
     GLint positionUniform;
     GLint positionAttribute;
 
-    GLint timeAttribute;
     GLint resolutionAttribute;
 }
-
-@property NSDate *startDate;
 
 - (void)setupShaders;
 

@@ -11,7 +11,7 @@ out vec4 fragColour;
 const int MAX_FREQ_COUNT = 10;
 
 const float decay = 1;
-const float minDist = 0.01;
+const float minDist = 0.007;
 
 uniform int freqCount;
 

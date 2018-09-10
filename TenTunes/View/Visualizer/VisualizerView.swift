@@ -18,30 +18,38 @@ extension GLSLView {
     }
 }
 
+@objc protocol VisualizerViewDelegate {
+    func visualizerViewFFTData(_ view: VisualizerView) -> [Double]?
+}
+
 class VisualizerView: GLSLView {
     static let resonanceOverlap = 2
     
-    var currentFrequencies: [CGFloat] = []
+    @objc @IBOutlet
+    var delegate: VisualizerViewDelegate?
+    
+    var resonance: [CGFloat] = []
 
     var guResolution: GLint = -1
 
-    var guFrequencies: GLint = -1
-    var guFrequencyDistortionShiftSizes: GLint = -1
-    var guFrequencyColors: GLint = -1
-    var guFrequencyColorsSoon: GLint = -1
-    var guFreqCount: GLint = -1
+    var guResonance: GLint = -1
+    var guResonanceDistortionShiftSizes: GLint = -1
+    var guResonanceColors: GLint = -1
+    var guResonanceColorsSoon: GLint = -1
+    var guResonanceCount: GLint = -1
     
     var guTime: GLint = -1
     
     var startDate = NSDate().addingTimeInterval(-TimeInterval(arc4random_uniform(10_000) + 50))
+    var time : TimeInterval { return -startDate.timeIntervalSinceNow }
 
     func update(withFFT fft: [Double]) {
         let desiredLength = Int(log(Double(fft.count)) / log(2)) - VisualizerView.resonanceOverlap
-        if currentFrequencies.count != desiredLength {
-            currentFrequencies = Array(repeating: 0, count: desiredLength)
+        if resonance.count != desiredLength {
+            resonance = Array(repeating: 0, count: desiredLength)
         }
         
-        let desiredDoubles: [Double] = (0 ..< currentFrequencies.count).map { idx in
+        let desiredDoubles: [Double] = (0 ..< resonance.count).map { idx in
             let start = Int((pow(2.0, Double(idx))) - 1)
             // We do +2 so we have an overlap between similar frequencies
             let end = Int((pow(2.0, Double(idx + VisualizerView.resonanceOverlap + 1))) - 1)
@@ -61,7 +69,7 @@ class VisualizerView: GLSLView {
         
         let desired = desiredDoubles.map { CGFloat($0) }
 
-        currentFrequencies = Interpolation.linear(currentFrequencies, desired, amount: 0.15)
+        resonance = Interpolation.linear(resonance, desired, amount: 0.15)
     }
     
     override func awakeFromNib() {
@@ -80,13 +88,21 @@ class VisualizerView: GLSLView {
         
         guResolution = findUniform("resolution")
         
-        guFrequencies = findUniform("frequencies")
-        guFrequencyDistortionShiftSizes = findUniform("frequencyDistortionShiftSizes")
-        guFrequencyColors = findUniform("frequencyColors")
-        guFrequencyColorsSoon = findUniform("frequencyColorsSoon")
-        guFreqCount = findUniform("freqCount")
+        guResonance = findUniform("resonance")
+        guResonanceDistortionShiftSizes = findUniform("resonanceDistortionShiftSizes")
+        guResonanceColors = findUniform("resonanceColors")
+        guResonanceColorsSoon = findUniform("resonanceColorsSoon")
+        guResonanceCount = findUniform("resonanceCount")
         
         guTime = findUniform("time")
+    }
+    
+    override func animate() {
+        guard let fft = delegate?.visualizerViewFFTData(self) else {
+            return
+        }
+        
+        update(withFFT: fft)
     }
     
     func color(_ ratio: CGFloat, time: Double) -> NSColor {
@@ -99,21 +115,20 @@ class VisualizerView: GLSLView {
     }
     
     override func uploadUniforms() {
-        let freqCount = currentFrequencies.count
+        let freqCount = resonance.count
         
-        let time = -startDate.timeIntervalSinceNow
         glUniform1f(guTime, GLfloat(time));
         glUniform2f(guResolution, GLfloat(bounds.size.width), GLfloat(bounds.size.height));
 
-        glUniform1i(guFreqCount, GLint(freqCount))
+        glUniform1i(guResonanceCount, GLint(freqCount))
 
-        glUniform1fv(currentFrequencies.map { GLfloat($0) }, as: guFrequencies)
-        glUniform1fv((0 ..< freqCount).map { GLfloat(pow((1 - Float($0) / Float(freqCount)), 1.5) * 25) }, as: guFrequencyDistortionShiftSizes)
+        glUniform1fv(resonance.map { GLfloat($0) }, as: guResonance)
+        glUniform1fv((0 ..< freqCount).map { GLfloat(pow((1 - Float($0) / Float(freqCount)), 1.5) * 25) }, as: guResonanceDistortionShiftSizes)
 
         let colors = (0 ..< freqCount).map { self.color(CGFloat($0) / CGFloat(freqCount - 1), time: time) }
-        glUniform1fv(colors.flatMap { self.rgb($0) }, as: guFrequencyColors)
+        glUniform1fv(colors.flatMap { self.rgb($0) }, as: guResonanceColors)
 
         let soonColors = (0 ..< freqCount).map { self.color(CGFloat($0) / CGFloat(freqCount - 1), time: time - 50) }
-        glUniform1fv(soonColors.flatMap { self.rgb($0) }, as: guFrequencyColorsSoon)
+        glUniform1fv(soonColors.flatMap { self.rgb($0) }, as: guResonanceColorsSoon)
     }
 }

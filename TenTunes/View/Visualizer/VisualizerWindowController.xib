@@ -24,6 +24,9 @@
                 <subviews>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="zxW-aU-Jsz" customClass="VisualizerView" customModule="TenTunes" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="QjW-wo-SvZ"/>
+                        </connections>
                     </customView>
                 </subviews>
                 <constraints>

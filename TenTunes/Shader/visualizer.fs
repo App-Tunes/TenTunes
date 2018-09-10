@@ -13,12 +13,12 @@ const int MAX_FREQ_COUNT = 10;
 const float decay = 1;
 const float minDist = 0.007;
 
-uniform int freqCount;
+uniform int resonanceCount;
 
-uniform float frequencies[MAX_FREQ_COUNT];
-uniform float frequencyDistortionShiftSizes[MAX_FREQ_COUNT];
-uniform float frequencyColors[MAX_FREQ_COUNT * 3];
-uniform float frequencyColorsSoon[MAX_FREQ_COUNT * 3];
+uniform float resonance[MAX_FREQ_COUNT];
+uniform float resonanceDistortionShiftSizes[MAX_FREQ_COUNT];
+uniform float resonanceColors[MAX_FREQ_COUNT * 3];
+uniform float resonanceColorsSoon[MAX_FREQ_COUNT * 3];
 
 uniform float time;
 uniform vec2 resolution;
@@ -40,12 +40,12 @@ void main( void ) {
 
     float pTime = time * 0.1;
     // Time-shift depending on x/y coord for some cool patterns
-    for (int i = 0; i < freqCount; i++) {
-        float freqRatio = float(i) / float(freqCount);
-        float shiftSize = frequencyDistortionShiftSizes[i];
+    for (int i = 0; i < resonanceCount; i++) {
+        float freqRatio = float(i) / float(resonanceCount);
+        float shiftSize = resonanceDistortionShiftSizes[i];
         pTime += sin(  centerX * sin(time * (0.0754 + freqRatio * 0.0154125467) + freqRatio * 6) / shiftSize
                      + centerY * cos(time * (0.0834 + freqRatio * 0.0146145673) + freqRatio * 6) / shiftSize)
-        * (0.00802) * (pow(1.35, frequencies[i]) - 1);
+        * (0.00802) * (pow(1.35, resonance[i]) - 1);
     }
 //    pTime += sin(centerX * sin(time * 0.0754) / 32.0 + centerY * cos(time * 0.0834) / 32.0) * 0.07 * lows;
 //    pTime += sin(centerX * cos(time * 0.1) / 8.0 + centerY * sin(time * 0.11) / 8.0) * 0.01 * mids;
@@ -55,20 +55,20 @@ void main( void ) {
 
     float totalOmega = decay;
     float prevOmega;
-    for (int i = 0; i < freqCount; i++) {
+    for (int i = 0; i < resonanceCount; i++) {
         vec2 point = vec2((sin(pTime * (float(i) * 1.04819 + 1.0) + float(i)) + 1.0) / 2.0,
                           (sin(pTime * 1.5 * (float(i) * 1.09823 + 1.0) + float(i)) + 1.0) / 2.0);
-        float inf = influence(point, pos, frequencies[i]);
+        float inf = influence(point, pos, resonance[i]);
         
-        vec3 pointColor = mix(vec3(frequencyColors[i * 3], frequencyColors[i * 3 + 1], frequencyColors[i * 3 + 2]),
-                              vec3(frequencyColorsSoon[i * 3], frequencyColorsSoon[i * 3 + 1], frequencyColorsSoon[i * 3 + 2]), clamp(dist(point, pos) * 2, 0, 1));
+        vec3 pointColor = mix(vec3(resonanceColors[i * 3], resonanceColors[i * 3 + 1], resonanceColors[i * 3 + 2]),
+                              vec3(resonanceColorsSoon[i * 3], resonanceColorsSoon[i * 3 + 1], resonanceColorsSoon[i * 3 + 2]), clamp(dist(point, pos) * 2, 0, 1));
 
         // Same as accumulating totalOmega and in a second cycle dividing inf by it
         prevOmega = totalOmega;
         totalOmega += inf;
         
         color.rgb = (color.rgb * (prevOmega + decay) + pointColor * inf) / (totalOmega + decay);
-        color.a = min(color.a + frequencies[i] / 100, 1);
+        color.a = min(color.a + resonance[i] / 100, 1);
     }
     
     fragColour = color;

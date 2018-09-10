@@ -18,8 +18,11 @@
     double deltaTime = 1.0 / (outputTime->rateScalar * (double)outputTime->videoTimeScale / (double)outputTime->videoRefreshPeriod);
     _deltaTime = deltaTime;
     
-    [self animate];
-    [self drawRect:[self bounds]];
+    // Eh... It's close enough of a check
+    if ([self visibleRect].size.width != NSZeroRect.size.width) {
+        [self animate];
+        [self drawRect:[self bounds]];
+    }
     
     return kCVReturnSuccess;
 }

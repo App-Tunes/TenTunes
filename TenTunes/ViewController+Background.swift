@@ -17,8 +17,6 @@ extension ViewController {
     
     func startBackgroundTasks() {
         self.visualTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true ) { [unowned self] (timer) in
-            (NSApp.delegate as! AppDelegate).visualizerController._visualizerView.update(withFFT: self.player.fft.fftData)
-
             guard self.view.window?.isVisible ?? false else {
                 return
             }

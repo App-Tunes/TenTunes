@@ -16,7 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var preferencesController: PreferencesWindowController!
     var exportPlaylistsController: ExportPlaylistsController!
     var visualizerController: VisualizerWindowController!
-
+    
     func applicationWillFinishLaunching(_ notification: Notification) {
         setupBackwardsCompatibility()
         
@@ -76,7 +76,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         let libraryStoryboard = NSStoryboard(name: .init("Library"), bundle: nil)
         libraryWindowController = libraryStoryboard.instantiateInitialController() as! NSWindowController
-        ViewController.shared.view.window!.makeKeyAndOrderFront(self)
+        
+        preferencesController = PreferencesWindowController(windowNibName: .init(rawValue: "PreferencesWindowController"))
+        
+        exportPlaylistsController = ExportPlaylistsController(windowNibName: .init(rawValue: "ExportPlaylistsController"))
+        
+        visualizerController = VisualizerWindowController(windowNibName: .init("VisualizerWindowController"))
+        visualizerController.loadWindow()
+        
+        WindowWarden.shared.remember(window: libraryWindowController.window!, key: ("0", .command))
+        WindowWarden.shared.remember(window: visualizerController.window!, key: ("t", .command), toggleable: true)
+
+        libraryWindowController.window!.makeKeyAndOrderFront(self)
     }
     
     func setupBackwardsCompatibility() {
@@ -101,13 +112,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-        preferencesController = PreferencesWindowController(windowNibName: .init(rawValue: "PreferencesWindowController"))
-        
-        exportPlaylistsController = ExportPlaylistsController(windowNibName: .init(rawValue: "ExportPlaylistsController"))
-        
-        visualizerController = VisualizerWindowController(windowNibName: .init("VisualizerWindowController"))
-        visualizerController.showWindow(self)
-        
         NSUserNotificationCenter.default.delegate = self
     }
 

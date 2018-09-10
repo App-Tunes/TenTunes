@@ -103,6 +103,8 @@
 		80C1F16A21429AC70032E554 /* visualizer.vs in Resources */ = {isa = PBXBuildFile; fileRef = 80C1F16921429AC70032E554 /* visualizer.vs */; };
 		80C1F16D2142AA010032E554 /* RFOpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C1F16C2142AA010032E554 /* RFOpenGLView.m */; };
 		80C1F16F2142E7E80032E554 /* VisualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C1F16E2142E7E80032E554 /* VisualizerView.swift */; };
+		80C1F1722146E14D0032E554 /* LibraryWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C1F1712146E14D0032E554 /* LibraryWindowController.swift */; };
+		80C1F1742146E4A70032E554 /* WindowWarden.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C1F1732146E4A70032E554 /* WindowWarden.swift */; };
 		80C8559E210512B400177035 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C8559D210512B400177035 /* Album.swift */; };
 		80CB652C20514E050031A6D7 /* Library+Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652B20514E050031A6D7 /* Library+Files.swift */; };
 		80CB652F2052C6CD0031A6D7 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652E2052C6CD0031A6D7 /* Operators.swift */; };
@@ -299,6 +301,8 @@
 		80C1F16B2142AA010032E554 /* RFOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RFOpenGLView.h; sourceTree = "<group>"; };
 		80C1F16C2142AA010032E554 /* RFOpenGLView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RFOpenGLView.m; sourceTree = "<group>"; };
 		80C1F16E2142E7E80032E554 /* VisualizerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerView.swift; sourceTree = "<group>"; };
+		80C1F1712146E14D0032E554 /* LibraryWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryWindowController.swift; sourceTree = "<group>"; };
+		80C1F1732146E4A70032E554 /* WindowWarden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowWarden.swift; sourceTree = "<group>"; };
 		80C8559D210512B400177035 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		80CB652B20514E050031A6D7 /* Library+Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Files.swift"; sourceTree = "<group>"; };
 		80CB652E2052C6CD0031A6D7 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
@@ -622,6 +626,7 @@
 				80BF21C2212AD9D500B9F0AB /* History.swift */,
 				8074044B2136CE68007E0B4C /* Interpolation.swift */,
 				80C1F150214033C40032E554 /* Enumerations.swift */,
+				80C1F1732146E4A70032E554 /* WindowWarden.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -686,6 +691,7 @@
 				80F2C57B2038808000212739 /* ViewController.swift */,
 				803717282043629700DB9EAA /* ViewController+Background.swift */,
 				801621322067B71B00093B15 /* ViewController+Updates.swift */,
+				80C1F1712146E14D0032E554 /* LibraryWindowController.swift */,
 				80F2C5822038808000212739 /* Main.storyboard */,
 				80D8A0FC212460BE003E1F11 /* Library.storyboard */,
 				80CB65392052CB910031A6D7 /* Util */,
@@ -919,6 +925,7 @@
 				8030E00F20FCB12C006B4AE8 /* AnalyzeTrack.swift in Sources */,
 				80B68B9E21011CC100A32E3D /* SMButtonWithMenu.m in Sources */,
 				80E2C9E1204AE18E00298E81 /* Track+CoreDataProperties.swift in Sources */,
+				80C1F1742146E4A70032E554 /* WindowWarden.swift in Sources */,
 				80F11E5920CA732E00331D12 /* Library+Symlink.swift in Sources */,
 				803E972F20C7EF2C00D46565 /* LazyMap.swift in Sources */,
 				80C1F1552141F5430032E554 /* Foundation+async.swift in Sources */,
@@ -996,6 +1003,7 @@
 				80E2C9F9204B40A000298E81 /* PlaylistManual.swift in Sources */,
 				808161D2204059FE00AEA64F /* TrackController.swift in Sources */,
 				806EFC22204B63620079DBAA /* PlaylistLibrary.swift in Sources */,
+				80C1F1722146E14D0032E554 /* LibraryWindowController.swift in Sources */,
 				80F2C57F2038808000212739 /* TenTunes.xcdatamodeld in Sources */,
 				800134A8213835C0001FB5CE /* TagLibFile.mm in Sources */,
 				80CB65352052C9CC0031A6D7 /* CoreData+TT.swift in Sources */,

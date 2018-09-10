@@ -15,6 +15,12 @@ class VisualizerWindowController: NSWindowController {
     @IBOutlet var _visualizerView: VisualizerView!
     
     var fft: AKFFTTap?
+    
+    override func loadWindow() {
+        super.loadWindow()
+        
+        NSApp.addWindowsItem(window!, title: window!.title, filename: false)
+    }
 }
 
 extension VisualizerWindowController : NSWindowDelegate {
@@ -34,6 +40,11 @@ extension VisualizerWindowController : NSWindowDelegate {
             ViewController.shared.player.mixer.avAudioNode.removeTap(onBus: 0)
             fft = nil
         }
+    }
+    
+    func windowShouldClose(_ sender: NSWindow) -> Bool {
+        NSApp.addWindowsItem(sender, title: sender.title, filename: false)
+        return true
     }
 }
 

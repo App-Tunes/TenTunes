@@ -168,9 +168,7 @@ class ViewController: NSViewController {
         startBackgroundTasks()
     }
     
-    override func viewDidAppear() {
-        self.view.window!.appearance = NSAppearance(named: NSAppearance.Name.vibrantDark)
-        
+    override func viewDidAppear() {        
         _timePlayed.alphaValue = 0.5
         _timeLeft.alphaValue = 0.5
         

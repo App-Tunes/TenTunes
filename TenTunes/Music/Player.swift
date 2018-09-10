@@ -42,6 +42,8 @@ class Player {
     var mixer: AKMixer
     var outputNode: AKBooster
     var fft: AKFFTTap
+    
+//    var microphoneNode: AKMicrophone
 
     var shuffle = true {
         didSet {
@@ -54,8 +56,13 @@ class Player {
         backingPlayer = AKPlayer()
         mixer = AKMixer(player, backingPlayer)
         outputNode = AKBooster(mixer)
-                
         fft = AKFFTTap(mixer)
+        
+//        microphoneNode = AKMicrophone()
+//        microphoneNode.start()
+//        microphoneNode.volume = 3
+//        print(microphoneNode.isStarted)
+//        fft = AKFFTTap(microphoneNode)
 
         // The completion handler sucks...
         // TODO When it stops sucking, replace our completion timer hack

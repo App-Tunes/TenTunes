@@ -49,7 +49,7 @@ class VisualizerView: GLSLView {
             let middle = Double(end - 1 - start)
             let length = Double(end - start)
 
-            let steepness = 3.0
+            let steepness = 4.0
             let gain = 1 / pow(0.5, steepness)
 
             return fft[start ..< end].enumerated().map { (idx, val) in
@@ -108,7 +108,7 @@ class VisualizerView: GLSLView {
         glUniform1i(guFreqCount, GLint(freqCount))
 
         glUniform1fv(currentFrequencies.map { GLfloat($0) }, as: guFrequencies)
-        glUniform1fv((0 ..< freqCount).map { GLfloat(pow((1 - Float($0) / Float(freqCount)), 1.5) * 32) }, as: guFrequencyDistortionShiftSizes)
+        glUniform1fv((0 ..< freqCount).map { GLfloat(pow((1 - Float($0) / Float(freqCount)), 1.5) * 25) }, as: guFrequencyDistortionShiftSizes)
 
         let colors = (0 ..< freqCount).map { self.color(CGFloat($0) / CGFloat(freqCount - 1), time: time) }
         glUniform1fv(colors.flatMap { self.rgb($0) }, as: guFrequencyColors)

@@ -15,11 +15,44 @@ class VisualizerWindowController: NSWindowController {
     @IBOutlet var _visualizerView: VisualizerView!
     
     var fft: AKFFTTap?
+
+    var trackingTag: NSView.TrackingRectTag?
     
-    override func loadWindow() {
-        super.loadWindow()
+    override func awakeFromNib() {
+        super.awakeFromNib()
         
-        NSApp.addWindowsItem(window!, title: window!.title, filename: false)
+        window!.ignoresMouseEvents = false
+        updateTrackingAreas(true)
+        hideWindowButtons()
+    }
+    
+    func hideWindowButtons() {
+        window!.standardWindowButton(.closeButton)!.alphaValue = 0.01
+        window!.standardWindowButton(.zoomButton)!.alphaValue = 0.01
+        window!.standardWindowButton(.miniaturizeButton)!.alphaValue = 0.01
+    }
+    
+    override func mouseEntered(with theEvent: NSEvent) {
+        if trackingTag == theEvent.trackingNumber {
+            window!.standardWindowButton(.closeButton)!.alphaValue = 0.25
+            window!.standardWindowButton(.zoomButton)!.alphaValue = 0.25
+            window!.standardWindowButton(.miniaturizeButton)!.alphaValue = 0.25
+        }
+    }
+    
+    override func mouseExited(with theEvent: NSEvent) {
+        if trackingTag == theEvent.trackingNumber {
+            hideWindowButtons()
+        }
+    }
+    
+    func updateTrackingAreas(_ establish : Bool) {
+        if let tag = trackingTag {
+            window!.standardWindowButton(.closeButton)!.removeTrackingRect(tag)
+        }
+        if establish {
+            trackingTag = window!.contentView!.addTrackingRect(window!.contentView!.bounds, owner: self, userData: nil, assumeInside: false)
+        }
     }
 }
 
@@ -41,9 +74,10 @@ extension VisualizerWindowController : NSWindowDelegate {
             fft = nil
         }
     }
-    
+
     func windowShouldClose(_ sender: NSWindow) -> Bool {
-        NSApp.addWindowsItem(sender, title: sender.title, filename: false)
+        window!.ignoresMouseEvents = true
+        updateTrackingAreas(false)
         return true
     }
 }

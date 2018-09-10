@@ -26,6 +26,11 @@
         NSOpenGLPFANoRecovery   ,
         0
     };
+    if (![self isOpaque]) {
+        GLint opacity = 0;
+        [[self openGLContext] setValues:&opacity forParameter:NSOpenGLContextParameterSurfaceOpacity];
+    }
+
     NSOpenGLPixelFormat *pixelFormat = [[NSOpenGLPixelFormat alloc] initWithAttributes:pixelFormatAttributes];
     super.pixelFormat = pixelFormat;
     
@@ -128,6 +133,8 @@
 }
 
 - (void)drawFrame {
+    [super drawFrame];
+    
     glUseProgram(shaderProgram);
     
     [self uploadUniforms];

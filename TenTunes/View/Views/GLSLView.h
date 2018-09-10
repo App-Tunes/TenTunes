@@ -23,8 +23,6 @@
 
 - (void)compileShaders:(NSString *)vertex fragment:(NSString *)fragment;
 
-- (void)setupShaders;
-
 - (GLint)findUniform:(NSString *)name;
 - (void)uploadUniforms;
 

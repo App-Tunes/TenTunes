@@ -36,7 +36,7 @@ class WindowWarden {
         }
         
         actions.bind(item) { _ in
-            if toggleable && window.isVisible {
+            if toggleable && window.isKeyWindow {
                 window.performClose(self)
             }
             else {

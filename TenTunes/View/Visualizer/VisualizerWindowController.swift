@@ -84,6 +84,10 @@ extension VisualizerWindowController : NSWindowDelegate {
 
 extension VisualizerWindowController : VisualizerViewDelegate {
     func visualizerViewFFTData(_ view: VisualizerView) -> [Double]? {
+        if window!.isKeyWindow, window!.isMouseInside, GLSLView.timeMouseIdle() > 2 {
+            NSCursor.setHiddenUntilMouseMoves(true)
+        }
+        
         return fft?.fftData
     }
 }

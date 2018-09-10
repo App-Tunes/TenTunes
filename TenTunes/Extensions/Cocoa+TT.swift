@@ -170,6 +170,10 @@ extension NSWindow {
         
         setFrame(frame, display: true)
     }
+    
+    var isMouseInside: Bool {
+        return NSWindow.windowNumber(at: NSEvent.mouseLocation, belowWindowWithWindowNumber: 0) == windowNumber
+    }
 }
 
 extension NSOutlineView {

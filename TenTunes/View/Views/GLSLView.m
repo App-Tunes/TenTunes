@@ -11,6 +11,11 @@
 
 @implementation GLSLView
 
++ (CFTimeInterval)timeMouseIdle
+{
+    return CGEventSourceSecondsSinceLastEventType(kCGEventSourceStateCombinedSessionState, kCGEventMouseMoved);
+}
+
 - (void)awakeFromNib
 {    
     int error;

@@ -21,6 +21,8 @@
     GLint positionAttribute;
 }
 
++ (CFTimeInterval)timeMouseIdle;
+
 - (void)compileShaders:(NSString *)vertex fragment:(NSString *)fragment;
 
 - (GLint)findUniform:(NSString *)name;

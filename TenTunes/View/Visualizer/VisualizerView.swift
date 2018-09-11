@@ -120,7 +120,7 @@ class VisualizerView: GLSLView {
         // 0.6 so that extremely high and low sounds are far apart in color
         return NSColor(hue: (prog * 0.6 + CGFloat(time * 0.02321)).truncatingRemainder(dividingBy: 1),
                        saturation: max(0, min(1, ratio * 5 - prog)),
-                       brightness: min(1, totalResonance / 10 + ratio * 0.3) * 0.7 + 0.3,
+                       brightness: min(1, totalResonance / 10 + ratio * 0.3) * 0.6 + 0.4,
                        alpha: 1)
     }
     

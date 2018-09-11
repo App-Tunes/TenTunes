@@ -35,12 +35,12 @@ float influence(vec2 point, vec2 pos, float strength) {
 void main( void ) {
     vec2 pos = gl_FragCoord.xy / vec2(resolution.x, resolution.y);
     
-    float centerX = (pos.x * resolution.x) - resolution.x / 2;
-    float centerY = (pos.y * resolution.y) - resolution.y / 2;
-    
+    float centerX = (pos.x - 0.5);
+    float centerY = (pos.y - 0.5);
+
     // Position-shift based on time
-    float posChange = sin(time * 0.2234 + centerX * centerY / (resolution.x * resolution.y) * 2) / 8 + 0.5;
-    pos = mix(pos, vec2(sin(time * 0.024851) / 2 + 0.5,sin(time * 0.034611) / 2 + 0.5), posChange);
+    float posChange = (sin(time * 0.2234 + centerX * centerY * 10) + 1) / 10;
+    pos = mix(pos, vec2(sin(time * 0.124122) + 0.5, cos(time * 0.124122) + 0.5), posChange);
 
     centerX = (pos.x - 0.5) * 1000;
     centerY = (pos.y - 0.5) * 1000;
@@ -60,8 +60,8 @@ void main( void ) {
     float totalOmega = decay;
     float prevOmega;
     for (int i = 0; i < resonanceCount; i++) {
-        vec2 point = vec2((sin(pTime * (float(i) * 1.04819 + 1.0) + float(i)) + 1.0) / 2.0,
-                          (sin(pTime * 1.5 * (float(i) * 1.09823 + 1.0) + float(i)) + 1.0) / 2.0);
+        vec2 point = vec2(sin(pTime * (float(i) * 1.04819 + 1.0) + float(i)) * 0.4 + 0.5,
+                          sin(pTime * 1.5 * (float(i) * 1.09823 + 1.0) + float(i)) * 0.4 + 0.5);
         float inf = influence(point, pos, resonance[i]);
         
         vec3 pointColor = mix(vec3(resonanceColors[i * 3], resonanceColors[i * 3 + 1], resonanceColors[i * 3 + 2]),

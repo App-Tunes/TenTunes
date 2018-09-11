@@ -35,8 +35,15 @@ float influence(vec2 point, vec2 pos, float strength) {
 void main( void ) {
     vec2 pos = gl_FragCoord.xy / vec2(resolution.x, resolution.y);
     
-    float centerX = (pos.x - 0.5) * 1000;
-    float centerY = (pos.y - 0.5) * 1000;
+    float centerX = (pos.x * resolution.x) - resolution.x / 2;
+    float centerY = (pos.y * resolution.y) - resolution.y / 2;
+    
+    // Position-shift based on time
+    float posChange = sin(time * 0.2234 + centerX * centerY / (resolution.x * resolution.y) * 2) / 8 + 0.5;
+    pos = mix(pos, vec2(sin(time * 0.024851) / 2 + 0.5,sin(time * 0.034611) / 2 + 0.5), posChange);
+
+    centerX = (pos.x - 0.5) * 1000;
+    centerY = (pos.y - 0.5) * 1000;
 
     float pTime = time * 0.1;
     // Time-shift depending on x/y coord for some cool patterns
@@ -47,9 +54,6 @@ void main( void ) {
                      + centerY * cos(time * (0.0834 + freqRatio * 0.0146145673) + freqRatio * 6) / shiftSize)
         * (0.00802) * (pow(1.35, resonance[i]) - 1);
     }
-//    pTime += sin(centerX * sin(time * 0.0754) / 32.0 + centerY * cos(time * 0.0834) / 32.0) * 0.07 * lows;
-//    pTime += sin(centerX * cos(time * 0.1) / 8.0 + centerY * sin(time * 0.11) / 8.0) * 0.01 * mids;
-//    pTime += sin(centerX * sin(time * 0.212) / 2.0 + centerY * sin(time * 0.257) / 2.0) * 0.013 * highs;
 
     vec4 color = vec4(0, 0, 0, 0);
 

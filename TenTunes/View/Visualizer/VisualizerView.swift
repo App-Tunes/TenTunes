@@ -53,6 +53,7 @@ class VisualizerView: GLSLView {
             resonance = Array(repeating: 0, count: desiredLength)
         }
         
+        // TODO Add Gravity so that any particular resonance can't stay high for long so we get more dynamic movement (like how ears adjust to fucking noise fuck I'm a genius)
         let desiredDoubles: [Double] = (0 ..< resonance.count).map { idx in
             let start = Int((pow(2.0, Double(idx))) - 1)
             // We do +2 so we have an overlap between similar frequencies
@@ -119,7 +120,7 @@ class VisualizerView: GLSLView {
         // 0.6 so that extremely high and low sounds are far apart in color
         return NSColor(hue: (prog * 0.6 + CGFloat(time * 0.02321)).truncatingRemainder(dividingBy: 1),
                        saturation: max(0, min(1, ratio * 5 - prog)),
-                       brightness: min(1, totalResonance / 10 + ratio * 0.3),
+                       brightness: min(1, totalResonance / 10 + ratio * 0.3) * 0.7 + 0.3,
                        alpha: 1)
     }
     

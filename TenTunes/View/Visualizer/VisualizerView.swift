@@ -29,6 +29,7 @@ class VisualizerView: GLSLView {
     var delegate: VisualizerViewDelegate?
     
     var resonance: [CGFloat] = []
+    var totalResonance: CGFloat { return resonance.reduce(into: 0) { $0 = $0 + $1 } }
 
     var guResolution: GLint = -1
 
@@ -39,7 +40,10 @@ class VisualizerView: GLSLView {
     var guResonanceCount: GLint = -1
     
     var guTime: GLint = -1
-    
+
+    var guMinDist: GLint = -1
+    var guDecay: GLint = -1
+
     var startDate = NSDate().addingTimeInterval(-TimeInterval(arc4random_uniform(10_000) + 50))
     var time : TimeInterval { return -startDate.timeIntervalSinceNow }
 
@@ -95,6 +99,9 @@ class VisualizerView: GLSLView {
         guResonanceCount = findUniform("resonanceCount")
         
         guTime = findUniform("time")
+
+        guMinDist = findUniform("minDist")
+        guDecay = findUniform("decay")
     }
     
     override func animate() {
@@ -107,13 +114,12 @@ class VisualizerView: GLSLView {
     
     func color(_ idx: Int, time: Double) -> NSColor {
         let prog = CGFloat(idx) / CGFloat(resonance.count - 1)
-        let totalResonance: CGFloat = resonance.reduce(into: 0) { $0 = $0 + $1 }
         let ratio: CGFloat = resonance[idx] / totalResonance
         
         // 0.6 so that extremely high and low sounds are far apart in color
         return NSColor(hue: (prog * 0.6 + CGFloat(time * 0.02321)).truncatingRemainder(dividingBy: 1),
                        saturation: min(1, ratio * 3),
-                       brightness: min(0.7, totalResonance / 3) + resonance[idx] / totalResonance * 0.3,
+                       brightness: min(0.7, totalResonance / 3) + ratio * 0.3,
                        alpha: 1)
     }
     
@@ -124,6 +130,9 @@ class VisualizerView: GLSLView {
     override func uploadUniforms() {
         glUniform1f(guTime, GLfloat(time));
         glUniform2f(guResolution, GLfloat(bounds.size.width), GLfloat(bounds.size.height));
+
+        glUniform1f(guMinDist, GLfloat(0.1 / (5 + totalResonance / 20)));
+        glUniform1f(guDecay, 10);
 
         glUniform1i(guResonanceCount, GLint(resonance.count))
 

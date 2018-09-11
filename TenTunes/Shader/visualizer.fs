@@ -10,9 +10,6 @@ out vec4 fragColour;
 
 const int MAX_FREQ_COUNT = 10;
 
-const float decay = 1;
-const float minDist = 0.007;
-
 uniform int resonanceCount;
 
 uniform float resonance[MAX_FREQ_COUNT];
@@ -22,6 +19,9 @@ uniform float resonanceColorsSoon[MAX_FREQ_COUNT * 3];
 
 uniform float time;
 uniform vec2 resolution;
+
+uniform float minDist;
+uniform float decay;
 
 float dist(vec2 a, vec2 b) {
     return ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));

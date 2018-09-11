@@ -14,7 +14,10 @@ class VisualizerWindowController: NSWindowController {
 
     @IBOutlet var _visualizerView: VisualizerView!
     
+    var useMicrophone = false
+    
     var fft: AKFFTTap?
+    var microphoneNode: AKMicrophone?
 
     var trackingTag: NSView.TrackingRectTag?
     
@@ -60,18 +63,31 @@ extension VisualizerWindowController : NSWindowDelegate {
     func windowDidChangeOcclusionState(_ notification: Notification) {
         let visible = window?.occlusionState.contains(.visible) ?? false
         if visible && fft == nil {
+            guard !useMicrophone else {
+                let microphoneNode = AKMicrophone()
+                microphoneNode.start()
+                microphoneNode.volume = 3
+                print(microphoneNode.isStarted)
+                
+                fft = AKFFTTap(microphoneNode)
+                self.microphoneNode = microphoneNode
+                
+                return
+            }
+
             fft = AKFFTTap(ViewController.shared.player.mixer)
-            
-            //        microphoneNode = AKMicrophone()
-            //        microphoneNode.start()
-            //        microphoneNode.volume = 3
-            //        print(microphoneNode.isStarted)
-            //        fft = AKFFTTap(microphoneNode)
         }
         else if !visible && fft != nil {
+            fft = nil
+
+            guard !useMicrophone else {
+                microphoneNode = nil
+                
+                return
+            }
+            
             // According to AKFFTTap class reference, it will always be on tap 0
             ViewController.shared.player.mixer.avAudioNode.removeTap(onBus: 0)
-            fft = nil
         }
     }
 

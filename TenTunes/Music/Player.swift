@@ -129,7 +129,9 @@ class Player {
     
     func sanityCheck() {
         if !AudioKit.engine.isRunning {
-            try! AudioKit.start()
+            if (try? AudioKit.start()) == nil {
+                print("Failed to start audio engine!")
+            }
         }
     }
     

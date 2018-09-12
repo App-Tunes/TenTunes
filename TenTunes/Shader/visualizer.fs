@@ -71,9 +71,11 @@ void main( void ) {
         prevOmega = totalOmega;
         totalOmega += inf;
         
-        color.rgb = (color.rgb * (prevOmega + decay) + pointColor * inf) / (totalOmega + decay);
+        color.rgb += pointColor * inf;
         color.a = min(color.a + resonance[i] / 10, 1);
     }
+    
+    color.rgb /= totalOmega;
     
     fragColour = color;
 }

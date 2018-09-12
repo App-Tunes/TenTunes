@@ -60,8 +60,8 @@ void main( void ) {
     float totalOmega = decay;
     float prevOmega;
     for (int i = 0; i < resonanceCount; i++) {
-        vec2 point = vec2(sin(pTime * (float(i) * 1.04819 + 1.0) + float(i)) * 0.4 + 0.5,
-                          sin(pTime * 1.5 * (float(i) * 1.09823 + 1.0) + float(i)) * 0.4 + 0.5);
+        vec2 point = vec2(sin(pTime * (float(i) * 0.74819 + 1.0 + mod(float(i), 0.049131) * 2) + float(i)) * 0.4 + 0.5,
+                          sin(pTime * 1.5 * (float(i) * 0.79823 + 1.0 + mod(float(i), 0.068231) * 2) + float(i)) * 0.4 + 0.5);
         float inf = influence(point, pos, resonance[i]);
         
         vec3 pointColor = mix(vec3(resonanceColors[i * 3], resonanceColors[i * 3 + 1], resonanceColors[i * 3 + 2]),

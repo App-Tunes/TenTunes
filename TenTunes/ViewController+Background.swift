@@ -16,7 +16,7 @@ extension ViewController {
     }
     
     func startBackgroundTasks() {
-        self.visualTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true ) { [unowned self] (timer) in
+        self.visualTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 30.0, repeats: true ) { [unowned self] (timer) in
             guard self.view.window?.isVisible ?? false else {
                 return
             }

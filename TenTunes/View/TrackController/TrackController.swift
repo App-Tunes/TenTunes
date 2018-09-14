@@ -113,19 +113,22 @@ class TrackController: NSViewController {
 
     override func awakeFromNib() {
         desired = PlayHistorySetup { self.history = $0 }
-        _loadingIndicator.startAnimation(self)
-        _loadingIndicator.alphaValue = 0 // By default, nothing is to be loaded
         
-        observeHiddenToken = desired.observe(\.isDone, options: [.new]) { [unowned self] object, change in
+        observeHiddenToken = desired.observe(\.isDone, options: [.new, .initial]) { [unowned self] object, change in
             guard self.mode != .title else {
                 return
             }
             
             let isDone = change.newValue!
+            
+            if !isDone { self._loadingIndicator.startAnimation(self) }
+
             NSAnimationContext.runAnimationGroup({ context in
                 context.duration = 0.5
                 self._loadingIndicator.animator().alphaValue = isDone ? 0 : 1
-            }, completionHandler: nil)
+            }) {
+                if isDone && self.desired.isDone { self._loadingIndicator.stopAnimation(self) }
+            }
         }
 
         trackEditor = TrackEditor()

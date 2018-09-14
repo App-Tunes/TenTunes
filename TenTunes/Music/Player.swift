@@ -9,14 +9,53 @@
 import Foundation
 import AudioKit
 
+class CompletionHandler {
+    static let MAX_TIMER_LENGTH = 10.0
+    static let MARGIN = 0.05
+    
+    var player: AKPlayer
+    var timer: Timer?
+    var completion: () -> Void
+    
+    init(player: AKPlayer, completion: @escaping () -> Void) {
+        self.player = player
+        self.completion = completion
+    }
+    
+    func update(destroy: Bool = false) {
+        timer?.invalidate()
+        
+        guard player.isPlaying else {
+            return
+        }
+
+        let dest = player.endTime - player.startTime
+        guard dest > CompletionHandler.MARGIN else {
+            // Too long of a timer and it gets inaccurate
+            timer = Timer.scheduledTimer(withTimeInterval: Double.minimum(CompletionHandler.MAX_TIMER_LENGTH, dest - CompletionHandler.MARGIN), repeats: false) { [unowned self] _ in
+                self.update()
+            }
+            return
+        }
+        
+        timer = Timer.scheduledTimer(withTimeInterval: dest, repeats: false) { [unowned self] _ in
+            if self.player.isPlaying {
+                self.completion()
+            }
+        }
+    }
+}
+
 extension AKPlayer {
     func createFakeCompletionHandler(completion: @escaping () -> Swift.Void) -> Timer {
-        return Timer.scheduledTimer(withTimeInterval: 1.0 / 300.0, repeats: true ) { [unowned self] (timer) in
-            // Kids, don't try this at home
-            // Really
-            // Holy shit
-            if self.isPlaying && Int64(self.frameCount) - self.currentFrame < 100 {
-                completion()
+        let margin = 0.1
+        let dest = endTime - self.position(at: nil) - margin
+        return Timer.scheduledTimer(withTimeInterval: dest, repeats: false) { [unowned self] (timer) in
+            if self.isPlaying {
+                let finalMargin = self.duration - self.position(at: nil)
+                DispatchQueue.main.asyncAfter(deadline: .now() + finalMargin) {
+                    completion()
+                }
             }
         }
     }
@@ -34,7 +73,7 @@ class Player {
     var backingPlayer: AKPlayer!
     var playing: Track?
     
-    var completionTimers: (Timer?, Timer?)
+    var completionHandler: CompletionHandler?
     
     var updatePlaying: ((Track?) -> Swift.Void)?
     var historyProvider: (() -> PlayHistory)?
@@ -42,8 +81,6 @@ class Player {
     var mixer: AKMixer
     var outputNode: AKBooster
     
-//    var microphoneNode: AKMicrophone
-
     var shuffle = true {
         didSet {
             (shuffle ? history?.shuffle() : history?.unshuffle())
@@ -59,11 +96,9 @@ class Player {
         // The completion handler sucks...
         // TODO When it stops sucking, replace our completion timer hack
         //        self.player.completionHandler =
-        completionTimers = (player.createFakeCompletionHandler { [unowned self] in
+        completionHandler = CompletionHandler(player: player) { [unowned self] in
             self.play(moved: 1)
-            }, backingPlayer.createFakeCompletionHandler { [unowned self] in
-                self.play(moved: 1)
-        })
+        }
     }
     
     func start() {
@@ -139,6 +174,8 @@ class Player {
         if isPaused {
             sanityCheck()
             player.play()
+            
+            completionHandler?.update()
             updatePlaying?(playing)
         }
         else {
@@ -175,9 +212,17 @@ class Player {
             if let url = track.url {
                 do {
                     let akfile = try AKAudioFile(forReading: url)
+
+                    guard akfile.duration < 100000 else {
+                        playing = nil
+                        throw PlayError.error(message: "File duration is too long! The file is probably bugged.") // Likely bugged file and we'd crash otherwise
+                    }
+
                     player.load(audioFile: akfile)
                     backingPlayer.load(audioFile: akfile)
                 } catch let error {
+                    if error is PlayError { throw error }
+                    
                     print(error.localizedDescription)
                     player.stop()
                     playing = nil
@@ -185,13 +230,10 @@ class Player {
                     throw PlayError.error(message: error.localizedDescription)
                 }
                 
-                guard player.duration < 100000 else {
-                    playing = nil
-                    throw PlayError.error(message: "File duration is too long! The file is probably bugged.") // Likely bugged file and we'd crash otherwise
-                }
-                
                 player.play()
                 playing = track
+                
+                completionHandler?.update()
                 
                 if !NSApp.isActive {
                     notifyPlay(of: track)
@@ -260,6 +302,9 @@ class Player {
         self.player = self.backingPlayer
         self.backingPlayer = _player
 
+        completionHandler?.player = player
+        completionHandler?.update()
+
         // Slowly switch states. Kinda hacky but improves listening result
         for _ in 0..<100 {
             self.player.volume += 1.0 / 100
@@ -277,6 +322,8 @@ class Player {
         player.play(from: player.currentTime, to: player.duration)
         player.stop()
         
+        completionHandler?.update()
+
         updatePlaying?(playing)
     }
     

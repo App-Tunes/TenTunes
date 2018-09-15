@@ -16,29 +16,29 @@ extension ViewController {
     }
     
     func startBackgroundTasks() {
-        self.visualTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 30.0, repeats: true ) { [unowned self] (timer) in
-            guard self.view.window?.isVisible ?? false else {
-                return
-            }
-            
-            self._waveformView.setBy(player: self.player.player)
-            
-            self._taskButton.spinning = !self.runningTasks.isEmpty
-            
-            if !self._timePlayed.isHidden, !self._timeLeft.isHidden {
-                self._timePlayed.stringValue = Int(self.player.player.currentTime).timeString
-                self._timeLeft.stringValue = Int(self.player.player.duration - self.player.player.currentTime).timeString
-            }
-        }
-        
         self.backgroundTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 10.0, repeats: true ) { [unowned self] (timer) in
+            if self.view.window?.isVisible ?? false {
+                // Main Window Visuals
+                self._waveformView.setBy(player: self.player.player)
+                
+                self._taskButton.spinning = !self.runningTasks.isEmpty
+                
+                if !self._timePlayed.isHidden, !self._timeLeft.isHidden {
+                    self._timePlayed.stringValue = Int(self.player.player.currentTime).timeString
+                    self._timeLeft.stringValue = Int(self.player.player.duration - self.player.player.currentTime).timeString
+                }
+            }
+            
+            // Create specific tasks
             Library.shared.considerExport()
             Library.shared.considerSanity()
             
+            // Sanity check audio player
             if self.player.isPlaying {
                 self.player.sanityCheck()
             }
 
+            // Run Tasks
             var taskers = PriorityQueue(ascending: true, startingValues: self.taskers)
             taskers.push(self.tasker)
             var haveWorkerKey = false
@@ -113,7 +113,7 @@ extension ViewController {
                 Library.shared.performChildBackgroundTask { mox in
                     let analysisRequest: NSFetchRequest = TrackVisuals.fetchRequest()
                     analysisRequest.predicate = NSPredicate(format: "analysis == nil")
-                    analysisRequest.fetchLimit = 100
+                    analysisRequest.fetchLimit = 20
                     let tracks = Library.shared.viewContext.compactConvert(try! mox.fetch(analysisRequest))
                         .compactMap { $0.track } // Who knows, might be gone
                         .filter { $0.url != nil }

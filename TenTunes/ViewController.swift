@@ -46,7 +46,6 @@ class ViewController: NSViewController {
     var queuePopover: NSPopover!
     var taskPopover: NSPopover!
 
-    var visualTimer: Timer!
     var backgroundTimer: Timer!
     
     let player: Player = Player()

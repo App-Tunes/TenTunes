@@ -192,13 +192,13 @@ class TTTokenField: NSTokenField {
                 }
                 
                 button.isHidden = false
-                if let delegate = self.delegate, let displayString = delegate.tokenField?(self, displayStringForRepresentedObject: content) {
+                if let displayString = delegate.tokenField?(self, displayStringForRepresentedObject: content) {
                     if button.title != displayString {
                         button.title = displayString
                     }
                 }
                 else {
-                    fatalError("Not Implemented")
+                    button.title = "???"
                 }
                 
                 actionStubs.bind(button) { _ in

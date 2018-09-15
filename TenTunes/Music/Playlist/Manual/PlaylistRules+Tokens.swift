@@ -1,5 +1,5 @@
 //
-//  PlaylistRules+Labels.swift
+//  PlaylistRules+Tokens.swift
 //  TenTunes
 //
 //  Created by Lukas Tenbrink on 26.07.18.

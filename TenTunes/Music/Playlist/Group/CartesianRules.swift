@@ -1,5 +1,5 @@
 //
-//  PlaylistLabel.swift
+//  CartesianRules.swift
 //  TenTunes
 //
 //  Created by Lukas Tenbrink on 23.07.18.

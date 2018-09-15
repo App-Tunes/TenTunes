@@ -1,5 +1,5 @@
 //
-//  TrackController+Labels.swift
+//  TrackController+Rules.swift
 //  TenTunes
 //
 //  Created by Lukas Tenbrink on 19.07.18.

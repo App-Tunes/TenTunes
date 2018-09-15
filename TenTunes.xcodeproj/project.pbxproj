@@ -86,7 +86,7 @@
 		80B68B9E21011CC100A32E3D /* SMButtonWithMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 80B68B9D21011CC100A32E3D /* SMButtonWithMenu.m */; };
 		80B68BA62101204200A32E3D /* PlaylistSmart+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B68BA42101204200A32E3D /* PlaylistSmart+CoreDataProperties.swift */; };
 		80B68BA72101204200A32E3D /* PlaylistSmart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B68BA52101204200A32E3D /* PlaylistSmart.swift */; };
-		80B68BA92101255D00A32E3D /* TrackController+Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B68BA82101255D00A32E3D /* TrackController+Labels.swift */; };
+		80B68BA92101255D00A32E3D /* TrackController+Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B68BA82101255D00A32E3D /* TrackController+Rules.swift */; };
 		80B764562072F38D003BD7F8 /* PlaylistEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B764552072F38D003BD7F8 /* PlaylistEmpty.swift */; };
 		80BF21C3212AD9D500B9F0AB /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BF21C2212AD9D500B9F0AB /* History.swift */; };
 		80C1F143213B1DE80032E554 /* Foundation+Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C1F142213B1DE80032E554 /* Foundation+Collections.swift */; };
@@ -281,7 +281,7 @@
 		80B68B9F21011D0300A32E3D /* SMButtonWithMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMButtonWithMenu.h; sourceTree = "<group>"; };
 		80B68BA42101204200A32E3D /* PlaylistSmart+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PlaylistSmart+CoreDataProperties.swift"; path = "/Users/lukas/XCode Projects/TenTunes/TenTunes/Music/Playlist/Manual/PlaylistSmart+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		80B68BA52101204200A32E3D /* PlaylistSmart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlaylistSmart.swift; path = "/Users/lukas/XCode Projects/TenTunes/TenTunes/Music/Playlist/Manual/PlaylistSmart.swift"; sourceTree = "<absolute>"; };
-		80B68BA82101255D00A32E3D /* TrackController+Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackController+Labels.swift"; sourceTree = "<group>"; };
+		80B68BA82101255D00A32E3D /* TrackController+Rules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackController+Rules.swift"; sourceTree = "<group>"; };
 		80B764552072F38D003BD7F8 /* PlaylistEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistEmpty.swift; sourceTree = "<group>"; };
 		80BF21C2212AD9D500B9F0AB /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		80C0C29F203F6DCA00FA6083 /* taglib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = taglib.xcodeproj; path = ../../taglib.xcodeproj; sourceTree = "<group>"; };
@@ -714,7 +714,7 @@
 				8093467020A62319001D15CD /* TrackController+Pasteboard.swift */,
 				80F854FE2069180A009A8FBE /* TrackController+RightClick.swift */,
 				80F855002069183E009A8FBE /* TrackController+Menu.swift */,
-				80B68BA82101255D00A32E3D /* TrackController+Labels.swift */,
+				80B68BA82101255D00A32E3D /* TrackController+Rules.swift */,
 				80074CF7204583CF0055B87E /* TrackController.xib */,
 				80F8F6F12053EA2C004A07D6 /* TrackEditor.swift */,
 				806611892125B9BF00C3948E /* TrackEditor+Tags.swift */,
@@ -963,7 +963,7 @@
 				8079F6E4210A2C5400B7A278 /* PlaylistRules+Tokens.swift in Sources */,
 				8079F6DB2106745600B7A278 /* CartesianRulesController.swift in Sources */,
 				80C1F151214033C40032E554 /* Enumerations.swift in Sources */,
-				80B68BA92101255D00A32E3D /* TrackController+Labels.swift in Sources */,
+				80B68BA92101255D00A32E3D /* TrackController+Rules.swift in Sources */,
 				807092EB20C69D8F00DFED53 /* ExportPlaylistsController.swift in Sources */,
 				806AC1432041EF1900857B1B /* SPAnalyzer.mm in Sources */,
 				8030E01720FE2C3B006B4AE8 /* Alerts.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  LabelDelegate.swift
+//  SmartPlaylistRulesController.swift
 //  TenTunes
 //
 //  Created by Lukas Tenbrink on 18.07.18.

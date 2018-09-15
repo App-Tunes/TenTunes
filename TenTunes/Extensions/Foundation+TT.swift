@@ -54,7 +54,7 @@ extension Int {
     
     var timeString: String {
         let (m, s) = minutesSeconds
-        return String(format: "\(m):%02d", s)
+        return String(format: "%d:%02d", m, s)
     }
     
     init(bitComponents : [Int]) {

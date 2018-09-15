@@ -15,7 +15,7 @@ protocol TTTokenFieldDelegate : NSTokenFieldDelegate {
 }
 
 class TTTokenField: NSTokenField {
-    let maxButtonsPerRow = 10
+    let maxButtonsPerRow = 5
     
     var _autocompletePopover: NSPopover?
     
@@ -50,6 +50,7 @@ class TTTokenField: NSTokenField {
         var buttons: [NSButton] = []
         let view: NSView = NSView()
         let title: NSTextField = NSTextField()
+        let ellipsis: NSTextField = NSTextField(string: "...")
     }
     
     fileprivate func row(at: Int) -> Row {
@@ -85,6 +86,16 @@ class TTTokenField: NSTokenField {
                 row.buttons.append(button)
             }
             
+            if let prev = prev {
+                row.ellipsis.isEditable = false
+                row.ellipsis.isBordered = false
+                row.ellipsis.translatesAutoresizingMaskIntoConstraints = false
+
+                row.view.addSubview(row.ellipsis)
+                row.view.addConstraint(NSLayoutConstraint(item: row.ellipsis, attribute: .leading, relatedBy: .equal, toItem: prev, attribute: .trailing, multiplier: 1, constant: 5))
+                row.view.addConstraint(NSLayoutConstraint(item: row.ellipsis, attribute: .top, relatedBy: .equal, toItem: row.title, attribute: .bottom, multiplier: 1, constant: 5))
+            }
+
             let view = autocompletePopover.contentViewController!.view
 
             view.addSubview(row.view)
@@ -194,6 +205,8 @@ class TTTokenField: NSTokenField {
                     self.autocomplete(with: content)
                 }
             }
+            
+            row.ellipsis.isHidden = group.contents.count <= maxButtonsPerRow
         }
         
         autocompletePopover.show(relativeTo: bounds, of: self, preferredEdge: .maxY)

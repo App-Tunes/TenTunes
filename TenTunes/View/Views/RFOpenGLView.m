@@ -18,12 +18,9 @@
     double deltaTime = 1.0 / (outputTime->rateScalar * (double)outputTime->videoTimeScale / (double)outputTime->videoRefreshPeriod);
     _deltaTime = deltaTime;
     
-    // Eh... It's close enough of a check
-    if ([self visibleRect].size.width != NSZeroRect.size.width) {
-        [self animate];
-        [self drawRect:[self bounds]];
-    }
-    
+    [self animate];
+    [self drawRect:_bounds];
+
     return kCVReturnSuccess;
 }
 
@@ -33,14 +30,50 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
     }
 }
 
+- (void)updateDisplayLink {
+    // Eh... It's close enough of a check
+    BOOL wantsLink = [self wantsDisplayLink];
+    if (wantsLink == CVDisplayLinkIsRunning(_displayLink)) { return; }
+    
+    // TODO Update linked screen if need be
+    if (!wantsLink) {
+        CVDisplayLinkStop(_displayLink);
+    }
+    else {
+        CVDisplayLinkStart(_displayLink);
+    }
+}
+
+- (BOOL)wantsDisplayLink {
+    return ([[self window] occlusionState] & NSWindowOcclusionStateVisible) != 0 &&
+        [self visibleRect].size.width != NSZeroRect.size.width;
+}
+
+- (void)viewWillMoveToWindow:(NSWindow *)newWindow {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:nil object:[self window]];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDisplayLink) name:NSWindowDidChangeOcclusionStateNotification object:newWindow];
+}
+
+- (void)viewDidHide {
+    [self updateDisplayLink];
+}
+
+- (void)viewDidUnhide {
+    [self updateDisplayLink];
+}
+
 - (void)awakeFromNib {
     GLint swapInt = 1;
     [[self openGLContext] setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];
-    
+
+    [self createDisplayLink];
+}
+
+- (void)createDisplayLink {
     CGLContextObj cglContext = [[self openGLContext] CGLContextObj];
     CGLPixelFormatObj cglPixelFormat = [[self pixelFormat] CGLPixelFormatObj];
     
-    // Display link:
     CVDisplayLinkCreateWithActiveCGDisplays(&_displayLink);
     CVDisplayLinkSetCurrentCGDisplayFromOpenGLContext(_displayLink, cglContext, cglPixelFormat);
     CVDisplayLinkSetOutputCallback(_displayLink, &DisplayLinkCallback, (__bridge void *)self);
@@ -66,7 +99,7 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
         [self unlockFocus];
     }
     
-    CVDisplayLinkStart(_displayLink);
+    [self updateDisplayLink];
 }
 
 - (void)reshape {

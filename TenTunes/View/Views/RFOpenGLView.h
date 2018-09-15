@@ -15,6 +15,9 @@
 
 @property (readonly) CFTimeInterval deltaTime;
 
+- (void)updateDisplayLink;
+- (BOOL)wantsDisplayLink;
+
 - (void)animate;
 - (void)drawFrame;
 

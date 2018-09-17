@@ -36,7 +36,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         while persistentContainer == nil {
             if freedomToChoose {
-                switch NSAlert.choose(title: "Choose Library", text: "Please choose or create a library location. This is where you data and music are stored.", actions: ["Choose Existing", "New Library", "Cancel", ]) {
+                switch NSAlert.choose(title: "Choose Library", text: "Please choose or create a library location. This is where your data and music are stored.", actions: ["Choose Existing", "New Library", "Cancel", ]) {
                 case .alertSecondButtonReturn:
                     let dialog = NSSavePanel()
                     

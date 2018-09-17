@@ -19,7 +19,7 @@ extension ViewController {
         self.backgroundTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 10.0, repeats: true ) { [unowned self] (timer) in
             if self.view.window?.isVisible ?? false {
                 // Main Window Visuals
-                self._waveformView.setBy(player: self.player.player)
+                self._waveformView.updateLocation(by: self.player.player, duration: CMTime(seconds: 1.0 / 10.0, preferredTimescale: 1000))
                 
                 self._taskButton.spinning = !self.runningTasks.isEmpty
                 

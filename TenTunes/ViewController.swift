@@ -213,8 +213,10 @@ class ViewController: NSViewController {
             playingTrackController.history = PlayHistory(playlist: PlaylistEmpty())
             
             _coverImage.image = nil
+            
             _waveformView.analysis = nil
             _waveformView.jumpSegment = 0
+            _waveformView.duration = 1
 
             return
         }
@@ -235,6 +237,7 @@ class ViewController: NSViewController {
         _coverImage.transitionWithImage(image: track.artworkPreview)
         _waveformView.analysis = track.analysis
         
+        _waveformView.duration = track.duration?.seconds ?? 1
         if let speed = track.speed {
             // Always jump 16 beats
             _waveformView.jumpSegment = (speed.secondsPerBeat * 16) / player.player.duration
@@ -268,7 +271,7 @@ class ViewController: NSViewController {
     }
         
     @IBAction func waveformViewClicked(_ sender: Any) {
-        if let position = self._waveformView.getBy(max: 1) {
+        if let position = self._waveformView.location {
             self.player.setPosition(position)
         }
     }

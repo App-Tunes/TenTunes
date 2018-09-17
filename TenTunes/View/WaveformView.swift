@@ -92,12 +92,12 @@ class WaveformLayer : CALayer {
     
     var location: Double? {
         didSet {
-            _updateLocation(layer: _positionLayer, to: location)
+            updateLocation(of: _positionLayer, to: location)
         }
     }
     var mouseLocation: Double? {
         didSet {
-            _updateLocation(layer: _mousePositionLayer, to: mouseLocation)
+            updateLocation(of: _mousePositionLayer, to: mouseLocation)
         }
     }
     
@@ -163,14 +163,11 @@ class WaveformLayer : CALayer {
         )
         _mousePositionLayer.frame = _positionLayer.frame
         
-        _updateLocation(layer: _positionLayer, to: location)
-        _updateLocation(layer: _mousePositionLayer, to: mouseLocation)
+        updateLocation(of: _positionLayer, to: location)
+        updateLocation(of: _mousePositionLayer, to: mouseLocation)
     }
     
-    func _updateLocation(layer: CALayer, to: Double?) {
-        CATransaction.begin()
-        CATransaction.setAnimationDuration(1 / 30) // Make this quick
-
+    func updateLocation(of layer: CALayer, to: Double?) {
         if let location = to {
             layer.frame.origin.x = CGFloat(location) * self.bounds.width
             layer.isHidden = false
@@ -178,19 +175,23 @@ class WaveformLayer : CALayer {
         else {
             layer.isHidden = true
         }
-        
-        CATransaction.commit()
     }
 }
 
 class WaveformView: NSControl, CALayerDelegate {
     var location: Double? {
-        set(location) {
-            waveformLayer.location = location
+        set { locationRatio = newValue.map { $0 / duration } }
+        get { return locationRatio.map { $0 * duration } }
+    }
+    
+    var locationRatio: Double? {
+        set {
+            waveformLayer.location = newValue
             waveformLayer.mouseLocation = waveformLayer.mouseLocation != nil ? (window?.mouseLocationOutsideOfEventStream ?=> relativeX) ?=> jumpPosition : nil
         }
         get { return waveformLayer.location }
     }
+    var duration: Double = 1
     
     var analysis: Analysis? {
         set(analysis) {
@@ -378,24 +379,21 @@ import AudioKit
 import AudioKitUI
 
 extension WaveformView {
-    func setBy(player: AKPlayer) {
+    func updateLocation(_ location: Double?, duration: CMTime) {
+        CATransaction.begin()
+        CATransaction.setAnimationDuration(duration.seconds)
+        
+        self.location = location
+
+        CATransaction.commit()
+    }
+    
+    func updateLocation(by player: AKPlayer, duration: CMTime) {
         if player.audioFile != nil, let stamp = player.avAudioNode.lastRenderTime?.audioTimeStamp, stamp.mFlags.contains(.hostTimeValid) && stamp.mFlags.contains(.sampleTimeValid) {
-            self.setBy(time: player.currentTime, max: player.duration)
+            updateLocation(player.currentTime, duration: duration)
         }
         else {
-            self.location = nil
+            updateLocation(nil, duration: duration)
         }
-    }
-    
-    func setBy(time: Double, max: Double) {
-        self.location = time / max
-    }
-    
-    func getBy(player: AKPlayer) -> Double? {
-        return player.audioFile != nil ? self.getBy(max: player.duration) : nil
-    }
-
-    func getBy(max: Double) -> Double? {
-        return self.location != nil ? self.location! * max : nil
     }
 }

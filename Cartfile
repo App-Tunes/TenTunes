@@ -1,2 +1,3 @@
 github "audiokit/AudioKit"
-github "nhurden/MediaKeyTap"
+#github "nhurden/MediaKeyTap"
+git "https://github.com/reitermarkus/MediaKeyTap" "master"

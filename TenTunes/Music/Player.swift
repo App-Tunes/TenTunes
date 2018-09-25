@@ -20,58 +20,6 @@ extension AKPlayer {
     }
 }
 
-class CompletionHandler {
-    static let MAX_TIMER_LENGTH = 10.0
-    static let MARGIN = 0.05
-    
-    var player: AKPlayer
-    var timer: Timer?
-    var completion: () -> Void
-    
-    init(player: AKPlayer, completion: @escaping () -> Void) {
-        self.player = player
-        self.completion = completion
-    }
-    
-    func update(destroy: Bool = false) {
-        timer?.invalidate()
-        
-        guard player.isPlaying else {
-            return
-        }
-
-        let dest = player.endTime - player.startTime
-        guard dest > CompletionHandler.MARGIN else {
-            // Too long of a timer and it gets inaccurate
-            timer = Timer.scheduledTimer(withTimeInterval: Double.minimum(CompletionHandler.MAX_TIMER_LENGTH, dest - CompletionHandler.MARGIN), repeats: false) { [unowned self] _ in
-                self.update()
-            }
-            return
-        }
-        
-        timer = Timer.scheduledTimer(withTimeInterval: dest, repeats: false) { [unowned self] _ in
-            if self.player.isPlaying {
-                self.completion()
-            }
-        }
-    }
-}
-
-extension AKPlayer {
-    func createFakeCompletionHandler(completion: @escaping () -> Swift.Void) -> Timer {
-        let margin = 0.1
-        let dest = endTime - self.position(at: nil) - margin
-        return Timer.scheduledTimer(withTimeInterval: dest, repeats: false) { [unowned self] (timer) in
-            if self.isPlaying {
-                let finalMargin = self.duration - self.position(at: nil)
-                DispatchQueue.main.asyncAfter(deadline: .now() + finalMargin) {
-                    completion()
-                }
-            }
-        }
-    }
-}
-
 extension AVPlayer {
     var isPlaying: Bool {
         return rate != 0 && error == nil
@@ -80,11 +28,9 @@ extension AVPlayer {
 
 class Player {
     var history: PlayHistory?
-    var player: AKPlayer!
-    var backingPlayer: AKPlayer!
+    var player: AKPlayer
+    var backingPlayer: AKPlayer
     var playing: Track?
-    
-    var completionHandler: CompletionHandler?
     
     var updatePlaying: ((Track?) -> Swift.Void)?
     var historyProvider: (() -> PlayHistory)?
@@ -104,10 +50,10 @@ class Player {
         mixer = AKMixer(player, backingPlayer)
         outputNode = AKBooster(mixer)
 
-        // The completion handler sucks...
-        // TODO When it stops sucking, replace our completion timer hack
-        //        self.player.completionHandler =
-        completionHandler = CompletionHandler(player: player) { [unowned self] in
+        player.completionHandler = { [unowned self] in
+            self.play(moved: 1)
+        }
+        backingPlayer.completionHandler = { [unowned self] in
             self.play(moved: 1)
         }
     }
@@ -186,7 +132,6 @@ class Player {
             sanityCheck()
             player.play()
             
-            completionHandler?.update()
             updatePlaying?(playing)
         }
         else {
@@ -243,8 +188,6 @@ class Player {
                 
                 player.play()
                 playing = track
-                
-                completionHandler?.update()
                 
                 if !NSApp.isActive {
                     notifyPlay(of: track)
@@ -313,9 +256,6 @@ class Player {
         self.player = self.backingPlayer
         self.backingPlayer = _player
 
-        completionHandler?.player = player
-        completionHandler?.update()
-
         // Slowly switch states. Kinda hacky but improves listening result
         for _ in 0..<100 {
             self.player.volume += 1.0 / 100
@@ -333,8 +273,6 @@ class Player {
         player.play(from: player.currentTime, to: player.duration)
         player.stop()
         
-        completionHandler?.update()
-
         updatePlaying?(playing)
     }
     

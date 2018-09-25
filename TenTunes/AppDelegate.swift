@@ -75,7 +75,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         UserDefaults.standard.set(location, forKey: "libraryLocation")
         
         let libraryStoryboard = NSStoryboard(name: .init("Library"), bundle: nil)
-        libraryWindowController = libraryStoryboard.instantiateInitialController() as! NSWindowController
+        libraryWindowController = (libraryStoryboard.instantiateInitialController() as! NSWindowController)
         
         preferencesController = PreferencesWindowController(windowNibName: .init(rawValue: "PreferencesWindowController"))
         

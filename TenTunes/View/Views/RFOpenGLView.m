@@ -19,7 +19,7 @@
     _deltaTime = deltaTime;
     
     [self animate];
-    [self drawRect:_bounds];
+    [self drawRect:[self bounds]];
 
     return kCVReturnSuccess;
 }

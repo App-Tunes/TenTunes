@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,7 +14,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Visualizer" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="visualizer_window" animationBehavior="default" tabbingIdentifier="visualizer_window" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="F0z-JX-Cv5">
+        <window title="Visualizer" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="visualizer_window" animationBehavior="default" tabbingIdentifier="visualizer_window" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="F0z-JX-Cv5">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="480" height="270"/>
@@ -23,9 +24,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="K6X-dU-i3r">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                    </visualEffectView>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="zxW-aU-Jsz" customClass="VisualizerView" customModule="TenTunes" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <connections>
@@ -35,12 +33,8 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="zxW-aU-Jsz" secondAttribute="trailing" id="WX5-XL-gTs"/>
-                    <constraint firstItem="K6X-dU-i3r" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="X46-TJ-VKB"/>
                     <constraint firstItem="zxW-aU-Jsz" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="bDs-NE-ioI"/>
                     <constraint firstItem="zxW-aU-Jsz" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="sWU-3s-nbA"/>
-                    <constraint firstAttribute="trailing" secondItem="K6X-dU-i3r" secondAttribute="trailing" id="yDy-5p-ORM"/>
-                    <constraint firstItem="K6X-dU-i3r" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="yKx-da-2c8"/>
-                    <constraint firstAttribute="bottom" secondItem="K6X-dU-i3r" secondAttribute="bottom" id="yzS-ir-BkO"/>
                     <constraint firstAttribute="bottom" secondItem="zxW-aU-Jsz" secondAttribute="bottom" id="zuS-99-8UU"/>
                 </constraints>
             </view>

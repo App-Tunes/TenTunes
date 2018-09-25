@@ -9,6 +9,17 @@
 import Foundation
 import AudioKit
 
+extension AKPlayer {
+    // TODO Same as setPosition, but for some reason this func doesn't exist currently??
+    func jump(to position: Double) {
+        startTime = position
+        if isPlaying {
+            stop()
+            play()
+        }
+    }
+}
+
 class CompletionHandler {
     static let MAX_TIMER_LENGTH = 10.0
     static let MARGIN = 0.05
@@ -287,14 +298,14 @@ class Player {
         }
         
         guard isPlaying else {
-            player.setPosition(time)
+            player.jump(to: time)
             return
         }
         
         // This code block makes jumping the tiniest bit smoother
         // TODO Maybe determine this heuristically? lol
         let magicAdd = 0.04 // Hacky absolute that makes it even smoother
-        backingPlayer.setPosition(time + magicAdd)
+        backingPlayer.jump(to: time + magicAdd)
         backingPlayer.volume = 0
         backingPlayer.play()
         

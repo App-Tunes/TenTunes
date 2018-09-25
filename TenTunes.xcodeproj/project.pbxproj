@@ -13,7 +13,6 @@
 		80074CFD204584980055B87E /* PlaylistController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80074CFB204584980055B87E /* PlaylistController.xib */; };
 		80074CFF2046BB0C0055B87E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80074CFE2046BB0B0055B87E /* QuartzCore.framework */; };
 		8013720E203F7C9C00CA9036 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720C203F7C9C00CA9036 /* AudioKit.framework */; };
-		8013720F203F7C9C00CA9036 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720D203F7C9C00CA9036 /* AudioKitUI.framework */; };
 		801621332067B71B00093B15 /* ViewController+Updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801621322067B71B00093B15 /* ViewController+Updates.swift */; };
 		8017685920743898000DD433 /* NSImageViewAspectFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8017685820743898000DD433 /* NSImageViewAspectFill.swift */; };
 		8026241620FF445F009D7988 /* TTTokenField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8026241520FF445F009D7988 /* TTTokenField.swift */; };
@@ -30,6 +29,7 @@
 		8030E01B20FE7AAC006B4AE8 /* MoveTrackToMediaLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E01A20FE7AAC006B4AE8 /* MoveTrackToMediaLocation.swift */; };
 		803717292043629800DB9EAA /* ViewController+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803717282043629700DB9EAA /* ViewController+Background.swift */; };
 		803E972F20C7EF2C00D46565 /* LazyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803E972E20C7EF2C00D46565 /* LazyMap.swift */; };
+		804539B1215ACA8B0080153F /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720D203F7C9C00CA9036 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8046CDA3204EF1ED00E732E7 /* TitleSubtitleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */; };
 		8055FE7E20C947A300559F45 /* Volumes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8055FE7D20C947A300559F45 /* Volumes.swift */; };
 		8058FA8F204317080086FF8A /* libSuperpoweredAudioOSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8058FA8E204317080086FF8A /* libSuperpoweredAudioOSX.a */; };
@@ -163,6 +163,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				804539B1215ACA8B0080153F /* AudioKitUI.framework in Embed Frameworks */,
 				8058FABE20432D3D0086FF8A /* MediaKeyTap.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -362,7 +363,6 @@
 				806AC13E2041EDEE00857B1B /* AudioToolbox.framework in Frameworks */,
 				806AC13C2041EDE500857B1B /* CoreMedia.framework in Frameworks */,
 				806AC13A2041EDD900857B1B /* AVFoundation.framework in Frameworks */,
-				8013720F203F7C9C00CA9036 /* AudioKitUI.framework in Frameworks */,
 				8013720E203F7C9C00CA9036 /* AudioKit.framework in Frameworks */,
 				8058FABC20432A730086FF8A /* MediaKeyTap.framework in Frameworks */,
 				0418D7C40668030CCFCB5446 /* Pods_TenTunes.framework in Frameworks */,

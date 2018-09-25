@@ -159,7 +159,7 @@ class ViewController: NSViewController {
         
         registerObservers()
         
-        mediaKeyTap = MediaKeyTap(delegate: self)
+        mediaKeyTap = MediaKeyTap(delegate: self, for: [.playPause, .previous, .rewind, .next, .fastForward])
         mediaKeyTap?.start()
 
         taskers.append(AnalyzeCurrentTrack())

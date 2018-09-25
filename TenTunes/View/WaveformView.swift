@@ -338,11 +338,11 @@ class WaveformView: NSControl, CALayerDelegate {
             return position
         }
         
-        guard jumpSegment > 0, jumpSegment < 1, let location = self.locationRatio else {
+        guard jumpSegment > 0, jumpSegment < 1, let locationRatio = self.locationRatio else {
             return position
         }
         
-        return location + ((position - location) / jumpSegment).rounded() * jumpSegment
+        return locationRatio + ((position - locationRatio) / jumpSegment).rounded() * jumpSegment
     }
     
 // If anything, play at increased or decreased speeds. But just setting position sounds crap

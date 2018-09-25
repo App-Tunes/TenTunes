@@ -199,3 +199,13 @@ extension Mirror {
         return nil
     }
 }
+
+extension Date {
+    func isBefore(date: Date) -> Bool {
+        return timeIntervalSinceReferenceDate < date.timeIntervalSinceReferenceDate
+    }
+    
+    func isAfter(date: Date) -> Bool {
+        return timeIntervalSinceReferenceDate > date.timeIntervalSinceReferenceDate
+    }
+}

@@ -18,14 +18,20 @@ extension Track {
         case fileNotFound
     }
     
-    func fetchMetadata() throws {
-        self.metadataFetchDate = Date()
-        self.artwork = nil
-        
+    func fetchMetadata(force: Bool = false) throws {
         guard let url = self.url else {
             throw MetadataError.fileNotFound
         }
         
+        let modDate = { (try! FileManager.default.attributesOfItem(atPath: url.path)[.modificationDate]) as! Date }
+        guard force || ((metadataFetchDate ?=> modDate().isAfter) ?? true) else {
+            // Hasn't changed
+            return
+        }
+        
+        self.metadataFetchDate = Date()
+        self.artwork = nil
+
         let prevTitle = title
         let prevAlbum = album
         let prevAuthor = author

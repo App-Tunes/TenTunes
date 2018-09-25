@@ -295,7 +295,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction
     func refreshMetadata(sender: Any?) {
         for track in Library.shared.allTracks.tracksList {
-            track.metadataFetched = false
+            track.metadataFetchDate = nil
         }
     }
 }

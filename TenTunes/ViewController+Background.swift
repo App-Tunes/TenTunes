@@ -93,7 +93,7 @@ extension ViewController {
         Timer.scheduledAsyncTickTock(withTimeInterval: 5, do: [{
             Library.shared.performChildBackgroundTask { mox in
                 let metadataRequest: NSFetchRequest = Track.fetchRequest()
-                metadataRequest.predicate = NSPredicate(format: "metadataFetched == false")
+                metadataRequest.predicate = NSPredicate(format: "metadataFetchDate == nil")
                 metadataRequest.fetchLimit = 200
                 let tracks = Library.shared.viewContext.compactConvert(try! mox.fetch(metadataRequest))
                     .filter { $0.url != nil }

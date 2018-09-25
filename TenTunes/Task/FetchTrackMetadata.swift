@@ -20,7 +20,7 @@ class FetchTrackMetadata: TrackTask {
 
     override func execute() {
         // TODO We set this, but if we quit in between it will not have been fetched
-        track.metadataFetched = true // So no other thread tries to enter
+        track.metadataFetchDate = Date() // So no other thread tries to enter
 
         Library.shared.performChildBackgroundTask { mox in
             mox.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
@@ -32,7 +32,7 @@ class FetchTrackMetadata: TrackTask {
             
             if (try? asyncTrack.fetchMetadata()) == nil {
                 // Reset
-                asyncTrack.metadataFetched = false
+                asyncTrack.metadataFetchDate = nil
             }
             else {
                 Library.shared.mediaLocation.updateLocation(of: self.track)

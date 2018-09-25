@@ -19,7 +19,7 @@ extension Track {
     }
     
     func fetchMetadata() throws {
-        self.metadataFetched = true
+        self.metadataFetchDate = Date()
         self.artwork = nil
         
         guard let url = self.url else {

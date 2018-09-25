@@ -40,7 +40,7 @@ extension Track {
     @NSManaged public var genre: String?
     @NSManaged public var iTunesID: String?
     @NSManaged public var keyString: String?
-    @NSManaged public var metadataFetched: Bool
+    @NSManaged public var metadataFetchDate: Date?
     @NSManaged public var path: String?
     @NSManaged public var remixAuthor: String?
     @NSManaged public var title: String?

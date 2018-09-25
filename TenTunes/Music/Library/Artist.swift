@@ -9,7 +9,7 @@
 import Cocoa
 
 class Artist {
-    static let splitRegex = try! NSRegularExpression(pattern: "\\S*(,|(f(ea)?t(uring)?(.)?))\\S*", options: [])
+    static let splitRegex = try! NSRegularExpression(pattern: "\\S*(,|(f(ea)?t(uring)?(.)?))\\S+", options: [])
     static let unknown = "Unknown Artist"
     
     let name: String

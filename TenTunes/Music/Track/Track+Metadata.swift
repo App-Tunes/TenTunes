@@ -30,7 +30,6 @@ extension Track {
         }
         
         self.metadataFetchDate = Date()
-        self.artwork = nil
 
         let prevTitle = title
         let prevAlbum = album
@@ -39,6 +38,8 @@ extension Track {
         let prevGenre = genre
         let prevKeyString = keyString
         let prevBPM = speed
+        
+        var artwork: NSImage?
 
         // TODO Duration
         
@@ -52,7 +53,7 @@ extension Track {
             
             genre = parseGenre(tagLibFile.genre)
             
-            forcedVisuals.artwork = tagLibFile.image as NSData?
+            artwork = tagLibFile.image.flatMap { NSImage(data: $0) }
             
             keyString = tagLibFile.initialKey
             bpmString = tagLibFile.bpm
@@ -87,17 +88,17 @@ extension Track {
         genre = genre ?? parseGenre(avImporter.string(withKey: .iTunesMetadataKeyUserGenre, keySpace: .iTunes))
         genre = genre ?? parseGenre(avImporter.string(withKey: .iTunesMetadataKeyPredefinedGenre, keySpace: .iTunes))
         
-        forcedVisuals.artwork = forcedVisuals.artwork ?? avImporter.image(withKey: .commonKeyArtwork, keySpace: .common)?.jpgRepresentation as NSData?
-        forcedVisuals.artwork = forcedVisuals.artwork ?? avImporter.image(withKey: .iTunesMetadataKeyCoverArt, keySpace: .iTunes)?.jpgRepresentation as NSData?
+        artwork = artwork ?? avImporter.image(withKey: .commonKeyArtwork, keySpace: .common)
+        artwork = artwork ?? avImporter.image(withKey: .iTunesMetadataKeyCoverArt, keySpace: .iTunes)
 
         bpmString = bpmString ?? avImporter.string(withKey: .iTunesMetadataKeyBeatsPerMin, keySpace: .iTunes)
 
         // For videos, generate thumbnails
-        if forcedVisuals.artwork == nil {
+        if artwork == nil {
             let imgGenerator = AVAssetImageGenerator(asset: AVURLAsset(url: url))
             do {
                 let img = try imgGenerator.copyCGImage(at: CMTimeMake(0, 60), actualTime: nil)
-                forcedVisuals.artwork = NSImage(cgImage: img, size: NSZeroSize).jpgRepresentation as NSData?
+                artwork = NSImage(cgImage: img, size: NSZeroSize)
             }
             catch {
                 // print(err.localizedDescription)
@@ -172,9 +173,6 @@ extension Track {
 
             case \Track.trackNumber:
                 tagLibFile.comments = comments as String?
-
-            case \Track.artwork:
-                tagLibFile.image = visuals?.artwork as Data?
 
             case \Track.comments:
                 tagLibFile.comments = comments as String?

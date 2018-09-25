@@ -34,15 +34,15 @@ class Album {
             let data = newValue?.jpgRepresentation
             let preview = Album.preview(for: newValue)
             for track in tracks {
-                track.forcedVisuals.artwork = data as NSData?
+                track.artworkData = data
                 track.forcedVisuals.artworkPreview = preview
             }
         }
     }
     
-    var artworkData: NSData? {
-        get { return tracks.compactMap { $0.visuals?.artwork }.first }
-        set { tracks.forEach { $0.forcedVisuals.artwork = newValue } }
+    var artworkData: Data? {
+        get { return tracks.compactMap { $0.artworkData }.first }
+        set { tracks.forEach { $0.artworkData = newValue } }
     }
     
     var artworkPreview: NSImage? {

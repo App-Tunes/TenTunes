@@ -39,7 +39,6 @@ class FetchTrackMetadata: TrackTask {
             }
             
             try! mox.save()
-            self.track.copyTransient(from: asyncTrack)
             
             self.finish() // TODO Low priority and thus only one thread at once
         }

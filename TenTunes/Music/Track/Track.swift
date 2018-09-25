@@ -24,13 +24,26 @@ public class Track: NSManagedObject {
         // But better than just using Library.shared everywhere to centralise acccesses for the future
         return Library.shared
     }
+
+    @objc dynamic var artworkData: Data? {
+        get {
+            return url
+                .flatMap { TagLibFile(url: $0) }?.image
+        }
+        set {
+            if let tlFile = (url ?=> TagLibFile.init) {
+                tlFile.image = newValue
+                try! tlFile.write()
+            }
+        }
+    }
     
     @objc dynamic var artwork: NSImage? {
         get {
-            return visuals?.artwork.flatMap { NSImage(data: $0 as Data) }
+            return artworkData.flatMap { NSImage(data: $0) }
         }
         set {
-            forcedVisuals.artwork = newValue?.jpgRepresentation as NSData?
+            artworkData = newValue?.jpgRepresentation
             forcedVisuals.artworkPreview = Album.preview(for: newValue)
         }
     }
@@ -64,11 +77,6 @@ public class Track: NSManagedObject {
     
     func writeAnalysis() {
         forcedVisuals.analysis = NSKeyedArchiver.archivedData(withRootObject: analysis!) as NSData
-    }
-    
-    func copyTransient(from: Track) {
-        from.visuals?.analysis = from.visuals?.analysis
-        visuals?.artwork = from.visuals?.artwork
     }
     
     var duration: CMTime? {

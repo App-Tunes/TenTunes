@@ -57,8 +57,9 @@ class Album {
 }
 
 extension Album : Hashable {
-    var hashValue: Int {
-        return title.lowercased().hashValue ^ (author?.hashValue ?? 0)
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(title.lowercased())
+        hasher.combine(author)
     }
     
     static func == (lhs: Album, rhs: Album) -> Bool {

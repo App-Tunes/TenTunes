@@ -89,7 +89,7 @@ class TrackEditor: NSViewController {
         
         let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject> ?? Set()
         
-        if updates.of(type: Playlist.self).anyMatch({
+        if updates.of(type: Playlist.self).anySatisfy({
             Library.shared.isTag(playlist: $0)
         }) {
             // Tags, better reload if some tag changed while we edit this.

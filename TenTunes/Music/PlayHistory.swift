@@ -69,8 +69,8 @@ class PlayHistory {
         let terms = (text.components(separatedBy: .whitespacesAndNewlines).filter { !$0.isEmpty })
             .map { $0.lowercased() }
         return { (track) in
-            return terms.allMatch { (term) -> Bool in
-                return track.searchable.anyMatch { (key) -> Bool in
+            return terms.allSatisfy { (term) -> Bool in
+                return track.searchable.anySatisfy { (key) -> Bool in
                     return key.lowercased().contains(term)
                 }
             }

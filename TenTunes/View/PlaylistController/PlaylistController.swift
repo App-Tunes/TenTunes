@@ -147,11 +147,11 @@ import Cocoa
         }
 
         let message = "Are you sure you want to delete \(playlists.count) playlist\(playlists.count > 1 ? "s" : "")?"
-        guard !confirmed || NSAlert.ensure(intent: playlists.allMatch { $0.isTrivial }, action: "Delete Playlists", text: message) else {
+        guard !confirmed || NSAlert.ensure(intent: playlists.allSatisfy { $0.isTrivial }, action: "Delete Playlists", text: message) else {
             return
         }
         
-        guard playlists.allMatch({ Library.shared.isPlaylist(playlist: $0) }) else {
+        guard playlists.allSatisfy({ Library.shared.isPlaylist(playlist: $0) }) else {
             fatalError("Trying to delete undeletable playlists!")
         }
         

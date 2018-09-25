@@ -9,32 +9,6 @@
 import Cocoa
 
 @objc public class CartesianRules : NSObject, NSCoding {
-    struct Combination : Hashable {
-        let name: String
-        let rules: SmartPlaylistRules
-        
-        init(name: String, rules: SmartPlaylistRules) {
-            self.name = name
-            self.rules = rules
-        }
-        
-        init?(from: Playlist) {
-            guard let rules = (from as? PlaylistSmart)?.rules else {
-                return nil
-            }
-            
-            self.init(name: from.name, rules: rules)
-        }
-        
-        var hashValue: Int {
-            return name.hashValue ^ rules.hashValue
-        }
-        
-        static func == (lhs: Combination, rhs: Combination) -> Bool {
-            return lhs.name == rhs.name && lhs.rules == rhs.rules
-        }
-    }
-
     var tokens: [CartesianRules.Token]
     
     public func encode(with aCoder: NSCoder) {
@@ -52,7 +26,7 @@ import Cocoa
             Set($0.flatMap { $0.tracksList })
         }
         return { track in
-            matches.allMatch { $0.contains(track) }
+            matches.allSatisfy { $0.contains(track) }
         }
     }
     
@@ -84,12 +58,6 @@ import Cocoa
     
     public override var description: String {
         return "[\((tokens.map { $0.representation() }).joined(separator: ", "))]"
-    }
-    
-    public override var hashValue: Int {
-        return (tokens.map { $0.representation() }).reduce(0, { (hash, string) in
-            hash ^ string.hash
-        })
     }
     
     override public func isEqual(_ object: Any?) -> Bool {
@@ -163,6 +131,26 @@ extension CartesianRules.Token {
         override func representation(in context: NSManagedObjectContext? = nil) -> String {
             let playlistName = context != nil ? playlist(in: context!)?.name : playlistID?.description
             return "📁 " + (playlistName ?? "Invalid Playlist")
+        }
+    }
+}
+
+extension CartesianRules {
+    struct Combination : Hashable {
+        let name: String
+        let rules: SmartPlaylistRules
+        
+        init(name: String, rules: SmartPlaylistRules) {
+            self.name = name
+            self.rules = rules
+        }
+        
+        init?(from: Playlist) {
+            guard let rules = (from as? PlaylistSmart)?.rules else {
+                return nil
+            }
+            
+            self.init(name: from.name, rules: rules)
         }
     }
 }

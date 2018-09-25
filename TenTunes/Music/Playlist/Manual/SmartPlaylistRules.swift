@@ -16,10 +16,11 @@ import Cocoa
         let rguard = rguard ?? RecursionGuard()
         
         let filters = tokens.map { $0.filter(in: context, rguard: rguard) }
-        let any = self.any
+        let satisfier = any ? filters.anySatisfy : filters.allSatisfy
         
         return { track in
-            return (any ? filters.anyMatch : filters.allMatch) { $0(track) }
+            // Try is because satisfier blindly rethrows
+            return try! satisfier { $0(track) }
         }
     }
 
@@ -40,12 +41,6 @@ import Cocoa
     
     public override var description: String {
         return "[\((tokens.map { $0.representation() }).joined(separator: any ? " | " : ", "))]"
-    }
-    
-    public override var hashValue: Int {
-        return (tokens.map { $0.representation() }).reduce(0, { (hash, string) in
-            hash ^ string.hash
-        }) * (any ? -1 : 1)
     }
     
     override public func isEqual(_ object: Any?) -> Bool {

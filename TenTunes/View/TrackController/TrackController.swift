@@ -445,7 +445,7 @@ extension TrackController: NSTableViewDelegate {
         let indices = Array(_tableView.selectedRowIndexes)
         let tracks = indices.map { history.track(at: $0)! }
 
-        guard !tracks.isEmpty && trackEditor.tracks.noneMatch({ $0.isDeleted }) else {
+        guard !tracks.isEmpty && trackEditor.tracks.noneSatisfy({ $0.isDeleted }) else {
             // Honestly, if the selection is set to void but the tracks are all still THERE
             // Then why change the view? This is especially useful if we edit a track inside a smart playlist
             

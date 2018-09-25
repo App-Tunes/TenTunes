@@ -38,8 +38,8 @@ extension Artist : CustomStringConvertible {
 }
 
 extension Artist : Hashable {
-    var hashValue: Int {
-        return name.lowercased().hashValue
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name.lowercased())
     }
     
     static func == (lhs: Artist, rhs: Artist) -> Bool {

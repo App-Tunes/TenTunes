@@ -62,7 +62,7 @@ extension PlaylistFolder : ModifiablePlaylist {
         }
         
         return rguard.protected(self) {
-            return self.modifableChildrenList?.allMatch { $0.supports(action: action) } ?? false
+            return self.modifableChildrenList?.allSatisfy { $0.supports(action: action) } ?? false
         } ?? false
     }
     

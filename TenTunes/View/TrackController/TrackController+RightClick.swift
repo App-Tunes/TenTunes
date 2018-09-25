@@ -36,10 +36,10 @@ extension TrackController: NSMenuDelegate {
         menu.item(withAction: #selector(menuShowAuthor(_:)))?.isVisible = menuTracks.count == 1 && menuTracks.first!.author != nil
         menu.item(withAction: #selector(menuShowAlbum(_:)))?.isVisible = menuTracks.count == 1 && menuTracks.first!.album != nil
 
-        _moveToMediaDirectory.isHidden = menuTracks.noneMatch { !$0.usesMediaDirectory && $0.url != nil }
+        _moveToMediaDirectory.isHidden = menuTracks.noneSatisfy { !$0.usesMediaDirectory && $0.url != nil }
         
-        let someNeedAnalysis = menuTracks.anyMatch { $0.url != nil }
-        _analyzeSubmenu.isVisible = someNeedAnalysis && menuTracks.anyMatch { $0.analysisData != nil } && menuTracks.anyMatch { $0.analysisData == nil }
+        let someNeedAnalysis = menuTracks.anySatisfy { $0.url != nil }
+        _analyzeSubmenu.isVisible = someNeedAnalysis && menuTracks.anySatisfy { $0.analysisData != nil } && menuTracks.anySatisfy { $0.analysisData == nil }
         menu.item(withAction: #selector(menuAnalyze))?.isVisible = someNeedAnalysis && _analyzeSubmenu.isHidden
         menu.item(withAction: #selector(menuAnalyzeMetadata))?.isVisible = someNeedAnalysis
 

@@ -37,17 +37,7 @@ extension Optional where Wrapped : Comparable {
     }
 }
 
-extension UInt32 {
-    public static func random() -> UInt32 {
-        return arc4random_uniform(UInt32.max)
-    }
-}
-
 extension Int {
-    public static func random() -> Int {
-        return Int(arc4random_uniform(UInt32(Int.max)))
-    }
-    
     var minutesSeconds: (Int, Int) {
         return (self / 60, self % 60)
     }
@@ -63,20 +53,6 @@ extension Int {
     
     var bitComponents : [Int] {
         return (0 ..< Int.bitWidth).map { 1 << $0 } .filter { self & $0 != 0 }
-    }
-}
-
-extension ClosedRange where Bound == CGFloat {
-    public func random() -> Bound {
-        let range = self.upperBound - self.lowerBound
-        return self.upperBound + (CGFloat(arc4random_uniform(UInt32.max)) / CGFloat(UInt32.max)) * range
-    }
-}
-
-extension CountableRange where Bound == Int {
-    public func random() -> Bound {
-        let range = self.upperBound - self.lowerBound
-        return self.lowerBound + Int(arc4random_uniform(UInt32(range)))
     }
 }
 
@@ -128,7 +104,7 @@ extension String {
     }
     
     static func random16Hex() -> String {
-        return String(format:"%08X%08X", arc4random(), arc4random())
+        return String(format:"%08X%08X", Int.random(in: Int.min...Int.max), Int.random(in: Int.min...Int.max))
     }
     
     static func id(of object: AnyObject) -> String {

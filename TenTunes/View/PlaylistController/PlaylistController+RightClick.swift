@@ -18,7 +18,7 @@ extension PlaylistController: NSMenuDelegate {
             menu.cancelTrackingWithoutAnimation()
         }
         
-        menu.item(withAction: #selector(deletePlaylist(_:)))?.isVisible = menuPlaylists.map(Library.shared.isPlaylist).allMatch { $0 }
+        menu.item(withAction: #selector(deletePlaylist(_:)))?.isVisible = menuPlaylists.map(Library.shared.isPlaylist).allSatisfy { $0 }
 
         menu.item(withAction: #selector(untanglePlaylist(_:)))?.isVisible = (menuPlaylists.uniqueElement ?=> self.isUntangleable) ?? false
         menu.item(withAction: #selector(sortPlaylistChildren(_:)))?.isVisible = !((menuPlaylists.uniqueElement as? PlaylistFolder)?.automatesChildren ?? true)
@@ -131,9 +131,9 @@ extension PlaylistController: NSMenuDelegate {
         }
         
         for character in anchor {
-            if strings.allMatch({
+            if strings.allSatisfy({
                 let split = $0.split(separator: character)
-                return split.count == 2 && split.allMatch { $0.count > 0 } }) {
+                return split.count == 2 && split.allSatisfy { $0.count > 0 } }) {
                 
                 return character
             }

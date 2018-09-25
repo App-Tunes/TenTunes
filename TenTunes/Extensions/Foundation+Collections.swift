@@ -14,11 +14,13 @@ extension Collection {
         return indices.contains(index) ? self[index] : nil
     }
     
-    func allMatch(_ filter: (Element) -> Bool) -> Bool { return self.first { !filter($0) } == nil }
+    func noneSatisfy(_ predicate: (Self.Element) throws -> Bool) rethrows -> Bool {
+        return try allSatisfy { try !predicate($0) }
+    }
     
-    func noneMatch(_ filter: (Element) -> Bool) -> Bool { return !anyMatch(filter) }
-    
-    func anyMatch(_ filter: (Element) -> Bool) -> Bool { return self.first(where: filter) != nil }
+    func anySatisfy(_ predicate: (Self.Element) throws -> Bool) rethrows -> Bool {
+        return try !noneSatisfy(predicate)
+    }
 }
 
 extension Collection where Element : Equatable {
@@ -34,20 +36,6 @@ extension Collection where Element : Equatable {
             }
         }
         return result
-    }
-}
-
-extension MutableCollection {
-    /// Shuffles the contents of this collection.
-    mutating func shuffle() {
-        let c = count
-        guard c > 1 else { return }
-        
-        for (firstUnshuffled, unshuffledCount) in zip(indices, stride(from: c, to: 1, by: -1)) {
-            let d: Int = numericCast((0..<Int(unshuffledCount)).random())
-            let i = index(firstUnshuffled, offsetBy: d)
-            swapAt(firstUnshuffled, i)
-        }
     }
 }
 

@@ -44,7 +44,7 @@ class VisualizerView: GLSLView {
     var guMinDist: GLint = -1
     var guDecay: GLint = -1
 
-    var startDate = NSDate().addingTimeInterval(-TimeInterval(arc4random_uniform(10_000) + 50))
+    var startDate = NSDate().addingTimeInterval(-TimeInterval(Int.random(in: 50...10_000)))
     var time : TimeInterval { return -startDate.timeIntervalSinceNow }
 
     func update(withFFT fft: [Double]) {

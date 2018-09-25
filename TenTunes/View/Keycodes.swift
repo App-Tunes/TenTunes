@@ -23,7 +23,7 @@ enum Keycodes: Int {
         }
         
         func matches(event: NSEvent) -> Bool {
-            return codes.anyMatch { $0.matches(event: event) }
+            return codes.anySatisfy { $0.matches(event: event) }
         }
     }
 

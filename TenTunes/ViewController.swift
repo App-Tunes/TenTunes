@@ -79,15 +79,7 @@ class ViewController: NSViewController {
         _trackGuardView.bigSelectionCount = 5
         _trackGuardView.warnSelectionBig = "Many Playlists Selected"
         _trackGuardView.confirmShowView = "Show them all"
-        _trackGuardView.updater = { [unowned self] elements in
-            let playlists = elements as! [PlaylistProtocol]
-            if let playlist = playlists.onlyElement {
-                self.trackController.desired.playlist = playlist
-            }
-            else if !playlists.isEmpty {
-                self.trackController.desired.playlist = PlaylistMultiple(playlists: playlists)
-            }
-        }
+        _trackGuardView.delegate = self
 
         playingTrackController = TrackController(nibName: .init(rawValue: "TrackController"), bundle: nil)
         playingTrackController.view.frame = _playingTrackView.frame
@@ -369,6 +361,24 @@ extension ViewController: PlaylistControllerDelegate {
             // Playlist isn't loaded yet in track controller, just play with default sort
             self.player.play(at: nil, in: PlayHistory(playlist: playlist))
         }
+    }
+}
+
+extension ViewController : MultiplicityGuardDelegate {
+    func multiplicityGuard(_ view: MultiplicityGuardView, show elements: [Any]) -> MultiplicityGuardView.ShowAction {
+        guard !elements.isEmpty else {
+            return .error(text: view.errorSelectionEmpty)
+        }
+        
+        let playlists = elements as! [PlaylistProtocol]
+        if let playlist = playlists.onlyElement {
+            self.trackController.desired.playlist = playlist
+        }
+        else if !playlists.isEmpty {
+            self.trackController.desired.playlist = PlaylistMultiple(playlists: playlists)
+        }
+        
+        return .show
     }
 }
 

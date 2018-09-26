@@ -43,7 +43,7 @@ class MediaLocation {
             return
         }
         
-        try! FileManager.default.createDirectory(at: dst.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
+        try! dst.ensurePathExists()
 
         if copy {
             try! FileManager.default.copyItem(at: src, to: dst)

@@ -54,11 +54,11 @@ class ExportPlaylistsController: NSWindowController {
                             self._trackLibrary.url = libraryURL
 
                             let playlistsURL = url.appendingPathComponent("Playlists")
-                            try! playlistsURL.ensureDirectory()
+                            try! playlistsURL.ensureIsDirectory()
                             self._destinationDirectory.url = playlistsURL
 
                             let aliasURL = url.appendingPathComponent("Playlists - Alias")
-                            try! aliasURL.ensureDirectory()
+                            try! aliasURL.ensureIsDirectory()
                             self._aliasDirectory.url = aliasURL
                         }
                         _rekordboxSelect.menu?.addItem(item)

@@ -84,7 +84,7 @@ extension Library.Export {
         dict["Music Folder"] = library.directory.appendingPathComponent("Media").absoluteString
         
         let url = self.url(title: "iTunes Library.xml", directory: false)
-        try! url.ensurePath()
+        try! url.ensurePathExists()
 //        (dict as NSDictionary).write(toFile: url.path, atomically: true)
 //        let resultFile = try! String(contentsOfFile: url.path)
 

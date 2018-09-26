@@ -32,7 +32,7 @@ extension Library.Export {
         for track in playlist.tracksList {
             if let trackURL = pather(track, playlistURL) {
                 let fileURL = playlistURL.appendingPathComponent((trackURL as NSString).lastPathComponent)
-                try! playlistURL.ensureDirectory()
+                try! playlistURL.ensureIsDirectory()
                 try? FileManager.default.createSymbolicLink(atPath: fileURL.path, withDestinationPath: trackURL)
             }
         }

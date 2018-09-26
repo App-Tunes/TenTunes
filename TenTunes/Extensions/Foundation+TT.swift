@@ -149,11 +149,11 @@ extension URL {
         return relComponents.joined(separator: "/")
     }
     
-    func ensurePath() throws {
+    func ensurePathExists() throws {
         try FileManager.default.createDirectory(at: self.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
     }
 
-    func ensureDirectory() throws {
+    func ensureIsDirectory() throws {
         try FileManager.default.createDirectory(at: self, withIntermediateDirectories: true, attributes: nil)
     }
 }

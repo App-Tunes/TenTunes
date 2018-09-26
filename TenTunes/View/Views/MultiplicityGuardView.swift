@@ -8,11 +8,20 @@
 
 import Cocoa
 
+protocol MultiplicityGuardDelegate {
+    func multiplicityGuard(_ view: MultiplicityGuardView, show elements: [Any]) -> MultiplicityGuardView.ShowAction
+}
+
 class MultiplicityGuardView: NSView {
+    enum ShowAction {
+        case show
+        case error(text: String)
+    }
+
     typealias Element = Any
     
     var contentView: NSView?
-    var updater: (([Element]) -> Void)? = nil
+    var delegate: MultiplicityGuardDelegate?
     
     var deferredElements: [Element]? = nil
 
@@ -85,7 +94,13 @@ class MultiplicityGuardView: NSView {
     }
     
     func show(elements: [Element]) {
-        updater?(elements)
+        switch delegate?.multiplicityGuard(self, show: elements) {
+        case .error(let text)?:
+            showError(text: text)
+            return
+        default:
+            break
+        }
         show(view: contentView)
     }
     

@@ -37,7 +37,7 @@ extension Library.Export {
         }
         let contents = "#EXTM3U\n" + tracks.joined(separator: "\n")
         
-        try! to.ensurePath()
+        try! to.ensurePathExists()
         
         var data = contents.data(using: .windowsCP1252, allowLossyConversion: false)
         if data == nil {

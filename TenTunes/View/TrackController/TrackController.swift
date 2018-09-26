@@ -134,18 +134,11 @@ class TrackController: NSViewController {
 
         trackEditor = TrackEditor()
         
+        trackEditorGuard.delegate = self
         trackEditorGuard.bigSelectionCount = 5
         trackEditorGuard.errorSelectionEmpty = "No Tracks Selected"
         trackEditorGuard.warnSelectionBig = "Many Tracks Selected"
         trackEditorGuard.confirmShowView = "Edit Anyway"
-        trackEditorGuard.updater = { [trackEditor, trackEditorGuard] in
-            let tracks = $0 as! [Track]
-            guard tracks.allSatisfy({ $0.url != nil }) else {
-                trackEditorGuard?.showError(text: "Track Not Found")
-                return
-            }
-            trackEditor!.show(tracks: tracks)
-        }
         trackEditorGuard.contentView = trackEditor.view
         trackEditorGuard.present(elements: [])
 
@@ -487,6 +480,18 @@ extension TrackController : HideableBarDelegate {
         }
         
         view.window?.makeFirstResponder(view)
+    }
+}
+
+extension TrackController : MultiplicityGuardDelegate {
+    func multiplicityGuard(_ view: MultiplicityGuardView, show elements: [Any]) -> MultiplicityGuardView.ShowAction {
+        let tracks = elements as! [Track]
+        guard tracks.allSatisfy({ $0.url != nil }) else {
+            return .error(text: "Track Not Found")
+        }
+        
+        trackEditor!.show(tracks: tracks)
+        return .show
     }
 }
 

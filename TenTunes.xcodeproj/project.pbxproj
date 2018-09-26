@@ -129,6 +129,7 @@
 		80E937592039C2850014C835 /* Keycodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E937582039C2850014C835 /* Keycodes.swift */; };
 		80E939F1215AFAA4005112EF /* MultiplicityGuardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E939F0215AFAA4005112EF /* MultiplicityGuardView.swift */; };
 		80E939F3215AFAB7005112EF /* MultiplicityGuardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80E939F2215AFAB7005112EF /* MultiplicityGuardView.xib */; };
+		80E939F7215BE604005112EF /* PlaylistMultiple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E939F6215BE604005112EF /* PlaylistMultiple.swift */; };
 		80F11E5920CA732E00331D12 /* Library+Symlink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F11E5820CA732E00331D12 /* Library+Symlink.swift */; };
 		80F2C57A2038808000212739 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C5792038808000212739 /* AppDelegate.swift */; };
 		80F2C57C2038808000212739 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C57B2038808000212739 /* ViewController.swift */; };
@@ -332,6 +333,7 @@
 		80E937582039C2850014C835 /* Keycodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keycodes.swift; sourceTree = "<group>"; };
 		80E939F0215AFAA4005112EF /* MultiplicityGuardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplicityGuardView.swift; sourceTree = "<group>"; };
 		80E939F2215AFAB7005112EF /* MultiplicityGuardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultiplicityGuardView.xib; sourceTree = "<group>"; };
+		80E939F6215BE604005112EF /* PlaylistMultiple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistMultiple.swift; sourceTree = "<group>"; };
 		80F11E5820CA732E00331D12 /* Library+Symlink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Symlink.swift"; sourceTree = "<group>"; };
 		80F2C5762038808000212739 /* Ten Tunes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ten Tunes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		80F2C5792038808000212739 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -665,6 +667,7 @@
 				80B68BA121011F5000A32E3D /* Group */,
 				806EFC21204B63620079DBAA /* PlaylistLibrary.swift */,
 				80B764552072F38D003BD7F8 /* PlaylistEmpty.swift */,
+				80E939F6215BE604005112EF /* PlaylistMultiple.swift */,
 			);
 			path = Playlist;
 			sourceTree = "<group>";
@@ -971,6 +974,7 @@
 				8079F6E4210A2C5400B7A278 /* PlaylistRules+Tokens.swift in Sources */,
 				8079F6DB2106745600B7A278 /* CartesianRulesController.swift in Sources */,
 				80C1F151214033C40032E554 /* Enumerations.swift in Sources */,
+				80E939F7215BE604005112EF /* PlaylistMultiple.swift in Sources */,
 				80B68BA92101255D00A32E3D /* TrackController+Rules.swift in Sources */,
 				807092EB20C69D8F00DFED53 /* ExportPlaylistsController.swift in Sources */,
 				806AC1432041EF1900857B1B /* SPAnalyzer.mm in Sources */,

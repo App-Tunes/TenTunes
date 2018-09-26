@@ -24,6 +24,8 @@ class MultiplicityGuardView: NSView {
     @IBOutlet var _errorTextField: NSTextField?
     
     var errorSelectionEmpty = "No Items Selected"
+    
+    var bigSelectionCount = 2
     var warnSelectionBig: String {
         get { return _manyTextField.stringValue }
         set { _manyTextField.stringValue = newValue }
@@ -70,7 +72,7 @@ class MultiplicityGuardView: NSView {
         if elements.count == 0 {
             showError(text: errorSelectionEmpty)
         }
-        else if elements.count < 2 {
+        else if elements.count < bigSelectionCount {
             show(elements: elements)
         }
         else {

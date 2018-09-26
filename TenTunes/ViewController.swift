@@ -40,6 +40,7 @@ class ViewController: NSViewController {
 
     @IBOutlet var _playlistView: NSView!
     @IBOutlet var _trackView: NSView!
+    @IBOutlet var _trackGuardView: MultiplicityGuardView!
     @IBOutlet var _playingTrackView: NSView!
     @IBOutlet var _splitView: NSSplitView!
     
@@ -73,7 +74,20 @@ class ViewController: NSViewController {
 
         trackController = TrackController(nibName: .init(rawValue: "TrackController"), bundle: nil)
         trackController.view.frame = _trackView.frame
-        _splitView.replaceSubview(_trackView, with: trackController.view)
+        
+        _trackGuardView.contentView = trackController.view
+        _trackGuardView.bigSelectionCount = 5
+        _trackGuardView.warnSelectionBig = "Many Playlists Selected"
+        _trackGuardView.confirmShowView = "Show them all"
+        _trackGuardView.updater = { [unowned self] elements in
+            let playlists = elements as! [PlaylistProtocol]
+            if let playlist = playlists.onlyElement {
+                self.trackController.desired.playlist = playlist
+            }
+            else if !playlists.isEmpty {
+                self.trackController.desired.playlist = PlaylistMultiple(playlists: playlists)
+            }
+        }
 
         playingTrackController = TrackController(nibName: .init(rawValue: "TrackController"), bundle: nil)
         playingTrackController.view.frame = _playingTrackView.frame
@@ -98,24 +112,11 @@ class ViewController: NSViewController {
         }
         player.start()
         player.history = queueController.history // Empty but != nil
-                
-        self.playlistController.selectionDidChange = { [unowned self] in
-            self.playlistSelected($0)
-        }
-        self.playlistController.playPlaylist = { [unowned self] in
-            self.playlistSelected($0)
-            if (self.trackController.history.playlist as? Playlist) == ($0 as? Playlist) {
-                // Use the existing history because of possible sort etc.
-                self.player.play(at: nil, in: self.trackController.history)
-            }
-            else {
-                // Playlist isn't loaded yet in track controller, just play with default sort
-                self.player.play(at: nil, in: PlayHistory(playlist: $0))
-            }
-        }
-        self.playlistController.masterPlaylist = Library.shared.masterPlaylist
-        self.playlistController.library = Library.shared.allTracks
-        self.playlistController.selectLibrary(self)
+        
+        playlistController.delegate = self
+        playlistController.masterPlaylist = Library.shared.masterPlaylist
+        playlistController.library = Library.shared.allTracks
+        playlistController.selectLibrary(self)
 
         trackController.playTrack = { [unowned self] in
             self.player.play(at: $0, in: self.trackController.history) // TODO Support for multiple
@@ -280,10 +281,6 @@ class ViewController: NSViewController {
         player.shuffle = !player.shuffle
         _shuffle.state = player.shuffle ? .on : .off
     }
-        
-    func playlistSelected(_ playlist: PlaylistProtocol) {
-        trackController.desired.playlist = playlist
-    }
     
     @IBAction func volumeChanged(_ sender: Any) {
         player.outputNode.gain = Double(pow(Float(_volume.intValue) / 100, 2))
@@ -348,6 +345,29 @@ extension ViewController: NSUserInterfaceValidations {
         else {
             _timePlayed.isHidden = true
             _timeLeft.isHidden = true
+        }
+    }
+}
+
+extension ViewController: PlaylistControllerDelegate {
+    func playlistController(_ controller: PlaylistController, selectionDidChange playlists: [PlaylistProtocol]) {
+        guard !playlists.isEmpty else {
+            return
+        }
+        
+        _trackGuardView.present(elements: playlists)
+    }
+    
+    func playlistController(_ controller: PlaylistController, play playlist: PlaylistProtocol) {
+        _trackGuardView.present(elements: [playlist])
+        
+        if (self.trackController.history.playlist as? Playlist) == (playlist as? Playlist) {
+            // Use the existing history because of possible sort etc.
+            self.player.play(at: nil, in: self.trackController.history)
+        }
+        else {
+            // Playlist isn't loaded yet in track controller, just play with default sort
+            self.player.play(at: nil, in: PlayHistory(playlist: playlist))
         }
     }
 }

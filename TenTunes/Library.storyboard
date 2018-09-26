@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="kJo-kH-Lbg">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="kJo-kH-Lbg">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="box content view" minToolsVersion="7.0"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -237,7 +236,7 @@ IA
                                                         <rect key="frame" x="0.0" y="0.0" width="178" height="438"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </customView>
-                                                    <customView fixedFrame="YES" id="wx1-Jg-18R">
+                                                    <customView fixedFrame="YES" id="wx1-Jg-18R" customClass="MultiplicityGuardView" customModule="TenTunes" customModuleProvider="target">
                                                         <rect key="frame" x="187" y="0.0" width="1105" height="438"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </customView>
@@ -281,6 +280,7 @@ IA
                         <outlet property="_taskButton" destination="ETj-HU-NV5" id="FXd-mp-8jl"/>
                         <outlet property="_timeLeft" destination="9Bx-lC-97p" id="NbD-28-VlR"/>
                         <outlet property="_timePlayed" destination="1Xa-l4-VRg" id="RJx-GO-IGU"/>
+                        <outlet property="_trackGuardView" destination="wx1-Jg-18R" id="HRP-am-Qv3"/>
                         <outlet property="_trackView" destination="wx1-Jg-18R" id="DrA-iR-AEj"/>
                         <outlet property="_volume" destination="weN-hW-VXM" id="Uaz-1g-emt"/>
                         <outlet property="_waveformView" destination="TnY-8S-uno" id="4GH-DY-Vz2"/>
@@ -294,7 +294,7 @@ IA
         <scene sceneID="BcV-A1-hzE">
             <objects>
                 <windowController storyboardIdentifier="Library" id="kJo-kH-Lbg" customClass="LibraryWindowController" customModule="TenTunes" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="Ten Tunes" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="dFy-qK-FcN" customClass="TTWindow" customModule="TenTunes" customModuleProvider="target">
+                    <window key="window" title="Ten Tunes" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="dFy-qK-FcN" customClass="TTWindow" customModule="TenTunes" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>

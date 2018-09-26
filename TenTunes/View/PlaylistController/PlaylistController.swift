@@ -8,6 +8,11 @@
 
 import Cocoa
 
+protocol PlaylistControllerDelegate {
+    func playlistController(_ controller: PlaylistController, selectionDidChange playlists: [PlaylistProtocol])
+    func playlistController(_ controller: PlaylistController, play playlist: PlaylistProtocol)
+}
+
 @objc class PlaylistController: NSViewController {
     var masterPlaylist: PlaylistFolder? {
         didSet { _outlineView?.reloadData() }
@@ -15,11 +20,10 @@ import Cocoa
     var library: PlaylistLibrary? {
         didSet { _outlineView?.reloadData() }
     }
-
-    var selectionDidChange: ((PlaylistProtocol) -> Swift.Void)? = nil
-    var playPlaylist: ((PlaylistProtocol) -> Swift.Void)? = nil
     
-    var history: History<PlaylistProtocol> = History(default: PlaylistEmpty())
+    var history: History<[PlaylistProtocol]> = History(default: [PlaylistEmpty()])
+    
+    var delegate: PlaylistControllerDelegate?
     
     @IBOutlet var _outlineView: NSOutlineView!
     
@@ -41,14 +45,14 @@ import Cocoa
     
     @IBAction func didDoubleClick(_ sender: Any) {
         let clicked = _outlineView.clickedRow
-        if let playPlaylist = playPlaylist, clicked >= 0 {
-            playPlaylist(_outlineView.item(atRow: clicked) as! Playlist)
+        if clicked >= 0 {
+            delegate?.playlistController(self, play: _outlineView.item(atRow: clicked) as! Playlist)
         }
     }
     
     @IBAction func selectLibrary(_ sender: Any) {
         if let library = library {
-            selected(playlist: library)
+            selected(playlists: [library])
         }
         _outlineView.deselectAll(self)
     }
@@ -160,26 +164,24 @@ import Cocoa
     }
     
     func playlistChanged() {
-        if let selectionDidChange = selectionDidChange {
-            selectionDidChange(history.current)
-        }
+        delegate?.playlistController(self, selectionDidChange: history.current)
         
         _back.isEnabled = history.canGoBack
         _forwards.isEnabled = history.canGoForwards
     }
     
-    func selected(playlist: PlaylistProtocol) {
-        history.push(playlist)
+    func selected(playlists: [PlaylistProtocol]) {
+        history.push(playlists)
         playlistChanged()
     }
     
     @IBAction func back(_ sender: Any) {
-        history.back(skip: { ($0 as? Playlist)?.isDeleted ?? false })
+        history.back(skip: { ($0 as? [Playlist])?.anySatisfy { $0.isDeleted } ?? false })
         playlistChanged()
     }
     
     @IBAction func forwards(_ sender: Any) {
-        history.forwards(skip: { ($0 as? Playlist)?.isDeleted ?? false })
+        history.forwards(skip: { ($0 as? [Playlist])?.anySatisfy { $0.isDeleted } ?? false })
         playlistChanged()
     }
 }
@@ -240,10 +242,7 @@ extension PlaylistController : NSOutlineViewDataSource {
 
 extension PlaylistController : NSOutlineViewDelegate {
     func outlineViewSelectionDidChange(_ notification: Notification) {
-        // TODO If we select multiple, show all at once?
-        if let selected = _outlineView.selectedRowIndexes.first {
-            self.selected(playlist: _outlineView.item(atRow: selected) as! Playlist)
-        }
+        self.selected(playlists: _outlineView.selectedRowIndexes.map { self._outlineView.item(atRow: $0) as! Playlist })
     }
     
     func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {

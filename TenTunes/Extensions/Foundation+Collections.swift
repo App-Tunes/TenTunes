@@ -14,6 +14,10 @@ extension Collection {
         return indices.contains(index) ? self[index] : nil
     }
     
+    var onlyElement : Element? {
+        return count == 1 ? first! : nil
+    }
+    
     func noneSatisfy(_ predicate: (Self.Element) throws -> Bool) rethrows -> Bool {
         return try allSatisfy { try !predicate($0) }
     }

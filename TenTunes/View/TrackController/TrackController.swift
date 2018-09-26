@@ -134,6 +134,7 @@ class TrackController: NSViewController {
 
         trackEditor = TrackEditor()
         
+        trackEditorGuard.bigSelectionCount = 5
         trackEditorGuard.errorSelectionEmpty = "No Tracks Selected"
         trackEditorGuard.warnSelectionBig = "Many Tracks Selected"
         trackEditorGuard.confirmShowView = "Edit Anyway"

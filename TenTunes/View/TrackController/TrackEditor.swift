@@ -12,14 +12,7 @@ class TrackEditor: NSViewController {
     var context: NSManagedObjectContext!
     @objc dynamic var tracks: [Track] = []
     @IBOutlet var tracksController: NSArrayController!
-    
-    var delayedTracks: [Track]? = nil
-    
-    @IBOutlet var _contentView: NSView!
-    @IBOutlet var _manyPlaceholder: NSView!
-    @IBOutlet var _errorPlaceholder: NSView!
-    @IBOutlet var _errorTextField: NSTextField!
-    
+        
     @IBOutlet var _editorOutline: ActionOutlineView!
     
     let editActionStubs = ActionStubs()
@@ -75,7 +68,6 @@ class TrackEditor: NSViewController {
     }
     
     override func viewDidLoad() {
-        showError(text: "No Tracks Selected")
         _editorOutline.expandItem(nil, expandChildren: true)
         
         _editorOutline.target = self
@@ -102,36 +94,6 @@ class TrackEditor: NSViewController {
         }
     }
 
-    override func viewWillAppear() {
-        // Kinda Hacky but eh
-        if _errorTextField.stringValue == "View Hidden", let delayedTracks = delayedTracks {
-            present(tracks: delayedTracks) // Try again
-        }
-    }
-        
-    func present(tracks: [Track]) {
-        guard !view.isHidden else {
-            delayedTracks = tracks
-            showError(text: "View Hidden")
-            return
-        }
-        delayedTracks = nil
-        
-        if tracks.count == 0 {
-            showError(text: "No Tracks Selected")
-        }
-        else if tracks.contains(where: { $0.url == nil }) {
-            // TODO Show what we know but don't make it editable
-            showError(text: "Tracks Not Found")
-        }
-        else if tracks.count < 2 {
-            show(tracks: tracks)
-        }
-        else {
-            suggest(tracks: tracks)
-        }
-    }
-    
     func show(tracks: [Track]) {
 //        context = Library.shared.newConcurrentContext()
 //        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy // User is always right
@@ -153,27 +115,6 @@ class TrackEditor: NSViewController {
             // Use a for loop instead of the below since the below actually animates the change, removing all children and re-adding them
 //            _editorOutline.reloadItem(data.last, reloadChildren: true) // Info, both computed rather than bound
         }
-
-        view.setFullSizeContent(_contentView)
-    }
-        
-    func showError(text: String) {
-        tracks = []
-        
-        _errorTextField.stringValue = text
-        view.setFullSizeContent(_errorPlaceholder)
-    }
-    
-    func suggest(tracks: [Track]) {
-        self.tracks = []
-        delayedTracks = tracks
-        
-        view.setFullSizeContent(_manyPlaceholder)
-    }
-    
-    @IBAction func showSuggestedTracks(_ sender: Any) {
-        delayedTracks ?=> show
-        delayedTracks = nil
     }
     
     @IBAction func delete(_ sender: AnyObject) {

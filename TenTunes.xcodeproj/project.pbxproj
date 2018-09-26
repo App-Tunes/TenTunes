@@ -127,6 +127,8 @@
 		80E6811B20573DC800DA5702 /* SimpleTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E6811A20573DC800DA5702 /* SimpleTransformer.swift */; };
 		80E6811D2057479B00DA5702 /* ValueTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E6811C2057479B00DA5702 /* ValueTransformers.swift */; };
 		80E937592039C2850014C835 /* Keycodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E937582039C2850014C835 /* Keycodes.swift */; };
+		80E939F1215AFAA4005112EF /* MultiplicityGuardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E939F0215AFAA4005112EF /* MultiplicityGuardView.swift */; };
+		80E939F3215AFAB7005112EF /* MultiplicityGuardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80E939F2215AFAB7005112EF /* MultiplicityGuardView.xib */; };
 		80F11E5920CA732E00331D12 /* Library+Symlink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F11E5820CA732E00331D12 /* Library+Symlink.swift */; };
 		80F2C57A2038808000212739 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C5792038808000212739 /* AppDelegate.swift */; };
 		80F2C57C2038808000212739 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C57B2038808000212739 /* ViewController.swift */; };
@@ -328,6 +330,8 @@
 		80E6811A20573DC800DA5702 /* SimpleTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTransformer.swift; sourceTree = "<group>"; };
 		80E6811C2057479B00DA5702 /* ValueTransformers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueTransformers.swift; sourceTree = "<group>"; };
 		80E937582039C2850014C835 /* Keycodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keycodes.swift; sourceTree = "<group>"; };
+		80E939F0215AFAA4005112EF /* MultiplicityGuardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplicityGuardView.swift; sourceTree = "<group>"; };
+		80E939F2215AFAB7005112EF /* MultiplicityGuardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultiplicityGuardView.xib; sourceTree = "<group>"; };
 		80F11E5820CA732E00331D12 /* Library+Symlink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Symlink.swift"; sourceTree = "<group>"; };
 		80F2C5762038808000212739 /* Ten Tunes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ten Tunes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		80F2C5792038808000212739 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -384,6 +388,8 @@
 				80C1F16C2142AA010032E554 /* RFOpenGLView.m */,
 				80C1F156214282790032E554 /* GLSLView.h */,
 				80C1F157214282790032E554 /* GLSLView.m */,
+				80E939F0215AFAA4005112EF /* MultiplicityGuardView.swift */,
+				80E939F2215AFAB7005112EF /* MultiplicityGuardView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -834,6 +840,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80C1F1682142928B0032E554 /* default.vs in Resources */,
+				80E939F3215AFAB7005112EF /* MultiplicityGuardView.xib in Resources */,
 				8079F6D42106551100B7A278 /* SmartPlaylistRulesController.xib in Resources */,
 				80F8F6F42053EA2C004A07D6 /* TrackEditor.xib in Resources */,
 				807092EC20C69D8F00DFED53 /* ExportPlaylistsController.xib in Resources */,
@@ -938,6 +945,7 @@
 				80F855012069183E009A8FBE /* TrackController+Menu.swift in Sources */,
 				80E6811D2057479B00DA5702 /* ValueTransformers.swift in Sources */,
 				8079F6EA211B822900B7A278 /* UnscalingMenu.swift in Sources */,
+				80E939F1215AFAA4005112EF /* MultiplicityGuardView.swift in Sources */,
 				80CFDA0A203C4E2300C7A506 /* LazyVar.swift in Sources */,
 				80F855042069187D009A8FBE /* PlaylistController+Menu.swift in Sources */,
 				8030E01920FE33D2006B4AE8 /* ExportPlaylists.swift in Sources */,

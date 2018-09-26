@@ -304,6 +304,17 @@ extension NSView {
         addConstraint(NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0))
         addConstraint(NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0))
     }
+    
+    class func fromNib<T: NSView>() -> T? {
+        var topLevel: NSArray?
+        Bundle.main.loadNibNamed(NSNib.Name(rawValue: String(describing: T.self)), owner: nil, topLevelObjects: &topLevel)
+        return topLevel?.firstObject as? T
+    }
+    
+    @discardableResult
+    func loadNib() -> Bool {
+        return Bundle.main.loadNibNamed(NSNib.Name(rawValue: String(describing: type(of: self))), owner: self, topLevelObjects: nil)
+    }
 }
 
 extension NSImageView {
@@ -325,5 +336,16 @@ extension UserDefaults {
         let consumed = bool(forKey: toggle)
         if !consumed { set(true, forKey: toggle) }
         return !consumed
+    }
+}
+
+extension NSSplitView {
+    func toggleSubviewHidden(_ view: NSView) {
+        if isSubviewCollapsed(view) {
+            view.isHidden = false
+        }
+        else {
+            view.isHidden = true
+        }
     }
 }

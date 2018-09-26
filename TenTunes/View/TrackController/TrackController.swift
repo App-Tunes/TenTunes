@@ -55,7 +55,8 @@ class TrackController: NSViewController {
     @IBOutlet var _playlistInfoBarHeight: NSLayoutConstraint!
     
     var trackEditor : TrackEditor!
-    
+    @IBOutlet var trackEditorGuard : MultiplicityGuardView!
+
     var playTrack: ((Int, Double?) -> Swift.Void)?
     var playTrackNext: ((Int) -> Swift.Void)?
 
@@ -132,8 +133,17 @@ class TrackController: NSViewController {
         }
 
         trackEditor = TrackEditor()
-        _trackEditorView.superview?.replaceSubview(_trackEditorView, with: trackEditor.view)
         
+        trackEditorGuard.updater = { [trackEditor, trackEditorGuard] in
+            let tracks = $0 as! [Track]
+            guard tracks.allSatisfy({ $0.url != nil }) else {
+                trackEditorGuard?.showError(text: "Track Not Found")
+                return
+            }
+            trackEditor!.show(tracks: tracks)
+        }
+        trackEditorGuard.contentView = trackEditor.view
+
         _tableView.enterAction = #selector(enterAction(_:))
         _tableView.registerForDraggedTypes(pasteboardTypes)
         _tableView.setDraggingSourceOperationMask(.every, forLocal: false) // ESSENTIAL
@@ -395,14 +405,7 @@ extension TrackController: NSTableViewDelegate {
     }
     
     @IBAction func showInfo(_ sender: Any?) {
-        let split = trackEditor.view.superview as! NSSplitView
-        
-        if split.isSubviewCollapsed(trackEditor.view) {
-            trackEditor.view.isHidden = false
-        }
-        else {
-            trackEditor.view.isHidden = true
-        }
+        (trackEditorGuard.superview as! NSSplitView).toggleSubviewHidden(trackEditorGuard)
     }
     
     func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
@@ -452,7 +455,7 @@ extension TrackController: NSTableViewDelegate {
             return
         }
         
-        trackEditor.present(tracks: tracks)
+        trackEditorGuard.present(elements: tracks)
     }
 }
 

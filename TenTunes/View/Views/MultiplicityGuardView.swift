@@ -17,9 +17,22 @@ class MultiplicityGuardView: NSView {
     var deferredElements: [Element]? = nil
 
     @IBOutlet var _manyPlaceholder: NSView?
+    @IBOutlet var _manyTextField: NSTextField!
+    @IBOutlet var _confirmShowMany: NSButton!
+    
     @IBOutlet var _errorPlaceholder: NSView?
     @IBOutlet var _errorTextField: NSTextField?
     
+    var errorSelectionEmpty = "No Items Selected"
+    var warnSelectionBig: String {
+        get { return _manyTextField.stringValue }
+        set { _manyTextField.stringValue = newValue }
+    }
+    var confirmShowView: String {
+        get { return _confirmShowMany.title }
+        set { _confirmShowMany.title = newValue }
+    }
+
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         
@@ -43,7 +56,7 @@ class MultiplicityGuardView: NSView {
     }
     
     override func awakeFromNib() {
-        showError(text: "No Tracks Selected")
+        showError(text: errorSelectionEmpty)
     }
     
     func present(elements: [Element]) {
@@ -55,7 +68,7 @@ class MultiplicityGuardView: NSView {
         deferredElements = nil
         
         if elements.count == 0 {
-            showError(text: "No Tracks Selected")
+            showError(text: errorSelectionEmpty)
         }
         else if elements.count < 2 {
             show(elements: elements)

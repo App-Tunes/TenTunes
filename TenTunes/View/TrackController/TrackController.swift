@@ -134,6 +134,9 @@ class TrackController: NSViewController {
 
         trackEditor = TrackEditor()
         
+        trackEditorGuard.errorSelectionEmpty = "No Tracks Selected"
+        trackEditorGuard.warnSelectionBig = "Many Tracks Selected"
+        trackEditorGuard.confirmShowView = "Edit Anyway"
         trackEditorGuard.updater = { [trackEditor, trackEditorGuard] in
             let tracks = $0 as! [Track]
             guard tracks.allSatisfy({ $0.url != nil }) else {
@@ -143,6 +146,7 @@ class TrackController: NSViewController {
             trackEditor!.show(tracks: tracks)
         }
         trackEditorGuard.contentView = trackEditor.view
+        trackEditorGuard.present(elements: [])
 
         _tableView.enterAction = #selector(enterAction(_:))
         _tableView.registerForDraggedTypes(pasteboardTypes)

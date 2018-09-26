@@ -44,27 +44,15 @@ class TrackEditor: NSViewController {
     var outlineTokens : [ViewableTag] { return tagTokens + [.new] }
 
     @IBAction func titleChanged(_ sender: Any) {
-        try! self.context.save()
-        
-        for track in self.tracks {
-            try! track.writeMetadata(values: [\Track.title])
-        }
+        attributeEdited(\Track.title)
     }
     
     @IBAction func authorChanged(_ sender: Any) {
-        try! self.context.save()
-        
-        for track in self.tracks {
-            try! track.writeMetadata(values: [\Track.author])
-        }
+        attributeEdited(\Track.author)
     }
     
     @IBAction func albumChanged(_ sender: Any) {
-        try! self.context.save()
-        
-        for track in self.tracks {
-            try! track.writeMetadata(values: [\Track.album])
-        }
+        attributeEdited(\Track.album)
     }
     
     override func viewDidLoad() {
@@ -180,6 +168,21 @@ class TrackEditor: NSViewController {
         
         try! self.context.save()
     }
+    
+    func attributeEdited(_ attribute: PartialKeyPath<Track>) {
+        // After bound values have been updated
+        // ...change location and save
+        for track in self.tracks {
+            // Don't call the collection method since it auto-saves in the wrong context
+            Library.shared.mediaLocation.updateLocation(of: track)
+        }
+        
+        try! self.context.save()
+        
+        for track in self.tracks {
+            try! track.writeMetadata(values: [attribute])
+        }
+    }
 }
 
 extension TrackEditor: NSOutlineViewDelegate {
@@ -217,19 +220,8 @@ extension TrackEditor: NSOutlineViewDelegate {
                 
                 view.valueTextField?.bind(.value, to: tracksController, withKeyPath: "selection." + data.path._kvcKeyPathString!, options: (data.options ?? [:]).merging([.nullPlaceholder: "..."], uniquingKeysWith: { (a, _) in a }))
                 
-                editActionStubs.bind(view.valueTextField!) { _ in
-                    // After bound values have been updated
-                    // ...change location and save
-                    for track in self.tracks {
-                        // Don't call the collection method since it auto-saves in the wrong context
-                        Library.shared.mediaLocation.updateLocation(of: track)
-                    }
-                    
-                    try! self.context.save()
-                    
-                    for track in self.tracks {
-                        try! track.writeMetadata(values: [data.path])
-                    }
+                editActionStubs.bind(view.valueTextField!) { [unowned self] _ in
+                    self.attributeEdited(data.path)
                 }
                 
                 return view

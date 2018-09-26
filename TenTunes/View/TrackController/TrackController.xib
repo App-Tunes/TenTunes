@@ -142,9 +142,8 @@
             </connections>
             <point key="canvasLocation" x="644" y="134"/>
         </menu>
-        <splitView autosaveName="TrackDivider" vertical="YES" id="NYt-ks-eHN">
+        <splitView autosaveName="TrackDivider" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NYt-ks-eHN">
             <rect key="frame" x="0.0" y="0.0" width="769" height="360"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <view id="xJh-CN-pmz">
                     <rect key="frame" x="0.0" y="0.0" width="669" height="360"/>
@@ -434,9 +433,9 @@
                                 <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="ultraDark" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="RrY-WV-3rf">
                                     <rect key="frame" x="0.0" y="0.0" width="669" height="25"/>
                                 </visualEffectView>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yA3-8B-zr1">
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="yA3-8B-zr1">
                                     <rect key="frame" x="2" y="4" width="84" height="17"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Playlist Title" id="ort-dC-9bO">
+                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Playlist Title" id="ort-dC-9bO">
                                         <font key="font" metaFont="systemBold"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

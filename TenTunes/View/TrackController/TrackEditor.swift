@@ -158,11 +158,7 @@ class TrackEditor: NSViewController {
         
         for track in self.tracks {
             if Preferences.EditingTrackUpdatesAlbum.current == .update, let album = track.rAlbum {
-                album.artwork = image
-                try! album.writeMetadata()
-            }
-            else {
-                try! track.writeMetadata(values: [\Track.artwork])
+                album.artwork = image // Dynamic Var, is written automagically
             }
         }
         

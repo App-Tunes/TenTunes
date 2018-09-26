@@ -16,7 +16,7 @@ class FetchTrackMetadata: TrackTask {
     override var title: String { return "Fetch Track Metadata" }
 
     // Will be auto-gathered each run anyway
-    override var preventsQuit: Bool { return false }
+    override var preventsQuit: Bool { return !cancelable }
 
     override func execute() {
         // TODO We set this, but if we quit in between it will not have been fetched
@@ -35,6 +35,8 @@ class FetchTrackMetadata: TrackTask {
                 asyncTrack.metadataFetchDate = nil
             }
             else {
+                if self.uncancelable() { return }
+                
                 Library.shared.mediaLocation.updateLocation(of: self.track)
             }
             

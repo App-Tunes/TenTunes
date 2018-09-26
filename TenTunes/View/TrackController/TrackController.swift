@@ -207,7 +207,7 @@ class TrackController: NSViewController {
         
         _tableView.headerView = nil
         _tableView.usesAlternatingRowBackgroundColors = false  // TODO In NSPanels, this is solid while everything else isn't
-        trackEditor.view.removeFromSuperview()
+        trackEditorGuard.removeFromSuperview()
         
         playTrackNext = { [unowned self] in
             let tracksBefore = self.history.tracks
@@ -227,7 +227,7 @@ class TrackController: NSViewController {
         queueify()
         mode = .title
         
-        trackEditor.view.removeFromSuperview()
+        trackEditorGuard.removeFromSuperview()
         
         _playlistInfoBarHeight.constant = 0
         _tableViewHeight.constant = 0

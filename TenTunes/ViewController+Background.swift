@@ -21,7 +21,7 @@ extension ViewController {
                 // Main Window Visuals
                 self._waveformView.updateLocation(by: self.player.player, duration: CMTime(seconds: 1.0 / 10.0, preferredTimescale: 1000))
                 
-                self._taskButton.spinning = !self.runningTasks.isEmpty
+                self._taskButton.spinning = !(self.runningTasks.isEmpty && self.tasker.queue.isEmpty)
                 
                 if !self._timePlayed.isHidden, !self._timeLeft.isHidden {
                     self._timePlayed.stringValue = Int(self.player.player.currentTime).timeString

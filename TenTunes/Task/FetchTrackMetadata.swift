@@ -15,13 +15,7 @@ class FetchTrackMetadata: TrackTask {
     
     override var title: String { return "Fetch Track Metadata" }
 
-    // Will be auto-gathered each run anyway
-    override var preventsQuit: Bool { return !cancelable }
-
     override func execute() {
-        // TODO We set this, but if we quit in between it will not have been fetched
-        track.metadataFetchDate = Date() // So no other thread tries to enter
-
         Library.shared.performChildBackgroundTask { mox in
             mox.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
             

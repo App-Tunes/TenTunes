@@ -81,7 +81,7 @@ class Task {
     
     var title: String { return "Unnamed Task" }
     
-    var preventsQuit: Bool { return true }
+    var preventsQuit: Bool { return !cancelable }
     
     func execute() {
         

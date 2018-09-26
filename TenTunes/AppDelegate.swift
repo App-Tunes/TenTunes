@@ -297,6 +297,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         for track in Library.shared.allTracks.tracksList {
             track.metadataFetchDate = nil
         }
+        
+        try! Library.shared.viewContext.save()
     }
 }
 

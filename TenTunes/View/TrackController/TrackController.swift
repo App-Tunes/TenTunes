@@ -219,9 +219,7 @@ class TrackController: NSViewController {
     func titleify() {
         queueify()
         mode = .title
-        
-        trackEditorGuard.removeFromSuperview()
-        
+                
         _playlistInfoBarHeight.constant = 0
         _tableViewHeight.constant = 0
         _tableView.enclosingScrollView?.hasVerticalScroller = false

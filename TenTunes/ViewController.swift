@@ -83,7 +83,7 @@ class ViewController: NSViewController {
 
         playingTrackController = TrackController(nibName: .init(rawValue: "TrackController"), bundle: nil)
         playingTrackController.view.frame = _playingTrackView.frame
-        _playingTrackView.superview!.replaceSubview(_playingTrackView, with: playingTrackController.view)
+        _playingTrackView.setFullSizeContent(playingTrackController.view)
         playingTrackController.titleify()
 
         playlistController = PlaylistController(nibName: .init(rawValue: "PlaylistController"), bundle: nil)

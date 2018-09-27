@@ -151,7 +151,7 @@
                     <subviews>
                         <scrollView verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="J4f-bg-DFw">
                             <rect key="frame" x="0.0" y="30" width="669" height="302"/>
-                            <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="FmM-r7-abk">
+                            <clipView key="contentView" copiesOnScroll="NO" id="FmM-r7-abk">
                                 <rect key="frame" x="0.0" y="0.0" width="669" height="302"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -159,7 +159,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="669" height="256"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <size key="intercellSpacing" width="3" height="2"/>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                         <tableColumns>
                                             <tableColumn identifier="artworkColumn" editable="NO" width="30" minWidth="30" maxWidth="30" id="okf-KH-O5q">
@@ -404,7 +404,6 @@
                                         </connections>
                                     </tableView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.054563667949999999" green="0.055103902279999999" blue="0.055103902279999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </clipView>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="300" id="407-lR-Mkm"/>
@@ -430,7 +429,7 @@
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="no2-Pk-ubw">
                             <rect key="frame" x="0.0" y="0.0" width="669" height="25"/>
                             <subviews>
-                                <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="ultraDark" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="RrY-WV-3rf">
+                                <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="headerView" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="RrY-WV-3rf">
                                     <rect key="frame" x="0.0" y="0.0" width="669" height="25"/>
                                 </visualEffectView>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="yA3-8B-zr1">

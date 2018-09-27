@@ -21,13 +21,13 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <scrollView horizontalHuggingPriority="750" horizontalCompressionResistancePriority="25" verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="IaV-BJ-2N9">
-                    <rect key="frame" x="0.0" y="0.0" width="178" height="480"/>
+                    <rect key="frame" x="0.0" y="-5" width="178" height="490"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="lbM-WH-AFJ">
-                        <rect key="frame" x="0.0" y="0.0" width="178" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="178" height="490"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" autosaveName="Playlists" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autosaveExpandedItems="YES" outlineTableColumn="y9Z-8l-kxU" id="jaf-cH-DJt">
-                                <rect key="frame" x="0.0" y="0.0" width="178" height="420"/>
+                                <rect key="frame" x="0.0" y="0.0" width="178" height="430"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="2" height="3"/>
                                 <color key="backgroundColor" red="0.1489986479" green="0.1490316391" blue="0.14899659160000001" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -102,13 +102,13 @@
                     </scroller>
                 </scrollView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="Ry6-zg-Muz">
-                    <rect key="frame" x="0.0" y="450" width="178" height="30"/>
+                    <rect key="frame" x="0.0" y="455" width="178" height="25"/>
                     <subviews>
-                        <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="underWindowBackground" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="i6r-7N-Sw5">
-                            <rect key="frame" x="0.0" y="0.0" width="178" height="30"/>
+                        <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="headerView" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="i6r-7N-Sw5">
+                            <rect key="frame" x="0.0" y="0.0" width="178" height="25"/>
                         </visualEffectView>
-                        <button toolTip="Create Playlist" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8Z0-Gt-dbf">
-                            <rect key="frame" x="80" y="5" width="20" height="20"/>
+                        <button toolTip="Create Playlist" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Z0-Gt-dbf">
+                            <rect key="frame" x="80" y="3" width="20" height="19"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="8Z0-Gt-dbf" secondAttribute="height" multiplier="1:1" id="A68-Nx-MH3"/>
                             </constraints>
@@ -120,8 +120,8 @@
                                 <action selector="back:" target="-2" id="cgn-eW-M82"/>
                             </connections>
                         </button>
-                        <button toolTip="Library" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="58Y-ON-eOB">
-                            <rect key="frame" x="30" y="5" width="20" height="20"/>
+                        <button toolTip="Library" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="58Y-ON-eOB">
+                            <rect key="frame" x="30" y="3" width="20" height="19"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="58Y-ON-eOB" secondAttribute="height" multiplier="1:1" id="aOu-Qx-Mt4"/>
                             </constraints>
@@ -133,8 +133,8 @@
                                 <action selector="selectLibrary:" target="-2" id="avt-wY-yA7"/>
                             </connections>
                         </button>
-                        <button toolTip="Create Group" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2x8-2J-xWJ">
-                            <rect key="frame" x="130" y="5" width="20" height="20"/>
+                        <button toolTip="Create Group" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2x8-2J-xWJ">
+                            <rect key="frame" x="130" y="3" width="20" height="19"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="2x8-2J-xWJ" secondAttribute="height" multiplier="1:1" id="mnd-Sa-TuN"/>
                             </constraints>
@@ -149,31 +149,31 @@
                     </subviews>
                     <constraints>
                         <constraint firstItem="i6r-7N-Sw5" firstAttribute="leading" secondItem="Ry6-zg-Muz" secondAttribute="leading" id="1eS-IQ-YKb"/>
-                        <constraint firstAttribute="height" constant="30" id="355-FS-4Sk"/>
+                        <constraint firstAttribute="height" constant="25" id="355-FS-4Sk"/>
                         <constraint firstItem="58Y-ON-eOB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ry6-zg-Muz" secondAttribute="leading" constant="30" id="7Ti-1T-pvO"/>
-                        <constraint firstAttribute="bottom" secondItem="2x8-2J-xWJ" secondAttribute="bottom" constant="5" id="9TS-az-geL"/>
+                        <constraint firstAttribute="bottom" secondItem="2x8-2J-xWJ" secondAttribute="bottom" constant="3" id="9TS-az-geL"/>
                         <constraint firstItem="8Z0-Gt-dbf" firstAttribute="leading" secondItem="58Y-ON-eOB" secondAttribute="trailing" constant="30" id="H7d-O7-IeD"/>
                         <constraint firstItem="2x8-2J-xWJ" firstAttribute="centerX" secondItem="Ry6-zg-Muz" secondAttribute="centerX" priority="50" id="HQB-43-gtb"/>
-                        <constraint firstAttribute="bottom" secondItem="58Y-ON-eOB" secondAttribute="bottom" constant="5" id="KI7-ah-jSp"/>
-                        <constraint firstAttribute="bottom" secondItem="8Z0-Gt-dbf" secondAttribute="bottom" constant="5" id="Mms-sj-lfo"/>
+                        <constraint firstAttribute="bottom" secondItem="58Y-ON-eOB" secondAttribute="bottom" constant="3" id="KI7-ah-jSp"/>
+                        <constraint firstAttribute="bottom" secondItem="8Z0-Gt-dbf" secondAttribute="bottom" constant="3" id="Mms-sj-lfo"/>
                         <constraint firstAttribute="bottom" secondItem="i6r-7N-Sw5" secondAttribute="bottom" id="bHr-lC-bRr"/>
                         <constraint firstItem="i6r-7N-Sw5" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" id="fbH-BK-Hcw"/>
-                        <constraint firstItem="2x8-2J-xWJ" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" constant="5" id="gaB-NS-QlM"/>
-                        <constraint firstItem="8Z0-Gt-dbf" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" constant="5" id="n8w-KQ-BOl"/>
+                        <constraint firstItem="2x8-2J-xWJ" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" constant="3" id="gaB-NS-QlM"/>
+                        <constraint firstItem="8Z0-Gt-dbf" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" constant="3" id="n8w-KQ-BOl"/>
                         <constraint firstAttribute="trailing" secondItem="i6r-7N-Sw5" secondAttribute="trailing" id="pES-tq-xzz"/>
-                        <constraint firstItem="58Y-ON-eOB" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" constant="5" id="uXQ-Yq-ad4"/>
+                        <constraint firstItem="58Y-ON-eOB" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" constant="3" id="uXQ-Yq-ad4"/>
                         <constraint firstItem="8Z0-Gt-dbf" firstAttribute="centerX" secondItem="Ry6-zg-Muz" secondAttribute="centerX" priority="50" id="vUY-63-FyJ"/>
                         <constraint firstItem="2x8-2J-xWJ" firstAttribute="leading" secondItem="8Z0-Gt-dbf" secondAttribute="trailing" constant="30" id="wVo-1e-b95"/>
                     </constraints>
                 </customView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="FlW-e5-GJv">
-                    <rect key="frame" x="0.0" y="0.0" width="178" height="30"/>
+                    <rect key="frame" x="0.0" y="0.0" width="178" height="25"/>
                     <subviews>
-                        <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="underWindowBackground" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="RbJ-nq-hLm">
-                            <rect key="frame" x="0.0" y="0.0" width="178" height="30"/>
+                        <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="headerView" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="RbJ-nq-hLm">
+                            <rect key="frame" x="0.0" y="0.0" width="178" height="25"/>
                         </visualEffectView>
                         <button toolTip="Create Group" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s5V-cO-NDS" customClass="SMButtonWithMenu">
-                            <rect key="frame" x="110" y="7" width="24" height="16"/>
+                            <rect key="frame" x="110" y="5" width="22" height="15"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="s5V-cO-NDS" secondAttribute="height" multiplier="1.5:1" id="iLc-oV-qb8"/>
                             </constraints>
@@ -187,13 +187,13 @@
                             </connections>
                         </button>
                         <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z3C-14-8qk">
-                            <rect key="frame" x="89" y="5" width="1" height="20"/>
+                            <rect key="frame" x="89" y="0.0" width="1" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="1" id="Zuv-FG-A5V"/>
                             </constraints>
                         </customView>
                         <button toolTip="Create Playlist" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XDO-KJ-zFo" customClass="SMButtonWithMenu">
-                            <rect key="frame" x="45" y="7" width="24" height="16"/>
+                            <rect key="frame" x="46" y="5" width="23" height="15"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="XDO-KJ-zFo" secondAttribute="height" multiplier="1.5:1" id="IgZ-ie-N6E"/>
                             </constraints>
@@ -208,17 +208,17 @@
                         </button>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" constant="30" id="09x-Qg-6Gb"/>
+                        <constraint firstAttribute="height" constant="25" id="09x-Qg-6Gb"/>
                         <constraint firstItem="Z3C-14-8qk" firstAttribute="centerX" secondItem="FlW-e5-GJv" secondAttribute="centerX" priority="50" id="38m-Yi-tm2"/>
                         <constraint firstAttribute="trailing" secondItem="RbJ-nq-hLm" secondAttribute="trailing" id="3aw-Vm-qyb"/>
                         <constraint firstItem="RbJ-nq-hLm" firstAttribute="leading" secondItem="FlW-e5-GJv" secondAttribute="leading" id="6QQ-wb-m5D"/>
                         <constraint firstItem="RbJ-nq-hLm" firstAttribute="top" secondItem="FlW-e5-GJv" secondAttribute="top" id="Scj-Fh-I0Q"/>
-                        <constraint firstAttribute="bottom" secondItem="XDO-KJ-zFo" secondAttribute="bottom" constant="7" id="V5p-uP-wan"/>
-                        <constraint firstItem="s5V-cO-NDS" firstAttribute="top" secondItem="FlW-e5-GJv" secondAttribute="top" constant="7" id="cSZ-T1-V7f"/>
+                        <constraint firstAttribute="bottom" secondItem="XDO-KJ-zFo" secondAttribute="bottom" constant="5" id="V5p-uP-wan"/>
+                        <constraint firstItem="s5V-cO-NDS" firstAttribute="top" secondItem="FlW-e5-GJv" secondAttribute="top" constant="5" id="cSZ-T1-V7f"/>
                         <constraint firstItem="Z3C-14-8qk" firstAttribute="leading" secondItem="XDO-KJ-zFo" secondAttribute="trailing" constant="20" id="ncf-P0-6UZ"/>
                         <constraint firstItem="XDO-KJ-zFo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FlW-e5-GJv" secondAttribute="leading" constant="30" id="osi-LX-YUo"/>
-                        <constraint firstItem="XDO-KJ-zFo" firstAttribute="top" secondItem="FlW-e5-GJv" secondAttribute="top" constant="7" id="ppf-hb-Rzj"/>
-                        <constraint firstAttribute="bottom" secondItem="s5V-cO-NDS" secondAttribute="bottom" constant="7" id="vZG-bZ-RUF"/>
+                        <constraint firstItem="XDO-KJ-zFo" firstAttribute="top" secondItem="FlW-e5-GJv" secondAttribute="top" constant="5" id="ppf-hb-Rzj"/>
+                        <constraint firstAttribute="bottom" secondItem="s5V-cO-NDS" secondAttribute="bottom" constant="5" id="vZG-bZ-RUF"/>
                         <constraint firstAttribute="bottom" secondItem="RbJ-nq-hLm" secondAttribute="bottom" id="vw7-3u-1gy"/>
                         <constraint firstItem="s5V-cO-NDS" firstAttribute="leading" secondItem="Z3C-14-8qk" secondAttribute="trailing" constant="20" id="xMg-ee-v2c"/>
                     </constraints>

@@ -174,24 +174,8 @@ class TrackController: NSViewController {
     override func viewDidAppear() {
         // Appearance is not yet set in willappear
         if mode == .tracksList {
-            _tableView.backgroundColor = isDark ? NSColor(white: 0.09, alpha: 1.0) : NSColor(white: 0.73, alpha: 1.0)
-        }
-    
-        // Hide border by painting it in the background color
-        // TODO Match window bg color exactly - it returns white by default...
-        if let header = _tableView.headerView {
-            header.wantsLayer = true
-            header.layer!.borderColor = (isDark ? NSColor(white: 0.12, alpha: 1.0) : NSColor(white: 1, alpha: 1.0)).cgColor
-            header.layer!.borderWidth = 1
-            
-//            let visual = NSVisualEffectView()
-//            header.addSubview(visual, positioned: .below, relativeTo: nil)
-//            header.frame = NSMakeRect(0, 0, header.frame.size.height, header.frame.size.width)
-//            header.addFullSizeConstraints(for: visual)
-//
-//            visual.blendingMode = .withinWindow
-//            visual.state = .active
-//            visual.material = .ultraDark
+            _tableView.backgroundColor = NSColor.clear
+            _tableView.enclosingScrollView?.backgroundColor = isDark ? NSColor(white: 0.09, alpha: 1.0) : NSColor(white: 0.73, alpha: 1.0)
         }
     }
         

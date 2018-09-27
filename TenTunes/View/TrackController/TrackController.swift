@@ -38,7 +38,7 @@ import AVFoundation
 class TrackController: NSViewController {
     @IBOutlet var _tableView: ActionTableView!
     @IBOutlet var _tableViewHeight: NSLayoutConstraint!
-        
+    
     @IBOutlet var filterController: SmartPlaylistRulesController!
     @IBOutlet var filterBar: HideableBar!
     @IBOutlet var _filterBarContainer: NSView!
@@ -383,11 +383,22 @@ extension TrackController: NSTableViewDelegate {
                 rowView.backgroundColor = NSColor(red: 0.1, green: 0.05, blue: 0.05, alpha: 1)
             }
         }
+        
+        rowView.layer?.sublayers = []
+        rowView.wantsLayer = false
+        if history.playingIndex == row {
+            rowView.wantsLayer = true
+            rowView.layer?.addBorder(edge: .minY, color: .gray, thickness: 2)
+        }
     }
     
-    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return VibrantTableRowView()
+    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+        return history.playingIndex == row ? tableView.rowHeight + 2 : tableView.rowHeight
     }
+    
+//    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
+//        return VibrantTableRowView()
+//    }
     
     @IBAction func showInfo(_ sender: Any?) {
         (trackEditorGuard.superview as! NSSplitView).toggleSubviewHidden(trackEditorGuard)

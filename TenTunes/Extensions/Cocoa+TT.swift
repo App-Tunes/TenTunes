@@ -348,3 +348,25 @@ extension NSSplitView {
         }
     }
 }
+
+extension CALayer {
+    
+    func addBorder(edge: NSRectEdge, color: NSColor, thickness: CGFloat) {
+        let border = CALayer()
+        
+        switch edge {
+        case .minY:
+            border.frame = CGRect(x: 0, y: 0, width: frame.width, height: thickness)
+        case .maxY:
+            border.frame = CGRect(x: 0, y: frame.height - thickness, width: frame.width, height: thickness)
+        case .minX:
+            border.frame = CGRect(x: 0, y: 0, width: thickness, height: frame.height)
+        case .maxX:
+            border.frame = CGRect(x: frame.width - thickness, y: 0, width: thickness, height: frame.height)
+        }
+        
+        border.backgroundColor = color.cgColor;
+        
+        addSublayer(border)
+    }
+}

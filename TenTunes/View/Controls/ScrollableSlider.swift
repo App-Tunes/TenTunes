@@ -6,6 +6,8 @@
 //
 
 class ScrollableSlider: NSSlider {
+    var tint: NSColor?
+    
     override func scrollWheel(with event: NSEvent) {
         guard self.isEnabled else { return }
         

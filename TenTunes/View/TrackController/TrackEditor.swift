@@ -13,6 +13,7 @@ class TrackEditor: NSViewController {
     @objc dynamic var tracks: [Track] = []
     @IBOutlet var tracksController: NSArrayController!
         
+    @IBOutlet var _titleBackground: NSImageView!
     @IBOutlet var _editorOutline: ActionOutlineView!
     
     let editActionStubs = ActionStubs()
@@ -60,6 +61,9 @@ class TrackEditor: NSViewController {
         
         _editorOutline.target = self
         _editorOutline.enterAction = #selector(outlineViewAction(_:))
+        
+        _titleBackground.wantsLayer = true
+        _titleBackground.alphaValue = 0.3
         
         NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: .NSManagedObjectContextObjectsDidChange, object: Library.shared.viewContext)
     }

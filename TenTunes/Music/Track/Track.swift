@@ -48,7 +48,7 @@ public class Track: NSManagedObject {
         }
     }
     
-    var artworkPreview: NSImage? {
+    @objc var artworkPreview: NSImage? {
         get { return visuals?.artworkPreview }
         set { forcedVisuals.artworkPreview = newValue }
     }

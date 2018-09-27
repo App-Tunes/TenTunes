@@ -104,7 +104,7 @@
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="Ry6-zg-Muz">
                     <rect key="frame" x="0.0" y="455" width="178" height="25"/>
                     <subviews>
-                        <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="headerView" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="i6r-7N-Sw5">
+                        <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="underWindowBackground" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="i6r-7N-Sw5">
                             <rect key="frame" x="0.0" y="0.0" width="178" height="25"/>
                         </visualEffectView>
                         <button toolTip="Create Playlist" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Z0-Gt-dbf">
@@ -169,7 +169,7 @@
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="FlW-e5-GJv">
                     <rect key="frame" x="0.0" y="0.0" width="178" height="25"/>
                     <subviews>
-                        <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="headerView" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="RbJ-nq-hLm">
+                        <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="underWindowBackground" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="RbJ-nq-hLm">
                             <rect key="frame" x="0.0" y="0.0" width="178" height="25"/>
                         </visualEffectView>
                         <button toolTip="Create Group" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s5V-cO-NDS" customClass="SMButtonWithMenu">

@@ -176,6 +176,12 @@ class TrackController: NSViewController {
         if mode == .tracksList {
             _tableView.backgroundColor = NSColor.clear
             _tableView.enclosingScrollView?.backgroundColor = isDark ? NSColor(white: 0.09, alpha: 1.0) : NSColor(white: 0.73, alpha: 1.0)
+            // A little hacky but eh
+            for visual in _tableView.headerView?.superview?.subviews.flatten(by: { $0.subviews }).of(type: NSVisualEffectView.self) ?? [] {
+                if #available(OSX 10.14, *) {
+                    visual.material = .underWindowBackground
+                } 
+            }
         }
     }
         

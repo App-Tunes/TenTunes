@@ -429,7 +429,7 @@
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="no2-Pk-ubw">
                             <rect key="frame" x="0.0" y="0.0" width="669" height="25"/>
                             <subviews>
-                                <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="headerView" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="RrY-WV-3rf">
+                                <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="underWindowBackground" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="RrY-WV-3rf">
                                     <rect key="frame" x="0.0" y="0.0" width="669" height="25"/>
                                 </visualEffectView>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="yA3-8B-zr1">

@@ -25,7 +25,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="1292" height="92"/>
                                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="tuS-iy-Wnr"/>
                                             </imageView>
-                                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="ultraDark" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="ffx-Mi-FNH">
+                                            <visualEffectView wantsLayer="YES" blendingMode="withinWindow" material="ultraDark" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="ffx-Mi-FNH">
                                                 <rect key="frame" x="0.0" y="0.0" width="1292" height="92"/>
                                             </visualEffectView>
                                             <customView verticalHuggingPriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="TnY-8S-uno" customClass="WaveformView" customModule="TenTunes" customModuleProvider="target">

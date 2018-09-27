@@ -27,7 +27,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" autosaveName="Playlists" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autosaveExpandedItems="YES" outlineTableColumn="y9Z-8l-kxU" id="jaf-cH-DJt">
-                                <rect key="frame" x="0.0" y="0.0" width="178" height="430"/>
+                                <rect key="frame" x="0.0" y="0.0" width="178" height="427"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="2" height="3"/>
                                 <color key="backgroundColor" red="0.1489986479" green="0.1490316391" blue="0.14899659160000001" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -91,7 +91,7 @@
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="cQg-Tv-Dg8"/>
                     </constraints>
-                    <edgeInsets key="contentInsets" left="0.0" right="0.0" top="30" bottom="30"/>
+                    <edgeInsets key="contentInsets" left="0.0" right="0.0" top="33" bottom="30"/>
                     <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="Qjg-1t-Etv">
                         <rect key="frame" x="-100" y="-100" width="178" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>

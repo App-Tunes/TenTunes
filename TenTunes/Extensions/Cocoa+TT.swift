@@ -114,8 +114,7 @@ extension NSTableView {
     }
     
     func scrollRowToTop(_ row: Int) {
-        scrollRowToVisible((row) + 100) // Scroll 'down' first so we have to scroll up after
-        scrollRowToVisible(row)
+        scroll(NSPoint(x: 0, y: CGFloat(row) * (rowHeight + intercellSpacing.height)))
     }
 }
 

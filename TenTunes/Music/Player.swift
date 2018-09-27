@@ -27,7 +27,7 @@ extension AVPlayer {
 }
 
 class Player {
-    var history: PlayHistory?
+    var history: PlayHistory = PlayHistory(playlist: PlaylistEmpty())
     var player: AKPlayer
     var backingPlayer: AKPlayer
     var playing: Track?
@@ -40,7 +40,7 @@ class Player {
     
     var shuffle = true {
         didSet {
-            (shuffle ? history?.shuffle() : history?.unshuffle())
+            (shuffle ? history.shuffle() : history.unshuffle())
         }
     }
 
@@ -76,11 +76,11 @@ class Player {
             self.history = PlayHistory(from: history)
         }
         
-        self.history!.move(to: at ?? -1)
-        if shuffle && history != nil { self.history!.shuffle() } // Move there before shuffling so the position is retained
-        if at == nil { self.history!.move(to: 0) }
+        self.history.move(to: at ?? -1)
+        if shuffle && history != nil { self.history.shuffle() } // Move there before shuffling so the position is retained
+        if at == nil { self.history.move(to: 0) }
         
-        let track = self.history!.playingTrack
+        let track = self.history.playingTrack
         
         do {
             try play(track: track)
@@ -145,12 +145,7 @@ class Player {
     }
     
     func enqueue(tracks: [Track]) {
-        if history == nil {
-            let history = PlayHistory(playlist: PlaylistEmpty())
-            play(at: -1, in: history)
-        }
-        
-        history!.insert(tracks: tracks, before: history!.playingIndex + 1)
+        history.insert(tracks: tracks, before: history.playingIndex + 1)
     }
 
     func play(track: Track?) throws {
@@ -208,22 +203,22 @@ class Player {
     }
     
     func play(moved: Int) {
-        if (history?.count ?? 0) == 0 {
+        if history.count == 0 || history.playingIndex == history.count {
             guard let historyProvider = historyProvider else {
                 return
             }
             play(at: nil, in: historyProvider())
         }
         else if moved == 0 {
-            history!.shuffle()
-            history!.move(to: 0) // Select random track next
+            history.shuffle()
+            history.move(to: 0) // Select random track next
         }
         
-        let didPlay = (try? play(track: history!.move(by: moved))) != nil
+        let didPlay = (try? play(track: history.move(by: moved))) != nil
         
         // Should play but didn't
         // And we are trying to move in some direction
-        if moved != 0, history?.playingTrack != nil, !didPlay {
+        if moved != 0, history.playingTrack != nil, !didPlay {
             if let playing = playing {
                 print("Skipped unplayable track \(playing.objectID.description): \(String(describing: playing.path))")
             }

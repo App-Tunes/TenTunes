@@ -10,7 +10,7 @@ import Cocoa
 
 extension PlaylistController {
     var pasteboardTypes: [NSPasteboard.PasteboardType] {
-        return [Playlist.pasteboardType, Track.pasteboardType, .fileURL]
+        return [Playlist.pasteboardType] + TrackPromise.pasteboardTypes
     }
     
     func outlineView(_ outlineView: NSOutlineView, pasteboardWriterForItem item: Any) -> NSPasteboardWriting? {
@@ -23,18 +23,17 @@ extension PlaylistController {
     
     func outlineView(_ outlineView: NSOutlineView, validateDrop info: NSDraggingInfo, proposedItem item: Any?, proposedChildIndex index: Int) -> NSDragOperation {
         let pasteboard = info.draggingPasteboard()
-        
+        let playlist = item as? Playlist ?? masterPlaylist!
+
+        if TrackPromise.inside(pasteboard: pasteboard, from: pasteboardTypes, for: Library.shared) != nil {
+            return ((playlist as? ModifiablePlaylist)?.supports(action: .add) ?? false) ? .link : []
+        }
+
         guard let type = pasteboard.availableType(from: pasteboardTypes) else {
             return []
         }
         
         switch type {
-        case Track.pasteboardType:
-            let playlist = item as? Playlist ?? masterPlaylist!
-            return ((playlist as? ModifiablePlaylist)?.supports(action: .add) ?? false) ? .move : []
-        case .fileURL:
-            let playlist = item as? Playlist ?? masterPlaylist!
-            return ((playlist as? ModifiablePlaylist)?.supports(action: .add) ?? false) ? .move : []
         case Playlist.pasteboardType:
             // We can always rearrange, except into playlists
             let item = (item as? Playlist) ?? masterPlaylist!
@@ -50,7 +49,7 @@ extension PlaylistController {
                 return []
             }
             
-            return .move
+            return playlists.anySatisfy { $0.parent!.automatesChildren } ? .copy : .move
         default:
             fatalError("Unhandled, but registered pasteboard type")
         }
@@ -59,30 +58,23 @@ extension PlaylistController {
     func outlineView(_ outlineView: NSOutlineView, acceptDrop info: NSDraggingInfo, item: Any?, childIndex index: Int) -> Bool {
         let pasteboard = info.draggingPasteboard()
         
-        guard let type = pasteboard.availableType(from: pasteboardTypes) else {
-            return false
-        }
-        
         let parent = item as? Playlist ?? masterPlaylist!
         
-        switch type {
-        case Track.pasteboardType:
-            guard (parent as! ModifiablePlaylist).confirm(action: .add) else {
-                return false
-            }
-            
-            let tracks = (pasteboard.pasteboardItems ?? []).compactMap(Library.shared.readTrack)
-            (parent as! ModifiablePlaylist).addTracks(tracks)
-            return true
-        case .fileURL:
+        if let promises = TrackPromise.inside(pasteboard: pasteboard, from: pasteboardTypes, for: Library.shared) {
             guard (parent as! ModifiablePlaylist).confirm(action: .add) else {
                 return false
             }
 
-            let urls = pasteboard.readObjects(forClasses: [NSURL.self], options: [.urlReadingFileURLsOnly: true])
-            let tracks = (urls as! [NSURL]).compactMap { Library.shared.import().track(url: $0 as URL) }
+            let tracks = promises.compactMap { $0.fire() }
             (parent as! ModifiablePlaylist).addTracks(tracks)
             return true
+        }
+        
+        guard let type = pasteboard.availableType(from: pasteboardTypes) else {
+            return false
+        }
+
+        switch type {
         case Playlist.pasteboardType:
             let playlists = (pasteboard.pasteboardItems ?? []).compactMap(Library.shared.readPlaylist)
                 // Duplicate before dropping if we aren't supposed to edit the source

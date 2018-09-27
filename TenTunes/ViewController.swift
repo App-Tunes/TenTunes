@@ -276,9 +276,8 @@ class ViewController: NSViewController {
     @IBAction func showQueue(_ sender: Any) {
         let view = sender as! NSView
         
-        guard let history = player.history else {
-            return // TODO Disable button
-        }
+        // TODO Disable button if history is empty
+        let history = player.history
         
         if !queueController.isViewLoaded {
             queueController.loadView()

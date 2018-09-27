@@ -46,10 +46,11 @@ extension ViewController {
                     trackController.desired._changed = true
                 }
                 
-                if let listening = player.history?.playlist, library.isAffected(playlist: listening, whenChanging: playlist) {
+                let listening = player.history.playlist
+                if library.isAffected(playlist: listening, whenChanging: playlist) {
                     // TODO Don't delete specifically enqueued tracks and past tracks
-                    let left = Set(player.history!.playlist.tracksList)
-                    player.history!.filter { left.contains($0) }
+                    let left = Set(player.history.playlist.tracksList)
+                    player.history.filter { left.contains($0) }
                 }
             }
         }

@@ -12,7 +12,7 @@ import AVFoundation
 
 extension TrackController {
     var pasteboardTypes: [NSPasteboard.PasteboardType] {
-        return [Track.pasteboardType, .fileURL]
+        return TrackPromise.pasteboardTypes
     }
     
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
@@ -22,42 +22,38 @@ extension TrackController {
     }
     
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+        guard let promises = TrackPromise.inside(pasteboard: info.draggingPasteboard(), from: pasteboardTypes, for: Library.shared) else {
+            return []
+        }
+        
         guard mode != .title else {
-            return row == 1 || dropOperation == .on ? .move : [] // Works for on and above 1
+            // Either we drop below or on existing track, or we don't have a track yet
+            return row == 1 || dropOperation == .on || history.count == 0 ? .link : []
         }
         
         guard dropOperation == .above else {
             return [] // What exactly do we drop ON tracks?
         }
-        
+
         guard mode != .queue else {
-            return .move
+            return .link // Any track can be added to queue
         }
         
-        if dropOperation == .above, (history.playlist as? ModifiablePlaylist)?.supports(action: .reorder) ?? false, history.isUnsorted {
-            return .move
+        // We are a trackslist and thus need to be reorderable and unsorted
+        guard (history.playlist as? ModifiablePlaylist)?.supports(action: .reorder) ?? false, history.isUnsorted else {
+            return []
         }
         
-        return []
+        // Any existing track inside a trackslist is moved there
+        return promises.anySatisfy { $0 is TrackPromise.Existing } ? .move : .link
     }
     
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
-        let pasteboard = info.draggingPasteboard()
-        guard let type = info.draggingPasteboard().availableType(from: pasteboardTypes) else {
+        guard let promises = TrackPromise.inside(pasteboard: info.draggingPasteboard(), from: pasteboardTypes, for: Library.shared) else {
             return false
         }
 
-        var tracks: [Track] = []
-        
-        switch type {
-        case Track.pasteboardType:
-            tracks = (pasteboard.pasteboardItems ?? []).compactMap(Library.shared.readTrack)
-        case .fileURL:
-            let urls = pasteboard.readObjects(forClasses: [NSURL.self], options: [.urlReadingFileURLsOnly: true])
-            tracks = (urls as! [NSURL]).compactMap { Library.shared.import().track(url: $0 as URL) }
-        default:
-            return false
-        }
+        let tracks = promises.compactMap { $0.fire() }
         
         if mode == .queue {
             let tracksBefore = history.tracks
@@ -72,16 +68,20 @@ extension TrackController {
             _tableView.animateDifference(from: tracksBefore, to: history.tracks)
         }
         else if mode == .title {
-            let history = ViewController.shared.player.history
             let player = ViewController.shared.player
+            let history = player.history
             
             if dropOperation == .on {
                 player.enqueue(tracks: tracks)
-                if history!.playingIndex >= 0 { history?.remove(indices: [history!.playingIndex]) }
-                player.play(at: history!.playingIndex, in: nil) // Reload track
+                if history.playingIndex >= 0 { history.remove(indices: [history.playingIndex]) }
+                player.play(at: history.playingIndex, in: nil) // Reload track
             }
             else {
                 player.enqueue(tracks: tracks)
+                if history.count == 1 {
+                    // User added this probably to play it
+                    player.play(at: 0, in: nil)
+                }
             }
         }
         else if mode == .tracksList {

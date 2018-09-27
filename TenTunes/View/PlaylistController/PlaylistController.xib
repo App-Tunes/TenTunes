@@ -92,11 +92,11 @@
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="cQg-Tv-Dg8"/>
                     </constraints>
                     <edgeInsets key="contentInsets" left="0.0" right="0.0" top="30" bottom="30"/>
-                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="Qjg-1t-Etv">
+                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="Qjg-1t-Etv">
                         <rect key="frame" x="-100" y="-100" width="178" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="ISm-aY-tvn">
+                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="ISm-aY-tvn">
                         <rect key="frame" x="224" y="17" width="15" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
@@ -104,7 +104,7 @@
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="Ry6-zg-Muz">
                     <rect key="frame" x="0.0" y="450" width="178" height="30"/>
                     <subviews>
-                        <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="ultraDark" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="i6r-7N-Sw5">
+                        <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="underWindowBackground" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="i6r-7N-Sw5">
                             <rect key="frame" x="0.0" y="0.0" width="178" height="30"/>
                         </visualEffectView>
                         <button toolTip="Create Playlist" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8Z0-Gt-dbf">
@@ -169,7 +169,7 @@
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="FlW-e5-GJv">
                     <rect key="frame" x="0.0" y="0.0" width="178" height="30"/>
                     <subviews>
-                        <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="ultraDark" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="RbJ-nq-hLm">
+                        <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="underWindowBackground" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="RbJ-nq-hLm">
                             <rect key="frame" x="0.0" y="0.0" width="178" height="30"/>
                         </visualEffectView>
                         <button toolTip="Create Group" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s5V-cO-NDS" customClass="SMButtonWithMenu">

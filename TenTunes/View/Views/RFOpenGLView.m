@@ -19,7 +19,9 @@
     _deltaTime = deltaTime;
     
     [self animate];
-    [self drawRect:[self bounds]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setNeedsDisplay: YES];
+    });
 
     return kCVReturnSuccess;
 }

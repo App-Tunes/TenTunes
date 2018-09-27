@@ -78,9 +78,10 @@ extension TrackController {
             }
             else {
                 player.enqueue(tracks: tracks)
-                if history.count == 1 {
+
+                if self.history.count == 0 {
                     // User added this probably to play it
-                    player.play(at: 0, in: nil)
+                    player.play(at: min(history.count - 1, history.playingIndex + 1), in: nil)
                 }
             }
         }

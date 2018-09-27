@@ -110,7 +110,7 @@ class PlayHistory {
     }
     
     func insert(tracks: [Track], before: Int) {
-        if shuffled != nil  { shuffled!.insert(contentsOf: tracks, at: min(order.count, before)) }
+        if shuffled != nil  { shuffled!.insert(contentsOf: tracks, at: min(shuffled!.count, before)) }
         else                { order.insert(contentsOf: tracks, at: min(order.count, before)) }
     }
 

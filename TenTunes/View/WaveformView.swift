@@ -158,7 +158,7 @@ class WaveformLayer : CALayer {
         _positionLayer.frame = CGRect(
             x: _positionLayer.frame.origin.x,
             y: _positionLayer.frame.origin.y,
-            width: max(1, min(4, 10 - bounds.size.height / 2)),
+            width: max(1, min(3, 8 - bounds.size.height / 3)),
             height: bounds.height
         )
         _mousePositionLayer.frame = _positionLayer.frame

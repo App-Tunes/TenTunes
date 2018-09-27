@@ -164,12 +164,6 @@ class ViewController: NSViewController {
         _timePlayed.alphaValue = 0.5
         _timeLeft.alphaValue = 0.5
         
-        if self.view.window!.appearance?.name == NSAppearance.Name.vibrantDark {
-            _play.set(color: NSColor.lightGray)
-            _previous.set(color: NSColor.lightGray)
-            _next.set(color: NSColor.lightGray)
-        }
-        
         let gradient = CAGradientLayer()
         gradient.colors = [
             NSColor(white: 0.18, alpha: 0.3).cgColor,

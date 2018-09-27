@@ -170,7 +170,6 @@ class ViewController: NSViewController {
             _next.set(color: NSColor.lightGray)
         }
         
-        playingTrackController.view.superview!.wantsLayer = true
         let gradient = CAGradientLayer()
         gradient.colors = [
             NSColor(white: 0.18, alpha: 0.3).cgColor,
@@ -178,7 +177,9 @@ class ViewController: NSViewController {
             NSColor(white: 0.08, alpha: 0.3).cgColor,
         ]
         gradient.locations = [ NSNumber(value: 0), NSNumber(value: 0.2), NSNumber(value: 1) ]
-        playingTrackController.view.superview!.superview!.layer = gradient
+        gradient.cornerRadius = 5
+        _playingTrackView.superview!.wantsLayer = true
+        _playingTrackView.superview!.layer = gradient
     }
         
     func keyDown(with event: NSEvent) -> NSEvent? {

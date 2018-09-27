@@ -178,7 +178,7 @@ class ViewController: NSViewController {
             NSColor(white: 0.08, alpha: 0.3).cgColor,
         ]
         gradient.locations = [ NSNumber(value: 0), NSNumber(value: 0.2), NSNumber(value: 1) ]
-        playingTrackController.view.superview!.layer = gradient
+        playingTrackController.view.superview!.superview!.layer = gradient
     }
         
     func keyDown(with event: NSEvent) -> NSEvent? {

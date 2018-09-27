@@ -172,15 +172,16 @@ class TrackController: NSViewController {
     }
     
     override func viewDidAppear() {
+        _tableView.backgroundColor = NSColor.clear
+
         // Appearance is not yet set in willappear
         if mode == .tracksList {
-            _tableView.backgroundColor = NSColor.clear
             _tableView.enclosingScrollView?.backgroundColor = isDark ? NSColor(white: 0.09, alpha: 1.0) : NSColor(white: 0.73, alpha: 1.0)
             // A little hacky but eh
             for visual in _tableView.headerView?.superview?.subviews.flatten(by: { $0.subviews }).of(type: NSVisualEffectView.self) ?? [] {
                 if #available(OSX 10.14, *) {
                     visual.material = .underWindowBackground
-                } 
+                }
             }
         }
     }
@@ -189,6 +190,8 @@ class TrackController: NSViewController {
         mode = .queue
         
         _tableView.headerView = nil
+        _tableView.enclosingScrollView?.drawsBackground = false
+        _tableView.enclosingScrollView?.backgroundColor = NSColor.clear
         _tableView.usesAlternatingRowBackgroundColors = false  // TODO In NSPanels, this is solid while everything else isn't
         trackEditorGuard.removeFromSuperview()
         

@@ -141,7 +141,7 @@ class PlayHistory {
     }
     
     func move(to: Int) {
-        playingIndex = (-1...tracks.count).clamp(to)
+        playingIndex = (-1...(tracks.count > 0 ? tracks.count : -1)).clamp(to)
     }
     
     func move(by: Int) -> Track? {

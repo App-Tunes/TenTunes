@@ -158,7 +158,7 @@ class WaveformLayer : CALayer {
         _positionLayer.frame = CGRect(
             x: _positionLayer.frame.origin.x,
             y: _positionLayer.frame.origin.y,
-            width: 1,
+            width: max(1, min(4, 10 - bounds.size.height / 2)),
             height: bounds.height
         )
         _mousePositionLayer.frame = _positionLayer.frame
@@ -169,7 +169,7 @@ class WaveformLayer : CALayer {
     
     func updateLocation(of layer: CALayer, to: Double?) {
         if let location = to {
-            layer.frame.origin.x = CGFloat(location) * self.bounds.width
+            layer.frame.origin.x = CGFloat(location) * self.bounds.width - layer.frame.size.width / 2
             layer.isHidden = false
         }
         else {

@@ -17,20 +17,22 @@ extension ExposedAssociatedValues {
 }
 
 class Enumerations {
-    static func matches<P, A>(_ lhs: A, _ builder: @escaping (P) -> A) -> Bool {
-        guard let lhsDecomposition = Mirror(reflecting: lhs).children.first,
-            let lhsValue = lhsDecomposition.value as? P,
-            let rhsDecomposition = Mirror(reflecting: builder(lhsValue)).children.first,
-            lhsDecomposition.label == rhsDecomposition.label
-            else { return false }
+    static func associatedValue<Element, Value>(of element: Element, as builder: @escaping (Value) -> Element) -> Value? {
+        // Mirror Representation goes like this:
+        // ["caseName": Tuple["paramName": Value]]
+        // So extract the tuple first, then the actual value
+        guard let elementTupleMirror = Mirror(reflecting: element).children.first,
+            let elementDecomposition = Mirror(reflecting: elementTupleMirror.value).children.first else {
+                return nil
+        }
+        guard let elementValue = elementDecomposition.value as? Value,
+            let duplicateTupleMirror = Mirror(reflecting: builder(elementValue)).children.first,
+            // Compare the resulting case names (params will always match)
+            elementTupleMirror.label == duplicateTupleMirror.label
+            else { return nil }
         
-        return true
-    }
-
-    static func associatedValue<T, P>(of: T, as builder: @escaping (P) -> T) -> P? {
-        guard Enumerations.matches(of, builder) else { return nil }
-        // It HAS to be P, otherwise something is very wrong
-        return Mirror(reflecting: of).children.first.map { $0.value as! P }
+        // After we checked, it MUST be Value
+        return elementValue
     }
 }
 

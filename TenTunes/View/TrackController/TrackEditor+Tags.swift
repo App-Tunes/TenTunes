@@ -72,9 +72,9 @@ extension TrackEditor : TTTokenFieldDelegate {
     }
     
     func tokensChanged() {
-        let labels = tagTokens
-        let allowedOthers = labels.caseLet(ViewableTag.many).first ?? Set()
-        let sharedTags = Set(labels.caseLet(ViewableTag.tag))
+        let showedTokens = tagTokens
+        let allowedOthers = showedTokens.caseLet(ViewableTag.many).first ?? Set()
+        let sharedTags = Set(showedTokens.caseLet(ViewableTag.tag))
         
         for track in tracks {
             let new = sharedTags.union(track.tags.intersection(allowedOthers))

@@ -13,7 +13,7 @@ class PlayHistory {
 
     var order: [Track]
     var shuffled: [Track]?
-    var playingIndex: Int = 0
+    var playingIndex: Int = -1
     
     init(playlist: PlaylistProtocol) {
         self.playlist = playlist

@@ -194,10 +194,13 @@ class ViewController: NSViewController {
         
     func updatePlaying() {
         self.updateTimesHidden(self)
-        
+
+        _previous.isEnabled = player.history.playingIndex >= 0
+        _next.isEnabled = player.history.playingIndex < player.history.count && player.history.count > 0
+
         guard let track = player.playing else {
             _play.image = #imageLiteral(resourceName: "play")
-            
+
             playingTrackController.history = PlayHistory(playlist: PlaylistEmpty())
             
             _coverImage.image = nil
@@ -205,12 +208,12 @@ class ViewController: NSViewController {
             _waveformView.analysis = nil
             _waveformView.jumpSegment = 0
             _waveformView.duration = 1
-
+            
             return
         }
         
         _play.image = player.isPaused ? #imageLiteral(resourceName: "play") : #imageLiteral(resourceName: "pause")
-        
+
         if playingTrackController.history.track(at: 0) != track {
             playingTrackController.history.insert(tracks: [track], before: 0)
             playingTrackController._tableView.insertRows(at: IndexSet(integer: 0), withAnimation: .slideDown)

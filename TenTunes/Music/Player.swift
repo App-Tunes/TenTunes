@@ -203,13 +203,12 @@ class Player {
     }
     
     func play(moved: Int) {
-        if history.count == 0 || history.playingIndex == history.count {
-            guard let historyProvider = historyProvider else {
+        if moved == 0 {
+            guard history.count > 0 && history.playingIndex < history.count else {
+                play(at: nil, in: historyProvider?() ?? PlayHistory(playlist: PlaylistEmpty()))
                 return
             }
-            play(at: nil, in: historyProvider())
-        }
-        else if moved == 0 {
+
             history.shuffle()
             history.move(to: 0) // Select random track next
         }

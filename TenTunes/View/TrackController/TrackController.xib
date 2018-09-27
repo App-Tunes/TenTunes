@@ -432,7 +432,7 @@
                                 <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="underWindowBackground" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="RrY-WV-3rf">
                                     <rect key="frame" x="0.0" y="0.0" width="669" height="25"/>
                                 </visualEffectView>
-                                <box boxType="custom" borderType="line" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Lmv-fl-fCt">
+                                <box autoresizesSubviews="NO" boxType="custom" borderType="line" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Lmv-fl-fCt">
                                     <rect key="frame" x="-1" y="-1" width="671" height="26"/>
                                     <view key="contentView" id="Iy5-UE-8Jl">
                                         <rect key="frame" x="1" y="1" width="669" height="24"/>

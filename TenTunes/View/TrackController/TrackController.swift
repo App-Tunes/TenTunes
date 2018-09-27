@@ -38,9 +38,7 @@ import AVFoundation
 class TrackController: NSViewController {
     @IBOutlet var _tableView: ActionTableView!
     @IBOutlet var _tableViewHeight: NSLayoutConstraint!
-    
-    @IBOutlet var _trackEditorView: NSView!
-    
+        
     @IBOutlet var filterController: SmartPlaylistRulesController!
     @IBOutlet var filterBar: HideableBar!
     @IBOutlet var _filterBarContainer: NSView!

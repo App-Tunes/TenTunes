@@ -20,7 +20,6 @@
                 <outlet property="_tableView" destination="4mk-XS-5ci" id="kXR-Tw-wbo"/>
                 <outlet property="_tableViewHeight" destination="407-lR-Mkm" id="dW8-YU-sVA"/>
                 <outlet property="_trackCounter" destination="Xki-oe-dMl" id="EBo-Pq-uI3"/>
-                <outlet property="_trackEditorView" destination="eZA-1m-Cok" id="gpJ-nw-AX4"/>
                 <outlet property="trackEditorGuard" destination="eZA-1m-Cok" id="xlw-0Q-EQk"/>
                 <outlet property="view" destination="NYt-ks-eHN" id="wOG-sx-1xW"/>
             </connections>

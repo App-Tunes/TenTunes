@@ -432,6 +432,14 @@
                                 <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="underWindowBackground" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="RrY-WV-3rf">
                                     <rect key="frame" x="0.0" y="0.0" width="669" height="25"/>
                                 </visualEffectView>
+                                <box boxType="custom" borderType="line" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Lmv-fl-fCt">
+                                    <rect key="frame" x="-1" y="-1" width="671" height="26"/>
+                                    <view key="contentView" id="Iy5-UE-8Jl">
+                                        <rect key="frame" x="1" y="1" width="669" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </view>
+                                    <color key="borderColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                </box>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="yA3-8B-zr1">
                                     <rect key="frame" x="2" y="4" width="84" height="17"/>
                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Playlist Title" id="ort-dC-9bO">
@@ -461,12 +469,16 @@
                             </subviews>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="RrY-WV-3rf" secondAttribute="bottom" id="1eg-bs-aUU"/>
+                                <constraint firstItem="Lmv-fl-fCt" firstAttribute="top" secondItem="no2-Pk-ubw" secondAttribute="top" id="4Zi-Kr-I76"/>
                                 <constraint firstItem="yA3-8B-zr1" firstAttribute="centerY" secondItem="no2-Pk-ubw" secondAttribute="centerY" id="5dD-o0-7Dr"/>
                                 <constraint firstItem="RrY-WV-3rf" firstAttribute="leading" secondItem="no2-Pk-ubw" secondAttribute="leading" id="9yu-ha-Phf"/>
+                                <constraint firstItem="Lmv-fl-fCt" firstAttribute="leading" secondItem="no2-Pk-ubw" secondAttribute="leading" constant="-1" id="GLd-S6-Ezv"/>
                                 <constraint firstItem="Xki-oe-dMl" firstAttribute="centerY" secondItem="no2-Pk-ubw" secondAttribute="centerY" id="MQi-gt-Jp1"/>
+                                <constraint firstAttribute="trailing" secondItem="Lmv-fl-fCt" secondAttribute="trailing" constant="-1" id="UUv-z6-T9E"/>
                                 <constraint firstItem="Xki-oe-dMl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yA3-8B-zr1" secondAttribute="trailing" constant="20" id="VbX-7e-5se"/>
                                 <constraint firstItem="RrY-WV-3rf" firstAttribute="top" secondItem="no2-Pk-ubw" secondAttribute="top" id="XXb-PR-STi"/>
                                 <constraint firstItem="RVc-tT-TEm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Xki-oe-dMl" secondAttribute="trailing" constant="20" id="Yx8-mP-kZM"/>
+                                <constraint firstAttribute="bottom" secondItem="Lmv-fl-fCt" secondAttribute="bottom" constant="-1" id="bYP-SI-lUj"/>
                                 <constraint firstItem="RVc-tT-TEm" firstAttribute="centerY" secondItem="no2-Pk-ubw" secondAttribute="centerY" id="cjB-JQ-RLn"/>
                                 <constraint firstAttribute="trailing" secondItem="RrY-WV-3rf" secondAttribute="trailing" id="knw-WV-Qj7"/>
                                 <constraint firstItem="Xki-oe-dMl" firstAttribute="centerX" secondItem="no2-Pk-ubw" secondAttribute="centerX" id="mCT-Xy-x6z"/>

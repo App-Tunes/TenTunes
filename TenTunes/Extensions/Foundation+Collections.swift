@@ -150,8 +150,13 @@ extension Array where Element: Equatable {
         return false
     }
     
-    public mutating func remove<C: Collection>(all: C) where C.Element == Element {
-        self = removing(all: all)
+    public mutating func removeAll<C: Collection>(elements: C) where C.Element == Element {
+        removeAll { elements.contains($0) }
+    }
+    
+    public mutating func removeAll<C: Collection>(elements: C) where C.Element == Element, Element: Hashable {
+        let set = (elements as? Set<Element>) ?? Set(elements)
+        removeAll { set.contains($0) }
     }
     
     public func removing<C: Collection>(all: C) -> [Element] where C.Element == Element {

@@ -31,7 +31,7 @@ class PlaylistLibrary: PlaylistProtocol {
             _tracks = nil
         }
         else if !trackDeletes.isEmpty {
-            _tracks?.remove(all: trackDeletes)
+            _tracks?.removeAll(elements: trackDeletes)
         }
     }
     

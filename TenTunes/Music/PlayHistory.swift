@@ -8,6 +8,18 @@
 
 import Cocoa
 
+extension Array {
+    mutating func removeAll(keepTrackOf index: inout Int, where remove: (Element) -> Bool) {
+        let realisticIndex = (0...count).clamp(index)
+        self[0..<realisticIndex].removeAll {
+            let removed = remove($0)
+            if removed { index -= 1 }
+            return removed
+        }
+        self[realisticIndex..<count].removeAll(where: remove)
+    }
+}
+
 class PlayHistory {
     var playlist: PlaylistProtocol
 
@@ -42,23 +54,14 @@ class PlayHistory {
     }
         
     // Order, Filter
-    
     func filter(by filter: @escaping (Track) -> Bool) {
-        var m = 0
-        
-        let filter: ([Track]) -> [Track] = { list in
-            list.enumerated().filter ({ tuple in
-                let (idx, track) = tuple // Required in Swift 4 Beta? Yeah.
-                let remove = filter(track)
-                m += remove && idx < self.playingIndex ? 1 : 0
-                return remove
-            }).map { $0.element }
+        if shuffled != nil {
+            shuffled!.removeAll(keepTrackOf: &playingIndex) { !filter($0) }
+            order.removeAll { !filter($0) }
         }
-        
-        order = filter(order)
-        shuffled = shuffled ?=> filter // Filter shuffle too if we need it
-        
-        playingIndex -= m
+        else {
+            order.removeAll(keepTrackOf: &playingIndex) { !filter($0) }
+        }
     }
     
     static func filter(findText text: String?) -> ((Track) -> Bool)? {

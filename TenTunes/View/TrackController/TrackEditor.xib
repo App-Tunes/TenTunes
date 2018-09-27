@@ -37,24 +37,24 @@
                 <view translatesAutoresizingMaskIntoConstraints="NO" id="fry-a8-cnm">
                     <rect key="frame" x="0.0" y="0.0" width="286" height="382"/>
                     <subviews>
-                        <box boxType="custom" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="PQu-Bh-OUM">
-                            <rect key="frame" x="-1" y="300" width="288" height="83"/>
+                        <box boxType="custom" borderWidth="0.0" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="PQu-Bh-OUM">
+                            <rect key="frame" x="-1" y="302" width="288" height="81"/>
                             <view key="contentView" id="jUD-V8-4gh">
-                                <rect key="frame" x="2" y="2" width="284" height="79"/>
+                                <rect key="frame" x="1" y="1" width="286" height="79"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <imageView horizontalHuggingPriority="100" verticalHuggingPriority="100" horizontalCompressionResistancePriority="100" verticalCompressionResistancePriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="xfX-Mm-Orc">
-                                        <rect key="frame" x="0.0" y="0.0" width="284" height="79"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="286" height="79"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="8Uj-V1-3zt"/>
                                         <connections>
                                             <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.artworkPreview" id="Zvv-fB-PBl"/>
                                         </connections>
                                     </imageView>
                                     <visualEffectView appearanceType="inheritedVibrantLight" horizontalHuggingPriority="100" verticalHuggingPriority="100" horizontalCompressionResistancePriority="100" verticalCompressionResistancePriority="100" blendingMode="withinWindow" material="ultraDark" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="4s9-vN-ENi">
-                                        <rect key="frame" x="0.0" y="0.0" width="284" height="79"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="286" height="79"/>
                                     </visualEffectView>
                                     <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vc8-yo-YBx" customClass="EnterReturningTextField" customModule="TenTunes" customModuleProvider="target">
-                                        <rect key="frame" x="104" y="55" width="177" height="17"/>
+                                        <rect key="frame" x="102" y="55" width="181" height="17"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="WGd-AA-e84"/>
                                         </constraints>
@@ -76,7 +76,7 @@
                                         </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IxQ-nY-WjC" customClass="EnterReturningTextField" customModule="TenTunes" customModuleProvider="target">
-                                        <rect key="frame" x="104" y="31" width="177" height="17"/>
+                                        <rect key="frame" x="102" y="31" width="181" height="17"/>
                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" placeholderString="Unknown Author" id="dHl-D9-I7J">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -94,7 +94,7 @@
                                         </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mfs-pi-vdb" customClass="EnterReturningTextField" customModule="TenTunes" customModuleProvider="target">
-                                        <rect key="frame" x="104" y="7" width="177" height="17"/>
+                                        <rect key="frame" x="102" y="7" width="181" height="17"/>
                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" placeholderString="No Album" id="qyN-oT-Uof">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -112,7 +112,7 @@
                                         </connections>
                                     </textField>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GGH-Dw-GOG">
-                                        <rect key="frame" x="2" y="2" width="75" height="75"/>
+                                        <rect key="frame" x="4" y="4" width="71" height="71"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="GGH-Dw-GOG" secondAttribute="height" multiplier="1:1" id="Gr7-6J-CMz"/>
                                         </constraints>
@@ -123,7 +123,7 @@
                                         </connections>
                                     </imageView>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rdg-Wt-HDc">
-                                        <rect key="frame" x="84" y="56" width="15" height="15"/>
+                                        <rect key="frame" x="82" y="56" width="15" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="15" id="NxW-uf-Zip"/>
                                             <constraint firstAttribute="width" secondItem="Rdg-Wt-HDc" secondAttribute="height" multiplier="1:1" id="tGX-Uu-JVb"/>
@@ -131,7 +131,7 @@
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="name" id="v67-Ei-JGK"/>
                                     </imageView>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Axn-Tv-fVt">
-                                        <rect key="frame" x="84" y="8" width="15" height="15"/>
+                                        <rect key="frame" x="82" y="8" width="15" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Axn-Tv-fVt" secondAttribute="height" multiplier="1:1" id="9fl-S9-y9x"/>
                                             <constraint firstAttribute="width" constant="15" id="z55-PE-JDl"/>
@@ -139,7 +139,7 @@
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="album" id="crH-An-wfh"/>
                                     </imageView>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="j3A-SG-yXW">
-                                        <rect key="frame" x="84" y="32" width="15" height="15"/>
+                                        <rect key="frame" x="82" y="32" width="15" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="15" id="fVe-PG-bVK"/>
                                             <constraint firstAttribute="width" secondItem="j3A-SG-yXW" secondAttribute="height" multiplier="1:1" id="rkd-DB-W8f"/>
@@ -154,7 +154,7 @@
                                     <constraint firstItem="vc8-yo-YBx" firstAttribute="top" secondItem="jUD-V8-4gh" secondAttribute="top" constant="7" id="8Bv-jA-Q1g"/>
                                     <constraint firstItem="4s9-vN-ENi" firstAttribute="top" secondItem="jUD-V8-4gh" secondAttribute="top" id="8TZ-ht-dfL"/>
                                     <constraint firstAttribute="trailing" secondItem="4s9-vN-ENi" secondAttribute="trailing" id="EVz-1p-m77"/>
-                                    <constraint firstItem="GGH-Dw-GOG" firstAttribute="top" secondItem="jUD-V8-4gh" secondAttribute="top" constant="5" id="HNf-5o-bEg"/>
+                                    <constraint firstItem="GGH-Dw-GOG" firstAttribute="top" secondItem="jUD-V8-4gh" secondAttribute="top" constant="7" id="HNf-5o-bEg"/>
                                     <constraint firstAttribute="trailing" secondItem="Mfs-pi-vdb" secondAttribute="trailing" constant="5" id="Kjy-mC-iYS"/>
                                     <constraint firstItem="Axn-Tv-fVt" firstAttribute="centerY" secondItem="Mfs-pi-vdb" secondAttribute="centerY" id="LL2-MQ-3hl"/>
                                     <constraint firstItem="Mfs-pi-vdb" firstAttribute="top" secondItem="IxQ-nY-WjC" secondAttribute="bottom" constant="7" id="QWf-z9-r8d"/>
@@ -171,8 +171,8 @@
                                     <constraint firstItem="Rdg-Wt-HDc" firstAttribute="centerY" secondItem="vc8-yo-YBx" secondAttribute="centerY" id="mMQ-fj-c7l"/>
                                     <constraint firstItem="xfX-Mm-Orc" firstAttribute="leading" secondItem="jUD-V8-4gh" secondAttribute="leading" id="mWw-eg-3VO"/>
                                     <constraint firstAttribute="trailing" secondItem="vc8-yo-YBx" secondAttribute="trailing" constant="5" id="nIy-qS-LWJ"/>
-                                    <constraint firstItem="GGH-Dw-GOG" firstAttribute="leading" secondItem="jUD-V8-4gh" secondAttribute="leading" constant="5" id="rjg-Qc-uni"/>
-                                    <constraint firstAttribute="bottom" secondItem="GGH-Dw-GOG" secondAttribute="bottom" constant="5" id="tVJ-A2-WEb"/>
+                                    <constraint firstItem="GGH-Dw-GOG" firstAttribute="leading" secondItem="jUD-V8-4gh" secondAttribute="leading" constant="7" id="rjg-Qc-uni"/>
+                                    <constraint firstAttribute="bottom" secondItem="GGH-Dw-GOG" secondAttribute="bottom" constant="7" id="tVJ-A2-WEb"/>
                                     <constraint firstAttribute="trailing" secondItem="IxQ-nY-WjC" secondAttribute="trailing" constant="5" id="tkT-NE-l1n"/>
                                     <constraint firstAttribute="bottom" secondItem="xfX-Mm-Orc" secondAttribute="bottom" id="yTv-hZ-eb7"/>
                                 </constraints>
@@ -181,13 +181,13 @@
                             <size key="contentViewMargins" width="1" height="1"/>
                         </box>
                         <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="25" horizontalPageScroll="10" verticalLineScroll="25" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4S-uV-C4C">
-                            <rect key="frame" x="0.0" y="8" width="286" height="289"/>
+                            <rect key="frame" x="0.0" y="8" width="286" height="291"/>
                             <clipView key="contentView" drawsBackground="NO" id="flI-e3-PP9">
-                                <rect key="frame" x="0.0" y="0.0" width="286" height="289"/>
+                                <rect key="frame" x="0.0" y="0.0" width="286" height="291"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="23" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="3Ae-Tm-QZb" id="RRs-pC-UFg" customClass="ActionOutlineView" customModule="TenTunes" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="286" height="289"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="286" height="291"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <size key="intercellSpacing" width="0.0" height="2"/>
                                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>

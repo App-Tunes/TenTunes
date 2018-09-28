@@ -396,9 +396,9 @@ extension TrackController: NSTableViewDelegate {
         return history.playingIndex == row ? tableView.rowHeight + 2 : tableView.rowHeight
     }
     
-//    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-//        return VibrantTableRowView()
-//    }
+    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
+        return SubtleTableRowView()
+    }
     
     @IBAction func showInfo(_ sender: Any?) {
         (trackEditorGuard.superview as! NSSplitView).toggleSubviewHidden(trackEditorGuard)

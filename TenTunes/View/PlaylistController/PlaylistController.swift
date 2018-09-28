@@ -246,7 +246,7 @@ extension PlaylistController : NSOutlineViewDelegate {
     }
     
     func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
-        return VibrantTableRowView()
+        return SubtleTableRowView()
     }
 }
 

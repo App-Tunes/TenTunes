@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class VibrantTableRowView: NSTableRowView {
+class SubtleTableRowView: NSTableRowView {
 
     override func drawSelection(in dirtyRect: NSRect) {
         if self.selectionHighlightStyle != .none {

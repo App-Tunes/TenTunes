@@ -21,25 +21,32 @@ class VisualizerWindowController: NSWindowController {
 
     var trackingTag: NSView.TrackingRectTag?
     
+    @IBOutlet var _settingsButton: NSButton!
+    @IBOutlet var _settingsSheet: NSPanel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         window!.ignoresMouseEvents = false
         updateTrackingAreas(true)
         hideWindowButtons()
+        
+        _settingsButton.alphaValue = 0.35
     }
     
     func hideWindowButtons() {
         window!.standardWindowButton(.closeButton)!.alphaValue = 0.01
         window!.standardWindowButton(.zoomButton)!.alphaValue = 0.01
         window!.standardWindowButton(.miniaturizeButton)!.alphaValue = 0.01
+        _settingsButton.isHidden = true
     }
     
     override func mouseEntered(with theEvent: NSEvent) {
         if trackingTag == theEvent.trackingNumber {
-            window!.standardWindowButton(.closeButton)!.alphaValue = 0.25
-            window!.standardWindowButton(.zoomButton)!.alphaValue = 0.25
-            window!.standardWindowButton(.miniaturizeButton)!.alphaValue = 0.25
+            window!.standardWindowButton(.closeButton)!.alphaValue = 0.35
+            window!.standardWindowButton(.zoomButton)!.alphaValue = 0.35
+            window!.standardWindowButton(.miniaturizeButton)!.alphaValue = 0.35
+            _settingsButton.isHidden = false
         }
     }
     
@@ -50,12 +57,15 @@ class VisualizerWindowController: NSWindowController {
     }
     
     func updateTrackingAreas(_ establish : Bool) {
-        if let tag = trackingTag {
-            window!.standardWindowButton(.closeButton)!.removeTrackingRect(tag)
-        }
+        trackingTag ?=> window!.standardWindowButton(.closeButton)!.removeTrackingRect
+
         if establish {
             trackingTag = window!.contentView!.addTrackingRect(window!.contentView!.bounds, owner: self, userData: nil, assumeInside: false)
         }
+    }
+    
+    @IBAction func showSettings(_ sender: Any) {
+        window?.beginSheet(_settingsSheet)
     }
 }
 

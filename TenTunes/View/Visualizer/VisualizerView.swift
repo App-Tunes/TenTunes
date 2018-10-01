@@ -34,7 +34,9 @@ class VisualizerView: GLSLView {
     var guResolution: GLint = -1
 
     var guResonance: GLint = -1
+    var guResonanceDistortion: GLint = -1
     var guResonanceDistortionShiftSizes: GLint = -1
+
     var guResonanceColors: GLint = -1
     var guResonanceColorsSoon: GLint = -1
     var guResonanceCount: GLint = -1
@@ -43,9 +45,15 @@ class VisualizerView: GLSLView {
 
     var guMinDist: GLint = -1
     var guDecay: GLint = -1
+    var guSharpness: GLint = -1
 
     var startDate = NSDate().addingTimeInterval(-TimeInterval(Int.random(in: 50...10_000)))
     var time : TimeInterval { return -startDate.timeIntervalSinceNow }
+    
+    // Settings
+    @objc var colorVariance: CGFloat = 0.6
+    @objc var darkness: Float = 0.3
+    @objc var psychedelic: CGFloat = 0.3
 
     func update(withFFT fft: [Double]) {
         let desiredLength = Int(log(Double(fft.count)) / log(2)) - VisualizerView.resonanceOverlap
@@ -62,7 +70,7 @@ class VisualizerView: GLSLView {
             let middle = Double(end - 1 - start)
             let length = Double(end - start)
 
-            let steepness = 4.0
+            let steepness = 13 * (1 - Double(psychedelic))
             let gain = 1 / pow(0.5, steepness)
 
             return fft[start ..< end].enumerated().map { (idx, val) in
@@ -94,7 +102,9 @@ class VisualizerView: GLSLView {
         guResolution = findUniform("resolution")
         
         guResonance = findUniform("resonance")
+        guResonanceDistortion = findUniform("resonanceDistortion")
         guResonanceDistortionShiftSizes = findUniform("resonanceDistortionShiftSizes")
+        
         guResonanceColors = findUniform("resonanceColors")
         guResonanceColorsSoon = findUniform("resonanceColorsSoon")
         guResonanceCount = findUniform("resonanceCount")
@@ -103,6 +113,7 @@ class VisualizerView: GLSLView {
 
         guMinDist = findUniform("minDist")
         guDecay = findUniform("decay")
+        guSharpness = findUniform("sharpness")
     }
     
     override func animate() {
@@ -117,10 +128,12 @@ class VisualizerView: GLSLView {
         let prog = CGFloat(idx) / CGFloat(resonance.count - 1)
         let ratio: CGFloat = resonance[idx] / totalResonance
         
+        let localDarkness = pow(2, CGFloat(darkness) * 2)
+        
         // 0.6 so that extremely high and low sounds are far apart in color
-        return NSColor(hue: (prog * 0.6 + CGFloat(time * 0.02321)).truncatingRemainder(dividingBy: 1),
+        return NSColor(hue: (prog * colorVariance + CGFloat(time * 0.02321)).truncatingRemainder(dividingBy: 1),
                        saturation: max(0, min(1, ratio * 5 - prog)),
-                       brightness: min(1, totalResonance / 15 + resonance[idx] * 2 + ratio * 0.3) * 0.6 + 0.4,
+                       brightness: min(1, totalResonance / 15 + resonance[idx] * 2 + ratio * 0.3) / localDarkness + 0.3,
                        alpha: 1)
     }
     
@@ -133,17 +146,24 @@ class VisualizerView: GLSLView {
         glUniform2f(guResolution, GLfloat(bounds.size.width), GLfloat(bounds.size.height));
 
         glUniform1f(guMinDist, GLfloat(0.1 / (5 + totalResonance / 20)));
-        glUniform1f(guDecay, 10);
+        glUniform1f(guDecay, pow(2, (darkness - Float(psychedelic)) * 20));
+        glUniform1f(guSharpness, pow(2, darkness + Float(psychedelic)) + 2);
 
         glUniform1i(guResonanceCount, GLint(resonance.count))
 
         glUniform1fv(resonance.map { GLfloat($0) }, as: guResonance)
-        glUniform1fv((0 ..< resonance.count).map { GLfloat(pow((1 - Float($0) / Float(resonance.count)), 1.5) * 25) }, as: guResonanceDistortionShiftSizes)
+        glUniform1fv(resonance.map {
+            GLfloat(0.08973 * pow(psychedelic, 2) * (pow(1.65 - psychedelic, $0) - (1 - psychedelic)))
+        }, as: guResonanceDistortion)
+        
+        glUniform1fv((0 ..< resonance.count).map {
+            GLfloat(pow((1 - Float($0) / Float(resonance.count)), 1.5) * 25)
+        }, as: guResonanceDistortionShiftSizes)
 
         let colors = (0 ..< resonance.count).map { self.color($0, time: time) }
         glUniform1fv(colors.flatMap { self.rgb($0) }, as: guResonanceColors)
 
-        let soonColors = (0 ..< resonance.count).map { self.color($0, time: time - 50) }
+        let soonColors = (0 ..< resonance.count).map { self.color($0, time: time - Double(80 * colorVariance)) }
         glUniform1fv(soonColors.flatMap { self.rgb($0) }, as: guResonanceColorsSoon)
     }
 }

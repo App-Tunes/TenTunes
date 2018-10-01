@@ -13,7 +13,9 @@ const int MAX_FREQ_COUNT = 10;
 uniform int resonanceCount;
 
 uniform float resonance[MAX_FREQ_COUNT];
+uniform float resonanceDistortion[MAX_FREQ_COUNT];
 uniform float resonanceDistortionShiftSizes[MAX_FREQ_COUNT];
+
 uniform float resonanceColors[MAX_FREQ_COUNT * 3];
 uniform float resonanceColorsSoon[MAX_FREQ_COUNT * 3];
 
@@ -22,14 +24,15 @@ uniform vec2 resolution;
 
 uniform float minDist;
 uniform float decay;
+uniform float sharpness;
 
 float dist(vec2 a, vec2 b) {
     return ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 }
 
 float influence(vec2 point, vec2 pos, float strength) {
-    float dist = max(minDist + strength / 100, dist(pos, point.xy));
-    return pow(strength / dist, 3 + strength / 10);
+    float dist = max(minDist + strength / 100, minDist + dist(pos, point.xy));
+    return pow(strength / dist, sharpness + strength / 10);
 }
 
 void main( void ) {
@@ -52,10 +55,10 @@ void main( void ) {
         float shiftSize = resonanceDistortionShiftSizes[i];
         pTime += sin(  centerX * sin(time * (0.0754 + freqRatio * 0.0154125467) + freqRatio * 6) / shiftSize
                      + centerY * cos(time * (0.0834 + freqRatio * 0.0146145673) + freqRatio * 6) / shiftSize)
-        * (0.00802) * (pow(1.35, resonance[i]) - 1);
+        * resonanceDistortion[i];
     }
 
-    vec4 color = vec4(0, 0, 0, 0);
+    vec4 color = vec4(0, 0, 0, 1);
 
     float totalOmega = decay;
     float prevOmega;
@@ -72,7 +75,7 @@ void main( void ) {
         totalOmega += inf;
         
         color.rgb += pointColor * inf;
-        color.a = min(color.a + resonance[i] / 10, 1);
+        // color.a = min(color.a + resonance[i] / 10, 1);
     }
     
     color.rgb /= totalOmega;

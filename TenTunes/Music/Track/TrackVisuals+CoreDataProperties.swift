@@ -19,6 +19,6 @@ extension TrackVisuals {
 
     @NSManaged public var analysis: NSData?
     @NSManaged public var artworkPreview: NSImage?
-    @NSManaged public var track: Track!
+    @NSManaged public var track: Track?
 
 }

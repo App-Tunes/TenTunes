@@ -95,12 +95,12 @@ extension ViewController {
                 let metadataRequest: NSFetchRequest = Track.fetchRequest()
                 metadataRequest.predicate = NSPredicate(format: "metadataFetchDate == nil")
                 metadataRequest.fetchLimit = 200
-                let tracks = Library.shared.viewContext.compactConvert(try! mox.fetch(metadataRequest))
+                let asyncTracks = try! mox.fetch(metadataRequest)
                     .filter { $0.url != nil }
                 
                 // Need to do this in sync because we use tasker.enqueue
                 DispatchQueue.main.async {
-                    for track in Library.shared.viewContext.compactConvert(tracks) {
+                    for track in Library.shared.viewContext.compactConvert(asyncTracks) {
                         self.tasker.enqueue(task: FetchTrackMetadata(track: track))
                     }
                 }
@@ -114,13 +114,13 @@ extension ViewController {
                     let analysisRequest: NSFetchRequest = TrackVisuals.fetchRequest()
                     analysisRequest.predicate = NSPredicate(format: "analysis == nil")
                     analysisRequest.fetchLimit = 20
-                    let tracks = Library.shared.viewContext.compactConvert(try! mox.fetch(analysisRequest))
-                        .compactMap { $0.track } // Who knows, might be gone
+                    let asyncTracks = try! mox.fetch(analysisRequest)
+                        .compactMap { $0.track }
                         .filter { $0.url != nil }
 
                     // Need to do this in sync because we use tasker.enqueue
                     DispatchQueue.main.async {
-                        for track in Library.shared.viewContext.compactConvert(tracks) {
+                        for track in Library.shared.viewContext.compactConvert(asyncTracks) {
                             self.tasker.enqueue(task: AnalyzeTrack(track: track, read: true))
                         }
                     }

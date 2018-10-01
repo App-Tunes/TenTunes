@@ -111,11 +111,10 @@ extension ViewController {
                 }
                 
                 Library.shared.performChildBackgroundTask { mox in
-                    let analysisRequest: NSFetchRequest = TrackVisuals.fetchRequest()
-                    analysisRequest.predicate = NSPredicate(format: "analysis == nil")
+                    let analysisRequest: NSFetchRequest = Track.fetchRequest()
+                    analysisRequest.predicate = NSPredicate(format: "visuals.analysis == nil")
                     analysisRequest.fetchLimit = 20
                     let asyncTracks = try! mox.fetch(analysisRequest)
-                        .compactMap { $0.track }
                         .filter { $0.url != nil }
 
                     // Need to do this in sync because we use tasker.enqueue

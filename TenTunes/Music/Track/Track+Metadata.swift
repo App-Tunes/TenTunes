@@ -43,7 +43,7 @@ extension Track {
 
         // TODO Duration
         
-        if let tagLibFile = TagLibFile(url: url) {
+        if let tagLibFile = tagLibFile {
             title = tagLibFile.title
             album = tagLibFile.album
             author = tagLibFile.artist
@@ -136,11 +136,11 @@ extension Track {
             return
         }
         
-        guard let url = self.url else {
+        guard path != nil else {
             throw MetadataWriteError.noPath
         }
         
-        guard let tagLibFile = TagLibFile(url: url) else {
+        guard let tagLibFile = self.tagLibFile else {
             throw MetadataWriteError.fileNotFound
         }
         
@@ -176,7 +176,7 @@ extension Track {
 
             case \Track.comments:
                 tagLibFile.comments = comments as String?
-
+                
             default:
                 fatalError("Unwriteable Path: \(path)")
             }

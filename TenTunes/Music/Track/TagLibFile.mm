@@ -246,6 +246,14 @@ inline const TagLib::String TagLibStringFromNS(NSString *string) {
     return [self tag]->track();
 }
 
+- (void)setPartOfSet:(NSString *)partOfSet {
+    [self setID3:AVMetadataID3MetadataKeyPartOfASet text:partOfSet];
+}
+
+- (NSString *)partOfSet {
+    return [self getID3v2Text:AVMetadataID3MetadataKeyPartOfASet];
+}
+
 // ID3v1 is auto-supported with taglib's default setters and getters
 #pragma mark ID3v2
 

@@ -33,6 +33,8 @@ class TrackEditor: NSViewController {
             EditData(title: "Album Author", path: \Track.albumArtist, options: nil),
             EditData(title: "Year", path: \Track.year, options: [.valueTransformerName: "IntStringNullable"]),
             EditData(title: "Track No.", path: \Track.trackNumber, options: [.valueTransformerName: "IntStringNullable"]),
+            EditData(title: "CD No.", path: \Track.albumNumberOfCD, options: [.valueTransformerName: "IntStringNullable"]),
+            EditData(title: "CD Count", path: \Track.albumNumberOfCDs, options: [.valueTransformerName: "IntStringNullable"]),
             ]),
         GroupData(title: "Info", icon: #imageLiteral(resourceName: "info"), data: [
             InfoData(title: "Duration") { $0.rDuration },
@@ -169,7 +171,7 @@ class TrackEditor: NSViewController {
         try! self.context.save()
     }
     
-    func attributeEdited(_ attribute: PartialKeyPath<Track>) {
+    func attributeEdited(_ attribute: PartialKeyPath<Track>, skipWrite: Bool = false) {
         // After bound values have been updated
         // ...change location and save
         for track in self.tracks {
@@ -179,8 +181,10 @@ class TrackEditor: NSViewController {
         
         try! self.context.save()
         
-        for track in self.tracks {
-            try! track.writeMetadata(values: [attribute])
+        if !skipWrite {
+            for track in self.tracks {
+                try! track.writeMetadata(values: [attribute])
+            }
         }
     }
 }
@@ -221,7 +225,7 @@ extension TrackEditor: NSOutlineViewDelegate {
                 view.valueTextField?.bind(.value, to: tracksController, withKeyPath: "selection." + data.path._kvcKeyPathString!, options: (data.options ?? [:]).merging([.nullPlaceholder: "..."], uniquingKeysWith: { (a, _) in a }))
                 
                 editActionStubs.bind(view.valueTextField!) { [unowned self] _ in
-                    self.attributeEdited(data.path)
+                    self.attributeEdited(data.path, skipWrite: data.skipWrite)
                 }
                 
                 return view
@@ -321,11 +325,13 @@ extension TrackEditor {
         let title: String
         let path: PartialKeyPath<Track>
         let options: [NSBindingOption: Any]?
+        let skipWrite: Bool
         
-        init(title: String, path: PartialKeyPath<Track>, options: [NSBindingOption: Any]?) {
+        init(title: String, path: PartialKeyPath<Track>, options: [NSBindingOption: Any]?, skipWrite: Bool = false) {
             self.title = title
             self.path = path
             self.options = options
+            self.skipWrite = skipWrite
         }
     }
     

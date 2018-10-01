@@ -49,6 +49,10 @@ class Album {
         get { return tracks.compactMap { $0.artworkPreview }.first ?? Album.missingArtwork }
     }
     
+//    var setLength: Int? {
+//        get { return tracks.compactMap { $0.partOfSet }.first }
+//    }
+    
     func writeMetadata() throws {
         for track in tracks {
             try track.writeMetadata(values: [\Track.artwork])

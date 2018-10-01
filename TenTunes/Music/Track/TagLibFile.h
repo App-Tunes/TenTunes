@@ -32,6 +32,8 @@
 @property unsigned int year;
 @property unsigned int trackNumber;
 
+@property(nullable) NSString *partOfSet;
+
 -(BOOL)write:(NSError * _Nullable __autoreleasing * _Nullable)error;
 
 @end

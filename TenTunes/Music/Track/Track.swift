@@ -24,30 +24,15 @@ public class Track: NSManagedObject {
         // But better than just using Library.shared everywhere to centralise acccesses for the future
         return Library.shared
     }
-
-    @objc dynamic var artworkData: Data? {
-        get {
-            return url
-                .flatMap { TagLibFile(url: $0) }?.image
-        }
-        set {
-            if let tlFile = (url ?=> TagLibFile.init) {
-                tlFile.image = newValue
-                try! tlFile.write()
-            }
-        }
-    }
     
-    @objc dynamic var artwork: NSImage? {
-        get {
-            return artworkData.flatMap { NSImage(data: $0) }
+    var url: URL? {
+        guard let path = path, let url = path.starts(with: "file://") ? URL(string: path) : URL(fileURLWithPath: path, relativeTo: library.mediaLocation.directory) else {
+            return nil
         }
-        set {
-            artworkData = newValue?.jpgRepresentation
-            forcedVisuals.artworkPreview = Album.preview(for: newValue)
-        }
+        
+        return FileManager.default.fileExists(atPath: url.path) ? url : nil
     }
-    
+        
     @objc var artworkPreview: NSImage? {
         get { return visuals?.artworkPreview }
         set { forcedVisuals.artworkPreview = newValue }
@@ -118,16 +103,6 @@ public class Track: NSManagedObject {
     var rDuration: String {
         guard let duration = duration else { return "" }
         return Int(CMTimeGetSeconds(duration)).timeString
-    }
-    
-    var url: URL? {
-        get {
-            guard let path = path, let url = path.starts(with: "file://") ? URL(string: path) : URL(fileURLWithPath: path, relativeTo: library.mediaLocation.directory) else {
-                return nil
-            }
-            
-            return FileManager.default.fileExists(atPath: url.path) ? url : nil
-        }
     }
     
     var searchable: [String] {

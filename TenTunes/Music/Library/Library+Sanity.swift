@@ -22,7 +22,7 @@ extension Library {
         override var preventsQuit: Bool { return false }
         
         override func execute() {
-            performChildBackgroundTask(for: library) { mox in
+            performChildBackgroundTask(for: library) { [unowned self] mox in
                 self.check(in: mox)
                 self.finish()
             }

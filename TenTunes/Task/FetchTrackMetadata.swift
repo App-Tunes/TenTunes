@@ -16,7 +16,7 @@ class FetchTrackMetadata: TrackTask {
     override var title: String { return "Fetch Track Metadata" }
 
     override func execute() {
-        Library.shared.performChildBackgroundTask { mox in
+        Library.shared.performChildBackgroundTask { [unowned self] mox in
             mox.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
             
             guard let asyncTrack = mox.convert(self.track) else {

@@ -49,7 +49,7 @@ class UpdateCurrentPlaylist: Task {
         // Make sure to cache the results on the main thread if we use the biggest of them all
         (desired.playlist as? PlaylistLibrary)?.loadTracks()
         
-        performChildBackgroundTask(for: Library.shared) { mox in
+        performChildBackgroundTask(for: Library.shared) { [unowned self] mox in
             let history = desired.playlist?.convert(to: mox) ?=> PlayHistory.init
 
             if self.checkCanceled() { return }

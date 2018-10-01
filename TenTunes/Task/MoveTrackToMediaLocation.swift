@@ -19,7 +19,7 @@ class MoveTrackToMediaLocation: TrackTask {
     override var title: String { return "\(copy ? "Copy" : "Move") Track To Media Directory" }
     
     override func execute() {
-        Library.shared.performChildBackgroundTask { mox in
+        Library.shared.performChildBackgroundTask { [unowned self] mox in
             guard let track = mox.convert(self.track) else {
                 self.finish()
                 return

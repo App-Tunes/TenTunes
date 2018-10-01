@@ -115,7 +115,7 @@ class MediaLocation {
     }
     
     func pather(absolute: Bool = false) -> ((Track, URL) -> String?) {
-        return { (track, dstURL) in
+        return { [unowned self] (track, dstURL) in
             guard let url = track.url else {
                 return nil
             }

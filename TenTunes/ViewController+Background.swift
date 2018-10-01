@@ -91,7 +91,7 @@ extension ViewController {
         
         // Requests are freaking slow with many tracks so do it rarely
         Timer.scheduledAsyncTickTock(withTimeInterval: 5, do: [{
-            Library.shared.performChildBackgroundTask { mox in
+            Library.shared.performChildBackgroundTask { [unowned self] mox in
                 let metadataRequest: NSFetchRequest = Track.fetchRequest()
                 metadataRequest.predicate = NSPredicate(format: "metadataFetchDate == nil")
                 metadataRequest.fetchLimit = 200
@@ -110,7 +110,7 @@ extension ViewController {
                     return
                 }
                 
-                Library.shared.performChildBackgroundTask { mox in
+                Library.shared.performChildBackgroundTask { [unowned self] mox in
                     let analysisRequest: NSFetchRequest = Track.fetchRequest()
                     analysisRequest.predicate = NSPredicate(format: "visuals.analysis == nil")
                     analysisRequest.fetchLimit = 20

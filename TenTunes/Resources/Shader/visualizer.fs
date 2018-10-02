@@ -12,21 +12,34 @@ const int MAX_FREQ_COUNT = 10;
 
 uniform int resonanceCount;
 
+// Resonance (fft)
 uniform float resonance[MAX_FREQ_COUNT];
+// Strength of distortion
 uniform float resonanceDistortion[MAX_FREQ_COUNT];
+// Speed of distortion mutation
 uniform float resonanceDistortionSpeed[MAX_FREQ_COUNT];
+// Distortion field size
 uniform float resonanceDistortionShiftSizes[MAX_FREQ_COUNT];
 
+// Inner color of points
 uniform float resonanceColors[MAX_FREQ_COUNT * 3];
+// Outer color of points
 uniform float resonanceColorsSoon[MAX_FREQ_COUNT * 3];
 
+// Real time
 uniform float time;
+// Resolution to make picture independent of it
 uniform vec2 resolution;
 
+// Min size of points
 uniform float minDist;
+// Falloff of points - similar to brightness but more prone to extremeties
 uniform float decay;
+// How sharp points are
 uniform float sharpness;
+// How large the distortion is
 uniform float scale;
+// How large points are
 uniform float brightness;
 
 float dist(vec2 a, vec2 b) {

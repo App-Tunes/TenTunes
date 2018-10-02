@@ -153,26 +153,33 @@ class VisualizerView: GLSLView {
         glUniform1f(guTime, GLfloat(time));
         glUniform2f(guResolution, GLfloat(bounds.size.width), GLfloat(bounds.size.height));
 
+        // Darkness makes points minimum smaller while loudness makes them larger
         glUniform1f(guMinDist, GLfloat(0.1 / (2 + CGFloat(darkness) * 10 + totalResonance / 20)));
+        // Darkness keeps points smaller while psychedelic makes them larger
         glUniform1f(guDecay, pow(1.5, (1 + darkness - Float(psychedelic)) * 5.7));
+        // Darkness makes points sharp to have more influence over what is bright
         glUniform1f(guSharpness, pow(2, darkness) * 2.5);
+        // More psychedelic means we zoom in more because otherwise it gets too "detailed"
         glUniform1f(guScale, 1300 - GLfloat(psychedelic) * 1000);
+        // Darkness makes it less bright
         glUniform1f(guBrightness, 1.4 - darkness * 1.35);
 
         glUniform1i(guResonanceCount, GLint(resonance.count))
 
         glUniform1fv(resonance.map { GLfloat($0) }, as: guResonance)
         glUniform1fv((0 ..< resonance.count).map { GLfloat(distortionRands[$0]) }, as: guResonanceDistortionSpeed)
+        // Distortion Calculations
         glUniform1fv(resonance.enumerated().map { arg in
             let (idx, res) = arg
             return GLfloat(
-                // Resonance + Ambient
+                // Distortion dependent on resonance + some ambient distortion
                 0.297 * pow(psychedelic, 3) * (pow(1.44 - psychedelic * 0.3, CGFloat(res)) - (1.3 - psychedelic))
-                // High-psychedelic time dependent
+                // High-psychedelic time dependent ambient distortion
                 + (pow(3, psychedelic) - 1) * sin(CGFloat(time) * 0.5 / (5 + CGFloat(distortionRands[idx]))) * 0.04
             )
         }, as: guResonanceDistortion)
 
+        // The higher the tone, the sharper its distortion
         glUniform1fv((0 ..< resonance.count).map {
             GLfloat(pow((1 - Float($0) / Float(resonance.count)), 1.5) * 25)
         }, as: guResonanceDistortionShiftSizes)
@@ -180,6 +187,7 @@ class VisualizerView: GLSLView {
         let colors = (0 ..< resonance.count).map { self.color($0, time: time) }
         glUniform1fv(colors.flatMap { self.rgb($0) }, as: guResonanceColors)
 
+        // Outer colors can be darker if darkness is high
         let soonColors = (0 ..< resonance.count).map { self.color($0, time: time - Double(20 * colorVariance), darknessBonus: darkness) }
         glUniform1fv(soonColors.flatMap { self.rgb($0) }, as: guResonanceColorsSoon)
     }

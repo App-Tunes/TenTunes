@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="VisualizerWindowController" customModule="TenTunes" customModuleProvider="target">
             <connections>
+                <outlet property="_audioSourceSelector" destination="ZVD-nD-gmP" id="Ymy-qt-GRU"/>
                 <outlet property="_settingsButton" destination="ie7-7K-ZyT" id="1WP-zF-DAb"/>
                 <outlet property="_settingsSheet" destination="Fo3-iq-A9Z" id="IeK-hO-5Ma"/>
                 <outlet property="_visualizerView" destination="zxW-aU-Jsz" id="bCa-jC-ctN"/>
@@ -72,6 +73,9 @@
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6Jb-mX-sNA">
                         <rect key="frame" x="276" y="13" width="72" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="eB7-Q1-jBj"/>
+                        </constraints>
                         <buttonCell key="cell" type="push" title="Done" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="L2b-Fr-OyT">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -146,6 +150,33 @@ DQ
                             <binding destination="-2" name="value" keyPath="_visualizerView.psychedelic" id="4av-7T-hsk"/>
                         </connections>
                     </slider>
+                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZVD-nD-gmP">
+                        <rect key="frame" x="138" y="17" width="139" height="25"/>
+                        <popUpButtonCell key="cell" type="push" title="Ten Tunes" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="OMQ-4y-RAk" id="BdP-a2-atW">
+                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="menu"/>
+                            <menu key="menu" id="BZY-E0-k7Q">
+                                <items>
+                                    <menuItem title="Ten Tunes" state="on" identifier="tentunes" id="OMQ-4y-RAk"/>
+                                    <menuItem title="Microphone" identifier="microphone" id="iKP-NF-0V7"/>
+                                </items>
+                            </menu>
+                        </popUpButtonCell>
+                        <connections>
+                            <action selector="selectedAudioSource:" target="-2" id="B6Y-f9-UCW"/>
+                        </connections>
+                    </popUpButton>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fka-nI-yq3">
+                        <rect key="frame" x="18" y="24" width="104" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" id="Xtf-Dk-6Q9"/>
+                        </constraints>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Audio Source" id="l20-FK-KQA">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="6Jb-mX-sNA" secondAttribute="bottom" constant="20" id="17P-xy-xbL"/>
@@ -155,20 +186,25 @@ DQ
                     <constraint firstAttribute="trailing" secondItem="LlT-Kn-D38" secondAttribute="trailing" constant="8" id="Chr-Vc-g0i"/>
                     <constraint firstItem="Nr1-wo-1mq" firstAttribute="top" secondItem="0Ew-bO-deA" secondAttribute="bottom" constant="7" id="Cj7-4d-041"/>
                     <constraint firstAttribute="trailing" secondItem="gv5-AG-bfA" secondAttribute="trailing" constant="8" id="FT0-3q-F03"/>
+                    <constraint firstAttribute="bottom" secondItem="fka-nI-yq3" secondAttribute="bottom" constant="24" id="GNE-1K-bbu"/>
                     <constraint firstItem="6Jb-mX-sNA" firstAttribute="top" secondItem="gv5-AG-bfA" secondAttribute="bottom" constant="30" id="Giz-kD-KTm"/>
+                    <constraint firstItem="ZVD-nD-gmP" firstAttribute="leading" secondItem="fka-nI-yq3" secondAttribute="trailing" constant="20" id="Mja-Oh-G0Z"/>
                     <constraint firstItem="gv5-AG-bfA" firstAttribute="top" secondItem="sCl-hB-vJq" secondAttribute="bottom" constant="9" id="Qwk-Ue-iC8"/>
                     <constraint firstItem="1nt-wb-SYK" firstAttribute="leading" secondItem="ENc-Eb-lrQ" secondAttribute="leading" constant="20" id="RDu-mq-aZs"/>
                     <constraint firstItem="1nt-wb-SYK" firstAttribute="top" secondItem="Nr1-wo-1mq" secondAttribute="bottom" constant="7" id="SVm-Uz-ldq"/>
                     <constraint firstItem="0Ew-bO-deA" firstAttribute="top" secondItem="ENc-Eb-lrQ" secondAttribute="top" constant="19" id="TqM-qu-fUg"/>
+                    <constraint firstItem="6Jb-mX-sNA" firstAttribute="leading" secondItem="ZVD-nD-gmP" secondAttribute="trailing" constant="8" id="Wi9-Z6-Wmg"/>
+                    <constraint firstItem="fka-nI-yq3" firstAttribute="leading" secondItem="ENc-Eb-lrQ" secondAttribute="leading" constant="20" id="YWG-Ox-KPt"/>
                     <constraint firstAttribute="trailing" secondItem="6Jb-mX-sNA" secondAttribute="trailing" constant="24" id="ZCN-IX-pEc"/>
                     <constraint firstItem="0Ew-bO-deA" firstAttribute="leading" secondItem="ENc-Eb-lrQ" secondAttribute="leading" constant="20" id="bGM-re-s0b"/>
                     <constraint firstItem="Nr1-wo-1mq" firstAttribute="leading" secondItem="ENc-Eb-lrQ" secondAttribute="leading" constant="20" id="dVn-QI-D7J"/>
                     <constraint firstItem="sCl-hB-vJq" firstAttribute="top" secondItem="LlT-Kn-D38" secondAttribute="bottom" constant="9" id="iAU-2V-ioa"/>
                     <constraint firstItem="gv5-AG-bfA" firstAttribute="leading" secondItem="1nt-wb-SYK" secondAttribute="trailing" constant="20" id="mUg-XK-Err"/>
                     <constraint firstItem="sCl-hB-vJq" firstAttribute="leading" secondItem="Nr1-wo-1mq" secondAttribute="trailing" constant="20" id="nPz-kv-SRG"/>
+                    <constraint firstAttribute="bottom" secondItem="ZVD-nD-gmP" secondAttribute="bottom" constant="20" id="q3F-0K-2lD"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="115" y="676.5"/>
+            <point key="canvasLocation" x="115" y="676"/>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="txH-LS-S8S"/>
     </objects>

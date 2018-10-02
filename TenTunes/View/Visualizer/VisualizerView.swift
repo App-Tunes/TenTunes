@@ -55,7 +55,7 @@ class VisualizerView: GLSLView {
     
     // Settings
     @objc var colorVariance: CGFloat = 0.3
-    @objc var darkness: Float = 0.3
+    @objc var brightness: Float = 0.7
     @objc var psychedelic: CGFloat = 0.3
     
     var distortionRands = (0 ..< 100).map { _ in Float.random(in: 0 ..< 1 ) }
@@ -136,7 +136,7 @@ class VisualizerView: GLSLView {
         let prog = CGFloat(idx) / CGFloat(resonance.count - 1)
         let ratio: CGFloat = resonance[idx] / totalResonance
         
-        let localDarkness = pow(2, CGFloat(darkness * (darknessBonus * 2 + 1)) + 0.4)
+        let localDarkness = pow(2, CGFloat((1 - brightness) * (darknessBonus * 2 + 1)) + 0.4)
 
         // 0.6 so that extremely high and low sounds are far apart in color
         return NSColor(hue: (prog * colorVariance + CGFloat(time * 0.02321)).truncatingRemainder(dividingBy: 1),
@@ -154,15 +154,15 @@ class VisualizerView: GLSLView {
         glUniform2f(guResolution, GLfloat(bounds.size.width), GLfloat(bounds.size.height));
 
         // Darkness makes points minimum smaller while loudness makes them larger
-        glUniform1f(guMinDist, GLfloat(0.1 / (2 + CGFloat(darkness) * 10 + totalResonance / 20)));
+        glUniform1f(guMinDist, GLfloat(0.1 / (2 + CGFloat(1 - brightness) * 10 + totalResonance / 20)));
         // Darkness keeps points smaller while psychedelic makes them larger
-        glUniform1f(guDecay, pow(1.5, (1 + darkness - Float(psychedelic)) * 5.7));
-        // Darkness makes points sharp to have more influence over what is bright
-        glUniform1f(guSharpness, pow(2, darkness) * 2.5);
+        glUniform1f(guDecay, pow(1.5, (2 - brightness - Float(psychedelic)) * 5.7));
+        // Brightness makes points fuzzy
+        glUniform1f(guSharpness, pow(2, 1 - brightness) * 2.5);
         // More psychedelic means we zoom in more because otherwise it gets too "detailed"
         glUniform1f(guScale, 1300 - GLfloat(psychedelic) * 1000);
         // Darkness makes it less bright
-        glUniform1f(guBrightness, 1.4 - darkness * 1.35);
+        glUniform1f(guBrightness, 1.4 - (1 - brightness) * 1.35);
 
         glUniform1i(guResonanceCount, GLint(resonance.count))
 
@@ -188,7 +188,7 @@ class VisualizerView: GLSLView {
         glUniform1fv(colors.flatMap { self.rgb($0) }, as: guResonanceColors)
 
         // Outer colors can be darker if darkness is high
-        let soonColors = (0 ..< resonance.count).map { self.color($0, time: time - Double(20 * colorVariance), darknessBonus: darkness) }
+        let soonColors = (0 ..< resonance.count).map { self.color($0, time: time - Double(20 * colorVariance), darknessBonus: 1 - brightness) }
         glUniform1fv(soonColors.flatMap { self.rgb($0) }, as: guResonanceColorsSoon)
     }
 }

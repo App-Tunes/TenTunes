@@ -67,8 +67,8 @@
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="90" y="125" width="366" height="173"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
-            <view key="contentView" id="ENc-Eb-lrQ">
-                <rect key="frame" x="0.0" y="0.0" width="366" height="154"/>
+            <view key="contentView" misplaced="YES" id="ENc-Eb-lrQ">
+                <rect key="frame" x="0.0" y="0.0" width="366" height="173"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6Jb-mX-sNA">
@@ -113,7 +113,7 @@ DQ
                         <constraints>
                             <constraint firstAttribute="width" constant="100" id="SuV-sz-n8E"/>
                         </constraints>
-                        <textFieldCell key="cell" lineBreakMode="clipping" title="Dark" id="KB8-2B-s1g">
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Bright" id="KB8-2B-s1g">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -126,7 +126,7 @@ DQ
                         </constraints>
                         <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.59999999999999998" tickMarkPosition="above" sliderType="linear" id="iou-xt-ozq"/>
                         <connections>
-                            <binding destination="-2" name="value" keyPath="_visualizerView.darkness" id="UJx-B1-0My"/>
+                            <binding destination="-2" name="value" keyPath="_visualizerView.brightness" id="W26-Hx-YTt"/>
                         </connections>
                     </slider>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1nt-wb-SYK">

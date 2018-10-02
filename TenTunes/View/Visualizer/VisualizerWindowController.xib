@@ -88,7 +88,7 @@ DQ
                         <constraints>
                             <constraint firstAttribute="width" constant="100" id="d1e-Tj-xNC"/>
                         </constraints>
-                        <textFieldCell key="cell" lineBreakMode="clipping" title="Color Variance" id="pMN-kb-kby">
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Colorful" id="pMN-kb-kby">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -109,7 +109,7 @@ DQ
                         <constraints>
                             <constraint firstAttribute="width" constant="100" id="SuV-sz-n8E"/>
                         </constraints>
-                        <textFieldCell key="cell" lineBreakMode="clipping" title="Darkness" id="KB8-2B-s1g">
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Dark" id="KB8-2B-s1g">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

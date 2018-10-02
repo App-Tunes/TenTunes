@@ -32,7 +32,7 @@ float dist(vec2 a, vec2 b) {
 }
 
 float influence(vec2 point, vec2 pos, float strength) {
-    float dist = max(minDist + strength / 100, minDist + dist(pos, point.xy));
+    float dist = max(minDist + strength / 100, minDist / 2 + dist(pos, point.xy));
     return pow(strength / dist, sharpness + strength / 10);
 }
 

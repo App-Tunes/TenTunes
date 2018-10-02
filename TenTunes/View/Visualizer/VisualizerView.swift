@@ -53,7 +53,7 @@ class VisualizerView: GLSLView {
     
     // Settings
     @objc var colorVariance: CGFloat = 0.3
-    @objc var darkness: Float = 0.4
+    @objc var darkness: Float = 0.3
     @objc var psychedelic: CGFloat = 0.3
     
     var distortionRands = (0 ..< 100).map { _ in Float.random(in: 0 ..< 1 ) }
@@ -128,11 +128,11 @@ class VisualizerView: GLSLView {
         update(withFFT: fft)
     }
     
-    func color(_ idx: Int, time: Double) -> NSColor {
+    func color(_ idx: Int, time: Double, darknessBonus: Float = 0) -> NSColor {
         let prog = CGFloat(idx) / CGFloat(resonance.count - 1)
         let ratio: CGFloat = resonance[idx] / totalResonance
         
-        let localDarkness = pow(2, CGFloat(darkness) * 2)
+        let localDarkness = pow(2, CGFloat(darkness * (darknessBonus * 2 + 1)))
         
         // 0.6 so that extremely high and low sounds are far apart in color
         return NSColor(hue: (prog * colorVariance + CGFloat(time * 0.02321)).truncatingRemainder(dividingBy: 1),
@@ -150,8 +150,8 @@ class VisualizerView: GLSLView {
         glUniform2f(guResolution, GLfloat(bounds.size.width), GLfloat(bounds.size.height));
 
         glUniform1f(guMinDist, GLfloat(0.1 / (5 + totalResonance / 20)));
-        glUniform1f(guDecay, pow(2, (darkness - Float(psychedelic)) * 20));
-        glUniform1f(guSharpness, pow(2, darkness + Float(psychedelic)) + 2);
+        glUniform1f(guDecay, pow(2, (darkness * 2 - Float(psychedelic)) * 20));
+        glUniform1f(guSharpness, pow(2, darkness + 1) + 3);
 
         glUniform1i(guResonanceCount, GLint(resonance.count))
 
@@ -168,7 +168,7 @@ class VisualizerView: GLSLView {
         let colors = (0 ..< resonance.count).map { self.color($0, time: time) }
         glUniform1fv(colors.flatMap { self.rgb($0) }, as: guResonanceColors)
 
-        let soonColors = (0 ..< resonance.count).map { self.color($0, time: time - Double(20 * colorVariance)) }
+        let soonColors = (0 ..< resonance.count).map { self.color($0, time: time - Double(20 * colorVariance), darknessBonus: darkness) }
         glUniform1fv(soonColors.flatMap { self.rgb($0) }, as: guResonanceColorsSoon)
     }
 }

@@ -26,6 +26,8 @@ uniform vec2 resolution;
 uniform float minDist;
 uniform float decay;
 uniform float sharpness;
+uniform float scale;
+uniform float brightness;
 
 float dist(vec2 a, vec2 b) {
     return ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
@@ -33,7 +35,7 @@ float dist(vec2 a, vec2 b) {
 
 float influence(vec2 point, vec2 pos, float strength) {
     float dist = max(minDist + strength / 100, minDist / 2 + dist(pos, point.xy));
-    return pow(strength / dist, sharpness + strength / 10);
+    return pow(strength / dist * brightness, sharpness + strength / 10);
 }
 
 void main( void ) {
@@ -46,8 +48,8 @@ void main( void ) {
     float posChange = (sin(time * 0.2234 + centerX * centerY * 10) + 1) / 10;
     pos = mix(pos, vec2(sin(time * 0.124122) + 0.5, cos(time * 0.124122) + 0.5), posChange);
 
-    centerX = (pos.x - 0.5) * 500;
-    centerY = (pos.y - 0.5) * 500;
+    centerX = (pos.x - 0.5) * scale;
+    centerY = (pos.y - 0.5) * scale;
 
     float pTime = time * 0.1;
     // Time-shift depending on x/y coord for some cool patterns

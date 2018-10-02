@@ -47,6 +47,8 @@ class VisualizerView: GLSLView {
     var guMinDist: GLint = -1
     var guDecay: GLint = -1
     var guSharpness: GLint = -1
+    var guScale: GLint = -1
+    var guBrightness: GLint = -1
 
     var startDate = NSDate().addingTimeInterval(-TimeInterval(Int.random(in: 50...10_000)))
     var time : TimeInterval { return -startDate.timeIntervalSinceNow }
@@ -73,7 +75,7 @@ class VisualizerView: GLSLView {
             let middle = Double(end - 1 - start)
             let length = Double(end - start)
 
-            let steepness = 13 * (1 - Double(psychedelic))
+            let steepness = 4.0
             let gain = 1 / pow(0.5, steepness)
 
             return fft[start ..< end].enumerated().map { (idx, val) in
@@ -118,6 +120,8 @@ class VisualizerView: GLSLView {
         guMinDist = findUniform("minDist")
         guDecay = findUniform("decay")
         guSharpness = findUniform("sharpness")
+        guScale = findUniform("scale")
+        guBrightness = findUniform("brightness")
     }
     
     override func animate() {
@@ -132,12 +136,12 @@ class VisualizerView: GLSLView {
         let prog = CGFloat(idx) / CGFloat(resonance.count - 1)
         let ratio: CGFloat = resonance[idx] / totalResonance
         
-        let localDarkness = pow(2, CGFloat(darkness * (darknessBonus * 2 + 1)))
-        
+        let localDarkness = pow(2, CGFloat(darkness * (darknessBonus * 2 + 1)) + 0.4)
+
         // 0.6 so that extremely high and low sounds are far apart in color
         return NSColor(hue: (prog * colorVariance + CGFloat(time * 0.02321)).truncatingRemainder(dividingBy: 1),
                        saturation: max(0, min(1, ratio * 5 - prog)),
-                       brightness: min(1, totalResonance / 15 + resonance[idx] * 1.5 + ratio * 0.5) / localDarkness + 0.3,
+                       brightness: min(1, totalResonance / 15 + resonance[idx] * 2 + ratio * 0.3) / localDarkness + 0.4,
                        alpha: 1)
     }
     
@@ -149,18 +153,20 @@ class VisualizerView: GLSLView {
         glUniform1f(guTime, GLfloat(time));
         glUniform2f(guResolution, GLfloat(bounds.size.width), GLfloat(bounds.size.height));
 
-        glUniform1f(guMinDist, GLfloat(0.1 / (5 + totalResonance / 20)));
-        glUniform1f(guDecay, pow(2, (darkness * 2 - Float(psychedelic)) * 20));
-        glUniform1f(guSharpness, pow(2, darkness + 1) + 3);
+        glUniform1f(guMinDist, GLfloat(0.1 / (2 + CGFloat(darkness) * 10 + totalResonance / 20)));
+        glUniform1f(guDecay, pow(1.5, (1 + darkness - Float(psychedelic)) * 5.7));
+        glUniform1f(guSharpness, pow(2, darkness) * 2.5);
+        glUniform1f(guScale, 1300 - GLfloat(psychedelic) * 1000);
+        glUniform1f(guBrightness, 1.4 - darkness * 1.35);
 
         glUniform1i(guResonanceCount, GLint(resonance.count))
 
         glUniform1fv(resonance.map { GLfloat($0) }, as: guResonance)
         glUniform1fv((0 ..< resonance.count).map { GLfloat(distortionRands[$0]) }, as: guResonanceDistortionSpeed)
         glUniform1fv(resonance.map {
-            GLfloat(0.29912 * pow(psychedelic, 3) * (pow(1.65 - psychedelic, $0) - (1 - psychedelic)))
+            GLfloat(0.297 * pow(psychedelic, 3) * (pow(1.65 - psychedelic, CGFloat($0)) - (1.3 - psychedelic)))
         }, as: guResonanceDistortion)
-        
+
         glUniform1fv((0 ..< resonance.count).map {
             GLfloat(pow((1 - Float($0) / Float(resonance.count)), 1.5) * 25)
         }, as: guResonanceDistortionShiftSizes)

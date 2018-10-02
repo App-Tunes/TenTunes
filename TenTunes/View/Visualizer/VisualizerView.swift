@@ -163,8 +163,14 @@ class VisualizerView: GLSLView {
 
         glUniform1fv(resonance.map { GLfloat($0) }, as: guResonance)
         glUniform1fv((0 ..< resonance.count).map { GLfloat(distortionRands[$0]) }, as: guResonanceDistortionSpeed)
-        glUniform1fv(resonance.map {
-            GLfloat(0.297 * pow(psychedelic, 3) * (pow(1.44 - psychedelic * 0.3, CGFloat($0)) - (1.3 - psychedelic)))
+        glUniform1fv(resonance.enumerated().map { arg in
+            let (idx, res) = arg
+            return GLfloat(
+                // Resonance + Ambient
+                0.297 * pow(psychedelic, 3) * (pow(1.44 - psychedelic * 0.3, CGFloat(res)) - (1.3 - psychedelic))
+                // High-psychedelic time dependent
+                + (pow(3, psychedelic) - 1) * sin(CGFloat(time) * 0.5 / (5 + CGFloat(distortionRands[idx]))) * 0.04
+            )
         }, as: guResonanceDistortion)
 
         glUniform1fv((0 ..< resonance.count).map {

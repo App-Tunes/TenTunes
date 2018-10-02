@@ -14,6 +14,7 @@ uniform int resonanceCount;
 
 uniform float resonance[MAX_FREQ_COUNT];
 uniform float resonanceDistortion[MAX_FREQ_COUNT];
+uniform float resonanceDistortionSpeed[MAX_FREQ_COUNT];
 uniform float resonanceDistortionShiftSizes[MAX_FREQ_COUNT];
 
 uniform float resonanceColors[MAX_FREQ_COUNT * 3];
@@ -45,16 +46,16 @@ void main( void ) {
     float posChange = (sin(time * 0.2234 + centerX * centerY * 10) + 1) / 10;
     pos = mix(pos, vec2(sin(time * 0.124122) + 0.5, cos(time * 0.124122) + 0.5), posChange);
 
-    centerX = (pos.x - 0.5) * 1000;
-    centerY = (pos.y - 0.5) * 1000;
+    centerX = (pos.x - 0.5) * 500;
+    centerY = (pos.y - 0.5) * 500;
 
     float pTime = time * 0.1;
     // Time-shift depending on x/y coord for some cool patterns
     for (int i = 0; i < resonanceCount; i++) {
         float freqRatio = float(i) / float(resonanceCount);
         float shiftSize = resonanceDistortionShiftSizes[i];
-        pTime += sin(  centerX * sin(time * (0.0754 + freqRatio * 0.0154125467) + freqRatio * 6) / shiftSize
-                     + centerY * cos(time * (0.0834 + freqRatio * 0.0146145673) + freqRatio * 6) / shiftSize)
+        pTime += sin(  centerX * sin(time * (0.0754 + resonanceDistortionSpeed[i] * 0.0154125467) + freqRatio * 6) / shiftSize
+                     + centerY * cos(time * (0.0834 + resonanceDistortionSpeed[i] * 0.0146145673) + freqRatio * 6) / shiftSize)
         * resonanceDistortion[i];
     }
 

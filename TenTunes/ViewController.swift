@@ -69,6 +69,8 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        SuperpoweredSplash.show(in: _trackGuardView.superview!.superview!)
+
         ValueTransformers.register()
         UserDefaults.standard.register(defaults: NSDictionary(contentsOf: Bundle.main.url(forResource: "DefaultPreferences", withExtension: "plist")!) as! [String : Any])
 
@@ -95,7 +97,7 @@ class ViewController: NSViewController {
         taskViewController = TaskViewController(nibName: .init(rawValue: "TaskViewController"), bundle: nil)
 
         ViewController.shared = self
-        
+
         player.updatePlaying = { [unowned self] playing in
             self.updatePlaying()
         }

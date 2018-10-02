@@ -11,7 +11,6 @@
 		800134A8213835C0001FB5CE /* TagLibFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 800134A7213835C0001FB5CE /* TagLibFile.mm */; };
 		80074CF9204583CF0055B87E /* TrackController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80074CF7204583CF0055B87E /* TrackController.xib */; };
 		80074CFD204584980055B87E /* PlaylistController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80074CFB204584980055B87E /* PlaylistController.xib */; };
-		80074CFF2046BB0C0055B87E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80074CFE2046BB0B0055B87E /* QuartzCore.framework */; };
 		8013720E203F7C9C00CA9036 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720C203F7C9C00CA9036 /* AudioKit.framework */; };
 		801621332067B71B00093B15 /* ViewController+Updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801621322067B71B00093B15 /* ViewController+Updates.swift */; };
 		8017685920743898000DD433 /* NSImageViewAspectFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8017685820743898000DD433 /* NSImageViewAspectFill.swift */; };
@@ -83,6 +82,7 @@
 		8093467320A628E1001D15CD /* Library+AudioFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093467220A628E1001D15CD /* Library+AudioFile.swift */; };
 		8093467520A629A7001D15CD /* Library+Pasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093467420A629A7001D15CD /* Library+Pasteboard.swift */; };
 		8093467720A99112001D15CD /* DefaultPreferences.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8093467620A99112001D15CD /* DefaultPreferences.plist */; };
+		809CEAB92163E83D008D6AC0 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 809CEAB82163E83D008D6AC0 /* Credits.rtf */; };
 		80A7CABD216252340075C499 /* Track+Live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7CABC216252340075C499 /* Track+Live.swift */; };
 		80ADCD4A20442E1200AA9A89 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ADCD4920442E1200AA9A89 /* Library.swift */; };
 		80B15824215D657D0015294B /* Cocoa+IBInspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B15823215D657D0015294B /* Cocoa+IBInspectable.swift */; };
@@ -285,6 +285,7 @@
 		8093467220A628E1001D15CD /* Library+AudioFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+AudioFile.swift"; sourceTree = "<group>"; };
 		8093467420A629A7001D15CD /* Library+Pasteboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Pasteboard.swift"; sourceTree = "<group>"; };
 		8093467620A99112001D15CD /* DefaultPreferences.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DefaultPreferences.plist; sourceTree = "<group>"; };
+		809CEAB82163E83D008D6AC0 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		80A7CABC216252340075C499 /* Track+Live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Track+Live.swift"; sourceTree = "<group>"; };
 		80ADCD4920442E1200AA9A89 /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		80B15823215D657D0015294B /* Cocoa+IBInspectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocoa+IBInspectable.swift"; sourceTree = "<group>"; };
@@ -371,7 +372,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80074CFF2046BB0C0055B87E /* QuartzCore.framework in Frameworks */,
 				8058FA8F204317080086FF8A /* libSuperpoweredAudioOSX.a in Frameworks */,
 				806AC1482041F73300857B1B /* libtaglib.a in Frameworks */,
 				806AC13E2041EDEE00857B1B /* AudioToolbox.framework in Frameworks */,
@@ -720,6 +720,7 @@
 				80F2C5802038808000212739 /* Assets.xcassets */,
 				80C1F16221428E9F0032E554 /* Shader */,
 				80F2C5852038808000212739 /* Info.plist */,
+				809CEAB82163E83D008D6AC0 /* Credits.rtf */,
 				80F2C5862038808000212739 /* TenTunes.entitlements */,
 				80F2C57D2038808000212739 /* TenTunes.xcdatamodeld */,
 				80DCA9B0203F636900B1E9B1 /* TenTunes-Bridging-Header.h */,
@@ -869,6 +870,7 @@
 				8079F6DC2106745600B7A278 /* CartesianRulesController.xib in Resources */,
 				80074CFD204584980055B87E /* PlaylistController.xib in Resources */,
 				80C1F161214286A40032E554 /* VisualizerWindowController.xib in Resources */,
+				809CEAB92163E83D008D6AC0 /* Credits.rtf in Resources */,
 				8030E01520FCBDAA006B4AE8 /* TaskViewController.xib in Resources */,
 				806611812124622100C3948E /* Library.storyboard in Resources */,
 				80074CF9204583CF0055B87E /* TrackController.xib in Resources */,

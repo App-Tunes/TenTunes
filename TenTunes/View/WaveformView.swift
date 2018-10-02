@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-import QuartzCore
 
 class BarsLayer: CALayer {
     static var defaultValues: [[CGFloat]] {

@@ -41,7 +41,17 @@ class VisualizerWindowController: NSWindowController {
     @IBOutlet var _settingsSheet: NSPanel!
     @IBOutlet var _audioSourceSelector: NSPopUpButton!
     @IBOutlet var _renderingMethodSelector: NSPopUpButton!
+    
+    @objc var width: CGFloat {
+        get { return _visualizerView.frame.size.width }
+        set { window?.setContentSize(NSMakeSize(newValue, height)) }
+    }
 
+    @objc var height: CGFloat {
+        get { return _visualizerView.frame.size.height }
+        set { window?.setContentSize(NSMakeSize(width, newValue)) }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         

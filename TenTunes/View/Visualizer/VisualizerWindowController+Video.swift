@@ -16,6 +16,7 @@ extension VisualizerWindowController {
             return
         }
         
+        _visualizerView.overrideTextureID = -1 // Set in case !isSyphon
         syphon = isSyphon ? Syphon.offer(view: _visualizerView, as: "Visualizer") : nil
         _visualizerView?.updateDisplayLink()
     }

@@ -98,7 +98,7 @@ DQ
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LlT-Kn-D38">
+                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LlT-Kn-D38" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
                         <rect key="frame" x="138" y="187" width="140" height="19"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="Jsg-3B-aPj"/>
@@ -119,7 +119,7 @@ DQ
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sCl-hB-vJq">
+                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sCl-hB-vJq" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
                         <rect key="frame" x="138" y="163" width="140" height="19"/>
                         <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.59999999999999998" tickMarkPosition="above" sliderType="linear" id="iou-xt-ozq"/>
                         <connections>
@@ -148,7 +148,7 @@ DQ
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gv5-AG-bfA">
+                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gv5-AG-bfA" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
                         <rect key="frame" x="138" y="139" width="140" height="19"/>
                         <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.59999999999999998" tickMarkPosition="above" sliderType="linear" id="lgL-cZ-190"/>
                         <connections>
@@ -301,7 +301,7 @@ DQ
                             <binding destination="-2" name="value" keyPath="height" id="jbg-en-PVz"/>
                         </connections>
                     </textField>
-                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vVQ-v9-ruS">
+                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vVQ-v9-ruS" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
                         <rect key="frame" x="138" y="115" width="140" height="19"/>
                         <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.59999999999999998" tickMarkPosition="above" sliderType="linear" id="cry-KN-E5I"/>
                         <connections>

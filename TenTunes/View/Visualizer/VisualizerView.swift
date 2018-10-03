@@ -174,7 +174,7 @@ class VisualizerView: GLSLView {
             let (idx, res) = arg
             return GLfloat(
                 // Distortion dependent on resonance
-                0.397 * pow(psychedelic, 3) * (pow(1.446 - psychedelic * 0.32, CGFloat(res)) - 1)
+                0.357 * pow(psychedelic, 3) * (pow(1.446 - psychedelic * 0.32, CGFloat(res)) - 1)
                 // High-psychedelic time dependent ambient distortion
                 + (pow(psychedelic, 6) * (sin(CGFloat(time) * 0.2 / (5 + CGFloat(distortionRands[idx]))) + 1)) * 0.3
             )

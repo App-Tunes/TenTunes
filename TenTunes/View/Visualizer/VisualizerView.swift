@@ -182,7 +182,7 @@ class VisualizerView: GLSLView {
 
         // The higher the tone, the sharper its distortion
         glUniform1fv((0 ..< resonance.count).map {
-            GLfloat(pow((1 - Float($0) / Float(resonance.count)), 1.5) * 25)
+            GLfloat(pow((1 - Float($0) / Float(resonance.count)), 1.7) * 50)
         }, as: guResonanceDistortionShiftSizes)
 
         let colors = (0 ..< resonance.count).map { self.color($0, time: time) }

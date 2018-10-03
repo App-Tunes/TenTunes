@@ -172,10 +172,10 @@ class VisualizerView: GLSLView {
         glUniform1fv(resonance.enumerated().map { arg in
             let (idx, res) = arg
             return GLfloat(
-                // Distortion dependent on resonance + some ambient distortion
-                0.297 * pow(psychedelic, 3) * (pow(1.44 - psychedelic * 0.3, CGFloat(res)) - (1.3 - psychedelic))
+                // Distortion dependent on resonance
+                0.297 * pow(psychedelic, 3) * (pow(1.446 - psychedelic * 0.32, CGFloat(res)) - 1)
                 // High-psychedelic time dependent ambient distortion
-                + (pow(10, psychedelic * 2) - 1) * sin(CGFloat(time) * 0.5 / (5 + CGFloat(distortionRands[idx]))) * 0.001
+                + (pow(psychedelic, 4) * (sin(CGFloat(time) * 0.2 / (5 + CGFloat(distortionRands[idx]))) + 1)) * 0.2
             )
         }, as: guResonanceDistortion)
 

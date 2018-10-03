@@ -57,7 +57,8 @@ class VisualizerView: GLSLView {
     @objc var colorVariance: CGFloat = 0.3
     @objc var brightness: Float = 0.7
     @objc var psychedelic: CGFloat = 0.3
-    
+    @objc var details: CGFloat = 0.5
+
     var distortionRands = (0 ..< 100).map { _ in Float.random(in: 0 ..< 1 ) }
 
     func update(withFFT fft: [Double]) {
@@ -160,7 +161,7 @@ class VisualizerView: GLSLView {
         // Brightness makes points fuzzy
         glUniform1f(guSharpness, pow(2, 1 - brightness) * 2.5);
         // More psychedelic means we zoom in more because otherwise it gets too "detailed"
-        glUniform1f(guScale, 1300 - GLfloat(psychedelic) * 1000);
+        glUniform1f(guScale, pow(1300 - GLfloat(psychedelic) * 1000, (GLfloat(details) - 0.5) * 0.7 + 1));
         // Darkness makes it less bright
         glUniform1f(guBrightness, 1.4 - (1 - brightness) * 1.35);
 

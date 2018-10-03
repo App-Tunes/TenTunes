@@ -176,7 +176,7 @@ class VisualizerView: GLSLView {
                 // Distortion dependent on resonance
                 0.297 * pow(psychedelic, 3) * (pow(1.446 - psychedelic * 0.32, CGFloat(res)) - 1)
                 // High-psychedelic time dependent ambient distortion
-                + (pow(psychedelic, 4) * (sin(CGFloat(time) * 0.2 / (5 + CGFloat(distortionRands[idx]))) + 1)) * 0.2
+                + (pow(psychedelic, 6) * (sin(CGFloat(time) * 0.2 / (5 + CGFloat(distortionRands[idx]))) + 1)) * 0.3
             )
         }, as: guResonanceDistortion)
 

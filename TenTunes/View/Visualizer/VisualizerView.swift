@@ -157,13 +157,13 @@ class VisualizerView: GLSLView {
         // Darkness makes points minimum smaller while loudness makes them larger
         glUniform1f(guMinDist, GLfloat(0.1 / (2 + CGFloat(1 - brightness) * 10 + totalResonance / 20)));
         // Darkness keeps points smaller while psychedelic makes them larger
-        glUniform1f(guDecay, pow(1.5, (2 - brightness - Float(psychedelic)) * 5.7) * 0.01);
+        glUniform1f(guDecay, pow(1.5, (2 - brightness - Float(psychedelic)) * 5.7));
         // Brightness makes points fuzzy
         glUniform1f(guSharpness, pow(2, 1 - brightness) * 2.5);
         // More psychedelic means we zoom in more because otherwise it gets too "detailed"
         glUniform1f(guScale, pow(1300 - GLfloat(psychedelic) * 1000, (GLfloat(details) - 0.5) * 0.7 + 1));
         // Darkness makes it less bright
-        glUniform1f(guBrightness, 1.4 - (1 - brightness) * 1.3);
+        glUniform1f(guBrightness, 1.4 - (1 - brightness) * 1.35);
 
         glUniform1i(guResonanceCount, GLint(resonance.count))
 

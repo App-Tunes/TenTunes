@@ -15,8 +15,6 @@
 @interface GLSLView : RFOpenGLView
 {
     GLuint shaderProgram;
-    GLuint vertexArrayObject;
-    GLuint vertexBuffer;
     
     GLint positionAttribute;
 }

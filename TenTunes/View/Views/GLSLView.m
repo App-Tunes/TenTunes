@@ -46,18 +46,7 @@
     
     if ((error = glGetError()) != 0) { NSLog(@"Setup GL Error: %d", error); }
     
-    // 6. Upload vertices
-    GLfloat vertexData[]= { -1,-1,0.0,1.0,
-        -1, 1,0.0,1.0,
-        1, 1,0.0,1.0,
-        1,-1,0.0,1.0 }
-    ;
-    glGenVertexArrays(1, &vertexArrayObject);
-    glBindVertexArray(vertexArrayObject);
-    
-    glGenBuffers(1, &vertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, 4*8*sizeof(GLfloat), vertexData, GL_STATIC_DRAW);
+    // 3. Upload Position
     
     glEnableVertexAttribArray((GLuint)positionAttribute);
     glVertexAttribPointer((GLuint)positionAttribute, 4, GL_FLOAT, GL_FALSE, 4*sizeof(GLfloat), 0);
@@ -143,8 +132,7 @@
     glUseProgram(shaderProgram);
     
     [self uploadUniforms];
-    
-    glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+    [self drawFullScreenRect];
 }
 
 - (GLint)findUniform:(NSString *)name {

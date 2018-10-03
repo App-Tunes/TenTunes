@@ -33,7 +33,6 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
 }
 
 - (void)updateDisplayLink {
-    // Eh... It's close enough of a check
     BOOL wantsLink = [self wantsDisplayLink];
     if (wantsLink == CVDisplayLinkIsRunning(_displayLink)) { return; }
     
@@ -47,8 +46,10 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
 }
 
 - (BOOL)wantsDisplayLink {
-    return ([[self window] occlusionState] & NSWindowOcclusionStateVisible) != 0 &&
-        [self visibleRect].size.width != NSZeroRect.size.width;
+    return ([[self window] occlusionState] & NSWindowOcclusionStateVisible) != 0
+    // Eh... It's close enough of a check
+    && [self visibleRect].size.width != NSZeroRect.size.width
+    && _overrideTextureID < 0;
 }
 
 - (void)viewWillMoveToWindow:(NSWindow *)newWindow {
@@ -66,8 +67,23 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
 }
 
 - (void)awakeFromNib {
+    _overrideTextureID = -2;
+    
     GLint swapInt = 1;
     [[self openGLContext] setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];
+
+    // Upload vertices
+    GLfloat vertexData[]= { -1,-1,0.0,1.0,
+        -1, 1,0.0,1.0,
+        1, 1,0.0,1.0,
+        1,-1,0.0,1.0 }
+    ;
+    glGenVertexArrays(1, &vertexArrayObject);
+    glBindVertexArray(vertexArrayObject);
+    
+    glGenBuffers(1, &vertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, 4*8*sizeof(GLfloat), vertexData, GL_STATIC_DRAW);
 
     [self createDisplayLink];
 }
@@ -121,7 +137,20 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
         [[self openGLContext] makeCurrentContext];
         CGLLockContext([[self openGLContext] CGLContextObj]);
         
-        [self drawFrame];
+        if (_overrideTextureID >= 0) {
+            glEnable(GL_TEXTURE_RECTANGLE);
+            glBindTexture(GL_TEXTURE_RECTANGLE, _overrideTextureID);
+            
+            [self drawFullScreenRect];
+            
+            glBindTexture(GL_TEXTURE_RECTANGLE, 0);
+            glDisable(GL_TEXTURE_RECTANGLE);
+        }
+        // -1 is special case for "don't draw at all"
+        else if (_overrideTextureID < -1) {
+            [self drawFrame];
+        }
+        
         [[self openGLContext] flushBuffer];
         
         CGLUnlockContext([[self openGLContext] CGLContextObj]);
@@ -132,6 +161,10 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
 - (void)drawFrame {
     glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+- (void)drawFullScreenRect {
+    glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 }
 
 @end

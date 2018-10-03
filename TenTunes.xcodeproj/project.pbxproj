@@ -15,6 +15,10 @@
 		801621332067B71B00093B15 /* ViewController+Updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801621322067B71B00093B15 /* ViewController+Updates.swift */; };
 		8017685920743898000DD433 /* NSImageViewAspectFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8017685820743898000DD433 /* NSImageViewAspectFill.swift */; };
 		8026241620FF445F009D7988 /* TTTokenField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8026241520FF445F009D7988 /* TTTokenField.swift */; };
+		8030CA7F2164DDB300229398 /* Syphon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 809CEAC02164CF76008D6AC0 /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8030CA812164DDE300229398 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 809CEAC02164CF76008D6AC0 /* Syphon.framework */; };
+		8030CA832164E33200229398 /* VisualizerWindowController+Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030CA822164E33200229398 /* VisualizerWindowController+Audio.swift */; };
+		8030CA852164E3F100229398 /* VisualizerWindowController+Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030CA842164E3F100229398 /* VisualizerWindowController+Video.swift */; };
 		8030E00120FC8F0C006B4AE8 /* ActionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E00020FC8F0C006B4AE8 /* ActionTableView.swift */; };
 		8030E00720FC9749006B4AE8 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E00620FC9749006B4AE8 /* Task.swift */; };
 		8030E00920FC9A91006B4AE8 /* SwiftPriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E00820FC9A91006B4AE8 /* SwiftPriorityQueue.swift */; };
@@ -84,6 +88,7 @@
 		809CEAB92163E83D008D6AC0 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 809CEAB82163E83D008D6AC0 /* Credits.rtf */; };
 		809CEABC2163EFCD008D6AC0 /* superpowered_splash.svg in Resources */ = {isa = PBXBuildFile; fileRef = 809CEABB2163EFCD008D6AC0 /* superpowered_splash.svg */; };
 		809CEABF2163F345008D6AC0 /* SuperpoweredSplash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809CEABE2163F345008D6AC0 /* SuperpoweredSplash.swift */; };
+		809CEAC92164D336008D6AC0 /* Syphon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809CEAC82164D336008D6AC0 /* Syphon.swift */; };
 		80A7CABD216252340075C499 /* Track+Live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7CABC216252340075C499 /* Track+Live.swift */; };
 		80ADCD4A20442E1200AA9A89 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ADCD4920442E1200AA9A89 /* Library.swift */; };
 		80B15824215D657D0015294B /* Cocoa+IBInspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B15823215D657D0015294B /* Cocoa+IBInspectable.swift */; };
@@ -172,6 +177,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				804539B1215ACA8B0080153F /* AudioKitUI.framework in Embed Frameworks */,
+				8030CA7F2164DDB300229398 /* Syphon.framework in Embed Frameworks */,
 				8058FABE20432D3D0086FF8A /* MediaKeyTap.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -191,6 +197,8 @@
 		801621322067B71B00093B15 /* ViewController+Updates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Updates.swift"; sourceTree = "<group>"; };
 		8017685820743898000DD433 /* NSImageViewAspectFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImageViewAspectFill.swift; sourceTree = "<group>"; };
 		8026241520FF445F009D7988 /* TTTokenField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTTokenField.swift; sourceTree = "<group>"; };
+		8030CA822164E33200229398 /* VisualizerWindowController+Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VisualizerWindowController+Audio.swift"; sourceTree = "<group>"; };
+		8030CA842164E3F100229398 /* VisualizerWindowController+Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VisualizerWindowController+Video.swift"; sourceTree = "<group>"; };
 		8030E00020FC8F0C006B4AE8 /* ActionTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTableView.swift; sourceTree = "<group>"; };
 		8030E00620FC9749006B4AE8 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		8030E00820FC9A91006B4AE8 /* SwiftPriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPriorityQueue.swift; sourceTree = "<group>"; };
@@ -289,6 +297,8 @@
 		809CEAB82163E83D008D6AC0 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		809CEABB2163EFCD008D6AC0 /* superpowered_splash.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = superpowered_splash.svg; sourceTree = "<group>"; };
 		809CEABE2163F345008D6AC0 /* SuperpoweredSplash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperpoweredSplash.swift; sourceTree = "<group>"; };
+		809CEAC02164CF76008D6AC0 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Syphon.framework; sourceTree = "<group>"; };
+		809CEAC82164D336008D6AC0 /* Syphon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Syphon.swift; sourceTree = "<group>"; };
 		80A7CABC216252340075C499 /* Track+Live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Track+Live.swift"; sourceTree = "<group>"; };
 		80ADCD4920442E1200AA9A89 /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		80B15823215D657D0015294B /* Cocoa+IBInspectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocoa+IBInspectable.swift"; sourceTree = "<group>"; };
@@ -375,6 +385,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8030CA812164DDE300229398 /* Syphon.framework in Frameworks */,
 				8058FA8F204317080086FF8A /* libSuperpoweredAudioOSX.a in Frameworks */,
 				806AC1482041F73300857B1B /* libtaglib.a in Frameworks */,
 				806AC13E2041EDEE00857B1B /* AudioToolbox.framework in Frameworks */,
@@ -546,6 +557,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		809CEAC72164D31E008D6AC0 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				809CEAC82164D336008D6AC0 /* Syphon.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		80B68BA021011F4800A32E3D /* Manual */ = {
 			isa = PBXGroup;
 			children = (
@@ -594,6 +613,8 @@
 			isa = PBXGroup;
 			children = (
 				80C1F15E214286A40032E554 /* VisualizerWindowController.swift */,
+				8030CA822164E33200229398 /* VisualizerWindowController+Audio.swift */,
+				8030CA842164E3F100229398 /* VisualizerWindowController+Video.swift */,
 				80C1F15F214286A40032E554 /* VisualizerWindowController.xib */,
 				80C1F16E2142E7E80032E554 /* VisualizerView.swift */,
 			);
@@ -667,6 +688,7 @@
 		80DCA9B6203F645400B1E9B1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				809CEAC02164CF76008D6AC0 /* Syphon.framework */,
 				80074CFE2046BB0B0055B87E /* QuartzCore.framework */,
 				8058FABB20432A730086FF8A /* MediaKeyTap.framework */,
 				8058FA8D204316F50086FF8A /* Superpowered */,
@@ -721,6 +743,7 @@
 				805901BE20404CB900B97D84 /* View */,
 				805901C020404CDF00B97D84 /* Music */,
 				8030E00320FC970E006B4AE8 /* Task */,
+				809CEAC72164D31E008D6AC0 /* API */,
 				80F2C5792038808000212739 /* AppDelegate.swift */,
 				80F2C57B2038808000212739 /* ViewController.swift */,
 				803717282043629700DB9EAA /* ViewController+Background.swift */,
@@ -1009,6 +1032,7 @@
 				806AC1432041EF1900857B1B /* SPAnalyzer.mm in Sources */,
 				8030E01720FE2C3B006B4AE8 /* Alerts.swift in Sources */,
 				8091B9FF20C6B7E50019CE23 /* Hash.swift in Sources */,
+				8030CA852164E3F100229398 /* VisualizerWindowController+Video.swift in Sources */,
 				80A7CABD216252340075C499 /* Track+Live.swift in Sources */,
 				80C1F16D2142AA010032E554 /* RFOpenGLView.m in Sources */,
 				80C1F143213B1DE80032E554 /* Foundation+Collections.swift in Sources */,
@@ -1042,6 +1066,7 @@
 				8079F6EC211B87A700B7A278 /* SpinningButton.swift in Sources */,
 				8066118A2125B9BF00C3948E /* TrackEditor+Tags.swift in Sources */,
 				801621332067B71B00093B15 /* ViewController+Updates.swift in Sources */,
+				8030CA832164E33200229398 /* VisualizerWindowController+Audio.swift in Sources */,
 				806C5B2620423AC000C34F49 /* SPInterpreter.swift in Sources */,
 				80B764562072F38D003BD7F8 /* PlaylistEmpty.swift in Sources */,
 				80E2C9F9204B40A000298E81 /* PlaylistManual.swift in Sources */,
@@ -1052,6 +1077,7 @@
 				800134A8213835C0001FB5CE /* TagLibFile.mm in Sources */,
 				80CB65352052C9CC0031A6D7 /* CoreData+TT.swift in Sources */,
 				8093467320A628E1001D15CD /* Library+AudioFile.swift in Sources */,
+				809CEAC92164D336008D6AC0 /* Syphon.swift in Sources */,
 				807E289E2101291B0080F332 /* SmartPlaylistRules.swift in Sources */,
 				8087A406206D933F003F1821 /* Analysis.swift in Sources */,
 				80E4F9CE20A0DD7E0014532E /* Library+iTunes.swift in Sources */,
@@ -1208,6 +1234,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = (
 					"${SRCROOT}/../../taglib-src/taglib/**",
@@ -1244,6 +1271,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = (
 					"${SRCROOT}/../../taglib-src/taglib/**",

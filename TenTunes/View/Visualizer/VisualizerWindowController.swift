@@ -32,13 +32,16 @@ class VisualizerWindowController: NSWindowController {
         }
     }
     var silence: AKNode?
+    
+    var syphon: LiveSyphonServer?
 
     var trackingArea : NSTrackingArea?
 
     @IBOutlet var _settingsButton: NSButton!
     @IBOutlet var _settingsSheet: NSPanel!
     @IBOutlet var _audioSourceSelector: NSPopUpButton!
-    
+    @IBOutlet var _renderingMethodSelector: NSPopUpButton!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -52,14 +55,7 @@ class VisualizerWindowController: NSWindowController {
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == #keyPath(AudioKit.inputDevices) {
-            _audioSourceSelector.removeAllItems()
-            
-            _audioSourceSelector.addItem(withTitle: "Ten Tunes")
-            
-            for input in AudioKit.inputDevices ?? [] {
-                _audioSourceSelector.addItem(withTitle: input.name)
-                _audioSourceSelector.itemArray.last!.representedObject = input
-            }
+            updateAudioSources()
         }
     }
     
@@ -90,50 +86,7 @@ class VisualizerWindowController: NSWindowController {
     
     @IBAction func showSettings(_ sender: Any) {
         window?.beginSheet(_settingsSheet)
-    }
-    
-    @IBAction func selectedAudioSource(_ sender: Any) {
-        inputDevice = (sender as! NSPopUpButton).selectedItem?.representedObject as? AKDevice
-    }
-    
-    func updateAudioNode() {
-        let visible = window?.occlusionState.contains(.visible) ?? false
-
-        if !visible {
-            inputNode = nil
-        }
-        else if inputNode == nil {
-            guard let device = inputDevice else {
-                inputNode = ViewController.shared.player.mixer
-                return
-            }
-            
-            do {
-                try AudioKit.setInputDevice(device)
-            }
-            catch {
-                print("Error setting input device: \(error)")
-                return
-            }
-
-            let microphoneNode = AKMicrophone()
-
-            do {
-                try microphoneNode.setDevice(device)
-            }
-            catch {
-                print("Failed setting node input device: \(error)")
-                return
-            }
-
-            microphoneNode.start()
-            microphoneNode.volume = 3
-            print("Switched Node: \(microphoneNode), started: \(microphoneNode.isStarted)")
-
-            inputNode = microphoneNode
-            try! AudioKit.start()
-        }
-    }
+    }    
 }
 
 extension VisualizerWindowController : NSWindowDelegate {

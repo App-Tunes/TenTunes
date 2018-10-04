@@ -20,6 +20,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillFinishLaunching(_ notification: Notification) {
         setupBackwardsCompatibility()
         
+        ValueTransformers.register()
+        UserDefaults.standard.register(defaults: NSDictionary(contentsOf: Bundle.main.url(forResource: "DefaultPreferences", withExtension: "plist")!) as! [String : Any])
+
         var location: URL!
         var create: Bool?
         

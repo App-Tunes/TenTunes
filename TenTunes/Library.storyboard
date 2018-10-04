@@ -141,9 +141,13 @@ IA
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="80" id="IaB-e8-PZM"/>
                                                 </constraints>
-                                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="100" tickMarkPosition="above" sliderType="linear" id="MSi-om-pFM" customClass="GraySliderCell" customModule="TenTunes" customModuleProvider="target"/>
+                                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="-5" maxValue="2" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="MSi-om-pFM" customClass="GraySliderCell" customModule="TenTunes" customModuleProvider="target"/>
                                                 <connections>
-                                                    <action selector="volumeChanged:" target="XfG-lQ-9wD" id="Jly-b8-AQw"/>
+                                                    <binding destination="XfG-lQ-9wD" name="value" keyPath="player.outputNode.gain" id="X1F-3E-JZU">
+                                                        <dictionary key="options">
+                                                            <string key="NSValueTransformerName">Pow2Transformer</string>
+                                                        </dictionary>
+                                                    </binding>
                                                 </connections>
                                             </slider>
                                             <box boxType="custom" cornerRadius="6" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="YW0-i6-Krb">
@@ -283,11 +287,11 @@ IA
                         <outlet property="_timePlayed" destination="1Xa-l4-VRg" id="RJx-GO-IGU"/>
                         <outlet property="_trackGuardView" destination="wx1-Jg-18R" id="HRP-am-Qv3"/>
                         <outlet property="_trackView" destination="wx1-Jg-18R" id="DrA-iR-AEj"/>
-                        <outlet property="_volume" destination="weN-hW-VXM" id="Uaz-1g-emt"/>
                         <outlet property="_waveformView" destination="TnY-8S-uno" id="4GH-DY-Vz2"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <userDefaultsController representsSharedInstance="YES" id="b9K-fL-weF"/>
             </objects>
             <point key="canvasLocation" x="-91" y="1007.5"/>
         </scene>

@@ -36,8 +36,6 @@ class ViewController: NSViewController {
     @IBOutlet var _timePlayed: NSTextField!
     @IBOutlet var _timeLeft: NSTextField!
     
-    @IBOutlet var _volume: NSSlider!
-
     @IBOutlet var _playlistView: NSView!
     @IBOutlet var _trackView: NSView!
     @IBOutlet var _trackGuardView: MultiplicityGuardView!
@@ -49,7 +47,7 @@ class ViewController: NSViewController {
 
     var backgroundTimer: Timer!
     
-    let player: Player = Player()
+    @objc let player: Player = Player()
 
     var runningTasks: [Task] = []
     var taskers: [Tasker] = []
@@ -70,9 +68,6 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         
         SuperpoweredSplash.show(in: _trackGuardView.superview!.superview!)
-
-        ValueTransformers.register()
-        UserDefaults.standard.register(defaults: NSDictionary(contentsOf: Bundle.main.url(forResource: "DefaultPreferences", withExtension: "plist")!) as! [String : Any])
 
         trackController = TrackController(nibName: .init(rawValue: "TrackController"), bundle: nil)
         trackController.view.frame = _trackView.frame
@@ -273,11 +268,7 @@ class ViewController: NSViewController {
         player.shuffle = !player.shuffle
         _shuffle.state = player.shuffle ? .on : .off
     }
-    
-    @IBAction func volumeChanged(_ sender: Any) {
-        player.outputNode.gain = Double(pow(Float(_volume.intValue) / 100, 2))
-    }
-    
+        
     @IBAction func showQueue(_ sender: Any) {
         let view = sender as! NSView
         

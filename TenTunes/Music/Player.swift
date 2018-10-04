@@ -26,7 +26,7 @@ extension AVPlayer {
     }
 }
 
-class Player {
+@objc class Player : NSObject {
     var history: PlayHistory = PlayHistory(playlist: PlaylistEmpty())
     var player: AKPlayer
     var backingPlayer: AKPlayer
@@ -36,7 +36,7 @@ class Player {
     var historyProvider: (() -> PlayHistory)?
     
     var mixer: AKMixer
-    var outputNode: AKBooster
+    @objc var outputNode: AKBooster
     
     var shuffle = true {
         didSet {
@@ -44,11 +44,13 @@ class Player {
         }
     }
 
-    init() {
+    override init() {
         player = AKPlayer()
         backingPlayer = AKPlayer()
         mixer = AKMixer(player, backingPlayer)
         outputNode = AKBooster(mixer)
+
+        super.init()
 
         player.completionHandler = { [unowned self] in
             self.play(moved: 1)

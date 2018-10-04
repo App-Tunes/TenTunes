@@ -73,13 +73,15 @@ void main( void ) {
     for (int i = 0; i < resonanceCount; i++) {
         float freqRatio = float(i) / float(resonanceCount);
         float shiftSize = resonanceDistortionShiftSizes[i];
-        pTime += sin(  center.x * sin(pTime * (0.754 + resonanceDistortionSpeed[i] * 0.154125467) + freqRatio * 6) / shiftSize
-                     + center.y * cos(pTime * (0.834 + resonanceDistortionSpeed[i] * 0.146145673) + freqRatio * 6) / shiftSize)
+        // Use both since both distortion effects are interesting
+        float distTime = pTime * 0.2 + time * 0.1 * 0.8;
+        pTime += sin(  center.x * sin(distTime * (0.754 + resonanceDistortionSpeed[i] * 0.154125467) + freqRatio * 6) / shiftSize
+                     + center.y * cos(distTime * (0.834 + resonanceDistortionSpeed[i] * 0.146145673) + freqRatio * 6) / shiftSize)
         * resonanceDistortion[i];
     }
 
     // Lines floating along top to bottom
-    float webShiftY = pow((sin(pTime * 0.113238) + 1) * (sin(pTime * 0.132034) + 1) / 4, 2) * spaceDistortion;
+    float webShiftY = pow((sin(pTime * 0.113238) + 1) * (sin(pTime * 0.132034) + 1) / 4, 3) * pow(spaceDistortion, 2);
     pos.x += mod(pos.y * (10 + sin(pTime * 0.1831) * 2) + pTime * 0.123182, 1) < 0.5 ? webShiftY : -webShiftY;
 
     vec4 color = vec4(0, 0, 0, 1);

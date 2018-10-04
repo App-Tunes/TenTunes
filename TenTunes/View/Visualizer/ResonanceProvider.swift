@@ -68,7 +68,7 @@ class FFTTap {
     class AVAudioDevice: AVNode  {
         let engine: AVAudioEngine
         
-        init(deviceID: AudioDeviceID) {
+        init(deviceID: AudioDeviceID) throws {
             engine = AVAudioEngine()
             
             let input = engine.inputNode
@@ -78,9 +78,9 @@ class FFTTap {
                 mSelector: kAudioHardwarePropertyDefaultInputDevice,
                 mScope: kAudioObjectPropertyScopeGlobal,
                 mElement: kAudioObjectPropertyElementMaster)
-            AudioObjectSetPropertyData(
+            try AudioObjectSetPropertyData(
                 AudioObjectID(kAudioObjectSystemObject),
-                &address, 0, nil, UInt32(MemoryLayout<AudioDeviceID>.size), &changingDeviceID)
+                &address, 0, nil, UInt32(MemoryLayout<AudioDeviceID>.size), &changingDeviceID).explode()
             
             let player = AVAudioPlayerNode()
             engine.attach(player)
@@ -88,8 +88,8 @@ class FFTTap {
             let inputFormat = input.inputFormat(forBus: 0)
             engine.connect(player, to: engine.mainMixerNode, format: inputFormat)
             
-            try! engine.start()
-            
+            try engine.start()
+
             super.init(input)
         }
         

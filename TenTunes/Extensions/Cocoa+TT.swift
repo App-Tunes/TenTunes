@@ -370,3 +370,13 @@ extension CALayer {
         addSublayer(border)
     }
 }
+
+extension OSStatus {
+    func explode() throws {
+        guard self != 0 else {
+            return
+        }
+        
+        throw NSError(domain: NSOSStatusErrorDomain, code: Int(self), userInfo: nil)
+    }
+}

@@ -60,7 +60,12 @@ extension VisualizerWindowController {
         case .direct:
             fft = FFTTap.AVNode(ViewController.shared.player.mixer.avAudioNode)
         case .input(let device):
-            fft = FFTTap.AVAudioDevice(deviceID: device.deviceID)
+            do {
+                fft = try FFTTap.AVAudioDevice(deviceID: device.deviceID)
+            }
+            catch {
+                NSAlert(error: error).runModal()
+            }
 //        case .output(let device):
 //            break
         }

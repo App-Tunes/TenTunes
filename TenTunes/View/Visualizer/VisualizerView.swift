@@ -19,7 +19,7 @@ extension GLSLView {
 }
 
 @objc protocol VisualizerViewDelegate {
-    func visualizerViewFFTData(_ view: VisualizerView) -> [Double]?
+    func visualizerViewUpdate(_ view: VisualizerView)
 }
 
 class VisualizerView: GLSLView {
@@ -130,11 +130,7 @@ class VisualizerView: GLSLView {
     }
     
     override func animate() {
-        guard let fft = delegate?.visualizerViewFFTData(self) else {
-            return
-        }
-        
-        update(withFFT: fft)
+        delegate?.visualizerViewUpdate(self)
     }
     
     func color(_ idx: Int, time: Double, darknessBonus: Float = 0) -> NSColor {

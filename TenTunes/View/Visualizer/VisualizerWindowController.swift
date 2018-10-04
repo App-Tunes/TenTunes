@@ -14,7 +14,7 @@ class VisualizerWindowController: NSWindowController {
 
     @IBOutlet var _visualizerView: VisualizerView!
     
-    @objc dynamic var fft: ResonanceProvider?
+    @objc dynamic var fft: FFTTap.AVNode?
 
     var silence: AKNode?
     var tracker: AKFrequencyTracker?
@@ -52,6 +52,9 @@ class VisualizerWindowController: NSWindowController {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == #keyPath(AudioKit.inputDevices) {
             updateAudioSources()
+        }
+        else if keyPath == #keyPath(ResonanceProvider.resonance) {
+            _visualizerView.update(withFFT: (object as! ResonanceProvider).resonance)
         }
     }
     
@@ -96,12 +99,13 @@ extension VisualizerWindowController : NSWindowDelegate {
 }
 
 extension VisualizerWindowController : VisualizerViewDelegate {
-    func visualizerViewFFTData(_ view: VisualizerView) -> [Double]? {
+    func visualizerViewUpdate(_ view: VisualizerView) {
         if window!.isKeyWindow, window!.isMouseInside, GLSLView.timeMouseIdle() > 2 {
             NSCursor.setHiddenUntilMouseMoves(true)
             DispatchQueue.main.async { self.updateWindowButtons(show: false) }
         }
 
-        return fft?.resonance
+        // Update on fft changes
+//        view.update(withFFT: fft?.resonance)
     }
 }

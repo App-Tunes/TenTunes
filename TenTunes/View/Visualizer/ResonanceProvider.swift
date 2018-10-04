@@ -12,7 +12,7 @@ import AVFoundation
 import AudioKitUI
 
 @objc protocol ResonanceProvider {
-    var resonance: [Double] { get }
+    @objc var resonance: [Double] { get }
     @objc var volume: Double { get set }
     
     func stop()
@@ -25,8 +25,8 @@ class FFTTap {
         let node: AVAudioNode
         var fft: EZAudioFFT? = nil
         
-        var volume: Double = 1
-        open var resonance = [Double](zeros: 512)
+        @objc dynamic var volume: Double = 1
+        @objc dynamic var resonance = [Double](zeros: 512)
 
         init(_ node: AVAudioNode) {
             self.node = node
@@ -53,9 +53,7 @@ class FFTTap {
         }
         
         func fft(_ fft: EZAudioFFT!, updatedWithFFTData fftData: UnsafeMutablePointer<Float>!, bufferSize: vDSP_Length) {
-            for i in 0..<512 {
-                self.resonance[i] = Double(fftData[i]) * volume
-            }
+            resonance = Array(0 ..< 512).map { Double(fftData![$0]) * volume }
         }
         
         func stop() {

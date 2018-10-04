@@ -69,5 +69,7 @@ extension VisualizerWindowController {
 //        case .output(let device):
 //            break
         }
+        
+        fft?.addObserver(self, forKeyPath: #keyPath(FFTTap.AVNode.resonance), options: [.new], context: nil)
     }
 }

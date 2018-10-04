@@ -70,6 +70,7 @@ class FFTTap {
         
         init(deviceID: AudioDeviceID) {
             engine = AVAudioEngine()
+            
             let input = engine.inputNode
             var changingDeviceID = deviceID
             
@@ -84,8 +85,7 @@ class FFTTap {
             let player = AVAudioPlayerNode()
             engine.attach(player)
             
-            let bus = 0
-            let inputFormat = input.inputFormat(forBus: bus)
+            let inputFormat = input.inputFormat(forBus: 0)
             engine.connect(player, to: engine.mainMixerNode, format: inputFormat)
             
             try! engine.start()

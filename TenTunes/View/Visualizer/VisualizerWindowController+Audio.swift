@@ -11,6 +11,12 @@ import Cocoa
 import AudioKitUI
 
 extension VisualizerWindowController {
+    enum AudioCapture {
+        case direct
+        case input(device: AKDevice)
+//        case output(device: AKDevice)
+    }
+    
     @IBAction func selectedAudioSource(_ sender: Any) {
         updateFFT()
     }
@@ -19,15 +25,27 @@ extension VisualizerWindowController {
         _audioSourceSelector.removeAllItems()
         
         _audioSourceSelector.addItem(withTitle: "Ten Tunes")
+        _audioSourceSelector.lastItem!.representedObject = AudioCapture.direct
         
-        for input in AudioKit.inputDevices ?? [] {
-            _audioSourceSelector.addItem(withTitle: input.name)
-            _audioSourceSelector.lastItem!.representedObject = input
+        _audioSourceSelector.menu!.addItem(NSMenuItem.separator())
+        
+        for device in AudioKit.inputDevices ?? [] {
+            _audioSourceSelector.addItem(withTitle: device.name)
+            _audioSourceSelector.lastItem!.representedObject = AudioCapture.input(device: device)
         }
+
+//        _audioSourceSelector.menu!.addItem(NSMenuItem.separator())
+//
+//        for device in AudioKit.outputDevices ?? [] {
+//            _audioSourceSelector.addItem(withTitle: device.name)
+//            _audioSourceSelector.lastItem!.representedObject = AudioCapture.output(device: device)
+//        }
     }
     
     func updateFFT() {
-        let inputDevice = _audioSourceSelector.selectedItem?.representedObject as? AKDevice
+        guard let captureMethod = _audioSourceSelector.selectedItem?.representedObject as? AudioCapture else {
+            return // Eh?
+        }
         
         let visible = window?.occlusionState.contains(.visible) ?? false
         
@@ -38,11 +56,13 @@ extension VisualizerWindowController {
             return
         }
         
-        guard let device = inputDevice else {
+        switch captureMethod {
+        case .direct:
             fft = FFTTap.AVNode(ViewController.shared.player.mixer.avAudioNode)
-            return
+        case .input(let device):
+            fft = FFTTap.AVAudioDevice(deviceID: device.deviceID)
+//        case .output(let device):
+//            break
         }
-        
-        fft = FFTTap.AVAudioDevice(deviceID: device.deviceID)
     }
 }

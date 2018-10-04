@@ -63,5 +63,7 @@
 	<string>Main</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Audio input option for the visualizer</string>
 </dict>
 </plist>

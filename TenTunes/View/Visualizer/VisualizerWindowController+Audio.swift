@@ -12,7 +12,7 @@ import AudioKitUI
 
 extension VisualizerWindowController {
     @IBAction func selectedAudioSource(_ sender: Any) {
-        inputDevice = (sender as! NSPopUpButton).selectedItem?.representedObject as? AKDevice
+        updateFFT()
     }
 
     func updateAudioSources() {
@@ -26,42 +26,22 @@ extension VisualizerWindowController {
         }
     }
     
-    func updateAudioNode() {
+    func updateFFT() {
+        let inputDevice = _audioSourceSelector.selectedItem?.representedObject as? AKDevice
+        
         let visible = window?.occlusionState.contains(.visible) ?? false
         
-        if !visible && syphon == nil {
-            inputNode = nil
+        guard visible || syphon != nil else {
+            fft = nil
+            return
         }
-        else if inputNode == nil {
-            guard let device = inputDevice else {
-                inputNode = ViewController.shared.player.mixer
-                return
-            }
-            
-            do {
-                try AudioKit.setInputDevice(device)
-            }
-            catch {
-                print("Error setting input device: \(error)")
-                return
-            }
-            
-            let microphoneNode = AKMicrophone()
-            
-            do {
-                try microphoneNode.setDevice(device)
-            }
-            catch {
-                print("Failed setting node input device: \(error)")
-                return
-            }
-            
-            microphoneNode.start()
-            microphoneNode.volume = 3
-            print("Switched Node: \(microphoneNode), started: \(microphoneNode.isStarted)")
-            
-            inputNode = microphoneNode
-            try! AudioKit.start()
+        
+        guard let device = inputDevice else {
+            fft = nil // Deinit first, if we had one before it has to remove the bus tap
+            fft = FFTTap.AudioKitNode(node: ViewController.shared.player.mixer)
+            return
         }
+        
+        fft = FFTTap.AVAudioDevice(deviceID: device.deviceID)
     }
 }

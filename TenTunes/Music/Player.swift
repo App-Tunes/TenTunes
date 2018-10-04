@@ -62,7 +62,6 @@ class Player {
         AudioKit.output = outputNode
     }
     
-    
     var isPlaying : Bool {
         return player.isPlaying
     }

@@ -14,25 +14,11 @@ class VisualizerWindowController: NSWindowController {
 
     @IBOutlet var _visualizerView: VisualizerView!
     
-    var fft: AKFFTTap?
-    var inputDevice: AKDevice? {
-        didSet {
-            inputNode = nil
-            updateAudioNode()
-        }
-    }
-    var inputNode: AKNode? {
-        didSet {
-            if fft != nil {
-                // According to AKFFTTap class reference, it will always be on tap 0
-                oldValue?.avAudioNode.removeTap(onBus: 0)
-            }
-            
-            fft = inputNode ?=> AKFFTTap.init
-        }
-    }
+    var fft: TTFFFTTap?
+
     var silence: AKNode?
-    
+    var tracker: AKFrequencyTracker?
+
     var syphon: LiveSyphonServer?
 
     var trackingArea : NSTrackingArea?
@@ -101,7 +87,7 @@ class VisualizerWindowController: NSWindowController {
 
 extension VisualizerWindowController : NSWindowDelegate {
     func windowDidChangeOcclusionState(_ notification: Notification) {
-        updateAudioNode()
+        updateFFT()
     }
     
     func windowDidResize(_ notification: Notification) {

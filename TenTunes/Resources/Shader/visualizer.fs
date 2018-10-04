@@ -42,6 +42,8 @@ uniform float scale;
 // How large points are
 uniform float brightness;
 
+uniform float spaceDistortion;
+
 float dist(vec2 a, vec2 b) {
     return ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 }
@@ -54,25 +56,31 @@ float influence(vec2 point, vec2 pos, float strength) {
 void main( void ) {
     vec2 pos = gl_FragCoord.xy / vec2(resolution.x, resolution.y);
     
-    float centerX = (pos.x - 0.5);
-    float centerY = (pos.y - 0.5);
+    vec2 center = vec2((pos.x - 0.5) * scale, (pos.y - 0.5) * scale);
+    float pTime = time * 0.1;
 
     // Position-shift based on time
-    float posChange = (sin(time * 0.2234 + centerX * centerY * 10) + 1) / 10;
-    pos = mix(pos, vec2(sin(time * 0.124122) + 0.5, cos(time * 0.124122) + 0.5), posChange);
+    pos = mix(pos, vec2(sin(pTime * 1.24122) + 0.5, cos(pTime * 1.24122) + 0.5),
+              (sin(pTime * 1.2234 + center.x * center.y * 10) + 1) / 10 * spaceDistortion);
 
-    centerX = (pos.x - 0.5) * scale;
-    centerY = (pos.y - 0.5) * scale;
+    // And same but pow
+    pos = mix(pos, vec2(sin(pTime * 1.3183) + 0.5, cos(pTime * 1.82117) + 0.5),
+              (sin(pTime * 2.234 + pow(2, center.x * center.y * 10)) + 1) / 10 * spaceDistortion);
 
-    float pTime = time * 0.1;
-    // Time-shift depending on x/y coord for some cool patterns
+    center = vec2((pos.x - 0.5) * scale, (pos.y - 0.5) * scale);
+
+    // Time-Shift depending on x/y coord for some cool patterns
     for (int i = 0; i < resonanceCount; i++) {
         float freqRatio = float(i) / float(resonanceCount);
         float shiftSize = resonanceDistortionShiftSizes[i];
-        pTime += sin(  centerX * sin(time * (0.0754 + resonanceDistortionSpeed[i] * 0.0154125467) + freqRatio * 6) / shiftSize
-                     + centerY * cos(time * (0.0834 + resonanceDistortionSpeed[i] * 0.0146145673) + freqRatio * 6) / shiftSize)
+        pTime += sin(  center.x * sin(pTime * (0.0754 + resonanceDistortionSpeed[i] * 0.0154125467) + freqRatio * 6) / shiftSize
+                     + center.y * cos(pTime * (0.0834 + resonanceDistortionSpeed[i] * 0.0146145673) + freqRatio * 6) / shiftSize)
         * resonanceDistortion[i];
     }
+
+    // Lines floating along top to bottom
+    float webShiftY = pow((sin(pTime * 0.113238) + 1) * (sin(pTime * 0.132034) + 1) / 4, 2) * spaceDistortion;
+    pos.x += mod(pos.y * (10 + sin(pTime * 0.1831) * 2) + pTime * 0.123182, 1) < 0.5 ? webShiftY : -webShiftY;
 
     vec4 color = vec4(0, 0, 0, 1);
 

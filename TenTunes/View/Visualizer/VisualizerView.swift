@@ -50,6 +50,8 @@ class VisualizerView: GLSLView {
     var guScale: GLint = -1
     var guBrightness: GLint = -1
 
+    var guSpaceDistortion: GLint = -1
+
     var startDate = NSDate().addingTimeInterval(-TimeInterval(Int.random(in: 50...10_000)))
     var time : TimeInterval { return -startDate.timeIntervalSinceNow }
     
@@ -123,6 +125,8 @@ class VisualizerView: GLSLView {
         guSharpness = findUniform("sharpness")
         guScale = findUniform("scale")
         guBrightness = findUniform("brightness")
+
+        guSpaceDistortion = findUniform("spaceDistortion")
     }
     
     override func animate() {
@@ -161,9 +165,11 @@ class VisualizerView: GLSLView {
         // Brightness makes points fuzzy
         glUniform1f(guSharpness, pow(2, 1 - brightness) * 2.5);
         // More psychedelic means we zoom in more because otherwise it gets too "detailed"
-        glUniform1f(guScale, pow(1300 - GLfloat(psychedelic) * 1000, (GLfloat(details) - 0.5) * 0.7 + 1));
+        glUniform1f(guScale, pow(1300 - GLfloat(psychedelic) * 1000, (GLfloat(details) - 0.5) * 0.7 + 1) / 3000);
         // Darkness makes it less bright
         glUniform1f(guBrightness, 1.4 - (1 - brightness) * 1.35);
+
+        glUniform1f(guSpaceDistortion, GLfloat(pow(psychedelic, 2)));
 
         glUniform1i(guResonanceCount, GLint(resonance.count))
 
@@ -182,7 +188,7 @@ class VisualizerView: GLSLView {
 
         // The higher the tone, the sharper its distortion
         glUniform1fv((0 ..< resonance.count).map {
-            GLfloat(pow((1 - Float($0) / Float(resonance.count)), 1.7) * 50)
+            GLfloat(pow((1 - Float($0) / Float(resonance.count)), 1.7) * 0.01666)
         }, as: guResonanceDistortionShiftSizes)
 
         let colors = (0 ..< resonance.count).map { self.color($0, time: time) }

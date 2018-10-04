@@ -14,6 +14,8 @@ import AudioKitUI
 @objc protocol TTFFFTTap {
     var fftData: [Double] { get }
     @objc var volume: Double { get set }
+    
+    func stop()
 }
 
 class FFTTap {
@@ -30,9 +32,11 @@ class FFTTap {
         
         var fftData: [Double] { return tap.fftData.map { $0 * volume } }
         
-        deinit {
+        func stop() {
             node.avAudioNode.removeTap(onBus: 0)
         }
+        
+        deinit { stop() }
     }
     
     class AVAudioDevice: NSObject, TTFFFTTap, EZAudioFFTDelegate {
@@ -92,9 +96,13 @@ class FFTTap {
             }
         }
         
-        deinit {
-            engine.stop()
+        func stop() {
+            if engine.isRunning {
+                engine.stop()
+            }
         }
+        
+        deinit { stop() }
     }
 }
 

@@ -31,13 +31,14 @@ extension VisualizerWindowController {
         
         let visible = window?.occlusionState.contains(.visible) ?? false
         
+        fft?.stop()
+        
         guard visible || syphon != nil else {
             fft = nil
             return
         }
         
         guard let device = inputDevice else {
-            fft = nil // Deinit first, if we had one before it has to remove the bus tap
             fft = FFTTap.AudioKitNode(node: ViewController.shared.player.mixer)
             return
         }

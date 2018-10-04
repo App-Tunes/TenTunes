@@ -73,8 +73,8 @@ void main( void ) {
     for (int i = 0; i < resonanceCount; i++) {
         float freqRatio = float(i) / float(resonanceCount);
         float shiftSize = resonanceDistortionShiftSizes[i];
-        pTime += sin(  center.x * sin(pTime * (0.0754 + resonanceDistortionSpeed[i] * 0.0154125467) + freqRatio * 6) / shiftSize
-                     + center.y * cos(pTime * (0.0834 + resonanceDistortionSpeed[i] * 0.0146145673) + freqRatio * 6) / shiftSize)
+        pTime += sin(  center.x * sin(pTime * (0.754 + resonanceDistortionSpeed[i] * 0.154125467) + freqRatio * 6) / shiftSize
+                     + center.y * cos(pTime * (0.834 + resonanceDistortionSpeed[i] * 0.146145673) + freqRatio * 6) / shiftSize)
         * resonanceDistortion[i];
     }
 

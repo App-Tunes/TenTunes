@@ -74,7 +74,7 @@ void main( void ) {
         float freqRatio = float(i) / float(resonanceCount);
         float shiftSize = resonanceDistortionShiftSizes[i];
         // Use both since both distortion effects are interesting
-        float distTime = pTime * 0.2 + time * 0.1 * 0.8;
+        float distTime = pTime * 0.15 + time * 0.1 * 0.85;
         pTime += sin(  center.x * sin(distTime * (0.754 + resonanceDistortionSpeed[i] * 0.154125467) + freqRatio * 6) / shiftSize
                      + center.y * cos(distTime * (0.834 + resonanceDistortionSpeed[i] * 0.146145673) + freqRatio * 6) / shiftSize)
         * resonanceDistortion[i];

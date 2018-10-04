@@ -14,7 +14,7 @@ class VisualizerWindowController: NSWindowController {
 
     @IBOutlet var _visualizerView: VisualizerView!
     
-    @objc dynamic var fft: TTFFFTTap?
+    @objc dynamic var fft: ResonanceProvider?
 
     var silence: AKNode?
     var tracker: AKFrequencyTracker?
@@ -102,6 +102,6 @@ extension VisualizerWindowController : VisualizerViewDelegate {
             DispatchQueue.main.async { self.updateWindowButtons(show: false) }
         }
 
-        return fft?.fftData
+        return fft?.resonance
     }
 }

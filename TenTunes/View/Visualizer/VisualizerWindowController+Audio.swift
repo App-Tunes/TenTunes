@@ -39,7 +39,7 @@ extension VisualizerWindowController {
         }
         
         guard let device = inputDevice else {
-            fft = FFTTap.AudioKitNode(node: ViewController.shared.player.mixer)
+            fft = FFTTap.AVNode(ViewController.shared.player.mixer.avAudioNode)
             return
         }
         

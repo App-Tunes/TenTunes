@@ -14,7 +14,7 @@ class VisualizerWindowController: NSWindowController {
 
     @IBOutlet var _visualizerView: VisualizerView!
     
-    var fft: TTFFFTTap?
+    @objc dynamic var fft: TTFFFTTap?
 
     var silence: AKNode?
     var tracker: AKFrequencyTracker?

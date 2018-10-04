@@ -11,21 +11,24 @@ import Cocoa
 import AVFoundation
 import AudioKitUI
 
-protocol TTFFFTTap {
+@objc protocol TTFFFTTap {
     var fftData: [Double] { get }
+    @objc var volume: Double { get set }
 }
 
 class FFTTap {
-    class AudioKitNode: TTFFFTTap {
-        let node: AKNode
+    class AudioKitNode: NSObject, TTFFFTTap {
+        let node: AKMixer
         let tap: AKFFTTap
         
-        init(node: AKNode) {
+        var volume: Double = 1
+        
+        init(node: AKMixer) {
             self.node = node
             tap = AKFFTTap(node)
         }
         
-        var fftData: [Double] { return tap.fftData }
+        var fftData: [Double] { return tap.fftData.map { $0 * volume } }
         
         deinit {
             node.avAudioNode.removeTap(onBus: 0)
@@ -38,6 +41,8 @@ class FFTTap {
         internal var fft: EZAudioFFT?
         
         let engine = AVAudioEngine()
+        
+        var volume: Double = 1
         
         init(deviceID: AudioDeviceID) {
             super.init()
@@ -83,7 +88,7 @@ class FFTTap {
         
         func fft(_ fft: EZAudioFFT!, updatedWithFFTData fftData: UnsafeMutablePointer<Float>!, bufferSize: vDSP_Length) {
             for i in 0..<512 {
-                self.fftData[i] = Double(fftData[i])
+                self.fftData[i] = Double(fftData[i]) * volume
             }
         }
         

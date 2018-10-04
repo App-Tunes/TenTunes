@@ -45,6 +45,6 @@ class ValueTransformers {
                                                         return (($0 ?=> String.init) ?=> Int.init) ?=> NSNumber.init
         })
         
-        DoubleTransformer.double("Pow2Transformer", there: curry(pow)(2), back: log2)
+        DoubleTransformer.double("Pow2Transformer", there: log2, back: curry(pow)(2))
     }
 }

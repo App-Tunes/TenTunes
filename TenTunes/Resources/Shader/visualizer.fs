@@ -69,21 +69,23 @@ float noise (in vec2 _st) {
     (d - b) * u.x * u.y;
 }
 
-#define NUM_OCTAVES 5
-
-float fbm ( in vec2 _st) {
+float fbm ( in vec2 _st, int octaves) {
     float v = 0.0;
     float a = 0.5;
     vec2 shift = vec2(100.0);
     // Rotate to reduce axial bias
     mat2 rot = mat2(cos(0.5), sin(0.5),
                     -sin(0.5), cos(0.50));
-    for (int i = 0; i < NUM_OCTAVES; ++i) {
+    for (int i = 0; i < octaves; ++i) {
         v += a * noise(_st);
         _st = rot * _st * 2.0 + shift;
         a *= 0.5;
     }
     return v;
+}
+
+float fbm ( in vec2 _st) {
+    return fbm(_st, 5);
 }
 
 float dist(vec2 a, vec2 b) {
@@ -98,6 +100,17 @@ float distPoint(int i, float pTime, vec2 pos) {
 
 //float distFBM(int i, float pTime, vec2 pos) {
 //    return 0.1 / pow(fbm(vec2(fbm(pos + vec2(float(i) * 100)) * 5 + pTime, pTime * 2 + float(i) * 100)), 2);
+//}
+//
+//float distAtan(int i, float pTime, vec2 pos) {
+//    vec2 p = ( sin(vec2(fbm(pos.xy + pTime * .23 + float(i) * 0.0128, 3) * 2, fbm(pos.yx - pTime * .23 + float(i) * 0.0128, 3) * 2) * 3) - 0.5) * 10.;
+//    vec3 c = vec3(0.);
+//    float a = atan(p.x * time,p.y + time * 0.623);
+//    float r = length(p);
+//    float cc = 1.0 + sin(r * 3) + a * .5 - time * 0.3;
+//    for (int i=1; i<=3; i++)
+//        cc = abs(sin(float(i)*1.*cc));
+//    return cc;
 //}
 
 void main( void ) {

@@ -48,7 +48,7 @@ float dist(vec2 a, vec2 b) {
     return ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 }
 
-float distPoint(int i, float pTime, vec2 pos, float strength) {
+float distPoint(int i, float pTime, vec2 pos) {
     vec2 point = vec2(sin(pTime * (float(i) * 0.74819 + 1.0 + mod(float(i), 0.049131) * 2) + float(i)) * 0.4 + 0.5,
                       sin(pTime * 1.5 * (float(i) * 0.79823 + 1.0 + mod(float(i), 0.068231) * 2) + float(i)) * 0.4 + 0.5);
     return dist(pos, point.xy);
@@ -90,7 +90,7 @@ void main( void ) {
     float totalOmega = decay;
     float prevOmega;
     for (int i = 0; i < resonanceCount; i++) {
-        float pointDist = distPoint(i, pTime, pos, resonance[i]);
+        float pointDist = distPoint(i, pTime, pos);
         float inf = pow(resonance[i] / max(minDist + resonance[i] / 50, minDist / 2 + pointDist)
                         * (brightness + 0.1), sharpness + resonance[i] / 10);
         

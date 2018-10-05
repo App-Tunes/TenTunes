@@ -28,15 +28,8 @@ class VisualizerWindowController: NSWindowController {
     @IBOutlet var _audioSourceSelector: NSPopUpButton!
     @IBOutlet var _renderingMethodSelector: NSPopUpButton!
     
-    @objc var width: CGFloat {
-        get { return _visualizerView.frame.size.width }
-        set { window?.setContentSize(NSMakeSize(newValue, height)) }
-    }
-
-    @objc var height: CGFloat {
-        get { return _visualizerView.frame.size.height }
-        set { window?.setContentSize(NSMakeSize(width, newValue)) }
-    }
+    @IBOutlet var _windowWidth: EnterReturningTextField!
+    @IBOutlet var _windowHeight: EnterReturningTextField!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -85,7 +78,14 @@ class VisualizerWindowController: NSWindowController {
     
     @IBAction func showSettings(_ sender: Any) {
         window?.beginSheet(_settingsSheet)
-    }    
+    }
+    
+    @IBAction func updateWindowSize(_ sender: Any) {
+        guard let width = Int(_windowWidth.stringValue), let height = Int(_windowHeight.stringValue) else {
+            return
+        }
+        window?.setContentSize(NSSize(width: width, height: height))
+    }
 }
 
 extension VisualizerWindowController : NSWindowDelegate {
@@ -95,6 +95,9 @@ extension VisualizerWindowController : NSWindowDelegate {
     
     func windowDidResize(_ notification: Notification) {
         updateTrackingAreas()
+        
+        _windowWidth.stringValue = String(Int(window!.contentView!.frame.size.width))
+        _windowHeight.stringValue = String(Int(window!.contentView!.frame.size.height))
     }
 }
 

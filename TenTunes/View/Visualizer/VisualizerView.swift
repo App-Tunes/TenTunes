@@ -191,7 +191,7 @@ class VisualizerView: GLSLView {
         glUniform1fv(colors.flatMap { self.rgb($0) }, as: guResonanceColors)
 
         // Outer colors can be darker if darkness is high
-        let soonColors = (0 ..< resonance.count).map { self.color($0, time: time - Double(20 * colorVariance), darknessBonus: 1 - brightness) }
+        let soonColors = (0 ..< resonance.count).map { self.color($0, time: time - Double(15 * colorVariance), darknessBonus: 1 - brightness) }
         glUniform1fv(soonColors.flatMap { self.rgb($0) }, as: guResonanceColorsSoon)
     }
 }

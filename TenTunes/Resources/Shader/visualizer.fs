@@ -49,8 +49,8 @@ float dist(vec2 a, vec2 b) {
 }
 
 float influence(vec2 point, vec2 pos, float strength) {
-    float dist = max(minDist + strength / 100, minDist / 2 + dist(pos, point.xy));
-    return pow(strength / dist * brightness, sharpness + strength / 10);
+    float dist = max(minDist + strength / 50, minDist / 2 + dist(pos, point.xy));
+    return pow(strength / dist * (brightness + 0.1), sharpness + strength / 10);
 }
 
 void main( void ) {
@@ -93,8 +93,11 @@ void main( void ) {
                           sin(pTime * 1.5 * (float(i) * 0.79823 + 1.0 + mod(float(i), 0.068231) * 2) + float(i)) * 0.4 + 0.5);
         float inf = influence(point, pos, resonance[i]);
         
+        float pointDist = dist(point, pos);
         vec3 pointColor = mix(vec3(resonanceColors[i * 3], resonanceColors[i * 3 + 1], resonanceColors[i * 3 + 2]),
-                              vec3(resonanceColorsSoon[i * 3], resonanceColorsSoon[i * 3 + 1], resonanceColorsSoon[i * 3 + 2]), clamp(dist(point, pos) * 2, 0, 1));
+                              vec3(resonanceColorsSoon[i * 3], resonanceColorsSoon[i * 3 + 1], resonanceColorsSoon[i * 3 + 2]),
+                              clamp(pointDist * 15 / (resonance[i] + 1), 0, 1.3))
+         - (1 / ((brightness * 70 + resonance[i] * 30) * pointDist + 1) - 0.1) * (1 - brightness);
 
         // Same as accumulating totalOmega and in a second cycle dividing inf by it
         prevOmega = totalOmega;

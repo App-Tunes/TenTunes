@@ -48,9 +48,10 @@ float dist(vec2 a, vec2 b) {
     return ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 }
 
-float influence(vec2 point, vec2 pos, float strength) {
-    float dist = max(minDist + strength / 50, minDist / 2 + dist(pos, point.xy));
-    return pow(strength / dist * (brightness + 0.1), sharpness + strength / 10);
+float distPoint(int i, float pTime, vec2 pos, float strength) {
+    vec2 point = vec2(sin(pTime * (float(i) * 0.74819 + 1.0 + mod(float(i), 0.049131) * 2) + float(i)) * 0.4 + 0.5,
+                      sin(pTime * 1.5 * (float(i) * 0.79823 + 1.0 + mod(float(i), 0.068231) * 2) + float(i)) * 0.4 + 0.5);
+    return dist(pos, point.xy);
 }
 
 void main( void ) {
@@ -89,11 +90,10 @@ void main( void ) {
     float totalOmega = decay;
     float prevOmega;
     for (int i = 0; i < resonanceCount; i++) {
-        vec2 point = vec2(sin(pTime * (float(i) * 0.74819 + 1.0 + mod(float(i), 0.049131) * 2) + float(i)) * 0.4 + 0.5,
-                          sin(pTime * 1.5 * (float(i) * 0.79823 + 1.0 + mod(float(i), 0.068231) * 2) + float(i)) * 0.4 + 0.5);
-        float inf = influence(point, pos, resonance[i]);
+        float pointDist = distPoint(i, pTime, pos, resonance[i]);
+        float inf = pow(resonance[i] / max(minDist + resonance[i] / 50, minDist / 2 + pointDist)
+                        * (brightness + 0.1), sharpness + resonance[i] / 10);
         
-        float pointDist = dist(point, pos);
         vec3 pointColor = mix(vec3(resonanceColors[i * 3], resonanceColors[i * 3 + 1], resonanceColors[i * 3 + 2]),
                               vec3(resonanceColorsSoon[i * 3], resonanceColorsSoon[i * 3 + 1], resonanceColorsSoon[i * 3 + 2]),
                               clamp(pointDist * 15 / (resonance[i] + 1), 0, 1.3))

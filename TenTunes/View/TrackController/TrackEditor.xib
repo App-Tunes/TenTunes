@@ -8,7 +8,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TrackEditor" customModule="TenTunes" customModuleProvider="target">
             <connections>
-                <outlet property="_contentView" destination="5cZ-qZ-0Fp" id="hy0-f2-lt4"/>
                 <outlet property="_editorOutline" destination="RRs-pC-UFg" id="067-t8-F75"/>
                 <outlet property="_titleBackground" destination="xfX-Mm-Orc" id="BAL-Ko-C3F"/>
                 <outlet property="tracksController" destination="i0G-Xb-2QU" id="8Xv-73-EVI"/>

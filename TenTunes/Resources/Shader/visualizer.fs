@@ -44,6 +44,48 @@ uniform float brightness;
 
 uniform float spaceDistortion;
 
+float random (in vec2 st) {
+    return fract(sin(dot(st.xy,
+                         vec2(12.9898,78.233)))*
+                 43758.5453123);
+}
+
+// Based on Morgan McGuire @morgan3d
+// https://www.shadertoy.com/view/4dS3Wd
+float noise (in vec2 _st) {
+    vec2 i = floor(_st);
+    vec2 f = fract(_st);
+    
+    // Four corners in 2D of a tile
+    float a = random(i);
+    float b = random(i + vec2(1.0, 0.0));
+    float c = random(i + vec2(0.0, 1.0));
+    float d = random(i + vec2(1.0, 1.0));
+    
+    vec2 u = f * f * (3.0 - 2.0 * f);
+    
+    return mix(a, b, u.x) +
+    (c - a)* u.y * (1.0 - u.x) +
+    (d - b) * u.x * u.y;
+}
+
+#define NUM_OCTAVES 5
+
+float fbm ( in vec2 _st) {
+    float v = 0.0;
+    float a = 0.5;
+    vec2 shift = vec2(100.0);
+    // Rotate to reduce axial bias
+    mat2 rot = mat2(cos(0.5), sin(0.5),
+                    -sin(0.5), cos(0.50));
+    for (int i = 0; i < NUM_OCTAVES; ++i) {
+        v += a * noise(_st);
+        _st = rot * _st * 2.0 + shift;
+        a *= 0.5;
+    }
+    return v;
+}
+
 float dist(vec2 a, vec2 b) {
     return ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 }
@@ -53,6 +95,10 @@ float distPoint(int i, float pTime, vec2 pos) {
                       sin(pTime * 1.5 * (float(i) * 0.79823 + 1.0 + mod(float(i), 0.068231) * 2) + float(i)) * 0.4 + 0.5);
     return dist(pos, point.xy);
 }
+
+//float distFBM(int i, float pTime, vec2 pos) {
+//    return 0.1 / pow(fbm(vec2(fbm(pos + vec2(float(i) * 100)) * 5 + pTime, pTime * 2 + float(i) * 100)), 2);
+//}
 
 void main( void ) {
     vec2 pos = gl_FragCoord.xy / vec2(resolution.x, resolution.y);

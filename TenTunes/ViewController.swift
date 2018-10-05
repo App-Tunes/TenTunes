@@ -67,7 +67,9 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        #if !DEBUG
         SuperpoweredSplash.show(in: _trackGuardView.superview!.superview!)
+        #endif
 
         trackController = TrackController(nibName: .init(rawValue: "TrackController"), bundle: nil)
         trackController.view.frame = _trackView.frame

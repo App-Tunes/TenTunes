@@ -9,6 +9,7 @@
 import Cocoa
 
 import OpenGL
+import Darwin
 
 extension GLSLView {
     func glUniform1fv(_ array: [GLfloat], as id: GLint) {
@@ -24,6 +25,7 @@ extension GLSLView {
 
 class VisualizerView: GLSLView {
     static let skipFrequencies = 2
+    static let resonanceSteepness = 15.0
     
     @objc @IBOutlet
     var delegate: VisualizerViewDelegate?
@@ -73,17 +75,29 @@ class VisualizerView: GLSLView {
         let desiredDoubles: [Double] = (0 ..< resonance.count).map { idx in
             let middle = pow(2.0, Double(idx + VisualizerView.skipFrequencies))
 
+            // Old method
             let steepness = 4.0
             let gain = pow(0.5, -steepness)
 
             return fft.enumerated().map { (idx, val) in
                 // Later frequencies stretch across more values
-                let stretch = log(Double(idx + 1)) / log(2) + 1
+                let stretch = 1 + Double(idx) / 2
                 // Frequencies that are farther away shall not be picked up as strongly
                 let dist = abs(Double(idx) - middle)
                 // Multiply since this diminishes the carefully balanced values a bit
                 return val / (1 + pow(dist / stretch, steepness) * gain) * 2.2
                 }.reduce(0, +)
+
+//            return fft.enumerated().map { (idx, val) in
+//                // Later frequencies stretch across more values
+//                let variance = pow((1 + Double(idx)) / VisualizerView.resonanceSteepness, 2)
+//                let scalar = pow(4.0 / VisualizerView.resonanceSteepness, 2)
+//                // Frequencies that are farther away shall not be picked up as strongly
+//                let dist = pow(Double(Double(idx) - middle), 2)
+//                // Normal distribution
+//                let resonance = 1 / sqrt(2 * Double.pi * scalar) * pow(Darwin.M_E, (-dist / (2 * variance))) * 5
+//                return val * resonance
+//                }.reduce(0, +)
         }
         
         let desired = desiredDoubles.map { CGFloat($0) }

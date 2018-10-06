@@ -23,7 +23,7 @@ extension GLSLView {
 }
 
 class VisualizerView: GLSLView {
-    static let resonanceOverlap = 2
+    static let skipFrequencies = 2
     
     @objc @IBOutlet
     var delegate: VisualizerViewDelegate?
@@ -64,27 +64,25 @@ class VisualizerView: GLSLView {
     var distortionRands = (0 ..< 100).map { _ in Float.random(in: 0 ..< 1 ) }
 
     func update(withFFT fft: [Double]) {
-        let desiredLength = Int(log(Double(fft.count)) / log(2)) - VisualizerView.resonanceOverlap
+        let desiredLength = Int(log(Double(fft.count)) / log(2)) - VisualizerView.skipFrequencies
         if resonance.count != desiredLength {
             resonance = Array(repeating: 0, count: desiredLength)
         }
         
         // TODO Add Gravity so that any particular resonance can't stay high for long so we get more dynamic movement (like how ears adjust to fucking noise fuck I'm a genius)
         let desiredDoubles: [Double] = (0 ..< resonance.count).map { idx in
-            let start = Int((pow(2.0, Double(idx))) - 1)
-            // We do +2 so we have an overlap between similar frequencies
-            let end = Int((pow(2.0, Double(idx + VisualizerView.resonanceOverlap + 1))) - 1)
-            // Don't divide by size since this is how we hear it too
-            let middle = Double(end - 1 - start)
-            let length = Double(end - start)
+            let middle = pow(2.0, Double(idx + VisualizerView.skipFrequencies))
 
             let steepness = 4.0
-            let gain = 1 / pow(0.5, steepness)
+            let gain = pow(0.5, -steepness)
 
-            return fft[start ..< end].enumerated().map { (idx, val) in
+            return fft.enumerated().map { (idx, val) in
+                // Later frequencies stretch across more values
+                let stretch = log(Double(idx + 1)) / log(2) + 1
                 // Frequencies that are farther away shall not be picked up as strongly
+                let dist = abs(Double(idx) - middle)
                 // Multiply since this diminishes the carefully balanced values a bit
-                return val / (1 + pow(abs(Double(idx) - middle) / length, steepness) * gain) * 1.7
+                return val / (1 + pow(dist / stretch, steepness) * gain) * 2.2
                 }.reduce(0, +)
         }
         

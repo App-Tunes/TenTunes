@@ -20,16 +20,18 @@ import AudioKitUI
 
 class FFTTap {
     class AVNode: NSObject, ResonanceProvider, EZAudioFFTDelegate {
-        let bufferSize: UInt32 = 1_024
+        let bufferSize: UInt32
 
         let node: AVAudioNode
         var fft: EZAudioFFT? = nil
         
         @objc dynamic var volume: Double = 1
-        @objc dynamic var resonance = [Double](zeros: 512)
+        @objc dynamic var resonance: [Double]
 
-        init(_ node: AVAudioNode) {
+        init(_ node: AVAudioNode, bufferSize: UInt32 = 1024) {
             self.node = node
+            self.bufferSize = bufferSize
+            resonance = Array(zeros: Int(bufferSize))
             
             super.init()
             
@@ -53,7 +55,7 @@ class FFTTap {
         }
         
         func fft(_ fft: EZAudioFFT!, updatedWithFFTData fftData: UnsafeMutablePointer<Float>!, bufferSize: vDSP_Length) {
-            resonance = Array(0 ..< 512).map { Double(fftData![$0]) * volume }
+            resonance = Array(0 ..< Int(bufferSize)).map { Double(fftData![$0]) * volume }
         }
         
         func stop() {

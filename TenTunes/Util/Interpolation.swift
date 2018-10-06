@@ -9,14 +9,14 @@
 import Cocoa
 
 class Interpolation {
-    static func linear(_ left: CGFloat, _ right: CGFloat, amount: CGFloat) -> CGFloat {
+    static func linear<Number>(_ left: Number, _ right: Number, amount: Number) -> Number where Number: FloatingPoint {
         if amount >= 1 { return right }
         else if amount <= 0 { return left }
 
-        return left * (CGFloat(1.0) - amount) + right * amount
+        return left * (Number(1) - amount) + right * amount
     }
     
-    static func linear(_ left: [CGFloat], _ right: [CGFloat], amount: CGFloat) -> [CGFloat] {
+    static func linear<Number>(_ left: [Number], _ right: [Number], amount: Number) -> [Number] where Number: FloatingPoint {
         return zip(left, right).map { Interpolation.linear($0, $1, amount: amount) }
     }
     

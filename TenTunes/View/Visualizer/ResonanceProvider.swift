@@ -35,12 +35,22 @@ class FFTTap {
             
             super.init()
             
+            restart()
+        }
+        
+        func fft(_ fft: EZAudioFFT!, updatedWithFFTData fftData: UnsafeMutablePointer<Float>!, bufferSize: vDSP_Length) {
+            resonance = Array(0 ..< Int(bufferSize)).map { Double(fftData![$0]) * volume }
+        }
+        
+        func restart() {
+            stop()
+            
             fft = EZAudioFFT(maximumBufferSize: vDSP_Length(bufferSize),
                              sampleRate: Float(AKSettings.sampleRate),
                              delegate: self)
             node.installTap(onBus: 0,
-                             bufferSize: bufferSize,
-                             format: AudioKit.format) { [weak self] (buffer, _) -> Void in
+                            bufferSize: bufferSize,
+                            format: AudioKit.format) { [weak self] (buffer, _) -> Void in
                                 guard let strongSelf = self else {
                                     AKLog("Unable to create strong reference to self")
                                     return
@@ -54,12 +64,11 @@ class FFTTap {
             }
         }
         
-        func fft(_ fft: EZAudioFFT!, updatedWithFFTData fftData: UnsafeMutablePointer<Float>!, bufferSize: vDSP_Length) {
-            resonance = Array(0 ..< Int(bufferSize)).map { Double(fftData![$0]) * volume }
-        }
-        
         func stop() {
-            node.removeTap(onBus: 0)
+            if fft != nil {
+                node.removeTap(onBus: 0)
+                fft = nil
+            }
         }
         
         deinit { stop() }

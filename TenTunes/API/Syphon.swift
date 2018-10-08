@@ -36,7 +36,7 @@ class Syphon {
         
         view.overrideTextureID = -1 // Don't draw yet
         
-        let timer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60, repeats: true) { _ in
+        let timer = Timer.scheduledTimer(withTimeInterval: 1.0 / 30, repeats: true) { _ in
             view.animate()
             
             server.bind(toDrawFrameOf: view.bounds.size)

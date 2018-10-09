@@ -31,7 +31,7 @@ class VisualizerView: GLSLView {
     var delegate: VisualizerViewDelegate?
     
     var resonance: [CGFloat] = []
-    var totalResonance: CGFloat { return resonance.reduce(into: 0) { $0 = $0 + $1 } }
+    var totalResonance: CGFloat = 0
 
     var guResolution: GLint = -1
 
@@ -66,7 +66,7 @@ class VisualizerView: GLSLView {
     var distortionRands = (0 ..< 100).map { _ in Float.random(in: 0 ..< 1 ) }
 
     func update(withFFT fft: [Double]) {
-        let desiredLength = min(Int(details * 7 + 3), 10)
+        let desiredLength = min(Int(details * 6 + 4), 10)
         if resonance.count != desiredLength {
             resonance = Array(repeating: 0, count: desiredLength)
         }
@@ -103,6 +103,7 @@ class VisualizerView: GLSLView {
         let desired = desiredDoubles.map { CGFloat($0) }
 
         resonance = Interpolation.linear(resonance, desired, amount: 0.15)
+        totalResonance = Interpolation.linear(totalResonance, CGFloat(fft.reduce(0, +) / Double(fft.count)) * 650, amount: 0.15)
     }
     
     override func awakeFromNib() {

@@ -24,7 +24,7 @@ extension GLSLView {
 }
 
 class VisualizerView: GLSLView {
-    static let skipFrequencies = 2
+    static let skipFrequencies = 4
     static let resonanceSteepness = 15.0
     
     @objc @IBOutlet
@@ -66,14 +66,14 @@ class VisualizerView: GLSLView {
     var distortionRands = (0 ..< 100).map { _ in Float.random(in: 0 ..< 1 ) }
 
     func update(withFFT fft: [Double]) {
-        let desiredLength = Int(log(Double(fft.count)) / log(2)) - VisualizerView.skipFrequencies
+        let desiredLength = min(Int(details * 7 + 3), 10)
         if resonance.count != desiredLength {
             resonance = Array(repeating: 0, count: desiredLength)
         }
         
         // TODO Add Gravity so that any particular resonance can't stay high for long so we get more dynamic movement (like how ears adjust to fucking noise fuck I'm a genius)
         let desiredDoubles: [Double] = (0 ..< resonance.count).map { idx in
-            let middle = pow(2.0, Double(idx + VisualizerView.skipFrequencies))
+            let middle = (pow(2.0, Double(idx)) - 1) / pow(2, Double(resonance.count)) * Double(fft.count - VisualizerView.skipFrequencies) + Double(VisualizerView.skipFrequencies)
 
             // Old method
             let steepness = 4.0
@@ -173,7 +173,7 @@ class VisualizerView: GLSLView {
         // Brightness makes points fuzzy
         glUniform1f(guSharpness, pow(2, 1 - brightness) * 2.5);
         // More psychedelic means we zoom in more because otherwise it gets too "detailed"
-        glUniform1f(guScale, pow(1300 - GLfloat(psychedelic) * 1000, (GLfloat(details) - 0.5) * 0.7 + 1) / 3000);
+        glUniform1f(guScale, pow(1300 - GLfloat(psychedelic) * 1000, (GLfloat(details) - 0.5) * 0.5 + 1) / 3000);
         // Darkness makes it less bright
         glUniform1f(guBrightness, 1.4 - (1 - brightness) * 1.35);
 

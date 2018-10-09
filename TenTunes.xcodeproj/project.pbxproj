@@ -409,10 +409,7 @@
 				80E0884F20FFB3A3001FFE26 /* TTWindow.swift */,
 				8079F6E9211B822900B7A278 /* UnscalingMenu.swift */,
 				8079F6EB211B87A700B7A278 /* SpinningButton.swift */,
-				80C1F16B2142AA010032E554 /* RFOpenGLView.h */,
-				80C1F16C2142AA010032E554 /* RFOpenGLView.m */,
-				80C1F156214282790032E554 /* GLSLView.h */,
-				80C1F157214282790032E554 /* GLSLView.m */,
+				80A40987216D606B006AF67B /* OGL */,
 				80E939F0215AFAA4005112EF /* MultiplicityGuardView.swift */,
 				80E939F2215AFAB7005112EF /* MultiplicityGuardView.xib */,
 				809CEABE2163F345008D6AC0 /* SuperpoweredSplash.swift */,
@@ -565,6 +562,17 @@
 				809CEAC82164D336008D6AC0 /* Syphon.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		80A40987216D606B006AF67B /* OGL */ = {
+			isa = PBXGroup;
+			children = (
+				80C1F16B2142AA010032E554 /* RFOpenGLView.h */,
+				80C1F16C2142AA010032E554 /* RFOpenGLView.m */,
+				80C1F156214282790032E554 /* GLSLView.h */,
+				80C1F157214282790032E554 /* GLSLView.m */,
+			);
+			path = OGL;
 			sourceTree = "<group>";
 		};
 		80B68BA021011F4800A32E3D /* Manual */ = {

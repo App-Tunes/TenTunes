@@ -105,8 +105,8 @@ class VisualizerView: GLSLView {
 
         resonance = Interpolation.linear(resonance, desired, amount: 0.15)
         totalResonance = Interpolation.linear(totalResonance, CGFloat(fft.reduce(0, +) / Double(fft.count)) * 650, amount: 0.15)
-        let highFFT = fft.enumerated().map { (idx, val) in val * pow(Double(idx) / Double(fft.count), 2) }
-        highResonance = Interpolation.linear(totalResonance, CGFloat(highFFT.reduce(0, +) / Double(highFFT.count)) * 1000, amount: 0.15)
+        let highFFT = fft.enumerated().map { (idx, val) in val * pow(Double(idx) / Double(fft.count), 3) }
+        highResonance = Interpolation.linear(totalResonance, CGFloat(highFFT.reduce(0, +) / Double(highFFT.count)) * 900, amount: 0.15)
     }
     
     override func awakeFromNib() {

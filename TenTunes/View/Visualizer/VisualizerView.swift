@@ -32,6 +32,7 @@ class VisualizerView: GLSLView {
     
     var resonance: [CGFloat] = []
     var totalResonance: CGFloat = 0
+    var highResonance: CGFloat = 0
 
     var guResolution: GLint = -1
 
@@ -104,6 +105,8 @@ class VisualizerView: GLSLView {
 
         resonance = Interpolation.linear(resonance, desired, amount: 0.15)
         totalResonance = Interpolation.linear(totalResonance, CGFloat(fft.reduce(0, +) / Double(fft.count)) * 650, amount: 0.15)
+        let highFFT = fft.enumerated().map { (idx, val) in val * pow(Double(idx) / Double(fft.count), 2) }
+        highResonance = Interpolation.linear(totalResonance, CGFloat(highFFT.reduce(0, +) / Double(highFFT.count)) * 1000, amount: 0.15)
     }
     
     override func awakeFromNib() {
@@ -155,7 +158,7 @@ class VisualizerView: GLSLView {
         // 0.6 so that extremely high and low sounds are far apart in color
         return NSColor(hue: (prog * colorVariance + CGFloat(time * 0.02321)).truncatingRemainder(dividingBy: 1),
                        saturation: max(0, min(1, ratio * 4 - prog - totalResonance / 40)),
-                       brightness: min(1, totalResonance / 15 + resonance[idx] * 2 + ratio * 0.3) / localDarkness + 0.4,
+                       brightness: min(1, highResonance / 15 + resonance[idx] * 2 + ratio * 0.3) / localDarkness + 0.4,
                        alpha: 1)
     }
     

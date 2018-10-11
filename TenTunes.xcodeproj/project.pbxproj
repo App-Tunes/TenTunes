@@ -91,7 +91,7 @@
 		809CEAC92164D336008D6AC0 /* Syphon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809CEAC82164D336008D6AC0 /* Syphon.swift */; };
 		80A4098A216D60BC006AF67B /* RFOpenGLView+Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A40989216D60BB006AF67B /* RFOpenGLView+Texture.swift */; };
 		80A4098C216D665A006AF67B /* RFOpenGLView+Shader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A4098B216D665A006AF67B /* RFOpenGLView+Shader.swift */; };
-		80A4098E216D6723006AF67B /* GLSLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A4098D216D6723006AF67B /* GLSLView.swift */; };
+		80A40993216FA216006AF67B /* RFOpenGLView+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A40992216FA216006AF67B /* RFOpenGLView+Swift.swift */; };
 		80A7CABD216252340075C499 /* Track+Live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7CABC216252340075C499 /* Track+Live.swift */; };
 		80ADCD4A20442E1200AA9A89 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ADCD4920442E1200AA9A89 /* Library.swift */; };
 		80B15824215D657D0015294B /* Cocoa+IBInspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B15823215D657D0015294B /* Cocoa+IBInspectable.swift */; };
@@ -304,7 +304,7 @@
 		809CEAC82164D336008D6AC0 /* Syphon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Syphon.swift; sourceTree = "<group>"; };
 		80A40989216D60BB006AF67B /* RFOpenGLView+Texture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RFOpenGLView+Texture.swift"; sourceTree = "<group>"; };
 		80A4098B216D665A006AF67B /* RFOpenGLView+Shader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RFOpenGLView+Shader.swift"; sourceTree = "<group>"; };
-		80A4098D216D6723006AF67B /* GLSLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLSLView.swift; sourceTree = "<group>"; };
+		80A40992216FA216006AF67B /* RFOpenGLView+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RFOpenGLView+Swift.swift"; sourceTree = "<group>"; };
 		80A7CABC216252340075C499 /* Track+Live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Track+Live.swift"; sourceTree = "<group>"; };
 		80ADCD4920442E1200AA9A89 /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		80B15823215D657D0015294B /* Cocoa+IBInspectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocoa+IBInspectable.swift"; sourceTree = "<group>"; };
@@ -572,9 +572,9 @@
 			children = (
 				80C1F16B2142AA010032E554 /* RFOpenGLView.h */,
 				80C1F16C2142AA010032E554 /* RFOpenGLView.m */,
+				80A40992216FA216006AF67B /* RFOpenGLView+Swift.swift */,
 				80A40989216D60BB006AF67B /* RFOpenGLView+Texture.swift */,
 				80A4098B216D665A006AF67B /* RFOpenGLView+Shader.swift */,
-				80A4098D216D6723006AF67B /* GLSLView.swift */,
 			);
 			path = OGL;
 			sourceTree = "<group>";
@@ -996,7 +996,6 @@
 				80C1F160214286A40032E554 /* VisualizerWindowController.swift in Sources */,
 				8030E00D20FCA04C006B4AE8 /* UpdateCurrentPlaylist.swift in Sources */,
 				80E6811B20573DC800DA5702 /* SimpleTransformer.swift in Sources */,
-				80A4098E216D6723006AF67B /* GLSLView.swift in Sources */,
 				80F2C57C2038808000212739 /* ViewController.swift in Sources */,
 				8030E00720FC9749006B4AE8 /* Task.swift in Sources */,
 				8030E00F20FCB12C006B4AE8 /* AnalyzeTrack.swift in Sources */,
@@ -1021,6 +1020,7 @@
 				80F855042069187D009A8FBE /* PlaylistController+Menu.swift in Sources */,
 				804DCC74215D01D30021A753 /* GraySliderCell.swift in Sources */,
 				8030E01920FE33D2006B4AE8 /* ExportPlaylists.swift in Sources */,
+				80A40993216FA216006AF67B /* RFOpenGLView+Swift.swift in Sources */,
 				80E2C9E0204AE18E00298E81 /* Track.swift in Sources */,
 				80802588203F0399008D4168 /* PlaylistController.swift in Sources */,
 				806AC1332040D7C700857B1B /* PlayHistory.swift in Sources */,

@@ -103,7 +103,7 @@ extension VisualizerWindowController : NSWindowDelegate {
 
 extension VisualizerWindowController : VisualizerViewDelegate {
     func visualizerViewUpdate(_ view: VisualizerView) {
-        if window!.isKeyWindow, window!.isMouseInside, GLSLView.timeMouseIdle() > 2 {
+        if window!.isKeyWindow, window!.isMouseInside, RFOpenGLView.timeMouseIdle() > 2 {
             NSCursor.setHiddenUntilMouseMoves(true)
             DispatchQueue.main.async { self.updateWindowButtons(show: false) }
         }

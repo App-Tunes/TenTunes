@@ -15,7 +15,7 @@ import Darwin
     func visualizerViewUpdate(_ view: VisualizerView)
 }
 
-class VisualizerView: GLSLView {
+class VisualizerView: RFOpenGLView {
     static let skipFrequencies = 4
     static let resonanceSteepness = 15.0
     
@@ -26,6 +26,8 @@ class VisualizerView: GLSLView {
     var totalResonance: CGFloat = 0
     var highResonance: CGFloat = 0
     
+    var shader = Shader()
+
     var gaPosition: Shader.Attribute = .none
 
     var guResolution: Shader.Uniform = .none
@@ -135,7 +137,7 @@ class VisualizerView: GLSLView {
         glEnableVertexAttribArray(GLuint(gaPosition.rawValue))
         glVertexAttribPointer(GLuint(gaPosition.rawValue), 4, GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(MemoryLayout<GLfloat>.size * 4), nil)
 
-        guard GLSLView.checkGLError("Attribute Error") else {
+        guard RFOpenGLView.checkGLError("Attribute Error") else {
             return
         }
 
@@ -160,7 +162,7 @@ class VisualizerView: GLSLView {
 
         guSpaceDistortion = shader.find(uniform: "spaceDistortion")
         
-        guard GLSLView.checkGLError("Uniform Error") else {
+        guard RFOpenGLView.checkGLError("Uniform Error") else {
             return
         }
 
@@ -188,7 +190,7 @@ class VisualizerView: GLSLView {
         return [Float(color.redComponent), Float(color.greenComponent), Float(color.blueComponent)]
     }
     
-    override func uploadUniforms() {
+    func uploadUniforms() {
         glUniform1f(guTime.rawValue, GLfloat(time));
         glUniform2f(guResolution.rawValue, GLfloat(bounds.size.width), GLfloat(bounds.size.height));
 
@@ -233,9 +235,18 @@ class VisualizerView: GLSLView {
         guResonanceColorsSoon.glUniform1fv(soonColors.flatMap { self.rgb($0) })
     }
     
-//    override func drawFrame() {
-//        super.drawFrame()
-//        bloomTexture.size = bounds.size
-//        bloomTexture.bind()
-//    }
+    override func drawFrame() {
+        super.drawFrame()
+        
+        guard shader.bind() else {
+            print("Failed to bind shader for draw frame!")
+            return
+        }
+        
+        uploadUniforms()
+        drawFullScreenRect()
+        
+        //        bloomTexture.size = bounds.size
+        //        bloomTexture.bind()
+    }
 }

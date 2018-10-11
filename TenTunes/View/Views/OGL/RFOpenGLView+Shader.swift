@@ -34,7 +34,7 @@ extension RFOpenGLView {
             glShaderSource(vs, 1, &vss, nil)
             glCompileShader(vs)
             
-            guard GLSLView.checkCompiled(vs) else {
+            guard RFOpenGLView.checkCompiled(vs) else {
                 return false
             }
             defer { glDeleteShader(vs) }
@@ -43,7 +43,7 @@ extension RFOpenGLView {
             glShaderSource(fs, 1, &fss, nil)
             glCompileShader(fs)
             
-            guard GLSLView.checkCompiled(fs) else {
+            guard RFOpenGLView.checkCompiled(fs) else {
                 return false
             }
             defer { glDeleteShader(fs) }
@@ -54,7 +54,7 @@ extension RFOpenGLView {
             glAttachShader(programID, fs)
             glLinkProgram(programID)
             
-            guard GLSLView.checkGLError("Shader Link Error"), GLSLView.checkLinked(programID) else {
+            guard RFOpenGLView.checkGLError("Shader Link Error"), RFOpenGLView.checkLinked(programID) else {
                 return false
             }
             

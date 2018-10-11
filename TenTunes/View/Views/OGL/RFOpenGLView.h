@@ -21,8 +21,6 @@
 @property (readonly) CFTimeInterval deltaTime;
 @property GLint overrideTextureID;
 
-@property GLint shaderProgram;
-
 - (void)updateDisplayLink;
 - (BOOL)wantsDisplayLink;
 
@@ -31,8 +29,6 @@
 - (void)drawFrame;
 
 - (void)drawFullScreenRect;
-
-- (void)compileShaders:(NSString *)vertex fragment:(NSString *)fragment;
 
 + (BOOL)checkCompiled:(GLuint)obj;
 + (BOOL)checkLinked:(GLuint)obj;

@@ -129,9 +129,7 @@ class VisualizerView: GLSLView {
                 return
         }
         
-//        shader.compile(vertex: vertex, fragment: fragment)
-        compileShaders(vertex, fragment: fragment)
-        shader.programID = GLuint(shaderProgram)
+        shader.compile(vertex: vertex, fragment: fragment)
         
         gaPosition = shader.find(attribute: "position")
         glEnableVertexAttribArray(GLuint(gaPosition.rawValue))

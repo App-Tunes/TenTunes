@@ -119,39 +119,6 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
     if ((error = glGetError()) != 0) { NSLog(@"Setup GL Error: %d", error); }
 }
 
-- (void)compileShaders:(NSString *)vertex fragment:(NSString *)fragment {
-    int error;
-    
-    GLuint  vs;
-    GLuint  fs;
-    const char *fss = [fragment cStringUsingEncoding:NSUTF8StringEncoding];
-    const char *vss= [vertex cStringUsingEncoding:NSUTF8StringEncoding];
-    
-    vs = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vs, 1, &vss, NULL);
-    glCompileShader(vs);
-    if (![RFOpenGLView checkCompiled: vs]) { return; }
-    
-    fs = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fs, 1, &fss, NULL);
-    glCompileShader(fs);
-    if (![RFOpenGLView checkCompiled: fs]) { return; }
-    
-    // 4. Attach the shaders
-    _shaderProgram = glCreateProgram();
-    glAttachShader(_shaderProgram, vs);
-    glAttachShader(_shaderProgram, fs);
-    glLinkProgram(_shaderProgram);
-    
-    if ((error = glGetError()) != 0) { NSLog(@"Shader Link GL Error: %d", error); }
-    if (![RFOpenGLView checkLinked: _shaderProgram]) { return; }
-        
-    if ((error = glGetError()) != 0) { NSLog(@"Attrib Link GL Error: %d", error); }
-    
-    glDeleteShader(vs);
-    glDeleteShader(fs);
-}
-
 - (void)createDisplayLink {
     CGLContextObj cglContext = [[self openGLContext] CGLContextObj];
     CGLPixelFormatObj cglPixelFormat = [[self pixelFormat] CGLPixelFormatObj];

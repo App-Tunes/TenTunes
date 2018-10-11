@@ -26,7 +26,7 @@ class VisualizerView: GLSLView {
     var totalResonance: CGFloat = 0
     var highResonance: CGFloat = 0
     
-    var gaPosition: Shader.Attribute = .init(rawValue: 0)
+    var gaPosition: Shader.Attribute = .none
 
     var guResolution: Shader.Uniform = .none
 
@@ -119,7 +119,7 @@ class VisualizerView: GLSLView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         guard let vertexPath = Bundle.main.path(forResource: "visualizer", ofType: "vs"),
             let fragmentPath = Bundle.main.path(forResource: "visualizer", ofType: "fs"),
             let vertex = try? String(contentsOfFile: vertexPath),
@@ -132,13 +132,11 @@ class VisualizerView: GLSLView {
 //        shader.compile(vertex: vertex, fragment: fragment)
         compileShaders(vertex, fragment: fragment)
         shader.programID = GLuint(shaderProgram)
-        gaPosition = RFOpenGLView.Shader.Attribute(rawValue: positionAttribute)
         
-//        gaPosition = find(attribute: "position")
-//        glEnableVertexAttribArray(GLuint(shader.gaPosition.rawValue))
-//        var null = 0
-//        glVertexAttribPointer(GLuint(shader.gaPosition.rawValue), 4, GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(MemoryLayout<GLfloat>.size * 4), &null)
-        
+        gaPosition = shader.find(attribute: "position")
+        glEnableVertexAttribArray(GLuint(gaPosition.rawValue))
+        glVertexAttribPointer(GLuint(gaPosition.rawValue), 4, GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(MemoryLayout<GLfloat>.size * 4), nil)
+
         guard GLSLView.checkGLError("Attribute Error") else {
             return
         }

@@ -22,7 +22,6 @@
 @property GLint overrideTextureID;
 
 @property GLint shaderProgram;
-@property GLint positionAttribute;
 
 - (void)updateDisplayLink;
 - (BOOL)wantsDisplayLink;

@@ -117,13 +117,6 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
     /////
     
     if ((error = glGetError()) != 0) { NSLog(@"Setup GL Error: %d", error); }
-    
-    // 3. Upload Position
-    
-    glEnableVertexAttribArray((GLuint)_positionAttribute);
-    glVertexAttribPointer((GLuint)_positionAttribute, 4, GL_FLOAT, GL_FALSE, 4*sizeof(GLfloat), 0);
-    
-    if ((error = glGetError()) != 0) { NSLog(@"Setup End GL Error: %d", error); }
 }
 
 - (void)compileShaders:(NSString *)vertex fragment:(NSString *)fragment {
@@ -152,10 +145,7 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
     
     if ((error = glGetError()) != 0) { NSLog(@"Shader Link GL Error: %d", error); }
     if (![RFOpenGLView checkLinked: _shaderProgram]) { return; }
-    
-    // 5. Get pointers to uniforms and attributes
-    _positionAttribute = glGetAttribLocation(_shaderProgram, "position");
-    
+        
     if ((error = glGetError()) != 0) { NSLog(@"Attrib Link GL Error: %d", error); }
     
     glDeleteShader(vs);

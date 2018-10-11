@@ -66,12 +66,39 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
     [self updateDisplayLink];
 }
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
+    int error;
+    
+    // 1. Create a context with opengl pixel format
+    NSOpenGLPixelFormatAttribute pixelFormatAttributes[] =
+    {
+        NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion3_2Core,
+        NSOpenGLPFAColorSize    , 24                           ,
+        NSOpenGLPFAAlphaSize    , 8                            ,
+        NSOpenGLPFADoubleBuffer ,
+        NSOpenGLPFAAccelerated  ,
+        NSOpenGLPFANoRecovery   ,
+        0
+    };
+    if (![self isOpaque]) {
+        GLint opacity = 0;
+        [[self openGLContext] setValues:&opacity forParameter:NSOpenGLContextParameterSurfaceOpacity];
+    }
+    
+    NSOpenGLPixelFormat *pixelFormat = [[NSOpenGLPixelFormat alloc] initWithAttributes:pixelFormatAttributes];
+    super.pixelFormat = pixelFormat;
+    
+    // 2. Make the context current
+    [[self openGLContext] makeCurrentContext];
+    
+    /////
+    
     _overrideTextureID = -2;
     
     GLint swapInt = 1;
     [[self openGLContext] setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];
-
+    
     // Upload vertices
     GLfloat vertexData[]= { -1,-1,0.0,1.0,
         -1, 1,0.0,1.0,
@@ -84,8 +111,55 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
     glGenBuffers(1, &vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, 4*8*sizeof(GLfloat), vertexData, GL_STATIC_DRAW);
-
+    
     [self createDisplayLink];
+
+    /////
+    
+    if ((error = glGetError()) != 0) { NSLog(@"Setup GL Error: %d", error); }
+    
+    // 3. Upload Position
+    
+    glEnableVertexAttribArray((GLuint)_positionAttribute);
+    glVertexAttribPointer((GLuint)_positionAttribute, 4, GL_FLOAT, GL_FALSE, 4*sizeof(GLfloat), 0);
+    
+    if ((error = glGetError()) != 0) { NSLog(@"Setup End GL Error: %d", error); }
+}
+
+- (void)compileShaders:(NSString *)vertex fragment:(NSString *)fragment {
+    int error;
+    
+    GLuint  vs;
+    GLuint  fs;
+    const char *fss = [fragment cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *vss= [vertex cStringUsingEncoding:NSUTF8StringEncoding];
+    
+    vs = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vs, 1, &vss, NULL);
+    glCompileShader(vs);
+    if (![RFOpenGLView checkCompiled: vs]) { return; }
+    
+    fs = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fs, 1, &fss, NULL);
+    glCompileShader(fs);
+    if (![RFOpenGLView checkCompiled: fs]) { return; }
+    
+    // 4. Attach the shaders
+    _shaderProgram = glCreateProgram();
+    glAttachShader(_shaderProgram, vs);
+    glAttachShader(_shaderProgram, fs);
+    glLinkProgram(_shaderProgram);
+    
+    if ((error = glGetError()) != 0) { NSLog(@"Shader Link GL Error: %d", error); }
+    if (![RFOpenGLView checkLinked: _shaderProgram]) { return; }
+    
+    // 5. Get pointers to uniforms and attributes
+    _positionAttribute = glGetAttribLocation(_shaderProgram, "position");
+    
+    if ((error = glGetError()) != 0) { NSLog(@"Attrib Link GL Error: %d", error); }
+    
+    glDeleteShader(vs);
+    glDeleteShader(fs);
 }
 
 - (void)createDisplayLink {
@@ -164,7 +238,44 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
 }
 
 - (void)drawFullScreenRect {
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
     glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+}
+
++ (BOOL)checkCompiled:(GLuint)obj {
+    GLint isCompiled = 0;
+    glGetShaderiv(obj, GL_COMPILE_STATUS, &isCompiled);
+    if(isCompiled == GL_FALSE)
+    {
+        GLint maxLength = 0;
+        glGetShaderiv(obj, GL_INFO_LOG_LENGTH, &maxLength);
+        
+        GLchar *log = (GLchar *)malloc(maxLength);
+        glGetShaderInfoLog(obj, maxLength, &maxLength, log);
+        printf("Shader Compile Error: \n%s\n", log);
+        free(log);
+        
+        glDeleteShader(obj);
+        return NO;
+    }
+    
+    return YES;
+}
+
++ (BOOL)checkLinked:(GLuint)obj {
+    int maxLength = 0;
+    glGetProgramiv(obj, GL_INFO_LOG_LENGTH, &maxLength);
+    if (maxLength > 0)
+    {
+        GLchar *log = (GLchar *)malloc(maxLength);
+        glGetProgramInfoLog(obj, maxLength, &maxLength, log);
+        printf("Shader Program Error: \n%s\n", log);
+        free(log);
+        
+        return NO;
+    }
+    
+    return YES;
 }
 
 @end

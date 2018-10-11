@@ -11,14 +11,6 @@ import Cocoa
 import OpenGL
 import Darwin
 
-extension GLSLView {
-    func glUniform1fv(_ array: [GLfloat], as id: GLint) {
-        array.map { GLfloat($0) }.withUnsafeBufferPointer {
-            OpenGL.glUniform1fv(id, GLsizei(array.count), $0.baseAddress)
-        }
-    }
-}
-
 @objc protocol VisualizerViewDelegate {
     func visualizerViewUpdate(_ view: VisualizerView)
 }
@@ -33,27 +25,31 @@ class VisualizerView: GLSLView {
     var resonance: [CGFloat] = []
     var totalResonance: CGFloat = 0
     var highResonance: CGFloat = 0
-
-    var guResolution: GLint = -1
-
-    var guResonance: GLint = -1
-    var guResonanceDistortion: GLint = -1
-    var guResonanceDistortionSpeed: GLint = -1
-    var guResonanceDistortionShiftSizes: GLint = -1
-
-    var guResonanceColors: GLint = -1
-    var guResonanceColorsSoon: GLint = -1
-    var guResonanceCount: GLint = -1
     
-    var guTime: GLint = -1
+    var gaPosition: Shader.Attribute = .init(rawValue: 0)
 
-    var guMinDist: GLint = -1
-    var guDecay: GLint = -1
-    var guSharpness: GLint = -1
-    var guScale: GLint = -1
-    var guBrightness: GLint = -1
+    var guResolution: Shader.Uniform = .none
 
-    var guSpaceDistortion: GLint = -1
+    var guResonance: Shader.Uniform = .none
+    var guResonanceDistortion: Shader.Uniform = .none
+    var guResonanceDistortionSpeed: Shader.Uniform = .none
+    var guResonanceDistortionShiftSizes: Shader.Uniform = .none
+
+    var guResonanceColors: Shader.Uniform = .none
+    var guResonanceColorsSoon: Shader.Uniform = .none
+    var guResonanceCount: Shader.Uniform = .none
+    
+    var guTime: Shader.Uniform = .none
+
+    var guMinDist: Shader.Uniform = .none
+    var guDecay: Shader.Uniform = .none
+    var guSharpness: Shader.Uniform = .none
+    var guScale: Shader.Uniform = .none
+    var guBrightness: Shader.Uniform = .none
+
+    var guSpaceDistortion: Shader.Uniform = .none
+    
+//    var bloomTexture: DynamicTexture!
 
     var startDate = NSDate().addingTimeInterval(-TimeInterval(Int.random(in: 50...10_000)))
     var time : TimeInterval { return -startDate.timeIntervalSinceNow }
@@ -66,6 +62,18 @@ class VisualizerView: GLSLView {
 
     var distortionRands = (0 ..< 100).map { _ in Float.random(in: 0 ..< 1 ) }
 
+//    override init(frame frameRect: NSRect) {
+//        super.init(frame: frameRect)
+//        
+//        bloomTexture = DynamicTexture(for: self)
+//    }
+//    
+//    required init?(coder decoder: NSCoder) {
+//        super.init(coder: decoder)
+//        
+//        bloomTexture = DynamicTexture(for: self)
+//    }
+    
     func update(withFFT fft: [Double]) {
         let desiredLength = min(Int(details * 6 + 4), 10)
         if resonance.count != desiredLength {
@@ -121,28 +129,46 @@ class VisualizerView: GLSLView {
                 return
         }
         
+//        shader.compile(vertex: vertex, fragment: fragment)
         compileShaders(vertex, fragment: fragment)
+        shader.programID = GLuint(shaderProgram)
+        gaPosition = RFOpenGLView.Shader.Attribute(rawValue: positionAttribute)
         
-        guResolution = findUniform("resolution")
+//        gaPosition = find(attribute: "position")
+//        glEnableVertexAttribArray(GLuint(shader.gaPosition.rawValue))
+//        var null = 0
+//        glVertexAttribPointer(GLuint(shader.gaPosition.rawValue), 4, GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(MemoryLayout<GLfloat>.size * 4), &null)
         
-        guResonance = findUniform("resonance")
-        guResonanceDistortion = findUniform("resonanceDistortion")
-        guResonanceDistortionSpeed = findUniform("resonanceDistortionSpeed")
-        guResonanceDistortionShiftSizes = findUniform("resonanceDistortionShiftSizes")
-        
-        guResonanceColors = findUniform("resonanceColors")
-        guResonanceColorsSoon = findUniform("resonanceColorsSoon")
-        guResonanceCount = findUniform("resonanceCount")
-        
-        guTime = findUniform("time")
+        guard GLSLView.checkGLError("Attribute Error") else {
+            return
+        }
 
-        guMinDist = findUniform("minDist")
-        guDecay = findUniform("decay")
-        guSharpness = findUniform("sharpness")
-        guScale = findUniform("scale")
-        guBrightness = findUniform("brightness")
+        guResolution = shader.find(uniform: "resolution")
+        
+        guResonance = shader.find(uniform: "resonance")
+        guResonanceDistortion = shader.find(uniform: "resonanceDistortion")
+        guResonanceDistortionSpeed = shader.find(uniform: "resonanceDistortionSpeed")
+        guResonanceDistortionShiftSizes = shader.find(uniform: "resonanceDistortionShiftSizes")
+        
+        guResonanceColors = shader.find(uniform: "resonanceColors")
+        guResonanceColorsSoon = shader.find(uniform: "resonanceColorsSoon")
+        guResonanceCount = shader.find(uniform: "resonanceCount")
+        
+        guTime = shader.find(uniform: "time")
 
-        guSpaceDistortion = findUniform("spaceDistortion")
+        guMinDist = shader.find(uniform: "minDist")
+        guDecay = shader.find(uniform: "decay")
+        guSharpness = shader.find(uniform: "sharpness")
+        guScale = shader.find(uniform: "scale")
+        guBrightness = shader.find(uniform: "brightness")
+
+        guSpaceDistortion = shader.find(uniform: "spaceDistortion")
+        
+        guard GLSLView.checkGLError("Uniform Error") else {
+            return
+        }
+
+//        bloomTexture.update()
     }
     
     override func animate() {
@@ -167,28 +193,28 @@ class VisualizerView: GLSLView {
     }
     
     override func uploadUniforms() {
-        glUniform1f(guTime, GLfloat(time));
-        glUniform2f(guResolution, GLfloat(bounds.size.width), GLfloat(bounds.size.height));
+        glUniform1f(guTime.rawValue, GLfloat(time));
+        glUniform2f(guResolution.rawValue, GLfloat(bounds.size.width), GLfloat(bounds.size.height));
 
         // Darkness makes points minimum smaller while loudness makes them larger
-        glUniform1f(guMinDist, GLfloat(0.1 / (2 + CGFloat(1 - brightness) * 10 + totalResonance / 20)));
+        glUniform1f(guMinDist.rawValue, GLfloat(0.1 / (2 + CGFloat(1 - brightness) * 10 + totalResonance / 20)));
         // Darkness keeps points smaller while psychedelic makes them larger
-        glUniform1f(guDecay, pow(1.5, (2 - brightness - Float(psychedelic)) * 5.7));
+        glUniform1f(guDecay.rawValue, pow(1.5, (2 - brightness - Float(psychedelic)) * 5.7));
         // Brightness makes points fuzzy
-        glUniform1f(guSharpness, pow(2, 1 - brightness) * 2.5);
+        glUniform1f(guSharpness.rawValue, pow(2, 1 - brightness) * 2.5);
         // More psychedelic means we zoom in more because otherwise it gets too "detailed"
-        glUniform1f(guScale, pow(1300 - GLfloat(psychedelic) * 1000, (GLfloat(details) - 0.5) * 0.5 + 1) / 3000);
+        glUniform1f(guScale.rawValue, pow(1300 - GLfloat(psychedelic) * 1000, (GLfloat(details) - 0.5) * 0.5 + 1) / 3000);
         // Darkness makes it less bright
-        glUniform1f(guBrightness, 1.4 - (1 - brightness) * 1.35);
+        glUniform1f(guBrightness.rawValue, 1.4 - (1 - brightness) * 1.35);
 
-        glUniform1f(guSpaceDistortion, GLfloat(pow(psychedelic, 2)));
+        glUniform1f(guSpaceDistortion.rawValue, GLfloat(pow(psychedelic, 2)));
 
-        glUniform1i(guResonanceCount, GLint(resonance.count))
+        glUniform1i(guResonanceCount.rawValue, GLint(resonance.count))
 
-        glUniform1fv(resonance.map { GLfloat($0) }, as: guResonance)
-        glUniform1fv((0 ..< resonance.count).map { GLfloat(distortionRands[$0]) }, as: guResonanceDistortionSpeed)
+        guResonance.glUniform1fv(resonance.map { GLfloat($0) })
+        guResonanceDistortionSpeed.glUniform1fv((0 ..< resonance.count).map { GLfloat(distortionRands[$0]) })
         // Distortion Calculations
-        glUniform1fv(resonance.enumerated().map { arg in
+        guResonanceDistortion.glUniform1fv(resonance.enumerated().map { arg in
             let (idx, res) = arg
             return GLfloat(
                 // Distortion dependent on resonance
@@ -196,18 +222,24 @@ class VisualizerView: GLSLView {
                 // High-psychedelic time dependent ambient distortion
                 + (pow(psychedelic, 6) * (sin(CGFloat(time) * 0.2 / (5 + CGFloat(distortionRands[idx]))) + 1)) * 0.2
             )
-        }, as: guResonanceDistortion)
+        })
 
         // The higher the tone, the sharper its distortion
-        glUniform1fv((0 ..< resonance.count).map {
+        guResonanceDistortionShiftSizes.glUniform1fv((0 ..< resonance.count).map {
             GLfloat(pow((1 - Float($0) / Float(resonance.count)), 1.7) * 0.01666)
-        }, as: guResonanceDistortionShiftSizes)
+        })
 
         let colors = (0 ..< resonance.count).map { self.color($0, time: time) }
-        glUniform1fv(colors.flatMap { self.rgb($0) }, as: guResonanceColors)
+        guResonanceColors.glUniform1fv(colors.flatMap { self.rgb($0) })
 
         // Outer colors can be darker if darkness is high
         let soonColors = (0 ..< resonance.count).map { self.color($0, time: time - Double(15 * colorVariance), darknessBonus: 1 - brightness) }
-        glUniform1fv(soonColors.flatMap { self.rgb($0) }, as: guResonanceColorsSoon)
+        guResonanceColorsSoon.glUniform1fv(soonColors.flatMap { self.rgb($0) })
     }
+    
+//    override func drawFrame() {
+//        super.drawFrame()
+//        bloomTexture.size = bounds.size
+//        bloomTexture.bind()
+//    }
 }

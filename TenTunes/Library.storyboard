@@ -143,9 +143,9 @@ IA
                                                 </constraints>
                                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="-5" maxValue="2" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="MSi-om-pFM" customClass="GraySliderCell" customModule="TenTunes" customModuleProvider="target"/>
                                                 <connections>
-                                                    <binding destination="XfG-lQ-9wD" name="value" keyPath="player.outputNode.gain" id="X1F-3E-JZU">
+                                                    <binding destination="XfG-lQ-9wD" name="value" keyPath="player.outputNode.gain" id="LRa-DV-6JW">
                                                         <dictionary key="options">
-                                                            <string key="NSValueTransformerName">Pow2Transformer</string>
+                                                            <string key="NSValueTransformerName">Pow2Transformer-5Off</string>
                                                         </dictionary>
                                                     </binding>
                                                 </connections>

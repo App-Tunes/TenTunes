@@ -46,5 +46,10 @@ class ValueTransformers {
         })
         
         DoubleTransformer.double("Pow2Transformer", there: log2, back: curry(pow)(2))
+        DoubleTransformer.double("Pow2Transformer-5Off", there: {
+            $0 == 0 ? -5 : log2($0)
+        }, back: {
+            $0 == -5 ? 0 : pow(2, $0)
+        })
     }
 }

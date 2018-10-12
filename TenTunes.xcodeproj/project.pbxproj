@@ -15,6 +15,9 @@
 		801621332067B71B00093B15 /* ViewController+Updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801621322067B71B00093B15 /* ViewController+Updates.swift */; };
 		8017685920743898000DD433 /* NSImageViewAspectFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8017685820743898000DD433 /* NSImageViewAspectFill.swift */; };
 		8026241620FF445F009D7988 /* TTTokenField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8026241520FF445F009D7988 /* TTTokenField.swift */; };
+		802F9EFA2170A4C000D497AE /* bloom.fs in Resources */ = {isa = PBXBuildFile; fileRef = 802F9EF92170A4C000D497AE /* bloom.fs */; };
+		802F9EFD2170A4C900D497AE /* bloom.vs in Resources */ = {isa = PBXBuildFile; fileRef = 802F9EFC2170A4C900D497AE /* bloom.vs */; };
+		802F9EFF2170A8DB00D497AE /* VisualizerView+Shaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802F9EFE2170A8DB00D497AE /* VisualizerView+Shaders.swift */; };
 		8030CA7F2164DDB300229398 /* Syphon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 809CEAC02164CF76008D6AC0 /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8030CA812164DDE300229398 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 809CEAC02164CF76008D6AC0 /* Syphon.framework */; };
 		8030CA832164E33200229398 /* VisualizerWindowController+Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030CA822164E33200229398 /* VisualizerWindowController+Audio.swift */; };
@@ -200,6 +203,9 @@
 		801621322067B71B00093B15 /* ViewController+Updates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Updates.swift"; sourceTree = "<group>"; };
 		8017685820743898000DD433 /* NSImageViewAspectFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImageViewAspectFill.swift; sourceTree = "<group>"; };
 		8026241520FF445F009D7988 /* TTTokenField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTTokenField.swift; sourceTree = "<group>"; };
+		802F9EF92170A4C000D497AE /* bloom.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = bloom.fs; sourceTree = "<group>"; };
+		802F9EFC2170A4C900D497AE /* bloom.vs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = bloom.vs; sourceTree = "<group>"; };
+		802F9EFE2170A8DB00D497AE /* VisualizerView+Shaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VisualizerView+Shaders.swift"; sourceTree = "<group>"; };
 		8030CA822164E33200229398 /* VisualizerWindowController+Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VisualizerWindowController+Audio.swift"; sourceTree = "<group>"; };
 		8030CA842164E3F100229398 /* VisualizerWindowController+Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VisualizerWindowController+Video.swift"; sourceTree = "<group>"; };
 		8030E00020FC8F0C006B4AE8 /* ActionTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTableView.swift; sourceTree = "<group>"; };
@@ -617,6 +623,8 @@
 			children = (
 				80C1F16321428EC80032E554 /* visualizer.fs */,
 				80C1F16921429AC70032E554 /* visualizer.vs */,
+				802F9EF92170A4C000D497AE /* bloom.fs */,
+				802F9EFC2170A4C900D497AE /* bloom.vs */,
 				80C1F16521428FA40032E554 /* default.fs */,
 				80C1F1672142928B0032E554 /* default.vs */,
 			);
@@ -631,6 +639,7 @@
 				8030CA842164E3F100229398 /* VisualizerWindowController+Video.swift */,
 				80C1F15F214286A40032E554 /* VisualizerWindowController.xib */,
 				80C1F16E2142E7E80032E554 /* VisualizerView.swift */,
+				802F9EFE2170A8DB00D497AE /* VisualizerView+Shaders.swift */,
 				80D9448B21662E0100C135CA /* ResonanceProvider.swift */,
 			);
 			path = Visualizer;
@@ -906,6 +915,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80C1F1682142928B0032E554 /* default.vs in Resources */,
+				802F9EFD2170A4C900D497AE /* bloom.vs in Resources */,
 				80E939F3215AFAB7005112EF /* MultiplicityGuardView.xib in Resources */,
 				809CEABC2163EFCD008D6AC0 /* superpowered_splash.svg in Resources */,
 				8079F6D42106551100B7A278 /* SmartPlaylistRulesController.xib in Resources */,
@@ -923,6 +933,7 @@
 				80C1F161214286A40032E554 /* VisualizerWindowController.xib in Resources */,
 				809CEAB92163E83D008D6AC0 /* Credits.rtf in Resources */,
 				8030E01520FCBDAA006B4AE8 /* TaskViewController.xib in Resources */,
+				802F9EFA2170A4C000D497AE /* bloom.fs in Resources */,
 				806611812124622100C3948E /* Library.storyboard in Resources */,
 				80074CF9204583CF0055B87E /* TrackController.xib in Resources */,
 				80F2C5842038808000212739 /* Main.storyboard in Resources */,
@@ -1077,6 +1088,7 @@
 				8079F6E8211B015B00B7A278 /* RecursionGuard.swift in Sources */,
 				80C8559E210512B400177035 /* Album.swift in Sources */,
 				80F2C58F20389B9B00212739 /* WaveformView.swift in Sources */,
+				802F9EFF2170A8DB00D497AE /* VisualizerView+Shaders.swift in Sources */,
 				8030E00920FC9A91006B4AE8 /* SwiftPriorityQueue.swift in Sources */,
 				80F854FF2069180A009A8FBE /* TrackController+RightClick.swift in Sources */,
 				808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */,

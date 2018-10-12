@@ -26,31 +26,9 @@ class VisualizerView: RFOpenGLView {
     var totalResonance: CGFloat = 0
     var highResonance: CGFloat = 0
     
-    var shader = Shader()
+    var shader = ColorShader()
 
-    var gaPosition: Shader.Attribute = .none
-
-    var guResolution: Shader.Uniform = .none
-
-    var guResonance: Shader.Uniform = .none
-    var guResonanceDistortion: Shader.Uniform = .none
-    var guResonanceDistortionSpeed: Shader.Uniform = .none
-    var guResonanceDistortionShiftSizes: Shader.Uniform = .none
-
-    var guResonanceColors: Shader.Uniform = .none
-    var guResonanceColorsSoon: Shader.Uniform = .none
-    var guResonanceCount: Shader.Uniform = .none
-    
-    var guTime: Shader.Uniform = .none
-
-    var guMinDist: Shader.Uniform = .none
-    var guDecay: Shader.Uniform = .none
-    var guSharpness: Shader.Uniform = .none
-    var guScale: Shader.Uniform = .none
-    var guBrightness: Shader.Uniform = .none
-
-    var guSpaceDistortion: Shader.Uniform = .none
-    
+    //    var bloom = Shader()
 //    var bloomTexture: DynamicTexture!
 
     var startDate = NSDate().addingTimeInterval(-TimeInterval(Int.random(in: 50...10_000)))
@@ -119,52 +97,37 @@ class VisualizerView: RFOpenGLView {
         highResonance = Interpolation.linear(totalResonance, CGFloat(highFFT.reduce(0, +) / Double(highFFT.count)) * 900, amount: 0.15)
     }
     
+    @discardableResult
+    func compile(shader: Shader, vertexResource: String, fragmentResource: String) -> Bool {
+        do {
+            try shader.compile(vertexResource: vertexResource, fragmentResource: fragmentResource)
+        }
+        catch Shader.CompileFailure.load {
+            print("Failed to load shaders: \(vertexResource) . \(fragmentResource)")
+            return false
+        }
+        catch Shader.CompileFailure.vertexCompile {
+            print("Failed to compile vertex shader: \(vertexResource)")
+            return false
+        }
+        catch Shader.CompileFailure.fragmentCompile {
+            print("Failed to compile fragment shader: \(fragmentResource)")
+            return false
+        }
+        catch {
+            print("Failed to \(error) shaders: \(vertexResource) . \(fragmentResource)")
+            return false
+        }
+
+        return true
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        guard let vertexPath = Bundle.main.path(forResource: "visualizer", ofType: "vs"),
-            let fragmentPath = Bundle.main.path(forResource: "visualizer", ofType: "fs"),
-            let vertex = try? String(contentsOfFile: vertexPath),
-            let fragment = try? String(contentsOfFile: fragmentPath)
-            else {
-                print("Failed to load shaders!")
-                return
-        }
-        
-        shader.compile(vertex: vertex, fragment: fragment)
-        
-        gaPosition = shader.find(attribute: "position")
-        glEnableVertexAttribArray(GLuint(gaPosition.rawValue))
-        glVertexAttribPointer(GLuint(gaPosition.rawValue), 4, GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(MemoryLayout<GLfloat>.size * 4), nil)
+        compile(shader: shader, vertexResource: "visualizer", fragmentResource: "visualizer")
 
-        guard RFOpenGLView.checkGLError("Attribute Error") else {
-            return
-        }
-
-        guResolution = shader.find(uniform: "resolution")
-        
-        guResonance = shader.find(uniform: "resonance")
-        guResonanceDistortion = shader.find(uniform: "resonanceDistortion")
-        guResonanceDistortionSpeed = shader.find(uniform: "resonanceDistortionSpeed")
-        guResonanceDistortionShiftSizes = shader.find(uniform: "resonanceDistortionShiftSizes")
-        
-        guResonanceColors = shader.find(uniform: "resonanceColors")
-        guResonanceColorsSoon = shader.find(uniform: "resonanceColorsSoon")
-        guResonanceCount = shader.find(uniform: "resonanceCount")
-        
-        guTime = shader.find(uniform: "time")
-
-        guMinDist = shader.find(uniform: "minDist")
-        guDecay = shader.find(uniform: "decay")
-        guSharpness = shader.find(uniform: "sharpness")
-        guScale = shader.find(uniform: "scale")
-        guBrightness = shader.find(uniform: "brightness")
-
-        guSpaceDistortion = shader.find(uniform: "spaceDistortion")
-        
-        guard RFOpenGLView.checkGLError("Uniform Error") else {
-            return
-        }
+//      compile(shader: bloom, vertexResource: "bloom", fragmentResource: "bloom")
 
 //        bloomTexture.update()
     }
@@ -191,28 +154,28 @@ class VisualizerView: RFOpenGLView {
     }
     
     func uploadUniforms() {
-        glUniform1f(guTime.rawValue, GLfloat(time));
-        glUniform2f(guResolution.rawValue, GLfloat(bounds.size.width), GLfloat(bounds.size.height));
+        glUniform1f(shader.guTime.rawValue, GLfloat(time));
+        glUniform2f(shader.guResolution.rawValue, GLfloat(bounds.size.width), GLfloat(bounds.size.height));
 
         // Darkness makes points minimum smaller while loudness makes them larger
-        glUniform1f(guMinDist.rawValue, GLfloat(0.1 / (2 + CGFloat(1 - brightness) * 10 + totalResonance / 20)));
+        glUniform1f(shader.guMinDist.rawValue, GLfloat(0.1 / (2 + CGFloat(1 - brightness) * 10 + totalResonance / 20)));
         // Darkness keeps points smaller while psychedelic makes them larger
-        glUniform1f(guDecay.rawValue, pow(1.5, (2 - brightness - Float(psychedelic)) * 5.7));
+        glUniform1f(shader.guDecay.rawValue, pow(1.5, (2 - brightness - Float(psychedelic)) * 5.7));
         // Brightness makes points fuzzy
-        glUniform1f(guSharpness.rawValue, pow(2, 1 - brightness) * 2.5);
+        glUniform1f(shader.guSharpness.rawValue, pow(2, 1 - brightness) * 2.5);
         // More psychedelic means we zoom in more because otherwise it gets too "detailed"
-        glUniform1f(guScale.rawValue, pow(1300 - GLfloat(psychedelic) * 1000, (GLfloat(details) - 0.5) * 0.5 + 1) / 3000);
+        glUniform1f(shader.guScale.rawValue, pow(1300 - GLfloat(psychedelic) * 1000, (GLfloat(details) - 0.5) * 0.5 + 1) / 3000);
         // Darkness makes it less bright
-        glUniform1f(guBrightness.rawValue, 1.4 - (1 - brightness) * 1.35);
+        glUniform1f(shader.guBrightness.rawValue, 1.4 - (1 - brightness) * 1.35);
 
-        glUniform1f(guSpaceDistortion.rawValue, GLfloat(pow(psychedelic, 2)));
+        glUniform1f(shader.guSpaceDistortion.rawValue, GLfloat(pow(psychedelic, 2)));
 
-        glUniform1i(guResonanceCount.rawValue, GLint(resonance.count))
+        glUniform1i(shader.guResonanceCount.rawValue, GLint(resonance.count))
 
-        guResonance.glUniform1fv(resonance.map { GLfloat($0) })
-        guResonanceDistortionSpeed.glUniform1fv((0 ..< resonance.count).map { GLfloat(distortionRands[$0]) })
+        shader.guResonance.glUniform1fv(resonance.map { GLfloat($0) })
+        shader.guResonanceDistortionSpeed.glUniform1fv((0 ..< resonance.count).map { GLfloat(distortionRands[$0]) })
         // Distortion Calculations
-        guResonanceDistortion.glUniform1fv(resonance.enumerated().map { arg in
+        shader.guResonanceDistortion.glUniform1fv(resonance.enumerated().map { arg in
             let (idx, res) = arg
             return GLfloat(
                 // Distortion dependent on resonance
@@ -223,16 +186,16 @@ class VisualizerView: RFOpenGLView {
         })
 
         // The higher the tone, the sharper its distortion
-        guResonanceDistortionShiftSizes.glUniform1fv((0 ..< resonance.count).map {
+        shader.guResonanceDistortionShiftSizes.glUniform1fv((0 ..< resonance.count).map {
             GLfloat(pow((1 - Float($0) / Float(resonance.count)), 1.7) * 0.01666)
         })
 
         let colors = (0 ..< resonance.count).map { self.color($0, time: time) }
-        guResonanceColors.glUniform1fv(colors.flatMap { self.rgb($0) })
+        shader.guResonanceColors.glUniform1fv(colors.flatMap { self.rgb($0) })
 
         // Outer colors can be darker if darkness is high
         let soonColors = (0 ..< resonance.count).map { self.color($0, time: time - Double(15 * colorVariance), darknessBonus: 1 - brightness) }
-        guResonanceColorsSoon.glUniform1fv(soonColors.flatMap { self.rgb($0) })
+        shader.guResonanceColorsSoon.glUniform1fv(soonColors.flatMap { self.rgb($0) })
     }
     
     override func drawFrame() {
@@ -245,6 +208,13 @@ class VisualizerView: RFOpenGLView {
         
         uploadUniforms()
         drawFullScreenRect()
+        
+//        guard bloom.bind() else {
+//            print("Failed to bind bloom shader for draw frame!")
+//            return
+//        }
+//
+//        drawFullScreenRect()
         
         //        bloomTexture.size = bounds.size
         //        bloomTexture.bind()

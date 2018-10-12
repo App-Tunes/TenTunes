@@ -25,8 +25,27 @@ extension RFOpenGLView {
             return true
         }
         
-        @discardableResult
-        func compile(vertex: String, fragment: String) -> Bool {
+        enum CompileFailure : Error {
+            case load
+            case vertexCompile, fragmentCompile
+            case link
+            case attribute
+            case uniform
+        }
+        
+        func compile(vertexResource: String, ofType vertexType: String = "vs", fragmentResource: String, ofType fragmentType: String = "fs") throws {
+            guard let vertexPath = Bundle.main.path(forResource: "visualizer", ofType: "vs"),
+                let fragmentPath = Bundle.main.path(forResource: "visualizer", ofType: "fs"),
+                let vertex = try? String(contentsOfFile: vertexPath),
+                let fragment = try? String(contentsOfFile: fragmentPath)
+                else {
+                    throw CompileFailure.load
+            }
+            
+            try compile(vertex: vertex, fragment: fragment)
+        }
+
+        func compile(vertex: String, fragment: String) throws {
             var vss = (vertex as NSString).utf8String
             var fss = (fragment as NSString).utf8String
             
@@ -35,7 +54,7 @@ extension RFOpenGLView {
             glCompileShader(vs)
             
             guard RFOpenGLView.checkCompiled(vs) else {
-                return false
+                throw CompileFailure.vertexCompile
             }
             defer { glDeleteShader(vs) }
             
@@ -44,7 +63,7 @@ extension RFOpenGLView {
             glCompileShader(fs)
             
             guard RFOpenGLView.checkCompiled(fs) else {
-                return false
+                throw CompileFailure.fragmentCompile
             }
             defer { glDeleteShader(fs) }
             
@@ -55,10 +74,8 @@ extension RFOpenGLView {
             glLinkProgram(programID)
             
             guard RFOpenGLView.checkGLError("Shader Link Error"), RFOpenGLView.checkLinked(programID) else {
-                return false
+                throw CompileFailure.link
             }
-            
-            return true
         }
         
         func find(uniform: String) -> Uniform {

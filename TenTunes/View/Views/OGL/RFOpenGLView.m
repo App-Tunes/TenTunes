@@ -100,11 +100,13 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
     [[self openGLContext] setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];
     
     // Upload vertices
-    GLfloat vertexData[]= { -1,-1,0.0,1.0,
-        -1, 1,0.0,1.0,
-        1, 1,0.0,1.0,
-        1,-1,0.0,1.0 }
-    ;
+    GLfloat vertexData[]= {
+        -1, -1, 0, 1,
+        -1,  1, 0, 1,
+         1,  1, 0, 1,
+         1, -1, 0, 1
+    };
+    
     glGenVertexArrays(1, &vertexArrayObject);
     glBindVertexArray(vertexArrayObject);
     

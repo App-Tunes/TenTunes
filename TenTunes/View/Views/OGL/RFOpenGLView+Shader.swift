@@ -14,6 +14,10 @@ extension RFOpenGLView {
     class Shader {
         var programID: GLuint? = nil
 
+        class func unbind() {
+            glUseProgram(0)
+        }
+
         @discardableResult
         func bind() -> Bool {
             guard let programID = programID else {
@@ -34,8 +38,8 @@ extension RFOpenGLView {
         }
         
         func compile(vertexResource: String, ofType vertexType: String = "vs", fragmentResource: String, ofType fragmentType: String = "fs") throws {
-            guard let vertexPath = Bundle.main.path(forResource: "visualizer", ofType: "vs"),
-                let fragmentPath = Bundle.main.path(forResource: "visualizer", ofType: "fs"),
+            guard let vertexPath = Bundle.main.path(forResource: vertexResource, ofType: vertexType),
+                let fragmentPath = Bundle.main.path(forResource: fragmentResource, ofType: fragmentType),
                 let vertex = try? String(contentsOfFile: vertexPath),
                 let fragment = try? String(contentsOfFile: fragmentPath)
                 else {
@@ -78,12 +82,28 @@ extension RFOpenGLView {
             }
         }
         
+        func checkAttributeError() throws {
+            guard RFOpenGLView.checkGLError("Attribute Error") else {
+                throw CompileFailure.attribute
+            }
+        }
+
+        func checkUniformError() throws {
+            guard RFOpenGLView.checkGLError("Uniform Error") else {
+                throw CompileFailure.uniform
+            }
+        }
+
         func find(uniform: String) -> Uniform {
-            return Uniform(rawValue: glGetUniformLocation(programID!, uniform.cString(using: .ascii)))
+            let val = glGetUniformLocation(programID!, uniform.cString(using: .ascii))
+            if val < 0 { print("No such uniform: \(uniform)") }
+            return Uniform(rawValue: val)
         }
 
         func find(attribute: String) -> Attribute {
-            return Attribute(rawValue: glGetAttribLocation(programID!, attribute.cString(using: .ascii)))
+            let val = glGetAttribLocation(programID!, attribute.cString(using: .ascii))
+            if val < 0 { print("No such attribute: \(attribute)") }
+            return Attribute(rawValue: val)
         }
     }
 }

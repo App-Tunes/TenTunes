@@ -27,9 +27,8 @@ class VisualizerView: RFOpenGLView {
     var highResonance: CGFloat = 0
     
     var shader = ColorShader()
-
-    //    var bloom = Shader()
-//    var bloomTexture: DynamicTexture!
+    var bloom = BloomShader()
+    var cacheFramebuffer = Framebuffer()
 
     var startDate = NSDate().addingTimeInterval(-TimeInterval(Int.random(in: 50...10_000)))
     var time : TimeInterval { return -startDate.timeIntervalSinceNow }
@@ -41,18 +40,6 @@ class VisualizerView: RFOpenGLView {
     @objc var details: CGFloat = 0.5
 
     var distortionRands = (0 ..< 100).map { _ in Float.random(in: 0 ..< 1 ) }
-
-//    override init(frame frameRect: NSRect) {
-//        super.init(frame: frameRect)
-//        
-//        bloomTexture = DynamicTexture(for: self)
-//    }
-//    
-//    required init?(coder decoder: NSCoder) {
-//        super.init(coder: decoder)
-//        
-//        bloomTexture = DynamicTexture(for: self)
-//    }
     
     func update(withFFT fft: [Double]) {
         let desiredLength = min(Int(details * 6 + 4), 10)
@@ -127,9 +114,13 @@ class VisualizerView: RFOpenGLView {
 
         compile(shader: shader, vertexResource: "visualizer", fragmentResource: "visualizer")
 
-//      compile(shader: bloom, vertexResource: "bloom", fragmentResource: "bloom")
+        compile(shader: bloom, vertexResource: "bloom", fragmentResource: "bloom")
 
-//        bloomTexture.update()
+        cacheFramebuffer.size = bounds.size
+        cacheFramebuffer.create()
+        
+        Framebuffer.unbind()
+        Shader.unbind()
     }
     
     override func animate() {
@@ -201,6 +192,9 @@ class VisualizerView: RFOpenGLView {
     override func drawFrame() {
         super.drawFrame()
         
+        cacheFramebuffer.size = bounds.size
+        cacheFramebuffer.bind()
+
         guard shader.bind() else {
             print("Failed to bind shader for draw frame!")
             return
@@ -208,15 +202,17 @@ class VisualizerView: RFOpenGLView {
         
         uploadUniforms()
         drawFullScreenRect()
-        
-//        guard bloom.bind() else {
-//            print("Failed to bind bloom shader for draw frame!")
-//            return
-//        }
-//
-//        drawFullScreenRect()
-        
-        //        bloomTexture.size = bounds.size
-        //        bloomTexture.bind()
+
+        Framebuffer.unbind()
+        bloom.bind()
+        cacheFramebuffer.texture.bind()
+
+        glUniform2f(bloom.guResolution.rawValue, GLfloat(bounds.size.width), GLfloat(bounds.size.height));
+        drawFullScreenRect()
+
+        cacheFramebuffer.texture.unbind()
+        Shader.unbind()
+
+        RFOpenGLView.checkGLError("Render Error")
     }
 }

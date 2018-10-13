@@ -12,14 +12,11 @@ uniform int vertical;
 uniform float retainer;
 uniform float adder;
 
+uniform vec2 dirVec;
+
 void main(void)
 {
-    vec2 texCoord = gl_FragCoord.xy / resolution;
-    vec2 pixelSize = vec2(1) / resolution;
-    
     fragColour = texture(bloom, texCoord) * retainer * 0.2270270270;
-    
-    vec2 dirVec = vec2((vertical == 0) ? pixelSize.x : 0.0, (vertical == 1) ? pixelSize.y : 0.0);
     
     for(float i = -1.0; i < 2.0; i += 2.0)
     {

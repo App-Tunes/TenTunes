@@ -79,7 +79,7 @@ extension VisualizerView {
         var guImage: Uniform = .none
         var guBloomImage: Uniform = .none
 
-        var guVertical: Uniform = .none
+        var guDirVec: Uniform = .none
         
         var guRetainer: Uniform = .none
         var guAdder: Uniform = .none
@@ -90,7 +90,7 @@ extension VisualizerView {
             guImage = find(uniform: "image")
             guBloomImage = find(uniform: "bloom")
 
-            guVertical = find(uniform: "vertical")
+            guDirVec = find(uniform: "dirVec")
 
             guRetainer = find(uniform: "retainer")
             guAdder = find(uniform: "adder")

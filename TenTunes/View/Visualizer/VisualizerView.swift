@@ -215,19 +215,18 @@ class VisualizerView: RFOpenGLView {
 
 //        // Draw to Bloom Framebuffer
         bloom.bind()
-        uploadDefaultUniforms(onto: bloom)
         glUniform1i(bloom.guBloomImage.rawValue, 1)
 
         DynamicTexture.active(1) { bloomState.switch() }
 
-        glUniform1i(bloom.guVertical.rawValue, 0)
+        glUniform2f(bloom.guDirVec.rawValue, 0.01, 0)
         glUniform1f(bloom.guRetainer.rawValue, 0.4)
         glUniform1f(bloom.guAdder.rawValue, 0.01)
         drawFullScreenRect()
 
         DynamicTexture.active(1) { bloomState.switch() }
 
-        glUniform1i(bloom.guVertical.rawValue, 1)
+        glUniform2f(bloom.guDirVec.rawValue, 0, 0.01)
         glUniform1f(bloom.guRetainer.rawValue, 1)
         glUniform1f(bloom.guAdder.rawValue, 0)
         drawFullScreenRect()

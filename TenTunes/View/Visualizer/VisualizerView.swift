@@ -236,8 +236,6 @@ class VisualizerView: RFOpenGLView {
         
         // Draw original image to screen
         defaultShader.bind()
-        uploadDefaultUniforms(onto: defaultShader)
-
         drawFullScreenRect()
 
         // Draw bloom image to screen

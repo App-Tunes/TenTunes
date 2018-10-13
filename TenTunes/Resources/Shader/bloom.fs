@@ -1,9 +1,11 @@
 #version 150
 
-uniform sampler2D image;
-uniform sampler2D bloom;
+in vec2 texCoord;
 
 out vec4 fragColour;
+
+uniform sampler2D image;
+uniform sampler2D bloom;
 
 uniform vec2 resolution;
 

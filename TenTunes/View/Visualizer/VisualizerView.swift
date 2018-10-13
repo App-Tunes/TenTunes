@@ -114,11 +114,12 @@ class VisualizerView: RFOpenGLView {
         let ratio: CGFloat = resonance[idx] / totalResonance
         
         let localDarkness = pow(2, CGFloat((1 - brightness) * (darknessBonus * 2 + 1)) + 0.4)
+        let brightnessBoost = pow(0.5, ((1 - ratio) * 0.5 + 0.1) / (highResonance / 10 + 1)) + ratio * 0.3
 
         // 0.6 so that extremely high and low sounds are far apart in color
         return NSColor(hue: (prog * colorVariance + CGFloat(time * 0.02321)).truncatingRemainder(dividingBy: 1),
-                       saturation: max(0, min(1, ratio * 4 - prog - totalResonance / 40)),
-                       brightness: min(1, highResonance / 40 * (CGFloat(brightness) + 1) + resonance[idx] * 2 + ratio * 0.3) / localDarkness + 0.4,
+                       saturation: max(0, min(1, ratio * 4 - prog - totalResonance / 35)),
+                       brightness: min(1, resonance[idx] * 2 + brightnessBoost * 0.4) / localDarkness + 0.4,
                        alpha: 1)
     }
     

@@ -24,12 +24,12 @@ void main(void)
     {
         vec2 activeDirVec = i * dirVec;
         
-        fragColour.rgb += texture(bloom, clamp(texCoord + 1.0 * activeDirVec, 0.0, 1.0)).rgb * 0.3162162162 * retainer;
-        fragColour.rgb += texture(bloom, clamp(texCoord + 2.0 * activeDirVec, 0.0, 1.0)).rgb * 0.0702702703 * retainer;
+        fragColour.rgb += texture(bloom, texCoord + 1.0 * activeDirVec).rgb * 0.3162162162 * retainer;
+        fragColour.rgb += texture(bloom, texCoord + 2.0 * activeDirVec).rgb * 0.0702702703 * retainer;
 
         if (adder > 0) {
-            fragColour.rgb += texture(image, clamp(texCoord + 1.0 * activeDirVec, 0.0, 1.0)).rgb * 0.3162162162 * adder;
-            fragColour.rgb += texture(image, clamp(texCoord + 2.0 * activeDirVec, 0.0, 1.0)).rgb * 0.0702702703 * adder;
+            fragColour.rgb += texture(image, texCoord + 1.0 * activeDirVec).rgb * 0.3162162162 * adder;
+            fragColour.rgb += texture(image, texCoord + 2.0 * activeDirVec).rgb * 0.0702702703 * adder;
         }
     }
     

@@ -26,9 +26,11 @@ class VisualizerView: RFOpenGLView {
     var totalResonance: CGFloat = 0
     var highResonance: CGFloat = 0
     
+    var defaultShader = DefaultShader()
     var shader = ColorShader()
     var bloom = BloomShader()
-    var cacheFramebuffer = Framebuffer()
+    var bloomState = PingPongFramebuffer()
+    var pingPong = PingPongFramebuffer()
 
     var startDate = NSDate().addingTimeInterval(-TimeInterval(Int.random(in: 50...10_000)))
     var time : TimeInterval { return -startDate.timeIntervalSinceNow }
@@ -112,12 +114,15 @@ class VisualizerView: RFOpenGLView {
     override func awakeFromNib() {
         super.awakeFromNib()
 
+        compile(shader: defaultShader, vertexResource: "default", fragmentResource: "default")
         compile(shader: shader, vertexResource: "visualizer", fragmentResource: "visualizer")
-
         compile(shader: bloom, vertexResource: "bloom", fragmentResource: "bloom")
 
-        cacheFramebuffer.size = bounds.size
-        cacheFramebuffer.create()
+        pingPong.size = bounds.size
+        pingPong.create()
+        
+        bloomState.size = bounds.size
+        bloomState.create()
         
         Framebuffer.unbind()
         Shader.unbind()
@@ -144,10 +149,14 @@ class VisualizerView: RFOpenGLView {
         return [Float(color.redComponent), Float(color.greenComponent), Float(color.blueComponent)]
     }
     
-    func uploadUniforms() {
+    func uploadDefaultUniforms(onto shader: Shared) {
         glUniform1f(shader.guTime.rawValue, GLfloat(time));
         glUniform2f(shader.guResolution.rawValue, GLfloat(bounds.size.width), GLfloat(bounds.size.height));
-
+    }
+    
+    func uploadUniforms() {
+        uploadDefaultUniforms(onto: shader)
+        
         // Darkness makes points minimum smaller while loudness makes them larger
         glUniform1f(shader.guMinDist.rawValue, GLfloat(0.1 / (2 + CGFloat(1 - brightness) * 10 + totalResonance / 20)));
         // Darkness keeps points smaller while psychedelic makes them larger
@@ -192,25 +201,56 @@ class VisualizerView: RFOpenGLView {
     override func drawFrame() {
         super.drawFrame()
         
-        cacheFramebuffer.size = bounds.size
-        cacheFramebuffer.bind()
+        pingPong.size = bounds.size
+        pingPong.start()
 
-        guard shader.bind() else {
-            print("Failed to bind shader for draw frame!")
-            return
-        }
-        
+        bloomState.size = bounds.size
+
+        // Draw Colors to Framebuffer
+        shader.bind()
         uploadUniforms()
         drawFullScreenRect()
 
-        Framebuffer.unbind()
-        bloom.bind()
-        cacheFramebuffer.texture.bind()
+        pingPong.end(rebind: true)
 
-        glUniform2f(bloom.guResolution.rawValue, GLfloat(bounds.size.width), GLfloat(bounds.size.height));
+//        // Draw to Bloom Framebuffer
+        bloom.bind()
+        uploadDefaultUniforms(onto: bloom)
+        glUniform1i(bloom.guBloomImage.rawValue, 1)
+
+        DynamicTexture.active(1) { bloomState.switch() }
+
+        glUniform1i(bloom.guVertical.rawValue, 0)
+        glUniform1f(bloom.guRetainer.rawValue, 0.4)
+        glUniform1f(bloom.guAdder.rawValue, 0.01)
         drawFullScreenRect()
 
-        cacheFramebuffer.texture.unbind()
+        DynamicTexture.active(1) { bloomState.switch() }
+
+        glUniform1i(bloom.guVertical.rawValue, 1)
+        glUniform1f(bloom.guRetainer.rawValue, 1)
+        glUniform1f(bloom.guAdder.rawValue, 0)
+        drawFullScreenRect()
+
+        Framebuffer.unbind()
+        
+        // Draw original image to screen
+        defaultShader.bind()
+        uploadDefaultUniforms(onto: defaultShader)
+
+        drawFullScreenRect()
+
+        // Draw bloom image to screen
+        bloomState.end(rebind: true)
+
+        glEnable(GLenum(GL_BLEND))
+        glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE));
+        glColor4f(1, 1, 1, 0.3)
+        drawFullScreenRect()
+        glColor4f(1, 1, 1, 1)
+        glDisable(GLenum(GL_BLEND))
+
+        bloomState.end()
         Shader.unbind()
 
         RFOpenGLView.checkGLError("Render Error")

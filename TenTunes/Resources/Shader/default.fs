@@ -1,8 +1,11 @@
 #version 150
-in vec4 colourV;
+
+uniform sampler2D image;
+uniform vec2 resolution;
+
 out vec4 fragColour;
 
 void main(void)
 {
-    fragColour = colourV;
+    fragColour = texture(image, gl_FragCoord.xy / resolution);
 }

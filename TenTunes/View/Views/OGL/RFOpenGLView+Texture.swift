@@ -11,35 +11,46 @@ import Cocoa
 import OpenGL
 
 extension RFOpenGLView {
-//    class PingPongFramebuffer {
-//        let left = Framebuffer()
-//        let right = Framebuffer()
-//
-//        var isLeft = false
-//
-//        var size: CGSize {
-//            set {
-//                left.size = newValue
-//                right.size = newValue
-//            }
-//            get { return left.size }
-//        }
-//
-//        func create() {
-//            left.create()
-//            right.create()
-//        }
-//
-//        func ping() {
-//            isLeft = !isLeft
-//            (isLeft ? left : right).bind()
-//        }
-//
-//        func pong() {
-//            Framebuffer.unbind()
-//            (isLeft ? left : right).texture.bind()
-//        }
-//    }
+    class PingPongFramebuffer {
+        let left = Framebuffer()
+        let right = Framebuffer()
+
+        var source: Framebuffer { return target === left ? right : left }
+        var target: Framebuffer?
+
+        var size: CGSize {
+            set {
+                left.size = newValue
+                right.size = newValue
+            }
+            get { return left.size }
+        }
+
+        func create() {
+            left.create()
+            right.create()
+        }
+
+        func start() {
+            target = right
+            
+            source.texture.unbind()
+            target!.bind()
+        }
+        
+        func `switch`(onto: Framebuffer? = nil) {
+            target = onto ?? source
+            
+            target!.bind()
+            source.texture.bind()
+        }
+
+        func end(rebind: Bool = false) {
+            Framebuffer.unbind()
+            if rebind { target!.texture.bind() }
+            else { target!.texture.unbind() }
+        }
+    }
     
     class Framebuffer {
         let texture = DynamicTexture()
@@ -92,6 +103,12 @@ extension RFOpenGLView {
                     setSize()
                 }
             }
+        }
+        
+        class func active(_ unit: Int, run: () -> Void) {
+            glActiveTexture(GLenum(Int(GL_TEXTURE0) + unit))
+            run()
+            glActiveTexture(GLenum(GL_TEXTURE0))
         }
         
         @discardableResult

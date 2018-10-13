@@ -9,11 +9,31 @@
 import Cocoa
 
 extension VisualizerView {
-    class ColorShader: Shader {
+    class Shared: Shader {
         var _position: Attribute = .none
-        
+
         var guResolution: Uniform = .none
+        var guTime: Uniform = .none
         
+        override func compile(vertex: String, fragment: String) throws {
+            try super.compile(vertex: vertex, fragment: fragment)
+            
+            _position = find(attribute: "position")
+            glEnableVertexAttribArray(GLuint(_position.rawValue))
+            glVertexAttribPointer(GLuint(_position.rawValue), 4, GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(MemoryLayout<GLfloat>.size * 4), nil)
+            
+            try checkAttributeError()
+            
+            guResolution = find(uniform: "resolution")
+            guTime = find(uniform: "time")
+        }
+    }
+    
+    class DefaultShader: Shared {
+        
+    }
+    
+    class ColorShader: Shared {
         var guResonance: Uniform = .none
         var guResonanceDistortion: Uniform = .none
         var guResonanceDistortionSpeed: Uniform = .none
@@ -22,8 +42,6 @@ extension VisualizerView {
         var guResonanceColors: Uniform = .none
         var guResonanceColorsSoon: Uniform = .none
         var guResonanceCount: Uniform = .none
-        
-        var guTime: Uniform = .none
         
         var guMinDist: Uniform = .none
         var guDecay: Uniform = .none
@@ -36,14 +54,6 @@ extension VisualizerView {
         override func compile(vertex: String, fragment: String) throws {
             try super.compile(vertex: vertex, fragment: fragment)
             
-            _position = find(attribute: "position")
-            glEnableVertexAttribArray(GLuint(_position.rawValue))
-            glVertexAttribPointer(GLuint(_position.rawValue), 4, GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(MemoryLayout<GLfloat>.size * 4), nil)
-            
-            try checkAttributeError()
-
-            guResolution = find(uniform: "resolution")
-            
             guResonance = find(uniform: "resonance")
             guResonanceDistortion = find(uniform: "resonanceDistortion")
             guResonanceDistortionSpeed = find(uniform: "resonanceDistortionSpeed")
@@ -52,8 +62,6 @@ extension VisualizerView {
             guResonanceColors = find(uniform: "resonanceColors")
             guResonanceColorsSoon = find(uniform: "resonanceColorsSoon")
             guResonanceCount = find(uniform: "resonanceCount")
-            
-            guTime = find(uniform: "time")
             
             guMinDist = find(uniform: "minDist")
             guDecay = find(uniform: "decay")
@@ -67,25 +75,25 @@ extension VisualizerView {
         }
     }
     
-    class BloomShader: Shader {
-        var _position: Attribute = .none
-
+    class BloomShader: Shared {
         var guImage: Uniform = .none
+        var guBloomImage: Uniform = .none
 
-        var guResolution: Uniform = .none
+        var guVertical: Uniform = .none
+        
+        var guRetainer: Uniform = .none
+        var guAdder: Uniform = .none
 
         override func compile(vertex: String, fragment: String) throws {
             try super.compile(vertex: vertex, fragment: fragment)
-
-            _position = find(attribute: "position")
-            glEnableVertexAttribArray(GLuint(_position.rawValue))
-            glVertexAttribPointer(GLuint(_position.rawValue), 4, GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(MemoryLayout<GLfloat>.size * 4), nil)
-            
-            try checkAttributeError()
             
             guImage = find(uniform: "image")
+            guBloomImage = find(uniform: "bloom")
 
-            guResolution = find(uniform: "resolution")
+            guVertical = find(uniform: "vertical")
+
+            guRetainer = find(uniform: "retainer")
+            guAdder = find(uniform: "adder")
 
             try checkUniformError()
         }

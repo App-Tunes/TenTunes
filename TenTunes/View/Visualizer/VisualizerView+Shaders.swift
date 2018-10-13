@@ -30,8 +30,12 @@ extension VisualizerView {
     }
     
     class DefaultShader: Shared {
+        var guAlpha: Uniform = .none
         
-    }
+        override func compile(vertex: String, fragment: String) throws {
+            try super.compile(vertex: vertex, fragment: fragment)
+            guAlpha = find(uniform: "alpha")
+        }    }
     
     class ColorShader: Shared {
         var guResonance: Uniform = .none

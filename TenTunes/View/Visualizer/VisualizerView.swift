@@ -212,6 +212,7 @@ class VisualizerView: RFOpenGLView {
         drawFullScreenRect()
 
         pingPong.end(rebind: true)
+        RFOpenGLView.checkGLError("Main Render Error")
 
 //        // Draw to Bloom Framebuffer
         bloom.bind()
@@ -231,10 +232,12 @@ class VisualizerView: RFOpenGLView {
         glUniform1f(bloom.guAdder.rawValue, 0)
         drawFullScreenRect()
 
+        RFOpenGLView.checkGLError("Bloom Render Error")
         Framebuffer.unbind()
         
         // Draw original image to screen
         defaultShader.bind()
+        glUniform1f(defaultShader.guAlpha.rawValue, 1)
         drawFullScreenRect()
 
         // Draw bloom image to screen
@@ -242,14 +245,14 @@ class VisualizerView: RFOpenGLView {
 
         glEnable(GLenum(GL_BLEND))
         glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE));
-        glColor4f(1, 1, 1, 0.3)
+        glUniform1f(defaultShader.guAlpha.rawValue, 0.5)
         drawFullScreenRect()
-        glColor4f(1, 1, 1, 1)
         glDisable(GLenum(GL_BLEND))
+        RFOpenGLView.checkGLError("Blit Render Error")
 
         bloomState.end()
         Shader.unbind()
 
-        RFOpenGLView.checkGLError("Render Error")
+        RFOpenGLView.checkGLError("Render End Error")
     }
 }

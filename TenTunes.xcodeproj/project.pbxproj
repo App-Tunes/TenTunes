@@ -37,6 +37,8 @@
 		803E972F20C7EF2C00D46565 /* LazyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803E972E20C7EF2C00D46565 /* LazyMap.swift */; };
 		804539B1215ACA8B0080153F /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720D203F7C9C00CA9036 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8046CDA3204EF1ED00E732E7 /* TitleSubtitleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */; };
+		804A15FC2172514200CBF56F /* Honey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804A15FB2172514200CBF56F /* Honey.swift */; };
+		804A15FF217252BC00CBF56F /* Cloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804A15FE217252BC00CBF56F /* Cloud.swift */; };
 		804DCC74215D01D30021A753 /* GraySliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804DCC73215D01D30021A753 /* GraySliderCell.swift */; };
 		804DCC77215D10170021A753 /* TrackPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804DCC76215D10170021A753 /* TrackPromise.swift */; };
 		8055FE7E20C947A300559F45 /* Volumes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8055FE7D20C947A300559F45 /* Volumes.swift */; };
@@ -222,6 +224,8 @@
 		803717282043629700DB9EAA /* ViewController+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Background.swift"; sourceTree = "<group>"; };
 		803E972E20C7EF2C00D46565 /* LazyMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyMap.swift; sourceTree = "<group>"; };
 		8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSubtitleCellView.swift; sourceTree = "<group>"; };
+		804A15FB2172514200CBF56F /* Honey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Honey.swift; sourceTree = "<group>"; };
+		804A15FE217252BC00CBF56F /* Cloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cloud.swift; sourceTree = "<group>"; };
 		804DCC73215D01D30021A753 /* GraySliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraySliderCell.swift; sourceTree = "<group>"; };
 		804DCC76215D10170021A753 /* TrackPromise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPromise.swift; sourceTree = "<group>"; };
 		8055FE7D20C947A300559F45 /* Volumes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Volumes.swift; sourceTree = "<group>"; };
@@ -639,6 +643,8 @@
 				8030CA842164E3F100229398 /* VisualizerWindowController+Video.swift */,
 				80C1F15F214286A40032E554 /* VisualizerWindowController.xib */,
 				80C1F16E2142E7E80032E554 /* VisualizerView.swift */,
+				804A15FE217252BC00CBF56F /* Cloud.swift */,
+				804A15FB2172514200CBF56F /* Honey.swift */,
 				802F9EFE2170A8DB00D497AE /* VisualizerView+Shaders.swift */,
 				80D9448B21662E0100C135CA /* ResonanceProvider.swift */,
 			);
@@ -1090,6 +1096,7 @@
 				80F2C58F20389B9B00212739 /* WaveformView.swift in Sources */,
 				802F9EFF2170A8DB00D497AE /* VisualizerView+Shaders.swift in Sources */,
 				8030E00920FC9A91006B4AE8 /* SwiftPriorityQueue.swift in Sources */,
+				804A15FF217252BC00CBF56F /* Cloud.swift in Sources */,
 				80F854FF2069180A009A8FBE /* TrackController+RightClick.swift in Sources */,
 				808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */,
 				8079F6EC211B87A700B7A278 /* SpinningButton.swift in Sources */,
@@ -1121,6 +1128,7 @@
 				80F77BF5203D8B35001E397F /* Key.swift in Sources */,
 				80F2C57A2038808000212739 /* AppDelegate.swift in Sources */,
 				807F6A37210202A8002048B1 /* Library+Sanity.swift in Sources */,
+				804A15FC2172514200CBF56F /* Honey.swift in Sources */,
 				8026241620FF445F009D7988 /* TTTokenField.swift in Sources */,
 				80C1F14F213C77440032E554 /* TrackVisuals+CoreDataProperties.swift in Sources */,
 			);

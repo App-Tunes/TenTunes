@@ -220,14 +220,14 @@ class VisualizerView: RFOpenGLView {
 
         DynamicTexture.active(1) { bloomState.switch() }
 
-        glUniform2f(bloom.guDirVec.rawValue, 0.01, 0)
-        glUniform1f(bloom.guRetainer.rawValue, 0.4)
-        glUniform1f(bloom.guAdder.rawValue, 0.01)
+        glUniform2f(bloom.guDirVec.rawValue, 0.001, 0)
+        glUniform1f(bloom.guRetainer.rawValue, 0.46)
+        glUniform1f(bloom.guAdder.rawValue, 0.1)
         drawFullScreenRect()
 
         DynamicTexture.active(1) { bloomState.switch() }
 
-        glUniform2f(bloom.guDirVec.rawValue, 0, 0.01)
+        glUniform2f(bloom.guDirVec.rawValue, 0, 0.001)
         glUniform1f(bloom.guRetainer.rawValue, 1)
         glUniform1f(bloom.guAdder.rawValue, 0)
         drawFullScreenRect()
@@ -237,15 +237,15 @@ class VisualizerView: RFOpenGLView {
         
         // Draw original image to screen
         defaultShader.bind()
-        glUniform1f(defaultShader.guAlpha.rawValue, 1)
-        drawFullScreenRect()
+//        glUniform1f(defaultShader.guAlpha.rawValue, 0.3)
+//        drawFullScreenRect()
 
         // Draw bloom image to screen
         bloomState.end(rebind: true)
 
         glEnable(GLenum(GL_BLEND))
         glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE));
-        glUniform1f(defaultShader.guAlpha.rawValue, 0.5)
+        glUniform1f(defaultShader.guAlpha.rawValue, 1)
         drawFullScreenRect()
         glDisable(GLenum(GL_BLEND))
         RFOpenGLView.checkGLError("Blit Render Error")

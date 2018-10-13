@@ -168,5 +168,5 @@ void main( void ) {
     
     color.rgb /= totalOmega;
     
-    fragColour = color;
+    fragColour = clamp(color, 0, 1);
 }

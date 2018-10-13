@@ -18,9 +18,9 @@ uniform vec2 dirVec;
 
 void main(void)
 {
-    fragColour = texture(bloom, texCoord) * retainer * 0.2270270270;
+    fragColour = vec4(texture(bloom, texCoord).rgb * retainer * 0.2270270270, 1);
     
-    for(float i = -1.0; i < 2.0; i += 2.0)
+    for (float i = -1.0; i < 2.0; i += 2.0)
     {
         vec2 activeDirVec = i * dirVec;
         

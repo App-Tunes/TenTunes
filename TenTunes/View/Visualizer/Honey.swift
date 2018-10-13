@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class Honey: VisualizerView {
+class Honey: Cloud {
     var defaultShader = DefaultShader()
 
     var bloom = BloomShader()
@@ -32,13 +32,18 @@ class Honey: VisualizerView {
     }
     
     override func drawFrame() {
-        bloomState.size = bounds.size
+        glClearColor(0,0,0,0)
+        glClear(GLbitfield(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT))
         
         pingPong.size = bounds.size
         pingPong.start()
         
+        bloomState.size = bounds.size
+        
         // Draw Colors to Framebuffer
-        super.drawFrame()
+        shader.bind()
+        uploadUniforms()
+        drawFullScreenRect()
         
         pingPong.end(rebind: true)
         RFOpenGLView.checkGLError("Main Render Error")

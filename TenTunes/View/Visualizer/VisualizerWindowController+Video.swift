@@ -21,7 +21,11 @@ extension VisualizerWindowController {
             fatalError("Unknown Mode!")
         }
 
-        _visualizerView.delegate = self
+        _visualizerView.delegate = old.delegate
+        _visualizerView.colorVariance = old.colorVariance
+        _visualizerView.brightness = old.brightness
+        _visualizerView.psychedelic = old.psychedelic
+        _visualizerView.details = old.details
 
         _visualizerView.translatesAutoresizingMaskIntoConstraints = false
         window?.contentView?.replaceSubview(old, with: _visualizerView)

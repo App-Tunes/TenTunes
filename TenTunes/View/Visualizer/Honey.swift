@@ -15,8 +15,8 @@ class Honey: Cloud {
     var bloomState = PingPongFramebuffer()
     var pingPong = PingPongFramebuffer()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func setUpOpenGL() {
+        super.setUpOpenGL()
         
         compile(shader: defaultShader, vertexResource: "default", fragmentResource: "default")
         compile(shader: bloom, vertexResource: "bloom", fragmentResource: "bloom")

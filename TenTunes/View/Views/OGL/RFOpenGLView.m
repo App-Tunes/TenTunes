@@ -32,6 +32,24 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
     }
 }
 
+- (instancetype)initWithFrame:(NSRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setUpOpenGL];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self setUpOpenGL];
+    }
+    return self;
+}
+
 - (void)updateDisplayLink {
     BOOL wantsLink = [self wantsDisplayLink];
     if (wantsLink == CVDisplayLinkIsRunning(_displayLink)) { return; }
@@ -66,7 +84,7 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
     [self updateDisplayLink];
 }
 
-- (void)awakeFromNib
+- (void)setUpOpenGL
 {
     int error;
     

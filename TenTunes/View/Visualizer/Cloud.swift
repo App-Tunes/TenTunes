@@ -11,8 +11,8 @@ import Cocoa
 class Cloud: VisualizerView {
     var shader = ColorShader()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func setUpOpenGL() {
+        super.setUpOpenGL()
         
         compile(shader: shader, vertexResource: "visualizer", fragmentResource: "visualizer")
         Shader.unbind()

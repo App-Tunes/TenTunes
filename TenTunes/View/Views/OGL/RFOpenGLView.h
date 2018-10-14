@@ -21,6 +21,8 @@
 @property (readonly) CFTimeInterval deltaTime;
 @property GLint overrideTextureID;
 
+- (void)setUpOpenGL;
+
 - (void)updateDisplayLink;
 - (BOOL)wantsDisplayLink;
 

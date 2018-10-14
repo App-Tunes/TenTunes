@@ -9,6 +9,28 @@
 import Cocoa
 
 extension VisualizerWindowController {
+    @IBAction func selectedMode(_ sender: Any) {
+        let old = _visualizerView!
+        
+        switch (sender as! NSPopUpButton).selectedItem!.identifier!.rawValue {
+        case "suns":
+            _visualizerView = Cloud()
+        case "honey":
+            _visualizerView = Honey()
+        default:
+            fatalError("Unknown Mode!")
+        }
+
+        _visualizerView.delegate = self
+
+        _visualizerView.translatesAutoresizingMaskIntoConstraints = false
+        window?.contentView?.replaceSubview(old, with: _visualizerView)
+        window?.contentView?.addFullSizeConstraints(for: _visualizerView)
+        
+        // Re-Setup Output
+        selectedRenderingMethod(_renderingMethodSelector)
+    }
+    
     @IBAction func selectedRenderingMethod(_ sender: Any) {
         let isSyphon = (sender as! NSPopUpButton).selectedItem?.identifier?.rawValue == "syphon"
         

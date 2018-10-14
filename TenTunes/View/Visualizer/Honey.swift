@@ -71,17 +71,17 @@ class Honey: Cloud {
         
         // Draw original image to screen
         defaultShader.bind()
-        //        glUniform1f(defaultShader.guAlpha.rawValue, 0.3)
-        //        drawFullScreenRect()
+//        glUniform1f(defaultShader.guAlpha.rawValue, 1)
+//        drawFullScreenRect()
         
         // Draw bloom image to screen
         bloomState.end(rebind: true)
         
-        glEnable(GLenum(GL_BLEND))
-        glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE));
-        glUniform1f(defaultShader.guAlpha.rawValue, 1)
+//        glEnable(GLenum(GL_BLEND))
+//        glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA));
+//        glUniform1f(defaultShader.guAlpha.rawValue, 0.8)
         drawFullScreenRect()
-        glDisable(GLenum(GL_BLEND))
+//        glDisable(GLenum(GL_BLEND))
         RFOpenGLView.checkGLError("Blit Render Error")
         
         bloomState.end()

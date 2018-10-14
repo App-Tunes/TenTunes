@@ -119,7 +119,7 @@ class VisualizerView: RFOpenGLView {
 
         // 0.6 so that extremely high and low sounds are far apart in color
         return NSColor(hue: (prog * colorVariance + CGFloat(time * 0.02321)).truncatingRemainder(dividingBy: 1),
-                       saturation: max(0, min(1, 0.2 + ratio * 4 - desaturationBoost)),
+                       saturation: max(0, min(1, 0.2 + ratio * 4 * (0.8 + colorVariance) - desaturationBoost)),
                        brightness: min(1, resonance[idx] * 2 + brightnessBoost * 0.4) / localDarkness + 0.4,
                        alpha: 1)
     }

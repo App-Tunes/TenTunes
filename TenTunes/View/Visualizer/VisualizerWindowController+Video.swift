@@ -26,6 +26,9 @@ extension VisualizerWindowController {
         _visualizerView.brightness = old.brightness
         _visualizerView.psychedelic = old.psychedelic
         _visualizerView.details = old.details
+        
+        _visualizerView.startDate = old.startDate
+        _visualizerView.distortionRands = old.distortionRands
 
         _visualizerView.translatesAutoresizingMaskIntoConstraints = false
         window?.contentView?.replaceSubview(old, with: _visualizerView)

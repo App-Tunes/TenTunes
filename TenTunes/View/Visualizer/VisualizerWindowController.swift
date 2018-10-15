@@ -9,6 +9,7 @@
 import Cocoa
 
 import AudioKitUI
+import CoreGraphics
 
 class VisualizerWindowController: NSWindowController {
 
@@ -40,6 +41,11 @@ class VisualizerWindowController: NSWindowController {
         _settingsButton.alphaValue = 0.35
         
         AudioKit.addObserver(self, forKeyPath: #keyPath(AudioKit.inputDevices), options: [.new, .initial], context: nil)
+        
+//        let urlRef = Bundle.main.url(forResource: "example_dog", withExtension: "jpg")! as CFURL
+//        let myImageSourceRef = CGImageSourceCreateWithURL(urlRef, nil)
+//        let myImageRef = CGImageSourceCreateImageAtIndex(myImageSourceRef!, 0, nil)
+//        _visualizerView.maskImage = myImageRef
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

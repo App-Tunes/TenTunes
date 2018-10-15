@@ -97,14 +97,22 @@ extension RFOpenGLView {
             self.mode = GLenum(mode)
         }
         
-        var size: CGSize = NSZeroSize {
+        var image: CGImage? {
             didSet {
-                if oldValue != size, textureID > 0 {
-                    setSize()
+                upload()
+            }
+        }
+        var size: CGSize {
+            get { return _size }
+            set {
+                if _size != newValue, textureID > 0 {
+                    _size = newValue
+                    image = nil
                 }
             }
         }
-        
+        var _size: CGSize = NSZeroSize
+
         class func active(_ unit: Int, run: () -> Void) {
             glActiveTexture(GLenum(Int(GL_TEXTURE0) + unit))
             run()
@@ -138,12 +146,38 @@ extension RFOpenGLView {
             glTexParameteri(mode, GLenum(GL_TEXTURE_WRAP_S), GL_CLAMP_TO_EDGE)
             glTexParameteri(mode, GLenum(GL_TEXTURE_WRAP_T), GL_CLAMP_TO_EDGE)
 
-            setSize()
+            upload()
         }
         
-        internal func setSize() {
+        internal func upload() {
             bind()
-            glTexImage2D(mode, 0, GL_RGB, GLsizei(size.width), GLsizei(size.height), 0, GLenum(GL_RGB), GLenum(GL_FLOAT), nil)
+            
+            guard let image = image else {
+                glTexImage2D(mode, 0, GL_RGB, GLsizei(size.width), GLsizei(size.height), 0, GLenum(GL_RGB), GLenum(GL_FLOAT), nil)
+                return
+            }
+            
+            guard let data = image.dataProvider?.data else {
+                fatalError("Unsupported image for texture!")
+            }
+            
+            _size = NSSize(width: image.width, height: image.height)
+            let samplesPerPixel = 3
+
+            // Set proper unpacking row length for bitmap.
+//            glPixelStorei(GLenum(GL_UNPACK_ROW_LENGTH), GLint(size.width))
+            
+            // Set byte aligned unpacking (needed for 3 byte per pixel bitmaps).
+            glPixelStorei(GLenum(GL_UNPACK_ALIGNMENT), 1);
+
+            glTexImage2D(mode, 0,
+                         samplesPerPixel == 4 ? GL_RGBA8 : GL_RGB8,
+                         GLsizei(size.width), GLsizei(size.height),
+                         0,
+                         GLenum(GL_RGBA),
+                         GLenum(GL_UNSIGNED_BYTE),
+                         CFDataGetBytePtr(data)
+            )
         }
         
         func download() -> [UInt8] {

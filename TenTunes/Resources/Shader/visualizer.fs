@@ -1,14 +1,8 @@
 #version 150
 
-out vec4 fragColour;
-
-//#ifdef GL_ES
-//precision mediump float;
-//#endif
-
-//#extension GL_OES_standard_derivatives : enable
-
 const int MAX_FREQ_COUNT = 10;
+
+out vec4 fragColour;
 
 uniform int resonanceCount;
 
@@ -92,6 +86,10 @@ float dist(vec2 a, vec2 b) {
     return ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 }
 
+float dist(vec3 a, vec3 b) {
+    return ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y) + (a.z - b.z) * (a.z - b.z));
+}
+
 float distPoint(int i, float pTime, vec2 pos) {
     vec2 point = vec2(sin(pTime * (float(i) * 0.74819 + 1.0 + mod(float(i), 0.049131) * 2) + float(i)) * 0.4 + 0.5,
                       sin(pTime * 1.5 * (float(i) * 0.79823 + 1.0 + mod(float(i), 0.068231) * 2) + float(i)) * 0.4 + 0.5);
@@ -150,14 +148,15 @@ void main( void ) {
     float prevOmega;
     for (int i = 0; i < resonanceCount; i++) {
         float rawDist = distPoint(i, pTime, pos);
-        float inf = pow(resonance[i] / max(minDist + resonance[i] / 50, minDist / 2 + rawDist)
-                        * (brightness + 0.1), sharpness + resonance[i] / 10);
         
         vec3 pointColor = mix(vec3(resonanceColors[i * 3], resonanceColors[i * 3 + 1], resonanceColors[i * 3 + 2]),
                               vec3(resonanceColorsSoon[i * 3], resonanceColorsSoon[i * 3 + 1], resonanceColorsSoon[i * 3 + 2]),
                               clamp(rawDist * 15 / (resonance[i] + 1), 0, 1.3))
-         - (1 / ((brightness * 70 + resonance[i] * 30) * rawDist + 1) - 0.1) * (1 - brightness);
+        - (1 / ((brightness * 70 + resonance[i] * 30) * rawDist + 1) - 0.1) * (1 - brightness);
 
+        float inf = pow(resonance[i] / max(minDist + resonance[i] / 50, minDist / 2 + rawDist)
+                        * (brightness + 0.1), sharpness + resonance[i] / 10);
+        
         // Same as accumulating totalOmega and in a second cycle dividing inf by it
         prevOmega = totalOmega;
         totalOmega += inf;

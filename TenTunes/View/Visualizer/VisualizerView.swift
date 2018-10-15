@@ -28,7 +28,7 @@ class VisualizerView: RFOpenGLView {
     
     var startDate = NSDate().addingTimeInterval(-TimeInterval(Int.random(in: 50...10_000)))
     var time : TimeInterval { return -startDate.timeIntervalSinceNow }
-    
+        
     // Settings
     @objc var colorVariance: CGFloat = 0.3
     @objc var brightness: Float = 0.7

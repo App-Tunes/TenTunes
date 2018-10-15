@@ -43,6 +43,14 @@ extension NSImage {
         return NSImage(cgImage: cgImage, size: size)
     }
     
+    var bitmapRepresentation : NSBitmapImageRep? {
+        if let bitmap = representations.of(type: NSBitmapImageRep.self).first {
+            return bitmap
+        }
+        
+        return tiffRepresentation ?=> NSBitmapImageRep.init
+    }
+    
     var jpgRepresentation : Data? {
         // Try direct conversion first
         if let jpg = representations.of(type: NSBitmapImageRep.self).compactMap({ $0.representation(using: .jpeg, properties: [:]) }).first {

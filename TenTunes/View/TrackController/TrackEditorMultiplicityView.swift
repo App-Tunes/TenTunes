@@ -13,7 +13,6 @@ class TrackEditorMultiplicityView : MultiplicityGuardView {
         super.awakeFromNib()
         
         // This setup allows us to receive drags first
-        dragHighlightView.delegate = self
         dragHighlightView.registerForDraggedTypes(TrackPromise.pasteboardTypes)
     }
     

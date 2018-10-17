@@ -99,3 +99,52 @@ extension TrackController {
         return true
     }    
 }
+
+extension TrackController: NSDraggingDestination {
+    var acceptsGeneralDrag: Bool {
+        guard let playlist = history.playlist as? ModifiablePlaylist, playlist.supports(action: .add), !playlist.supports(action: .reorder) else {
+            return false
+        }
+        
+        return true
+    }
+    
+    func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+        guard acceptsGeneralDrag else {
+            return .generic
+        }
+        
+        dragHighlightView.isReceivingDrag = true
+        return .link
+    }
+    
+    func concludeDragOperation(_ sender: NSDraggingInfo?) {
+        dragHighlightView.isReceivingDrag = false
+    }
+    
+    func draggingExited(_ sender: NSDraggingInfo?) {
+        dragHighlightView.isReceivingDrag = false
+    }
+    
+    func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        guard acceptsGeneralDrag else {
+            return false
+        }
+
+        let pasteboard = sender.draggingPasteboard()
+        
+        let parent = history.playlist
+        
+        if let promises = TrackPromise.inside(pasteboard: pasteboard, for: Library.shared) {
+            guard (parent as! ModifiablePlaylist).confirm(action: .add) else {
+                return false
+            }
+            
+            let tracks = promises.compactMap { $0.fire() }
+            (parent as! ModifiablePlaylist).addTracks(tracks)
+            return true
+        }
+        
+        return false
+    }
+}

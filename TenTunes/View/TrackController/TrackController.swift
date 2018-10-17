@@ -52,6 +52,8 @@ class TrackController: NSViewController {
     @IBOutlet var _playlistTitle: NSTextField!
     @IBOutlet var _playlistInfoBarHeight: NSLayoutConstraint!
     
+    var dragHighlightView: DragHighlightView!
+    
     var trackEditor : TrackEditor!
     @IBOutlet var trackEditorGuard : MultiplicityGuardView!
 
@@ -167,6 +169,10 @@ class TrackController: NSViewController {
         smartFolderRuleController = CartesianRulesController(nibName: .init(rawValue: "CartesianRulesController"), bundle: nil)
         smartFolderRuleController.delegate = self
         smartFolderRuleController.loadView()
+
+        dragHighlightView = DragHighlightView.add(to: _loadingIndicator.superview!)
+        dragHighlightView.registerForDraggedTypes(TrackPromise.pasteboardTypes)
+        dragHighlightView.delegate = self
     }
     
     override func viewDidAppear() {

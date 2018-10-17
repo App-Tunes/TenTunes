@@ -18,6 +18,9 @@ class DragHighlightView: NSView {
     static func add(to view: NSView) -> DragHighlightView {
         let highlight = DragHighlightView()
         highlight.translatesAutoresizingMaskIntoConstraints = false
+        highlight.delegate = view
+        highlight.frame = view.bounds
+        
         view.addSubview(highlight, positioned: .above, relativeTo: nil)
         view.addConstraints(NSLayoutConstraint.copyLayout(from: view, for: highlight))
         return highlight
@@ -43,5 +46,9 @@ class DragHighlightView: NSView {
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
         return delegate?.draggingEntered?(sender) ?? .generic
+    }
+    
+    override func draggingExited(_ sender: NSDraggingInfo?) {
+        delegate?.draggingExited?(sender)
     }
 }

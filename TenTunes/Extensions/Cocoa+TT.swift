@@ -292,6 +292,23 @@ extension FileManager {
 }
 
 extension NSView {
+    func removeSubview(_ remove: NSView?, andAdd add: NSView?, order: NSWindow.OrderingMode? = nil) {
+        if let remove = remove, let add = add {
+            replaceSubview(remove, with: add)
+        }
+        else if let remove = remove {
+            subviews.remove(element: remove)
+        }
+        else if let add = add {
+            if let order = order {
+                addSubview(add, positioned: order, relativeTo: nil)
+            }
+            else {
+                addSubview(add)
+            }
+        }
+    }
+    
     func setFullSizeContent(_ view: NSView?) {
         subviews = []
         
@@ -302,14 +319,7 @@ extension NSView {
         view.frame = bounds
         addSubview(view)
         
-        addFullSizeConstraints(for: view)
-    }
-    
-    func addFullSizeConstraints(for view: NSView) {
-        addConstraint(NSLayoutConstraint(item: view, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 0))
-        addConstraint(NSLayoutConstraint(item: view, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: 0))
-        addConstraint(NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0))
-        addConstraint(NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0))
+        addConstraints(NSLayoutConstraint.copyLayout(from: self, for: view))
     }
     
     class func fromNib<T: NSView>() -> T? {
@@ -319,8 +329,8 @@ extension NSView {
     }
     
     @discardableResult
-    func loadNib() -> Bool {
-        return Bundle.main.loadNibNamed(NSNib.Name(rawValue: String(describing: type(of: self))), owner: self, topLevelObjects: nil)
+    func loadNib(namedAfter clazz: Any) -> Bool {
+        return Bundle.main.loadNibNamed(NSNib.Name(rawValue: String(describing: type(of: clazz))), owner: self, topLevelObjects: nil)
     }
 }
 
@@ -386,5 +396,23 @@ extension OSStatus {
         }
         
         throw NSError(domain: NSOSStatusErrorDomain, code: Int(self), userInfo: nil)
+    }
+}
+
+extension NSLayoutConstraint {
+    static func copyLayout(from container: NSView, for view: NSView) -> [NSLayoutConstraint] {
+        return [
+            NSLayoutConstraint(item: view, attribute: .leading, relatedBy: .equal, toItem: container, attribute: .leading, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: view, attribute: .trailing, relatedBy: .equal, toItem: container, attribute: .trailing, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: container, attribute: .top, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: container, attribute: .bottom, multiplier: 1, constant: 0),
+        ]
+    }
+    
+    static func center(in container: NSView, for view: NSView) -> [NSLayoutConstraint] {
+        return [
+            NSLayoutConstraint(item: view, attribute: .centerX, relatedBy: .equal, toItem: container, attribute: .centerX, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: view, attribute: .centerY, relatedBy: .equal, toItem: container, attribute: .centerY, multiplier: 1, constant: 0),
+        ]
     }
 }

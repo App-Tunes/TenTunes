@@ -24,7 +24,7 @@ class SuperpoweredSplash: NSView {
 """, baseURL: splashURL.deletingLastPathComponent())
 
         view.addSubview(webView)
-        view.addFullSizeConstraints(for: webView)
+        view.addConstraints(NSLayoutConstraint.copyLayout(from: view, for: webView))
         
         Timer.scheduledAsyncBlock(withTimeInterval: 3.7, repeats: false) {
             NSAnimationContext.runAnimationGroup({ context in

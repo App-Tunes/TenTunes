@@ -15,6 +15,8 @@
 		801621332067B71B00093B15 /* ViewController+Updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801621322067B71B00093B15 /* ViewController+Updates.swift */; };
 		8017685920743898000DD433 /* NSImageViewAspectFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8017685820743898000DD433 /* NSImageViewAspectFill.swift */; };
 		8026241620FF445F009D7988 /* TTTokenField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8026241520FF445F009D7988 /* TTTokenField.swift */; };
+		802F01CE2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802F01CD2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift */; };
+		802F01D12177F00B00E0EAB6 /* DragHighlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802F01D02177F00B00E0EAB6 /* DragHighlightView.swift */; };
 		802F9EFA2170A4C000D497AE /* bloom.fs in Resources */ = {isa = PBXBuildFile; fileRef = 802F9EF92170A4C000D497AE /* bloom.fs */; };
 		802F9EFD2170A4C900D497AE /* bloom.vs in Resources */ = {isa = PBXBuildFile; fileRef = 802F9EFC2170A4C900D497AE /* bloom.vs */; };
 		802F9EFF2170A8DB00D497AE /* VisualizerView+Shaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802F9EFE2170A8DB00D497AE /* VisualizerView+Shaders.swift */; };
@@ -146,7 +148,6 @@
 		80E6811D2057479B00DA5702 /* ValueTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E6811C2057479B00DA5702 /* ValueTransformers.swift */; };
 		80E937592039C2850014C835 /* Keycodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E937582039C2850014C835 /* Keycodes.swift */; };
 		80E939F1215AFAA4005112EF /* MultiplicityGuardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E939F0215AFAA4005112EF /* MultiplicityGuardView.swift */; };
-		80E939F3215AFAB7005112EF /* MultiplicityGuardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80E939F2215AFAB7005112EF /* MultiplicityGuardView.xib */; };
 		80E939F7215BE604005112EF /* PlaylistMultiple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E939F6215BE604005112EF /* PlaylistMultiple.swift */; };
 		80F11E5920CA732E00331D12 /* Library+Symlink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F11E5820CA732E00331D12 /* Library+Symlink.swift */; };
 		80F2C57A2038808000212739 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C5792038808000212739 /* AppDelegate.swift */; };
@@ -205,6 +206,8 @@
 		801621322067B71B00093B15 /* ViewController+Updates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Updates.swift"; sourceTree = "<group>"; };
 		8017685820743898000DD433 /* NSImageViewAspectFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImageViewAspectFill.swift; sourceTree = "<group>"; };
 		8026241520FF445F009D7988 /* TTTokenField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTTokenField.swift; sourceTree = "<group>"; };
+		802F01CD2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackEditorMultiplicityView.swift; sourceTree = "<group>"; };
+		802F01D02177F00B00E0EAB6 /* DragHighlightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragHighlightView.swift; sourceTree = "<group>"; };
 		802F9EF92170A4C000D497AE /* bloom.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = bloom.fs; sourceTree = "<group>"; };
 		802F9EFC2170A4C900D497AE /* bloom.vs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = bloom.vs; sourceTree = "<group>"; };
 		802F9EFE2170A8DB00D497AE /* VisualizerView+Shaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VisualizerView+Shaders.swift"; sourceTree = "<group>"; };
@@ -369,7 +372,6 @@
 		80E6811C2057479B00DA5702 /* ValueTransformers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueTransformers.swift; sourceTree = "<group>"; };
 		80E937582039C2850014C835 /* Keycodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keycodes.swift; sourceTree = "<group>"; };
 		80E939F0215AFAA4005112EF /* MultiplicityGuardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplicityGuardView.swift; sourceTree = "<group>"; };
-		80E939F2215AFAB7005112EF /* MultiplicityGuardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultiplicityGuardView.xib; sourceTree = "<group>"; };
 		80E939F6215BE604005112EF /* PlaylistMultiple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistMultiple.swift; sourceTree = "<group>"; };
 		80F11E5820CA732E00331D12 /* Library+Symlink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Symlink.swift"; sourceTree = "<group>"; };
 		80F2C5762038808000212739 /* Ten Tunes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ten Tunes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -424,8 +426,8 @@
 				8079F6EB211B87A700B7A278 /* SpinningButton.swift */,
 				80A40987216D606B006AF67B /* OGL */,
 				80E939F0215AFAA4005112EF /* MultiplicityGuardView.swift */,
-				80E939F2215AFAB7005112EF /* MultiplicityGuardView.xib */,
 				809CEABE2163F345008D6AC0 /* SuperpoweredSplash.swift */,
+				802F01D02177F00B00E0EAB6 /* DragHighlightView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -803,6 +805,7 @@
 				80F855002069183E009A8FBE /* TrackController+Menu.swift */,
 				80B68BA82101255D00A32E3D /* TrackController+Rules.swift */,
 				80074CF7204583CF0055B87E /* TrackController.xib */,
+				802F01CD2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift */,
 				80F8F6F12053EA2C004A07D6 /* TrackEditor.swift */,
 				806611892125B9BF00C3948E /* TrackEditor+Tags.swift */,
 				80F8F6F22053EA2C004A07D6 /* TrackEditor.xib */,
@@ -922,7 +925,6 @@
 			files = (
 				80C1F1682142928B0032E554 /* default.vs in Resources */,
 				802F9EFD2170A4C900D497AE /* bloom.vs in Resources */,
-				80E939F3215AFAB7005112EF /* MultiplicityGuardView.xib in Resources */,
 				809CEABC2163EFCD008D6AC0 /* superpowered_splash.svg in Resources */,
 				8079F6D42106551100B7A278 /* SmartPlaylistRulesController.xib in Resources */,
 				80F8F6F42053EA2C004A07D6 /* TrackEditor.xib in Resources */,
@@ -1008,6 +1010,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80ADCD4A20442E1200AA9A89 /* Library.swift in Sources */,
+				802F01D12177F00B00E0EAB6 /* DragHighlightView.swift in Sources */,
 				804DCC77215D10170021A753 /* TrackPromise.swift in Sources */,
 				80CB652C20514E050031A6D7 /* Library+Files.swift in Sources */,
 				80C1F160214286A40032E554 /* VisualizerWindowController.swift in Sources */,
@@ -1100,6 +1103,7 @@
 				80F854FF2069180A009A8FBE /* TrackController+RightClick.swift in Sources */,
 				808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */,
 				8079F6EC211B87A700B7A278 /* SpinningButton.swift in Sources */,
+				802F01CE2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift in Sources */,
 				8066118A2125B9BF00C3948E /* TrackEditor+Tags.swift in Sources */,
 				801621332067B71B00093B15 /* ViewController+Updates.swift in Sources */,
 				8030CA832164E33200229398 /* VisualizerWindowController+Audio.swift in Sources */,

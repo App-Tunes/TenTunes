@@ -22,7 +22,7 @@ extension TrackController {
     }
     
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
-        guard let promises = TrackPromise.inside(pasteboard: info.draggingPasteboard(), from: pasteboardTypes, for: Library.shared) else {
+        guard let promises = TrackPromise.inside(pasteboard: info.draggingPasteboard(), for: Library.shared) else {
             return []
         }
         
@@ -49,7 +49,7 @@ extension TrackController {
     }
     
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
-        guard let promises = TrackPromise.inside(pasteboard: info.draggingPasteboard(), from: pasteboardTypes, for: Library.shared) else {
+        guard let promises = TrackPromise.inside(pasteboard: info.draggingPasteboard(), for: Library.shared) else {
             return false
         }
 

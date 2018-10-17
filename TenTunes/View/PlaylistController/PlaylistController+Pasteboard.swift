@@ -25,7 +25,7 @@ extension PlaylistController {
         let pasteboard = info.draggingPasteboard()
         let playlist = item as? Playlist ?? masterPlaylist!
 
-        if TrackPromise.inside(pasteboard: pasteboard, from: pasteboardTypes, for: Library.shared) != nil {
+        if TrackPromise.inside(pasteboard: pasteboard, for: Library.shared) != nil {
             return ((playlist as? ModifiablePlaylist)?.supports(action: .add) ?? false) ? .link : []
         }
 
@@ -60,7 +60,7 @@ extension PlaylistController {
         
         let parent = item as? Playlist ?? masterPlaylist!
         
-        if let promises = TrackPromise.inside(pasteboard: pasteboard, from: pasteboardTypes, for: Library.shared) {
+        if let promises = TrackPromise.inside(pasteboard: pasteboard, for: Library.shared) {
             guard (parent as! ModifiablePlaylist).confirm(action: .add) else {
                 return false
             }

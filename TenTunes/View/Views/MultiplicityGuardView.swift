@@ -20,17 +20,32 @@ class MultiplicityGuardView: NSView {
 
     typealias Element = Any
     
+    var dragHighlightView: DragHighlightView!
+
     var contentView: NSView?
     var delegate: MultiplicityGuardDelegate?
     
     var deferredElements: [Element]? = nil
+    
+    var currentView: NSView? {
+        didSet {
+            guard oldValue != currentView else {
+                return
+            }
+            
+            removeSubview(oldValue, andAdd: currentView, order: .below)
+            if let currentView = currentView {
+                addConstraints(NSLayoutConstraint.copyLayout(from: self, for: currentView))
+            }
+        }
+    }
 
     @IBOutlet var _manyPlaceholder: NSView?
     @IBOutlet var _manyTextField: NSTextField!
     @IBOutlet var _confirmShowMany: NSButton!
     
     @IBOutlet var _errorPlaceholder: NSView?
-    @IBOutlet var _errorTextField: NSTextField?
+    @IBOutlet var _errorTextField: NSTextField!
     
     @IBInspectable
     var errorSelectionEmpty = "No Items Selected"
@@ -59,7 +74,41 @@ class MultiplicityGuardView: NSView {
     }
     
     func loadDefaultPlaceholders() {
-        loadNib()
+        _manyPlaceholder = NSView()
+        _manyPlaceholder?.translatesAutoresizingMaskIntoConstraints = false
+        
+        _manyTextField = NSTextField(string: "Many Items Selected")
+        _manyTextField.translatesAutoresizingMaskIntoConstraints = false
+        _manyTextField.isSelectable = false
+        _manyTextField.drawsBackground = false
+        _manyTextField.isBordered = false
+        
+        _confirmShowMany = NSButton(title: "Show", target: self, action: #selector(showSuggested))
+        _confirmShowMany.translatesAutoresizingMaskIntoConstraints = false
+        
+        _manyPlaceholder!.addSubview(_manyTextField)
+        _manyPlaceholder!.addSubview(_confirmShowMany)
+        _manyPlaceholder!.addConstraints(NSLayoutConstraint.center(in: _manyPlaceholder!, for: _confirmShowMany!))
+        _manyPlaceholder?.addConstraint(NSLayoutConstraint(item: _manyTextField, attribute: .bottom, relatedBy: .equal, toItem: _confirmShowMany, attribute: .top, multiplier: 1, constant: -10))
+        _manyPlaceholder?.addConstraint(NSLayoutConstraint(item: _manyTextField, attribute: .centerX, relatedBy: .equal, toItem: _confirmShowMany, attribute: .centerX, multiplier: 1, constant: 0))
+        
+        //
+        
+        _errorPlaceholder = NSView()
+        _errorPlaceholder?.translatesAutoresizingMaskIntoConstraints = false
+        
+        _errorTextField = NSTextField(string: "No Items Selected")
+        _errorTextField.translatesAutoresizingMaskIntoConstraints = false
+        _errorTextField.isSelectable = false
+        _errorTextField.drawsBackground = false
+        _errorTextField.isBordered = false
+        
+        _errorPlaceholder!.addSubview(_errorTextField)
+        _errorPlaceholder!.addConstraints(NSLayoutConstraint.center(in: _errorPlaceholder!, for: _errorTextField!))
+        
+        //
+
+        dragHighlightView = DragHighlightView.add(to: self)
     }
     
     override func viewDidUnhide() {
@@ -91,10 +140,6 @@ class MultiplicityGuardView: NSView {
         }
     }
     
-    func show(view: NSView?) {
-        setFullSizeContent(view)
-    }
-    
     func show(elements: [Element]) {
         switch delegate?.multiplicityGuard(self, show: elements) {
         case .error(let text)?:
@@ -103,18 +148,18 @@ class MultiplicityGuardView: NSView {
         default:
             break
         }
-        show(view: contentView)
+        currentView = contentView
     }
     
     func showError(text: String) {
         _errorTextField?.stringValue = text
-        show(view: _errorPlaceholder)
+        currentView = _errorPlaceholder
     }
     
     func suggest(elements: [Element]) {
         deferredElements = elements
         
-        show(view: _manyPlaceholder)
+        currentView = _manyPlaceholder
     }
     
     @IBAction func showSuggested(_ sender: Any) {

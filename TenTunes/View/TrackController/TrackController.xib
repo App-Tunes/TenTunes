@@ -539,7 +539,7 @@
                         <constraint firstAttribute="trailing" secondItem="J4f-bg-DFw" secondAttribute="trailing" id="vGr-VU-bFh"/>
                     </constraints>
                 </view>
-                <customView fixedFrame="YES" id="eZA-1m-Cok" customClass="MultiplicityGuardView" customModule="TenTunes" customModuleProvider="target">
+                <customView fixedFrame="YES" id="eZA-1m-Cok" customClass="TrackEditorMultiplicityView" customModule="TenTunes" customModuleProvider="target">
                     <rect key="frame" x="678" y="0.0" width="91" height="360"/>
                     <autoresizingMask key="autoresizingMask"/>
                 </customView>

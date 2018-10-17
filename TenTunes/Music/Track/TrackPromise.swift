@@ -11,8 +11,8 @@ import Cocoa
 class TrackPromise {
     static let pasteboardTypes = [Track.pasteboardType, .fileURL]
 
-    static func inside(pasteboard: NSPasteboard, from types: [NSPasteboard.PasteboardType], for library: Library) -> [TrackPromise]? {
-        guard let type = pasteboard.availableType(from: types) else {
+    static func inside(pasteboard: NSPasteboard, for library: Library) -> [TrackPromise]? {
+        guard let type = pasteboard.availableType(from: pasteboardTypes) else {
             return nil
         }
         

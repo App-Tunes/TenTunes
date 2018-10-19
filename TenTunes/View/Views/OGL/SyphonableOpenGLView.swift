@@ -35,6 +35,7 @@ class SyphonableOpenGLView: RFOpenGLView {
                 self.prepareSyphonableFrame()
                 self.drawSyphonableFrame()
             case .redraw(let textureID):
+                // TODO Fix drawTextureFrame not working
 //                self.drawTextureFrame(textureID: textureID)
                 self.drawSyphonableFrame()
             default:

@@ -35,13 +35,13 @@ class SyphonableOpenGLView: RFOpenGLView {
         case .redraw(let textureID):
             defaultShader.bind()
             
-            glEnable(GLenum(GL_TEXTURE_RECTANGLE));
+//            glEnable(GLenum(GL_TEXTURE_RECTANGLE));
             glBindTexture(GLenum(GL_TEXTURE_RECTANGLE), textureID);
             
             drawFullScreenRect()
             
             glBindTexture(GLenum(GL_TEXTURE_RECTANGLE), 0);
-            glDisable(GLenum(GL_TEXTURE_RECTANGLE));
+//            glDisable(GLenum(GL_TEXTURE_RECTANGLE));
         case .dont:
             break
         }

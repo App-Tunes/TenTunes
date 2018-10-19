@@ -58,7 +58,7 @@ class VisualizerWindowController: NSWindowController {
             updateAudioSources()
         }
         else if keyPath == #keyPath(ResonanceProvider.resonance) {
-            _visualizerView.update(withFFT: (object as! ResonanceProvider).resonance)
+            _visualizerView.update(withFFT: (object as! ResonanceProvider).resonance.map(Float.init))
         }
     }
     

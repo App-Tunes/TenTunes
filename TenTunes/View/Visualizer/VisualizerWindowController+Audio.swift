@@ -56,18 +56,18 @@ extension VisualizerWindowController {
             return
         }
         
-        switch captureMethod {
-        case .direct:
-            fft = FFTTap.AVNode(ViewController.shared.player.mixer.avAudioNode)
-        case .input(let device):
-            do {
+        do {
+            switch captureMethod {
+            case .direct:
+                fft = try! FFTTap.AVNode(ViewController.shared.player.mixer.avAudioNode)
+            case .input(let device):
                 fft = try FFTTap.AVAudioDevice(deviceID: device.deviceID)
-            }
-            catch {
-                NSAlert(error: error).runModal()
-            }
 //        case .output(let device):
 //            break
+            }
+        }
+        catch {
+            NSAlert(error: error).runModal()
         }
         
         fft?.addObserver(self, forKeyPath: #keyPath(FFTTap.AVNode.resonance), options: [.new], context: nil)

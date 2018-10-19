@@ -28,23 +28,21 @@ class FFTTap {
         @objc dynamic var volume: Double = 1
         @objc dynamic var resonance: [Double]
 
-        init(_ node: AVAudioNode, bufferSize: UInt32 = 1024) {
+        init(_ node: AVAudioNode, bufferSize: UInt32 = 1024) throws {
             self.node = node
             self.bufferSize = bufferSize
             resonance = Array(zeros: Int(bufferSize))
             
             super.init()
             
-            restart()
+            try start()
         }
         
         func fft(_ fft: EZAudioFFT!, updatedWithFFTData fftData: UnsafeMutablePointer<Float>!, bufferSize: vDSP_Length) {
             resonance = Array(0 ..< Int(bufferSize)).map { Double(fftData![$0]) * volume }
         }
         
-        func restart() {
-            stop()
-            
+        func start() throws {
             fft = EZAudioFFT(maximumBufferSize: vDSP_Length(bufferSize),
                              sampleRate: Float(AKSettings.sampleRate),
                              delegate: self)
@@ -97,9 +95,13 @@ class FFTTap {
             let inputFormat = input.inputFormat(forBus: 0)
             engine.connect(player, to: engine.mainMixerNode, format: inputFormat)
             
+            try super.init(input)
+        }
+        
+        override func start() throws {
             try engine.start()
 
-            super.init(input)
+            try super.start()
         }
         
         override func stop() {

@@ -8,19 +8,7 @@
 
 import Cocoa
 
-extension RFOpenGLView {
-    @discardableResult
-    static func checkGLError(_ description: String) -> Bool {
-        let error = glGetError()
-        
-        guard error == 0 else {
-            print("\(description): \(error)")
-            return false
-        }
-        
-        return true
-    }
-    
+extension RFOpenGLView {    
     static func timeMouseIdle() -> CFTimeInterval {
         return CGEventSource.secondsSinceLastEventType(.combinedSessionState, eventType: .mouseMoved)
     }

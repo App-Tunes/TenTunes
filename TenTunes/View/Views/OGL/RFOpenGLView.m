@@ -196,16 +196,22 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
             
             glBindTexture(GL_TEXTURE_RECTANGLE, 0);
             glDisable(GL_TEXTURE_RECTANGLE);
+            
+            [RFOpenGLView checkGLError:@"OpenGL Draw Override"];
         }
         // -1 is special case for "don't draw at all"
         else if (_overrideTextureID < -1) {
             [self drawFrame];
+            
+            [RFOpenGLView checkGLError:@"OpenGL Draw Frame"];
         }
         
         [[self openGLContext] flushBuffer];
         
         CGLUnlockContext([[self openGLContext] CGLContextObj]);
         [self unlockFocus];
+        
+        [RFOpenGLView checkGLError:@"OpenGL Draw Rect"];
     }
 }
 
@@ -217,6 +223,17 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
 - (void)drawFullScreenRect {
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
     glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+}
+
++ (BOOL)checkGLError:(NSString *)description {
+    GLint error = glGetError();
+    
+    if (error != 0) {
+        NSLog(@"%@: %d", description, error);
+        return false;
+    }
+    
+    return true;
 }
 
 + (BOOL)checkCompiled:(GLuint)obj {

@@ -42,7 +42,8 @@ class Syphon {
             server.bind(toDrawFrameOf: view.bounds.size)
             view.drawFrame()
             server.unbindAndPublish()
-            
+            RFOpenGLView.checkGLError("Syphon Draw")
+
             let drawnFrame = server.newFrameImage()!
             view.overrideTextureID = GLint(drawnFrame.textureName)
             DispatchQueue.main.async {

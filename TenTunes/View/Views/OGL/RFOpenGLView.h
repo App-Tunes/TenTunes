@@ -32,6 +32,7 @@
 
 - (void)drawFullScreenRect;
 
++ (BOOL)checkGLError:(NSString *)description;
 + (BOOL)checkCompiled:(GLuint)obj;
 + (BOOL)checkLinked:(GLuint)obj;
 

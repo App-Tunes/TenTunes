@@ -54,15 +54,13 @@ extension Collection where Element : Equatable {
     }
 }
 
-extension Collection where Iterator.Element == UInt8 {
-    var toUInt: [UInt]  {
-        return compactMap{ UInt($0) }
-    }
-}
-
-extension Collection where Iterator.Element == UInt {
+extension Collection where Iterator.Element : BinaryInteger {
     var toCGFloat: [CGFloat]  {
         return compactMap { CGFloat($0) }
+    }
+    
+    var toUInt: [UInt]  {
+        return compactMap{ UInt($0) }
     }
 }
 
@@ -72,8 +70,8 @@ extension Collection where Iterator.Element == Float {
     }
 }
 
-extension Collection where Iterator.Element == CGFloat {
-    func normalized(min: CGFloat, max: CGFloat) -> [CGFloat] {
+extension Collection where Iterator.Element : FloatingPoint {
+    func normalized(min: Element, max: Element) -> [Element] {
         return map { ($0 - min) / (max - min) }
     }
 }

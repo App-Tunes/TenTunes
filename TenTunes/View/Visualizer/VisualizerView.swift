@@ -15,7 +15,7 @@ import Darwin
     func visualizerViewUpdate(_ view: VisualizerView)
 }
 
-class VisualizerView: RFOpenGLView {
+class VisualizerView: SyphonableOpenGLView {
     static let skipFrequencies = 4
     static let resonanceSteepness = 15.0
     

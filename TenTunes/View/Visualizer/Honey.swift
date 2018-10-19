@@ -9,8 +9,6 @@
 import Cocoa
 
 class Honey: Cloud {
-    var defaultShader = DefaultShader()
-
     var bloom = BloomShader()
     var bloomState = PingPongFramebuffer()
     var pingPong = PingPongFramebuffer()
@@ -18,7 +16,6 @@ class Honey: Cloud {
     override func setUpOpenGL() {
         super.setUpOpenGL()
         
-        compile(shader: defaultShader, vertexResource: "default", fragmentResource: "default")
         compile(shader: bloom, vertexResource: "bloom", fragmentResource: "bloom")
         
         pingPong.size = bounds.size

@@ -11,7 +11,7 @@ import Cocoa
 import OpenGL
 
 extension RFOpenGLView {
-    class Shader {
+    @objc(OpenGLShader) class Shader: NSObject {
         var programID: GLuint? = nil
 
         class func unbind() {
@@ -37,6 +37,7 @@ extension RFOpenGLView {
             case uniform
         }
         
+        @objc
         func compile(vertexResource: String, ofType vertexType: String = "vs", fragmentResource: String, ofType fragmentType: String = "fs") throws {
             guard let vertexPath = Bundle.main.path(forResource: vertexResource, ofType: vertexType),
                 let fragmentPath = Bundle.main.path(forResource: fragmentResource, ofType: fragmentType),

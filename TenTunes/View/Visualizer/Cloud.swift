@@ -64,7 +64,7 @@ class Cloud: VisualizerView {
     
     override func drawFrame() {
         super.drawFrame()
-        
+
         // Draw Colors to Framebuffer
         shader.bind()
         uploadUniforms()

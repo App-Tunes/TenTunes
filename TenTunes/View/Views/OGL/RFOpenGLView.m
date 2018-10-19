@@ -66,8 +66,7 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
 - (BOOL)wantsDisplayLink {
     return ([[self window] occlusionState] & NSWindowOcclusionStateVisible) != 0
     // Eh... It's close enough of a check
-    && [self visibleRect].size.width != NSZeroRect.size.width
-    && _overrideTextureID < 0;
+    && [self visibleRect].size.width != NSZeroRect.size.width;
 }
 
 - (void)viewWillMoveToWindow:(NSWindow *)newWindow {
@@ -111,8 +110,6 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
     [[self openGLContext] makeCurrentContext];
     
     /////
-    
-    _overrideTextureID = -2;
     
     GLint swapInt = 1;
     [[self openGLContext] setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];
@@ -184,27 +181,14 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
+    [RFOpenGLView checkGLError:@"OpenGL Pre Draw"];
+    
     if ([self lockFocusIfCanDraw]) {
         [[self openGLContext] makeCurrentContext];
         CGLLockContext([[self openGLContext] CGLContextObj]);
         
-        if (_overrideTextureID >= 0) {
-            glEnable(GL_TEXTURE_RECTANGLE);
-            glBindTexture(GL_TEXTURE_RECTANGLE, _overrideTextureID);
-            
-            [self drawFullScreenRect];
-            
-            glBindTexture(GL_TEXTURE_RECTANGLE, 0);
-            glDisable(GL_TEXTURE_RECTANGLE);
-            
-            [RFOpenGLView checkGLError:@"OpenGL Draw Override"];
-        }
-        // -1 is special case for "don't draw at all"
-        else if (_overrideTextureID < -1) {
-            [self drawFrame];
-            
-            [RFOpenGLView checkGLError:@"OpenGL Draw Frame"];
-        }
+        [self drawFrame];
+        [RFOpenGLView checkGLError:@"OpenGL Draw Frame"];
         
         [[self openGLContext] flushBuffer];
         
@@ -226,14 +210,13 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
 }
 
 + (BOOL)checkGLError:(NSString *)description {
-    GLint error = glGetError();
-    
-    if (error != 0) {
+    bool errorless = true;
+    GLint error;
+    while ((error = glGetError()) != 0) {
         NSLog(@"%@: %d", description, error);
-        return false;
+        errorless = false;
     }
-    
-    return true;
+    return errorless;
 }
 
 + (BOOL)checkCompiled:(GLuint)obj {

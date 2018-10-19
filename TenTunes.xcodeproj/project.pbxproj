@@ -74,6 +74,7 @@
 		8079F6E8211B015B00B7A278 /* RecursionGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6E7211B015B00B7A278 /* RecursionGuard.swift */; };
 		8079F6EA211B822900B7A278 /* UnscalingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6E9211B822900B7A278 /* UnscalingMenu.swift */; };
 		8079F6EC211B87A700B7A278 /* SpinningButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6EB211B87A700B7A278 /* SpinningButton.swift */; };
+		807A82E02179D76F00236A13 /* SyphonableOpenGLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807A82DF2179D76F00236A13 /* SyphonableOpenGLView.swift */; };
 		807E289E2101291B0080F332 /* SmartPlaylistRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E289D2101291B0080F332 /* SmartPlaylistRules.swift */; };
 		807E4B47206428260051C028 /* ScrollableSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E4B46206428260051C028 /* ScrollableSlider.swift */; };
 		807F6A312101F986002048B1 /* PlaylistCartesian.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807F6A302101F986002048B1 /* PlaylistCartesian.swift */; };
@@ -292,6 +293,7 @@
 		8079F6E7211B015B00B7A278 /* RecursionGuard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecursionGuard.swift; sourceTree = "<group>"; };
 		8079F6E9211B822900B7A278 /* UnscalingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnscalingMenu.swift; sourceTree = "<group>"; };
 		8079F6EB211B87A700B7A278 /* SpinningButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinningButton.swift; sourceTree = "<group>"; };
+		807A82DF2179D76F00236A13 /* SyphonableOpenGLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyphonableOpenGLView.swift; sourceTree = "<group>"; };
 		807E289D2101291B0080F332 /* SmartPlaylistRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartPlaylistRules.swift; sourceTree = "<group>"; };
 		807E4B46206428260051C028 /* ScrollableSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableSlider.swift; sourceTree = "<group>"; };
 		807F6A302101F986002048B1 /* PlaylistCartesian.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistCartesian.swift; sourceTree = "<group>"; };
@@ -584,6 +586,7 @@
 			children = (
 				80C1F16B2142AA010032E554 /* RFOpenGLView.h */,
 				80C1F16C2142AA010032E554 /* RFOpenGLView.m */,
+				807A82DF2179D76F00236A13 /* SyphonableOpenGLView.swift */,
 				80A40992216FA216006AF67B /* RFOpenGLView+Swift.swift */,
 				80A40989216D60BB006AF67B /* RFOpenGLView+Texture.swift */,
 				80A4098B216D665A006AF67B /* RFOpenGLView+Shader.swift */,
@@ -1075,6 +1078,7 @@
 				80C1F143213B1DE80032E554 /* Foundation+Collections.swift in Sources */,
 				80F97030209625E800A989D8 /* PreferencesWindowController.swift in Sources */,
 				8093467120A62319001D15CD /* TrackController+Pasteboard.swift in Sources */,
+				807A82E02179D76F00236A13 /* SyphonableOpenGLView.swift in Sources */,
 				80C1F16F2142E7E80032E554 /* VisualizerView.swift in Sources */,
 				80B68BA72101204200A32E3D /* PlaylistSmart.swift in Sources */,
 				80E937592039C2850014C835 /* Keycodes.swift in Sources */,
@@ -1272,6 +1276,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5GU22J823J;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1309,6 +1314,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5GU22J823J;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

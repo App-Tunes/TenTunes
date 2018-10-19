@@ -26,7 +26,7 @@ class Syphon {
 //        })
 //    }
     
-    static func offer(view: RFOpenGLView, as name: String) -> LiveSyphonServer? {
+    static func offer(view: SyphonableOpenGLView, as name: String) -> LiveSyphonServer? {
         let options: [AnyHashable: Any] =  [
             SyphonServerOptionDepthBufferResolution: 16
         ]
@@ -34,7 +34,7 @@ class Syphon {
             return nil
         }
         
-        view.overrideTextureID = -1 // Don't draw yet
+        view.drawMode = .dont // Don't draw yet
         
         let timer = Timer.scheduledTimer(withTimeInterval: 1.0 / 30, repeats: true) { _ in
             view.animate()
@@ -45,7 +45,7 @@ class Syphon {
             RFOpenGLView.checkGLError("Syphon Draw")
 
             let drawnFrame = server.newFrameImage()!
-            view.overrideTextureID = GLint(drawnFrame.textureName)
+            view.drawMode = .redraw(textureID: drawnFrame.textureName)
             DispatchQueue.main.async {
                 view.needsDisplay = true
             }

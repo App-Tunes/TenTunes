@@ -22,44 +22,42 @@ class Cloud: VisualizerView {
         uploadDefaultUniforms(onto: shader)
         
         // Darkness makes points minimum smaller while loudness makes them larger
-        glUniform1f(shader.guMinDist.rawValue, GLfloat(0.1 / (2 + (1 - brightness) * 10 + totalResonance / 20)))
+        glUniform1f(shader.guMinDist.rawValue, 0.1 / (2 + (1 - brightness) * 10 + totalResonance / 20))
         // Darkness keeps points smaller while psychedelic makes them larger
         glUniform1f(shader.guDecay.rawValue, pow(1.5, (2 - brightness - psychedelic) * 5.7))
         // Brightness makes points fuzzy
         glUniform1f(shader.guSharpness.rawValue, pow(2, 1 - brightness) * 2.5)
         // More psychedelic means we zoom in more because otherwise it gets too "detailed"
-        glUniform1f(shader.guScale.rawValue, pow(1300 - GLfloat(psychedelic) * 1000, (GLfloat(details) - 0.5) * 0.5 + 1) / 3000)
+        glUniform1f(shader.guScale.rawValue, pow(1300 - psychedelic * 1000, (details - 0.5) * 0.5 + 1) / 3000)
         // Darkness makes it less bright
         glUniform1f(shader.guBrightness.rawValue, 1.4 - (1 - brightness) * 1.35)
         
-        glUniform1f(shader.guSpaceDistortion.rawValue, GLfloat(pow(psychedelic, 2)))
+        glUniform1f(shader.guSpaceDistortion.rawValue, pow(psychedelic, 2))
         
         glUniform1i(shader.guResonanceCount.rawValue, GLint(resonance.count))
         
-        shader.guResonance.glUniform1fv(resonance.map { GLfloat($0) })
-        shader.guResonanceDistortionSpeed.glUniform1fv((0 ..< resonance.count).map { GLfloat(distortionRands[$0]) })
+        glUniform1fv(shader.guResonance.rawValue, resonance)
+        glUniform1fv(shader.guResonanceDistortionSpeed.rawValue, (0 ..< resonance.count).map { distortionRands[$0] })
         // Distortion Calculations
-        shader.guResonanceDistortion.glUniform1fv(resonance.enumerated().map { arg in
+        glUniform1fv(shader.guResonanceDistortion.rawValue, resonance.enumerated().map { arg in
             let (idx, res) = arg
-            return GLfloat(
-                // Distortion dependent on resonance
-                0.357 * pow(psychedelic, 3) * (pow(1.446 - psychedelic * 0.32, res) - 1)
+            // Distortion dependent on resonance
+            return 0.357 * pow(psychedelic, 3) * (pow(1.446 - psychedelic * 0.32, res) - 1)
                     // High-psychedelic time dependent ambient distortion
                     + (pow(psychedelic, 6) * (sin(time * 0.2 / (5 + distortionRands[idx])) + 1)) * 0.2
-            )
         })
         
         // The higher the tone, the sharper its distortion
-        shader.guResonanceDistortionShiftSizes.glUniform1fv((0 ..< resonance.count).map {
-            GLfloat(pow((1 - Number($0) / Number(resonance.count)), 1.7) * 0.01666)
+        glUniform1fv(shader.guResonanceDistortionShiftSizes.rawValue, (0 ..< resonance.count).map {
+            pow((1 - Number($0) / Number(resonance.count)), 1.7) * 0.01666
         })
         
         let colors = (0 ..< resonance.count).map { self.color($0, time: time) }
-        shader.guResonanceColors.glUniform1fv(colors.flatMap { self.rgb($0) })
+        glUniform1fv(shader.guResonanceColors.rawValue, colors.flatMap { self.rgb($0) })
         
         // Outer colors can be darker if darkness is high
         let soonColors = (0 ..< resonance.count).map { self.color($0, time: time - (15 * colorVariance), darknessBonus: 1 - brightness) }
-        shader.guResonanceColorsSoon.glUniform1fv(soonColors.flatMap { self.rgb($0) })
+        glUniform1fv(shader.guResonanceColorsSoon.rawValue, soonColors.flatMap { self.rgb($0) })
     }
     
     override func drawSyphonableFrame() {

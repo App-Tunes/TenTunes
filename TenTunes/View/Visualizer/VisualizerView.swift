@@ -129,7 +129,7 @@ class VisualizerView: SyphonableOpenGLView {
     }
     
     func uploadDefaultUniforms(onto shader: Shared) {
-        glUniform1f(shader.guTime.rawValue, GLfloat(time));
+        glUniform1f(shader.guTime.rawValue, time);
         glUniform2f(shader.guResolution.rawValue, GLfloat(bounds.size.width), GLfloat(bounds.size.height));
     }
 }

@@ -119,12 +119,6 @@ extension RFOpenGLView.Shader {
         required init(rawValue: RawValue) {
             self.rawValue = rawValue
         }
-        
-        func glUniform1fv(_ array: [GLfloat]) {
-            array.map { GLfloat($0) }.withUnsafeBufferPointer {
-                OpenGL.glUniform1fv(rawValue, GLsizei(array.count), $0.baseAddress)
-            }
-        }
     }
     
     class Attribute: RawRepresentable {

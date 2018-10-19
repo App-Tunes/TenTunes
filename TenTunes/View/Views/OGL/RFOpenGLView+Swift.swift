@@ -12,4 +12,10 @@ extension RFOpenGLView {
     static func timeMouseIdle() -> CFTimeInterval {
         return CGEventSource.secondsSinceLastEventType(.combinedSessionState, eventType: .mouseMoved)
     }
+    
+    func glUniform1fv(_ uniform: GLint, _ array: [GLfloat]) {
+        array.withUnsafeBufferPointer {
+            OpenGL.glUniform1fv(uniform, GLsizei(array.count), $0.baseAddress)
+        }
+    }
 }

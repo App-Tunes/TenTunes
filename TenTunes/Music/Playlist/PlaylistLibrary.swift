@@ -64,3 +64,15 @@ class PlaylistLibrary: PlaylistProtocol {
         return "Library"
     }
 }
+
+extension PlaylistLibrary : ModifiablePlaylist {
+    func _supports(action: ModifyingAction, rguard: RecursionGuard<Playlist>) -> Bool {
+        // For track imports only
+        return action == .add
+    }
+    
+    func addTracks(_ tracks: [Track], above: Int?) {
+        // Every track is already part of the library after import
+        // And import is done automatically
+    }
+}

@@ -115,7 +115,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="GGH-Dw-GOG" secondAttribute="height" multiplier="1:1" id="Gr7-6J-CMz"/>
                                         </constraints>
-                                        <imageCell key="cell" selectable="YES" editable="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="35f-g6-y8q"/>
+                                        <imageCell key="cell" selectable="YES" editable="YES" alignment="left" imageScaling="proportionallyUpOrDown" imageFrameStyle="grayBezel" id="35f-g6-y8q"/>
                                         <connections>
                                             <action selector="imageUpdated:" target="-2" id="RPb-t5-fWU"/>
                                             <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.artwork" id="oKk-Xx-heb"/>

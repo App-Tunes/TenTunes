@@ -88,13 +88,20 @@ extension Library.Export {
 //        (dict as NSDictionary).write(toFile: url.path, atomically: true)
 //        let resultFile = try! String(contentsOfFile: url.path)
 
-        let writtenData = try! PropertyListSerialization.data(fromPropertyList: dict, format: .xml, options: 0)
-        let writtenString = String(data: writtenData, encoding: .utf8)!
-
-        // Hack to delete whitespace after </key>, since itunes doesn't do it
-        let finalString = Library.Export.keyWhitespaceDeleteRegex.split(string: writtenString).joined(separator: "</key>")
-
-        try! finalString.write(to: url, atomically: true, encoding: .utf8)
+        do {
+            let writtenData = try PropertyListSerialization.data(fromPropertyList: dict, format: .xml, options: 0)
+            let writtenString = String(data: writtenData, encoding: .utf8)!
+            
+            // Hack to delete whitespace after </key>, since itunes doesn't do it
+            let finalString = Library.Export.keyWhitespaceDeleteRegex.split(string: writtenString).joined(separator: "</key>")
+            
+            try finalString.write(to: url, atomically: true, encoding: .utf8)
+        }
+        catch {
+            DispatchQueue.main.async {
+                NSAlert(error: error).runModal()
+            }
+        }
     }
 }
 

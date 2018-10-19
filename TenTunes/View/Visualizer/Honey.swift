@@ -44,20 +44,20 @@ class Honey: Cloud {
         
         //        // Draw to Bloom Framebuffer
         bloom.bind()
-        glUniform1i(bloom.guBloomImage.rawValue, 1)
+        glUniform1i(bloom.guBloomImage, 1)
         
         DynamicTexture.active(1) { bloomState.switch() }
         
-        glUniform2f(bloom.guDirVec.rawValue, 0.001, 0)
-        glUniform1f(bloom.guRetainer.rawValue, 0.46)
-        glUniform1f(bloom.guAdder.rawValue, 0.1)
+        glUniform2f(bloom.guDirVec, 0.001, 0)
+        glUniform1f(bloom.guRetainer, 0.46)
+        glUniform1f(bloom.guAdder, 0.1)
         drawFullScreenRect()
         
         DynamicTexture.active(1) { bloomState.switch() }
         
-        glUniform2f(bloom.guDirVec.rawValue, 0, 0.001)
-        glUniform1f(bloom.guRetainer.rawValue, 1)
-        glUniform1f(bloom.guAdder.rawValue, 0)
+        glUniform2f(bloom.guDirVec, 0, 0.001)
+        glUniform1f(bloom.guRetainer, 1)
+        glUniform1f(bloom.guAdder, 0)
         drawFullScreenRect()
         
         RFOpenGLView.checkGLError("Bloom Render Error")

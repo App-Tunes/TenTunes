@@ -62,8 +62,8 @@ class Cloud: VisualizerView {
         shader.guResonanceColorsSoon.glUniform1fv(soonColors.flatMap { self.rgb($0) })
     }
     
-    override func drawFrame() {
-        super.drawFrame()
+    override func drawSyphonableFrame() {
+        super.drawSyphonableFrame()
 
         // Draw Colors to Framebuffer
         shader.bind()

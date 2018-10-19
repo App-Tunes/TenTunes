@@ -28,10 +28,7 @@ class Honey: Cloud {
         Shader.unbind()
     }
     
-    override func drawFrame() {
-        glClearColor(0,0,0,0)
-        glClear(GLbitfield(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT))
-        
+    override func prepareSyphonableFrame() {
         pingPong.size = bounds.size
         pingPong.start()
         
@@ -65,6 +62,11 @@ class Honey: Cloud {
         
         RFOpenGLView.checkGLError("Bloom Render Error")
         Framebuffer.unbind()
+    }
+    
+    override func drawSyphonableFrame() {
+        glClearColor(0,0,0,0)
+        glClear(GLbitfield(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT))
         
         // Draw original image to screen
         defaultShader.bind()

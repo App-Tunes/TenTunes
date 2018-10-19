@@ -39,13 +39,20 @@ class Syphon {
         let timer = Timer.scheduledTimer(withTimeInterval: 1.0 / 30, repeats: true) { _ in
             view.animate()
             
+//            view.lockForDraw {
+//                view.prepareSyphonableFrame()
+//            }
+            
             server.bind(toDrawFrameOf: view.bounds.size)
-            view.drawFrame()
+
+            view.drawSyphonableFrame()
+
             server.unbindAndPublish()
             RFOpenGLView.checkGLError("Syphon Draw")
 
             let drawnFrame = server.newFrameImage()!
             view.drawMode = .redraw(textureID: drawnFrame.textureName)
+            
             DispatchQueue.main.async {
                 view.needsDisplay = true
             }

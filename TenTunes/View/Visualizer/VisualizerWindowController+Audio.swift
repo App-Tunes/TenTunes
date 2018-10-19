@@ -70,6 +70,7 @@ extension VisualizerWindowController {
             NSAlert(error: error).runModal()
         }
         
+        fft?.volume = volume
         fft?.addObserver(self, forKeyPath: #keyPath(FFTTap.AVNode.resonance), options: [.new], context: nil)
     }
 }

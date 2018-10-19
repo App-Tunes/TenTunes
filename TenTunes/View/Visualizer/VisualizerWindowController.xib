@@ -292,7 +292,7 @@ Gw
                         <rect key="frame" x="138" y="78" width="188" height="19"/>
                         <sliderCell key="cell" state="on" alignment="left" minValue="-6" maxValue="6" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="Qjh-Un-s4F"/>
                         <connections>
-                            <binding destination="-2" name="value" keyPath="fft.volume" id="Bxm-7X-jvu">
+                            <binding destination="-2" name="value" keyPath="volume" id="zgO-OY-6IP">
                                 <dictionary key="options">
                                     <string key="NSValueTransformerName">Pow2Transformer</string>
                                 </dictionary>

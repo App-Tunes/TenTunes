@@ -28,30 +28,43 @@ class SyphonableOpenGLView: RFOpenGLView {
         return super.wantsDisplayLink() && drawMode == .direct
     }
     
-    override func drawFrame() {
-        switch drawMode {
-        case .direct:
-            drawSyphonableFrame()
-        case .redraw(let textureID):
-            defaultShader.bind()
+    override func draw(_ dirtyRect: NSRect) {
+        lockForDraw {
+            switch self.drawMode {
+            case .direct:
+                self.prepareSyphonableFrame()
+                self.drawSyphonableFrame()
+            case .redraw(let textureID):
+//                self.drawTextureFrame(textureID: textureID)
+                self.drawSyphonableFrame()
+            default:
+                break
+            }
             
-//            glEnable(GLenum(GL_TEXTURE_RECTANGLE));
-            glBindTexture(GLenum(GL_TEXTURE_RECTANGLE), textureID);
-            
-            drawFullScreenRect()
-            
-            glBindTexture(GLenum(GL_TEXTURE_RECTANGLE), 0);
-//            glDisable(GLenum(GL_TEXTURE_RECTANGLE));
-        case .dont:
-            break
+            self.openGLContext!.flushBuffer()
         }
     }
     
-    func drawSyphonableFrame() {
-        
+    func prepareSyphonableFrame() {
     }
     
-    func drawSyphonedFrame() {
+    func drawSyphonableFrame() {
+        glClearColor(0, 0, 0, 0)
+        glClear(GLbitfield(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT))
+    }
+    
+    func drawTextureFrame(textureID: GLuint) {
+        glClearColor(0, 0, 0, 0)
+        glClear(GLbitfield(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT))
+
+        defaultShader.bind()
         
+//        glEnable(GLenum(GL_TEXTURE_RECTANGLE_EXT));
+        glBindTexture(GLenum(GL_TEXTURE_RECTANGLE_EXT), textureID)
+        
+        drawFullScreenRect()
+        
+        glBindTexture(GLenum(GL_TEXTURE_RECTANGLE_EXT), 0)
+//        glDisable(GLenum(GL_TEXTURE_RECTANGLE_EXT));
     }
 }

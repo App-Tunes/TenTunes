@@ -27,9 +27,9 @@
 
 - (void)animate;
 
-- (void)drawFrame;
-
 - (void)drawFullScreenRect;
+
+- (BOOL)lockForDraw:(void(^)(void))block NS_SWIFT_NAME(lockForDraw(_:));
 
 + (BOOL)checkGLError:(NSString *)description;
 + (BOOL)checkCompiled:(GLuint)obj;

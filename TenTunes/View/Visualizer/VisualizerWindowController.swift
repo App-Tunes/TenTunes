@@ -16,6 +16,11 @@ class VisualizerWindowController: NSWindowController {
     @IBOutlet var _visualizerView: VisualizerView!
     
     @objc dynamic var fft: FFTTap.AVNode?
+    @objc dynamic var volume: Double = 1 {
+        didSet {
+            fft?.volume = volume
+        }
+    }
 
     var silence: AKNode?
     var tracker: AKFrequencyTracker?

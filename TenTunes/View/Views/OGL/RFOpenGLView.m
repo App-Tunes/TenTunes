@@ -180,28 +180,22 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
     }
 }
 
-- (void)drawRect:(NSRect)dirtyRect {
-    [RFOpenGLView checkGLError:@"OpenGL Pre Draw"];
-    
+- (BOOL)lockForDraw:(void (^)(void))block {
     if ([self lockFocusIfCanDraw]) {
         [[self openGLContext] makeCurrentContext];
         CGLLockContext([[self openGLContext] CGLContextObj]);
         
-        [self drawFrame];
-        [RFOpenGLView checkGLError:@"OpenGL Draw Frame"];
-        
-        [[self openGLContext] flushBuffer];
+        block();
         
         CGLUnlockContext([[self openGLContext] CGLContextObj]);
         [self unlockFocus];
         
         [RFOpenGLView checkGLError:@"OpenGL Draw Rect"];
+        
+        return true;
     }
-}
-
-- (void)drawFrame {
-    glClearColor(0, 0, 0, 0);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    return false;
 }
 
 - (void)drawFullScreenRect {

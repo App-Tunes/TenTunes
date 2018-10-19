@@ -65,6 +65,12 @@ extension RFOpenGLView {
             glBindFramebuffer(GLenum(GL_FRAMEBUFFER), 0);
         }
         
+        static var currentlyBound: GLuint {
+            var fboID: GLint = 0
+            glGetIntegerv(GLenum(GL_FRAMEBUFFER_BINDING), &fboID)
+            return GLuint(fboID) // Will always be uint
+        }
+        
         func bind() {
             create()
             glBindFramebuffer(GLenum(GL_FRAMEBUFFER), framebufferID);

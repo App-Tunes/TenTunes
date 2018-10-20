@@ -25,6 +25,14 @@ public class Track: NSManagedObject {
         return Library.shared
     }
     
+    var absolutePath: String? {
+        guard let path = path, let url = path.starts(with: "file://") ? URL(string: path) : URL(fileURLWithPath: path, relativeTo: library.mediaLocation.directory) else {
+            return nil
+        }
+        
+        return url.path
+    }
+    
     var url: URL? {
         guard let path = path, let url = path.starts(with: "file://") ? URL(string: path) : URL(fileURLWithPath: path, relativeTo: library.mediaLocation.directory) else {
             return nil

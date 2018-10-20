@@ -41,6 +41,7 @@ extension Track {
     @NSManaged public var iTunesID: String?
     @NSManaged public var keyString: String?
     @NSManaged public var metadataFetchDate: Date?
+    // Note: Might be a relative path from library location
     @NSManaged public var path: String?
     @NSManaged public var remixAuthor: String?
     @NSManaged public var title: String?

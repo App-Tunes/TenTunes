@@ -12,16 +12,16 @@ extension Library.Export {
     static let keyWhitespaceDeleteRegex = try! NSRegularExpression(pattern: "</key>\\s*", options: [])
     
     func iTunesLibraryXML(tracks: [Track], playlists: [Playlist]) {
-        var dict: [String: Any] = [:]
+        let dict = DictionaryExportReorder(dictionary: [:])
         
-        dict["Major Version"] = 1
-        dict["Minor Version"] = 1
+        dict[ordered: "Major Version"] = 1
+        dict[ordered: "Minor Version"] = 1
         
-        dict["Application Version"] = "12.7.3.46"
-        dict["Date"] = NSDate()
-        dict["Features"] = 5 // TODO? Wat is dis
-        dict["Show Content Ratings"] = true
-        dict["Library Persistent ID"] = "ABX" // TODO Hex String
+        dict[ordered: "Application Version"] = "12.7.3.46"
+        dict[ordered: "Date"] = NSDate()
+        dict[ordered: "Features"] = 5 // TODO? Wat is dis
+        dict[ordered: "Show Content Ratings"] = true
+        dict[ordered: "Library Persistent ID"] = "ABX" // TODO Hex String
         
         let to16Hex: (UUID) -> String = { $0.uuidString.replacingOccurrences(of: "-", with: "")[0...15] }
         
@@ -44,7 +44,7 @@ extension Library.Export {
             
             return (String(idx), trackDict)
         })
-        dict["Tracks"] = tracksDicts
+        dict[ordered: "Tracks"] = tracksDicts
         
         let playlistPersistentID: (Playlist) -> String = { $0.iTunesID ?? to16Hex($0.id)  } // TODO
         
@@ -79,9 +79,9 @@ extension Library.Export {
             
             return playlistDict
         }
-        dict["Playlists"] = playlistsArray
+        dict[ordered: "Playlists"] = playlistsArray
         
-        dict["Music Folder"] = library.directory.appendingPathComponent("Media").absoluteString
+        dict[ordered: "Music Folder"] = library.directory.appendingPathComponent("Media").absoluteString
         
         let url = self.url(title: "iTunes Library.xml", directory: false)
         try! url.ensurePathExists()
@@ -89,16 +89,19 @@ extension Library.Export {
 //        let resultFile = try! String(contentsOfFile: url.path)
 
         do {
-            let writtenData = try PropertyListSerialization.data(fromPropertyList: dict, format: .xml, options: 0)
+            let writtenData = try PropertyListSerialization.data(fromPropertyList: dict.dictionary, format: .xml, options: 0)
             let writtenString = String(data: writtenData, encoding: .utf8)!
             
             // Hack to delete whitespace after </key>, since itunes doesn't do it
             let finalString = Library.Export.keyWhitespaceDeleteRegex.split(string: writtenString).joined(separator: "</key>")
             
-            try finalString.write(to: url, atomically: true, encoding: .utf8)
+            // Replace temporary keys with final keys
+            try dict.fix(xml: finalString)
+                .write(to: url, atomically: true, encoding: .utf8)
         }
         catch {
             DispatchQueue.main.async {
+                print(error)
                 NSAlert(error: error).runModal()
             }
         }
@@ -205,5 +208,57 @@ extension Library.Import {
         }
         
         return true
+    }
+}
+
+extension Library.Export {
+    class DictionaryExportReorder {
+        struct Key {
+            let name: String
+            let orderName: String
+            let regex: NSRegularExpression
+            
+            init(name: String, orderName: String) {
+                self.name = name
+                self.orderName = orderName
+                regex = try! NSRegularExpression(pattern: "<key>\(orderName)</key>", options: [])
+            }
+        }
+        
+        var dictionary: Dictionary<String, Any>
+        var keys = [Key]()
+        
+        init(dictionary: Dictionary<String, Any>) {
+            self.dictionary = dictionary
+        }
+        
+        func register(_ key: String) -> Key {
+            let key = Key(name: key, orderName: "XMLExport__\(keys.count)")
+            keys.append(key)
+            return key
+        }
+        
+        subscript (_ key: Key) -> Any? {
+            get { return dictionary[key.orderName] }
+            set { dictionary[key.orderName] = newValue }
+        }
+        
+        subscript (ordered key: String) -> Any? {
+            get { return dictionary[key] }
+            set { dictionary[register(key).orderName] = newValue }
+        }
+        
+        subscript (_ key: String) -> Any? {
+            get { return dictionary[key] }
+            set { dictionary[key] = newValue }
+        }
+        
+        func fix(xml: String) -> String {
+            let fixed = NSMutableString(string: xml)
+            for key in keys {
+                key.regex.replaceMatches(in: fixed, options: [], range: NSMakeRange(0, fixed.length), withTemplate: "<key>\(key.name)</key>")
+            }
+            return fixed as String
+        }
     }
 }

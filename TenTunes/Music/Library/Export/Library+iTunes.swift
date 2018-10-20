@@ -12,8 +12,11 @@ extension Library.Export {
     static let keyWhitespaceDeleteRegex = try! NSRegularExpression(pattern: "</key>\\s*", options: [])
     
     func iTunesLibraryXML(tracks: [Track], playlists: [Playlist]) {
+        // TODO lol
+        let to16Hex: (String) -> String = { $0.replacingOccurrences(of: "-", with: "")[0...15] }
+
         let dict = DictionaryExportReorder(dictionary: [:])
-        
+
         dict[ordered: "Major Version"] = 1
         dict[ordered: "Minor Version"] = 1
         
@@ -21,9 +24,7 @@ extension Library.Export {
         dict[ordered: "Date"] = NSDate()
         dict[ordered: "Features"] = 5 // TODO? Wat is dis
         dict[ordered: "Show Content Ratings"] = true
-        dict[ordered: "Library Persistent ID"] = "ABX" // TODO Hex String
-        
-        let to16Hex: (UUID) -> String = { $0.uuidString.replacingOccurrences(of: "-", with: "")[0...15] }
+        dict[ordered: "Library Persistent ID"] = to16Hex(library.defaultMetadata[NSStoreUUIDKey] as! String)
         
         let tracksDicts: [String: Any] = Dictionary(uniqueKeysWithValues: tracks.enumerated().compactMap { (idx, track) in
             guard track.fireFault() else {
@@ -40,13 +41,13 @@ extension Library.Export {
             trackDict["Location"] = track.path ?? ""
             if let genre = track.genre { trackDict["Genre"] = genre }
             if let bpm = track.bpmString ?=> Int.init { trackDict["BPM"] = bpm } // Needs an int?
-            trackDict["Persistent ID"] = track.iTunesID ?? to16Hex(track.id) // TODO
+            trackDict["Persistent ID"] = track.iTunesID ?? to16Hex(track.id.uuidString) // TODO
             
             return (String(idx), trackDict)
         })
         dict[ordered: "Tracks"] = tracksDicts
         
-        let playlistPersistentID: (Playlist) -> String = { $0.iTunesID ?? to16Hex($0.id)  } // TODO
+        let playlistPersistentID: (Playlist) -> String = { $0.iTunesID ?? to16Hex($0.id.uuidString)  } // TODO
         
         let trackIDs: [Track: Int] = Dictionary(uniqueKeysWithValues: tracks.enumerated().map { (idx, track) in (track, idx) })
         let playlistsArray: [[String: Any]] = playlists.enumerated().compactMap { tuple in

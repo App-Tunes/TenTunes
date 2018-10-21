@@ -82,6 +82,7 @@ class MultiplicityGuardView: NSView {
         _manyTextField.isSelectable = false
         _manyTextField.drawsBackground = false
         _manyTextField.isBordered = false
+        _manyTextField.textColor = .secondaryLabelColor
         
         _confirmShowMany = NSButton(title: "Show", target: self, action: #selector(showSuggested))
         _confirmShowMany.translatesAutoresizingMaskIntoConstraints = false
@@ -102,6 +103,7 @@ class MultiplicityGuardView: NSView {
         _errorTextField.isSelectable = false
         _errorTextField.drawsBackground = false
         _errorTextField.isBordered = false
+        _errorTextField.textColor = .secondaryLabelColor
         
         _errorPlaceholder!.addSubview(_errorTextField)
         _errorPlaceholder!.addConstraints(NSLayoutConstraint.center(in: _errorPlaceholder!, for: _errorTextField!))

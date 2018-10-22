@@ -25,20 +25,20 @@ public class Track: NSManagedObject {
         return Library.shared
     }
     
-    var absolutePath: String? {
+    var resolvedURL: URL? {
         guard let path = path, let url = path.starts(with: "file://") ? URL(string: path) : URL(fileURLWithPath: path, relativeTo: library.mediaLocation.directory) else {
             return nil
         }
         
-        return url.path
+        return url
     }
     
-    var url: URL? {
-        guard let path = path, let url = path.starts(with: "file://") ? URL(string: path) : URL(fileURLWithPath: path, relativeTo: library.mediaLocation.directory) else {
+    var liveURL: URL? {
+        guard let url = resolvedURL, FileManager.default.fileExists(atPath: url.path) else {
             return nil
         }
         
-        return FileManager.default.fileExists(atPath: url.path) ? url : nil
+        return url
     }
         
     @objc var artworkPreview: NSImage? {

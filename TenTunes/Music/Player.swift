@@ -161,7 +161,7 @@ extension AVPlayer {
         sanityCheck()
         
         if let track = track {
-            if let url = track.url {
+            if let url = track.liveURL {
                 do {
                     let akfile = try AKAudioFile(forReading: url)
 

@@ -11,7 +11,7 @@ import Cocoa
 extension Library.Import {
     func track(url: URL) -> Track? {
         // TODO Hash all audio some time and then check the hashes on import to avoid duplicates
-        if let track = library.allTracks.tracksList.filter({ $0.url == url }).first {
+        if let track = library.allTracks.tracksList.filter({ $0.resolvedURL == url }).first {
             return track
         }
 

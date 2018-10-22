@@ -10,7 +10,7 @@ import Cocoa
 
 extension Track {
     var tagLibFile: TagLibFile? {
-        return url ?=> TagLibFile.init
+        return liveURL ?=> TagLibFile.init
     }
     
     @discardableResult

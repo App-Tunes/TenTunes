@@ -38,7 +38,7 @@ extension Library.Export {
             trackDict["Name"] = track.rTitle
             trackDict["Artist"] = track.author ?? Artist.unknown
             trackDict["Album"] = track.album ?? Album.unknown
-            trackDict["Location"] = track.absolutePath ?? ""
+            trackDict["Location"] = track.resolvedURL?.path ?? ""
             if let genre = track.genre { trackDict["Genre"] = genre }
             if let bpm = track.bpmString ?=> Int.init { trackDict["BPM"] = bpm } // Needs an int?
             trackDict["Persistent ID"] = track.iTunesID ?? to16Hex(track.id.uuidString) // TODO

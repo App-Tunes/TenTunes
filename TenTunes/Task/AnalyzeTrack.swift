@@ -63,7 +63,7 @@ class AnalyzeTrack: TrackTask {
     }
     
     func analyze(read: Bool, completion: @escaping () -> Swift.Void) {
-        guard let url = track.url else {
+        guard let url = track.liveURL else {
             completion()
             return
         }

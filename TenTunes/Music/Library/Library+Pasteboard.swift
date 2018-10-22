@@ -23,7 +23,7 @@ extension Library {
     func writeTrack(_ track: Track, toPasteboarditem item: NSPasteboardItem) {
         item.setString(track.objectID.uriRepresentation().absoluteString, forType: Track.pasteboardType)
         
-        if let url = track.url {
+        if let url = track.resolvedURL {
             item.setString(url.absoluteString, forType: .fileURL)
         }
     }

@@ -250,7 +250,7 @@ extension SmartPlaylistRules.Token {
         }
         
         override func positiveFilter(in context: NSManagedObjectContext?, rguard: RecursionGuard<Playlist>) -> (Track) -> Bool {
-            return { $0.url == nil }
+            return { $0.liveURL == nil }
         }
         
         override func representation(in context: NSManagedObjectContext?) -> String {

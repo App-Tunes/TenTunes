@@ -96,7 +96,7 @@ extension ViewController {
                 metadataRequest.predicate = NSPredicate(format: "metadataFetchDate == nil")
                 metadataRequest.fetchLimit = 200
                 let asyncTracks = try! mox.fetch(metadataRequest)
-                    .filter { $0.url != nil }
+                    .filter { $0.liveURL != nil }
                 
                 // Need to do this in sync because we use tasker.enqueue
                 DispatchQueue.main.async {
@@ -115,7 +115,7 @@ extension ViewController {
                     analysisRequest.predicate = NSPredicate(format: "visuals.analysis == nil")
                     analysisRequest.fetchLimit = 20
                     let asyncTracks = try! mox.fetch(analysisRequest)
-                        .filter { $0.url != nil }
+                        .filter { $0.liveURL != nil }
 
                     // Need to do this in sync because we use tasker.enqueue
                     DispatchQueue.main.async {

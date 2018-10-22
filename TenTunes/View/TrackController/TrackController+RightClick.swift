@@ -36,9 +36,9 @@ extension TrackController: NSMenuDelegate {
         menu.item(withAction: #selector(menuShowAuthor(_:)))?.isVisible = menuTracks.count == 1 && menuTracks.first!.author != nil
         menu.item(withAction: #selector(menuShowAlbum(_:)))?.isVisible = menuTracks.count == 1 && menuTracks.first!.album != nil
 
-        _moveToMediaDirectory.isHidden = menuTracks.noneSatisfy { !$0.usesMediaDirectory && $0.url != nil }
+        _moveToMediaDirectory.isHidden = menuTracks.noneSatisfy { !$0.usesMediaDirectory && $0.liveURL != nil }
         
-        let someNeedAnalysis = menuTracks.anySatisfy { $0.url != nil }
+        let someNeedAnalysis = menuTracks.anySatisfy { $0.liveURL != nil }
         _analyzeSubmenu.isVisible = someNeedAnalysis && menuTracks.anySatisfy { $0.analysisData != nil } && menuTracks.anySatisfy { $0.analysisData == nil }
         menu.item(withAction: #selector(menuAnalyze))?.isVisible = someNeedAnalysis && _analyzeSubmenu.isHidden
         menu.item(withAction: #selector(menuAnalyzeMetadata))?.isVisible = someNeedAnalysis
@@ -63,7 +63,7 @@ extension TrackController: NSMenuDelegate {
         
         // Right Click Menu
         if menuItem.action == #selector(removeTrack) { return mode == .queue || (mode == .tracksList && ((history.playlist as? ModifiablePlaylist)?.supports(action: .delete) ?? false)) }
-        if menuItem.action == #selector(menuShowInFinder) { return menuTracks.count == 1 && menuTracks.first!.url != nil }
+        if menuItem.action == #selector(menuShowInFinder) { return menuTracks.count == 1 && menuTracks.first!.liveURL != nil }
         
         return true
     }
@@ -110,7 +110,7 @@ extension TrackController: NSMenuDelegate {
     @IBAction func menuShowInFinder(_ sender: Any) {
         let row = self._tableView.clickedRow
         let track = history.track(at: row)!
-        if let url = track.url {
+        if let url = track.liveURL {
             NSWorkspace.shared.activateFileViewerSelecting([url])
         }
     }

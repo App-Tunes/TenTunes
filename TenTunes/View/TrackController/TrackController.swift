@@ -384,7 +384,7 @@ extension TrackController: NSTableViewDelegate {
     
     func tableView(_ tableView: NSTableView, didAdd rowView: NSTableRowView, forRow row: Int) {
         if let track = history.track(at: row) {
-            let exists = track.url != nil
+            let exists = track.liveURL != nil
             if !exists {
                 rowView.backgroundColor = NSColor(red: 0.1, green: 0.05, blue: 0.05, alpha: 1)
             }
@@ -490,7 +490,7 @@ extension TrackController : HideableBarDelegate {
 extension TrackController : MultiplicityGuardDelegate {
     func multiplicityGuard(_ view: MultiplicityGuardView, show elements: [Any]) -> MultiplicityGuardView.ShowAction {
         let tracks = elements as! [Track]
-        guard tracks.allSatisfy({ $0.url != nil }) else {
+        guard tracks.allSatisfy({ $0.liveURL != nil }) else {
             return .error(text: "Track Not Found")
         }
         

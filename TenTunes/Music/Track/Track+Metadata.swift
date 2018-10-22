@@ -19,7 +19,7 @@ extension Track {
     }
     
     func fetchMetadata(force: Bool = false) throws {
-        guard let url = self.url else {
+        guard let url = self.liveURL else {
             throw MetadataError.fileNotFound
         }
         

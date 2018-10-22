@@ -33,7 +33,7 @@ class MediaLocation {
             return
         }
         
-        guard let src = track.url else {
+        guard let src = track.liveURL else {
             return
         }
         
@@ -57,7 +57,7 @@ class MediaLocation {
     }
     
     func delete(track: Track) {
-        guard track.usesMediaDirectory, let url = track.url else {
+        guard track.usesMediaDirectory, let url = track.liveURL else {
             return
         }
         
@@ -85,7 +85,7 @@ class MediaLocation {
     func realisticLocation(for track: Track) -> URL {
         var desired = desiredLocation(for: track)
         
-        if desired == track.url {
+        if desired == track.resolvedURL {
             return desired
         }
         
@@ -107,7 +107,7 @@ class MediaLocation {
     }
     
     func desiredLocation(for track: Track) -> URL {
-        let pathExtension = track.url?.pathExtension ?? ""
+        let pathExtension = track.resolvedURL?.pathExtension ?? ""
         return directory.appendingPathComponent(Artist.describe(track.authors).asFileName)
                         .appendingPathComponent((track.album ?? Album.unknown).asFileName)
                         .appendingPathComponent(track.rTitle)
@@ -116,7 +116,7 @@ class MediaLocation {
     
     func pather(absolute: Bool = false) -> ((Track, URL) -> String?) {
         return { [unowned self] (track, dstURL) in
-            guard let url = track.url else {
+            guard let url = track.resolvedURL else {
                 return nil
             }
             
@@ -176,7 +176,7 @@ class MediaLocation {
         }
         
         return { (track, dstURL) in
-            guard let url = track.url, let hash = dst[url] else {
+            guard let url = track.resolvedURL, let hash = dst[url] else {
                 return nil
             }
             

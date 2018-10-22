@@ -50,9 +50,9 @@ extension VisualizerWindowController {
         let visible = window?.occlusionState.contains(.visible) ?? false
         
         fft?.stop()
-        
+        fft = nil
+
         guard visible || syphon != nil else {
-            fft = nil
             return
         }
         

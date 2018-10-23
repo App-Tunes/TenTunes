@@ -19,12 +19,11 @@ extension Track {
     }
     
     func fetchMetadata(force: Bool = false) throws {
-        guard let url = self.liveURL else {
+        guard let url = self.liveURL, let modDate = liveFileAttributes?[.modificationDate] as! Date? else {
             throw MetadataError.fileNotFound
         }
         
-        let modDate = { (try! FileManager.default.attributesOfItem(atPath: url.path)[.modificationDate]) as! Date }
-        guard force || ((metadataFetchDate ?=> modDate().isAfter) ?? true) else {
+        guard force || ((metadataFetchDate ?=> modDate.isAfter) ?? true) else {
             // Hasn't changed
             return
         }

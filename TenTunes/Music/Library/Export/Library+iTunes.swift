@@ -20,7 +20,7 @@ extension Library.Export {
         dict[ordered: "Major Version"] = 1
         dict[ordered: "Minor Version"] = 1
         
-        dict[ordered: "Application Version"] = "12.7.3.46"
+        dict[ordered: "Application Version"] = "12.9.0.164"
         dict[ordered: "Date"] = NSDate()
         dict[ordered: "Features"] = 5 // TODO? Wat is dis
         dict[ordered: "Show Content Ratings"] = true
@@ -35,13 +35,27 @@ extension Library.Export {
             
             // Dicts cannot contain nil
             trackDict["Track ID"] = idx
+            
+            // TODO Theoretically unacceptable to write exports with live attributes, so store?
+//            if let attributes = track.liveFileAttributes {
+//                trackDict["Size"] = attributes[FileAttributeKey.size] as! UInt64
+//                trackDict["Date Modified"] = attributes[FileAttributeKey.modificationDate] as! NSDate
+//            }
+            trackDict["Total Time"] = track.duration.map { Int($0.seconds * 1000) } ?? 0 // If we don't have a duration it's not playable so to say
+            
+            if track.year > 0 { trackDict["Year"] = track.year }
+            trackDict["Date Added"] = track.creationDate
+            trackDict["Bit Rate"] = Int(track.bitrate / 1024)
+            trackDict["Track Type"] = "File" // TODO?
+
             trackDict["Name"] = track.rTitle
             trackDict["Artist"] = track.author ?? Artist.unknown
             trackDict["Album"] = track.album ?? Album.unknown
-            trackDict["Location"] = track.resolvedURL?.path ?? ""
+            trackDict["Location"] = track.resolvedURL?.absoluteString ?? ""
             if let genre = track.genre { trackDict["Genre"] = genre }
             if let bpm = track.bpmString ?=> Int.init { trackDict["BPM"] = bpm } // Needs an int?
             trackDict["Persistent ID"] = track.iTunesID ?? to16Hex(track.id.uuidString) // TODO
+
             
             return (String(idx), trackDict)
         })

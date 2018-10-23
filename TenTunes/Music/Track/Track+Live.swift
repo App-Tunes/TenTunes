@@ -13,6 +13,10 @@ extension Track {
         return liveURL ?=> TagLibFile.init
     }
     
+    var liveFileAttributes: [FileAttributeKey: Any]? {
+        return (liveURL?.path).flatMap { try? FileManager.default.attributesOfItem(atPath: $0) }
+    }
+    
     @discardableResult
     func writeToFile(block: (TagLibFile) -> Void) -> Bool {
         if let tlFile = tagLibFile {

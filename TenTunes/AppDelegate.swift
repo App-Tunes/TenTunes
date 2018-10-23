@@ -50,6 +50,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     
                     dialog.canChooseFiles = true // packages are considered files by finder, library is a package
                     dialog.canChooseDirectories = true
+                    dialog.allowedFileTypes = ["de.ivorius.tentunes.library"]
                     dialog.directoryURL = defaultURL()
                     
                     location = dialog.runModal() == .OK ? dialog.url : nil
@@ -264,10 +265,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func openDocument(_ sender: Any) {
         let dialog = Library.Import.dialogue(allowedFiles: Library.FileTypes.all)
 
-
         // TODO Allow only audiovisual files, and m3u
-//        dialog.title                   = "Select an iTunes Library"
-//        dialog.allowedFileTypes        = ["xml"]
         
         if dialog.runModal() == NSApplication.ModalResponse.OK {
             self.import(urls: dialog.urls)

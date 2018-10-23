@@ -133,7 +133,7 @@
 		80CED03C20C88055001E710F /* AVFoundation+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CED03B20C88055001E710F /* AVFoundation+TT.swift */; };
 		80CFDA0A203C4E2300C7A506 /* LazyVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CFDA09203C4E2300C7A506 /* LazyVar.swift */; };
 		80D9448C21662E0100C135CA /* ResonanceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D9448B21662E0100C135CA /* ResonanceProvider.swift */; };
-		80E02C63217FB8B000251D24 /* Document-ITL.icns in Resources */ = {isa = PBXBuildFile; fileRef = 80E02C62217FB8AF00251D24 /* Document-ITL.icns */; };
+		80E02C63217FB8B000251D24 /* Document-TTL.icns in Resources */ = {isa = PBXBuildFile; fileRef = 80E02C62217FB8AF00251D24 /* Document-TTL.icns */; };
 		80E0885020FFB3A3001FFE26 /* TTWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E0884F20FFB3A3001FFE26 /* TTWindow.swift */; };
 		80E092A12066C42D000CA4D5 /* MediaLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E092A02066C42D000CA4D5 /* MediaLocation.swift */; };
 		80E2C9E0204AE18E00298E81 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E2C9DC204AE18E00298E81 /* Track.swift */; };
@@ -359,7 +359,7 @@
 		80D8A0FC212460BE003E1F11 /* Library.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Library.storyboard; path = "/Users/lukas/XCode Projects/TenTunes/TenTunes/Library.storyboard"; sourceTree = "<absolute>"; };
 		80D9448B21662E0100C135CA /* ResonanceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResonanceProvider.swift; sourceTree = "<group>"; };
 		80DCA9B0203F636900B1E9B1 /* TenTunes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TenTunes-Bridging-Header.h"; sourceTree = "<group>"; };
-		80E02C62217FB8AF00251D24 /* Document-ITL.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "Document-ITL.icns"; sourceTree = "<group>"; };
+		80E02C62217FB8AF00251D24 /* Document-TTL.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "Document-TTL.icns"; sourceTree = "<group>"; };
 		80E0884F20FFB3A3001FFE26 /* TTWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTWindow.swift; sourceTree = "<group>"; };
 		80E092A02066C42D000CA4D5 /* MediaLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaLocation.swift; sourceTree = "<group>"; };
 		80E2C9DC204AE18E00298E81 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
@@ -568,7 +568,7 @@
 		809CEABD2163EFE9008D6AC0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				80E02C62217FB8AF00251D24 /* Document-ITL.icns */,
+				80E02C62217FB8AF00251D24 /* Document-TTL.icns */,
 				809CEABB2163EFCD008D6AC0 /* superpowered_splash.svg */,
 				80F2C5802038808000212739 /* Assets.xcassets */,
 				80C1F16221428E9F0032E554 /* Shader */,
@@ -949,7 +949,7 @@
 				8030E01520FCBDAA006B4AE8 /* TaskViewController.xib in Resources */,
 				802F9EFA2170A4C000D497AE /* bloom.fs in Resources */,
 				806611812124622100C3948E /* Library.storyboard in Resources */,
-				80E02C63217FB8B000251D24 /* Document-ITL.icns in Resources */,
+				80E02C63217FB8B000251D24 /* Document-TTL.icns in Resources */,
 				80074CF9204583CF0055B87E /* TrackController.xib in Resources */,
 				80F2C5842038808000212739 /* Main.storyboard in Resources */,
 			);

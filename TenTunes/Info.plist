@@ -75,7 +75,7 @@
 			<key>UTTypeDescription</key>
 			<string>Ten Tunes Library</string>
 			<key>UTTypeIconFile</key>
-			<string>Document-ITL</string>
+			<string>Document-TTL</string>
 			<key>UTTypeIdentifier</key>
 			<string>de.ivorius.tentunes.library</string>
 			<key>UTTypeReferenceURL</key>

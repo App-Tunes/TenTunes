@@ -33,7 +33,7 @@ class MoveTrackToMediaLocation: TrackTask {
             }
             
             track.usesMediaDirectory = true
-            Library.shared.mediaLocation.updateLocations(of: [track], copy: self.copy)
+            Library.shared.mediaLocation.updateLocation(of: track, copy: self.copy)
             
             try! mox.save()
             

@@ -19,15 +19,7 @@ class MediaLocation {
         // TODO Clean up Garbage in the Media directory. ITS OURS
         // Move it to 'media-trash' or something :D
     }
-    
-    func updateLocations(of tracks: [Track], copy: Bool = false) {
-        for track in tracks {
-            updateLocation(of: track, copy: copy)
-        }
         
-        try! tracks.first?.managedObjectContext?.save()
-    }
-    
     func updateLocation(of track: Track, copy: Bool = false) {
         guard track.usesMediaDirectory else {
             return
@@ -83,27 +75,32 @@ class MediaLocation {
     }
     
     func realisticLocation(for track: Track) -> URL {
-        var desired = desiredLocation(for: track)
+        let desired = desiredLocation(for: track)
         
         if desired == track.resolvedURL {
             return desired
         }
         
         let ext = desired.pathExtension
-        for i in 1...100 {
+        var realistic = desired
+        
+        for i in 1...10 {
             if !FileManager.default.fileExists(atPath: desired.path) {
                 if i > 1 {
-                    print("Avoiding overwriting existing file: " + desired.path)
+                    print("Avoiding overwriting existing file: \"\(desired)\", using: \"\(realistic)\"")
                 }
                 
-                return desired
+                return realistic
             }
             
-            desired = desired.deletingPathExtension().deletingPathExtension()
-                .appendingPathExtension( String(i)).appendingPathExtension(ext)
+            realistic = desired.deletingPathExtension()
+                .appendingPathExtension(String(i)).appendingPathExtension(ext)
         }
         
-        fatalError("Given up trying to find a file! Wtf?") // TODO
+        let finalFile = desired.deletingPathExtension()
+            .appendingPathExtension(UUID().uuidString).appendingPathExtension(ext)
+        print("Given up trying to find a numbered file due to existing tracks: \"\(desired)\", using: \"\(finalFile)\"")
+        return finalFile
     }
     
     func desiredLocation(for track: Track) -> URL {

@@ -65,5 +65,33 @@
 	<string>Audio input option for the visualizer</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>ttl-icon.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>com.apple.package</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Ten Tunes Library</string>
+			<key>UTTypeIconFile</key>
+			<string>ttl-icon.png</string>
+			<key>UTTypeIdentifier</key>
+			<string>de.ivorius.tentunes.library</string>
+			<key>UTTypeReferenceURL</key>
+            <string>https://ivorius.de/tentunes</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>ttl</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>

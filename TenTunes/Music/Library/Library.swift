@@ -12,12 +12,14 @@ import Cocoa
 import CoreData
 
 class Library : NSPersistentContainer {
+    static let libraryFolderName = "Library.ttl"
+    
     static var shared: Library {
         return (NSApp.delegate as! AppDelegate).persistentContainer
     }
 
     init?(name: String, at: URL, create: Bool?) {
-        let libraryURL = at.appendingPathComponent("Library")
+        let libraryURL = at.appendingPathComponent(Library.libraryFolderName)
         let storeURL = libraryURL.appendingPathComponent("library.sqlite")
         
         if let create = create, create == FileManager.default.fileExists(atPath: storeURL.path) {

@@ -44,6 +44,8 @@ class UpdateCurrentPlaylist: Task {
     override var preventsQuit: Bool { return false }
         
     override func execute() {
+        super.execute()
+
         let desired = self.desired
         
         // Make sure to cache the results on the main thread if we use the biggest of them all

@@ -14,12 +14,16 @@ class MoveTrackToMediaLocation: TrackTask {
     init(track: Track, copy: Bool) {
         self.copy = copy
         super.init(track: track, priority: 5)
+        
+        savesLibraryOnCompletion = true
     }
     
     override var title: String { return "\(copy ? "Copy" : "Move") Track To Media Directory" }
     
     override func execute() {
-        Library.shared.performChildBackgroundTask { [unowned self] mox in
+        super.execute()
+
+        performChildBackgroundTask(for: library) { [unowned self] mox in
             guard let track = mox.convert(self.track) else {
                 self.finish()
                 return
@@ -33,7 +37,7 @@ class MoveTrackToMediaLocation: TrackTask {
             }
             
             track.usesMediaDirectory = true
-            Library.shared.mediaLocation.updateLocation(of: track, copy: self.copy)
+            self.library.mediaLocation.updateLocation(of: track, copy: self.copy)
             
             try! mox.save()
             

@@ -30,6 +30,12 @@ class AnalyzeCurrentTrack: Tasker {
 
 class TrackTask: Task {
     var track: Track
+    
+    var library: Library {
+        return track.library
+    }
+    
+    var savesLibraryOnCompletion = false
 
     init(track: Track, priority: Float = 1) {
         self.track = track
@@ -38,6 +44,14 @@ class TrackTask: Task {
     
     override func eq(other: Task) -> Bool {
         return (other as! TrackTask).track == track
+    }
+    
+    override func finish() {
+        super.finish()
+        
+        if savesLibraryOnCompletion && state == .completed {
+            try! library.viewContext.save()
+        }
     }
 }
 
@@ -49,6 +63,8 @@ class AnalyzeTrack: TrackTask {
         self.read = read
         self.analyzeFlags = analyzeFlags
         super.init(track: track, priority: priority)
+        
+        savesLibraryOnCompletion = true
     }
         
     override var title: String { return analyzeFlags.isEmpty ? "Analyze Track" : "Analyze Track Metadata" }
@@ -57,6 +73,8 @@ class AnalyzeTrack: TrackTask {
     override var preventsQuit: Bool { return !read }
 
     override func execute() {
+        super.execute()
+
         self.analyze(read: read) {
             self.finish()
         }

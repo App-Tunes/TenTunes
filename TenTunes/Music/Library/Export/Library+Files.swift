@@ -77,6 +77,8 @@ extension Library {
         override var preventsQuit: Bool { return false }
         
         override func execute() {
+            super.execute()
+
             library.performBackgroundTask { [unowned self] mox in
                 self.library.export(mox).updateExports()
                 self.finish()

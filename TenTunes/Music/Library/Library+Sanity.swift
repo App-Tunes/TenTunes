@@ -22,6 +22,8 @@ extension Library {
         override var preventsQuit: Bool { return false }
         
         override func execute() {
+            super.execute()
+            
             performChildBackgroundTask(for: library) { [unowned self] mox in
                 self.check(in: mox)
                 self.finish()

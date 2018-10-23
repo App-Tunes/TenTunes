@@ -64,13 +64,18 @@ class QueueTasker : Tasker {
 }
 
 class Task {
+    enum State {
+        case waiting, running, cancelled, completed
+    }
+    
     let manageSemaphore = DispatchSemaphore(value: 1)
     
     var completion: (() -> Swift.Void)?
-    var finished = false
     
-    var cancelled = false
     var cancelable = true
+    
+    var completionRun = false
+    var state: State = .waiting
     
     init(priority: Float = 1) {
         self.priority = priority
@@ -84,15 +89,18 @@ class Task {
     var preventsQuit: Bool { return !cancelable }
     
     func execute() {
-        
+        if state == .waiting {
+            state = .running
+        }
     }
     
     func performChildBackgroundTask(for library: Library, block: @escaping (NSManagedObjectContext) -> Void) {
         manageSemaphore.wait()
         
-        guard !cancelled else {
-            finish()
+        guard state != .cancelled else {
             manageSemaphore.signal()
+
+            finish()
             return
         }
         
@@ -103,13 +111,16 @@ class Task {
     }
     
     func checkCanceled() -> Bool {
-        if cancelled {
-            if !finished {
-                finish()
-            }
+        manageSemaphore.wait()
+
+        if state == .cancelled {
+            manageSemaphore.signal()
+            finish()
+
             return true
         }
-        
+
+        manageSemaphore.signal()
         return false
     }
     
@@ -130,18 +141,26 @@ class Task {
             return false
         }
         
-        cancelled = true
+        state = .cancelled
         
         manageSemaphore.signal()
         return true
     }
     
     func finish() {
-        guard !finished else {
+        manageSemaphore.wait()
+
+        guard !completionRun else {
             fatalError("Finishing finished task!")
         }
         
-        finished = true
+        if state == .running {
+            state = .completed
+        }
+        
+        completionRun = true
+        manageSemaphore.signal()
+
         completion?()
     }
     

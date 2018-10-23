@@ -26,6 +26,8 @@ class ExportPlaylists: Task {
     override var title: String { return "Exporting Playlists" }
     
     override func execute() {
+        super.execute()
+
         Library.shared.performChildBackgroundTask { [unowned self] mox in
             let playlists = mox.compactConvert(self.playlists)
             

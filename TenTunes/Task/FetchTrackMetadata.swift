@@ -11,11 +11,15 @@ import Cocoa
 class FetchTrackMetadata: TrackTask {
     init(track: Track) {
         super.init(track: track, priority: 4)
+        
+        savesLibraryOnCompletion = true
     }
     
     override var title: String { return "Fetch Track Metadata" }
-
+    
     override func execute() {
+        super.execute()
+
         Library.shared.performChildBackgroundTask { [unowned self] mox in
             mox.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
             

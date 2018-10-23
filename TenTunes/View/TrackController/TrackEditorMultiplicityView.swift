@@ -25,7 +25,7 @@ class TrackEditorMultiplicityView : MultiplicityGuardView {
         dragHighlightView.isReceivingDrag = false
     }
     
-    override func concludeDragOperation(_ sender: NSDraggingInfo?) {
+    override func draggingEnded(_ sender: NSDraggingInfo) {
         dragHighlightView.isReceivingDrag = false
     }
 

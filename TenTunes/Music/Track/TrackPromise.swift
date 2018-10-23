@@ -9,6 +9,8 @@
 import Cocoa
 
 class TrackPromise {
+    static let utiType = "public.audiovisual-content"
+    
     static let pasteboardTypes = [Track.pasteboardType, .fileURL]
 
     static func inside(pasteboard: NSPasteboard, for library: Library) -> [TrackPromise]? {
@@ -22,6 +24,14 @@ class TrackPromise {
                 .map { .Existing($0) }
         case .fileURL:
             let urls = pasteboard.readObjects(forClasses: [NSURL.self], options: [.urlReadingFileURLsOnly: true]) as! [NSURL]
+            
+            guard urls.allSatisfy({
+                let type = try! NSWorkspace.shared.type(ofFile: $0.path!)
+                return NSWorkspace.shared.type(type, conformsToType: TrackPromise.utiType)
+            }) else {
+                return nil
+            }
+            
             return urls.map { .File(url: $0 as URL, library: library) }
         default:
             return nil

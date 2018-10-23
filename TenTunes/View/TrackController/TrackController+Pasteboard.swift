@@ -118,7 +118,7 @@ extension TrackController: NSDraggingDestination {
         return .link
     }
     
-    func concludeDragOperation(_ sender: NSDraggingInfo?) {
+    func draggingEnded(_ sender: NSDraggingInfo) {
         dragHighlightView.isReceivingDrag = false
     }
     

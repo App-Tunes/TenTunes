@@ -18,15 +18,16 @@ class Library : NSPersistentContainer {
         return (NSApp.delegate as! AppDelegate).persistentContainer
     }
 
-    init?(name: String, at: URL, create: Bool?) {
-        let libraryURL = at.appendingPathComponent(Library.libraryFolderName)
+    init?(name: String, at url: URL, create: Bool?) {
+        directory = url.pathExtension == "ttl" ? url.deletingLastPathComponent() : url
+
+        let libraryURL = directory.appendingPathComponent(Library.libraryFolderName)
         let storeURL = libraryURL.appendingPathComponent("library.sqlite")
         
         if let create = create, create == FileManager.default.fileExists(atPath: storeURL.path) {
             return nil
         }
 
-        directory = at
         mediaLocation = MediaLocation(directory: directory.appendingPathComponent("Media"))
 
         super.init(name: name, managedObjectModel: NSManagedObjectModel(contentsOf: Bundle.main.url(forResource: name, withExtension: "momd")!)!)

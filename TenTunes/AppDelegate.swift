@@ -48,7 +48,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 case .alertFirstButtonReturn:
                     let dialog = NSOpenPanel()
                     
-                    dialog.canChooseFiles = false
+                    dialog.canChooseFiles = true // packages are considered files by finder, library is a package
                     dialog.canChooseDirectories = true
                     dialog.directoryURL = defaultURL()
                     

@@ -50,7 +50,9 @@ class TrackTask: Task {
         super.finish()
         
         if savesLibraryOnCompletion && state == .completed {
-            try! library.viewContext.save()
+            DispatchQueue.main.async {
+                try! self.library.viewContext.save()
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ import Cocoa
 
 extension PlaylistController {
     var pasteboardTypes: [NSPasteboard.PasteboardType] {
-        return [Playlist.pasteboardType] + TrackPromise.pasteboardTypes
+        return Array(Set(PlaylistPromise.pasteboardTypes + TrackPromise.pasteboardTypes))
     }
     
     func outlineView(_ outlineView: NSOutlineView, pasteboardWriterForItem item: Any) -> NSPasteboardWriting? {
@@ -28,13 +28,8 @@ extension PlaylistController {
         if TrackPromise.inside(pasteboard: pasteboard, for: Library.shared) != nil {
             return ((playlist as? ModifiablePlaylist)?.supports(action: .add) ?? false) ? .link : []
         }
-
-        guard let type = pasteboard.availableType(from: pasteboardTypes) else {
-            return []
-        }
         
-        switch type {
-        case Playlist.pasteboardType:
+        if PlaylistPromise.inside(pasteboard: pasteboard, for: Library.shared) != nil {
             // We can always rearrange, except into playlists
             let item = (item as? Playlist) ?? masterPlaylist!
             guard let parent = item as? PlaylistFolder, !parent.automatesChildren else {
@@ -50,9 +45,9 @@ extension PlaylistController {
             }
             
             return playlists.anySatisfy { $0.parent!.automatesChildren } ? .copy : .move
-        default:
-            fatalError("Unhandled, but registered pasteboard type")
         }
+
+        return []
     }
     
     func outlineView(_ outlineView: NSOutlineView, acceptDrop info: NSDraggingInfo, item: Any?, childIndex index: Int) -> Bool {
@@ -67,29 +62,23 @@ extension PlaylistController {
 
             let tracks = promises.compactMap { $0.fire() }
             (parent as! ModifiablePlaylist).addTracks(tracks)
+
+            try! Library.shared.viewContext.save()
             return true
         }
         
-        guard let type = pasteboard.availableType(from: pasteboardTypes) else {
-            return false
-        }
-
-        switch type {
-        case Playlist.pasteboardType:
-            let playlists = (pasteboard.pasteboardItems ?? []).compactMap(Library.shared.readPlaylist)
-                // Duplicate before dropping if we aren't supposed to edit the source
+        if let promises = PlaylistPromise.inside(pasteboard: pasteboard, for: Library.shared) {
+            let playlists = promises.compactMap { $0.fire() }
                 .map { $0.parent!.automatesChildren ? $0.duplicate() : $0 }
             
             for playlist in playlists {
                 (parent as! PlaylistFolder).addPlaylist(playlist, above: index >= 0 ? index : nil)
             }
-            break
-        default:
-            fatalError("Unhandled, but registered pasteboard type")
+            
+            try! Library.shared.viewContext.save()
+            return true
         }
         
-        try! Library.shared.viewContext.save()
-        
-        return true
+        return false
     }
 }

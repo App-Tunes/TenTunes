@@ -85,7 +85,7 @@ class MediaLocation {
         var realistic = desired
         
         for i in 1...10 {
-            if !FileManager.default.fileExists(atPath: desired.path) {
+            if !FileManager.default.fileExists(atPath: realistic.path) {
                 if i > 1 {
                     print("Avoiding overwriting existing file: \"\(desired)\", using: \"\(realistic)\"")
                 }

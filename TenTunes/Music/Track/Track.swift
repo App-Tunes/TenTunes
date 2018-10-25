@@ -74,7 +74,7 @@ public class Track: NSManagedObject {
     
     var duration: CMTime? {
         get { return durationR > 0 ? CMTime(value: durationR, timescale: 1000) : nil }
-        set(duration) { durationR = duration?.convertScale(1000, method: .roundHalfAwayFromZero).value ?? 0 }
+        set { durationR = newValue?.convertScale(1000, method: .roundHalfAwayFromZero).value ?? 0 }
     }
     
     var durationSeconds: Int? {
@@ -82,7 +82,7 @@ public class Track: NSManagedObject {
         return Int(CMTimeGetSeconds(duration))
     }
     
-    var speed: Speed? {
+    @objc var speed: Speed? {
         get { return bpmString ?=> Speed.init }
         set { bpmString = newValue?.write }
     }
@@ -92,11 +92,11 @@ public class Track: NSManagedObject {
         set { keyString = newValue?.write }
     }
     
-    var rTitle: String {
+    @objc var rTitle: String {
         return title ?? Track.unknownTitle
     }
     
-    var rSource: String {
+    @objc var rSource: String {
         return album != nil ? "\(author ?? Artist.unknown) - \(album!)" : (author ?? Artist.unknown)
     }
         
@@ -108,7 +108,7 @@ public class Track: NSManagedObject {
         return album.map { Album(title: $0, by: (self.albumArtist ?=> Artist.init) ?? self.authors.first) }
     }
     
-    var rDuration: String {
+    @objc var rDuration: String {
         guard let duration = duration else { return "" }
         return Int(CMTimeGetSeconds(duration)).timeString
     }
@@ -127,43 +127,58 @@ public class Track: NSManagedObject {
             return containing.filter { self.library.isTag(playlist: $0) }
         }
     }
+    
+    override public class func keyPathsForValuesAffectingValue(forKey key: String) -> Set<String> {
+        return [
+            #keyPath(Track.rTitle): [#keyPath(Track.title)],
+            #keyPath(Track.rSource): [#keyPath(Track.album), #keyPath(Track.author)],
+            #keyPath(Track.rDuration): [#keyPath(Track.durationR)],
+            #keyPath(Track.speed): [#keyPath(Track.bpmString)],
+            ][key] ?? super.keyPathsForValuesAffectingValue(forKey: key)
+    }
 }
 
 extension Track {
-    struct Speed : Comparable {
+    @objc(TenTunes_TrackSpeed)
+    class Speed : NSObject, Comparable {
         static func < (lhs: Track.Speed, rhs: Track.Speed) -> Bool {
             return lhs.beatsPerMinute < rhs.beatsPerMinute
         }
         
         static let zero = Speed(beatsPerMinute: 0)
         
-        let beatsPerMinute: Double
+        @objc let beatsPerMinute: Double
         
-        var beatsPerSecond: Double { return beatsPerMinute / 60 }
+        @objc var beatsPerSecond: Double { return beatsPerMinute / 60 }
         
-        var secondsPerBeat: Double { return 1 / beatsPerSecond }
+        @objc var secondsPerBeat: Double { return 1 / beatsPerSecond }
         
         init(beatsPerMinute: Double) {
             self.beatsPerMinute = beatsPerMinute
         }
 
-        init?(parse string: String) {
+        convenience init?(parse string: String) {
             guard let parsed = Double(string) else { return nil }
             self.init(beatsPerMinute: parsed)
+        }
+        
+        override func isEqual(_ object: Any?) -> Bool {
+            return (object as? Speed)?.beatsPerMinute == beatsPerMinute
         }
     }
 }
 
-extension Track.Speed : CustomStringConvertible {
+//  : CustomStringConvertible
+extension Track.Speed {
     var write: String {
         return String(beatsPerMinute)
     }
     
-    var description: String {
+    override var description: String {
         return String(format: "%.1f", beatsPerMinute)
     }
  
-    var attributedDescription: NSAttributedString {
+    @objc var attributedDescription: NSAttributedString {
         let title = description
         let color = NSColor(hue: CGFloat(0.5 + (0...0.3).clamp((beatsPerMinute - 70.0) / 300.0)), saturation: CGFloat(0.3), brightness: CGFloat(0.65), alpha: CGFloat(1.0))
         

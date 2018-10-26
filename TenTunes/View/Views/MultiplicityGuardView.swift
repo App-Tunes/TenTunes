@@ -33,6 +33,7 @@ class MultiplicityGuardView: NSView {
                 return
             }
             
+            currentView?.frame = bounds
             removeSubview(oldValue, andAdd: currentView, order: .below)
             if let currentView = currentView {
                 addConstraints(NSLayoutConstraint.copyLayout(from: self, for: currentView))

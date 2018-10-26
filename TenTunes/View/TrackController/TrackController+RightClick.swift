@@ -146,6 +146,12 @@ extension TrackController: NSMenuDelegate {
         }
     }
     
+    @IBAction func menuRefetchMetadata(_ sender: Any) {
+        for track in menuTracks {
+            track.metadataFetchDate = nil
+        }
+    }
+
     @IBAction func removeTrack(_ sender: Any) {
         remove(indices: _tableView.clickedRows)
     }

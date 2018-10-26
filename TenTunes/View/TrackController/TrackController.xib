@@ -122,6 +122,12 @@
                         <action selector="menuAnalyzeMetadata:" target="-2" id="buT-HL-VKT"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Re-Fetch Metadata" id="J6z-4i-teW">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="menuRefetchMetadata:" target="-2" id="XiM-Hw-Ifj"/>
+                    </connections>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="4aL-aX-gXq"/>
                 <menuItem title="Remove from Playlist" id="Ko5-yB-rKk">
                     <modifierMask key="keyEquivalentModifierMask"/>

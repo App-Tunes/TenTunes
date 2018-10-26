@@ -16,8 +16,7 @@ extension Library.Export {
         // TODO lol
         let to16Hex: (String) -> String = { $0.replacingOccurrences(of: "-", with: "")[0...15] }
 
-        let reorder = DictionaryExportReorder()
-        let dict = reorder.child()
+        let dict = OrderedDictionary()
 
         dict[ordered: "Major Version"] = 1
         dict[ordered: "Minor Version"] = 1
@@ -33,33 +32,35 @@ extension Library.Export {
                 return nil
             }
             
-            var trackDict: [String: Any] = [:]
+            let trackDict = OrderedDictionary()
             
             // Dicts cannot contain nil
-            trackDict["Track ID"] = idx
+            trackDict[ordered: "Track ID"] = idx
             
             // TODO Theoretically unacceptable to write exports with live attributes, so store?
 //            if let attributes = track.liveFileAttributes {
 //                trackDict["Size"] = attributes[FileAttributeKey.size] as! UInt64
 //                trackDict["Date Modified"] = attributes[FileAttributeKey.modificationDate] as! NSDate
 //            }
-            trackDict["Total Time"] = track.duration.map { Int($0.seconds * 1000) } ?? 0 // If we don't have a duration it's not playable so to say
-            
-            if track.year > 0 { trackDict["Year"] = track.year }
-            trackDict["Date Added"] = track.creationDate
-            trackDict["Bit Rate"] = Int(track.bitrate / 1024)
-            trackDict["Track Type"] = "File" // TODO?
+            trackDict[ordered: "Total Time"] = track.duration.map { Int($0.seconds * 1000) } ?? 0 // If we don't have a duration it's not playable so to say
+            if let bpm = track.bpmString ?=> Int.init { trackDict[ordered: "BPM"] = bpm } // Needs an int?
 
-            trackDict["Name"] = track.rTitle
-            trackDict["Artist"] = track.author ?? Artist.unknown
-            trackDict["Album"] = track.album ?? Album.unknown
-            trackDict["Location"] = track.resolvedURL?.absoluteString ?? ""
-            if let genre = track.genre { trackDict["Genre"] = genre }
-            if let bpm = track.bpmString ?=> Int.init { trackDict["BPM"] = bpm } // Needs an int?
-            trackDict["Persistent ID"] = track.iTunesID ?? to16Hex(track.id.uuidString) // TODO
+            if track.year > 0 { trackDict[ordered: "Year"] = track.year }
+            trackDict[ordered: "Date Added"] = track.creationDate
+            trackDict[ordered: "Bit Rate"] = Int(track.bitrate / 1024)
+
+            trackDict[ordered: "Persistent ID"] = track.iTunesID ?? to16Hex(track.id.uuidString) // TODO
+            trackDict[ordered: "Track Type"] = "File" // TODO?
+
+            trackDict[ordered: "Name"] = track.rTitle
+            trackDict[ordered: "Artist"] = track.author ?? Artist.unknown
+            trackDict[ordered: "Album"] = track.album ?? Album.unknown
+            if let genre = track.genre { trackDict[ordered: "Genre"] = genre }
+
+            trackDict[ordered: "Location"] = track.resolvedURL?.absoluteString ?? ""
 
             
-            return (String(idx), trackDict)
+            return (String(idx), trackDict.dictionary)
         })
         dict[ordered: "Tracks"] = tracksDicts
         
@@ -73,28 +74,31 @@ extension Library.Export {
                 return nil
             }
             
-            var playlistDict: [String: Any] = [:]
+            let isMaster = playlist.objectID == library.masterPlaylist.objectID
+            let playlistDict = OrderedDictionary()
             
-            playlistDict["Playlist ID"] = idx
-            playlistDict["Name"] = playlist.name
-            playlistDict["Playlist Persistent ID"] = playlistPersistentID(playlist)
+            if isMaster { playlistDict[ordered: "Master"] = true }
+            playlistDict[ordered: "Playlist ID"] = idx
             if let parent = playlist.parent, parent.objectID != library.masterPlaylist.objectID {
-                playlistDict["Parent Persistent ID"] = playlistPersistentID(parent)
+                playlistDict[ordered: "Parent Persistent ID"] = playlistPersistentID(parent)
             }
+            playlistDict[ordered: "Playlist Persistent ID"] = playlistPersistentID(playlist)
             
             var tracks = playlist.tracksList
-            if playlist.objectID == library.masterPlaylist.objectID {
+            if isMaster {
                 tracks = library.allTracks.convert(to: context)!.tracksList
-                playlistDict["Master"] = true
-                playlistDict["All Items"] = true
-                playlistDict["Visible"] = false
+                
+                playlistDict[ordered: "All Items"] = true
+                playlistDict[ordered: "Visible"] = false
             }
             
-            playlistDict["Playlist Items"] = tracks.map { track in
+            playlistDict[ordered: "Name"] = playlist.name
+
+            playlistDict[ordered: "Playlist Items"] = tracks.map { track in
                 return ["Track ID": trackIDs[track]]
             }
             
-            return playlistDict
+            return playlistDict.dictionary
         }
         dict[ordered: "Playlists"] = playlistsArray
         
@@ -114,7 +118,7 @@ extension Library.Export {
             // Rekordbox needs the doctype to be exact....
             writtenString = Library.Export.fuckingRekordboxManRegex.stringByReplacingMatches(in: writtenString, range: NSMakeRange(0, min(200, writtenString.count)), withTemplate: "-//Apple Computer//DTD PLIST 1.0//EN")
             // Replace temporary keys with final keys
-            writtenString = reorder.fix(xml: writtenString)
+            writtenString = OrderedDictionary.cleanUp(xml: writtenString)
             
             try writtenString.write(to: url, atomically: true, encoding: .utf8)
         }
@@ -231,62 +235,28 @@ extension Library.Import {
 }
 
 extension Library.Export {
-    class DictionaryExportReorder {
-        var keys = [Key]()
+    class OrderedDictionary {
+        static let insertString = "_TenTunes_DYNAMIC"
+        static let xmlFixRegex = try! NSRegularExpression(pattern: "[0-9]{5}\(OrderedDictionary.insertString)", options: [])
         
-        func register(_ key: String) -> Key {
-            let key = Key(name: key, orderName: "000_XMLExport__\(keys.count)")
-            keys.append(key)
-            return key
-        }
+        typealias Value = Any
         
-        func fix(xml: String) -> String {
-            let fixed = NSMutableString(string: xml)
-            for key in keys {
-                key.regex.replaceMatches(in: fixed, options: [], range: NSMakeRange(0, fixed.length), withTemplate: "<key>\(key.name)</key>")
-            }
-            return fixed as String
+        static func cleanUp(xml: String) -> String {
+            return xmlFixRegex.stringByReplacingMatches(in: xml, range: NSMakeRange(0, xml.count), withTemplate: "")
         }
         
-        func child() -> ReorderingDicionary {
-            return ReorderingDicionary([:], parent: self)
-        }
-    }
-}
-
-extension Library.Export.DictionaryExportReorder {
-    struct Key {
-        let name: String
-        let orderName: String
-        let regex: NSRegularExpression
-        
-        init(name: String, orderName: String) {
-            self.name = name
-            self.orderName = orderName
-            regex = try! NSRegularExpression(pattern: "<key>\(orderName)</key>", options: [])
-        }
-    }
-    
-    class ReorderingDicionary {
-        let parent: Library.Export.DictionaryExportReorder
-        var dictionary: Dictionary<String, Any>
-
-        init(_ dictionary: Dictionary<String, Any>, parent: Library.Export.DictionaryExportReorder) {
-            self.parent = parent
-            self.dictionary = dictionary
-        }
-        
-        subscript (_ key: Key) -> Any? {
-            get { return dictionary[key.orderName] }
-            set { dictionary[key.orderName] = newValue }
-        }
+        var dictionary: Dictionary<String, Value> = [:]
+        var idx = 0
         
         subscript (ordered key: String) -> Any? {
-            get { return dictionary[key] }
-            set { dictionary[parent.register(key).orderName] = newValue }
+            get { fatalError("Unimplemented") }
+            set {
+                dictionary[String(format: "%05d", idx) + OrderedDictionary.insertString + key] = newValue
+                idx += 1
+            }
         }
         
-        subscript (_ key: String) -> Any? {
+        subscript(_ key: String) -> Value? {
             get { return dictionary[key] }
             set { dictionary[key] = newValue }
         }

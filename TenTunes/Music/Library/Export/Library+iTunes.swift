@@ -92,6 +92,7 @@ extension Library.Export {
                 playlistDict[ordered: "Visible"] = false
             }
             
+            if playlist is PlaylistFolder { playlistDict[ordered: "Folder"] = true }
             playlistDict[ordered: "Name"] = playlist.name
 
             playlistDict[ordered: "Playlist Items"] = tracks.map { track in

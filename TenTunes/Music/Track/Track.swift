@@ -119,7 +119,8 @@ public class Track: NSManagedObject {
     
     var tags: Set<PlaylistManual> {
         set {
-            containingPlaylists = newValue as NSSet
+            let containing = containingPlaylists as! Set<PlaylistManual>
+            containingPlaylists = (containing.filter { !self.library.isTag(playlist: $0) }.union(newValue)) as NSSet
         }
         get {
             // TODO Also consider smart playlists and folders?

@@ -99,6 +99,10 @@ extension String {
             .replacingOccurrences(of: "/", with: ":") // : is a slash in filenames
     }
     
+    var filterAlphanumeric: String {
+        return Character.regexNotAlphanumeric.stringByReplacingMatches(in: self, range: NSMakeRange(0, count), withTemplate: "")
+    }
+    
     func startsOrIsStarted(by string: String) -> Bool {
         return string.count > count ? string.starts(with: self) : starts(with: string)
     }
@@ -110,6 +114,10 @@ extension String {
     static func id(of object: AnyObject) -> String {
         return String(UInt(bitPattern: ObjectIdentifier(object)))
     }
+}
+
+extension Character {
+    static var regexNotAlphanumeric = try! NSRegularExpression(pattern: "[^A-Za-z0-9]+", options: [])
 }
 
 extension DispatchSemaphore {

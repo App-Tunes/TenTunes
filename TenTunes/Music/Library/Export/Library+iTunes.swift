@@ -16,7 +16,8 @@ extension Library.Export {
         // TODO lol
         let to16Hex: (String) -> String = { $0.replacingOccurrences(of: "-", with: "")[0...15] }
 
-        let dict = DictionaryExportReorder(dictionary: [:])
+        let reorder = DictionaryExportReorder()
+        let dict = reorder.child()
 
         dict[ordered: "Major Version"] = 1
         dict[ordered: "Minor Version"] = 1
@@ -113,7 +114,7 @@ extension Library.Export {
             // Rekordbox needs the doctype to be exact....
             writtenString = Library.Export.fuckingRekordboxManRegex.stringByReplacingMatches(in: writtenString, range: NSMakeRange(0, min(200, writtenString.count)), withTemplate: "-//Apple Computer//DTD PLIST 1.0//EN")
             // Replace temporary keys with final keys
-            writtenString = dict.fix(xml: writtenString)
+            writtenString = reorder.fix(xml: writtenString)
             
             try writtenString.write(to: url, atomically: true, encoding: .utf8)
         }
@@ -231,29 +232,48 @@ extension Library.Import {
 
 extension Library.Export {
     class DictionaryExportReorder {
-        struct Key {
-            let name: String
-            let orderName: String
-            let regex: NSRegularExpression
-            
-            init(name: String, orderName: String) {
-                self.name = name
-                self.orderName = orderName
-                regex = try! NSRegularExpression(pattern: "<key>\(orderName)</key>", options: [])
-            }
-        }
-        
-        var dictionary: Dictionary<String, Any>
         var keys = [Key]()
         
-        init(dictionary: Dictionary<String, Any>) {
-            self.dictionary = dictionary
-        }
-        
         func register(_ key: String) -> Key {
-            let key = Key(name: key, orderName: "XMLExport__\(keys.count)")
+            let key = Key(name: key, orderName: "000_XMLExport__\(keys.count)")
             keys.append(key)
             return key
+        }
+        
+        func fix(xml: String) -> String {
+            let fixed = NSMutableString(string: xml)
+            for key in keys {
+                key.regex.replaceMatches(in: fixed, options: [], range: NSMakeRange(0, fixed.length), withTemplate: "<key>\(key.name)</key>")
+            }
+            return fixed as String
+        }
+        
+        func child() -> ReorderingDicionary {
+            return ReorderingDicionary([:], parent: self)
+        }
+    }
+}
+
+extension Library.Export.DictionaryExportReorder {
+    struct Key {
+        let name: String
+        let orderName: String
+        let regex: NSRegularExpression
+        
+        init(name: String, orderName: String) {
+            self.name = name
+            self.orderName = orderName
+            regex = try! NSRegularExpression(pattern: "<key>\(orderName)</key>", options: [])
+        }
+    }
+    
+    class ReorderingDicionary {
+        let parent: Library.Export.DictionaryExportReorder
+        var dictionary: Dictionary<String, Any>
+
+        init(_ dictionary: Dictionary<String, Any>, parent: Library.Export.DictionaryExportReorder) {
+            self.parent = parent
+            self.dictionary = dictionary
         }
         
         subscript (_ key: Key) -> Any? {
@@ -263,20 +283,12 @@ extension Library.Export {
         
         subscript (ordered key: String) -> Any? {
             get { return dictionary[key] }
-            set { dictionary[register(key).orderName] = newValue }
+            set { dictionary[parent.register(key).orderName] = newValue }
         }
         
         subscript (_ key: String) -> Any? {
             get { return dictionary[key] }
             set { dictionary[key] = newValue }
-        }
-        
-        func fix(xml: String) -> String {
-            let fixed = NSMutableString(string: xml)
-            for key in keys {
-                key.regex.replaceMatches(in: fixed, options: [], range: NSMakeRange(0, fixed.length), withTemplate: "<key>\(key.name)</key>")
-            }
-            return fixed as String
         }
     }
 }

@@ -49,7 +49,7 @@ extension AVPlayer {
         backingPlayer = AKPlayer()
         mixer = AKMixer(player, backingPlayer)
         outputNode = AKBooster(mixer)
-        outputNode.gain = 0.8
+        outputNode.gain = 0.7
 
         super.init()
 

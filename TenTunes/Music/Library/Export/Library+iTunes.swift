@@ -11,6 +11,7 @@ import Cocoa
 extension Library.Export {
     static let keyWhitespaceDeleteRegex = try! NSRegularExpression(pattern: "</key>\\s*", options: [])
     static let fuckingRekordboxManRegex = try! NSRegularExpression(pattern: "-\\/\\/Apple\\/\\/DTD PLIST 1\\.0\\/\\/EN", options: [])
+    static let fuckingRekordboxManMinIdx = 1000
 
     func iTunesLibraryXML(tracks: [Track], playlists: [Playlist]) {
         // TODO lol
@@ -32,10 +33,11 @@ extension Library.Export {
                 return nil
             }
             
+            let trackID = idx + Library.Export.fuckingRekordboxManMinIdx
             let trackDict = OrderedDictionary()
             
             // Dicts cannot contain nil
-            trackDict[ordered: "Track ID"] = idx
+            trackDict[ordered: "Track ID"] = trackID
             
             // TODO Theoretically unacceptable to write exports with live attributes, so store?
 //            if let attributes = track.liveFileAttributes {
@@ -60,13 +62,13 @@ extension Library.Export {
             trackDict[ordered: "Location"] = track.resolvedURL?.absoluteString ?? ""
 
             
-            return (String(idx), trackDict.dictionary)
+            return (String(trackID), trackDict.dictionary)
         })
         dict[ordered: "Tracks"] = tracksDicts
         
         let playlistPersistentID: (Playlist) -> String = { $0.iTunesID ?? to16Hex($0.id.uuidString)  } // TODO
         
-        let trackIDs: [Track: Int] = Dictionary(uniqueKeysWithValues: tracks.enumerated().map { (idx, track) in (track, idx) })
+        let trackIDs: [Track: Int] = Dictionary(uniqueKeysWithValues: tracks.enumerated().map { (idx, track) in (track, idx + Library.Export.fuckingRekordboxManMinIdx) })
         let playlistsArray: [[String: Any]] = playlists.enumerated().compactMap { tuple in
             let (idx, playlist) = tuple // TODO Destructure in param (later Swift)
 

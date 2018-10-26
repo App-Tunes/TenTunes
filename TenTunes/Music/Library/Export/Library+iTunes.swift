@@ -10,7 +10,8 @@ import Cocoa
 
 extension Library.Export {
     static let keyWhitespaceDeleteRegex = try! NSRegularExpression(pattern: "</key>\\s*", options: [])
-    
+    static let fuckingRekordboxManRegex = try! NSRegularExpression(pattern: "-\\/\\/Apple\\/\\/DTD PLIST 1\\.0\\/\\/EN", options: [])
+
     func iTunesLibraryXML(tracks: [Track], playlists: [Playlist]) {
         // TODO lol
         let to16Hex: (String) -> String = { $0.replacingOccurrences(of: "-", with: "")[0...15] }
@@ -105,14 +106,16 @@ extension Library.Export {
 
         do {
             let writtenData = try PropertyListSerialization.data(fromPropertyList: dict.dictionary, format: .xml, options: 0)
-            let writtenString = String(data: writtenData, encoding: .utf8)!
+            var writtenString = String(data: writtenData, encoding: .utf8)!
             
             // Hack to delete whitespace after </key>, since itunes doesn't do it
-            let finalString = Library.Export.keyWhitespaceDeleteRegex.split(string: writtenString).joined(separator: "</key>")
-            
+            writtenString = Library.Export.keyWhitespaceDeleteRegex.split(string: writtenString).joined(separator: "</key>")
+            // Rekordbox needs the doctype to be exact....
+            writtenString = Library.Export.fuckingRekordboxManRegex.stringByReplacingMatches(in: writtenString, range: NSMakeRange(0, min(200, writtenString.count)), withTemplate: "-//Apple Computer//DTD PLIST 1.0//EN")
             // Replace temporary keys with final keys
-            try dict.fix(xml: finalString)
-                .write(to: url, atomically: true, encoding: .utf8)
+            writtenString = dict.fix(xml: writtenString)
+            
+            try writtenString.write(to: url, atomically: true, encoding: .utf8)
         }
         catch {
             DispatchQueue.main.async {

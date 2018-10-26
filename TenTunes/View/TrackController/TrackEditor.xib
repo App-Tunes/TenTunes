@@ -179,7 +179,7 @@
                             <color key="borderColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                             <size key="contentViewMargins" width="1" height="1"/>
                         </box>
-                        <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="25" horizontalPageScroll="10" verticalLineScroll="25" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4S-uV-C4C">
+                        <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="25" horizontalPageScroll="10" verticalLineScroll="25" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="u4S-uV-C4C">
                             <rect key="frame" x="0.0" y="8" width="286" height="291"/>
                             <clipView key="contentView" drawsBackground="NO" id="flI-e3-PP9">
                                 <rect key="frame" x="0.0" y="0.0" width="286" height="291"/>
@@ -309,7 +309,7 @@
                                 </subviews>
                             </clipView>
                             <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="uDB-yF-QkC">
-                                <rect key="frame" x="0.0" y="198" width="286" height="16"/>
+                                <rect key="frame" x="-100" y="-100" width="286" height="16"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </scroller>
                             <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="Khq-6s-miM">

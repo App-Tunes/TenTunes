@@ -105,8 +105,9 @@ extension Library {
             library._exportChanged = Set()
             
             let tracks: [Track] = (try! context.fetch(Track.fetchRequest()))
-            // TODO Sort playlist by their parent / child tree
-            let playlists: [Playlist] = (try! context.fetch(Playlist.fetchRequest()))
+            
+            (try! context.fetch(Playlist.fetchRequest())) // Pre-Grab all the playlists for performance reasons
+            let playlists: [Playlist] = [context.convert(library.masterPlaylist)!].flatten { ($0 as? PlaylistFolder)?.childrenList }
 
             m3uPlaylists(playlists: playlists, changed: changed)
             iTunesLibraryXML(tracks: tracks, playlists: playlists)

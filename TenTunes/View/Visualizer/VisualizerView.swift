@@ -115,7 +115,7 @@ class VisualizerView: SyphonableOpenGLView {
         
         let localDarkness = pow(2, ((1 - brightness) * (darknessBonus * 2 + 1)) + 0.4)
         let brightnessBoost = pow(0.5, ((1 - ratio) * 0.4 + 0.4) / (highResonance / 15 + 1)) + ratio * 0.2
-        let desaturationBoost = (0.5 + prog * 0.5) * totalResonance / 60 + prog * 0.6
+        let desaturationBoost = (0.5 + prog * 0.5) * totalResonance / 40 + prog * 0.6
 
         // 0.6 so that extremely high and low sounds are far apart in color
         return NSColor(hue: CGFloat(prog * colorVariance + (time * 0.02321)).truncatingRemainder(dividingBy: 1),

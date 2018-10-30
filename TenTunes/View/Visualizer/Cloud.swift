@@ -32,7 +32,7 @@ class Cloud: VisualizerView {
         // Darkness makes it less bright
         glUniform1f(shader.guBrightness, 1.4 - (1 - brightness) * 1.35)
         
-        glUniform1f(shader.guSpaceDistortion, pow(psychedelic, 2))
+        glUniform1f(shader.guSpaceDistortion, pow(psychedelic, 2) / 10)
         
         glUniform1i(shader.guResonanceCount, GLint(resonance.count))
         

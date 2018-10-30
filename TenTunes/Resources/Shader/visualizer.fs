@@ -119,11 +119,11 @@ void main( void ) {
 
     // Position-shift based on time
     pos = mix(pos, vec2(sin(pTime * 1.24122) + 0.5, cos(pTime * 1.24122) + 0.5),
-              (sin(pTime * 1.2234 + center.x * center.y * 10) + 1) / 10 * spaceDistortion);
+              (sin(pTime * 1.2234 + center.x * center.y * 10) + 1) * spaceDistortion);
 
     // And same but pow
     pos = mix(pos, vec2(sin(pTime * 1.3183) + 0.5, cos(pTime * 1.82117) + 0.5),
-              (sin(pTime * 2.234 + pow(2, center.x * center.y * 10)) + 1) / 10 * spaceDistortion);
+              (sin(pTime * 2.234 + pow(2, center.x * center.y * 10)) + 1) * spaceDistortion);
 
     center = vec2((pos.x - 0.5) * scale, (pos.y - 0.5) * scale);
 

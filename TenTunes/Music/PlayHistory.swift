@@ -118,8 +118,16 @@ class PlayHistory {
     }
 
     func rearrange(tracks: [Track], before: Int) {
+        // TODO Doesn't work with the same track being in the playlist twice
+
+        let playing = playingTrack
+        
         if shuffled != nil  { shuffled!.rearrange(elements: tracks, to: before) }
         else                { order.rearrange(elements: tracks, to: before) }
+        
+        if let previous = playing {
+            playingIndex = indexOf(track: previous)! 
+        }
     }
     
     func remove(indices: [Int]) {

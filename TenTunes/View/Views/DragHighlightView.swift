@@ -49,7 +49,7 @@ class DragHighlightView: NSView {
     }
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
-        return delegate?.draggingEntered?(sender) ?? .generic
+        return delegate?.draggingEntered?(sender) ?? []
     }
     
     override func draggingExited(_ sender: NSDraggingInfo?) {

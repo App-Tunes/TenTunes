@@ -102,6 +102,10 @@ extension TrackController {
 
 extension TrackController: NSDraggingDestination {
     var acceptsGeneralDrag: Bool {
+        guard mode == .tracksList else {
+            return false
+        }
+        
         guard let playlist = history.playlist as? ModifiablePlaylist, playlist.supports(action: .add), !playlist.supports(action: .reorder) else {
             return false
         }
@@ -111,7 +115,7 @@ extension TrackController: NSDraggingDestination {
     
     func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
         guard acceptsGeneralDrag else {
-            return .generic
+            return []
         }
         
         dragHighlightView.isReceivingDrag = true

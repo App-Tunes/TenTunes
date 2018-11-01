@@ -67,6 +67,8 @@ class TrackController: NSViewController {
             _playlistTitle.stringValue = history.playlist.name
             _trackCounter.stringValue = String(history.count) + (history.count != 1 ? " tracks" : " track")
             
+            dragHighlightView.isHidden = !acceptsGeneralDrag
+            
             guard mode == .tracksList else {
                 return
             }

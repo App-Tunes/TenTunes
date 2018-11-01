@@ -126,7 +126,7 @@ void main( void ) {
               (sin(pTime * 2.234 + pow(2, center.x * center.y * 10)) + 1) * spaceDistortion);
 
     center = vec2((pos.x - 0.5) * scale, (pos.y - 0.5) * scale);
-
+    
     // Time-Shift depending on x/y coord for some cool patterns
     for (int i = 0; i < resonanceCount; i++) {
         float freqRatio = float(i) / float(resonanceCount);
@@ -136,8 +136,15 @@ void main( void ) {
         pTime += sin(  center.x * sin(distTime * (0.377231 + resonanceDistortionSpeed[i] * 0.07719872) + freqRatio * 6) / shiftSize
                      + center.y * cos(distTime * (0.41731 + resonanceDistortionSpeed[i] * 0.0731231) + freqRatio * 6) / shiftSize)
         * resonanceDistortion[i];
+        
+//        // Spiral-Shift depending on time
+//        vec2 p = center * (10.0 + 80.0 * resonanceDistortionShiftSizes[i]);
+//        float a = atan(p.x, p.y);
+//        float r = length(p);
+//        float cc = abs(sin(r + a *.5 - pTime * 2.));
+//        pTime += cc * resonanceDistortion[i] * 3.0;
     }
-
+    
     // Lines floating along top to bottom
 //    float webShiftY = pow((sin(pTime * 0.113238) + 1) * (sin(pTime * 0.132034) + 1) / 4, 3) * pow(spaceDistortion, 2);
 //    pos.x += mod(pos.y * (10 + sin(pTime * 0.1831) * 2) + pTime * 0.123182, 1) < 0.5 ? webShiftY : -webShiftY;

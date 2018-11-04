@@ -70,6 +70,7 @@ extension Track {
         }
     }
     
+    // TODO Store in data model (so we can sort faster by cd number)
     @objc dynamic var albumNumberOfCD: Int {
         get { return (partOfSet?.split(separator: "/")[safe: 0].flatMap { Int($0) }) ?? 0 }
         set {

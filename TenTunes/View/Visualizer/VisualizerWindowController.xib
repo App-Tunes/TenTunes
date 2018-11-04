@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -70,7 +70,7 @@
             <rect key="contentRect" x="90" y="125" width="416" height="342"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="ENc-Eb-lrQ">
-                <rect key="frame" x="0.0" y="0.0" width="416" height="342"/>
+                <rect key="frame" x="0.0" y="0.0" width="416" height="349"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6Jb-mX-sNA">
@@ -90,7 +90,7 @@ Gw
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0Ew-bO-deA">
-                        <rect key="frame" x="18" y="267" width="104" height="17"/>
+                        <rect key="frame" x="18" y="274" width="104" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="100" id="HZC-SD-A7U"/>
                         </constraints>
@@ -101,7 +101,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LlT-Kn-D38" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
-                        <rect key="frame" x="138" y="266" width="140" height="19"/>
+                        <rect key="frame" x="138" y="273" width="140" height="19"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="Jsg-3B-aPj"/>
                         </constraints>
@@ -111,7 +111,7 @@ Gw
                         </connections>
                     </slider>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Nr1-wo-1mq">
-                        <rect key="frame" x="18" y="243" width="104" height="17"/>
+                        <rect key="frame" x="18" y="250" width="104" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Dark" id="KB8-2B-s1g">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -119,14 +119,14 @@ Gw
                         </textFieldCell>
                     </textField>
                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sCl-hB-vJq" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
-                        <rect key="frame" x="138" y="242" width="140" height="19"/>
+                        <rect key="frame" x="138" y="249" width="140" height="19"/>
                         <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.59999999999999998" tickMarkPosition="above" sliderType="linear" id="iou-xt-ozq"/>
                         <connections>
                             <binding destination="-2" name="value" keyPath="_visualizerView.brightness" id="W26-Hx-YTt"/>
                         </connections>
                     </slider>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1nt-wb-SYK">
-                        <rect key="frame" x="18" y="219" width="104" height="17"/>
+                        <rect key="frame" x="18" y="226" width="104" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Sober" id="P7G-GX-yt9">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -134,7 +134,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vRr-fn-9Wb">
-                        <rect key="frame" x="18" y="195" width="104" height="17"/>
+                        <rect key="frame" x="18" y="202" width="104" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Rough" id="Mmk-Uk-eKN">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -142,14 +142,14 @@ Gw
                         </textFieldCell>
                     </textField>
                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gv5-AG-bfA" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
-                        <rect key="frame" x="138" y="218" width="140" height="19"/>
+                        <rect key="frame" x="138" y="225" width="140" height="19"/>
                         <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.59999999999999998" tickMarkPosition="above" sliderType="linear" id="lgL-cZ-190"/>
                         <connections>
                             <binding destination="-2" name="value" keyPath="_visualizerView.psychedelic" id="4av-7T-hsk"/>
                         </connections>
                     </slider>
                     <popUpButton verticalHuggingPriority="750" horizontalCompressionResistancePriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="ZVD-nD-gmP">
-                        <rect key="frame" x="138" y="102" width="189" height="25"/>
+                        <rect key="frame" x="138" y="109" width="189" height="25"/>
                         <popUpButtonCell key="cell" type="push" title="Ten Tunes" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="OMQ-4y-RAk" id="BdP-a2-atW">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="menu"/>
@@ -165,7 +165,7 @@ Gw
                         </connections>
                     </popUpButton>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fka-nI-yq3">
-                        <rect key="frame" x="18" y="107" width="104" height="17"/>
+                        <rect key="frame" x="18" y="114" width="104" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Audio Source" id="l20-FK-KQA">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -173,7 +173,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8RK-ax-fdb">
-                        <rect key="frame" x="18" y="136" width="104" height="17"/>
+                        <rect key="frame" x="18" y="143" width="104" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Rendering" id="qIF-2I-6Mm">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -181,7 +181,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="soe-EQ-VI1">
-                        <rect key="frame" x="18" y="305" width="104" height="17"/>
+                        <rect key="frame" x="18" y="312" width="104" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Mode" id="aJp-d8-qPI">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -200,7 +200,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FKw-DE-nRN">
-                        <rect key="frame" x="294" y="267" width="104" height="17"/>
+                        <rect key="frame" x="294" y="274" width="104" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="justified" title="Colorful" id="Y7v-2S-ONK">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -208,7 +208,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1z9-d3-w15">
-                        <rect key="frame" x="294" y="243" width="104" height="17"/>
+                        <rect key="frame" x="294" y="250" width="104" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="justified" title="Bright" id="bhL-A8-Q0G">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -216,7 +216,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qNt-rQ-Hj0">
-                        <rect key="frame" x="294" y="219" width="104" height="17"/>
+                        <rect key="frame" x="294" y="226" width="104" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="justified" title="Psychedelic" id="N5g-sC-uTa">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -224,7 +224,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="64q-vg-Kjt">
-                        <rect key="frame" x="294" y="195" width="104" height="17"/>
+                        <rect key="frame" x="294" y="202" width="104" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="justified" title="Detailed" id="gw6-Pn-pGi">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -232,7 +232,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="R9W-UV-AVd">
-                        <rect key="frame" x="138" y="131" width="189" height="25"/>
+                        <rect key="frame" x="138" y="138" width="189" height="25"/>
                         <popUpButtonCell key="cell" type="push" title="Direct" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="kc4-qg-DgD" id="YdH-uu-QJp">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="menu"/>
@@ -268,14 +268,14 @@ Gw
                         </textFieldCell>
                     </textField>
                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vVQ-v9-ruS" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
-                        <rect key="frame" x="138" y="194" width="140" height="19"/>
+                        <rect key="frame" x="138" y="201" width="140" height="19"/>
                         <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.59999999999999998" tickMarkPosition="above" sliderType="linear" id="cry-KN-E5I"/>
                         <connections>
                             <binding destination="-2" name="value" keyPath="_visualizerView.details" id="3Qb-M5-2rp"/>
                         </connections>
                     </slider>
                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="lgL-DS-af7">
-                        <rect key="frame" x="20" y="173" width="376" height="5"/>
+                        <rect key="frame" x="20" y="180" width="376" height="5"/>
                     </box>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cDK-6k-3NR">
                         <rect key="frame" x="18" y="50" width="104" height="17"/>
@@ -289,8 +289,8 @@ Gw
                         </textFieldCell>
                     </textField>
                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eea-Wi-qyP" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
-                        <rect key="frame" x="138" y="78" width="188" height="19"/>
-                        <sliderCell key="cell" state="on" alignment="left" minValue="-6" maxValue="6" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="Qjh-Un-s4F"/>
+                        <rect key="frame" x="138" y="78" width="188" height="24"/>
+                        <sliderCell key="cell" state="on" alignment="left" minValue="-6" maxValue="6" doubleValue="1" tickMarkPosition="above" numberOfTickMarks="3" sliderType="linear" id="Qjh-Un-s4F"/>
                         <connections>
                             <binding destination="-2" name="value" keyPath="volume" id="zgO-OY-6IP">
                                 <dictionary key="options">
@@ -300,7 +300,7 @@ Gw
                         </connections>
                     </slider>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jdE-Kk-32t">
-                        <rect key="frame" x="18" y="79" width="104" height="17"/>
+                        <rect key="frame" x="18" y="82" width="104" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Level" id="uiE-RS-GmD">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -324,7 +324,7 @@ DQ
                         </connections>
                     </button>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="k6L-Dx-CNP">
-                        <rect key="frame" x="138" y="300" width="261" height="25"/>
+                        <rect key="frame" x="138" y="307" width="261" height="25"/>
                         <popUpButtonCell key="cell" type="push" title="Suns" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="VyU-ba-smI" id="KvW-gk-Ljb">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="menu"/>

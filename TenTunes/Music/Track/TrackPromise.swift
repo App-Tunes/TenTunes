@@ -26,7 +26,7 @@ class TrackPromise {
             let urls = pasteboard.readObjects(forClasses: [NSURL.self], options: [.urlReadingFileURLsOnly: true]) as! [NSURL]
             
             guard urls.allSatisfy({
-                let type = try! NSWorkspace.shared.type(ofFile: $0.path!)
+                let type = (try? NSWorkspace.shared.type(ofFile: $0.path!)) ?? "public.data"
                 return NSWorkspace.shared.type(type, conformsToType: TrackPromise.utiType)
             }) else {
                 return nil

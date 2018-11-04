@@ -51,6 +51,8 @@ class UpdateCurrentPlaylist: Task {
         // Make sure to cache the results on the main thread if we use the biggest of them all
         (desired.playlist as? PlaylistLibrary)?.loadTracks()
         
+        let filterBarOpen = self.trackController.filterBar.isOpen
+        
         performChildBackgroundTask(for: Library.shared) { [unowned self] mox in
             let history = desired.playlist?.convert(to: mox) ?=> PlayHistory.init
 
@@ -60,7 +62,7 @@ class UpdateCurrentPlaylist: Task {
                 desired.filter ?=> history.filter
                 if self.checkCanceled() { return }
                 
-                let activeSort = desired.sort ?? (self.trackController.filterBar.isOpen
+                let activeSort = desired.sort ?? (filterBarOpen
                     ?  UpdateCurrentPlaylist.defaultSort(for: self.trackController.filterController.tokens)
                     : nil)
                 activeSort ?=> history.sort

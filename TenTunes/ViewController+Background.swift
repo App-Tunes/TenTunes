@@ -32,11 +32,6 @@ extension ViewController {
             // Create specific tasks
             Library.shared.considerExport()
             Library.shared.considerSanity()
-            
-            // Sanity check audio player
-            if self.player.isPlaying {
-                self.player.sanityCheck()
-            }
 
             // Run Tasks
             var taskers = PriorityQueue(ascending: true, startingValues: self.taskers)
@@ -125,5 +120,17 @@ extension ViewController {
                     }
                 }
             }])
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAudioRouteChange(_:)), name: NSNotification.Name.AVAudioEngineConfigurationChange, object: nil)
+    }
+    
+    @objc func handleAudioRouteChange(_ notification: NSNotification) {
+        // Sanity check audio player
+        if player.isPlaying {
+//            player.sanityCheck()
+            
+            // Otherwise it doesn't reset correctly, it plays but no audio is hearable
+            player.restartPlay()
+        }
     }
 }

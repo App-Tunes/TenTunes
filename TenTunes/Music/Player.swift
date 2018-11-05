@@ -129,6 +129,17 @@ extension AVPlayer {
         }
     }
     
+    func restartPlay() {
+        guard isPlaying else {
+            return
+        }
+        
+        sanityCheck()
+        let currentTime = player.currentTime
+        player.pause()
+        player.play(from: currentTime, to: player.duration)
+    }
+    
     func togglePlay() {        
         if isPaused {
             sanityCheck()

@@ -23,15 +23,18 @@ extension TrackEditor : TTTokenFieldDelegate {
     }
 
     func tagResults(search: String, exact: Bool = false) -> [PlaylistManual] {
-        return Library.shared.allTags(in: context).of(type: PlaylistManual.self).filter { exact ? $0.name.lowercased() == search : $0.name.lowercased().range(of: search) != nil }
+        return Library.shared.allTags(in: context).of(type: PlaylistManual.self).filter {
+            exact
+                ? $0.name.lowercased() == search.lowercased()
+                : $0.name.range(of: search, options: [.diacriticInsensitive, .caseInsensitive]) != nil
+            }
             .sorted { (a, b) in a.name.count < b.name.count }
     }
     
     func tokenField(_ tokenField: NSTokenField, completionGroupsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [TTTokenField.TokenGroup]? {
-        let compareSubstring = substring.lowercased()
         var groups: [TTTokenField.TokenGroup] = []
         
-        groups.append(.init(title: "Tag", contents: tagResults(search: compareSubstring)))
+        groups.append(.init(title: "Tag", contents: tagResults(search: substring)))
         
         return groups
     }
@@ -88,7 +91,7 @@ extension TrackEditor : TTTokenFieldDelegate {
                 return $0
             }
             
-            if let match = tagResults(search: string.lowercased(), exact: true).first {
+            if let match = tagResults(search: string, exact: true).first {
                 return match
             }
             
@@ -112,10 +115,7 @@ extension TrackEditor : TTTokenFieldDelegate {
         
         if commandSelector == #selector(NSResponder.insertNewlineIgnoringFieldEditor(_:)) {
             // Use the first matching tag
-            let compareSubstring = labelField.editingString.lowercased()
-            
-            let applicable = tagResults(search: compareSubstring)
-            if let tag = applicable.first {
+            if let tag = tagResults(search: labelField.editingString).first {
                 labelField.autocomplete(with: tag)
             }
 

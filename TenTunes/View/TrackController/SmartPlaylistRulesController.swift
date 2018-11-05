@@ -78,7 +78,7 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
         
         let dateFormatter = DateFormatter() // TODO Parse better
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        if let date = dateFormatter.date(from: compareSubstring) {
+        if let date = dateFormatter.date(from: substring) {
             groups.append(.init(title: "Added After", contents: [
                 SmartPlaylistRules.Token.AddedAfter(date: date, after: true),
                 SmartPlaylistRules.Token.AddedAfter(date: date, after: false)
@@ -99,11 +99,11 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
                 ]))
         }
         
-        groups.append(.init(title: "Has Tag", contents: playlistResults(search: compareSubstring, tag: true)))
-        groups.append(.init(title: "Contained In Playlist", contents: playlistResults(search: compareSubstring, tag: false)))
-        groups.append(.init(title: "Created By", contents: authorResults(search: compareSubstring)))
-        groups.append(.init(title: "Released on Album", contents: albumResults(search: compareSubstring)))
-        groups.append(.init(title: "Genre", contents: genreResults(search: compareSubstring)))
+        groups.append(.init(title: "Has Tag", contents: playlistResults(search: substring, tag: true)))
+        groups.append(.init(title: "Contained In Playlist", contents: playlistResults(search: substring, tag: false)))
+        groups.append(.init(title: "Created By", contents: authorResults(search: substring)))
+        groups.append(.init(title: "Released on Album", contents: albumResults(search: substring)))
+        groups.append(.init(title: "Genre", contents: genreResults(search: substring)))
         
         return groups
     }
@@ -115,22 +115,26 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
     }
     
     func genreResults(search: String) -> [SmartPlaylistRules.Token.Genre] {
-        let found = search.count > 0 ? Library.shared.allGenres.filter({ $0.lowercased().range(of: search) != nil }) : Library.shared.allGenres
+        let found = Library.shared.allGenres.filter({ $0.range(of: search, options: [.caseInsensitive, .diacriticInsensitive]) != nil })
+        
         return SmartPlaylistRulesController.sorted(tokens: found.map { SmartPlaylistRules.Token.Genre(genre: $0) })
     }
     
     func albumResults(search: String) -> [SmartPlaylistRules.Token.InAlbum] {
-        let found = search.count > 0 ? Library.shared.allAlbums.filter({ $0.title.lowercased().range(of: search) != nil }) : Library.shared.allAlbums
+        let found = Library.shared.allAlbums.filter({ $0.title.range(of: search, options: [.caseInsensitive, .diacriticInsensitive]) != nil })
+        
         return SmartPlaylistRulesController.sorted(tokens: found.map { SmartPlaylistRules.Token.InAlbum(album: $0) })
     }
     
     func authorResults(search: String) -> [SmartPlaylistRules.Token.Author] {
-        let found = search.count > 0 ? Library.shared.allAuthors.filter({ $0.description.lowercased().range(of: search) != nil }) : Library.shared.allAuthors
+        let found = Library.shared.allAuthors.filter({ $0.description.range(of: search, options: [.caseInsensitive, .diacriticInsensitive]) != nil })
+        
         return SmartPlaylistRulesController.sorted(tokens: found.map { SmartPlaylistRules.Token.Author(author: $0) })
     }
     
     func playlistResults(search: String, tag: Bool) -> [SmartPlaylistRules.Token.InPlaylist] {
-        let found = search.count > 0 ? (tag ? Library.shared.allTags() : playlists).filter({ $0.name.lowercased().range(of: search) != nil }) : playlists
+        let found = (tag ? Library.shared.allTags() : playlists).filter({ $0.name.range(of: search, options: [.caseInsensitive, .diacriticInsensitive]) != nil })
+        
         return SmartPlaylistRulesController.sorted(tokens: found.map({ SmartPlaylistRules.Token.InPlaylist(playlist: $0, isTag: tag) }))
     }
     
@@ -181,10 +185,7 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
         
         if commandSelector == #selector(NSResponder.insertNewlineIgnoringFieldEditor(_:)) {
             // Use the first matching tag
-            let compareSubstring = labelField.editingString.lowercased()
-            
-            let applicable = playlistResults(search: compareSubstring, tag: true)
-            if let tag = applicable.first {
+            if let tag = playlistResults(search: labelField.editingString, tag: true).first {
                 labelField.autocomplete(with: tag)
                 return true
             }

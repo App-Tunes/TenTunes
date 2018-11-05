@@ -114,7 +114,7 @@ extension TrackController: NSDraggingDestination {
     }
     
     func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
-        guard acceptsGeneralDrag else {
+        guard acceptsGeneralDrag, TrackPromise.inside(pasteboard: sender.draggingPasteboard(), for: Library.shared) != nil else {
             return []
         }
         

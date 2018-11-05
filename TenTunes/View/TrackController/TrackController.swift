@@ -504,10 +504,6 @@ extension TrackController : MultiplicityGuardDelegate {
 }
 
 extension TrackController : NSSplitViewDelegate {
-    func splitView(_ splitView: NSSplitView, shouldCollapseSubview subview: NSView, forDoubleClickOnDividerAt dividerIndex: Int) -> Bool {
-        return subview == trackEditorGuard
-    }
-    
     func splitView(_ splitView: NSSplitView, canCollapseSubview subview: NSView) -> Bool {
         return subview == trackEditorGuard
     }

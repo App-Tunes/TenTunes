@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -115,8 +115,8 @@
                             </view>
                             <color key="borderColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
                         </box>
-                        <button toolTip="Create Playlist" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Z0-Gt-dbf">
-                            <rect key="frame" x="80" y="3" width="20" height="19"/>
+                        <button toolTip="Create Playlist" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8Z0-Gt-dbf">
+                            <rect key="frame" x="80" y="3" width="19" height="19"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="8Z0-Gt-dbf" secondAttribute="height" multiplier="1:1" id="A68-Nx-MH3"/>
                             </constraints>
@@ -128,8 +128,8 @@
                                 <action selector="back:" target="-2" id="cgn-eW-M82"/>
                             </connections>
                         </button>
-                        <button toolTip="Library" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="58Y-ON-eOB">
-                            <rect key="frame" x="30" y="3" width="20" height="19"/>
+                        <button toolTip="Library" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="58Y-ON-eOB">
+                            <rect key="frame" x="31" y="3" width="19" height="19"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="58Y-ON-eOB" secondAttribute="height" multiplier="1:1" id="aOu-Qx-Mt4"/>
                             </constraints>
@@ -141,8 +141,8 @@
                                 <action selector="selectLibrary:" target="-2" id="avt-wY-yA7"/>
                             </connections>
                         </button>
-                        <button toolTip="Create Group" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2x8-2J-xWJ">
-                            <rect key="frame" x="130" y="3" width="20" height="19"/>
+                        <button toolTip="Create Group" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2x8-2J-xWJ">
+                            <rect key="frame" x="129" y="3" width="19" height="19"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="2x8-2J-xWJ" secondAttribute="height" multiplier="1:1" id="mnd-Sa-TuN"/>
                             </constraints>
@@ -158,21 +158,20 @@
                     <constraints>
                         <constraint firstItem="i6r-7N-Sw5" firstAttribute="leading" secondItem="Ry6-zg-Muz" secondAttribute="leading" id="1eS-IQ-YKb"/>
                         <constraint firstAttribute="height" constant="25" id="355-FS-4Sk"/>
+                        <constraint firstItem="58Y-ON-eOB" firstAttribute="bottom" secondItem="8Z0-Gt-dbf" secondAttribute="bottom" id="3DG-ru-NUB"/>
                         <constraint firstItem="58Y-ON-eOB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ry6-zg-Muz" secondAttribute="leading" constant="30" id="7Ti-1T-pvO"/>
-                        <constraint firstAttribute="bottom" secondItem="2x8-2J-xWJ" secondAttribute="bottom" constant="3" id="9TS-az-geL"/>
+                        <constraint firstItem="2x8-2J-xWJ" firstAttribute="top" secondItem="8Z0-Gt-dbf" secondAttribute="top" id="7Xw-7I-H3d"/>
+                        <constraint firstItem="58Y-ON-eOB" firstAttribute="top" secondItem="8Z0-Gt-dbf" secondAttribute="top" id="9Sh-KS-yE7"/>
                         <constraint firstItem="8Z0-Gt-dbf" firstAttribute="leading" secondItem="58Y-ON-eOB" secondAttribute="trailing" constant="30" id="H7d-O7-IeD"/>
-                        <constraint firstItem="2x8-2J-xWJ" firstAttribute="centerX" secondItem="Ry6-zg-Muz" secondAttribute="centerX" priority="50" id="HQB-43-gtb"/>
-                        <constraint firstAttribute="bottom" secondItem="58Y-ON-eOB" secondAttribute="bottom" constant="3" id="KI7-ah-jSp"/>
                         <constraint firstAttribute="bottom" secondItem="8Z0-Gt-dbf" secondAttribute="bottom" constant="3" id="Mms-sj-lfo"/>
                         <constraint firstItem="zCQ-Gg-KM7" firstAttribute="leading" secondItem="Ry6-zg-Muz" secondAttribute="leading" constant="-1" id="QQS-4h-yZO"/>
+                        <constraint firstItem="2x8-2J-xWJ" firstAttribute="bottom" secondItem="8Z0-Gt-dbf" secondAttribute="bottom" id="Rjx-PM-t9q"/>
                         <constraint firstAttribute="bottom" secondItem="i6r-7N-Sw5" secondAttribute="bottom" id="bHr-lC-bRr"/>
                         <constraint firstAttribute="trailing" secondItem="zCQ-Gg-KM7" secondAttribute="trailing" constant="-1" id="bMH-gp-ZMD"/>
                         <constraint firstItem="i6r-7N-Sw5" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" id="fbH-BK-Hcw"/>
-                        <constraint firstItem="2x8-2J-xWJ" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" constant="3" id="gaB-NS-QlM"/>
                         <constraint firstItem="zCQ-Gg-KM7" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" id="l0s-kf-W0v"/>
                         <constraint firstItem="8Z0-Gt-dbf" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" constant="3" id="n8w-KQ-BOl"/>
                         <constraint firstAttribute="trailing" secondItem="i6r-7N-Sw5" secondAttribute="trailing" id="pES-tq-xzz"/>
-                        <constraint firstItem="58Y-ON-eOB" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" constant="3" id="uXQ-Yq-ad4"/>
                         <constraint firstItem="8Z0-Gt-dbf" firstAttribute="centerX" secondItem="Ry6-zg-Muz" secondAttribute="centerX" priority="50" id="vUY-63-FyJ"/>
                         <constraint firstItem="2x8-2J-xWJ" firstAttribute="leading" secondItem="8Z0-Gt-dbf" secondAttribute="trailing" constant="30" id="wVo-1e-b95"/>
                         <constraint firstAttribute="bottom" secondItem="zCQ-Gg-KM7" secondAttribute="bottom" id="yqd-ol-iwT"/>

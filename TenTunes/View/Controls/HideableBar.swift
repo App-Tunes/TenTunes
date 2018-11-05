@@ -34,7 +34,8 @@ class HideableBar: NSViewController {
     }
     
     var isOpen: Bool {
-        return _heightConstraint.constant > 0
+        // Take current wanted value
+        return _heightConstraint.animator().constant > 0
     }
     
     var height: CGFloat = 30

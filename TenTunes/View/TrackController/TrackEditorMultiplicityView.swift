@@ -17,6 +17,10 @@ class TrackEditorMultiplicityView : MultiplicityGuardView {
     }
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+        guard TrackPromise.inside(pasteboard: sender.draggingPasteboard(), for: Library.shared) != nil else {
+            return []
+        }
+
         dragHighlightView.isReceivingDrag = true
         return .generic
     }

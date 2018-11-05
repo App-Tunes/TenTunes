@@ -161,18 +161,7 @@ class ViewController: NSViewController {
     
     override func viewDidAppear() {        
         _timePlayed.alphaValue = 0.5
-        _timeLeft.alphaValue = 0.5
-        
-        let gradient = CAGradientLayer()
-        gradient.colors = [
-            NSColor(white: 0.18, alpha: 0.3).cgColor,
-            NSColor(white: 0.12, alpha: 0.3).cgColor,
-            NSColor(white: 0.08, alpha: 0.3).cgColor,
-        ]
-        gradient.locations = [ NSNumber(value: 0), NSNumber(value: 0.2), NSNumber(value: 1) ]
-        gradient.cornerRadius = 5
-        _playingTrackView.superview!.wantsLayer = true
-        _playingTrackView.superview!.layer = gradient
+        _timeLeft.alphaValue = 0.5        
     }
         
     func keyDown(with event: NSEvent) -> NSEvent? {

@@ -58,6 +58,7 @@
 		806C5B2620423AC000C34F49 /* SPInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806C5B2520423AC000C34F49 /* SPInterpreter.swift */; };
 		806EFC22204B63620079DBAA /* PlaylistLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806EFC21204B63620079DBAA /* PlaylistLibrary.swift */; };
 		806EFC27204B65C10079DBAA /* PlaylistProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806EFC26204B65C10079DBAA /* PlaylistProtocol.swift */; };
+		806FC30C2190DA36004B9770 /* DarkBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806FC30B2190DA36004B9770 /* DarkBoxView.swift */; };
 		807092EB20C69D8F00DFED53 /* ExportPlaylistsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807092E920C69D8F00DFED53 /* ExportPlaylistsController.swift */; };
 		807092EC20C69D8F00DFED53 /* ExportPlaylistsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 807092EA20C69D8F00DFED53 /* ExportPlaylistsController.xib */; };
 		8074044921367A1F007E0B4C /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8074044821367A1F007E0B4C /* Artist.swift */; };
@@ -279,6 +280,7 @@
 		806C5B2520423AC000C34F49 /* SPInterpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPInterpreter.swift; sourceTree = "<group>"; };
 		806EFC21204B63620079DBAA /* PlaylistLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistLibrary.swift; sourceTree = "<group>"; };
 		806EFC26204B65C10079DBAA /* PlaylistProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistProtocol.swift; sourceTree = "<group>"; };
+		806FC30B2190DA36004B9770 /* DarkBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkBoxView.swift; sourceTree = "<group>"; };
 		807092E920C69D8F00DFED53 /* ExportPlaylistsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPlaylistsController.swift; sourceTree = "<group>"; };
 		807092EA20C69D8F00DFED53 /* ExportPlaylistsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExportPlaylistsController.xib; sourceTree = "<group>"; };
 		8074044821367A1F007E0B4C /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
@@ -434,6 +436,7 @@
 				80E939F0215AFAA4005112EF /* MultiplicityGuardView.swift */,
 				809CEABE2163F345008D6AC0 /* SuperpoweredSplash.swift */,
 				802F01D02177F00B00E0EAB6 /* DragHighlightView.swift */,
+				806FC30B2190DA36004B9770 /* DarkBoxView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1140,6 +1143,7 @@
 				806EFC27204B65C10079DBAA /* PlaylistProtocol.swift in Sources */,
 				80CB65332052C9530031A6D7 /* Cocoa+TT.swift in Sources */,
 				8058FAC02043409F0086FF8A /* SubtleTableRowView.swift in Sources */,
+				806FC30C2190DA36004B9770 /* DarkBoxView.swift in Sources */,
 				80E2C9F8204B40A000298E81 /* Playlist+CoreDataProperties.swift in Sources */,
 				80F77BF5203D8B35001E397F /* Key.swift in Sources */,
 				80F2C57A2038808000212739 /* AppDelegate.swift in Sources */,

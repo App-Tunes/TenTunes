@@ -32,7 +32,18 @@ extension SmartPlaylistRules.Token {
         }
         
         override func positiveFilter(in context: NSManagedObjectContext?, rguard: RecursionGuard<Playlist>) -> (Track) -> Bool {
-            return PlayHistory.filter(findText: string)!
+            guard string.count > 0 else {
+                return { _ in false }
+            }
+            
+            let terms = (string.components(separatedBy: .whitespacesAndNewlines).filter { !$0.isEmpty })
+            return { (track) in
+                return terms.allSatisfy { (term) -> Bool in
+                    return track.searchable.anySatisfy { (key) -> Bool in
+                        return key.range(of: term, options: [.diacriticInsensitive, .caseInsensitive]) != nil
+                    }
+                }
+            }
         }
         
         override func positiveRepresentation(in context: NSManagedObjectContext? = nil) -> String {

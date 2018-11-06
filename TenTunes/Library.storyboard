@@ -68,13 +68,13 @@
                                                 </connections>
                                             </customView>
                                             <box boxType="custom" cornerRadius="6" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="dNV-j7-c8A">
-                                                <rect key="frame" x="1094" y="49" width="203" height="48"/>
+                                                <rect key="frame" x="1082" y="49" width="215" height="48"/>
                                                 <view key="contentView" id="kR0-b6-yaW" customClass="DarkBoxView" customModule="TenTunes" customModuleProvider="target">
-                                                    <rect key="frame" x="1" y="1" width="201" height="46"/>
+                                                    <rect key="frame" x="1" y="1" width="213" height="46"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <button horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Xs-lc-aS8">
-                                                            <rect key="frame" x="135" y="14" width="19" height="19"/>
+                                                            <rect key="frame" x="143" y="14" width="19" height="19"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="9Xs-lc-aS8" secondAttribute="height" multiplier="1:1" id="O0P-AH-Reg"/>
                                                             </constraints>
@@ -102,7 +102,7 @@
                                                             </connections>
                                                         </slider>
                                                         <button horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ETj-HU-NV5" customClass="SpinningButton" customModule="TenTunes" customModuleProvider="target">
-                                                            <rect key="frame" x="162" y="14" width="19" height="19"/>
+                                                            <rect key="frame" x="174" y="14" width="19" height="19"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="19" id="MIG-gU-fxo"/>
                                                                 <constraint firstAttribute="width" secondItem="ETj-HU-NV5" secondAttribute="height" multiplier="1:1" id="qGX-a4-Xxa"/>
@@ -117,7 +117,7 @@
                                                             </connections>
                                                         </button>
                                                         <button toolTip="Shuffle" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Y2-7h-2Y4">
-                                                            <rect key="frame" x="108" y="14" width="19" height="19"/>
+                                                            <rect key="frame" x="112" y="14" width="19" height="19"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="7Y2-7h-2Y4" secondAttribute="height" multiplier="1:1" id="jRx-Wh-ukj"/>
                                                             </constraints>
@@ -134,12 +134,12 @@
                                                     <constraints>
                                                         <constraint firstItem="ETj-HU-NV5" firstAttribute="top" secondItem="kR0-b6-yaW" secondAttribute="top" constant="13" id="145-X6-a64"/>
                                                         <constraint firstItem="9Xs-lc-aS8" firstAttribute="centerY" secondItem="ETj-HU-NV5" secondAttribute="centerY" id="2Wi-dn-kX0"/>
-                                                        <constraint firstItem="9Xs-lc-aS8" firstAttribute="leading" secondItem="7Y2-7h-2Y4" secondAttribute="trailing" constant="8" id="BNa-CR-fip"/>
+                                                        <constraint firstItem="9Xs-lc-aS8" firstAttribute="leading" secondItem="7Y2-7h-2Y4" secondAttribute="trailing" constant="12" id="BNa-CR-fip"/>
                                                         <constraint firstAttribute="trailing" secondItem="ETj-HU-NV5" secondAttribute="trailing" constant="20" id="PnR-Zt-5BC"/>
                                                         <constraint firstItem="weN-hW-VXM" firstAttribute="centerY" secondItem="ETj-HU-NV5" secondAttribute="centerY" id="SUW-Mi-EhT"/>
-                                                        <constraint firstItem="ETj-HU-NV5" firstAttribute="leading" secondItem="9Xs-lc-aS8" secondAttribute="trailing" constant="8" id="VXi-6F-9BM"/>
+                                                        <constraint firstItem="ETj-HU-NV5" firstAttribute="leading" secondItem="9Xs-lc-aS8" secondAttribute="trailing" constant="12" id="VXi-6F-9BM"/>
                                                         <constraint firstItem="weN-hW-VXM" firstAttribute="leading" secondItem="kR0-b6-yaW" secondAttribute="leading" constant="20" id="VvQ-8W-u69"/>
-                                                        <constraint firstItem="7Y2-7h-2Y4" firstAttribute="leading" secondItem="weN-hW-VXM" secondAttribute="trailing" constant="8" id="gN0-G7-9Te"/>
+                                                        <constraint firstItem="7Y2-7h-2Y4" firstAttribute="leading" secondItem="weN-hW-VXM" secondAttribute="trailing" constant="12" id="gN0-G7-9Te"/>
                                                         <constraint firstItem="7Y2-7h-2Y4" firstAttribute="height" secondItem="9Xs-lc-aS8" secondAttribute="height" id="ikU-bY-4f6"/>
                                                         <constraint firstItem="9Xs-lc-aS8" firstAttribute="height" secondItem="ETj-HU-NV5" secondAttribute="height" id="lBD-c1-pmU"/>
                                                         <constraint firstItem="7Y2-7h-2Y4" firstAttribute="centerY" secondItem="ETj-HU-NV5" secondAttribute="centerY" id="yjE-Jf-MT4"/>

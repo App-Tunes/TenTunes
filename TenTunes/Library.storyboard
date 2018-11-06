@@ -125,7 +125,6 @@
                                                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system" size="20"/>
                                                             </buttonCell>
-                                                            <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                             <connections>
                                                                 <action selector="toggleShuffle:" target="XfG-lQ-9wD" id="PPw-wd-bDy"/>
                                                             </connections>

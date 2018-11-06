@@ -28,6 +28,10 @@ extension LibraryWindowController : NSWindowDelegate {
         relocateStandardButtons()
     }
     
+    func windowDidExitFullScreen(_ notification: Notification) {
+        relocateStandardButtons()
+    }
+    
     func relocateStandardButtons() {
         window!.moveStandardButtons(x: LibraryWindowController.xOffsetStandardButtons, y: LibraryWindowController.yOffsetStandardButtons)
     }

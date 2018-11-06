@@ -9,6 +9,9 @@
 import Cocoa
 
 class LibraryWindowController: NSWindowController {
+    static let xOffsetStandardButtons: CGFloat = 0
+    static let yOffsetStandardButtons: CGFloat = 7
+
     override func awakeFromNib() {
         window?.appearance = NSAppearance(named: NSAppearance.Name.vibrantDark)
     }
@@ -16,5 +19,16 @@ class LibraryWindowController: NSWindowController {
     override func showWindow(_ sender: Any?) {
         NSApp.removeWindowsItem(window!) // Will be handled by custom items
     }
+    
+    
 }
 
+extension LibraryWindowController : NSWindowDelegate {
+    func windowDidResize(_ notification: Notification) {
+        relocateStandardButtons()
+    }
+    
+    func relocateStandardButtons() {
+        window!.moveStandardButtons(x: LibraryWindowController.xOffsetStandardButtons, y: LibraryWindowController.yOffsetStandardButtons)
+    }
+}

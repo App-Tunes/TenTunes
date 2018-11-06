@@ -178,6 +178,14 @@ extension NSWindow {
         setFrame(frame, display: true)
     }
     
+    func moveStandardButtons(x: CGFloat, y: CGFloat) {
+        let windowButtonsView = standardWindowButton(.closeButton)!.superview!
+        windowButtonsView.frame = windowButtonsView.frame.offsetBy(dx: x, dy: -y)
+        
+        let topBarView = windowButtonsView.superview!
+        topBarView.frame = NSRect(x: topBarView.frame.minX, y: topBarView.frame.minY - y, width: topBarView.frame.width, height: topBarView.frame.height + y)
+    }
+    
     var isMouseInside: Bool {
         return NSWindow.windowNumber(at: NSEvent.mouseLocation, belowWindowWithWindowNumber: 0) == windowNumber
     }

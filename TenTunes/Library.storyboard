@@ -153,14 +153,14 @@
                                                 <color key="borderColor" red="0.33667116120000001" green="0.33667116120000001" blue="0.33667116120000001" alpha="0.15105950339999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="fillColor" red="0.16098905459999999" green="0.16098905459999999" blue="0.16098905459999999" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                             </box>
-                                            <box boxType="custom" cornerRadius="6" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="yki-Tj-fZ1">
-                                                <rect key="frame" x="85" y="50" width="122" height="47"/>
+                                            <box misplaced="YES" boxType="custom" cornerRadius="6" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="yki-Tj-fZ1">
+                                                <rect key="frame" x="-5" y="50" width="194" height="47"/>
                                                 <view key="contentView" id="r5D-F9-BXS" customClass="DarkBoxView" customModule="TenTunes" customModuleProvider="target">
-                                                    <rect key="frame" x="1" y="1" width="120" height="45"/>
+                                                    <rect key="frame" x="1" y="1" width="192" height="45"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <button toolTip="Play / Pause" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Fc-0r-wVE">
-                                                            <rect key="frame" x="45" y="12" width="30" height="21"/>
+                                                            <rect key="frame" x="115" y="12" width="30" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="30" id="U0M-9e-hwV"/>
                                                             </constraints>
@@ -177,7 +177,7 @@ IA
                                                             </connections>
                                                         </button>
                                                         <button toolTip="Previous" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vGp-jR-JQ9">
-                                                            <rect key="frame" x="15" y="16" width="25" height="13"/>
+                                                            <rect key="frame" x="85" y="16" width="25" height="13"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="25" id="l85-XI-Vhi"/>
                                                             </constraints>
@@ -191,11 +191,11 @@ IA
                                                             </connections>
                                                         </button>
                                                         <button toolTip="Next" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ws9-gx-fi8">
-                                                            <rect key="frame" x="80" y="16" width="25" height="13"/>
+                                                            <rect key="frame" x="150" y="16" width="25" height="13"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="25" id="elU-UP-N0X"/>
                                                             </constraints>
-                                                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="play-next" imagePosition="only" alignment="center" state="on" toolTip="Next Title" imageScaling="proportionallyDown" inset="2" id="ZGz-kB-7P5">
+                                                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="play-next" imagePosition="overlaps" alignment="center" state="on" toolTip="Next Title" imageScaling="proportionallyDown" inset="2" id="ZGz-kB-7P5">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
@@ -207,8 +207,7 @@ IA
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="Ws9-gx-fi8" firstAttribute="leading" secondItem="4Fc-0r-wVE" secondAttribute="trailing" constant="5" id="1V0-iI-Wws"/>
-                                                        <constraint firstItem="vGp-jR-JQ9" firstAttribute="leading" secondItem="r5D-F9-BXS" secondAttribute="leading" constant="15" id="4T4-nZ-yhV"/>
-                                                        <constraint firstItem="4Fc-0r-wVE" firstAttribute="centerX" secondItem="r5D-F9-BXS" secondAttribute="centerX" id="8H1-hI-Z5c"/>
+                                                        <constraint firstItem="4Fc-0r-wVE" firstAttribute="centerX" secondItem="r5D-F9-BXS" secondAttribute="centerX" constant="35" id="8H1-hI-Z5c"/>
                                                         <constraint firstAttribute="trailing" secondItem="Ws9-gx-fi8" secondAttribute="trailing" constant="15" id="8cv-Rh-dfJ"/>
                                                         <constraint firstItem="vGp-jR-JQ9" firstAttribute="centerY" secondItem="4Fc-0r-wVE" secondAttribute="centerY" id="9lh-FV-XX3"/>
                                                         <constraint firstItem="vGp-jR-JQ9" firstAttribute="height" secondItem="4Fc-0r-wVE" secondAttribute="height" multiplier="0.6" id="S3Y-PU-jye"/>
@@ -260,7 +259,7 @@ IA
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="YW0-i6-Krb" secondAttribute="bottom" constant="4" id="2T8-Fa-sMO"/>
-                                            <constraint firstItem="yki-Tj-fZ1" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" constant="85" id="2mj-Sz-gPI"/>
+                                            <constraint firstItem="yki-Tj-fZ1" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" constant="-5" id="2mj-Sz-gPI"/>
                                             <constraint firstItem="dNV-j7-c8A" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="YW0-i6-Krb" secondAttribute="trailing" constant="20" id="4Du-P5-I9c"/>
                                             <constraint firstAttribute="trailing" secondItem="dNV-j7-c8A" secondAttribute="trailing" constant="20" id="8rc-0C-IAl"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="yki-Tj-fZ1" secondAttribute="bottom" constant="5" id="BXZ-hi-xUV"/>

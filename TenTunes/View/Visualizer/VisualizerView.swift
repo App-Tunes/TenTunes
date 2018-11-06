@@ -34,8 +34,8 @@ class VisualizerView: SyphonableOpenGLView {
     // Settings
     @objc var colorVariance: Number = 0.3
     @objc var brightness: Number = 0.7
-    @objc var psychedelic: Number = 0.3
-    @objc var details: Number = 0.5
+    @objc var psychedelic: Number = 0.5
+    @objc var details: Number = 0.75
 
     var distortionRands = (0 ..< 100).map { _ in Number.random(in: 0 ..< 1 ) }
     

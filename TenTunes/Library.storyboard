@@ -160,7 +160,7 @@
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <button toolTip="Play / Pause" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Fc-0r-wVE">
-                                                            <rect key="frame" x="115" y="12" width="30" height="21"/>
+                                                            <rect key="frame" x="105" y="12" width="30" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="30" id="U0M-9e-hwV"/>
                                                             </constraints>
@@ -177,7 +177,7 @@ IA
                                                             </connections>
                                                         </button>
                                                         <button toolTip="Previous" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vGp-jR-JQ9">
-                                                            <rect key="frame" x="85" y="16" width="25" height="13"/>
+                                                            <rect key="frame" x="75" y="16" width="25" height="13"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="25" id="l85-XI-Vhi"/>
                                                             </constraints>
@@ -191,7 +191,7 @@ IA
                                                             </connections>
                                                         </button>
                                                         <button toolTip="Next" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ws9-gx-fi8">
-                                                            <rect key="frame" x="150" y="16" width="25" height="13"/>
+                                                            <rect key="frame" x="140" y="16" width="25" height="13"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="25" id="elU-UP-N0X"/>
                                                             </constraints>
@@ -207,7 +207,7 @@ IA
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="Ws9-gx-fi8" firstAttribute="leading" secondItem="4Fc-0r-wVE" secondAttribute="trailing" constant="5" id="1V0-iI-Wws"/>
-                                                        <constraint firstItem="4Fc-0r-wVE" firstAttribute="centerX" secondItem="r5D-F9-BXS" secondAttribute="centerX" constant="35" id="8H1-hI-Z5c"/>
+                                                        <constraint firstItem="4Fc-0r-wVE" firstAttribute="centerX" secondItem="r5D-F9-BXS" secondAttribute="centerX" constant="30" id="8H1-hI-Z5c"/>
                                                         <constraint firstAttribute="trailing" secondItem="Ws9-gx-fi8" secondAttribute="trailing" constant="15" id="8cv-Rh-dfJ"/>
                                                         <constraint firstItem="vGp-jR-JQ9" firstAttribute="centerY" secondItem="4Fc-0r-wVE" secondAttribute="centerY" id="9lh-FV-XX3"/>
                                                         <constraint firstItem="vGp-jR-JQ9" firstAttribute="height" secondItem="4Fc-0r-wVE" secondAttribute="height" multiplier="0.6" id="S3Y-PU-jye"/>

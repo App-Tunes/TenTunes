@@ -68,7 +68,7 @@
                                                 </connections>
                                             </customView>
                                             <box boxType="custom" cornerRadius="6" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="dNV-j7-c8A">
-                                                <rect key="frame" x="1069" y="49" width="203" height="48"/>
+                                                <rect key="frame" x="1094" y="49" width="203" height="48"/>
                                                 <view key="contentView" id="kR0-b6-yaW" customClass="DarkBoxView" customModule="TenTunes" customModuleProvider="target">
                                                     <rect key="frame" x="1" y="1" width="201" height="46"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -261,7 +261,7 @@ IA
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="YW0-i6-Krb" secondAttribute="bottom" constant="4" id="2T8-Fa-sMO"/>
                                             <constraint firstItem="yki-Tj-fZ1" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" constant="-5" id="2mj-Sz-gPI"/>
                                             <constraint firstItem="dNV-j7-c8A" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="YW0-i6-Krb" secondAttribute="trailing" constant="20" id="4Du-P5-I9c"/>
-                                            <constraint firstAttribute="trailing" secondItem="dNV-j7-c8A" secondAttribute="trailing" constant="20" id="8rc-0C-IAl"/>
+                                            <constraint firstAttribute="trailing" secondItem="dNV-j7-c8A" secondAttribute="trailing" constant="-5" id="8rc-0C-IAl"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="yki-Tj-fZ1" secondAttribute="bottom" constant="5" id="BXZ-hi-xUV"/>
                                             <constraint firstItem="w8H-st-uUl" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" id="DDx-XK-Xng"/>
                                             <constraint firstItem="w8H-st-uUl" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" id="Df9-If-Dwu"/>

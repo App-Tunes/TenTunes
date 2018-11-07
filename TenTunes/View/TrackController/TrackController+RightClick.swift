@@ -106,15 +106,6 @@ extension TrackController: NSMenuDelegate {
         let trackController = ViewController.shared.trackController!
         trackController.openFindPanel()
         trackController.filterController.rules = SmartPlaylistRules(tokens: [.InAlbum(album: track.rAlbum!)])
-        
-        // TODO Make accessible
-        // But only when those values are stored inside the file
-//        trackController.desired.sort = {
-//            guard $0.albumNumberOfCD == $1.albumNumberOfCD else {
-//                return $0.albumNumberOfCD < $1.albumNumberOfCD
-//            }
-//            return $0.trackNumber < $1.trackNumber
-//        }
     }
 
     @IBAction func menuShowInFinder(_ sender: Any) {

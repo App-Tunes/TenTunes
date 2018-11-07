@@ -89,6 +89,7 @@ class TTTokenField: NSTokenField {
             
             if let prev = prev {
                 row.ellipsis.isEditable = false
+                row.ellipsis.isSelectable = false
                 row.ellipsis.isBordered = false
                 row.ellipsis.backgroundColor = .clear
                 row.ellipsis.translatesAutoresizingMaskIntoConstraints = false

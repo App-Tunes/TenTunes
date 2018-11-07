@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -112,29 +113,49 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="Jcc-mG-UKE"/>
+                                        <menuItem title="Library" id="V02-Is-0ox">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Library" id="P6h-py-Xri">
+                                                <items>
+                                                    <menuItem title="Refresh Metadata" id="ej7-s9-HcZ">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="refreshMetadataWithSender:" target="Voe-Tx-rLC" id="3Dv-UU-e7t"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
                                         <menuItem title="Import from iTunes..." keyEquivalent="i" id="YKS-7l-PFL">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
                                                 <action selector="importFromITunes:" target="Voe-Tx-rLC" id="Ku1-Yj-GbZ"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Reveal Exports in Finder..." keyEquivalent="e" id="GPZ-LU-tsu">
-                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="revealExports:" target="Voe-Tx-rLC" id="FqW-s3-psc"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Refresh All Exports" id="bPk-l0-Nrf">
+                                        <menuItem title="Export" id="hiR-LX-uEk">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="refreshExports:" target="Voe-Tx-rLC" id="VwL-AU-iZR"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Export Playlists..." id="93p-DO-A8e">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="exportPlaylists:" target="Voe-Tx-rLC" id="Xue-eg-GFr"/>
-                                            </connections>
+                                            <menu key="submenu" title="Export" id="bDT-dN-Ioe">
+                                                <items>
+                                                    <menuItem title="Reveal Exports in Finder..." keyEquivalent="e" id="GPZ-LU-tsu">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                        <connections>
+                                                            <action selector="revealExports:" target="Voe-Tx-rLC" id="FqW-s3-psc"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Refresh All Exports" id="bPk-l0-Nrf">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="refreshExports:" target="Voe-Tx-rLC" id="VwL-AU-iZR"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Export Playlists..." id="93p-DO-A8e">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="exportPlaylists:" target="Voe-Tx-rLC" id="Xue-eg-GFr"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
                                         <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
@@ -408,19 +429,6 @@
                                             <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                             <connections>
                                                 <action selector="toggleFullScreen:" target="Ady-hI-5gd" id="dU3-MA-1Rq"/>
-                                            </connections>
-                                        </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
-                            <menuItem title="Music" id="V02-Is-0ox">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Music" id="P6h-py-Xri">
-                                    <items>
-                                        <menuItem title="Refresh Metadata" id="ej7-s9-HcZ">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="refreshMetadataWithSender:" target="Voe-Tx-rLC" id="3Dv-UU-e7t"/>
                                             </connections>
                                         </menuItem>
                                     </items>

@@ -47,7 +47,9 @@ extension TrackController : SmartPlaylistRulesControllerDelegate {
             }
         }
         else {
-            desired.filter = rules.filter(in: Library.shared.viewContext)
+            if filterBar.isOpen {
+                desired.filter = rules.filter(in: Library.shared.viewContext)
+            }
         }
     }
     

@@ -340,6 +340,18 @@ extension NSView {
     func loadNib(namedAfter clazz: Any) -> Bool {
         return Bundle.main.loadNibNamed(NSNib.Name(rawValue: String(describing: type(of: clazz))), owner: self, topLevelObjects: nil)
     }
+    
+    var isInWindowResponderChain: Bool {
+        var responder = window?.firstResponder
+        while responder != nil {
+            if self == responder {
+                return true
+            }
+            responder = responder?.nextResponder
+        }
+
+        return false
+    }
 }
 
 extension NSImageView {

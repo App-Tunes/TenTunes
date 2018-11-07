@@ -57,15 +57,19 @@ class HideableBar: NSViewController {
         close()
     }
     
-    func close() { // TODO Resign first responder for any subviews
+    func close() {
+        if view.isInWindowResponderChain {
+            view.window?.makeFirstResponder(nil)
+        }
+        
         guard isOpen else {
             return
         }
         
-        NSAnimationContext.runAnimationGroup({_ in
+        NSAnimationContext.runAnimationGroup {_ in
             NSAnimationContext.current.duration = 0.2
             _heightConstraint.animator().constant = 0
-        })
+        }
         
         delegate?.hideableBar(self, didChangeState: false)
     }

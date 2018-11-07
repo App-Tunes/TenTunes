@@ -475,19 +475,14 @@ extension TrackController : HideableBarDelegate {
     func hideableBar(_ bar: HideableBar, didChangeState state: Bool) {
         if bar == ruleBar {
             _ruleButton.state = state ? .on : .off
-            
-            if state == false {
-                smartPlaylistRuleController._tokenField.resignFirstResponder()
-            }
         }
         else if bar == filterBar {
             if state == false {
                 desired.filter = nil
-                filterController._tokenField.resignFirstResponder()
             }
         }
         
-        view.window?.makeFirstResponder(view)
+        view.window?.makeFirstResponder(_tableView)
     }
 }
 

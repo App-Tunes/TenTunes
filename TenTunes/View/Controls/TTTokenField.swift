@@ -227,6 +227,10 @@ class TTTokenField: NSTokenField {
         
         autocompletePopover.close()
     }
+    
+    override func viewDidHide() {
+        autocompletePopover.close()
+    }
 }
 
 extension TTTokenField {

@@ -197,6 +197,7 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
     
     override func controlTextDidEndEditing(_ obj: Notification) {
         delegate?.editingEnded?(smartPlaylistRulesController: self, notification: obj)
+        _tokenField.autocompletePopover.close()
     }
     
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {

@@ -12,6 +12,8 @@ import Cocoa
     @objc optional func smartPlaylistRulesController(_ controller: SmartPlaylistRulesController, changedRules rules: SmartPlaylistRules)
     
     @objc optional func editingEnded(smartPlaylistRulesController: SmartPlaylistRulesController, notification: Notification)
+
+    @objc optional func smartPlaylistRulesController(confirmedSearch: SmartPlaylistRulesController)
 }
 
 class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
@@ -22,6 +24,8 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
     @IBOutlet var _tokenMenu: NSMenu!
     
     @IBOutlet var _accumulationType: NSPopUpButton!
+    
+    var lastEditingString: String = ""
 
     enum Accumulation {
         case all, any
@@ -38,6 +42,8 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
     
     override func awakeFromNib() {
         PopupEnum.represent(in: _accumulationType, with: [Accumulation.all, Accumulation.any], title: { $0.title })
+        
+        _tokenField.tokenizingCharacterSet = CharacterSet(charactersIn: "%%")
     }
     
     var rules: SmartPlaylistRules {
@@ -50,10 +56,24 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
             tokens = newValue.tokens
         }
     }
-    
+
     var tokens: [SmartPlaylistRules.Token] {
-        get { return _tokenField.tokens as! [SmartPlaylistRules.Token] }
-        set { _tokenField.tokens = newValue }
+        get {
+            return (_tokenField.objectValue as? NSArray)?.compactMap {
+                if let string = $0 as? String {
+                    return string.isEmpty ? nil : SmartPlaylistRules.Token.Search(string: string)
+                }
+                return ($0 as! SmartPlaylistRules.Token)
+            } ?? []
+        }
+        set {
+            _tokenField.objectValue = (newValue.map {
+                if let search = $0 as? SmartPlaylistRules.Token.Search {
+                    return search.string
+                }
+                return $0
+            } as [Any]) as NSArray
+        }
     }
     
     var playlists: [Playlist] {
@@ -143,11 +163,9 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
     }
     
     func tokenField(_ tokenField: NSTokenField, changedTokens tokens: [Any]) {
-        delegate?.smartPlaylistRulesController?(self, changedRules: rules)
-    }
-    
-    func tokenField(_ tokenField: NSTokenField, shouldAdd tokens: [Any], at index: Int) -> [Any] {
-        return tokens.map { $0 is SmartPlaylistRules.Token ? $0 : SmartPlaylistRules.Token.Search(string: $0 as! String) }
+        if lastEditingString != (rules.tokens.last as? SmartPlaylistRules.Token.Search)?.string {
+            delegate?.smartPlaylistRulesController?(self, changedRules: rules)
+        }
     }
     
     func tokenField(_ tokenField: NSTokenField, hasMenuForRepresentedObject representedObject: Any) -> Bool {
@@ -169,15 +187,16 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
         _tokenField.reloadTokens()
     }
     
+    override func controlTextDidChange(_ obj: Notification) {
+        if _tokenField.editingString != lastEditingString && lastEditingString != (rules.tokens.last as? SmartPlaylistRules.Token.Search)?.string {
+            // Live search changed
+            lastEditingString = _tokenField.editingString
+            delegate?.smartPlaylistRulesController?(self, changedRules: rules)
+        }
+    }
+    
     override func controlTextDidEndEditing(_ obj: Notification) {
         delegate?.editingEnded?(smartPlaylistRulesController: self, notification: obj)
-        
-        if let labelField = obj.object as? TTTokenField {
-            let editing = labelField.editingString
-            if editing.count > 0 {
-                labelField.autocomplete(with: SmartPlaylistRules.Token.Search(string: labelField.editingString))
-            }
-        }
     }
     
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
@@ -190,8 +209,17 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
                 return true
             }
         }
+        else if commandSelector == #selector(NSResponder.insertNewline(_:)) {
+            labelField.autocompletePopover.close()
+            delegate?.smartPlaylistRulesController?(confirmedSearch: self)
+            return true
+        }
         
         return false
+    }
+    
+    func tokenField(_ tokenField: NSTokenField, styleForRepresentedObject representedObject: Any) -> NSTokenField.TokenStyle {
+        return representedObject is String ? .none : .default
     }
     
     @IBAction func accumulationChanged(_ sender: Any) {

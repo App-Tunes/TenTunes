@@ -40,7 +40,6 @@ extension TrackController {
 
 extension TrackController : SmartPlaylistRulesControllerDelegate {
     func smartPlaylistRulesController(_ controller: SmartPlaylistRulesController, changedRules rules: SmartPlaylistRules) {
-        // TODO Live search
         if controller == smartPlaylistRuleController, let playlist = history.playlist as? PlaylistSmart {
             if playlist.rrules != rules {
                 playlist.rules = rules
@@ -49,6 +48,14 @@ extension TrackController : SmartPlaylistRulesControllerDelegate {
         }
         else {
             desired.filter = rules.filter(in: Library.shared.viewContext)
+        }
+    }
+    
+    func smartPlaylistRulesController(confirmedSearch: SmartPlaylistRulesController) {
+        _tableView.window?.makeFirstResponder(_tableView)
+        
+        if _tableView.selectedRowIndexes.isEmpty {
+            _tableView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
         }
     }
 }

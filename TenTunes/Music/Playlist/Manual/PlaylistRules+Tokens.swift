@@ -47,7 +47,7 @@ extension SmartPlaylistRules.Token {
         }
         
         override func positiveRepresentation(in context: NSManagedObjectContext? = nil) -> String {
-            return "Search: " + string
+            return string
         }
     }
     

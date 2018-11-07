@@ -225,7 +225,7 @@ class TTTokenField: NSTokenField {
         // When we have no strings, location is equal to the number of tokens
         currentEditor()?.selectedRange = NSMakeRange(idx + 1, 0)
         
-        self.autocompletePopover.close()
+        autocompletePopover.close()
     }
 }
 

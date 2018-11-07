@@ -480,6 +480,9 @@ extension TrackController : HideableBarDelegate {
             if state == false {
                 desired.filter = nil
             }
+            else {
+                desired.filter = filterController.rules.filter(in: Library.shared.viewContext)
+            }
         }
         
         view.window?.makeFirstResponder(_tableView)

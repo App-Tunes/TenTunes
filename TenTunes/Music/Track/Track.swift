@@ -135,6 +135,7 @@ public class Track: NSManagedObject {
             #keyPath(Track.rSource): [#keyPath(Track.album), #keyPath(Track.author)],
             #keyPath(Track.rDuration): [#keyPath(Track.durationR)],
             #keyPath(Track.speed): [#keyPath(Track.bpmString)],
+            #keyPath(Track.artworkPreview): [#keyPath(Track.visuals.artworkPreview)],
             ][key] ?? super.keyPathsForValuesAffectingValue(forKey: key)
     }
 }

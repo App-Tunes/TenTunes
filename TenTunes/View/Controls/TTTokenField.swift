@@ -64,6 +64,7 @@ class TTTokenField: NSTokenField {
             row.title.translatesAutoresizingMaskIntoConstraints = false
             row.title.isBordered = false
             row.title.isSelectable = false
+            row.title.backgroundColor = .clear
             row.title.font = NSFont.boldSystemFont(ofSize: 12)
             
             row.view.addSubview(row.title)
@@ -89,6 +90,7 @@ class TTTokenField: NSTokenField {
             if let prev = prev {
                 row.ellipsis.isEditable = false
                 row.ellipsis.isBordered = false
+                row.ellipsis.backgroundColor = .clear
                 row.ellipsis.translatesAutoresizingMaskIntoConstraints = false
 
                 row.view.addSubview(row.ellipsis)

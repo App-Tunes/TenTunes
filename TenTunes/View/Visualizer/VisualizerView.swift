@@ -43,7 +43,7 @@ class VisualizerView: SyphonableOpenGLView {
     func update(withFFT fft: [Number]) {
         let desiredLength = min(Int(details * 6 + 4), 10)
         if resonance.count != desiredLength {
-            resonance = Array(repeating: 0, count: desiredLength)
+            resonance = resonance.remap(toSize: desiredLength, default: 0)
         }
         
         // TODO Add Gravity so that any particular resonance can't stay high for long so we get more dynamic movement (like how ears adjust to fucking noise fuck I'm a genius)

@@ -77,6 +77,10 @@ extension Collection where Iterator.Element : FloatingPoint {
 }
 
 extension Array {
+    mutating func remap(by: (Element) -> Element) {
+        self = map(by)
+    }
+
     mutating func remove(at indexes: [Int]) {
         for index in indexes.sorted(by: >) {
             remove(at: index)
@@ -313,15 +317,9 @@ extension Array where Element: Equatable {
     }
 }
 
-extension Array where Iterator.Element == CGFloat {
-    mutating func remap(by: (Element) -> Element) {
-        for i in 0..<count {
-            self[i] = by(self[i])
-        }
-    }
-    
-    func remap(toSize: Int) -> [CGFloat] {
-        return Array<Int>(0..<toSize).map { idx in
+extension Array where Iterator.Element: FloatingPoint {
+    func remap(toSize: Int, default defaultValue: Element = 0) -> [Element] {
+        return Array<Int>(0 ..< toSize).map { idx in
             let count = Int(self.count)
             let trackPosStart = Double(idx) / Double(toSize)
             let trackPosEnd = Double(idx + 1) / Double(toSize)
@@ -329,24 +327,37 @@ extension Array where Iterator.Element == CGFloat {
             
             if trackRange.count == 0 {
                 // TODO Needs lerp
-                return self[trackRange.lowerBound]
+                return count > 0
+                    ? self[trackRange.lowerBound]
+                    : defaultValue
             }
             
-            return self[trackRange].reduce(0, +) / CGFloat(trackRange.count)
+            return trackRange.count > 0
+                ? self[trackRange].reduce(0, +) / Element(trackRange.count)
+                : defaultValue
         }
     }
 }
 
 // Apparently these two can't be merged
-extension ArraySlice where Iterator.Element == CGFloat {
-    func remap(toSize: Int) -> [CGFloat] {
+extension ArraySlice where Iterator.Element: FloatingPoint {
+    func remap(toSize: Int, default defaultValue: Element = 0) -> [Element] {
         return Array<Int>(0 ..< toSize).map { idx in
             let count = Int(self.count)
             let trackPosStart = Double(idx) / Double(toSize)
             let trackPosEnd = Double(idx + 1) / Double(toSize)
             let trackRange = (startIndex + Int(trackPosStart * Double(count))) ..< (startIndex + Int(trackPosEnd * Double(count)))
             
-            return self[trackRange].reduce(0, +) / CGFloat(trackRange.count)
+            if trackRange.count == 0 {
+                // TODO Needs lerp
+                return count > 0
+                    ? self[trackRange.lowerBound]
+                    : defaultValue
+            }
+
+            return trackRange.count > 0
+                ? self[trackRange].reduce(0, +) / Element(trackRange.count)
+                : defaultValue
         }
     }
 }

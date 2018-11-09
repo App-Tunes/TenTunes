@@ -25,6 +25,7 @@ class VisualizerView: SyphonableOpenGLView {
     var delegate: VisualizerViewDelegate?
     
     var resonance: [Number] = []
+    var numbness: [Number] = []
     var totalResonance: Number = 0
     var highResonance: Number = 0
     
@@ -44,8 +45,12 @@ class VisualizerView: SyphonableOpenGLView {
         let desiredLength = min(Int(details * 6 + 4), 10)
         if resonance.count != desiredLength {
             resonance = resonance.remap(toSize: desiredLength, default: 0)
+            numbness = numbness.remap(toSize: desiredLength, default: 0)
         }
         
+        print((0 ..< resonance.count).map { idx in
+            (Interpolation.linear(1, 0.1 + numbness[idx] * 10, amount: frantic))
+        })
         // TODO Add Gravity so that any particular resonance can't stay high for long so we get more dynamic movement (like how ears adjust to fucking noise fuck I'm a genius)
         let desired: [Number] = (0 ..< resonance.count).map { idx in
             let middle = (pow(2.0, Number(idx)) - 1) / pow(2, Number(resonance.count)) * Number(fft.count - VisualizerView.skipFrequencies) + Number(VisualizerView.skipFrequencies)
@@ -61,7 +66,7 @@ class VisualizerView: SyphonableOpenGLView {
                 let dist = abs(Number(idx) - middle)
                 // Multiply since this diminishes the carefully balanced values a bit
                 return val / (1 + pow(dist / stretch, steepness) * gain) * 2.2
-                }.reduce(0, +)
+                }.reduce(0, +) / (Interpolation.linear(1, 0.001 + numbness[idx], amount: frantic))
 
 //            return fft.enumerated().map { (idx, val) in
 //                // Later frequencies stretch across more values
@@ -75,11 +80,13 @@ class VisualizerView: SyphonableOpenGLView {
 //                }.reduce(0, +)
         }
         
-        let lerp = 0.2 - frantic * 0.1
+        let lerp = 0.05 + frantic * 0.2
         resonance = Interpolation.linear(resonance, desired, amount: lerp)
         totalResonance = Interpolation.linear(totalResonance, fft.reduce(0, +) / Number(fft.count) * 650, amount: lerp)
         let highFFT = fft.enumerated().map { (idx, val) in val * pow(Number(idx) / Number(fft.count), 3) }
         highResonance = Interpolation.linear(totalResonance, highFFT.reduce(0, +) / Number(highFFT.count) * 900, amount: lerp)
+        
+        numbness = Interpolation.linear(numbness, resonance, amount: lerp * 0.5)
     }
     
     @discardableResult
@@ -117,7 +124,7 @@ class VisualizerView: SyphonableOpenGLView {
         
         let localDarkness = pow(2, ((1 - brightness) * (darknessBonus * 2 + 1)) + 0.4)
         let brightnessBoost = pow(0.5, ((1 - ratio) * 0.4 + 0.4) / (highResonance / 15 + 1)) + ratio * 0.2
-        let desaturationBoost = (0.5 + prog * 0.5) * totalResonance / 40 + prog * 0.6
+        let desaturationBoost = (0.5 + prog * 0.5) * totalResonance / (55 - frantic * 30) + prog * 0.6
 
         // 0.6 so that extremely high and low sounds are far apart in color
         return NSColor(hue: CGFloat(prog * colorVariance + (time * 0.02321)).truncatingRemainder(dividingBy: 1),

@@ -70,7 +70,7 @@
             <rect key="contentRect" x="90" y="125" width="416" height="342"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="ENc-Eb-lrQ">
-                <rect key="frame" x="0.0" y="0.0" width="416" height="349"/>
+                <rect key="frame" x="0.0" y="0.0" width="416" height="373"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6Jb-mX-sNA">
@@ -90,7 +90,7 @@ Gw
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0Ew-bO-deA">
-                        <rect key="frame" x="18" y="274" width="104" height="17"/>
+                        <rect key="frame" x="18" y="298" width="104" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="100" id="HZC-SD-A7U"/>
                         </constraints>
@@ -101,17 +101,17 @@ Gw
                         </textFieldCell>
                     </textField>
                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LlT-Kn-D38" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
-                        <rect key="frame" x="138" y="273" width="140" height="19"/>
+                        <rect key="frame" x="138" y="297" width="140" height="19"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="Jsg-3B-aPj"/>
                         </constraints>
-                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="0.80000000000000004" doubleValue="0.59999999999999998" tickMarkPosition="above" sliderType="linear" id="9X8-Ke-pq7"/>
+                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="9X8-Ke-pq7"/>
                         <connections>
                             <binding destination="-2" name="value" keyPath="_visualizerView.colorVariance" id="B6p-Fg-BOo"/>
                         </connections>
                     </slider>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Nr1-wo-1mq">
-                        <rect key="frame" x="18" y="250" width="104" height="17"/>
+                        <rect key="frame" x="18" y="274" width="104" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Dark" id="KB8-2B-s1g">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -119,14 +119,14 @@ Gw
                         </textFieldCell>
                     </textField>
                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sCl-hB-vJq" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
-                        <rect key="frame" x="138" y="249" width="140" height="19"/>
-                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.59999999999999998" tickMarkPosition="above" sliderType="linear" id="iou-xt-ozq"/>
+                        <rect key="frame" x="138" y="273" width="140" height="19"/>
+                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="iou-xt-ozq"/>
                         <connections>
                             <binding destination="-2" name="value" keyPath="_visualizerView.brightness" id="W26-Hx-YTt"/>
                         </connections>
                     </slider>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1nt-wb-SYK">
-                        <rect key="frame" x="18" y="226" width="104" height="17"/>
+                        <rect key="frame" x="18" y="250" width="104" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Sober" id="P7G-GX-yt9">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -134,16 +134,24 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vRr-fn-9Wb">
-                        <rect key="frame" x="18" y="202" width="104" height="17"/>
+                        <rect key="frame" x="18" y="226" width="104" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Rough" id="Mmk-Uk-eKN">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Dh-ab-vue">
+                        <rect key="frame" x="18" y="202" width="104" height="17"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Relaxed" id="tdv-WG-IpG">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gv5-AG-bfA" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
-                        <rect key="frame" x="138" y="225" width="140" height="19"/>
-                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.59999999999999998" tickMarkPosition="above" sliderType="linear" id="lgL-cZ-190"/>
+                        <rect key="frame" x="138" y="249" width="140" height="19"/>
+                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="lgL-cZ-190"/>
                         <connections>
                             <binding destination="-2" name="value" keyPath="_visualizerView.psychedelic" id="4av-7T-hsk"/>
                         </connections>
@@ -181,7 +189,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="soe-EQ-VI1">
-                        <rect key="frame" x="18" y="312" width="104" height="17"/>
+                        <rect key="frame" x="18" y="336" width="104" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Mode" id="aJp-d8-qPI">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -200,7 +208,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FKw-DE-nRN">
-                        <rect key="frame" x="294" y="274" width="104" height="17"/>
+                        <rect key="frame" x="294" y="298" width="104" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="justified" title="Colorful" id="Y7v-2S-ONK">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -208,7 +216,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1z9-d3-w15">
-                        <rect key="frame" x="294" y="250" width="104" height="17"/>
+                        <rect key="frame" x="294" y="274" width="104" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="justified" title="Bright" id="bhL-A8-Q0G">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -216,7 +224,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qNt-rQ-Hj0">
-                        <rect key="frame" x="294" y="226" width="104" height="17"/>
+                        <rect key="frame" x="294" y="250" width="104" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="justified" title="Psychedelic" id="N5g-sC-uTa">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -224,7 +232,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="64q-vg-Kjt">
-                        <rect key="frame" x="294" y="202" width="104" height="17"/>
+                        <rect key="frame" x="294" y="226" width="104" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="justified" title="Detailed" id="gw6-Pn-pGi">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -268,8 +276,8 @@ Gw
                         </textFieldCell>
                     </textField>
                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vVQ-v9-ruS" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
-                        <rect key="frame" x="138" y="201" width="140" height="19"/>
-                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.59999999999999998" tickMarkPosition="above" sliderType="linear" id="cry-KN-E5I"/>
+                        <rect key="frame" x="138" y="225" width="140" height="19"/>
+                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="cry-KN-E5I"/>
                         <connections>
                             <binding destination="-2" name="value" keyPath="_visualizerView.details" id="3Qb-M5-2rp"/>
                         </connections>
@@ -324,7 +332,7 @@ DQ
                         </connections>
                     </button>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="k6L-Dx-CNP">
-                        <rect key="frame" x="138" y="307" width="261" height="25"/>
+                        <rect key="frame" x="138" y="331" width="261" height="25"/>
                         <popUpButtonCell key="cell" type="push" title="Suns" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="VyU-ba-smI" id="KvW-gk-Ljb">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="menu"/>
@@ -339,6 +347,21 @@ DQ
                             <action selector="selectedMode:" target="-2" id="YFq-lu-4bq"/>
                         </connections>
                     </popUpButton>
+                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eVA-PO-SoG" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
+                        <rect key="frame" x="138" y="201" width="140" height="19"/>
+                        <sliderCell key="cell" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="ib6-BN-XEZ"/>
+                        <connections>
+                            <binding destination="-2" name="value" keyPath="_visualizerView.frantic" id="BKw-0s-Qoj"/>
+                        </connections>
+                    </slider>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Doa-It-I6H">
+                        <rect key="frame" x="294" y="202" width="104" height="17"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="justified" title="Frantic" id="hc7-WH-WKa">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Nr1-wo-1mq" firstAttribute="width" secondItem="0Ew-bO-deA" secondAttribute="width" id="1PH-TN-eaa"/>
@@ -347,10 +370,13 @@ DQ
                     <constraint firstItem="8RK-ax-fdb" firstAttribute="centerY" secondItem="R9W-UV-AVd" secondAttribute="centerY" id="4GE-05-t0M"/>
                     <constraint firstItem="eea-Wi-qyP" firstAttribute="top" secondItem="ZVD-nD-gmP" secondAttribute="bottom" constant="10" id="5cv-rG-wfW"/>
                     <constraint firstItem="lgL-DS-af7" firstAttribute="leading" secondItem="ENc-Eb-lrQ" secondAttribute="leading" constant="20" id="66B-Lg-Dc4"/>
+                    <constraint firstItem="eVA-PO-SoG" firstAttribute="leading" secondItem="vVQ-v9-ruS" secondAttribute="leading" id="79J-Wt-0qp"/>
                     <constraint firstItem="ZVD-nD-gmP" firstAttribute="trailing" secondItem="8RN-QQ-ODe" secondAttribute="trailing" id="82X-zJ-6qy"/>
+                    <constraint firstItem="2Dh-ab-vue" firstAttribute="centerY" secondItem="eVA-PO-SoG" secondAttribute="centerY" id="9zQ-rI-fUX"/>
                     <constraint firstItem="qNt-rQ-Hj0" firstAttribute="width" secondItem="0Ew-bO-deA" secondAttribute="width" id="AB8-oV-9Cc"/>
                     <constraint firstAttribute="trailing" secondItem="OtQ-Ax-d0w" secondAttribute="trailing" constant="20" id="AQH-gK-nEY"/>
                     <constraint firstItem="FKw-DE-nRN" firstAttribute="width" secondItem="0Ew-bO-deA" secondAttribute="width" id="BPT-uL-SVd"/>
+                    <constraint firstItem="Doa-It-I6H" firstAttribute="centerY" secondItem="eVA-PO-SoG" secondAttribute="centerY" id="C1u-3E-9Td"/>
                     <constraint firstItem="eea-Wi-qyP" firstAttribute="trailing" secondItem="ZVD-nD-gmP" secondAttribute="trailing" id="CTm-f0-bsR"/>
                     <constraint firstItem="Nr1-wo-1mq" firstAttribute="leading" secondItem="ENc-Eb-lrQ" secondAttribute="leading" constant="20" id="DiD-U5-RaW"/>
                     <constraint firstItem="vRr-fn-9Wb" firstAttribute="centerY" secondItem="vVQ-v9-ruS" secondAttribute="centerY" id="Ed7-GM-zNX"/>
@@ -375,12 +401,14 @@ DQ
                     <constraint firstItem="6Jb-mX-sNA" firstAttribute="leading" secondItem="8RN-QQ-ODe" secondAttribute="trailing" constant="12" id="Sgf-TC-3df"/>
                     <constraint firstItem="k6L-Dx-CNP" firstAttribute="leading" secondItem="soe-EQ-VI1" secondAttribute="trailing" constant="20" id="TSg-3v-W0O"/>
                     <constraint firstItem="ZVD-nD-gmP" firstAttribute="leading" secondItem="HkJ-RN-qWA" secondAttribute="leading" id="Tg5-Ec-Z0n"/>
+                    <constraint firstItem="2Dh-ab-vue" firstAttribute="leading" secondItem="ENc-Eb-lrQ" secondAttribute="leading" constant="20" id="Tpt-np-C7h"/>
                     <constraint firstItem="ZVD-nD-gmP" firstAttribute="top" secondItem="R9W-UV-AVd" secondAttribute="bottom" constant="8" id="Twn-D2-eJE"/>
                     <constraint firstAttribute="trailing" secondItem="FKw-DE-nRN" secondAttribute="trailing" constant="20" id="UNv-ZK-iFt"/>
                     <constraint firstItem="64q-vg-Kjt" firstAttribute="centerY" secondItem="vVQ-v9-ruS" secondAttribute="centerY" id="VWA-ew-3kc"/>
                     <constraint firstItem="soe-EQ-VI1" firstAttribute="leading" secondItem="8RK-ax-fdb" secondAttribute="leading" id="WUE-zR-eRd"/>
                     <constraint firstItem="vVQ-v9-ruS" firstAttribute="top" secondItem="gv5-AG-bfA" secondAttribute="bottom" constant="9" id="Wie-I2-S9D"/>
                     <constraint firstItem="64q-vg-Kjt" firstAttribute="leading" secondItem="vVQ-v9-ruS" secondAttribute="trailing" constant="20" id="Y03-Og-csb"/>
+                    <constraint firstItem="eVA-PO-SoG" firstAttribute="trailing" secondItem="vVQ-v9-ruS" secondAttribute="trailing" id="Yqf-XE-MIZ"/>
                     <constraint firstItem="jdE-Kk-32t" firstAttribute="centerY" secondItem="eea-Wi-qyP" secondAttribute="centerY" id="Zos-U0-PQe"/>
                     <constraint firstItem="0Ew-bO-deA" firstAttribute="centerY" secondItem="LlT-Kn-D38" secondAttribute="centerY" id="Ztd-UY-9NS"/>
                     <constraint firstAttribute="bottom" secondItem="6Jb-mX-sNA" secondAttribute="bottom" constant="20" id="a09-EQ-98U"/>
@@ -392,22 +420,26 @@ DQ
                     <constraint firstAttribute="trailing" secondItem="64q-vg-Kjt" secondAttribute="trailing" constant="20" id="cgk-Cp-y3B"/>
                     <constraint firstItem="cDK-6k-3NR" firstAttribute="centerY" secondItem="0ip-Hk-LSy" secondAttribute="centerY" id="eqI-zk-gMl"/>
                     <constraint firstItem="k6L-Dx-CNP" firstAttribute="centerY" secondItem="soe-EQ-VI1" secondAttribute="centerY" id="ewg-XU-KSs"/>
-                    <constraint firstItem="lgL-DS-af7" firstAttribute="top" secondItem="vVQ-v9-ruS" secondAttribute="bottom" constant="20" id="exB-Fe-SbV"/>
+                    <constraint firstItem="Doa-It-I6H" firstAttribute="leading" secondItem="eVA-PO-SoG" secondAttribute="trailing" constant="20" id="fCQ-9T-MlT"/>
                     <constraint firstItem="1z9-d3-w15" firstAttribute="centerY" secondItem="sCl-hB-vJq" secondAttribute="centerY" id="gaZ-hi-IWp"/>
                     <constraint firstItem="sCl-hB-vJq" firstAttribute="top" secondItem="LlT-Kn-D38" secondAttribute="bottom" constant="9" id="iAU-2V-ioa"/>
                     <constraint firstItem="R9W-UV-AVd" firstAttribute="trailing" secondItem="ZVD-nD-gmP" secondAttribute="trailing" id="iKo-54-oYm"/>
                     <constraint firstItem="1nt-wb-SYK" firstAttribute="leading" secondItem="ENc-Eb-lrQ" secondAttribute="leading" constant="20" id="ikr-Dy-lmG"/>
                     <constraint firstItem="64q-vg-Kjt" firstAttribute="width" secondItem="0Ew-bO-deA" secondAttribute="width" id="j2A-Tn-PFG"/>
+                    <constraint firstItem="eVA-PO-SoG" firstAttribute="top" secondItem="vVQ-v9-ruS" secondAttribute="bottom" constant="9" id="jeB-wu-tlX"/>
                     <constraint firstItem="qNt-rQ-Hj0" firstAttribute="leading" secondItem="gv5-AG-bfA" secondAttribute="trailing" constant="20" id="l9v-K6-hjl"/>
                     <constraint firstItem="HkJ-RN-qWA" firstAttribute="leading" secondItem="cDK-6k-3NR" secondAttribute="trailing" constant="20" id="lle-W8-qPT"/>
                     <constraint firstAttribute="trailing" secondItem="k6L-Dx-CNP" secondAttribute="trailing" constant="20" id="mGx-Pz-HOD"/>
                     <constraint firstItem="vRr-fn-9Wb" firstAttribute="leading" secondItem="ENc-Eb-lrQ" secondAttribute="leading" constant="20" id="mMT-VX-pFb"/>
                     <constraint firstItem="8RN-QQ-ODe" firstAttribute="leading" secondItem="0ip-Hk-LSy" secondAttribute="trailing" id="mYT-8W-mFf"/>
                     <constraint firstItem="qNt-rQ-Hj0" firstAttribute="centerY" secondItem="gv5-AG-bfA" secondAttribute="centerY" id="mfc-2v-sZ8"/>
+                    <constraint firstItem="eVA-PO-SoG" firstAttribute="bottom" secondItem="lgL-DS-af7" secondAttribute="top" constant="-20" id="nSk-09-RPb"/>
                     <constraint firstItem="jdE-Kk-32t" firstAttribute="leading" secondItem="cDK-6k-3NR" secondAttribute="leading" id="otL-n4-FUf"/>
+                    <constraint firstItem="eVA-PO-SoG" firstAttribute="leading" secondItem="2Dh-ab-vue" secondAttribute="trailing" constant="20" id="pKy-PI-fIJ"/>
                     <constraint firstItem="1z9-d3-w15" firstAttribute="leading" secondItem="sCl-hB-vJq" secondAttribute="trailing" constant="20" id="pWR-m8-Dlq"/>
                     <constraint firstItem="vVQ-v9-ruS" firstAttribute="leading" secondItem="vRr-fn-9Wb" secondAttribute="trailing" constant="20" id="pc4-um-EqP"/>
                     <constraint firstItem="jdE-Kk-32t" firstAttribute="trailing" secondItem="cDK-6k-3NR" secondAttribute="trailing" id="pkJ-zu-no5"/>
+                    <constraint firstAttribute="trailing" secondItem="Doa-It-I6H" secondAttribute="trailing" constant="20" id="sW1-mJ-9s8"/>
                     <constraint firstItem="soe-EQ-VI1" firstAttribute="trailing" secondItem="8RK-ax-fdb" secondAttribute="trailing" id="seb-iD-zD0"/>
                     <constraint firstAttribute="trailing" secondItem="lgL-DS-af7" secondAttribute="trailing" constant="20" id="shF-Ss-QsP"/>
                     <constraint firstItem="soe-EQ-VI1" firstAttribute="top" secondItem="ENc-Eb-lrQ" secondAttribute="top" constant="20" id="tb8-98-PJ5"/>

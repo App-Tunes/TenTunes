@@ -36,6 +36,7 @@ class VisualizerView: SyphonableOpenGLView {
     @objc var brightness: Number = 0.7
     @objc var psychedelic: Number = 0.5
     @objc var details: Number = 0.75
+    @objc var frantic: Number = 0.5
 
     var distortionRands = (0 ..< 100).map { _ in Number.random(in: 0 ..< 1 ) }
     
@@ -74,10 +75,11 @@ class VisualizerView: SyphonableOpenGLView {
 //                }.reduce(0, +)
         }
         
-        resonance = Interpolation.linear(resonance, desired, amount: 0.15)
-        totalResonance = Interpolation.linear(totalResonance, fft.reduce(0, +) / Number(fft.count) * 650, amount: 0.15)
+        let lerp = 0.2 - frantic * 0.1
+        resonance = Interpolation.linear(resonance, desired, amount: lerp)
+        totalResonance = Interpolation.linear(totalResonance, fft.reduce(0, +) / Number(fft.count) * 650, amount: lerp)
         let highFFT = fft.enumerated().map { (idx, val) in val * pow(Number(idx) / Number(fft.count), 3) }
-        highResonance = Interpolation.linear(totalResonance, highFFT.reduce(0, +) / Number(highFFT.count) * 900, amount: 0.15)
+        highResonance = Interpolation.linear(totalResonance, highFFT.reduce(0, +) / Number(highFFT.count) * 900, amount: lerp)
     }
     
     @discardableResult

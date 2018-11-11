@@ -48,9 +48,6 @@ class VisualizerView: SyphonableOpenGLView {
             numbness = numbness.remap(toSize: desiredLength, default: 0)
         }
         
-        print((0 ..< resonance.count).map { idx in
-            (Interpolation.linear(1, 0.1 + numbness[idx] * 10, amount: frantic))
-        })
         // TODO Add Gravity so that any particular resonance can't stay high for long so we get more dynamic movement (like how ears adjust to fucking noise fuck I'm a genius)
         let desired: [Number] = (0 ..< resonance.count).map { idx in
             let middle = (pow(2.0, Number(idx)) - 1) / pow(2, Number(resonance.count)) * Number(fft.count - VisualizerView.skipFrequencies) + Number(VisualizerView.skipFrequencies)
@@ -122,12 +119,13 @@ class VisualizerView: SyphonableOpenGLView {
         let prog = Number(idx) / Number(resonance.count - 1)
         let ratio = resonance[idx] / totalResonance
         
+        let loudnessColorChange = (ratio * 0.1 + resonance[idx] * 0.05) * (colorVariance * 0.5 + 0.5)
         let localDarkness = pow(2, ((1 - brightness) * (darknessBonus * 2 + 1)) + 0.4)
         let brightnessBoost = pow(0.5, ((1 - ratio) * 0.4 + 0.4) / (highResonance / 15 + 1)) + ratio * 0.2
         let desaturationBoost = (0.5 + prog * 0.5) * totalResonance / (55 - frantic * 30) + prog * 0.6
 
         // 0.6 so that extremely high and low sounds are far apart in color
-        return NSColor(hue: CGFloat(prog * colorVariance + (time * 0.02321)).truncatingRemainder(dividingBy: 1),
+        return NSColor(hue: CGFloat(prog * colorVariance + (time * 0.02321) + loudnessColorChange).truncatingRemainder(dividingBy: 1),
                        saturation: CGFloat(max(0, min(1, 0.2 + ratio * 4 * (0.8 + colorVariance) - desaturationBoost))),
                        brightness: CGFloat(min(1, resonance[idx] * 2 + brightnessBoost * 0.4) / localDarkness + 0.4),
                        alpha: 1)

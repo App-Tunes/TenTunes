@@ -119,7 +119,7 @@ class VisualizerView: SyphonableOpenGLView {
         let prog = Number(idx) / Number(resonance.count - 1)
         let ratio = resonance[idx] / totalResonance
         
-        let loudnessColorChange = (ratio * 0.1 + resonance[idx] * 0.05) * (colorVariance * 0.5 + 0.5)
+        let loudnessColorChange = (ratio * 0.1 + resonance[idx] * 0.05) * (colorVariance * 0.5 + 0.4 + frantic * 0.2)
         let localDarkness = pow(2, ((1 - brightness) * (darknessBonus * 2 + 1)) + 0.4)
         let brightnessBoost = pow(0.5, ((1 - ratio) * 0.4 + 0.4) / (highResonance / 15 + 1)) + ratio * 0.2
         let desaturationBoost = (0.5 + prog * 0.5) * totalResonance / (55 - frantic * 30) + prog * 0.6

@@ -69,8 +69,8 @@
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="90" y="125" width="416" height="342"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
-            <view key="contentView" id="ENc-Eb-lrQ">
-                <rect key="frame" x="0.0" y="0.0" width="416" height="373"/>
+            <view key="contentView" misplaced="YES" id="ENc-Eb-lrQ">
+                <rect key="frame" x="0.0" y="0.0" width="416" height="342"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6Jb-mX-sNA">
@@ -349,7 +349,7 @@ DQ
                     </popUpButton>
                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eVA-PO-SoG" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
                         <rect key="frame" x="138" y="201" width="140" height="19"/>
-                        <sliderCell key="cell" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="ib6-BN-XEZ"/>
+                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="ib6-BN-XEZ"/>
                         <connections>
                             <binding destination="-2" name="value" keyPath="_visualizerView.frantic" id="BKw-0s-Qoj"/>
                         </connections>

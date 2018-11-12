@@ -298,7 +298,7 @@ Gw
                     </textField>
                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eea-Wi-qyP" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
                         <rect key="frame" x="138" y="78" width="188" height="24"/>
-                        <sliderCell key="cell" state="on" alignment="left" minValue="-6" maxValue="6" doubleValue="1" tickMarkPosition="above" numberOfTickMarks="3" sliderType="linear" id="Qjh-Un-s4F"/>
+                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="-6" maxValue="6" doubleValue="1" tickMarkPosition="above" numberOfTickMarks="3" sliderType="linear" id="Qjh-Un-s4F"/>
                         <connections>
                             <binding destination="-2" name="value" keyPath="volume" id="zgO-OY-6IP">
                                 <dictionary key="options">

@@ -24,7 +24,7 @@ class Cloud: VisualizerView {
         // Darkness makes points minimum smaller while loudness makes them larger
         glUniform1f(shader.guMinDist, 0.1 / (2 + (1 - brightness) * 10 + totalResonance / 20))
         // Darkness keeps points smaller while psychedelic makes them larger
-        glUniform1f(shader.guDecay, pow(1.5, (2 - brightness - psychedelic) * 5.7))
+        glUniform1f(shader.guDecay, pow(1.5, (2.5 - brightness - psychedelic - frantic) * 5.7))
         // Brightness makes points fuzzy
         glUniform1f(shader.guSharpness, pow(2, 1 - brightness) * 2.5)
         // More psychedelic means we zoom in more because otherwise it gets too "detailed"

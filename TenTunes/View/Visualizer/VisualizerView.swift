@@ -81,7 +81,7 @@ class VisualizerView: SyphonableOpenGLView {
         resonance = Interpolation.linear(resonance, desired, amount: lerp)
         totalResonance = Interpolation.linear(totalResonance, fft.reduce(0, +) / Number(fft.count) * 650, amount: lerp)
         let highFFT = fft.enumerated().map { (idx, val) in val * pow(Number(idx) / Number(fft.count), 3) }
-        highResonance = Interpolation.linear(totalResonance, highFFT.reduce(0, +) / Number(highFFT.count) * 900, amount: lerp)
+        highResonance = Interpolation.linear(highResonance, highFFT.reduce(0, +) / Number(highFFT.count) * 900, amount: lerp)
         
         numbness = Interpolation.linear(numbness, resonance, amount: lerp * 0.5)
     }
@@ -122,7 +122,7 @@ class VisualizerView: SyphonableOpenGLView {
         let loudnessColorChange = (ratio * 0.1 + resonance[idx] * 0.05) * (colorVariance * 0.5 + 0.4 + frantic * 0.2)
         let localDarkness = pow(2, ((1 - brightness) * (darknessBonus * 2 + 1)) + 0.4)
         let brightnessBoost = pow(0.5, ((1 - ratio) * 0.4 + 0.4) / (highResonance / 15 + 1)) + ratio * 0.2
-        let desaturationBoost = (0.5 + prog * 0.5) * totalResonance / (55 - frantic * 30) + prog * 0.6
+        let desaturationBoost = (0.5 + prog * 0.5) * totalResonance / (55 - frantic * 30) + prog
 
         // 0.6 so that extremely high and low sounds are far apart in color
         return NSColor(hue: CGFloat(prog * colorVariance + (time * 0.02321) + loudnessColorChange).truncatingRemainder(dividingBy: 1),

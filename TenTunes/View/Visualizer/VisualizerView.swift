@@ -63,7 +63,7 @@ class VisualizerView: SyphonableOpenGLView {
                 let dist = abs(Number(idx) - middle)
                 // Multiply since this diminishes the carefully balanced values a bit
                 return pow(val / (1 + pow(dist / stretch, steepness) * gain) * 2.2, 0.9 + frantic * 0.2)
-                }.reduce(0, +) / (Interpolation.linear(1, 0.001 + numbness[idx], amount: frantic))
+                }.reduce(0, +) / (Interpolation.linear(1, 0.001 + numbness[idx], amount: max(0, (frantic - 0.4) * 2.5)))
 
 //            return fft.enumerated().map { (idx, val) in
 //                // Later frequencies stretch across more values

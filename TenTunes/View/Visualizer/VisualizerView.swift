@@ -77,7 +77,7 @@ class VisualizerView: SyphonableOpenGLView {
 //                }.reduce(0, +)
         }
         
-        let lerp = 0.05 + frantic * 0.2
+        let lerp = 0.1 + frantic * 0.1
         resonance = Interpolation.linear(resonance, desired, amount: lerp)
         totalResonance = Interpolation.linear(totalResonance, fft.reduce(0, +) / Number(fft.count) * 650, amount: lerp)
         let highFFT = fft.enumerated().map { (idx, val) in val * pow(Number(idx) / Number(fft.count), 3) }

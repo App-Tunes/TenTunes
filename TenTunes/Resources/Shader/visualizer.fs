@@ -155,11 +155,12 @@ void main( void ) {
     float prevOmega;
     for (int i = 0; i < resonanceCount; i++) {
         float rawDist = distPoint(i, pTime, pos);
-        
+        float sunDist = atan(rawDist * (resonance[i] * 0.5 + 1), rawDist * rawDist * 50.0);
+
         vec3 pointColor = mix(vec3(resonanceColors[i * 3], resonanceColors[i * 3 + 1], resonanceColors[i * 3 + 2]),
                               vec3(resonanceColorsSoon[i * 3], resonanceColorsSoon[i * 3 + 1], resonanceColorsSoon[i * 3 + 2]),
-                              clamp(rawDist * 15 / (resonance[i] + 1), 0, 1.3))
-        - (1 / ((brightness * 70 + resonance[i] * 30) * rawDist + 1) - 0.1) * (1 - brightness);
+                              clamp(1.3 - sunDist, 0, 1.3))
+        + clamp(sunDist - 0.9 + brightness * 0.5 + resonance[i] * 0.1, -0.7, 0.1);
 
         float inf = pow(resonance[i] / max(minDist + resonance[i] / 50, minDist / 2 + rawDist)
                         * (brightness + 0.1), sharpness + resonance[i] / 10);

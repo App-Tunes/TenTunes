@@ -104,6 +104,11 @@ extension Library {
             let changed = library._exportChanged
             library._exportChanged = Set()
             
+            if changed == nil {
+                // Full wipe, we're expected to start over
+                try! FileManager.default.removeItem(at: url(title: nil))
+            }
+            
             let tracks: [Track] = (try! context.fetch(Track.fetchRequest()))
             
             (try! context.fetch(Playlist.fetchRequest())) // Pre-Grab all the playlists for performance reasons

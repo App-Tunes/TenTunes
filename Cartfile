@@ -1,3 +1,4 @@
 github "audiokit/AudioKit"
 #github "nhurden/MediaKeyTap"
+github "mixedinkey-opensource/MIKMIDI"
 git "https://github.com/reitermarkus/MediaKeyTap" "master"

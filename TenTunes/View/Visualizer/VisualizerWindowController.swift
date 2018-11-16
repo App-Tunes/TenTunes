@@ -11,6 +11,8 @@ import Cocoa
 import AudioKitUI
 import CoreGraphics
 
+import MIKMIDI
+
 class VisualizerWindowController: NSWindowController {
 
     @IBOutlet var _visualizerView: VisualizerView!
@@ -33,6 +35,7 @@ class VisualizerWindowController: NSWindowController {
     @IBOutlet var _settingsSheet: NSPanel!
     @IBOutlet var _audioSourceSelector: NSPopUpButton!
     @IBOutlet var _renderingMethodSelector: NSPopUpButton!
+    @IBOutlet var _midiSourceSelector: NSPopUpButton!
     
     @IBOutlet var _windowWidth: EnterReturningTextField!
     @IBOutlet var _windowHeight: EnterReturningTextField!
@@ -46,6 +49,7 @@ class VisualizerWindowController: NSWindowController {
         _settingsButton.alphaValue = 0.35
         
         AudioKit.addObserver(self, forKeyPath: #keyPath(AudioKit.inputDevices), options: [.new, .initial], context: nil)
+        MIKMIDIDeviceManager.shared.addObserver(self, forKeyPath: #keyPath(MIKMIDIDeviceManager.virtualSources), options: [.new, .initial], context: nil)
         
 //        let urlRef = Bundle.main.url(forResource: "example_dog", withExtension: "jpg")! as CFURL
 //        let myImageSourceRef = CGImageSourceCreateWithURL(urlRef, nil)
@@ -59,6 +63,12 @@ class VisualizerWindowController: NSWindowController {
         }
         else if keyPath == #keyPath(ResonanceProvider.resonance) {
             _visualizerView.update(withFFT: (object as! ResonanceProvider).resonance.map(Float.init))
+        }
+        else if keyPath == #keyPath(MIKMIDIDeviceManager.virtualSources) {
+            updateMIDISources()
+        }
+        else if keyPath == #keyPath(MIDI.numbers) {
+            updateFromMIDI()
         }
     }
     

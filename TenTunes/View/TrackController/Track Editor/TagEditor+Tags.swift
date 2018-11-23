@@ -28,6 +28,7 @@ extension TagEditor : TTTokenFieldDelegate {
                 ? $0.name.lowercased() == search.lowercased()
                 : $0.name.range(of: search, options: [.diacriticInsensitive, .caseInsensitive]) != nil
             }
+            .filter { !tagTokens.caseLet(ViewableTag.tag).contains($0) } 
             .sorted { (a, b) in a.name.count < b.name.count }
     }
     

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="WelcomeWindowController" customModule="TenTunes" customModuleProvider="target">
+            <connections>
+                <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Ten Tunes" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" titlebarAppearsTransparent="YES" id="F0z-JX-Cv5">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <rect key="contentRect" x="509" y="267" width="440" height="311"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <view key="contentView" wantsLayer="YES" id="se5-gp-TjO">
+                <rect key="frame" x="0.0" y="0.0" width="440" height="271"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GMz-6n-hUc">
+                        <rect key="frame" x="18" y="237" width="404" height="25"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Ten Tunes says Hi! Are you a..." id="LgW-mA-Oze">
+                            <font key="font" size="21" name="GoudyOldStyleT-Regular"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="fdQ-fQ-ADh">
+                        <rect key="frame" x="20" y="229" width="400" height="5"/>
+                    </box>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="ijW-QC-vOh">
+                        <rect key="frame" x="250" y="51" width="150" height="150"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="album" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="yuB-7X-m96">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <connections>
+                            <action selector="switchDJ:" target="-2" id="sni-Na-BLS"/>
+                        </connections>
+                    </button>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="Gq4-1m-v2S">
+                        <rect key="frame" x="40" y="51" width="150" height="150"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="Gq4-1m-v2S" secondAttribute="height" multiplier="1:1" id="UEN-qi-tyl"/>
+                            <constraint firstAttribute="width" constant="150" id="b5o-xP-8e4"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="artist" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="jX4-jz-8zS">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <connections>
+                            <action selector="switchCasualUser:" target="-2" id="Uwo-wH-p1z"/>
+                        </connections>
+                    </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0tP-Qu-30P">
+                        <rect key="frame" x="263" y="20" width="124" height="29"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Disc Jockey" id="2Vr-wi-1VX">
+                            <font key="font" size="25" name="GoudyOldStyleT-Bold"/>
+                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QO4-MY-0wx">
+                        <rect key="frame" x="50" y="20" width="130" height="29"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Casual User" id="ZoH-Cd-N7e">
+                            <font key="font" size="25" name="GoudyOldStyleT-Bold"/>
+                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="0tP-Qu-30P" secondAttribute="bottom" constant="20" id="FIh-Pl-A7Y"/>
+                    <constraint firstItem="fdQ-fQ-ADh" firstAttribute="top" secondItem="GMz-6n-hUc" secondAttribute="bottom" constant="5" id="H2J-rI-tfn"/>
+                    <constraint firstItem="QO4-MY-0wx" firstAttribute="top" secondItem="Gq4-1m-v2S" secondAttribute="bottom" constant="2" id="NVo-d5-Tc6"/>
+                    <constraint firstItem="Gq4-1m-v2S" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="40" id="OeB-83-sJj"/>
+                    <constraint firstItem="GMz-6n-hUc" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="20" id="OuY-fs-h0c"/>
+                    <constraint firstAttribute="trailing" secondItem="fdQ-fQ-ADh" secondAttribute="trailing" constant="20" id="PqZ-AD-UI9"/>
+                    <constraint firstItem="Gq4-1m-v2S" firstAttribute="width" secondItem="ijW-QC-vOh" secondAttribute="width" id="Pud-g6-sSM"/>
+                    <constraint firstItem="ijW-QC-vOh" firstAttribute="bottom" secondItem="Gq4-1m-v2S" secondAttribute="bottom" id="Qgw-CR-B23"/>
+                    <constraint firstAttribute="trailing" secondItem="GMz-6n-hUc" secondAttribute="trailing" constant="20" id="SgD-xK-n4m"/>
+                    <constraint firstAttribute="bottom" secondItem="QO4-MY-0wx" secondAttribute="bottom" constant="20" id="T1d-le-cmQ"/>
+                    <constraint firstItem="QO4-MY-0wx" firstAttribute="centerX" secondItem="Gq4-1m-v2S" secondAttribute="centerX" id="Zjq-Vh-2wK"/>
+                    <constraint firstItem="fdQ-fQ-ADh" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="20" id="dG8-gf-29i"/>
+                    <constraint firstItem="GMz-6n-hUc" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="9" id="doM-Qt-Oa6"/>
+                    <constraint firstAttribute="trailing" secondItem="ijW-QC-vOh" secondAttribute="trailing" constant="40" id="hBL-qc-cGj"/>
+                    <constraint firstItem="0tP-Qu-30P" firstAttribute="top" secondItem="ijW-QC-vOh" secondAttribute="bottom" constant="2" id="kn4-PQ-1v3"/>
+                    <constraint firstItem="ijW-QC-vOh" firstAttribute="top" secondItem="fdQ-fQ-ADh" secondAttribute="bottom" constant="30" id="lJt-ep-4VD"/>
+                    <constraint firstItem="ijW-QC-vOh" firstAttribute="top" secondItem="Gq4-1m-v2S" secondAttribute="top" id="pU5-fL-erv"/>
+                    <constraint firstItem="ijW-QC-vOh" firstAttribute="leading" secondItem="Gq4-1m-v2S" secondAttribute="trailing" constant="60" id="vrj-md-V4v"/>
+                    <constraint firstItem="0tP-Qu-30P" firstAttribute="centerX" secondItem="ijW-QC-vOh" secondAttribute="centerX" id="yNe-gC-YL9"/>
+                </constraints>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
+            </connections>
+            <point key="canvasLocation" x="211" y="168"/>
+        </window>
+    </objects>
+    <resources>
+        <image name="album" width="198" height="200"/>
+        <image name="artist" width="178" height="200"/>
+    </resources>
+</document>

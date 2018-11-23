@@ -11,6 +11,8 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
+    var welcomeController: WelcomeWindowController!
+
     var libraryWindowController: NSWindowController!
     
     var preferencesController: PreferencesWindowController!
@@ -78,6 +80,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         UserDefaults.standard.set(location, forKey: "libraryLocation")
         
+        welcomeController = WelcomeWindowController(windowNibName: .init("WelcomeWindowController"))
+
         let libraryStoryboard = NSStoryboard(name: .init("Library"), bundle: nil)
         libraryWindowController = (libraryStoryboard.instantiateInitialController() as! NSWindowController)
         
@@ -90,7 +94,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         WindowWarden.shared.remember(window: libraryWindowController.window!, key: ("0", .command))
         WindowWarden.shared.remember(window: visualizerController.window!, key: ("t", .command), toggleable: true)
-
+        
+        if UserDefaults.standard.consume(toggle: "WelcomeWindow") {
+            welcomeController.showWindow(self)
+        }
+        else {
+            commenceAfterWelcome()
+        }
+        
+    }
+    
+    func commenceAfterWelcome() {
         libraryWindowController.window!.makeKeyAndOrderFront(self)
     }
     

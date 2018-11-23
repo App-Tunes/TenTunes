@@ -138,6 +138,8 @@
 		80CB652F2052C6CD0031A6D7 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652E2052C6CD0031A6D7 /* Operators.swift */; };
 		80CB65332052C9530031A6D7 /* Cocoa+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB65322052C9530031A6D7 /* Cocoa+TT.swift */; };
 		80CB65352052C9CC0031A6D7 /* CoreData+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB65342052C9CC0031A6D7 /* CoreData+TT.swift */; };
+		80CC986621A877810030F04B /* WelcomeWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC986421A877810030F04B /* WelcomeWindowController.swift */; };
+		80CC986721A877810030F04B /* WelcomeWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80CC986521A877810030F04B /* WelcomeWindowController.xib */; };
 		80CED03C20C88055001E710F /* AVFoundation+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CED03B20C88055001E710F /* AVFoundation+TT.swift */; };
 		80CFDA0A203C4E2300C7A506 /* LazyVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CFDA09203C4E2300C7A506 /* LazyVar.swift */; };
 		80D9448C21662E0100C135CA /* ResonanceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D9448B21662E0100C135CA /* ResonanceProvider.swift */; };
@@ -370,6 +372,8 @@
 		80CB652E2052C6CD0031A6D7 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		80CB65322052C9530031A6D7 /* Cocoa+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocoa+TT.swift"; sourceTree = "<group>"; };
 		80CB65342052C9CC0031A6D7 /* CoreData+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreData+TT.swift"; sourceTree = "<group>"; };
+		80CC986421A877810030F04B /* WelcomeWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeWindowController.swift; sourceTree = "<group>"; };
+		80CC986521A877810030F04B /* WelcomeWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WelcomeWindowController.xib; sourceTree = "<group>"; };
 		80CED03B20C88055001E710F /* AVFoundation+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVFoundation+TT.swift"; sourceTree = "<group>"; };
 		80CFDA09203C4E2300C7A506 /* LazyVar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyVar.swift; sourceTree = "<group>"; };
 		80D8A0FC212460BE003E1F11 /* Library.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Library.storyboard; path = "/Users/lukas/XCode Projects/TenTunes/TenTunes/Library.storyboard"; sourceTree = "<absolute>"; };
@@ -525,6 +529,8 @@
 				807092EA20C69D8F00DFED53 /* ExportPlaylistsController.xib */,
 				8030E01220FCBDAA006B4AE8 /* TaskViewController.swift */,
 				8030E01320FCBDAA006B4AE8 /* TaskViewController.xib */,
+				80CC986421A877810030F04B /* WelcomeWindowController.swift */,
+				80CC986521A877810030F04B /* WelcomeWindowController.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -987,6 +993,7 @@
 				80E02C63217FB8B000251D24 /* Document-TTL.icns in Resources */,
 				80074CF9204583CF0055B87E /* TrackController.xib in Resources */,
 				80F2C5842038808000212739 /* Main.storyboard in Resources */,
+				80CC986721A877810030F04B /* WelcomeWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1107,6 +1114,7 @@
 				80E2C9FC204B40A000298E81 /* PlaylistFolder+CoreDataProperties.swift in Sources */,
 				8079F6E4210A2C5400B7A278 /* PlaylistRules+Tokens.swift in Sources */,
 				8079F6DB2106745600B7A278 /* CartesianRulesController.swift in Sources */,
+				80CC986621A877810030F04B /* WelcomeWindowController.swift in Sources */,
 				80C1F151214033C40032E554 /* Enumerations.swift in Sources */,
 				80E939F7215BE604005112EF /* PlaylistMultiple.swift in Sources */,
 				80B68BA92101255D00A32E3D /* TrackController+Rules.swift in Sources */,

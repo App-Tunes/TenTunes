@@ -25,6 +25,10 @@ class WelcomeWindowController: NSWindowController {
     @IBAction func switchDJ(_ sender: Any) {
         window!.close()
 
+        for (key, value) in NSDictionary(contentsOf: Bundle.main.url(forResource: "DJPreferences", withExtension: "plist")!)! as! [String: Any?] {
+            UserDefaults.standard.set(value, forKey: key)
+        }
+        
         (NSApp.delegate as! AppDelegate).commenceAfterWelcome()
     }
 }

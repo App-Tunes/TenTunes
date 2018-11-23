@@ -13,25 +13,38 @@ extension NSTableView {
         let tableView: NSTableView
         let defaultsKey: String
         
-        let enforceOpen: [String]
+        var ignore: [String]
+        
+        var observerToken: NSKeyValueObservation?
         
         var defaults: [String: Bool] {
             get { return (UserDefaults.standard.dictionary(forKey: defaultsKey) as? [String : Bool]) ?? [:] }
             set { UserDefaults.standard.set(newValue, forKey: defaultsKey) }
         }
 
-        init(tableView: NSTableView, defaultsKey: String, enforceOpen: [String]) {
+        init(tableView: NSTableView, defaultsKey: String, ignore: [String]) {
             self.tableView = tableView
             self.defaultsKey = defaultsKey
-            self.enforceOpen = enforceOpen
+            self.ignore = ignore
         }
         
         func start() {
-            let menu = NSMenu()
-            menu.delegate = self
+            tableView.headerView!.menu = NSMenu()
+            tableView.headerView!.menu!.delegate = self
             
+            observerToken = UserDefaults.standard.observe(\.trackColumnsHidden, options: [.initial, .new]) { _, _ in
+                self.updateMenu()
+            }
+        }
+        
+        func updateMenu() {
+            // might have been removed in the meantime
+            let menu = tableView.headerView?.menu
+            
+            menu?.removeAllItems()
+
             for column in tableView.tableColumns {
-                guard !enforceOpen.contains(column.identifier.rawValue) else {
+                guard !ignore.contains(column.identifier.rawValue) else {
                     continue
                 }
                 
@@ -42,10 +55,8 @@ extension NSTableView {
                 item.state = column.isHidden ? .off : .on
                 item.representedObject = column
                 
-                menu.addItem(item)
+                menu?.addItem(item)
             }
-            
-            tableView.headerView?.menu = menu
         }
         
         @IBAction func columnItemClicked(_ sender: Any) {

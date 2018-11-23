@@ -181,7 +181,7 @@ class TrackController: NSViewController {
         dragHighlightView.registerForDraggedTypes(TrackPromise.pasteboardTypes)
         dragHighlightView.delegate = self
         
-        tableViewHiddenManager = .init(tableView: _tableView, defaultsKey: "trackColumnsHidden", enforceOpen: ["titleColumn", "artworkColumn"])
+        tableViewHiddenManager = .init(tableView: _tableView, defaultsKey: "trackColumnsHidden", ignore: [ColumnIdentifiers.title.rawValue, ColumnIdentifiers.artwork.rawValue])
         tableViewHiddenManager.start()
     }
     
@@ -216,9 +216,11 @@ class TrackController: NSViewController {
          // Unintuitive to use in a queue
         // TODO Make non-interactable?
         _tableView.tableColumn(withIdentifier: ColumnIdentifiers.waveform)?.isHidden = true
+        tableViewHiddenManager.ignore.append(ColumnIdentifiers.waveform.rawValue)
         
         // We believe in tags, not genres
         _tableView.tableColumn(withIdentifier: ColumnIdentifiers.genre)?.isHidden = true
+        tableViewHiddenManager.ignore.append(ColumnIdentifiers.genre.rawValue)
     }
     
     func titleify() {

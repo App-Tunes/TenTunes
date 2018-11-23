@@ -16,6 +16,10 @@ extension UserDefaults {
     @objc dynamic var waveformDisplay: String? {
         return string(forKey: Preferences.WaveformDisplay.key)
     }
+    
+    @objc dynamic var trackColumnsHidden: [String: Bool] {
+        return dictionary(forKey: "trackColumnsHidden") as! [String: Bool]
+    }
 }
 
 class Preferences {

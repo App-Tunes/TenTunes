@@ -84,9 +84,7 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
     }
     
     func tokenField(_ tokenField: NSTokenField, completionGroupsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [TTTokenField.TokenGroup]? {
-        var groups: [TTTokenField.TokenGroup] = [
-            .init(title: "Search For", contents: [SmartPlaylistRules.Token.Search(string: substring)]),
-            ]
+        var groups: [TTTokenField.TokenGroup] = []
         
         if let int = Int(substring), int > 0 {
             groups.append(.init(title: "Kbps", contents: [

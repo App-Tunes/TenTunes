@@ -38,6 +38,11 @@ class BarsLayer: CALayer {
         startObservers()
     }
     
+    override init(layer: Any) {
+        super.init(layer: layer)
+        startObservers()
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         startObservers()

@@ -159,6 +159,16 @@ class TrackEditor: NSViewController {
 }
 
 extension TrackEditor: NSOutlineViewDelegate {
+    func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
+        return item is GroupData
+    }
+    
+    func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
+        return tagEditor.outlineView(outlineView, shouldSelectItem: item)
+    }
+}
+
+extension TrackEditor: NSOutlineViewDataSource {
     fileprivate enum CellIdentifiers {
         static let GroupTitleCell = NSUserInterfaceItemIdentifier(rawValue: "groupTitleCell")
         static let NameCell = NSUserInterfaceItemIdentifier(rawValue: "nameCell")
@@ -225,18 +235,6 @@ extension TrackEditor: NSOutlineViewDelegate {
         
         return group.data[index]
     }
-    
-    func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
-        return item is GroupData
-    }
-    
-    func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
-        return tagEditor.outlineView(outlineView, shouldSelectItem: item)
-    }
-}
-
-extension TrackEditor: NSOutlineViewDataSource {
-    
 }
 
 extension TrackEditor: TagEditorDelegate {

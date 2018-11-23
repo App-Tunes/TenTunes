@@ -555,6 +555,17 @@
 			path = Library;
 			sourceTree = "<group>";
 		};
+		807D7B5F21A7FD340021C73B /* Track Editor */ = {
+			isa = PBXGroup;
+			children = (
+				802F01CD2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift */,
+				80F8F6F12053EA2C004A07D6 /* TrackEditor.swift */,
+				806611892125B9BF00C3948E /* TrackEditor+Tags.swift */,
+				80F8F6F22053EA2C004A07D6 /* TrackEditor.xib */,
+			);
+			path = "Track Editor";
+			sourceTree = "<group>";
+		};
 		807E4B44206428050051C028 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
@@ -834,10 +845,7 @@
 				80F855002069183E009A8FBE /* TrackController+Menu.swift */,
 				80B68BA82101255D00A32E3D /* TrackController+Rules.swift */,
 				80074CF7204583CF0055B87E /* TrackController.xib */,
-				802F01CD2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift */,
-				80F8F6F12053EA2C004A07D6 /* TrackEditor.swift */,
-				806611892125B9BF00C3948E /* TrackEditor+Tags.swift */,
-				80F8F6F22053EA2C004A07D6 /* TrackEditor.xib */,
+				807D7B5F21A7FD340021C73B /* Track Editor */,
 				8079F6D12106551100B7A278 /* SmartPlaylistRulesController.swift */,
 				8079F6D22106551100B7A278 /* SmartPlaylistRulesController.xib */,
 				8079F6D92106745600B7A278 /* CartesianRulesController.swift */,

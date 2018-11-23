@@ -216,20 +216,24 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
         _addTokenButton.showContextMenu()
     }
     
-    @IBAction func addSpecialToken(_ sender: Any) {
-        guard let identifier = (sender as? NSMenuItem)?.identifier?.rawValue else {
+    @IBAction func addTokenLinkedFile(_ sender: Any) {
+        _tokenField.items.append(SmartPlaylistRules.Token.InMediaDirectory(false))
+    }
+
+    @IBAction func addTokenMissingFile(_ sender: Any) {
+        _tokenField.items.append(SmartPlaylistRules.Token.FileMissing(true))
+    }
+
+    @IBAction func addTokenLowQuality(_ sender: Any) {
+        _tokenField.items.append(SmartPlaylistRules.Token.MinBitrate(bitrate: 240, above: false))
+    }
+
+    @IBAction func addTokenRecentlyAdded(_ sender: Any) {
+        guard let date = Calendar.current.date(byAdding: .day, value: -7, to: Date()) else {
+            NSAlert.warning(title: "Date Problems", text: "We could not find last week! Weird.")
             return
         }
         
-        switch identifier {
-        case "linkedFile":
-            _tokenField.items.append(SmartPlaylistRules.Token.InMediaDirectory(false))
-            break
-        case "missingFile":
-            _tokenField.items.append(SmartPlaylistRules.Token.FileMissing(true))
-            break
-        default:
-            fatalError("Unknown Special Token")
-        }
+        _tokenField.items.append(SmartPlaylistRules.Token.AddedAfter(date: date, after: true))
     }
 }

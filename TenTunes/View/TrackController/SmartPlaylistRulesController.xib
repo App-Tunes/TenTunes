@@ -87,16 +87,30 @@
         </menu>
         <menu id="N7q-8v-v5I">
             <items>
-                <menuItem title="File is Linked" identifier="linkedFile" id="pX8-Ts-1ew">
+                <menuItem title="File is missing" id="XPF-Pj-VWY">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="addSpecialToken:" target="-2" id="XH8-Oh-Q6y"/>
+                        <action selector="addTokenMissingFile:" target="-2" id="byB-ku-wX9"/>
                     </connections>
                 </menuItem>
-                <menuItem title="File is Missing" identifier="missingFile" id="XPF-Pj-VWY">
+                <menuItem title="File is not in media directory" id="pX8-Ts-1ew">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="addSpecialToken:" target="-2" id="je6-jw-Vcq"/>
+                        <action selector="addTokenLinkedFile:" target="-2" id="7j8-8G-nRC"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="FoG-s1-Ejz"/>
+                <menuItem title="File has low quality" id="5pE-wX-1KS">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addTokenLowQuality:" target="-2" id="APm-fU-R0D"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="YhR-f2-OJl"/>
+                <menuItem title="Recently Added" id="N6S-tN-YAG">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addTokenRecentlyAdded:" target="-2" id="8A7-4I-73g"/>
                     </connections>
                 </menuItem>
             </items>

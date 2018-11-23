@@ -79,6 +79,8 @@ class TrackController: NSViewController {
                     smartPlaylistRuleController.rules = playlist.rrules
                 }
                 ruleBar.contentView = smartPlaylistRuleController.view
+                
+                smartPlaylistRuleController._tokenField.isEditable = !playlist.parent!.automatesChildren
             }
             else if let playlist = history.playlist as? PlaylistCartesian {
                 _ruleButton.isHidden = false
@@ -86,6 +88,8 @@ class TrackController: NSViewController {
                     smartFolderRuleController.tokens = playlist.rules.tokens
                 }
                 ruleBar.contentView = smartFolderRuleController.view
+                
+                smartFolderRuleController._tokenField.isEditable = !playlist.parent!.automatesChildren
             }
             else {
                 _ruleButton.isHidden = true

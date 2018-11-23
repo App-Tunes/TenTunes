@@ -20,7 +20,7 @@
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-mo-xeY">
             <rect key="frame" x="0.0" y="0.0" width="480" height="31"/>
             <subviews>
-                <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oy3-NO-azg" customClass="TTTokenField" customModule="TenTunes" customModuleProvider="target">
+                <tokenField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oy3-NO-azg" customClass="TTTokenField" customModule="TenTunes" customModuleProvider="target">
                     <rect key="frame" x="14" y="4" width="353" height="24"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="hfT-Zd-bDt"/>
@@ -34,7 +34,7 @@
                         <outlet property="delegate" destination="-2" id="3Sm-yK-cS1"/>
                     </connections>
                 </tokenField>
-                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="46r-eQ-QvF">
+                <popUpButton horizontalHuggingPriority="500" verticalHuggingPriority="750" horizontalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="46r-eQ-QvF">
                     <rect key="frame" x="402" y="2" width="61" height="25"/>
                     <popUpButtonCell key="cell" type="push" title="Any" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="nG2-X2-cxf" id="LYb-jU-mBU">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>

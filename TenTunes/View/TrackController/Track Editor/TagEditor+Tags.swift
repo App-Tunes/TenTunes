@@ -8,10 +8,10 @@
 
 import Cocoa
 
-extension TrackEditor : TTTokenFieldDelegate {
+extension TagEditor : TTTokenFieldDelegate {
     var viewTags : [Any] {
-        return _editorOutline.children(ofItem: data[0]).compactMap { item in
-            let view = _editorOutline.view(atColumn: 0, forItem: item, makeIfNecessary: false) as! NSTableCellView
+        return outlineView.children(ofItem: masterItem).compactMap { item in
+            let view = outlineView.view(atColumn: 0, forItem: item, makeIfNecessary: false) as! NSTableCellView
             return view.textField!.objectValue as! [Any]
         }
     }
@@ -60,7 +60,7 @@ extension TrackEditor : TTTokenFieldDelegate {
             if omitted.isEmpty {
                 tagTokens.remove(at: 0)
                 // Little hacky but multiple values are always the first, and remove by item doesn't work because it's an array (copy by value)
-                _editorOutline.removeItems(at: IndexSet(integer: 0), inParent: data[0], withAnimation: .slideDown)
+                outlineView.removeItems(at: IndexSet(integer: 0), inParent: masterItem, withAnimation: .slideDown)
             }
             else {
                 tagTokens[0] = .many(playlists: omitted)
@@ -69,7 +69,7 @@ extension TrackEditor : TTTokenFieldDelegate {
         
         tokensChanged()
         
-        _editorOutline.insertItems(at: IndexSet(integersIn: (outlineTokens.count - 2)..<(outlineTokens.count + addTags.count - 2)), inParent: data[0], withAnimation: .slideDown)
+        outlineView.insertItems(at: IndexSet(integersIn: (outlineTokens.count - 2)..<(outlineTokens.count + addTags.count - 2)), inParent: masterItem, withAnimation: .slideDown)
 
         tokenField.objectValue = []
     }

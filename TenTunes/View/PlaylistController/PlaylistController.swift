@@ -187,7 +187,7 @@ protocol PlaylistControllerDelegate {
 }
 
 extension PlaylistController : NSOutlineViewDataSource {
-    fileprivate enum CellIdentifiers {
+    enum CellIdentifiers {
         static let NameCell = NSUserInterfaceItemIdentifier(rawValue: "nameCell")
     }
 

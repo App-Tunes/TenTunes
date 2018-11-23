@@ -42,9 +42,8 @@ class TrackEditor: NSViewController {
             InfoData(title: "Location") { $0.path ?? "" },
             ]),
         ]
-
-    var tagTokens : [ViewableTag] = []
-    var outlineTokens : [ViewableTag] { return tagTokens + [.new] }
+    
+    var tagEditor: TagEditor!
 
     @IBAction func titleChanged(_ sender: Any) {
         attributeEdited(\Track.title)
@@ -59,6 +58,8 @@ class TrackEditor: NSViewController {
     }
     
     override func viewDidLoad() {
+        tagEditor = TagEditor(delegate: self)
+        
         _editorOutline.expandItem(nil, expandChildren: true)
         
         _editorOutline.target = self
@@ -67,25 +68,7 @@ class TrackEditor: NSViewController {
         _titleBackground.wantsLayer = true
         _titleBackground.alphaValue = 0.3
         
-        NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: .NSManagedObjectContextObjectsDidChange, object: Library.shared.viewContext)
-    }
-    
-    @IBAction func managedObjectContextObjectsDidChange(notification: NSNotification) {
-        guard let userInfo = notification.userInfo else { return }
-        
-        let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject> ?? Set()
-        
-        if updates.of(type: Playlist.self).anySatisfy({
-            Library.shared.isTag(playlist: $0)
-        }) {
-            // Tags, better reload if some tag changed while we edit this.
-            let newTokens = TrackEditor.desiredTagTokens(tracks: tracks)
-            if Set(newTokens) != Set(tagTokens) {
-                let prev = outlineTokens
-                tagTokens = newTokens
-                _editorOutline.animateDifference(childrenOf: data[0], from: prev, to: outlineTokens)
-            }
-        }
+        tagEditor.viewDidLoad()
     }
 
     func show(tracks: [Track]) {
@@ -100,9 +83,7 @@ class TrackEditor: NSViewController {
         
         self.tracks = converted
 
-        let prevTokens = outlineTokens
-        tagTokens = TrackEditor.desiredTagTokens(tracks: tracks)
-        _editorOutline.animateDifference(childrenOf: data[0], from: prevTokens, to: outlineTokens)
+        tagEditor.show(tracks: tracks)
         
         for item in data.last!.data {
             _editorOutline.reloadItem(item, reloadChildren: false)
@@ -112,19 +93,7 @@ class TrackEditor: NSViewController {
     }
     
     @IBAction func delete(_ sender: AnyObject) {
-        guard let items = _editorOutline.selectedRowIndexes.compactMap({ _editorOutline.item(atRow: $0) }) as? [ViewableTag] else {
-            return // Can only delete tags
-        }
-        
-        guard !items.contains(ViewableTag.new) else {
-            return // Make sure all are deletable
-        }
-        
-        // Can't use remove elements since enum.case !== enum.case (copy by value)
-        _editorOutline.removeItems(at: IndexSet(items.map { tagTokens.index(of: $0)! }), inParent: data[0], withAnimation: .slideDown)
-        tagTokens = tagTokens.filter { !items.contains($0) }
-
-        tokensChanged()
+        tagEditor.delete(indices: _editorOutline.selectedRowIndexes)
     }
     
     func toggleEdit(textField: NSTextField) {
@@ -193,7 +162,6 @@ extension TrackEditor: NSOutlineViewDelegate {
     fileprivate enum CellIdentifiers {
         static let GroupTitleCell = NSUserInterfaceItemIdentifier(rawValue: "groupTitleCell")
         static let NameCell = NSUserInterfaceItemIdentifier(rawValue: "nameCell")
-        static let TokenCell = NSUserInterfaceItemIdentifier(rawValue: "tokenCell")
     }
     
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
@@ -203,7 +171,7 @@ extension TrackEditor: NSOutlineViewDelegate {
         
         guard !group.data.isEmpty else {
             // Tag hack
-            return outlineTokens.count
+            return tagEditor.outlineView(outlineView, numberOfChildrenOfItem: item)
         }
         
         return group.data.count
@@ -241,40 +209,8 @@ extension TrackEditor: NSOutlineViewDelegate {
                 return view
             }
         }
-        else if let viewableTag = item as? ViewableTag {
-            switch viewableTag {
-            case .tag(let playlist):
-                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.TokenCell, owner: nil) as? NSTableCellView, let tokenField = view.textField as? NSTokenField {
-                    tokenField.delegate = nil // Kinda hacky tho, to make sure we get no change notification
-                    tokenField.objectValue = [playlist]
-                    tokenField.delegate = self
-                    tokenField.isEditable = false
-                    tokenField.isSelectable = false
-                    
-                    return view
-                }
-            case .new:
-                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.TokenCell, owner: nil) as? NSTableCellView, let tokenField = view.textField as? NSTokenField {
-                    tokenField.delegate = self
-                    tokenField.objectValue = []
-                    tokenField.isEditable = true
-                    tokenField.isSelectable = true
-
-                    return view
-                }
-            case .many(let playlists):
-                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.TokenCell, owner: nil) as? NSTableCellView, let tokenField = view.textField as? NSTokenField {
-                    tokenField.delegate = self
-                    tokenField.objectValue = [playlists]
-                    tokenField.isEditable = false
-                    tokenField.isSelectable = false
-
-                    return view
-                }
-            }
-        }
         
-        return nil
+        return tagEditor.outlineView(outlineView, viewFor: tableColumn, item: item)
     }
     
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
@@ -284,7 +220,7 @@ extension TrackEditor: NSOutlineViewDelegate {
         
         guard !group.data.isEmpty else {
             // Tag hack
-            return outlineTokens[index]
+            return tagEditor.outlineView(outlineView, child: index, ofItem: nil)
         }
         
         return group.data[index]
@@ -295,13 +231,19 @@ extension TrackEditor: NSOutlineViewDelegate {
     }
     
     func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
-        // TODO With these unselectable we can't edit the cells
-        return item is ViewableTag && (item as! ViewableTag) != .new
+        return tagEditor.outlineView(outlineView, shouldSelectItem: item)
     }
 }
 
 extension TrackEditor: NSOutlineViewDataSource {
     
+}
+
+extension TrackEditor: TagEditorDelegate {
+    var tagEditorTracks: [Track] { return tracks }
+    var tagEditorOutline: NSOutlineView { return _editorOutline }
+    var tagEditorMasterItem: AnyObject { return data[0] }
+    var tagEditorContext: NSManagedObjectContext { return context }
 }
 
 class TrackDataCell: NSTableCellView {
@@ -343,36 +285,5 @@ extension TrackEditor {
             self.title = title
             self.show = show
         }
-    }
-    
-    enum ViewableTag : Hashable {
-        case tag(playlist: PlaylistManual)
-        case new
-        case many(playlists: Set<PlaylistManual>)
-        
-        static func ==(lhs: ViewableTag, rhs: ViewableTag) -> Bool {
-            switch (lhs, rhs) {
-            case (.tag(let a), .tag(let b)):
-                return a == b
-            case (.new, .new):
-                return true
-            case (.many(let a), .many(let b)):
-                return a == b
-                
-            default:
-                return false
-            }
-        }
-        
-        var hashValue: Int {
-            switch self {
-            case .tag(let playlist):
-                return playlist.hashValue
-            case .new:
-                return 1
-            case .many(let playlists):
-                return playlists.hashValue
-            }
-        }
-    }
+    }    
 }

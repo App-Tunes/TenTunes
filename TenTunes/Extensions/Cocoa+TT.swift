@@ -460,3 +460,14 @@ extension NSLayoutConstraint {
         ]
     }
 }
+
+extension NSObject {
+    open func bind<Object, Source>(_ binding: NSBindingName, to observable: Object, withKeyPath keyPath: KeyPath<Object, Source>, options: [NSBindingOption: Any] = [:], transform: ((Source) -> AnyObject?)? = nil) {
+        var options = options
+        if let transform = transform {
+            options[.valueTransformer] = SimpleTransformer<Source, AnyObject>(there: { transform($0!) })
+        }
+        
+        bind(binding, to: observable, withKeyPath: keyPath._kvcKeyPathString!, options: options)
+    }
+}

@@ -342,7 +342,7 @@ extension TrackController: NSTableViewDelegate {
             view.layer!.cornerRadius = 3.0
             view.layer!.masksToBounds = true
 
-            view.bind(.value, to: track, withKeyPath: #keyPath(Track.artworkPreview), options: [.nullPlaceholder: Album.missingArtwork])
+            view.bind(.value, to: track, withKeyPath: \.artworkPreview, options: [.nullPlaceholder: Album.missingArtwork])
 
             return view
         }
@@ -364,28 +364,30 @@ extension TrackController: NSTableViewDelegate {
             return view
         }
         else if tableColumn?.identifier == ColumnIdentifiers.title, let view = tableView.makeView(withIdentifier: CellIdentifiers.title, owner: nil) as? TitleSubtitleCellView {
-            view.textField?.bind(.value, to: track, withKeyPath: #keyPath(Track.rTitle), options: [:])
-            view.subtitleTextField?.bind(.value, to: track, withKeyPath: #keyPath(Track.rSource), options: [:])
+            view.textField?.bind(.value, to: track, withKeyPath: \.rTitle)
+            view.subtitleTextField?.bind(.value, to: track, withKeyPath: \.rSource)
             return view
         }
         else if tableColumn?.identifier == ColumnIdentifiers.genre, let view = tableView.makeView(withIdentifier: CellIdentifiers.genre, owner: nil) as? NSTableCellView {
-            view.textField?.bind(.value, to: track, withKeyPath: #keyPath(Track.genre), options: [:])
+            view.textField?.bind(.value, to: track, withKeyPath: \.genre)
             return view
         }
         else if tableColumn?.identifier == ColumnIdentifiers.bpm, let view = tableView.makeView(withIdentifier: CellIdentifiers.bpm, owner: nil) as? NSTableCellView {
-            view.textField?.bind(.value, to: track, withKeyPath: #keyPath(Track.speed), options: [.valueTransformer: SimpleTransformer<Track.Speed, NSAttributedString>(there: {
-                $0.map {NSAttributedString(string: $0.description, attributes: $0.attributes).with(alignment: .center) } ?? nil
-            })])
+            view.textField?.bind(.value, to: track, withKeyPath: \.speed) { $0.map {
+                    NSAttributedString(string: $0.description, attributes: $0.attributes).with(alignment: .center)
+                    } }
+            
             return view
         }
         else if tableColumn?.identifier == ColumnIdentifiers.key, let view = tableView.makeView(withIdentifier: CellIdentifiers.key, owner: nil) as? NSTableCellView {
-            view.textField?.bind(.value, to: track, withKeyPath: #keyPath(Track.key), options: [.valueTransformer: SimpleTransformer<Key, NSAttributedString>(there: {
-                $0.map {NSAttributedString(string: $0.description, attributes: $0.attributes).with(alignment: .center) } ?? nil
-            })])
+            view.textField?.bind(.value, to: track, withKeyPath: \.key) { $0.map {
+                    NSAttributedString(string: $0.description, attributes: $0.attributes).with(alignment: .center)
+                } }
+            
             return view
         }
         else if tableColumn?.identifier == ColumnIdentifiers.duration, let view = tableView.makeView(withIdentifier: CellIdentifiers.duration, owner: nil) as? NSTableCellView {
-            view.textField?.bind(.value, to: track, withKeyPath: #keyPath(Track.rDuration), options: [:])
+            view.textField?.bind(.value, to: track, withKeyPath: \.rDuration)
             return view
         }
 

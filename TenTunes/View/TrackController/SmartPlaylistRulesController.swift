@@ -22,6 +22,7 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
     @IBOutlet var _tokenField: TTTokenField!
     
     @IBOutlet var _tokenMenu: NSMenu!
+    @IBOutlet var _addTokenButton: SMButtonWithMenu!
     
     @IBOutlet var _accumulationType: NSPopUpButton!
     
@@ -83,8 +84,6 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
     }
     
     func tokenField(_ tokenField: NSTokenField, completionGroupsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [TTTokenField.TokenGroup]? {
-        let compareSubstring = substring.lowercased()
-        
         var groups: [TTTokenField.TokenGroup] = [
             .init(title: "Search For", contents: [SmartPlaylistRules.Token.Search(string: substring)]),
             ]
@@ -102,20 +101,6 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
             groups.append(.init(title: "Added After", contents: [
                 SmartPlaylistRules.Token.AddedAfter(date: date, after: true),
                 SmartPlaylistRules.Token.AddedAfter(date: date, after: false)
-                ]))
-        }
-        
-        if "media".starts(with: compareSubstring) || "location".starts(with: compareSubstring) || "directory".starts(with: compareSubstring) {
-            groups.append(.init(title: "File Location", contents: [
-                SmartPlaylistRules.Token.InMediaDirectory(true),
-                SmartPlaylistRules.Token.InMediaDirectory(false)
-                ]))
-        }
-        
-        if "missing".starts(with: compareSubstring) || "file".starts(with: compareSubstring) || "exists".starts(with: compareSubstring) {
-            groups.append(.init(title: "File Missing", contents: [
-                SmartPlaylistRules.Token.FileMissing(true),
-                SmartPlaylistRules.Token.FileMissing(false)
                 ]))
         }
         
@@ -225,5 +210,26 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
     
     @IBAction func accumulationChanged(_ sender: Any) {
         delegate?.smartPlaylistRulesController?(self, changedRules: rules)
+    }
+    
+    @IBAction func addToken(_ sender: Any) {
+        _addTokenButton.showContextMenu()
+    }
+    
+    @IBAction func addSpecialToken(_ sender: Any) {
+        guard let identifier = (sender as? NSMenuItem)?.identifier?.rawValue else {
+            return
+        }
+        
+        switch identifier {
+        case "linkedFile":
+            _tokenField.items.append(SmartPlaylistRules.Token.InMediaDirectory(false))
+            break
+        case "missingFile":
+            _tokenField.items.append(SmartPlaylistRules.Token.FileMissing(true))
+            break
+        default:
+            fatalError("Unknown Special Token")
+        }
     }
 }

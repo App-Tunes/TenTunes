@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SmartPlaylistRulesController" customModule="TenTunes" customModuleProvider="target">
             <connections>
                 <outlet property="_accumulationType" destination="46r-eQ-QvF" id="GxD-VS-H5Q"/>
+                <outlet property="_addTokenButton" destination="mgF-ea-Odi" id="7iS-hj-zmf"/>
                 <outlet property="_tokenField" destination="oy3-NO-azg" id="U2T-On-voe"/>
                 <outlet property="_tokenMenu" destination="pao-Zw-37z" id="12G-Tr-X6K"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
@@ -19,7 +21,7 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="31"/>
             <subviews>
                 <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oy3-NO-azg" customClass="TTTokenField" customModule="TenTunes" customModuleProvider="target">
-                    <rect key="frame" x="14" y="4" width="383" height="24"/>
+                    <rect key="frame" x="14" y="4" width="353" height="24"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="hfT-Zd-bDt"/>
                     </constraints>
@@ -33,7 +35,7 @@
                     </connections>
                 </tokenField>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="46r-eQ-QvF">
-                    <rect key="frame" x="403" y="2" width="60" height="26"/>
+                    <rect key="frame" x="402" y="2" width="61" height="25"/>
                     <popUpButtonCell key="cell" type="push" title="Any" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="nG2-X2-cxf" id="LYb-jU-mBU">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -48,16 +50,29 @@
                         <action selector="accumulationChanged:" target="-2" id="ysy-kH-U2Y"/>
                     </connections>
                 </popUpButton>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mgF-ea-Odi" customClass="SMButtonWithMenu">
+                    <rect key="frame" x="375" y="6" width="21" height="19"/>
+                    <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Y7p-YK-w3H">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="cellTitle"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="addToken:" target="-2" id="PH6-2b-puc"/>
+                        <outlet property="holdMenu" destination="N7q-8v-v5I" id="hrt-y2-RgA"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="oy3-NO-azg" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="CJr-ea-OOB"/>
-                <constraint firstItem="46r-eQ-QvF" firstAttribute="leading" secondItem="oy3-NO-azg" secondAttribute="trailing" constant="8" id="RfS-Cm-spx"/>
+                <constraint firstItem="46r-eQ-QvF" firstAttribute="leading" secondItem="mgF-ea-Odi" secondAttribute="trailing" constant="8" id="TUT-49-rbK"/>
+                <constraint firstItem="mgF-ea-Odi" firstAttribute="leading" secondItem="oy3-NO-azg" secondAttribute="trailing" constant="8" id="axy-J9-g1l"/>
                 <constraint firstItem="oy3-NO-azg" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="14" id="biB-ac-Gtv"/>
                 <constraint firstAttribute="height" priority="100" constant="32" id="gve-5w-mCx"/>
                 <constraint firstItem="46r-eQ-QvF" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="l3d-TO-bI7"/>
                 <constraint firstAttribute="trailing" secondItem="46r-eQ-QvF" secondAttribute="trailing" constant="20" id="qsp-mC-J39"/>
+                <constraint firstItem="oy3-NO-azg" firstAttribute="centerY" secondItem="mgF-ea-Odi" secondAttribute="centerY" id="yt9-vd-B5g"/>
             </constraints>
-            <point key="canvasLocation" x="139" y="105"/>
+            <point key="canvasLocation" x="139" y="104.5"/>
         </customView>
         <menu id="pao-Zw-37z">
             <items>
@@ -70,5 +85,25 @@
             </items>
             <point key="canvasLocation" x="-89" y="239"/>
         </menu>
+        <menu id="N7q-8v-v5I">
+            <items>
+                <menuItem title="File is Linked" identifier="linkedFile" id="pX8-Ts-1ew">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addSpecialToken:" target="-2" id="XH8-Oh-Q6y"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="File is Missing" identifier="missingFile" id="XPF-Pj-VWY">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addSpecialToken:" target="-2" id="je6-jw-Vcq"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="321" y="208"/>
+        </menu>
     </objects>
+    <resources>
+        <image name="NSAddTemplate" width="11" height="11"/>
+    </resources>
 </document>

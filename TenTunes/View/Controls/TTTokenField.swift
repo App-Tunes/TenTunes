@@ -37,7 +37,12 @@ class TTTokenField: NSTokenField {
     }
     
     @objc dynamic var tokens: [Any] {
-        get { return (objectValue as? NSArray)?.filter { !($0 is String) } ?? [] }
+        get { return items.filter { !($0 is String) } }
+        set { objectValue = newValue as NSArray }
+    }
+    
+    @objc dynamic var items: [Any] {
+        get { return ((objectValue as? NSArray) as? [Any]) ?? [] }
         set { objectValue = newValue as NSArray }
     }
     

@@ -5,6 +5,7 @@
 #import "TagLibFile.h"
 #import "SPAnalyzer.h"
 #import "RFOpenGLView.h"
+#import "SMButtonWithMenu.h"
 
 #import <CommonCrypto/CommonCrypto.h>
 

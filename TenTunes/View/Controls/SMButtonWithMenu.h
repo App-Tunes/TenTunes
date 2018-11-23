@@ -12,4 +12,6 @@
 
 @property (nonatomic, retain) IBOutlet NSMenu *holdMenu;
 
+- (void)showContextMenu;
+
 @end

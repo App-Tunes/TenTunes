@@ -12,6 +12,10 @@ extension UserDefaults {
     @objc dynamic var titleBarStylization: Double {
         return double(forKey: "titleBarStylization")
     }
+    
+    @objc dynamic var waveformDisplay: String? {
+        return string(forKey: Preferences.WaveformDisplay.key)
+    }
 }
 
 class Preferences {

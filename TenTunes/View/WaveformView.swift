@@ -31,6 +31,24 @@ class BarsLayer: CALayer {
     var barWidth = 2
     var spaceWidth = 2
     
+    var styleObserver: NSKeyValueObservation?
+    
+    override init() {
+        super.init()
+        startObservers()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        startObservers()
+    }
+    
+    func startObservers() {
+        styleObserver = UserDefaults.standard.observe(\.waveformDisplay, options: [.new]) { (defaults, change) in
+            self.setNeedsDisplay()
+        }
+    }
+    
     override func draw(in ctx: CGContext) {
         let barWidth = CGFloat(self.barWidth)
         let spaceWidth = CGFloat(self.spaceWidth)

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -52,7 +52,7 @@
                                     <visualEffectView appearanceType="inheritedVibrantLight" horizontalHuggingPriority="100" verticalHuggingPriority="100" horizontalCompressionResistancePriority="100" verticalCompressionResistancePriority="100" blendingMode="withinWindow" material="ultraDark" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="4s9-vN-ENi">
                                         <rect key="frame" x="0.0" y="0.0" width="286" height="79"/>
                                     </visualEffectView>
-                                    <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vc8-yo-YBx" customClass="EnterReturningTextField" customModule="TenTunes" customModuleProvider="target">
+                                    <textField toolTip="Title" horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vc8-yo-YBx" customClass="EnterReturningTextField" customModule="TenTunes" customModuleProvider="target">
                                         <rect key="frame" x="102" y="55" width="181" height="17"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="WGd-AA-e84"/>
@@ -74,7 +74,7 @@
                                             </binding>
                                         </connections>
                                     </textField>
-                                    <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IxQ-nY-WjC" customClass="EnterReturningTextField" customModule="TenTunes" customModuleProvider="target">
+                                    <textField toolTip="Author" horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IxQ-nY-WjC" customClass="EnterReturningTextField" customModule="TenTunes" customModuleProvider="target">
                                         <rect key="frame" x="102" y="31" width="181" height="17"/>
                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" placeholderString="Unknown Author" id="dHl-D9-I7J">
                                             <font key="font" metaFont="system"/>
@@ -92,7 +92,7 @@
                                             </binding>
                                         </connections>
                                     </textField>
-                                    <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mfs-pi-vdb" customClass="EnterReturningTextField" customModule="TenTunes" customModuleProvider="target">
+                                    <textField toolTip="Album" horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mfs-pi-vdb" customClass="EnterReturningTextField" customModule="TenTunes" customModuleProvider="target">
                                         <rect key="frame" x="102" y="7" width="181" height="17"/>
                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" placeholderString="No Album" id="qyN-oT-Uof">
                                             <font key="font" metaFont="system"/>
@@ -110,7 +110,7 @@
                                             </binding>
                                         </connections>
                                     </textField>
-                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GGH-Dw-GOG">
+                                    <imageView toolTip="Cover Art" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GGH-Dw-GOG">
                                         <rect key="frame" x="4" y="4" width="71" height="71"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="GGH-Dw-GOG" secondAttribute="height" multiplier="1:1" id="Gr7-6J-CMz"/>

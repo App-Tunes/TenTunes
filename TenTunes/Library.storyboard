@@ -73,7 +73,7 @@
                                                     <rect key="frame" x="1" y="1" width="213" height="46"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <button horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Xs-lc-aS8">
+                                                        <button toolTip="Play Queue" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Xs-lc-aS8">
                                                             <rect key="frame" x="143" y="14" width="19" height="19"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="9Xs-lc-aS8" secondAttribute="height" multiplier="1:1" id="O0P-AH-Reg"/>
@@ -101,7 +101,7 @@
                                                                 </binding>
                                                             </connections>
                                                         </slider>
-                                                        <button horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ETj-HU-NV5" customClass="SpinningButton" customModule="TenTunes" customModuleProvider="target">
+                                                        <button toolTip="Tasks" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ETj-HU-NV5" customClass="SpinningButton" customModule="TenTunes" customModuleProvider="target">
                                                             <rect key="frame" x="174" y="14" width="19" height="19"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="19" id="MIG-gU-fxo"/>

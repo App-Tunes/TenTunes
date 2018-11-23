@@ -115,7 +115,7 @@
                             </view>
                             <color key="borderColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
                         </box>
-                        <button toolTip="Create Playlist" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8Z0-Gt-dbf">
+                        <button toolTip="Previous Playlist" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8Z0-Gt-dbf">
                             <rect key="frame" x="80" y="3" width="19" height="19"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="8Z0-Gt-dbf" secondAttribute="height" multiplier="1:1" id="A68-Nx-MH3"/>
@@ -141,7 +141,7 @@
                                 <action selector="selectLibrary:" target="-2" id="avt-wY-yA7"/>
                             </connections>
                         </button>
-                        <button toolTip="Create Group" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2x8-2J-xWJ">
+                        <button toolTip="Next Playlist" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2x8-2J-xWJ">
                             <rect key="frame" x="129" y="3" width="19" height="19"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="2x8-2J-xWJ" secondAttribute="height" multiplier="1:1" id="mnd-Sa-TuN"/>
@@ -191,7 +191,7 @@
                             </view>
                             <color key="borderColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
                         </box>
-                        <button toolTip="Create Group" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s5V-cO-NDS" customClass="SMButtonWithMenu">
+                        <button toolTip="Create Group (Hold Left Mouse for Options)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s5V-cO-NDS" customClass="SMButtonWithMenu">
                             <rect key="frame" x="110" y="5" width="22" height="15"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="s5V-cO-NDS" secondAttribute="height" multiplier="1.5:1" id="iLc-oV-qb8"/>
@@ -211,7 +211,7 @@
                                 <constraint firstAttribute="width" constant="1" id="Zuv-FG-A5V"/>
                             </constraints>
                         </customView>
-                        <button toolTip="Create Playlist" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XDO-KJ-zFo" customClass="SMButtonWithMenu">
+                        <button toolTip="Create Playlist (Hold Left Mouse for Options)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XDO-KJ-zFo" customClass="SMButtonWithMenu">
                             <rect key="frame" x="46" y="5" width="23" height="15"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="XDO-KJ-zFo" secondAttribute="height" multiplier="1.5:1" id="IgZ-ie-N6E"/>

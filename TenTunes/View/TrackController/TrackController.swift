@@ -38,6 +38,7 @@ import AVFoundation
 class TrackController: NSViewController {
     @IBOutlet var _tableView: ActionTableView!
     @IBOutlet var _tableViewHeight: NSLayoutConstraint!
+    var tableViewHiddenManager: NSTableView.HiddenManager!
     
     @IBOutlet var filterController: SmartPlaylistRulesController!
     @IBOutlet var filterBar: HideableBar!
@@ -179,6 +180,9 @@ class TrackController: NSViewController {
         dragHighlightView = DragHighlightView.add(to: _loadingIndicator.superview!)
         dragHighlightView.registerForDraggedTypes(TrackPromise.pasteboardTypes)
         dragHighlightView.delegate = self
+        
+        tableViewHiddenManager = .init(tableView: _tableView, defaultsKey: "trackColumnsHidden", enforceOpen: ["titleColumn", "artworkColumn"])
+        tableViewHiddenManager.start()
     }
     
     override func viewDidAppear() {

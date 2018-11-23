@@ -87,7 +87,7 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
         var groups: [TTTokenField.TokenGroup] = []
         
         if let int = Int(substring), int > 0 {
-            groups.append(.init(title: "Kbps", contents: [
+            groups.append(.init(title: "File Quality", contents: [
                 SmartPlaylistRules.Token.MinBitrate(bitrate: int, above: true),
                 SmartPlaylistRules.Token.MinBitrate(bitrate: int, above: false)
                 ]))
@@ -96,7 +96,7 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
         let dateFormatter = DateFormatter() // TODO Parse better
         dateFormatter.dateFormat = "yyyy-MM-dd"
         if let date = dateFormatter.date(from: substring) {
-            groups.append(.init(title: "Added After", contents: [
+            groups.append(.init(title: "Add Date", contents: [
                 SmartPlaylistRules.Token.AddedAfter(date: date, after: true),
                 SmartPlaylistRules.Token.AddedAfter(date: date, after: false)
                 ]))

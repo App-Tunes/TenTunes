@@ -82,12 +82,12 @@ public class Track: NSManagedObject {
         return Int(CMTimeGetSeconds(duration))
     }
     
-    @objc var speed: Speed? {
+    @objc dynamic var speed: Speed? {
         get { return bpmString ?=> Speed.init }
         set { bpmString = newValue?.write }
     }
     
-    var key: Key? {
+    @objc dynamic var key: Key? {
         get { return keyString ?=> Key.parse }
         set { keyString = newValue?.write }
     }
@@ -135,6 +135,7 @@ public class Track: NSManagedObject {
             #keyPath(Track.rSource): [#keyPath(Track.album), #keyPath(Track.author)],
             #keyPath(Track.rDuration): [#keyPath(Track.durationR)],
             #keyPath(Track.speed): [#keyPath(Track.bpmString)],
+            #keyPath(Track.key): [#keyPath(Track.keyString)],
             #keyPath(Track.artworkPreview): [#keyPath(Track.visuals.artworkPreview)],
             ][key] ?? super.keyPathsForValuesAffectingValue(forKey: key)
     }
@@ -179,12 +180,11 @@ extension Track.Speed {
     override var description: String {
         return String(format: "%.1f", beatsPerMinute)
     }
- 
-    @objc var attributedDescription: NSAttributedString {
-        let title = description
+    
+    @objc dynamic var attributes: [NSAttributedString.Key : Any]? {
         let color = NSColor(hue: CGFloat(0.5 + (0...0.3).clamp((beatsPerMinute - 70.0) / 300.0)), saturation: CGFloat(0.3), brightness: CGFloat(0.65), alpha: CGFloat(1.0))
-        
-        return NSAttributedString(string: title, attributes: [.foregroundColor: color])
+
+        return [.foregroundColor: color]
     }
 }
 

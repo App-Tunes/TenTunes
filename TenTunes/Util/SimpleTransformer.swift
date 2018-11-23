@@ -14,15 +14,15 @@ extension ValueTransformer {
     }
 }
 
-class SimpleTransformer<There : AnyObject, Back>: ValueTransformer {
+class SimpleTransformer<Source, Dest : AnyObject>: ValueTransformer {
     let there: (Any?) -> Any?
     let back: ((Any?) -> Any?)?
     
-    override class func transformedValueClass() -> Swift.AnyClass { return There.self }
+    override class func transformedValueClass() -> Swift.AnyClass { return Dest.self }
     
-    init(there: @escaping (Back?) -> There?, back: ((There?) -> Back?)? = nil) {
-        self.there = { there($0 as? Back) }
-        self.back = back != nil ? { back!($0 as? There) } : nil
+    init(there: @escaping (Source?) -> Dest?, back: ((Dest?) -> Source?)? = nil) {
+        self.there = { there($0 as? Source) }
+        self.back = back != nil ? { back!($0 as? Dest) } : nil
     }
     
     override func transformedValue(_ value: Any?) -> Any? {
@@ -35,7 +35,7 @@ class SimpleTransformer<There : AnyObject, Back>: ValueTransformer {
 }
 
 extension SimpleTransformer {
-    class func simple(_ name: String, there: @escaping (Back?) -> There?, back: ((There?) -> Back?)? = nil) {
+    class func simple(_ name: String, there: @escaping (Source?) -> Dest?, back: ((Dest?) -> Source?)? = nil) {
         register(name, SimpleTransformer(there: there, back: back))
     }
 }

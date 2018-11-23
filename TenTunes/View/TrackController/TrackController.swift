@@ -273,7 +273,7 @@ class TrackController: NSViewController {
     func reload(track: Track) {
         if let row = history.indexOf(track: track) {
             // TODO Remove all
-            _tableView.reloadData(forRowIndexes: IndexSet(integer: row), columnIndexes: [1, 4, 5])
+            _tableView.reloadData(forRowIndexes: IndexSet(integer: row), columnIndexes: [1])
         }
     }
     
@@ -373,13 +373,15 @@ extension TrackController: NSTableViewDelegate {
             return view
         }
         else if tableColumn?.identifier == ColumnIdentifiers.bpm, let view = tableView.makeView(withIdentifier: CellIdentifiers.bpm, owner: nil) as? NSTableCellView {
-            // Somehow doesn't work
-//            view.textField?.bind(.value, to: track, withKeyPath: #keyPath(Track.speed.attributedDescription), options: [.valueTransformer: SimpleTransformer<NSAttributedString, NSAttributedString>(there: { $0?.with(alignment: .right) })])
-            view.textField?.attributedStringValue = track.speed?.attributedDescription.with(alignment: .right) ?? .init()
+            view.textField?.bind(.value, to: track, withKeyPath: #keyPath(Track.speed), options: [.valueTransformer: SimpleTransformer<Track.Speed, NSAttributedString>(there: {
+                $0.map {NSAttributedString(string: $0.description, attributes: $0.attributes).with(alignment: .center) } ?? nil
+            })])
             return view
         }
         else if tableColumn?.identifier == ColumnIdentifiers.key, let view = tableView.makeView(withIdentifier: CellIdentifiers.key, owner: nil) as? NSTableCellView {
-            view.textField?.attributedStringValue = track.key?.description.with(alignment: .center) ?? NSAttributedString()
+            view.textField?.bind(.value, to: track, withKeyPath: #keyPath(Track.key), options: [.valueTransformer: SimpleTransformer<Key, NSAttributedString>(there: {
+                $0.map {NSAttributedString(string: $0.description, attributes: $0.attributes).with(alignment: .center) } ?? nil
+            })])
             return view
         }
         else if tableColumn?.identifier == ColumnIdentifiers.duration, let view = tableView.makeView(withIdentifier: CellIdentifiers.duration, owner: nil) as? NSTableCellView {

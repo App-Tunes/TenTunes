@@ -10,27 +10,27 @@ import Cocoa
 
 class ValueTransformers {
     class func register() {
-        SimpleTransformer<Key, AnyObject>.simple("MusicKeyTransformer",
+        SimpleTransformer<AnyObject, Key>.simple("MusicKeyTransformer",
                                                  there: { $0?.stringValue ?=> Key.parse },
                                                  back: { $0?.write as AnyObject }
         )
         
-        SimpleTransformer<NSData, NSImage>.simple("NSImageTransformerTIFF",
+        SimpleTransformer<NSImage, NSData>.simple("NSImageTransformerTIFF",
                                                   there: { $0?.tiffRepresentation as NSData? },
                                                   back: { $0 != nil ? NSImage(data: $0! as Data) : nil }
         )
         
-        SimpleTransformer<NSData, NSImage>.simple("NSImageTransformerJPG",
+        SimpleTransformer<NSImage, NSData>.simple("NSImageTransformerJPG",
                                                   there: { $0?.jpgRepresentation as NSData? },
                                                   back: { $0 != nil ? NSImage(data: $0! as Data) : nil }
         )
         
-        SimpleTransformer<NSString, NSNumber>.simple("IntString",
+        SimpleTransformer<NSNumber, NSString>.simple("IntString",
                                                      there: { ($0 ?=> String.init) ?=> NSString.init },
                                                      back: { (($0 ?=> String.init) ?=> Int.init) ?=> NSNumber.init }
         )
         
-        SimpleTransformer<NSString, NSNumber>.simple("IntStringNullable",
+        SimpleTransformer<NSNumber, NSString>.simple("IntStringNullable",
                                                      there: {
                                                         guard $0?.intValue != 0 else {
                                                             return nil

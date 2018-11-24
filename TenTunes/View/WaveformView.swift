@@ -67,7 +67,7 @@ class BarsLayer: CALayer {
 
         let start = frame.minX + (frame.width - CGFloat(numBars) * segmentWidth) / 2
         
-        let display = Preferences.WaveformDisplay.current
+        let display = UserDefaults.standard._waveformDisplay
         
         for idx in 0..<numBars {
             // Frame
@@ -314,7 +314,7 @@ class WaveformView: NSControl, CALayerDelegate {
             let isComplete = self.analysis?.complete ?? true
             if isComplete { self.transitionSteps -= 1 }
 
-            guard Preferences.AnimateWaveformTransitions.current == .animate else {
+            guard UserDefaults.standard.animateWaveformTransitions == .animate else {
                 self.waveformLayer._barsLayer.values = (isComplete ? self.analysis?.values : nil) ?? BarsLayer.defaultValues
 
                 return

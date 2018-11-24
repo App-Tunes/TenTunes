@@ -101,7 +101,7 @@ extension ViewController {
                 }
             }
             }, {
-                guard Preferences.AnalyzeNewTracks.current == .analyze else {
+                guard UserDefaults.standard.analyzeNewTracks == .analyze else {
                     return
                 }
                 

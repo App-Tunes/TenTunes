@@ -132,7 +132,7 @@ class TrackEditor: NSViewController {
         let image = (sender as! NSImageView).image
         
         for track in self.tracks {
-            if Preferences.EditingTrackUpdatesAlbum.current == .update, let album = track.rAlbum {
+            if UserDefaults.standard.editingTrackUpdatesAlbum == .update, let album = track.rAlbum {
                 album.artwork = image // Dynamic Var, is written automagically
             }
         }

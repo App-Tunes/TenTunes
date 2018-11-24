@@ -13,16 +13,10 @@ extension UserDefaults {
         return double(forKey: "titleBarStylization")
     }
     
-    @objc dynamic var waveformDisplay: String? {
-        return string(forKey: Preferences.WaveformDisplay.key)
-    }
-    
     @objc dynamic var trackColumnsHidden: [String: Bool] {
         return dictionary(forKey: "trackColumnsHidden") as! [String: Bool]
     }
-}
-
-class Preferences {
+    
     enum InitialKeyDisplay: String {
         static let key: String = "intialKeyDisplay"
         
@@ -35,45 +29,41 @@ class Preferences {
             case .english: return "English"
             }
         }
-        
-        static var current: InitialKeyDisplay {
-            return ((UserDefaults.standard.value(forKey: key) as? String) ?=> InitialKeyDisplay.init) ?? .camelot
-        }
+    }
+
+    var initialKeyDisplay: InitialKeyDisplay {
+        return (string(forKey: InitialKeyDisplay.key) ?=> InitialKeyDisplay.init) ?? .camelot
     }
     
     enum AnimateWaveformTransitions {
         static let key: String = "animateWaveformTransitions"
-        
         case animate, dont
-        
-        static var current: AnimateWaveformTransitions {
-            return UserDefaults.standard.bool(forKey: key) ? animate : dont
-        }
+    }
+    
+    var animateWaveformTransitions: AnimateWaveformTransitions {
+        return bool(forKey: AnimateWaveformTransitions.key) ? .animate : .dont
     }
     
     enum AnimateWaveformAnalysis {
         static let key: String = "animateWaveformAnalysis"
-        
         case animate, dont
-        
-        static var current: AnimateWaveformAnalysis {
-            return UserDefaults.standard.bool(forKey: key) ? animate : dont
-        }
+    }
+    
+    var animateWaveformAnalysis: AnimateWaveformAnalysis {
+        return bool(forKey: AnimateWaveformAnalysis.key) ? .animate : .dont
     }
     
     enum PreviewWaveformAnalysis {
         static let key: String = "previewWaveformAnalysis"
-        
         case preview, dont
-        
-        static var current: PreviewWaveformAnalysis {
-            return UserDefaults.standard.bool(forKey: key) ? preview : dont
-        }
+    }
+    
+    var previewWaveformAnalysis: PreviewWaveformAnalysis {
+        return bool(forKey: PreviewWaveformAnalysis.key) ? .preview : .dont
     }
     
     enum WaveformDisplay: String {
         static let key: String = "waveformDisplay"
-        
         case bars = "bars", rounded = "hill"
         
         var title: String {
@@ -82,20 +72,22 @@ class Preferences {
             case .rounded: return "Rounded"
             }
         }
-        
-        static var current: WaveformDisplay {
-            return ((UserDefaults.standard.value(forKey: key) as? String) ?=> WaveformDisplay.init) ?? .bars
-        }
+    }
+
+    // observable hack
+    @objc dynamic var waveformDisplay: NSString? { return string(forKey: WaveformDisplay.key) as NSString? }
+
+    var _waveformDisplay: WaveformDisplay {
+        return (string(forKey: WaveformDisplay.key) ?=> WaveformDisplay.init) ?? .bars
     }
     
     enum AnalyzeNewTracks {
         static let key: String = "autoAnalyzeTracksOnAdd"
-        
         case analyze, dont
-        
-        static var current: AnalyzeNewTracks {
-            return UserDefaults.standard.bool(forKey: key) ? analyze : dont
-        }
+    }
+    
+    var analyzeNewTracks: AnalyzeNewTracks {
+        return bool(forKey: AnalyzeNewTracks.key) ? .analyze : .dont
     }
     
     enum FileLocationOnAdd: String {
@@ -110,30 +102,28 @@ class Preferences {
             case .move: return "Move to Media Directory"
             }
         }
-        
-        static var current: FileLocationOnAdd {
-            return ((UserDefaults.standard.value(forKey: key) as? String) ?=> FileLocationOnAdd.init) ?? .copy
-        }
+    }
+    
+    var fileLocationOnAdd: FileLocationOnAdd {
+        return (string(forKey: FileLocationOnAdd.key) ?=> FileLocationOnAdd.init) ?? .copy
     }
     
     enum PlayOpenedFiles {
         static let key: String = "autoPlayTracksOnOpen"
-        
         case play, dont
-        
-        static var current: PlayOpenedFiles {
-            return UserDefaults.standard.bool(forKey: key) ? play : dont
-        }
+    }
+    
+    var playOpenedFiles: PlayOpenedFiles {
+        return bool(forKey: PlayOpenedFiles.key) ? .play : .dont
     }
     
     enum EditingTrackUpdatesAlbum {
         static let key: String = "updatingTrackUpdatesAlbum"
-        
         case update, dont
-        
-        static var current: EditingTrackUpdatesAlbum {
-            return UserDefaults.standard.bool(forKey: key) ? update : dont
-        }
+    }
+    
+    var editingTrackUpdatesAlbum: EditingTrackUpdatesAlbum {
+        return bool(forKey: EditingTrackUpdatesAlbum.key) ? .update : .dont
     }
 }
 
@@ -148,8 +138,8 @@ class PreferencesWindowController: NSWindowController {
     override func windowDidLoad() {
         super.windowDidLoad()
 
-        PopupEnum<Preferences.InitialKeyDisplay>.bind(initialKeyDisplay, toUserDefaultsKey: Preferences.InitialKeyDisplay.key, with: [.camelot, .english, .german], by: { $0.rawValue }, title: { $0.title })
-        PopupEnum<Preferences.WaveformDisplay>.bind(waveformDisplay, toUserDefaultsKey: Preferences.WaveformDisplay.key, with: [.bars, .rounded], by: { $0.rawValue }, title: { $0.title })
-        PopupEnum<Preferences.FileLocationOnAdd>.bind(fileLocationOnAdd, toUserDefaultsKey: Preferences.FileLocationOnAdd.key, with: [.copy, .move, .link], by: { $0.rawValue }, title: { $0.title })
+        PopupEnum<UserDefaults.InitialKeyDisplay>.bind(initialKeyDisplay, toUserDefaultsKey: UserDefaults.InitialKeyDisplay.key, with: [.camelot, .english, .german], by: { $0.rawValue }, title: { $0.title })
+        PopupEnum<UserDefaults.WaveformDisplay>.bind(waveformDisplay, toUserDefaultsKey: UserDefaults.WaveformDisplay.key, with: [.bars, .rounded], by: { $0.rawValue }, title: { $0.title })
+        PopupEnum<UserDefaults.FileLocationOnAdd>.bind(fileLocationOnAdd, toUserDefaultsKey: UserDefaults.FileLocationOnAdd.key, with: [.copy, .move, .link], by: { $0.rawValue }, title: { $0.title })
     }
 }

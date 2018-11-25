@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18A391" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18B75" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Playlist" representedClassName="Playlist" isAbstract="YES" syncable="YES">
         <attribute name="creationDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
@@ -40,6 +40,7 @@
         <attribute name="usesMediaDirectory" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="year" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="containingPlaylists" toMany="YES" deletionRule="Nullify" destinationEntity="PlaylistManual" inverseName="tracks" inverseEntity="PlaylistManual" syncable="YES"/>
+        <relationship name="relatedTracks" toMany="YES" deletionRule="Nullify" destinationEntity="Track" inverseName="relatedTracks" inverseEntity="Track" syncable="YES"/>
         <relationship name="visuals" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="TrackVisuals" inverseName="track" inverseEntity="TrackVisuals" syncable="YES"/>
     </entity>
     <entity name="TrackVisuals" representedClassName="TrackVisuals" syncable="YES">
@@ -53,7 +54,7 @@
         <element name="PlaylistFolder" positionX="-218" positionY="171" width="128" height="60"/>
         <element name="PlaylistManual" positionX="-218" positionY="252" width="128" height="58"/>
         <element name="PlaylistSmart" positionX="-216" positionY="108" width="128" height="60"/>
-        <element name="Track" positionX="-414" positionY="261" width="128" height="360"/>
+        <element name="Track" positionX="-414" positionY="261" width="128" height="375"/>
         <element name="TrackVisuals" positionX="-315" positionY="261" width="128" height="90"/>
     </elements>
 </model>

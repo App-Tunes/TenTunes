@@ -34,6 +34,10 @@ class Enumerations {
         // After we checked, it MUST be Value
         return elementValue
     }
+    
+    static func `is`<Element, Value>(_ element: Element, ofType builder: @escaping (Value) -> Element) -> Bool {
+        return associatedValue(of: element, as: builder) != nil
+    }
 }
 
 extension Sequence {

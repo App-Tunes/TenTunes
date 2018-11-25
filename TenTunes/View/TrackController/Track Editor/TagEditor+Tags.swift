@@ -18,8 +18,14 @@ extension TagEditor : TTTokenFieldDelegate {
         
     static func desiredTagTokens(tracks: [Track]) -> [ViewableTag] {
         let (omittedTags, sharedTags) = Set.shares(in: tracks.map { $0.tags })
-        let omittedPart : [ViewableTag] = omittedTags.isEmpty ? [] : [.many(playlists: omittedTags)]
-        return omittedPart + sharedTags.sorted { $0.name < $1.name }.map { .tag(playlist: $0) }
+        let (omittedRelations, sharedRelations) = Set.shares(in: tracks.map { $0.relatedTracksSet })
+        
+        let omissions = (omittedTags as Set<NSManagedObject>).union(omittedRelations)
+        let omittedPart : [ViewableTag] = omissions.isEmpty ? [] : [.many(items: omissions)]
+        
+        return omittedPart
+            + sharedRelations.sorted { $0.rTitle < $1.rTitle }.map { .related(track: $0) }
+            + sharedTags.sorted { $0.name < $1.name }.map { .tag(playlist: $0) }
     }
 
     func tagResults(search: String, exact: Bool = false) -> [PlaylistManual] {
@@ -28,43 +34,70 @@ extension TagEditor : TTTokenFieldDelegate {
                 ? $0.name.lowercased() == search.lowercased()
                 : $0.name.range(of: search, options: [.diacriticInsensitive, .caseInsensitive]) != nil
             }
-            .filter { !tagTokens.caseLet(ViewableTag.tag).contains($0) } 
+            .filter { !tagTokens.caseLet(ViewableTag.tag).contains($0) }
             .sorted { (a, b) in a.name.count < b.name.count }
+    }
+    
+    func trackResults(search: String) -> [Track] {
+        return Library.shared.allTracks.tracksList.filter {
+                $0.rTitle.range(of: search, options: [.diacriticInsensitive, .caseInsensitive]) != nil
+            }
+            .filter { !tagTokens.caseLet(ViewableTag.related).contains($0) }
+            .sorted { (a, b) in a.rTitle.count < b.rTitle.count }
     }
     
     func tokenField(_ tokenField: NSTokenField, completionGroupsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [TTTokenField.TokenGroup]? {
         var groups: [TTTokenField.TokenGroup] = []
         
         groups.append(.init(title: "Tag", contents: tagResults(search: substring)))
-        
+        groups.append(.init(title: "Track", contents: trackResults(search: substring)))
+
         return groups
     }
     
     func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {
+        if let track = representedObject as? Track {
+            return track.rTitle // Special case for adding tracks
+        }
+        
         return (representedObject as? PlaylistManual)?.name ?? "<Multiple Values>"
     }
     
     func tokenField(_ tokenField: NSTokenField, changedTokens tokens: [Any]) {
-        let newTags = (tokenField.objectValue as! [Any]).of(type: PlaylistManual.self) // First might be multiple values
+        let tokenField = tokenField as! TTTokenField
         
-        guard newTags.count > 0 else {
+        // TODO Make the token fields themselves use ViewableTag
+        let newSharedRelations = tokenField.items.compactMap {
+            if let track = $0 as? Track {
+                return ViewableTag.related(track: track)
+            }
+            else if let playlist = $0 as? PlaylistManual {
+                return ViewableTag.tag(playlist: playlist)
+            }
+            
+            return nil
+        }.filter {
+            Enumerations.is($0, ofType: ViewableTag.related) || Enumerations.is($0, ofType: ViewableTag.tag)
+        }
+        
+        guard newSharedRelations.count > 0 else {
             return
         }
         
-        let existingTags = tagTokens.caseLet(ViewableTag.tag)
-        
-        let addTags = newTags.filter { !existingTags.contains($0) }
-        tagTokens.append(contentsOf: addTags.map { .tag(playlist: $0) })
+        let addTags = newSharedRelations.filter { !tagTokens.contains($0) }
+        tagTokens.append(contentsOf: addTags)
         
         if case .many(var omitted) = tagTokens[0] {
-            omitted.remove(contentsOf: Set(newTags.of(type: PlaylistManual.self)))
+            omitted.remove(contentsOf: Set(newSharedRelations.caseLet(ViewableTag.tag)))
+            omitted.remove(contentsOf: Set(newSharedRelations.caseLet(ViewableTag.related)))
+
             if omitted.isEmpty {
                 tagTokens.remove(at: 0)
-                // Little hacky but multiple values are always the first, and remove by item doesn't work because it's an array (copy by value)
+                // Hax but multiple values are always the first, and remove by item doesn't work because it's an array (copy by value)
                 outlineView.removeItems(at: IndexSet(integer: 0), inParent: masterItem, withAnimation: .slideDown)
             }
             else {
-                tagTokens[0] = .many(playlists: omitted)
+                tagTokens[0] = .many(items: omitted)
             }
         }
         
@@ -79,10 +112,16 @@ extension TagEditor : TTTokenFieldDelegate {
         let showedTokens = tagTokens
         let allowedOthers = showedTokens.caseLet(ViewableTag.many).first ?? Set()
         let sharedTags = Set(showedTokens.caseLet(ViewableTag.tag))
-        
+        let sharedRelations = Set(showedTokens.caseLet(ViewableTag.related))
+
         for track in tracks {
-            let new = sharedTags.union(track.tags.intersection(allowedOthers))
-            if new != track.tags { track.tags = new }
+            let oldTrackTags = track.tags
+            let newTags = sharedTags.union(oldTrackTags.intersection(allowedOthers.of(type: PlaylistManual.self)))
+            if newTags != oldTrackTags { track.tags = newTags }
+
+            let oldTrackRelations = track.relatedTracksSet
+            let newRelations = sharedRelations.union(oldTrackRelations.intersection(allowedOthers.of(type: Track.self)))
+            if newRelations != oldTrackRelations { track.relatedTracksSet = newRelations }
         }
     }
     

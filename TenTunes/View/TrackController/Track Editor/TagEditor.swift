@@ -94,29 +94,39 @@ extension TagEditor: NSOutlineViewDataSource {
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         if let viewableTag = item as? ViewableTag {
             switch viewableTag {
-            case .tag(let playlist):
-                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.TokenCell, owner: nil) as? NSTableCellView, let tokenField = view.textField as? NSTokenField {
-                    tokenField.delegate = nil // Kinda hacky tho, to make sure we get no change notification
-                    tokenField.objectValue = [playlist]
-                    tokenField.delegate = self
-                    tokenField.isEditable = false
-                    tokenField.isSelectable = false
+            case .related(let track):
+                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.relatedTrackCell, owner: nil) as? NSTableCellView {
+                    view.imageView?.wantsLayer = true
+                    view.imageView?.layer!.borderWidth = 1.0
+                    view.imageView?.layer!.borderColor = NSColor.lightGray.cgColor.copy(alpha: CGFloat(0.333))
+                    view.imageView?.layer!.cornerRadius = 3.0
+                    view.imageView?.layer!.masksToBounds = true
                     
+                    view.imageView?.bind(.value, to: track, withKeyPath: \.artworkPreview, options: [.nullPlaceholder: Album.missingArtwork])
+                    
+                    view.textField?.bind(.value, to: track, withKeyPath: \.rTitle)
+
+                    return view
+                }
+            case .tag(let playlist):
+                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.tagCell, owner: nil) as? NSTableCellView {
+                    view.textField?.bind(.value, to: playlist, withKeyPath: \.name)
+
                     return view
                 }
             case .new:
-                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.TokenCell, owner: nil) as? NSTableCellView, let tokenField = view.textField as? NSTokenField {
+                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.newRelationCell, owner: nil) as? NSTableCellView, let tokenField = view.textField as? NSTokenField {
                     tokenField.delegate = self
                     tokenField.objectValue = []
                     tokenField.isEditable = true
                     tokenField.isSelectable = true
-                    
+
                     return view
                 }
-            case .many(let playlists):
-                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.TokenCell, owner: nil) as? NSTableCellView, let tokenField = view.textField as? NSTokenField {
+            case .many(let items):
+                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.newRelationCell, owner: nil) as? NSTableCellView, let tokenField = view.textField as? NSTokenField {
                     tokenField.delegate = self
-                    tokenField.objectValue = [playlists]
+                    tokenField.objectValue = [items]
                     tokenField.isEditable = false
                     tokenField.isSelectable = false
                     
@@ -131,16 +141,21 @@ extension TagEditor: NSOutlineViewDataSource {
 
 extension TagEditor {
     fileprivate enum CellIdentifiers {
-        static let TokenCell = NSUserInterfaceItemIdentifier(rawValue: "tokenCell")
+        static let relatedTrackCell = NSUserInterfaceItemIdentifier(rawValue: "relatedTrackCell")
+        static let tagCell = NSUserInterfaceItemIdentifier(rawValue: "tagCell")
+        static let newRelationCell = NSUserInterfaceItemIdentifier(rawValue: "newRelationCell")
     }
 
     enum ViewableTag : Hashable {
+        case related(track: Track)
         case tag(playlist: PlaylistManual)
         case new
-        case many(playlists: Set<PlaylistManual>)
+        case many(items: Set<NSManagedObject>)
         
         static func ==(lhs: ViewableTag, rhs: ViewableTag) -> Bool {
             switch (lhs, rhs) {
+            case (.related(let a), .related(let b)):
+                return a == b
             case (.tag(let a), .tag(let b)):
                 return a == b
             case (.new, .new):
@@ -155,6 +170,8 @@ extension TagEditor {
         
         var hashValue: Int {
             switch self {
+            case .related(let track):
+                return track.hashValue
             case .tag(let playlist):
                 return playlist.hashValue
             case .new:

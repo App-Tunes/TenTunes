@@ -19,7 +19,7 @@ class TrackEditor: NSViewController {
     let editActionStubs = ActionStubs()
 
     var data : [GroupData] = [
-        GroupData(title: "Tags", icon: #imageLiteral(resourceName: "tag"), data: []),
+        GroupData(title: "Relations", icon: #imageLiteral(resourceName: "tag"), data: []),
         GroupData(title: "Musical", icon: #imageLiteral(resourceName: "music"), data: [
             EditData(title: "Genre", path: \Track.genre, options: nil),
             EditData(title: "BPM", path: \Track.bpmString, options: nil),

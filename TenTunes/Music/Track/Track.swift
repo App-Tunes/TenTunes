@@ -129,6 +129,11 @@ public class Track: NSManagedObject {
         }
     }
     
+    var relatedTracksSet: Set<Track> {
+        get { return relatedTracks as! Set<Track> }
+        set { relatedTracks = newValue as NSSet }
+    }
+    
     override public class func keyPathsForValuesAffectingValue(forKey key: String) -> Set<String> {
         return [
             #keyPath(Track.rTitle): [#keyPath(Track.title)],

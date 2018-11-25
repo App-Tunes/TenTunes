@@ -43,6 +43,7 @@ extension Track {
     @NSManaged public var metadataFetchDate: Date?
     // Note: Might be a relative path from library location
     @NSManaged public var path: String?
+    @NSManaged public var relatedTracks: NSSet
     @NSManaged public var remixAuthor: String?
     @NSManaged public var title: String?
     @NSManaged public var trackNumber: Int16
@@ -59,17 +60,34 @@ extension Track {
 
 // MARK: Generated accessors for containingPlaylists
 extension Track {
-
+    
     @objc(addContainingPlaylistsObject:)
     @NSManaged public func addToContainingPlaylists(_ value: PlaylistManual)
-
+    
     @objc(removeContainingPlaylistsObject:)
     @NSManaged public func removeFromContainingPlaylists(_ value: PlaylistManual)
-
+    
     @objc(addContainingPlaylists:)
     @NSManaged public func addToContainingPlaylists(_ values: NSSet)
-
+    
     @objc(removeContainingPlaylists:)
     @NSManaged public func removeFromContainingPlaylists(_ values: NSSet)
+    
+}
 
+// MARK: Generated accessors for relatedTracks
+extension Track {
+    
+    @objc(addRelatedTracksObject:)
+    @NSManaged public func addToRelatedTracks(_ value: Track)
+    
+    @objc(removeRelatedTracksObject:)
+    @NSManaged public func removeFromRelatedTracks(_ value: Track)
+    
+    @objc(addRelatedTracks:)
+    @NSManaged public func addToRelatedTracks(_ values: NSSet)
+    
+    @objc(removeRelatedTracks:)
+    @NSManaged public func removeFromRelatedTracks(_ values: NSSet)
+    
 }

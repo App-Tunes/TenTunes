@@ -73,6 +73,20 @@ class TagEditor: NSObject {
         
         tokensChanged()
     }
+    
+    @IBAction func outlineViewDoubleAction(_ sender: Any) {
+        guard let viewableTag = outlineView.item(atRow: outlineView.clickedRow) as? ViewableTag else {
+            return
+        }
+        
+        switch viewableTag {
+        case .tag(let playlist):
+            // TODO Too omniscient
+            ViewController.shared.playlistController.select(playlist: playlist)
+        default:
+            break
+        }
+    }
 }
 
 extension TagEditor: NSOutlineViewDelegate {
@@ -92,46 +106,48 @@ extension TagEditor: NSOutlineViewDataSource {
     }
 
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
-        if let viewableTag = item as? ViewableTag {
-            switch viewableTag {
-            case .related(let track):
-                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.relatedTrackCell, owner: nil) as? NSTableCellView {
-                    view.imageView?.wantsLayer = true
-                    view.imageView?.layer!.borderWidth = 1.0
-                    view.imageView?.layer!.borderColor = NSColor.lightGray.cgColor.copy(alpha: CGFloat(0.333))
-                    view.imageView?.layer!.cornerRadius = 3.0
-                    view.imageView?.layer!.masksToBounds = true
-                    
-                    view.imageView?.bind(.value, to: track, withKeyPath: \.artworkPreview, options: [.nullPlaceholder: Album.missingArtwork])
-                    
-                    view.textField?.bind(.value, to: track, withKeyPath: \.rTitle)
+        guard let viewableTag = item as? ViewableTag else {
+            return nil
+        }
+        
+        switch viewableTag {
+        case .related(let track):
+            if let view = outlineView.makeView(withIdentifier: CellIdentifiers.relatedTrackCell, owner: nil) as? NSTableCellView {
+                view.imageView?.wantsLayer = true
+                view.imageView?.layer!.borderWidth = 1.0
+                view.imageView?.layer!.borderColor = NSColor.lightGray.cgColor.copy(alpha: CGFloat(0.333))
+                view.imageView?.layer!.cornerRadius = 3.0
+                view.imageView?.layer!.masksToBounds = true
+                
+                view.imageView?.bind(.value, to: track, withKeyPath: \.artworkPreview, options: [.nullPlaceholder: Album.missingArtwork])
+                
+                view.textField?.bind(.value, to: track, withKeyPath: \.rTitle)
 
-                    return view
-                }
-            case .tag(let playlist):
-                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.tagCell, owner: nil) as? NSTableCellView {
-                    view.textField?.bind(.value, to: playlist, withKeyPath: \.name)
+                return view
+            }
+        case .tag(let playlist):
+            if let view = outlineView.makeView(withIdentifier: CellIdentifiers.tagCell, owner: nil) as? NSTableCellView {
+                view.textField?.bind(.value, to: playlist, withKeyPath: \.name)
 
-                    return view
-                }
-            case .new:
-                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.newRelationCell, owner: nil) as? NSTableCellView, let tokenField = view.textField as? NSTokenField {
-                    tokenField.delegate = self
-                    tokenField.objectValue = []
-                    tokenField.isEditable = true
-                    tokenField.isSelectable = true
+                return view
+            }
+        case .new:
+            if let view = outlineView.makeView(withIdentifier: CellIdentifiers.newRelationCell, owner: nil) as? NSTableCellView, let tokenField = view.textField as? NSTokenField {
+                tokenField.delegate = self
+                tokenField.objectValue = []
+                tokenField.isEditable = true
+                tokenField.isSelectable = true
 
-                    return view
-                }
-            case .many(let items):
-                if let view = outlineView.makeView(withIdentifier: CellIdentifiers.newRelationCell, owner: nil) as? NSTableCellView, let tokenField = view.textField as? NSTokenField {
-                    tokenField.delegate = self
-                    tokenField.objectValue = [items]
-                    tokenField.isEditable = false
-                    tokenField.isSelectable = false
-                    
-                    return view
-                }
+                return view
+            }
+        case .many(let items):
+            if let view = outlineView.makeView(withIdentifier: CellIdentifiers.newRelationCell, owner: nil) as? NSTableCellView, let tokenField = view.textField as? NSTokenField {
+                tokenField.delegate = self
+                tokenField.objectValue = [items]
+                tokenField.isEditable = false
+                tokenField.isSelectable = false
+                
+                return view
             }
         }
         

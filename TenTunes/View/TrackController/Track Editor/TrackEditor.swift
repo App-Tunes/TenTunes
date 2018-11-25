@@ -128,6 +128,10 @@ class TrackEditor: NSViewController {
         }
     }
     
+    @IBAction func outlineViewDoubleAction(_ sender: Any) {
+        tagEditor.outlineViewDoubleAction(sender)
+    }
+    
     @IBAction func imageUpdated(_ sender: Any) {
         let image = (sender as! NSImageView).image
         

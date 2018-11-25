@@ -342,7 +342,7 @@
                                                         </connections>
                                                     </tableCellView>
                                                     <tableCellView identifier="newRelationCell" id="32i-fz-tGp">
-                                                        <rect key="frame" x="0.0" y="92" width="286" height="20"/>
+                                                        <rect key="frame" x="0.0" y="94" width="286" height="20"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rRD-38-h8c" customClass="TTTokenField" customModule="TenTunes" customModuleProvider="target">
@@ -368,6 +368,7 @@
                                         </tableColumns>
                                         <connections>
                                             <action selector="outlineViewAction:" target="-2" id="0DM-YV-Ohc"/>
+                                            <action trigger="doubleAction" selector="outlineViewDoubleAction:" target="-2" id="zWq-9F-E0c"/>
                                             <outlet property="dataSource" destination="-2" id="G0U-Pz-e8e"/>
                                             <outlet property="delegate" destination="-2" id="e8V-ZG-36k"/>
                                         </connections>

@@ -103,6 +103,7 @@ protocol PlaylistControllerDelegate {
             return
         }
         
+        _outlineView.scrollRowToVisible(idx)
         _outlineView.selectRowIndexes(IndexSet(integer: idx), byExtendingSelection: false)
         
         if editTitle {

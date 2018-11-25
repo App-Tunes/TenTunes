@@ -42,6 +42,7 @@ extension TagEditor : TTTokenFieldDelegate {
         return Library.shared.allTracks.tracksList.filter {
                 $0.rTitle.range(of: search, options: [.diacriticInsensitive, .caseInsensitive]) != nil
             }
+            .filter { !self.tracks.contains($0) }
             .filter { !tagTokens.caseLet(ViewableTag.related).contains($0) }
             .sorted { (a, b) in a.rTitle.count < b.rTitle.count }
     }

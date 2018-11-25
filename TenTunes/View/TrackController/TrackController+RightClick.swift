@@ -33,6 +33,10 @@ extension TrackController: NSMenuDelegate {
         menu.item(withAction: #selector(menuPlay))?.isVisible = playTrack != nil
         
         _showInPlaylistSubmenu.isVisible = menuTracks.count == 1
+        if _showInPlaylistSubmenu.isVisible {
+            _showInPlaylistSubmenu.isEnabled = !Library.shared.playlists(containing: menuTracks.first!).isEmpty 
+        }
+        
         menu.item(withAction: #selector(menuShowAuthor(_:)))?.isVisible = menuTracks.count == 1 && menuTracks.first!.author != nil
         menu.item(withAction: #selector(menuShowAlbum(_:)))?.isVisible = menuTracks.count == 1 && menuTracks.first!.album != nil
 
@@ -62,9 +66,14 @@ extension TrackController: NSMenuDelegate {
         }
         
         // Right Click Menu
-        if menuItem.action == #selector(removeTrack) { return mode == .queue || (mode == .tracksList && ((history.playlist as? ModifiablePlaylist)?.supports(action: .delete) ?? false)) }
-        if menuItem.action == #selector(menuShowInFinder) { return menuTracks.count == 1 && menuTracks.first!.liveURL != nil }
+        if menuItem.action == #selector(removeTrack) {
+            return mode == .queue || (mode == .tracksList && ((history.playlist as? ModifiablePlaylist)?.supports(action: .delete) ?? false))
+        }
         
+        if menuItem.action == #selector(menuShowInFinder) {
+            return menuTracks.count == 1 && menuTracks.first!.liveURL != nil
+        }
+
         return true
     }
     

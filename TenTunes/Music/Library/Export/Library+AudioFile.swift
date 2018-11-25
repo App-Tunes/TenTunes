@@ -17,8 +17,11 @@ extension Library.Import {
 
         let track = Track(context: Library.shared.viewContext)
         
-        track.path = url.absoluteString // Possibly temporary location
-        track.title = url.lastPathComponent // Temporary title
+         // Possibly temporary location, if it will be auto-moved after import
+        track.path = url.absoluteString
+        
+        // If metadata is found, this will be overriden later
+        track.title = url.deletingPathExtension().lastPathComponent
         
         context.insert(track)
         

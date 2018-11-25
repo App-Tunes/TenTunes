@@ -235,6 +235,10 @@ extension TrackEditor: NSOutlineViewDataSource {
         
         return group.data[index]
     }
+    
+    func outlineView(_ outlineView: NSOutlineView, pasteboardWriterForItem item: Any) -> NSPasteboardWriting? {
+        return tagEditor.outlineView(outlineView, pasteboardWriterForItem: item)
+    }
 }
 
 extension TrackEditor: TagEditorDelegate {

@@ -137,6 +137,21 @@ extension TagEditor: NSOutlineViewDataSource {
         
         return nil
     }
+    
+    func outlineView(_ outlineView: NSOutlineView, pasteboardWriterForItem item: Any) -> NSPasteboardWriting? {
+        switch item {
+        case ViewableTag.related(let track):
+            let pasteboardItem = NSPasteboardItem()
+            Library.shared.writeTrack(track, toPasteboarditem: pasteboardItem)
+            return pasteboardItem
+        case ViewableTag.tag(let playlist):
+            let pasteboardItem = NSPasteboardItem()
+            Library.shared.writePlaylist(playlist, toPasteboarditem: pasteboardItem)
+            return pasteboardItem
+        default:
+            return nil
+        }
+    }
 }
 
 extension TagEditor {

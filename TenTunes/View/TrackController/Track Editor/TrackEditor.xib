@@ -280,14 +280,14 @@
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <imageView horizontalHuggingPriority="500" verticalHuggingPriority="500" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="ap0-LV-pjU">
-                                                                <rect key="frame" x="8" y="4" width="15" height="15"/>
+                                                                <rect key="frame" x="8" y="4" width="14" height="14"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="ap0-LV-pjU" secondAttribute="height" multiplier="1:1" id="y7E-4R-lTy"/>
                                                                 </constraints>
                                                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="music_missing" id="3Ez-b4-uPw"/>
                                                             </imageView>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hbO-V8-2sZ">
-                                                                <rect key="frame" x="29" y="3" width="251" height="17"/>
+                                                                <rect key="frame" x="26" y="3" width="254" height="17"/>
                                                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Related Track" id="HLH-PY-TT8">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -297,11 +297,10 @@
                                                         </subviews>
                                                         <constraints>
                                                             <constraint firstAttribute="bottom" secondItem="ap0-LV-pjU" secondAttribute="bottom" constant="4" id="0YB-vV-wo4"/>
-                                                            <constraint firstItem="hbO-V8-2sZ" firstAttribute="leading" secondItem="ap0-LV-pjU" secondAttribute="trailing" constant="8" id="65w-Kk-Ke0"/>
+                                                            <constraint firstItem="hbO-V8-2sZ" firstAttribute="leading" secondItem="ap0-LV-pjU" secondAttribute="trailing" constant="6" id="65w-Kk-Ke0"/>
                                                             <constraint firstAttribute="trailing" secondItem="hbO-V8-2sZ" secondAttribute="trailing" constant="8" id="6VJ-nI-Lqb"/>
-                                                            <constraint firstItem="ap0-LV-pjU" firstAttribute="top" secondItem="KFR-P0-s3b" secondAttribute="top" constant="4" id="fck-w1-6RK"/>
+                                                            <constraint firstItem="ap0-LV-pjU" firstAttribute="top" secondItem="KFR-P0-s3b" secondAttribute="top" constant="5" id="fck-w1-6RK"/>
                                                             <constraint firstItem="ap0-LV-pjU" firstAttribute="leading" secondItem="KFR-P0-s3b" secondAttribute="leading" constant="8" id="sh7-L8-cnN"/>
-                                                            <constraint firstItem="ap0-LV-pjU" firstAttribute="centerY" secondItem="KFR-P0-s3b" secondAttribute="centerY" id="t6v-BA-U8c"/>
                                                             <constraint firstItem="hbO-V8-2sZ" firstAttribute="centerY" secondItem="KFR-P0-s3b" secondAttribute="centerY" id="wVd-JP-v56"/>
                                                         </constraints>
                                                         <connections>
@@ -314,14 +313,14 @@
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <imageView horizontalHuggingPriority="500" verticalHuggingPriority="500" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="OXA-7y-I4e">
-                                                                <rect key="frame" x="8" y="4" width="15" height="15"/>
+                                                                <rect key="frame" x="8" y="4" width="14" height="14"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="OXA-7y-I4e" secondAttribute="height" multiplier="1:1" id="Egy-yT-qUY"/>
                                                                 </constraints>
                                                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="tag" id="g9r-lu-MlI"/>
                                                             </imageView>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nUb-s8-ThV">
-                                                                <rect key="frame" x="29" y="3" width="251" height="17"/>
+                                                                <rect key="frame" x="26" y="3" width="254" height="17"/>
                                                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Tag" id="XOm-j2-8UC">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -330,9 +329,8 @@
                                                             </textField>
                                                         </subviews>
                                                         <constraints>
-                                                            <constraint firstItem="nUb-s8-ThV" firstAttribute="leading" secondItem="OXA-7y-I4e" secondAttribute="trailing" constant="8" id="0cY-dq-Poj"/>
-                                                            <constraint firstItem="OXA-7y-I4e" firstAttribute="centerY" secondItem="Bx4-0k-baI" secondAttribute="centerY" id="5l0-Ew-6V9"/>
-                                                            <constraint firstItem="OXA-7y-I4e" firstAttribute="top" secondItem="Bx4-0k-baI" secondAttribute="top" constant="4" id="VyB-ea-NGK"/>
+                                                            <constraint firstItem="nUb-s8-ThV" firstAttribute="leading" secondItem="OXA-7y-I4e" secondAttribute="trailing" constant="6" id="0cY-dq-Poj"/>
+                                                            <constraint firstItem="OXA-7y-I4e" firstAttribute="top" secondItem="Bx4-0k-baI" secondAttribute="top" constant="5" id="VyB-ea-NGK"/>
                                                             <constraint firstItem="nUb-s8-ThV" firstAttribute="centerY" secondItem="Bx4-0k-baI" secondAttribute="centerY" id="Wde-Qu-ctQ"/>
                                                             <constraint firstAttribute="bottom" secondItem="OXA-7y-I4e" secondAttribute="bottom" constant="4" id="k1X-Kd-szb"/>
                                                             <constraint firstItem="OXA-7y-I4e" firstAttribute="leading" secondItem="Bx4-0k-baI" secondAttribute="leading" constant="8" id="tVN-nd-OGs"/>

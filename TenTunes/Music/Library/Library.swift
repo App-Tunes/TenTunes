@@ -203,7 +203,7 @@ class Library : NSPersistentContainer {
     
     func playlists(containing track: Track) -> [PlaylistManual] {
         return Array((track.containingPlaylists as Set).of(type: PlaylistManual.self))
-//            .filter { !self.isTag(playlist: $0) }
+            .filter { !self.isTag(playlist: $0) }
     }
 
     // Editing

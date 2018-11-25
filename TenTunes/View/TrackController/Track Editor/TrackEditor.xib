@@ -179,13 +179,13 @@
                             <color key="borderColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                             <size key="contentViewMargins" width="1" height="1"/>
                         </box>
-                        <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="25" horizontalPageScroll="10" verticalLineScroll="25" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="u4S-uV-C4C">
+                        <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="u4S-uV-C4C">
                             <rect key="frame" x="0.0" y="8" width="286" height="291"/>
                             <clipView key="contentView" drawsBackground="NO" id="flI-e3-PP9">
                                 <rect key="frame" x="0.0" y="0.0" width="286" height="291"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="23" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="3Ae-Tm-QZb" id="RRs-pC-UFg" customClass="ActionOutlineView" customModule="TenTunes" customModuleProvider="target">
+                                    <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="20" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="3Ae-Tm-QZb" id="RRs-pC-UFg" customClass="ActionOutlineView" customModule="TenTunes" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="286" height="291"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <size key="intercellSpacing" width="0.0" height="2"/>
@@ -276,18 +276,18 @@
                                                         </connections>
                                                     </tableCellView>
                                                     <tableCellView identifier="relatedTrackCell" id="KFR-P0-s3b">
-                                                        <rect key="frame" x="0.0" y="50" width="286" height="23"/>
+                                                        <rect key="frame" x="0.0" y="50" width="286" height="20"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <imageView horizontalHuggingPriority="500" verticalHuggingPriority="500" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="ap0-LV-pjU">
-                                                                <rect key="frame" x="8" y="4" width="14" height="14"/>
+                                                                <rect key="frame" x="8" y="2" width="15" height="15"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="ap0-LV-pjU" secondAttribute="height" multiplier="1:1" id="y7E-4R-lTy"/>
                                                                 </constraints>
                                                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="music_missing" id="3Ez-b4-uPw"/>
                                                             </imageView>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hbO-V8-2sZ">
-                                                                <rect key="frame" x="26" y="3" width="254" height="17"/>
+                                                                <rect key="frame" x="27" y="2" width="253" height="17"/>
                                                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Related Track" id="HLH-PY-TT8">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -296,10 +296,10 @@
                                                             </textField>
                                                         </subviews>
                                                         <constraints>
-                                                            <constraint firstAttribute="bottom" secondItem="ap0-LV-pjU" secondAttribute="bottom" constant="4" id="0YB-vV-wo4"/>
+                                                            <constraint firstAttribute="bottom" secondItem="ap0-LV-pjU" secondAttribute="bottom" constant="2" id="0YB-vV-wo4"/>
                                                             <constraint firstItem="hbO-V8-2sZ" firstAttribute="leading" secondItem="ap0-LV-pjU" secondAttribute="trailing" constant="6" id="65w-Kk-Ke0"/>
                                                             <constraint firstAttribute="trailing" secondItem="hbO-V8-2sZ" secondAttribute="trailing" constant="8" id="6VJ-nI-Lqb"/>
-                                                            <constraint firstItem="ap0-LV-pjU" firstAttribute="top" secondItem="KFR-P0-s3b" secondAttribute="top" constant="5" id="fck-w1-6RK"/>
+                                                            <constraint firstItem="ap0-LV-pjU" firstAttribute="top" secondItem="KFR-P0-s3b" secondAttribute="top" constant="3" id="fck-w1-6RK"/>
                                                             <constraint firstItem="ap0-LV-pjU" firstAttribute="leading" secondItem="KFR-P0-s3b" secondAttribute="leading" constant="8" id="sh7-L8-cnN"/>
                                                             <constraint firstItem="hbO-V8-2sZ" firstAttribute="centerY" secondItem="KFR-P0-s3b" secondAttribute="centerY" id="wVd-JP-v56"/>
                                                         </constraints>
@@ -309,18 +309,18 @@
                                                         </connections>
                                                     </tableCellView>
                                                     <tableCellView identifier="tagCell" id="Bx4-0k-baI">
-                                                        <rect key="frame" x="0.0" y="75" width="286" height="23"/>
+                                                        <rect key="frame" x="0.0" y="72" width="286" height="20"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <imageView horizontalHuggingPriority="500" verticalHuggingPriority="500" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="OXA-7y-I4e">
-                                                                <rect key="frame" x="8" y="4" width="14" height="14"/>
+                                                                <rect key="frame" x="8" y="2" width="15" height="15"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="OXA-7y-I4e" secondAttribute="height" multiplier="1:1" id="Egy-yT-qUY"/>
                                                                 </constraints>
                                                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="tag" id="g9r-lu-MlI"/>
                                                             </imageView>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nUb-s8-ThV">
-                                                                <rect key="frame" x="26" y="3" width="254" height="17"/>
+                                                                <rect key="frame" x="27" y="2" width="253" height="17"/>
                                                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Tag" id="XOm-j2-8UC">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -330,9 +330,9 @@
                                                         </subviews>
                                                         <constraints>
                                                             <constraint firstItem="nUb-s8-ThV" firstAttribute="leading" secondItem="OXA-7y-I4e" secondAttribute="trailing" constant="6" id="0cY-dq-Poj"/>
-                                                            <constraint firstItem="OXA-7y-I4e" firstAttribute="top" secondItem="Bx4-0k-baI" secondAttribute="top" constant="5" id="VyB-ea-NGK"/>
+                                                            <constraint firstItem="OXA-7y-I4e" firstAttribute="top" secondItem="Bx4-0k-baI" secondAttribute="top" constant="3" id="VyB-ea-NGK"/>
                                                             <constraint firstItem="nUb-s8-ThV" firstAttribute="centerY" secondItem="Bx4-0k-baI" secondAttribute="centerY" id="Wde-Qu-ctQ"/>
-                                                            <constraint firstAttribute="bottom" secondItem="OXA-7y-I4e" secondAttribute="bottom" constant="4" id="k1X-Kd-szb"/>
+                                                            <constraint firstAttribute="bottom" secondItem="OXA-7y-I4e" secondAttribute="bottom" constant="2" id="k1X-Kd-szb"/>
                                                             <constraint firstItem="OXA-7y-I4e" firstAttribute="leading" secondItem="Bx4-0k-baI" secondAttribute="leading" constant="8" id="tVN-nd-OGs"/>
                                                             <constraint firstAttribute="trailing" secondItem="nUb-s8-ThV" secondAttribute="trailing" constant="8" id="vRE-XT-q9N"/>
                                                         </constraints>
@@ -342,11 +342,11 @@
                                                         </connections>
                                                     </tableCellView>
                                                     <tableCellView identifier="newRelationCell" id="32i-fz-tGp">
-                                                        <rect key="frame" x="0.0" y="100" width="286" height="23"/>
+                                                        <rect key="frame" x="0.0" y="92" width="286" height="20"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rRD-38-h8c" customClass="TTTokenField" customModule="TenTunes" customModuleProvider="target">
-                                                                <rect key="frame" x="6" y="4" width="270" height="16"/>
+                                                                <rect key="frame" x="6" y="2" width="270" height="16"/>
                                                                 <tokenFieldCell key="cell" selectable="YES" editable="YES" alignment="left" placeholderString=" Add Relation..." allowsEditingTextAttributes="YES" id="gt6-ZL-OQW">
                                                                     <font key="font" metaFont="cellTitle"/>
                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>

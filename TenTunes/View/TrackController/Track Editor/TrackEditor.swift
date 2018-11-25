@@ -239,6 +239,10 @@ extension TrackEditor: NSOutlineViewDataSource {
     func outlineView(_ outlineView: NSOutlineView, pasteboardWriterForItem item: Any) -> NSPasteboardWriting? {
         return tagEditor.outlineView(outlineView, pasteboardWriterForItem: item)
     }
+    
+    func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
+        return item is GroupData ? 24.0 : 20.0
+    }
 }
 
 extension TrackEditor: TagEditorDelegate {

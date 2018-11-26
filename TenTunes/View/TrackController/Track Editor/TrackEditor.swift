@@ -174,6 +174,10 @@ extension TrackEditor: NSOutlineViewDelegate {
     func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
         return tagEditor.outlineView(outlineView, shouldSelectItem: item)
     }
+    
+    func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
+        return SubtleTableRowView()
+    }
 }
 
 extension TrackEditor: NSOutlineViewDataSource {

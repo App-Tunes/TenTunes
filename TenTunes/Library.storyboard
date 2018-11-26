@@ -28,6 +28,20 @@
                                             <visualEffectView wantsLayer="YES" blendingMode="withinWindow" material="underWindowBackground" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="ffx-Mi-FNH">
                                                 <rect key="frame" x="0.0" y="0.0" width="1292" height="92"/>
                                             </visualEffectView>
+                                            <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mT7-oZ-jSc">
+                                                <rect key="frame" x="429" y="50" width="18" height="42"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="18" id="fcP-xp-0H7"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="chevron-down" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="ioR-UL-uGb">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                <connections>
+                                                    <action selector="showQueue:" target="XfG-lQ-9wD" id="SAR-yY-gNh"/>
+                                                </connections>
+                                            </button>
                                             <customView verticalHuggingPriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="TnY-8S-uno" customClass="WaveformView" customModule="TenTunes" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="1292" height="45"/>
                                                 <subviews>
@@ -68,25 +82,11 @@
                                                 </connections>
                                             </customView>
                                             <box boxType="custom" cornerRadius="6" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="dNV-j7-c8A">
-                                                <rect key="frame" x="1082" y="49" width="215" height="48"/>
+                                                <rect key="frame" x="1113" y="49" width="184" height="48"/>
                                                 <view key="contentView" id="kR0-b6-yaW" customClass="DarkBoxView" customModule="TenTunes" customModuleProvider="target">
-                                                    <rect key="frame" x="1" y="1" width="213" height="46"/>
+                                                    <rect key="frame" x="1" y="1" width="182" height="46"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <button toolTip="Play Queue" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Xs-lc-aS8">
-                                                            <rect key="frame" x="143" y="14" width="19" height="19"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" secondItem="9Xs-lc-aS8" secondAttribute="height" multiplier="1:1" id="O0P-AH-Reg"/>
-                                                            </constraints>
-                                                            <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="queue" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="MpE-xy-Nl5">
-                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                <font key="font" metaFont="system" size="20"/>
-                                                            </buttonCell>
-                                                            <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                                            <connections>
-                                                                <action selector="showQueue:" target="XfG-lQ-9wD" id="tqY-7E-bbn"/>
-                                                            </connections>
-                                                        </button>
                                                         <slider toolTip="Volume" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="weN-hW-VXM" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
                                                             <rect key="frame" x="18" y="14" width="84" height="19"/>
                                                             <constraints>
@@ -102,7 +102,7 @@
                                                             </connections>
                                                         </slider>
                                                         <button toolTip="Tasks" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ETj-HU-NV5" customClass="SpinningButton" customModule="TenTunes" customModuleProvider="target">
-                                                            <rect key="frame" x="174" y="14" width="19" height="19"/>
+                                                            <rect key="frame" x="143" y="14" width="19" height="19"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="19" id="MIG-gU-fxo"/>
                                                                 <constraint firstAttribute="width" secondItem="ETj-HU-NV5" secondAttribute="height" multiplier="1:1" id="qGX-a4-Xxa"/>
@@ -133,16 +133,13 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="ETj-HU-NV5" firstAttribute="top" secondItem="kR0-b6-yaW" secondAttribute="top" constant="13" id="145-X6-a64"/>
-                                                        <constraint firstItem="9Xs-lc-aS8" firstAttribute="centerY" secondItem="ETj-HU-NV5" secondAttribute="centerY" id="2Wi-dn-kX0"/>
-                                                        <constraint firstItem="9Xs-lc-aS8" firstAttribute="leading" secondItem="7Y2-7h-2Y4" secondAttribute="trailing" constant="12" id="BNa-CR-fip"/>
+                                                        <constraint firstItem="ETj-HU-NV5" firstAttribute="leading" secondItem="7Y2-7h-2Y4" secondAttribute="trailing" constant="12" id="P1A-vj-AAK"/>
                                                         <constraint firstAttribute="trailing" secondItem="ETj-HU-NV5" secondAttribute="trailing" constant="20" id="PnR-Zt-5BC"/>
                                                         <constraint firstItem="weN-hW-VXM" firstAttribute="centerY" secondItem="ETj-HU-NV5" secondAttribute="centerY" id="SUW-Mi-EhT"/>
-                                                        <constraint firstItem="ETj-HU-NV5" firstAttribute="leading" secondItem="9Xs-lc-aS8" secondAttribute="trailing" constant="12" id="VXi-6F-9BM"/>
                                                         <constraint firstItem="weN-hW-VXM" firstAttribute="leading" secondItem="kR0-b6-yaW" secondAttribute="leading" constant="20" id="VvQ-8W-u69"/>
                                                         <constraint firstItem="7Y2-7h-2Y4" firstAttribute="leading" secondItem="weN-hW-VXM" secondAttribute="trailing" constant="12" id="gN0-G7-9Te"/>
-                                                        <constraint firstItem="7Y2-7h-2Y4" firstAttribute="height" secondItem="9Xs-lc-aS8" secondAttribute="height" id="ikU-bY-4f6"/>
-                                                        <constraint firstItem="9Xs-lc-aS8" firstAttribute="height" secondItem="ETj-HU-NV5" secondAttribute="height" id="lBD-c1-pmU"/>
                                                         <constraint firstItem="7Y2-7h-2Y4" firstAttribute="centerY" secondItem="ETj-HU-NV5" secondAttribute="centerY" id="yjE-Jf-MT4"/>
+                                                        <constraint firstItem="7Y2-7h-2Y4" firstAttribute="height" secondItem="ETj-HU-NV5" secondAttribute="height" id="ysk-OQ-2Bu"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="backgroundAlpha">
@@ -265,11 +262,14 @@ IA
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="yki-Tj-fZ1" secondAttribute="bottom" constant="5" id="BXZ-hi-xUV"/>
                                             <constraint firstItem="w8H-st-uUl" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" id="DDx-XK-Xng"/>
                                             <constraint firstItem="w8H-st-uUl" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" id="Df9-If-Dwu"/>
+                                            <constraint firstItem="mT7-oZ-jSc" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" id="Hfu-ar-LtX"/>
                                             <constraint firstAttribute="trailing" secondItem="ffx-Mi-FNH" secondAttribute="trailing" id="I4z-lG-beE"/>
                                             <constraint firstAttribute="trailing" secondItem="w8H-st-uUl" secondAttribute="trailing" id="IGX-a1-yOD"/>
+                                            <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="mT7-oZ-jSc" secondAttribute="bottom" constant="5" id="Md3-c1-nOV"/>
                                             <constraint firstAttribute="bottom" secondItem="ffx-Mi-FNH" secondAttribute="bottom" id="Mpz-rR-kb3"/>
                                             <constraint firstItem="ffx-Mi-FNH" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" id="Q4z-g0-Va4"/>
                                             <constraint firstItem="yki-Tj-fZ1" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="-5" id="RJX-j8-cW7"/>
+                                            <constraint firstItem="YW0-i6-Krb" firstAttribute="leading" secondItem="mT7-oZ-jSc" secondAttribute="trailing" constant="1" id="S3r-dm-bD6"/>
                                             <constraint firstItem="ffx-Mi-FNH" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" id="Usa-CQ-Cz4"/>
                                             <constraint firstAttribute="trailing" secondItem="TnY-8S-uno" secondAttribute="trailing" id="ZOi-Zw-7Sx"/>
                                             <constraint firstItem="YW0-i6-Krb" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="-5" id="alc-QM-M2N"/>
@@ -332,6 +332,7 @@ IA
                         <outlet property="_playingTrackView" destination="VMd-f1-c9v" id="Upy-TT-ws2"/>
                         <outlet property="_playlistView" destination="rPD-z5-E1p" id="b8w-qa-WoA"/>
                         <outlet property="_previous" destination="vGp-jR-JQ9" id="9Ln-gY-j8Q"/>
+                        <outlet property="_queueButton" destination="mT7-oZ-jSc" id="NC2-wn-LPG"/>
                         <outlet property="_shuffle" destination="7Y2-7h-2Y4" id="znx-qG-XRl"/>
                         <outlet property="_splitView" destination="A22-NE-xw5" id="0eO-Fs-b7A"/>
                         <outlet property="_taskButton" destination="ETj-HU-NV5" id="FXd-mp-8jl"/>
@@ -370,10 +371,10 @@ IA
         </scene>
     </scenes>
     <resources>
+        <image name="chevron-down" width="219" height="200"/>
         <image name="play" width="178" height="200"/>
         <image name="play-next" width="129" height="178"/>
         <image name="play-previous" width="130" height="179"/>
-        <image name="queue" width="205" height="180"/>
         <image name="shuffle" width="205" height="180"/>
         <image name="tasks" width="199" height="197"/>
     </resources>

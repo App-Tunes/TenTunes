@@ -42,6 +42,7 @@ class ViewController: NSViewController {
     @IBOutlet var _playingTrackView: NSView!
     @IBOutlet var _splitView: NSSplitView!
     
+    @IBOutlet var _queueButton: NSButton!
     var queuePopover: NSPopover!
     var taskPopover: NSPopover!
 
@@ -121,6 +122,12 @@ class ViewController: NSViewController {
             let next = [self.trackController.history.track(at: $0)!]
             self.player.enqueue(tracks: next)
         }
+        
+        _queueButton.wantsLayer = true
+        _queueButton.layer!.borderWidth = 1
+        _queueButton.layer!.borderColor = NSColor(white: 0.4, alpha: 0.2).cgColor
+        _queueButton.layer!.backgroundColor = NSColor(white: 0.0, alpha: 0.1).cgColor
+        _queueButton.layer!.cornerRadius = 2
 
         queuePopover = NSPopover()
         queuePopover.contentViewController = queueController
@@ -263,7 +270,7 @@ class ViewController: NSViewController {
     }
         
     @IBAction func showQueue(_ sender: Any) {
-        let view = sender as! NSView
+        let target = playingTrackController.view
         
         // TODO Disable button if history is empty
         let history = player.history
@@ -279,7 +286,7 @@ class ViewController: NSViewController {
         
         // TODO Show a divider on top
         queueController._tableView.scrollRowToTop(history.playingIndex)
-        queuePopover.show(relativeTo: view.bounds, of: view, preferredEdge: .maxY)
+        queuePopover.show(relativeTo: target.bounds, of: target, preferredEdge: .maxY)
     }
     
     @IBAction func showTasks(_ sender: Any) {

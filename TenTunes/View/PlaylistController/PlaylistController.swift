@@ -15,7 +15,13 @@ protocol PlaylistControllerDelegate {
 
 @objc class PlaylistController: NSViewController {
     var masterPlaylist: PlaylistFolder? {
-        didSet { _outlineView?.reloadData() }
+        didSet {
+            _outlineView?.reloadData()
+            
+            // Needs to be done here, otherwise the items are ignored
+            _outlineView.autosaveName = .init("PlaylistController")
+            _outlineView.autosaveExpandedItems = true
+        }
     }
     var library: PlaylistLibrary? {
         didSet { _outlineView?.reloadData() }

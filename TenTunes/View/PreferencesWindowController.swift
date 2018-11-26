@@ -125,6 +125,10 @@ extension UserDefaults {
     var editingTrackUpdatesAlbum: EditingTrackUpdatesAlbum {
         return bool(forKey: EditingTrackUpdatesAlbum.key) ? .update : .dont
     }
+    
+    var quantizedJump: Bool {
+        return bool(forKey: "quantizedJump")
+    }
 }
 
 class PreferencesWindowController: NSWindowController {

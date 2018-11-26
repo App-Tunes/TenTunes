@@ -356,7 +356,7 @@ class WaveformView: NSControl, CALayerDelegate {
     }
     
     func jumpPosition(for position: Double) -> Double {
-        guard !NSEvent.modifierFlags.contains(.option) else {
+        guard NSEvent.modifierFlags.contains(.option) != UserDefaults.standard.quantizedJump else {
             return position
         }
         

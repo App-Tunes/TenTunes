@@ -185,7 +185,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="286" height="291"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="20" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="3Ae-Tm-QZb" id="RRs-pC-UFg" customClass="ActionOutlineView" customModule="TenTunes" customModuleProvider="target">
+                                    <outlineView identifier="trackEditor" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" autosaveName="" rowHeight="20" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="3Ae-Tm-QZb" id="RRs-pC-UFg" customClass="ActionOutlineView" customModule="TenTunes" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="286" height="291"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <size key="intercellSpacing" width="0.0" height="2"/>

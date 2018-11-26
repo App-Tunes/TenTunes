@@ -60,10 +60,14 @@ class TrackEditor: NSViewController {
     override func viewDidLoad() {
         tagEditor = TagEditor(delegate: self)
         
-        _editorOutline.expandItem(nil, expandChildren: true)
-        
         _editorOutline.target = self
         _editorOutline.enterAction = #selector(outlineViewAction(_:))
+        _editorOutline.autosaveName = .init("trackEditor")
+        _editorOutline.autosaveExpandedItems = true
+
+        if UserDefaults.standard.consume(toggle: "initialTrackEditorExpansion") {
+            _editorOutline.expandItem(nil, expandChildren: true)
+        }
         
         _titleBackground.wantsLayer = true
         _titleBackground.alphaValue = 0.3
@@ -246,6 +250,22 @@ extension TrackEditor: NSOutlineViewDataSource {
     
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
         return item is GroupData ? 24.0 : 20.0
+    }
+    
+    func outlineView(_ outlineView: NSOutlineView, persistentObjectForItem item: Any?) -> Any? {
+        if let group = item as? GroupData {
+            return group.title
+        }
+        
+        return nil
+    }
+    
+    func outlineView(_ outlineView: NSOutlineView, itemForPersistentObject object: Any) -> Any? {
+        if let title = object as? String {
+            return data.first { $0.title == title }
+        }
+        
+        return nil
     }
 }
 

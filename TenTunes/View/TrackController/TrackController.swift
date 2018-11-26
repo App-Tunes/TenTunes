@@ -183,6 +183,8 @@ class TrackController: NSViewController {
         
         tableViewHiddenManager = .init(tableView: _tableView, defaultsKey: "trackColumnsHidden", ignore: [ColumnIdentifiers.title.rawValue, ColumnIdentifiers.artwork.rawValue])
         tableViewHiddenManager.start()
+        
+        registerObservers()
     }
     
     override func viewDidAppear() {

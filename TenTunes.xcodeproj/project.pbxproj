@@ -61,6 +61,7 @@
 		806FC30C2190DA36004B9770 /* DarkBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806FC30B2190DA36004B9770 /* DarkBoxView.swift */; };
 		807092EB20C69D8F00DFED53 /* ExportPlaylistsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807092E920C69D8F00DFED53 /* ExportPlaylistsController.swift */; };
 		807092EC20C69D8F00DFED53 /* ExportPlaylistsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 807092EA20C69D8F00DFED53 /* ExportPlaylistsController.xib */; };
+		8071F63221AC250A0005685B /* TrackController+Updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8071F63121AC250A0005685B /* TrackController+Updates.swift */; };
 		8074044921367A1F007E0B4C /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8074044821367A1F007E0B4C /* Artist.swift */; };
 		8074044C2136CE68007E0B4C /* Interpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8074044B2136CE68007E0B4C /* Interpolation.swift */; };
 		8079F6D32106551100B7A278 /* SmartPlaylistRulesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6D12106551100B7A278 /* SmartPlaylistRulesController.swift */; };
@@ -295,6 +296,7 @@
 		806FC30B2190DA36004B9770 /* DarkBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkBoxView.swift; sourceTree = "<group>"; };
 		807092E920C69D8F00DFED53 /* ExportPlaylistsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPlaylistsController.swift; sourceTree = "<group>"; };
 		807092EA20C69D8F00DFED53 /* ExportPlaylistsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExportPlaylistsController.xib; sourceTree = "<group>"; };
+		8071F63121AC250A0005685B /* TrackController+Updates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackController+Updates.swift"; sourceTree = "<group>"; };
 		8074044821367A1F007E0B4C /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		8074044B2136CE68007E0B4C /* Interpolation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interpolation.swift; sourceTree = "<group>"; };
 		8079F6D12106551100B7A278 /* SmartPlaylistRulesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartPlaylistRulesController.swift; sourceTree = "<group>"; };
@@ -859,6 +861,7 @@
 				80F854FE2069180A009A8FBE /* TrackController+RightClick.swift */,
 				80F855002069183E009A8FBE /* TrackController+Menu.swift */,
 				80B68BA82101255D00A32E3D /* TrackController+Rules.swift */,
+				8071F63121AC250A0005685B /* TrackController+Updates.swift */,
 				80074CF7204583CF0055B87E /* TrackController.xib */,
 				807D7B5F21A7FD340021C73B /* Track Editor */,
 				8079F6D12106551100B7A278 /* SmartPlaylistRulesController.swift */,
@@ -1196,6 +1199,7 @@
 				80F77BF5203D8B35001E397F /* Key.swift in Sources */,
 				80F2C57A2038808000212739 /* AppDelegate.swift in Sources */,
 				807F6A37210202A8002048B1 /* Library+Sanity.swift in Sources */,
+				8071F63221AC250A0005685B /* TrackController+Updates.swift in Sources */,
 				804A15FC2172514200CBF56F /* Honey.swift in Sources */,
 				8026241620FF445F009D7988 /* TTTokenField.swift in Sources */,
 				80C1F14F213C77440032E554 /* TrackVisuals+CoreDataProperties.swift in Sources */,

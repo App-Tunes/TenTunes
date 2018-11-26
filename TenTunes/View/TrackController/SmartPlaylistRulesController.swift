@@ -146,7 +146,7 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
     }
     
     func tokenField(_ tokenField: NSTokenField, changedTokens tokens: [Any]) {
-        if lastEditingString != (rules.tokens.last as? SmartPlaylistRules.Token.Search)?.string {
+        if lastEditingString != (tokens.last as? SmartPlaylistRules.Token.Search)?.string {
             delegate?.smartPlaylistRulesController?(self, changedRules: rules)
         }
     }

@@ -233,11 +233,11 @@ class TTTokenField: NSTokenField {
         // When we have no strings, location is equal to the number of tokens
         currentEditor()?.selectedRange = NSMakeRange(idx + 1, 0)
         
-        autocompletePopover.close()
+        _autocompletePopover?.close()
     }
     
     override func viewDidHide() {
-        autocompletePopover.close()
+        _autocompletePopover?.close()
     }
 }
 

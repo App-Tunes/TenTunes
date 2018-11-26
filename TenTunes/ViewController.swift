@@ -149,7 +149,9 @@ class ViewController: NSViewController {
             return self.keyDown(with: $0)
         }
         
-        registerObservers()
+        coverImageObserver = UserDefaults.standard.observe(\.titleBarStylization, options: [.initial, .new]) { (defaults, change) in
+            self._coverImage.alphaValue = CGFloat(change.newValue ?? 0)
+        }
         
         mediaKeyTap = MediaKeyTap(delegate: self, for: [.playPause, .previous, .rewind, .next, .fastForward])
         mediaKeyTap?.start()

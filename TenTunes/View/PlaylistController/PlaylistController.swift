@@ -44,6 +44,8 @@ protocol PlaylistControllerDelegate {
     
     override func awakeFromNib() {
         _outlineView.registerForDraggedTypes(pasteboardTypes)
+        
+        registerObservers()
     }
     
     @IBAction func didClick(_ sender: Any) {

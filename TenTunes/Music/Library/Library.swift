@@ -284,5 +284,16 @@ extension Library {
         _exportChanged = _exportChanged?.union(inserts.map { $0.objectID })
                                         .union(deletes.map { $0.objectID })
                                         .union(updates.map { $0.objectID })
+        
+        let trackDeletes = deletes.of(type: Track.self)
+        let trackInserts = inserts.of(type: Track.self)
+        let trackUpdates = updates.of(type: Track.self)
+        
+        if trackInserts.count > 0 || trackUpdates.count > 0 || trackDeletes.count > 0 {
+            // Invalidate caches
+            _allAuthors = nil
+            _allAlbums = nil
+            _allGenres = nil
+        }
     }
 }

@@ -12,7 +12,7 @@ import AVFoundation
 
 extension TrackController {
     var pasteboardTypes: [NSPasteboard.PasteboardType] {
-        return TrackPromise.pasteboardTypes
+        return TrackPromise.pasteboardTypes + PlaylistPromise.pasteboardTypes
     }
     
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
@@ -22,6 +22,14 @@ extension TrackController {
     }
     
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+        
+        if let playlistPromises = PlaylistPromise.inside(pasteboard: info.draggingPasteboard(), for: Library.shared) {
+            guard dropOperation == .on, let playlists = (playlistPromises as? [PlaylistPromise.Existing])?.map({ $0.fire() }) else {
+                return []
+            }
+            return playlists.allSatisfy({ ($0 as? ModifiablePlaylist)?.supports(action: .add) ?? false }) ? .link : []
+        }
+        
         guard let promises = TrackPromise.inside(pasteboard: info.draggingPasteboard(), for: Library.shared) else {
             return []
         }
@@ -49,6 +57,21 @@ extension TrackController {
     }
     
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
+        if let playlistPromises = PlaylistPromise.inside(pasteboard: info.draggingPasteboard(), for: Library.shared) {
+            let playlists = playlistPromises.compactMap { $0.fire() }
+            guard let track = history.track(at: row) else {
+                return false
+            }
+            
+            for case let playlist as ModifiablePlaylist in playlists {
+                if playlist.confirm(action: .add) {
+                    playlist.addTracks([track])
+                }
+            }
+            
+            return true
+        }
+        
         guard let promises = TrackPromise.inside(pasteboard: info.draggingPasteboard(), for: Library.shared) else {
             return false
         }

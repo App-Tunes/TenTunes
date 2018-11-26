@@ -12,7 +12,15 @@ import Cocoa
     let tokens: [SmartPlaylistRules.Token]
     let any: Bool
     
-    func filter(in context: NSManagedObjectContext, rguard: RecursionGuard<Playlist>? = nil) -> ((Track) -> Bool) {
+    static var trivial: (Track) -> Bool {
+        return { _ in true }
+    }
+    
+    func filter(in context: NSManagedObjectContext, rguard: RecursionGuard<Playlist>? = nil) -> ((Track) -> Bool)? {
+        guard !tokens.isEmpty || any else {
+            return nil
+        }
+        
         let rguard = rguard ?? RecursionGuard()
         
         let filters = tokens.map { $0.filter(in: context, rguard: rguard) }

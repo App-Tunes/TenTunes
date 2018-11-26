@@ -12,9 +12,9 @@ import Cocoa
 infix operator ?=> : NilCoalescingPrecedence
 
 extension Optional {
-    static func ?=> <T>(left: Wrapped?, right: (Wrapped) -> T?) -> T? {
+    static func ?=> <T>(left: Wrapped?, right: (Wrapped) throws -> T?) rethrows -> T? {
         if let left = left {
-            return right(left)
+            return try right(left)
         }
         return nil
     }

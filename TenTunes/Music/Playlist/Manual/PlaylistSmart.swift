@@ -14,11 +14,11 @@ public class PlaylistSmart: Playlist {
     override func _freshTracksList(rguard: RecursionGuard<Playlist>) -> [Track] {
         return rguard.protected(self) {
             let all = Library.shared.allTracks.convert(to: managedObjectContext!)!.tracksList
-            return all.filter(filter(in: managedObjectContext!, rguard: rguard))
+            return all.filter(filter(in: managedObjectContext!, rguard: rguard) ?? SmartPlaylistRules.trivial)
         } ?? []
     }
         
-    func filter(in context: NSManagedObjectContext, rguard: RecursionGuard<Playlist>) -> (Track) -> Bool {
+    func filter(in context: NSManagedObjectContext, rguard: RecursionGuard<Playlist>) -> ((Track) -> Bool)? {
         return rrules.filter(in: context, rguard: rguard)
     }
     

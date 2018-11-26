@@ -27,11 +27,11 @@ import AVFoundation
     }
 
     var filter: ((Track) -> Bool)? {
-        didSet { _changed = true }
+        didSet { _changed = oldValue != nil || filter != nil }
     }
     
     var sort: ((Track, Track) -> Bool)? {
-        didSet { _changed = true }
+        didSet { _changed = oldValue != nil || sort != nil }
     }
 }
 

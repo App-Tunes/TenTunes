@@ -14,7 +14,7 @@ class PlaylistCartesian: PlaylistFolder {
         let allTracks = Library.shared.allTracks.convert(to: context)!.tracksList
         
         let cross = crossProduct(in: context)
-            .filter { allTracks.anySatisfy($0.rules.filter(in: context)) }
+            .filter { allTracks.anySatisfy($0.rules.filter(in: context) ?? SmartPlaylistRules.trivial) }
         let childrenRules = childrenList.compactMap(CartesianRules.Combination.init)
         
         if cross.count != childrenList.count || cross != childrenRules {

@@ -178,6 +178,10 @@ protocol PlaylistControllerDelegate {
     }
     
     func selected(playlists: [PlaylistProtocol]) {
+        guard PlaylistMultiple(playlists: playlists).persistentID != PlaylistMultiple(playlists: history.current).persistentID else {
+            return
+        }
+        
         history.push(playlists)
         playlistChanged()
     }

@@ -17,6 +17,22 @@ extension Array {
             }
         }
     }
+    
+    func reduce(_ nextPartialResult: (Element, Element) throws -> Element) rethrows -> Element? {
+        if let f = first {
+            return try dropFirst().reduce(f, nextPartialResult)
+        }
+        
+        return nil
+    }
+    
+    public func reduce(_ updateAccumulatingResult: (inout Element, Element) throws -> ()) rethrows -> Element? {
+        if let f = first {
+            return try dropFirst().reduce(into: f, updateAccumulatingResult)
+        }
+        
+        return nil
+    }
 }
 
 extension Collection {

@@ -35,6 +35,10 @@ class PlaylistLibrary: PlaylistProtocol {
         }
     }
     
+    var persistentID: UUID {
+        return UUID(uuidString: "53905896-bfbe-4bea-be15-a39da7e0e7a2")!
+    }
+    
     func convert(to: NSManagedObjectContext) -> Self? {
         let converted = type(of: self).init(context: to)
         // Faster than executing a new fetch request

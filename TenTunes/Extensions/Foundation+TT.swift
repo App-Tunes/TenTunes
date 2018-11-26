@@ -217,3 +217,23 @@ extension Date {
         return timeIntervalSinceReferenceDate > date.timeIntervalSinceReferenceDate
     }
 }
+
+extension UUID {
+    // Meh, lol
+    // Probably better with pointer magic
+    static func ^(_ left: UUID, _ right: UUID) -> UUID {
+        let (
+            l0, l1, l2, l3, l4, l5, l6, l7,
+            l8, l9, la, lb, lc, ld, le, lf
+        ) = left.uuid
+        let (
+            r0, r1, r2, r3, r4, r5, r6, r7,
+            r8, r9, ra, rb, rc, rd, re, rf
+        ) = right.uuid
+        
+        return UUID(uuid: (
+            l0 ^ r0, l1 ^ r1, l2 ^ r2, l3 ^ r3, l4 ^ r4, l5 ^ r5, l6 ^ r6, l7 ^ r7,
+            l8 ^ r8, l9 ^ r9, la ^ ra, lb ^ rb, lc ^ rc, ld ^ rd, le ^ re, lf ^ rf
+        ))
+    }
+}

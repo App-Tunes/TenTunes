@@ -15,6 +15,10 @@ class PlaylistMultiple : PlaylistProtocol {
         self.playlists = playlists
     }
     
+    var persistentID: UUID {
+        return playlists.map { $0.persistentID }.reduce { $0 ^ $1 } ?? UUID()
+    }
+    
     var name: String {
         return playlists.map { $0.name }.joined(separator: ", ")
     }

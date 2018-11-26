@@ -11,6 +11,7 @@ import Cocoa
 protocol PlaylistProtocol : class {
     var tracksList: [Track] { get }
     var name: String { get }
+    var persistentID: UUID { get }
     
     func convert(to: NSManagedObjectContext) -> Self?
 }

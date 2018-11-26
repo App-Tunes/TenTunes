@@ -38,6 +38,10 @@ public class Playlist: NSManagedObject, PlaylistProtocol {
         }
     }
     
+    var persistentID: UUID {
+        return id
+    }
+    
     var _tracksList: [Track]?
     func _freshTracksList(rguard: RecursionGuard<Playlist>) -> [Track] {
         return []

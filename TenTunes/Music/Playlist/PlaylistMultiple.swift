@@ -23,6 +23,10 @@ class PlaylistMultiple : PlaylistProtocol {
         return playlists.map { $0.name }.joined(separator: ", ")
     }
     
+    var icon: NSImage {
+        return NSImage(named: .init("playlist-smart"))!
+    }
+    
     var tracksList: [Track] {
         return playlists.flatMap { $0.tracksList }.uniqueElements
     }

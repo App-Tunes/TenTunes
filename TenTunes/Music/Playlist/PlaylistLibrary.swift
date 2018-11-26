@@ -67,6 +67,10 @@ class PlaylistLibrary: PlaylistProtocol {
     var name: String {
         return "Library"
     }
+    
+    var icon: NSImage {
+        return NSImage(named: .init("home"))!
+    }
 }
 
 extension PlaylistLibrary : ModifiablePlaylist {

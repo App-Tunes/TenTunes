@@ -51,6 +51,7 @@ class TrackController: NSViewController {
     @IBOutlet var _ruleButton: NSButton!
     
     @IBOutlet var _playlistTitle: NSTextField!
+    @IBOutlet var _playlistIcon: NSImageView!
     @IBOutlet var _playlistInfoBarHeight: NSLayoutConstraint!
     
     var dragHighlightView: DragHighlightView!
@@ -66,6 +67,7 @@ class TrackController: NSViewController {
             _tableView?.animateDifference(from: oldValue.tracks, to: history.tracks)
             
             _playlistTitle.stringValue = history.playlist.name
+            _playlistIcon.image = history.playlist.icon
             _trackCounter.stringValue = String(history.count) + (history.count != 1 ? " tracks" : " track")
             
             dragHighlightView.isHidden = !acceptsGeneralDrag

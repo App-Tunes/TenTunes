@@ -13,6 +13,10 @@ class PlaylistEmpty : PlaylistProtocol {
         return ""
     }
     
+    var icon: NSImage {
+        return NSImage(named: .init("playlist"))!
+    }
+    
     var persistentID: UUID {
         // All empty playlists are the same
         return UUID(uuidString: "41d32a56-e774-4205-88bd-71020e2674c0")!

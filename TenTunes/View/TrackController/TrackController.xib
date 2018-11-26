@@ -12,6 +12,7 @@
                 <outlet property="_filterBarContainer" destination="utN-ND-KA3" id="cBT-He-il8"/>
                 <outlet property="_loadingIndicator" destination="Q4S-45-Dyj" id="uIh-jH-P5s"/>
                 <outlet property="_moveToMediaDirectory" destination="e6s-jT-drv" id="Mxx-MY-rhK"/>
+                <outlet property="_playlistIcon" destination="5ke-mE-ZQQ" id="vnH-2g-Hx8"/>
                 <outlet property="_playlistInfoBarHeight" destination="uIC-33-LVc" id="Fyv-rA-ffm"/>
                 <outlet property="_playlistTitle" destination="yA3-8B-zr1" id="n1M-oM-Ov1"/>
                 <outlet property="_ruleBarContainer" destination="49r-TX-xMK" id="jrG-Gr-1dG"/>
@@ -446,13 +447,21 @@
                                     <color key="borderColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
                                 </box>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="yA3-8B-zr1">
-                                    <rect key="frame" x="2" y="4" width="84" height="17"/>
+                                    <rect key="frame" x="27" y="4" width="84" height="17"/>
                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Playlist Title" id="ort-dC-9bO">
                                         <font key="font" metaFont="systemBold"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
+                                <imageView horizontalHuggingPriority="300" verticalHuggingPriority="300" horizontalCompressionResistancePriority="50" verticalCompressionResistancePriority="50" translatesAutoresizingMaskIntoConstraints="NO" id="5ke-mE-ZQQ">
+                                    <rect key="frame" x="4" y="4" width="17" height="17"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="5ke-mE-ZQQ" secondAttribute="height" multiplier="1:1" id="Lyp-Va-aCi"/>
+                                        <constraint firstAttribute="width" constant="17" id="s18-HP-fjv"/>
+                                    </constraints>
+                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="playlist" id="3rp-k8-iYe"/>
+                                </imageView>
                                 <button hidden="YES" toolTip="The rules that define the contents of this playlist" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RVc-tT-TEm">
                                     <rect key="frame" x="692" y="3" width="48" height="19"/>
                                     <buttonCell key="cell" type="recessed" title="Rules" bezelStyle="recessed" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zkM-Rz-wEu">
@@ -479,6 +488,7 @@
                                 <constraint firstItem="RrY-WV-3rf" firstAttribute="leading" secondItem="no2-Pk-ubw" secondAttribute="leading" id="9yu-ha-Phf"/>
                                 <constraint firstItem="Lmv-fl-fCt" firstAttribute="leading" secondItem="no2-Pk-ubw" secondAttribute="leading" constant="-1" id="GLd-S6-Ezv"/>
                                 <constraint firstItem="Xki-oe-dMl" firstAttribute="centerY" secondItem="no2-Pk-ubw" secondAttribute="centerY" id="MQi-gt-Jp1"/>
+                                <constraint firstItem="5ke-mE-ZQQ" firstAttribute="top" secondItem="no2-Pk-ubw" secondAttribute="top" constant="4" id="PlC-QN-WvP"/>
                                 <constraint firstAttribute="trailing" secondItem="Lmv-fl-fCt" secondAttribute="trailing" constant="-1" id="UUv-z6-T9E"/>
                                 <constraint firstItem="Xki-oe-dMl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yA3-8B-zr1" secondAttribute="trailing" constant="20" id="VbX-7e-5se"/>
                                 <constraint firstItem="RrY-WV-3rf" firstAttribute="top" secondItem="no2-Pk-ubw" secondAttribute="top" id="XXb-PR-STi"/>
@@ -487,9 +497,10 @@
                                 <constraint firstItem="RVc-tT-TEm" firstAttribute="centerY" secondItem="no2-Pk-ubw" secondAttribute="centerY" id="cjB-JQ-RLn"/>
                                 <constraint firstAttribute="trailing" secondItem="RrY-WV-3rf" secondAttribute="trailing" id="knw-WV-Qj7"/>
                                 <constraint firstItem="Xki-oe-dMl" firstAttribute="centerX" secondItem="no2-Pk-ubw" secondAttribute="centerX" id="mCT-Xy-x6z"/>
+                                <constraint firstItem="5ke-mE-ZQQ" firstAttribute="leading" secondItem="no2-Pk-ubw" secondAttribute="leading" constant="4" id="mJK-DW-Crk"/>
                                 <constraint firstAttribute="trailing" secondItem="RVc-tT-TEm" secondAttribute="trailing" constant="20" id="rFb-qp-PVH"/>
                                 <constraint firstAttribute="height" constant="25" id="uIC-33-LVc"/>
-                                <constraint firstItem="yA3-8B-zr1" firstAttribute="leading" secondItem="no2-Pk-ubw" secondAttribute="leading" constant="4" id="wTP-6K-6yt"/>
+                                <constraint firstItem="yA3-8B-zr1" firstAttribute="leading" secondItem="5ke-mE-ZQQ" secondAttribute="trailing" constant="8" id="uir-1t-O4Z"/>
                             </constraints>
                         </customView>
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="utN-ND-KA3">
@@ -562,5 +573,6 @@
     </objects>
     <resources>
         <image name="music_missing" width="250" height="250"/>
+        <image name="playlist" width="205" height="167"/>
     </resources>
 </document>

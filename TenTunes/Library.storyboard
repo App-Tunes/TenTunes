@@ -269,14 +269,14 @@ IA
                                             <constraint firstAttribute="bottom" secondItem="ffx-Mi-FNH" secondAttribute="bottom" id="Mpz-rR-kb3"/>
                                             <constraint firstItem="ffx-Mi-FNH" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" id="Q4z-g0-Va4"/>
                                             <constraint firstItem="yki-Tj-fZ1" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="-5" id="RJX-j8-cW7"/>
-                                            <constraint firstItem="YW0-i6-Krb" firstAttribute="leading" secondItem="mT7-oZ-jSc" secondAttribute="trailing" constant="1" id="S3r-dm-bD6"/>
+                                            <constraint firstItem="YW0-i6-Krb" firstAttribute="leading" secondItem="mT7-oZ-jSc" secondAttribute="trailing" constant="2" id="S3r-dm-bD6"/>
                                             <constraint firstItem="ffx-Mi-FNH" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" id="Usa-CQ-Cz4"/>
                                             <constraint firstAttribute="trailing" secondItem="TnY-8S-uno" secondAttribute="trailing" id="ZOi-Zw-7Sx"/>
                                             <constraint firstItem="YW0-i6-Krb" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="-5" id="alc-QM-M2N"/>
                                             <constraint firstItem="YW0-i6-Krb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yki-Tj-fZ1" secondAttribute="trailing" constant="20" id="dAR-hu-m9J"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="dNV-j7-c8A" secondAttribute="bottom" constant="4" id="grl-KM-7o9"/>
                                             <constraint firstAttribute="bottom" secondItem="TnY-8S-uno" secondAttribute="bottom" id="mm5-D9-4tj"/>
-                                            <constraint firstItem="YW0-i6-Krb" firstAttribute="centerX" secondItem="CJ8-Em-XgG" secondAttribute="centerX" id="ptf-ji-G2W"/>
+                                            <constraint firstItem="YW0-i6-Krb" firstAttribute="centerX" secondItem="CJ8-Em-XgG" secondAttribute="centerX" constant="10" id="ptf-ji-G2W"/>
                                             <constraint firstItem="dNV-j7-c8A" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="-5" id="qzo-Mh-a1e"/>
                                             <constraint firstAttribute="bottom" secondItem="w8H-st-uUl" secondAttribute="bottom" id="tT1-6k-n2K"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" id="zi4-6q-OKg"/>

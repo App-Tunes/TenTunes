@@ -130,6 +130,7 @@ class ViewController: NSViewController {
         _queueButton.layer!.cornerRadius = 4
 
         queuePopover = NSPopover()
+        queuePopover.delegate = self
         queuePopover.contentViewController = queueController
         queuePopover.animates = true
         queuePopover.behavior = .transient
@@ -270,6 +271,11 @@ class ViewController: NSViewController {
     }
         
     @IBAction func showQueue(_ sender: Any) {
+        guard !queuePopover.isShown else {
+            queuePopover.close()
+            return
+        }
+        
         let target = playingTrackController.view
         
         // TODO Disable button if history is empty
@@ -384,5 +390,17 @@ extension ViewController: MediaKeyTapDelegate {
         default:
             break
         }
+    }
+}
+
+extension ViewController: NSPopoverDelegate {
+    func popoverWillShow(_ notification: Notification) {
+        _queueButton.state = .on
+        _queueButton.layer!.backgroundColor = NSColor(white: 0.0, alpha: 0.25).cgColor
+    }
+    
+    func popoverWillClose(_ notification: Notification) {
+        _queueButton.state = .off
+        _queueButton.layer!.backgroundColor = NSColor(white: 0.0, alpha: 0.1).cgColor
     }
 }

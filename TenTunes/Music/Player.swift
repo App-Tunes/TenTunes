@@ -26,14 +26,20 @@ extension AVPlayer {
     }
 }
 
+protocol PlayerDelegate {
+    func playerChangedStatus(_ player: Player)
+    func playerTriggeredRepeat(_ player: Player)
+
+    var currentHistory: PlayHistory? { get }
+}
+
 @objc class Player : NSObject {
     var history: PlayHistory = PlayHistory(playlist: PlaylistEmpty())
     var player: AKPlayer
     var backingPlayer: AKPlayer
     var playing: Track?
     
-    var updatePlaying: ((Track?) -> Swift.Void)?
-    var historyProvider: (() -> PlayHistory)?
+    var delegate: PlayerDelegate?
     
     var mixer: AKMixer
     @objc var outputNode: AKBooster
@@ -146,7 +152,7 @@ extension AVPlayer {
             sanityCheck()
             player.play()
             
-            updatePlaying?(playing)
+            delegate?.playerChangedStatus(self)
         }
         else {
             self.pause()
@@ -164,7 +170,7 @@ extension AVPlayer {
 
     func play(track: Track?) throws {
         defer {
-            updatePlaying?(playing)
+            delegate?.playerChangedStatus(self)
         }
         
         if player.isPlaying {
@@ -219,7 +225,7 @@ extension AVPlayer {
     func play(moved: Int) {
         if moved == 0 {
             guard history.count > 0 && history.playingIndex < history.count else {
-                play(at: nil, in: historyProvider?() ?? PlayHistory(playlist: PlaylistEmpty()))
+                play(at: nil, in: delegate?.currentHistory ?? PlayHistory(playlist: PlaylistEmpty()))
                 return
             }
 
@@ -229,6 +235,7 @@ extension AVPlayer {
         
         if self.repeat && history.playingIndex + moved == history.count {
             play(at: nil, in: history)
+            delegate?.playerTriggeredRepeat(self)
             return
         }
         
@@ -286,7 +293,7 @@ extension AVPlayer {
         player.play(from: player.currentTime, to: player.duration)
         player.stop()
         
-        updatePlaying?(playing)
+        delegate?.playerChangedStatus(self)
     }
     
     @discardableResult

@@ -482,3 +482,9 @@ extension NSObject {
         bind(binding, to: observable, withKeyPath: keyPath._kvcKeyPathString!, options: options)
     }
 }
+
+extension CFTimeInterval {
+    static func seconds(_ seconds: CFTimeInterval) -> CFTimeInterval {
+        return seconds
+    }
+}

@@ -15,9 +15,6 @@ class SpinningButton: NSButton {
                 return
             }
             
-            layer?.transform = CATransform3DMakeTranslation(frame.size.width / 2, frame.size.height / 2, 0)
-            layer?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-
             spinOnce()
         }
     }
@@ -25,12 +22,15 @@ class SpinningButton: NSButton {
     override func awakeFromNib() {
         wantsLayer = true
     }
-    
+
     func spinOnce() {
+        layer?.transform = CATransform3DMakeTranslation(frame.size.width / 2, frame.size.height / 2, 0)
+        layer?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+
         let ani = CABasicAnimation(keyPath: "transform.rotation.z")
         ani.fromValue = 0
         ani.toValue = -Double.pi * 2
-        ani.duration = 1 // seconds
+        ani.duration = .seconds(1)
         ani.delegate = self
         ani.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         ani.isRemovedOnCompletion = true

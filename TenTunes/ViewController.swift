@@ -32,7 +32,7 @@ class ViewController: NSViewController {
     @IBOutlet var _waveformView: WaveformView!
     
     @IBOutlet var _shuffle: NSButton!
-    @IBOutlet var _repeat: NSButton!
+    @IBOutlet var _repeat: SpinningButton!
     
     @IBOutlet var _timePlayed: NSTextField!
     @IBOutlet var _timeLeft: NSTextField!
@@ -97,12 +97,7 @@ class ViewController: NSViewController {
 
         ViewController.shared = self
 
-        player.updatePlaying = { [unowned self] playing in
-            self.updatePlaying()
-        }
-        player.historyProvider = { [unowned self] in
-            return self.trackController.history
-        }
+        player.delegate = self
         player.start()
         player.history = queueController.history // Empty but != nil
         
@@ -149,7 +144,7 @@ class ViewController: NSViewController {
         taskPopover.animates = true
         taskPopover.behavior = .transient
 
-        self.updatePlaying()
+        playerChangedStatus(player)
         
         _waveformView.postsFrameChangedNotifications = true
         NotificationCenter.default.addObserver(self, selector: #selector(updateTimesHidden), name: NSView.frameDidChangeNotification, object: _waveformView)
@@ -190,53 +185,7 @@ class ViewController: NSViewController {
         
         return nil
     }
-        
-    func updatePlaying() {
-        self.updateTimesHidden(self)
-
-        _previous.isEnabled = player.history.playingIndex >= 0
-        _next.isEnabled = player.history.playingIndex < player.history.count && player.history.count > 0
-
-        guard let track = player.playing else {
-            _play.image = #imageLiteral(resourceName: "play")
-
-            playingTrackController.history = PlayHistory(playlist: PlaylistEmpty())
-            
-            _coverImage.image = nil
-            
-            _waveformView.analysis = nil
-            _waveformView.jumpSegment = 0
-            _waveformView.duration = 1
-            
-            return
-        }
-        
-        _play.image = player.isPaused ? #imageLiteral(resourceName: "play") : #imageLiteral(resourceName: "pause")
-
-        if playingTrackController.history.track(at: 0) != track {
-            playingTrackController.history.insert(tracks: [track], before: 0)
-            playingTrackController._tableView.insertRows(at: IndexSet(integer: 0), withAnimation: .slideDown)
-
-            if playingTrackController.history.count > 1 {
-                // Two-step to get the animation rollin
-                playingTrackController.history.remove(indices: [1])
-                playingTrackController._tableView.removeRows(at: IndexSet(integer: 1), withAnimation: .effectFade)
-            }
-        }
-
-        _coverImage.transitionWithImage(image: track.artworkPreview)
-        _waveformView.analysis = track.analysis
-        
-        _waveformView.duration = track.duration?.seconds ?? 1
-        if let speed = track.speed {
-            // Always jump 16 beats
-            _waveformView.jumpSegment = (speed.secondsPerBeat * 16) / player.player.duration
-        }
-        else {
-            _waveformView.jumpSegment = 0
-        }
-    }
-                
+    
     @IBAction func play(_ sender: Any) {
         guard player.playing != nil else {
             if trackController.selectedTrack != nil {
@@ -408,5 +357,61 @@ extension ViewController: NSPopoverDelegate {
     func popoverWillClose(_ notification: Notification) {
         _queueButton.state = .off
         _queueButton.layer!.backgroundColor = NSColor(white: 0.0, alpha: 0.1).cgColor
+    }
+}
+
+extension ViewController: PlayerDelegate {
+    func playerChangedStatus(_ player: Player) {
+        self.updateTimesHidden(self)
+        
+        _previous.isEnabled = player.history.playingIndex >= 0
+        _next.isEnabled = player.history.playingIndex < player.history.count && player.history.count > 0
+        
+        guard let track = player.playing else {
+            _play.image = #imageLiteral(resourceName: "play")
+            
+            playingTrackController.history = PlayHistory(playlist: PlaylistEmpty())
+            
+            _coverImage.image = nil
+            
+            _waveformView.analysis = nil
+            _waveformView.jumpSegment = 0
+            _waveformView.duration = 1
+            
+            return
+        }
+        
+        _play.image = player.isPaused ? #imageLiteral(resourceName: "play") : #imageLiteral(resourceName: "pause")
+        
+        if playingTrackController.history.track(at: 0) != track {
+            playingTrackController.history.insert(tracks: [track], before: 0)
+            playingTrackController._tableView.insertRows(at: IndexSet(integer: 0), withAnimation: .slideDown)
+            
+            if playingTrackController.history.count > 1 {
+                // Two-step to get the animation rollin
+                playingTrackController.history.remove(indices: [1])
+                playingTrackController._tableView.removeRows(at: IndexSet(integer: 1), withAnimation: .effectFade)
+            }
+        }
+        
+        _coverImage.transitionWithImage(image: track.artworkPreview)
+        _waveformView.analysis = track.analysis
+        
+        _waveformView.duration = track.duration?.seconds ?? 1
+        if let speed = track.speed {
+            // Always jump 16 beats
+            _waveformView.jumpSegment = (speed.secondsPerBeat * 16) / player.player.duration
+        }
+        else {
+            _waveformView.jumpSegment = 0
+        }
+    }
+    
+    func playerTriggeredRepeat(_ player: Player) {
+        _repeat.spinOnce()
+    }
+    
+    var currentHistory: PlayHistory? {
+        return trackController.history
     }
 }

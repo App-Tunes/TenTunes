@@ -130,7 +130,7 @@
                                                                 <action selector="toggleShuffle:" target="XfG-lQ-9wD" id="PPw-wd-bDy"/>
                                                             </connections>
                                                         </button>
-                                                        <button toolTip="Repeat (Play Forever)" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YPk-ZN-PTb">
+                                                        <button toolTip="Repeat (Play Forever)" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YPk-ZN-PTb" customClass="SpinningButton" customModule="TenTunes" customModuleProvider="target">
                                                             <rect key="frame" x="143" y="14" width="19" height="19"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="YPk-ZN-PTb" secondAttribute="height" multiplier="1:1" id="GZA-kk-d2R"/>

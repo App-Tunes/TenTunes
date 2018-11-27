@@ -32,7 +32,13 @@ extension LibraryWindowController : NSWindowDelegate {
         relocateStandardButtons()
     }
     
+    func windowDidEnterFullScreen(_ notification: Notification) {
+        relocateStandardButtons()
+    }
+    
     func relocateStandardButtons() {
         window!.moveStandardButtons(x: LibraryWindowController.xOffsetStandardButtons, y: LibraryWindowController.yOffsetStandardButtons)
+        
+        (contentViewController as! ViewController)._playLeftConstraint.animator().constant = window!.styleMask.contains(.fullScreen) ? 20 : 75
     }
 }

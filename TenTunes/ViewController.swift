@@ -24,6 +24,7 @@ class ViewController: NSViewController {
     @IBOutlet var _coverImage: NSImageView!
     var coverImageObserver: NSKeyValueObservation?
 
+    @IBOutlet var _playLeftConstraint: NSLayoutConstraint!
     @IBOutlet var _play: NSButton!
     @IBOutlet var _stop: NSButton!
     @IBOutlet var _previous: NSButton!

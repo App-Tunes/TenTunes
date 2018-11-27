@@ -237,13 +237,13 @@ IA
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="Ws9-gx-fi8" firstAttribute="leading" secondItem="4Fc-0r-wVE" secondAttribute="trailing" constant="5" id="1V0-iI-Wws"/>
-                                                        <constraint firstItem="4Fc-0r-wVE" firstAttribute="centerX" secondItem="r5D-F9-BXS" secondAttribute="centerX" constant="30" id="8H1-hI-Z5c"/>
                                                         <constraint firstAttribute="trailing" secondItem="Ws9-gx-fi8" secondAttribute="trailing" constant="15" id="8cv-Rh-dfJ"/>
                                                         <constraint firstItem="vGp-jR-JQ9" firstAttribute="centerY" secondItem="4Fc-0r-wVE" secondAttribute="centerY" id="9lh-FV-XX3"/>
                                                         <constraint firstItem="vGp-jR-JQ9" firstAttribute="height" secondItem="4Fc-0r-wVE" secondAttribute="height" multiplier="0.6" id="S3Y-PU-jye"/>
                                                         <constraint firstItem="Ws9-gx-fi8" firstAttribute="centerY" secondItem="4Fc-0r-wVE" secondAttribute="centerY" id="ST9-o7-pb4"/>
                                                         <constraint firstItem="4Fc-0r-wVE" firstAttribute="top" secondItem="r5D-F9-BXS" secondAttribute="top" constant="12" id="rVm-6R-GPh"/>
                                                         <constraint firstItem="4Fc-0r-wVE" firstAttribute="leading" secondItem="vGp-jR-JQ9" secondAttribute="trailing" constant="5" id="seC-m5-5xd"/>
+                                                        <constraint firstItem="vGp-jR-JQ9" firstAttribute="leading" secondItem="r5D-F9-BXS" secondAttribute="leading" constant="75" id="slS-7r-cFJ"/>
                                                         <constraint firstAttribute="bottom" secondItem="4Fc-0r-wVE" secondAttribute="bottom" constant="12" id="uQJ-Mw-Z3a"/>
                                                         <constraint firstItem="Ws9-gx-fi8" firstAttribute="height" secondItem="4Fc-0r-wVE" secondAttribute="height" multiplier="0.6" id="vXk-xI-5xY"/>
                                                     </constraints>
@@ -362,6 +362,7 @@ IA
                         <outlet property="_coverImage" destination="w8H-st-uUl" id="e7N-Kw-sIr"/>
                         <outlet property="_next" destination="Ws9-gx-fi8" id="l56-Fl-VBO"/>
                         <outlet property="_play" destination="4Fc-0r-wVE" id="DPb-N7-0hb"/>
+                        <outlet property="_playLeftConstraint" destination="slS-7r-cFJ" id="1Up-R5-mBv"/>
                         <outlet property="_playingTrackView" destination="VMd-f1-c9v" id="Upy-TT-ws2"/>
                         <outlet property="_playlistView" destination="rPD-z5-E1p" id="b8w-qa-WoA"/>
                         <outlet property="_previous" destination="vGp-jR-JQ9" id="9Ln-gY-j8Q"/>

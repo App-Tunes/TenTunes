@@ -32,6 +32,7 @@ class ViewController: NSViewController {
     @IBOutlet var _waveformView: WaveformView!
     
     @IBOutlet var _shuffle: NSButton!
+    @IBOutlet var _repeat: NSButton!
     
     @IBOutlet var _timePlayed: NSTextField!
     @IBOutlet var _timeLeft: NSTextField!
@@ -269,7 +270,12 @@ class ViewController: NSViewController {
         player.shuffle = !player.shuffle
         _shuffle.state = player.shuffle ? .on : .off
     }
-        
+    
+    @IBAction func toggleRepeat(_ sender: Any) {
+        player.repeat = !player.repeat
+        _repeat.state = player.repeat ? .on : .off
+    }
+    
     @IBAction func showQueue(_ sender: Any) {
         guard !queuePopover.isShown else {
             queuePopover.close()

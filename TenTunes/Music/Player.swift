@@ -43,6 +43,7 @@ extension AVPlayer {
             (shuffle ? history.shuffle() : history.unshuffle())
         }
     }
+    var `repeat` = true
 
     override init() {
         player = AKPlayer()
@@ -224,6 +225,11 @@ extension AVPlayer {
 
             history.shuffle()
             history.move(to: 0) // Select random track next
+        }
+        
+        if self.repeat && history.playingIndex + moved == history.count {
+            play(at: nil, in: history)
+            return
         }
         
         let didPlay = (try? play(track: history.move(by: moved))) != nil

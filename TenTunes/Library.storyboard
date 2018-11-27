@@ -82,9 +82,9 @@
                                                 </connections>
                                             </customView>
                                             <box boxType="custom" cornerRadius="6" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="dNV-j7-c8A">
-                                                <rect key="frame" x="1113" y="49" width="184" height="48"/>
+                                                <rect key="frame" x="1082" y="49" width="215" height="48"/>
                                                 <view key="contentView" id="kR0-b6-yaW" customClass="DarkBoxView" customModule="TenTunes" customModuleProvider="target">
-                                                    <rect key="frame" x="1" y="1" width="182" height="46"/>
+                                                    <rect key="frame" x="1" y="1" width="213" height="46"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <slider toolTip="Volume" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="weN-hW-VXM" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
@@ -102,7 +102,7 @@
                                                             </connections>
                                                         </slider>
                                                         <button toolTip="Tasks" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ETj-HU-NV5" customClass="SpinningButton" customModule="TenTunes" customModuleProvider="target">
-                                                            <rect key="frame" x="143" y="14" width="19" height="19"/>
+                                                            <rect key="frame" x="174" y="14" width="19" height="19"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="19" id="MIG-gU-fxo"/>
                                                                 <constraint firstAttribute="width" secondItem="ETj-HU-NV5" secondAttribute="height" multiplier="1:1" id="qGX-a4-Xxa"/>
@@ -130,14 +130,31 @@
                                                                 <action selector="toggleShuffle:" target="XfG-lQ-9wD" id="PPw-wd-bDy"/>
                                                             </connections>
                                                         </button>
+                                                        <button toolTip="Shuffle" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YPk-ZN-PTb">
+                                                            <rect key="frame" x="143" y="14" width="19" height="19"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="YPk-ZN-PTb" secondAttribute="height" multiplier="1:1" id="GZA-kk-d2R"/>
+                                                            </constraints>
+                                                            <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="repeat" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="LOm-js-1aQ">
+                                                                <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system" size="20"/>
+                                                            </buttonCell>
+                                                            <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <connections>
+                                                                <action selector="toggleRepeat:" target="XfG-lQ-9wD" id="XbT-Oa-xQz"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="ETj-HU-NV5" firstAttribute="top" secondItem="kR0-b6-yaW" secondAttribute="top" constant="13" id="145-X6-a64"/>
-                                                        <constraint firstItem="ETj-HU-NV5" firstAttribute="leading" secondItem="7Y2-7h-2Y4" secondAttribute="trailing" constant="12" id="P1A-vj-AAK"/>
+                                                        <constraint firstItem="ETj-HU-NV5" firstAttribute="leading" secondItem="YPk-ZN-PTb" secondAttribute="trailing" constant="12" id="Ibh-fv-aIs"/>
+                                                        <constraint firstItem="YPk-ZN-PTb" firstAttribute="leading" secondItem="7Y2-7h-2Y4" secondAttribute="trailing" constant="12" id="IeH-Xq-KLJ"/>
                                                         <constraint firstAttribute="trailing" secondItem="ETj-HU-NV5" secondAttribute="trailing" constant="20" id="PnR-Zt-5BC"/>
+                                                        <constraint firstItem="YPk-ZN-PTb" firstAttribute="centerY" secondItem="ETj-HU-NV5" secondAttribute="centerY" id="RSb-Xe-C8V"/>
                                                         <constraint firstItem="weN-hW-VXM" firstAttribute="centerY" secondItem="ETj-HU-NV5" secondAttribute="centerY" id="SUW-Mi-EhT"/>
                                                         <constraint firstItem="weN-hW-VXM" firstAttribute="leading" secondItem="kR0-b6-yaW" secondAttribute="leading" constant="20" id="VvQ-8W-u69"/>
                                                         <constraint firstItem="7Y2-7h-2Y4" firstAttribute="leading" secondItem="weN-hW-VXM" secondAttribute="trailing" constant="12" id="gN0-G7-9Te"/>
+                                                        <constraint firstItem="7Y2-7h-2Y4" firstAttribute="height" secondItem="YPk-ZN-PTb" secondAttribute="height" id="jGc-nP-fbp"/>
                                                         <constraint firstItem="7Y2-7h-2Y4" firstAttribute="centerY" secondItem="ETj-HU-NV5" secondAttribute="centerY" id="yjE-Jf-MT4"/>
                                                         <constraint firstItem="7Y2-7h-2Y4" firstAttribute="height" secondItem="ETj-HU-NV5" secondAttribute="height" id="ysk-OQ-2Bu"/>
                                                     </constraints>
@@ -333,6 +350,7 @@ IA
                         <outlet property="_playlistView" destination="rPD-z5-E1p" id="b8w-qa-WoA"/>
                         <outlet property="_previous" destination="vGp-jR-JQ9" id="9Ln-gY-j8Q"/>
                         <outlet property="_queueButton" destination="mT7-oZ-jSc" id="NC2-wn-LPG"/>
+                        <outlet property="_repeat" destination="YPk-ZN-PTb" id="v3C-aS-YGg"/>
                         <outlet property="_shuffle" destination="7Y2-7h-2Y4" id="znx-qG-XRl"/>
                         <outlet property="_splitView" destination="A22-NE-xw5" id="0eO-Fs-b7A"/>
                         <outlet property="_taskButton" destination="ETj-HU-NV5" id="FXd-mp-8jl"/>
@@ -375,6 +393,7 @@ IA
         <image name="play" width="178" height="200"/>
         <image name="play-next" width="129" height="178"/>
         <image name="play-previous" width="130" height="179"/>
+        <image name="repeat" width="201" height="200"/>
         <image name="shuffle" width="205" height="180"/>
         <image name="tasks" width="199" height="197"/>
     </resources>

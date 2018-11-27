@@ -28,20 +28,6 @@
                                             <visualEffectView wantsLayer="YES" blendingMode="withinWindow" material="underWindowBackground" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="ffx-Mi-FNH">
                                                 <rect key="frame" x="0.0" y="0.0" width="1292" height="92"/>
                                             </visualEffectView>
-                                            <button toolTip="Play Queue" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mT7-oZ-jSc">
-                                                <rect key="frame" x="429" y="49" width="18" height="48"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="18" id="fcP-xp-0H7"/>
-                                                </constraints>
-                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="chevron-down" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="ioR-UL-uGb">
-                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                                <connections>
-                                                    <action selector="showQueue:" target="XfG-lQ-9wD" id="SAR-yY-gNh"/>
-                                                </connections>
-                                            </button>
                                             <customView verticalHuggingPriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="TnY-8S-uno" customClass="WaveformView" customModule="TenTunes" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="1292" height="45"/>
                                                 <subviews>
@@ -257,13 +243,13 @@ IA
                                                 <color key="fillColor" red="0.16098905459999999" green="0.16098905459999999" blue="0.16098905459999999" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                             </box>
                                             <box ambiguous="YES" boxType="custom" cornerRadius="6" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="YW0-i6-Krb">
-                                                <rect key="frame" x="446" y="49" width="400" height="48"/>
+                                                <rect key="frame" x="426" y="49" width="420" height="48"/>
                                                 <view key="contentView" ambiguous="YES" id="0rl-CM-lXG" customClass="DarkBoxView" customModule="TenTunes" customModuleProvider="target">
-                                                    <rect key="frame" x="1" y="1" width="398" height="46"/>
+                                                    <rect key="frame" x="1" y="1" width="418" height="46"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VMd-f1-c9v">
-                                                            <rect key="frame" x="4" y="4" width="390" height="33"/>
+                                                            <rect key="frame" x="4" y="4" width="410" height="33"/>
                                                         </customView>
                                                     </subviews>
                                                     <constraints>
@@ -286,30 +272,44 @@ IA
                                                 <color key="borderColor" red="0.33667116116751272" green="0.33667116116751272" blue="0.33667116116751272" alpha="0.15105950342465754" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="fillColor" red="0.16098905456852797" green="0.16098905456852797" blue="0.16098905456852797" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                             </box>
+                                            <button toolTip="Play Queue" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mT7-oZ-jSc">
+                                                <rect key="frame" x="848" y="49" width="18" height="48"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="18" id="fcP-xp-0H7"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="chevron-down" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="ioR-UL-uGb">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                <connections>
+                                                    <action selector="showQueue:" target="XfG-lQ-9wD" id="SAR-yY-gNh"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="YW0-i6-Krb" secondAttribute="bottom" constant="4" id="2T8-Fa-sMO"/>
                                             <constraint firstItem="yki-Tj-fZ1" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" constant="-5" id="2mj-Sz-gPI"/>
-                                            <constraint firstItem="dNV-j7-c8A" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="YW0-i6-Krb" secondAttribute="trailing" constant="20" id="4Du-P5-I9c"/>
                                             <constraint firstItem="mT7-oZ-jSc" firstAttribute="bottom" secondItem="YW0-i6-Krb" secondAttribute="bottom" id="4ia-Ez-gAA"/>
                                             <constraint firstAttribute="trailing" secondItem="dNV-j7-c8A" secondAttribute="trailing" constant="-5" id="8rc-0C-IAl"/>
                                             <constraint firstItem="mT7-oZ-jSc" firstAttribute="top" secondItem="YW0-i6-Krb" secondAttribute="top" id="B8w-sw-Nwx"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="yki-Tj-fZ1" secondAttribute="bottom" constant="5" id="BXZ-hi-xUV"/>
                                             <constraint firstItem="w8H-st-uUl" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" id="DDx-XK-Xng"/>
                                             <constraint firstItem="w8H-st-uUl" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" id="Df9-If-Dwu"/>
+                                            <constraint firstItem="dNV-j7-c8A" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mT7-oZ-jSc" secondAttribute="trailing" constant="20" id="Hf8-1M-tjl"/>
                                             <constraint firstAttribute="trailing" secondItem="ffx-Mi-FNH" secondAttribute="trailing" id="I4z-lG-beE"/>
                                             <constraint firstAttribute="trailing" secondItem="w8H-st-uUl" secondAttribute="trailing" id="IGX-a1-yOD"/>
                                             <constraint firstAttribute="bottom" secondItem="ffx-Mi-FNH" secondAttribute="bottom" id="Mpz-rR-kb3"/>
                                             <constraint firstItem="ffx-Mi-FNH" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" id="Q4z-g0-Va4"/>
                                             <constraint firstItem="yki-Tj-fZ1" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="-5" id="RJX-j8-cW7"/>
-                                            <constraint firstItem="YW0-i6-Krb" firstAttribute="leading" secondItem="mT7-oZ-jSc" secondAttribute="trailing" constant="2" id="S3r-dm-bD6"/>
                                             <constraint firstItem="ffx-Mi-FNH" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" id="Usa-CQ-Cz4"/>
+                                            <constraint firstItem="mT7-oZ-jSc" firstAttribute="leading" secondItem="YW0-i6-Krb" secondAttribute="trailing" constant="2" id="XmM-DP-mpM"/>
                                             <constraint firstAttribute="trailing" secondItem="TnY-8S-uno" secondAttribute="trailing" id="ZOi-Zw-7Sx"/>
                                             <constraint firstItem="YW0-i6-Krb" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="-5" id="alc-QM-M2N"/>
                                             <constraint firstItem="YW0-i6-Krb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yki-Tj-fZ1" secondAttribute="trailing" constant="20" id="dAR-hu-m9J"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="dNV-j7-c8A" secondAttribute="bottom" constant="4" id="grl-KM-7o9"/>
                                             <constraint firstAttribute="bottom" secondItem="TnY-8S-uno" secondAttribute="bottom" id="mm5-D9-4tj"/>
-                                            <constraint firstItem="YW0-i6-Krb" firstAttribute="centerX" secondItem="CJ8-Em-XgG" secondAttribute="centerX" constant="10" id="ptf-ji-G2W"/>
+                                            <constraint firstItem="YW0-i6-Krb" firstAttribute="centerX" secondItem="CJ8-Em-XgG" secondAttribute="centerX" constant="-10" id="ptf-ji-G2W"/>
                                             <constraint firstItem="dNV-j7-c8A" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="-5" id="qzo-Mh-a1e"/>
                                             <constraint firstAttribute="bottom" secondItem="w8H-st-uUl" secondAttribute="bottom" id="tT1-6k-n2K"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" id="zi4-6q-OKg"/>

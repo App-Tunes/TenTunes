@@ -50,6 +50,8 @@ protocol PlayerDelegate {
         }
     }
     var `repeat` = true
+    
+    var startTime = 0.0
 
     override init() {
         player = AKPlayer()
@@ -78,6 +80,19 @@ protocol PlayerDelegate {
     
     var isPaused : Bool {
         return !isPlaying
+    }
+    
+    var currentTime: Double? {
+        guard isPlaying else {
+            return startTime
+        }
+        
+        // Apparently this is really hard to get? lol
+        guard player.audioFile != nil, let stamp = player.avAudioNode.lastRenderTime?.audioTimeStamp, stamp.mFlags.contains(.hostTimeValid) && stamp.mFlags.contains(.sampleTimeValid) else {
+            return nil
+        }
+        
+        return player.currentTime
     }
 
     func play(at: Int?, in history: PlayHistory?) {
@@ -150,7 +165,7 @@ protocol PlayerDelegate {
     func togglePlay() {        
         if isPaused {
             sanityCheck()
-            player.play()
+            player.play(from: startTime, to: player.duration)
             
             delegate?.playerChangedState(self)
         }
@@ -253,22 +268,21 @@ protocol PlayerDelegate {
     }
     
     func setPosition(_ position: Double) {
-        sanityCheck()
-        
-        let time = position * player.duration
-        guard abs(time - player.currentTime) > 0.04 else {
+        guard abs(position - player.currentTime) > 0.04 else {
             return // Baaasically the same, so skip doing extra work
         }
         
         guard isPlaying else {
-            player.jump(to: time)
+            startTime = position
             return
         }
+        
+        sanityCheck()
         
         // This code block makes jumping the tiniest bit smoother
         // TODO Maybe determine this heuristically? lol
         let magicAdd = 0.04 // Hacky absolute that makes it even smoother
-        backingPlayer.jump(to: time + magicAdd)
+        backingPlayer.jump(to: position + magicAdd)
         backingPlayer.volume = 0
         backingPlayer.play()
         
@@ -277,7 +291,7 @@ protocol PlayerDelegate {
         self.backingPlayer = _player
 
         // Slowly switch states. Kinda hacky but improves listening result
-        for _ in 0..<100 {
+        for _ in 0 ..< 100 {
             self.player.volume += 1.0 / 100
             self.backingPlayer.volume -= 1.0 / 100
             Thread.sleep(forTimeInterval: 0.001)
@@ -290,7 +304,7 @@ protocol PlayerDelegate {
         sanityCheck()
         
         // The set position is reset when we play again
-        player.play(from: player.currentTime, to: player.duration)
+        startTime = player.currentTime
         player.stop()
         
         delegate?.playerChangedState(self)

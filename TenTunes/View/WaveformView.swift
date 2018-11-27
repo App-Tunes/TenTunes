@@ -344,7 +344,7 @@ class WaveformView: NSControl, CALayerDelegate {
     }
 
     func click(at: Double) {
-        self.location = (0.0...1.0).clamp(jumpPosition(for: at))
+        self.locationRatio = (0.0...1.0).clamp(jumpPosition(for: at))
         
         if let action = self.action, let target = self.target {
             NSApp.sendAction(action, to: target, from: self)
@@ -410,12 +410,7 @@ extension WaveformView {
         CATransaction.commit()
     }
     
-    func updateLocation(by player: AKPlayer, duration: CMTime) {
-        if player.audioFile != nil, let stamp = player.avAudioNode.lastRenderTime?.audioTimeStamp, stamp.mFlags.contains(.hostTimeValid) && stamp.mFlags.contains(.sampleTimeValid) {
-            updateLocation(player.currentTime, duration: duration)
-        }
-        else {
-            updateLocation(nil, duration: duration)
-        }
+    func updateLocation(by player: Player, duration: CMTime) {
+        updateLocation(player.currentTime, duration: duration)
     }
 }

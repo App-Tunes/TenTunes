@@ -381,7 +381,6 @@ extension ViewController: PlayerDelegate {
             _waveformView.jumpSegment = 0
             _waveformView.duration = 1
             
-            
             return
         }
         

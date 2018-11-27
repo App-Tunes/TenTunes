@@ -42,6 +42,8 @@ class UpdateCurrentPlaylist: Task {
     override var title: String { return "Update Playlist View" }
     
     override var preventsQuit: Bool { return false }
+    
+    override var hidden: Bool { return true } // TrackController already shows loading anim
         
     override func execute() {
         super.execute()

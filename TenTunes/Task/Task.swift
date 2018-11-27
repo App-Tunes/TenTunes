@@ -61,6 +61,10 @@ class QueueTasker : Tasker {
         enqueue(task: task)
         return true
     }
+    
+    var wantsExposure: Bool {
+        return queue.anySatisfy { !$0.hidden }
+    }
 }
 
 class Task {
@@ -87,6 +91,8 @@ class Task {
     var title: String { return "Unnamed Task" }
     
     var preventsQuit: Bool { return !cancelable }
+    
+    var hidden: Bool { return false }
     
     func execute() {
         if state == .waiting {

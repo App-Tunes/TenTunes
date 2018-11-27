@@ -82,9 +82,9 @@
                                                 </connections>
                                             </customView>
                                             <box boxType="custom" cornerRadius="6" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="dNV-j7-c8A">
-                                                <rect key="frame" x="1082" y="49" width="215" height="48"/>
+                                                <rect key="frame" x="1051" y="49" width="246" height="48"/>
                                                 <view key="contentView" id="kR0-b6-yaW" customClass="DarkBoxView" customModule="TenTunes" customModuleProvider="target">
-                                                    <rect key="frame" x="1" y="1" width="213" height="46"/>
+                                                    <rect key="frame" x="1" y="1" width="244" height="46"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <slider toolTip="Volume" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="weN-hW-VXM" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
@@ -102,9 +102,8 @@
                                                             </connections>
                                                         </slider>
                                                         <button toolTip="Tasks" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ETj-HU-NV5" customClass="SpinningButton" customModule="TenTunes" customModuleProvider="target">
-                                                            <rect key="frame" x="174" y="14" width="19" height="19"/>
+                                                            <rect key="frame" x="205" y="14" width="19" height="19"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="19" id="MIG-gU-fxo"/>
                                                                 <constraint firstAttribute="width" secondItem="ETj-HU-NV5" secondAttribute="height" multiplier="1:1" id="qGX-a4-Xxa"/>
                                                             </constraints>
                                                             <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="tasks" imagePosition="overlaps" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="pWN-MD-pQY">
@@ -133,6 +132,7 @@
                                                         <button toolTip="Repeat (Play Forever)" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YPk-ZN-PTb" customClass="SpinningButton" customModule="TenTunes" customModuleProvider="target">
                                                             <rect key="frame" x="143" y="14" width="19" height="19"/>
                                                             <constraints>
+                                                                <constraint firstAttribute="height" constant="19" id="FUj-LY-fxI"/>
                                                                 <constraint firstAttribute="width" secondItem="YPk-ZN-PTb" secondAttribute="height" multiplier="1:1" id="GZA-kk-d2R"/>
                                                             </constraints>
                                                             <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="repeat" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="LOm-js-1aQ">
@@ -144,19 +144,35 @@
                                                                 <action selector="toggleRepeat:" target="XfG-lQ-9wD" id="XbT-Oa-xQz"/>
                                                             </connections>
                                                         </button>
+                                                        <button toolTip="Find Everywhere" translatesAutoresizingMaskIntoConstraints="NO" id="a35-bI-I59">
+                                                            <rect key="frame" x="174" y="14" width="19" height="19"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="a35-bI-I59" secondAttribute="height" multiplier="1:1" id="XNQ-y3-hdG"/>
+                                                            </constraints>
+                                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="search" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="4vX-d1-0Qz">
+                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="performFindEverywherePanelAction:" target="XfG-lQ-9wD" id="rD3-fT-HKa"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="ETj-HU-NV5" firstAttribute="top" secondItem="kR0-b6-yaW" secondAttribute="top" constant="13" id="145-X6-a64"/>
-                                                        <constraint firstItem="ETj-HU-NV5" firstAttribute="leading" secondItem="YPk-ZN-PTb" secondAttribute="trailing" constant="12" id="Ibh-fv-aIs"/>
+                                                        <constraint firstItem="7Y2-7h-2Y4" firstAttribute="centerY" secondItem="YPk-ZN-PTb" secondAttribute="centerY" id="5Wg-TH-NOh"/>
+                                                        <constraint firstItem="ETj-HU-NV5" firstAttribute="height" secondItem="YPk-ZN-PTb" secondAttribute="height" id="7rH-ob-EX5"/>
+                                                        <constraint firstItem="a35-bI-I59" firstAttribute="centerY" secondItem="YPk-ZN-PTb" secondAttribute="centerY" id="9Hj-Ze-gwR"/>
+                                                        <constraint firstItem="ETj-HU-NV5" firstAttribute="centerY" secondItem="YPk-ZN-PTb" secondAttribute="centerY" id="Ekf-jd-jSR"/>
                                                         <constraint firstItem="YPk-ZN-PTb" firstAttribute="leading" secondItem="7Y2-7h-2Y4" secondAttribute="trailing" constant="12" id="IeH-Xq-KLJ"/>
                                                         <constraint firstAttribute="trailing" secondItem="ETj-HU-NV5" secondAttribute="trailing" constant="20" id="PnR-Zt-5BC"/>
-                                                        <constraint firstItem="YPk-ZN-PTb" firstAttribute="centerY" secondItem="ETj-HU-NV5" secondAttribute="centerY" id="RSb-Xe-C8V"/>
-                                                        <constraint firstItem="weN-hW-VXM" firstAttribute="centerY" secondItem="ETj-HU-NV5" secondAttribute="centerY" id="SUW-Mi-EhT"/>
+                                                        <constraint firstItem="weN-hW-VXM" firstAttribute="centerY" secondItem="YPk-ZN-PTb" secondAttribute="centerY" id="TAx-t5-qBt"/>
                                                         <constraint firstItem="weN-hW-VXM" firstAttribute="leading" secondItem="kR0-b6-yaW" secondAttribute="leading" constant="20" id="VvQ-8W-u69"/>
+                                                        <constraint firstItem="ETj-HU-NV5" firstAttribute="leading" secondItem="a35-bI-I59" secondAttribute="trailing" constant="12" id="dWf-PM-w4E"/>
                                                         <constraint firstItem="7Y2-7h-2Y4" firstAttribute="leading" secondItem="weN-hW-VXM" secondAttribute="trailing" constant="12" id="gN0-G7-9Te"/>
                                                         <constraint firstItem="7Y2-7h-2Y4" firstAttribute="height" secondItem="YPk-ZN-PTb" secondAttribute="height" id="jGc-nP-fbp"/>
-                                                        <constraint firstItem="7Y2-7h-2Y4" firstAttribute="centerY" secondItem="ETj-HU-NV5" secondAttribute="centerY" id="yjE-Jf-MT4"/>
-                                                        <constraint firstItem="7Y2-7h-2Y4" firstAttribute="height" secondItem="ETj-HU-NV5" secondAttribute="height" id="ysk-OQ-2Bu"/>
+                                                        <constraint firstItem="YPk-ZN-PTb" firstAttribute="top" secondItem="kR0-b6-yaW" secondAttribute="top" constant="13" id="jWO-gy-dgA"/>
+                                                        <constraint firstItem="a35-bI-I59" firstAttribute="height" secondItem="YPk-ZN-PTb" secondAttribute="height" id="rkZ-Ob-lXP"/>
+                                                        <constraint firstItem="a35-bI-I59" firstAttribute="leading" secondItem="YPk-ZN-PTb" secondAttribute="trailing" constant="12" id="scZ-Vm-zeI"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="backgroundAlpha">
@@ -394,6 +410,7 @@ IA
         <image name="play-next" width="129" height="178"/>
         <image name="play-previous" width="130" height="179"/>
         <image name="repeat" width="243" height="200"/>
+        <image name="search" width="235" height="200"/>
         <image name="shuffle" width="205" height="180"/>
         <image name="tasks" width="199" height="197"/>
     </resources>

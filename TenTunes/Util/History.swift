@@ -17,10 +17,15 @@ class History<Element> : NSObject {
     
     init(default element: Element) {
         defaultElement = element
+        elements = [element] // Every history starts with the default element selected
     }
     
     var current: Element {
         return elements[safe: index] ?? defaultElement
+    }
+    
+    var count: Int {
+        return elements.count
     }
     
     @objc
@@ -46,10 +51,8 @@ class History<Element> : NSObject {
         elements = (index < count - 1) ? Array(elements[max(index + 2 - maxLength, 0)...index]) : elements
         elements.append(element)
         index = count - 1
-    }
-    
-    var count: Int {
-        return elements.count
+        
+        historyMoved()
     }
     
     @discardableResult
@@ -58,6 +61,8 @@ class History<Element> : NSObject {
         while index > 0 && (skip?(current) ?? false) {
             index -= 1
         }
+        
+        historyMoved()
         return current
     }
     
@@ -67,11 +72,24 @@ class History<Element> : NSObject {
         while index < count - 1 && (skip?(current) ?? false) {
             index -= 1
         }
+        
+        historyMoved()
         return current
     }
     
     func clear() {
-        elements = []
+        elements = [defaultElement]
         index = 0
+        
+        historyMoved()
     }
+    
+    func historyMoved() {
+        NotificationCenter.default.post(.init(name: HistoryNotification.moved, object: self))
+    }
+}
+
+// Can't be part of History because generic
+class HistoryNotification {
+    static let moved = NSNotification.Name("historyMovedNotification")
 }

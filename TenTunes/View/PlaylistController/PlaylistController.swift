@@ -24,10 +24,16 @@ protocol PlaylistControllerDelegate {
         }
     }
     var library: PlaylistLibrary? {
-        didSet { _outlineView?.reloadData() }
+        didSet {
+            _outlineView?.reloadData()
+            
+            if history.current == .library {
+                delegate?.playlistController(self, selectionDidChange: [library!])
+            }
+        }
     }
     
-    var history: History<[PlaylistProtocol]> = History(default: [PlaylistEmpty()])
+    var history: History<SelectionMoment> = History(default: .library)
     
     var delegate: PlaylistControllerDelegate?
     
@@ -66,10 +72,7 @@ protocol PlaylistControllerDelegate {
     }
     
     @IBAction func selectLibrary(_ sender: Any) {
-        if let library = library {
-            selected(playlists: [library])
-        }
-        _outlineView.deselectAll(self)
+        select(.library)
     }
     
     @IBAction func performFindPanelAction(_ sender: AnyObject) {
@@ -100,30 +103,55 @@ protocol PlaylistControllerDelegate {
     func playlist(fromItem: Any?) -> PlaylistProtocol? {
         return (fromItem ?? (masterPlaylist as Any?)) as? PlaylistProtocol
     }
-    
+
     func select(playlist: Playlist, editTitle: Bool = false) {
-        // Select
-        // If we created in a closed folder it might not exist
+        select(.playlists([playlist]))
         
-        let path = Library.shared.path(of: playlist)
-        for parent in path.dropLast() {
-            _outlineView.expandItem(parent)
-        }
-        
-        let idx = _outlineView.row(forItem: playlist)
-        guard idx >= 0 else {
-            if editTitle {
-                fatalError("Playlist does not exist in view even though it must!")
-            }
+        guard editTitle else {
             return
         }
         
-        _outlineView.scrollRowToVisible(idx)
-        _outlineView.selectRowIndexes(IndexSet(integer: idx), byExtendingSelection: false)
+        let idx = _outlineView.row(forItem: playlist)
         
-        if editTitle {
-            _outlineView.edit(row: idx, with: nil, select: true)
+        guard idx >= 0 else {
+            fatalError("Playlist does not exist in view even though it must!")
         }
+        
+        _outlineView.edit(row: idx, with: nil, select: true)
+    }
+    
+    func select(_ selection: SelectionMoment) {
+        switch selection {
+        case .library:
+            _outlineView.deselectAll(self)
+            didSelect(.library)
+        case .playlists(let playlists):
+            // Expand so all items are in view
+            let paths = playlists.map(Library.shared.path)
+            for path in paths {
+                for parent in path.dropLast() {
+                    _outlineView.expandItem(parent)
+                }
+            }
+            
+            // First selection, for most cases this is enough, but there's no better way anyway
+            let indices: [IndexSet.Element] = playlists.compactMap {
+                let idx = self._outlineView.row(forItem: $0)
+                return idx >= 0 ? idx : nil
+            }
+            
+            if let first = indices.first { _outlineView.scrollRowToVisible(first) }
+            // didSelect will be called automatically by delegate method
+            _outlineView.selectRowIndexes(IndexSet(indices), byExtendingSelection: false)
+        }
+    }
+    
+    func didSelect(_ selection: SelectionMoment) {
+        guard selection != history.current else {
+            return
+        }
+        
+        history.push(selection)
     }
     
     func insert(playlist: Playlist) {
@@ -179,30 +207,14 @@ protocol PlaylistControllerDelegate {
         try! Library.shared.viewContext.save()
     }
     
-    func playlistChanged() {
-        delegate?.playlistController(self, selectionDidChange: history.current)
-        
-        _back.isEnabled = history.canGoBack
-        _forwards.isEnabled = history.canGoForwards
-    }
-    
-    func selected(playlists: [PlaylistProtocol]) {
-        guard PlaylistMultiple(playlists: playlists).persistentID != PlaylistMultiple(playlists: history.current).persistentID else {
-            return
-        }
-        
-        history.push(playlists)
-        playlistChanged()
-    }
-    
     @IBAction func back(_ sender: Any) {
-        history.back(skip: { ($0 as? [Playlist])?.anySatisfy { $0.isDeleted } ?? false })
-        playlistChanged()
+        history.back(skip: { !$0.isValid })
+        select(history.current)
     }
     
     @IBAction func forwards(_ sender: Any) {
-        history.forwards(skip: { ($0 as? [Playlist])?.anySatisfy { $0.isDeleted } ?? false })
-        playlistChanged()
+        history.forwards(skip: { !$0.isValid })
+        select(history.current)
     }
 }
 
@@ -262,7 +274,11 @@ extension PlaylistController : NSOutlineViewDataSource {
 
 extension PlaylistController : NSOutlineViewDelegate {
     func outlineViewSelectionDidChange(_ notification: Notification) {
-        self.selected(playlists: _outlineView.selectedRowIndexes.map { self._outlineView.item(atRow: $0) as! Playlist })
+        guard !_outlineView.selectedRowIndexes.isEmpty else {
+            return
+        }
+        
+        didSelect(.playlists(_outlineView.selectedRowIndexes.map { self._outlineView.item(atRow: $0) as! Playlist }))
     }
     
     func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
@@ -285,6 +301,31 @@ extension PlaylistController: NSTextFieldDelegate {
         }
         else {
             print("Unable to find Playlist after editing!")
+        }
+    }
+}
+
+extension PlaylistController {
+    enum SelectionMoment : Equatable, ExposedAssociatedValues {
+        case library
+        case playlists(_ playlists: [Playlist])
+        
+        func playlists(library: PlaylistProtocol) -> [PlaylistProtocol] {
+            switch self {
+            case .library:
+                return [library]
+            case .playlists(let playlists):
+                return playlists
+            }
+        }
+        
+        var isValid: Bool {
+            switch self {
+            case .library:
+                return true
+            case .playlists(let playlists):
+                return playlists.noneSatisfy { $0.isDeleted }
+            }
         }
     }
 }

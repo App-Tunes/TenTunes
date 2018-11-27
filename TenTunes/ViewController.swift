@@ -105,7 +105,6 @@ class ViewController: NSViewController {
         playlistController.delegate = self
         playlistController.masterPlaylist = Library.shared.masterPlaylist
         playlistController.library = Library.shared.allTracks
-        playlistController.selectLibrary(self)
 
         trackController.playTrack = { [unowned self] in
             self.player.play(at: $0, in: self.trackController.history) // TODO Support for multiple

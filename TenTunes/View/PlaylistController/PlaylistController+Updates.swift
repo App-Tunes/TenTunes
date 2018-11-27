@@ -13,6 +13,14 @@ extension PlaylistController {
         let notificationCenter = NotificationCenter.default
         
         notificationCenter.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: .NSManagedObjectContextObjectsDidChange, object: Library.shared.viewContext)
+        notificationCenter.addObserver(self, selector: #selector(historyMoved), name: HistoryNotification.moved, object: history)
+    }
+    
+    @IBAction func historyMoved(notification: NSNotification) {
+        delegate?.playlistController(self, selectionDidChange: history.current.playlists(library: library!))
+        
+        _back.isEnabled = history.canGoBack
+        _forwards.isEnabled = history.canGoForwards
     }
     
     @IBAction func managedObjectContextObjectsDidChange(notification: NSNotification) {
@@ -65,7 +73,7 @@ extension PlaylistController {
             break
         }
         
-        if history.current.of(type: Playlist.self).anySatisfy({ deletes.of(type: Playlist.self).contains($0) }) {
+        if !history.current.isValid {
             // Deleted our current playlist! :<
             selectLibrary(self)
         }

@@ -21,7 +21,7 @@ extension ViewController {
                 // Main Window Visuals
                 self._waveformView.updateLocation(by: self.player.player, duration: CMTime(seconds: 1.0 / 10.0, preferredTimescale: 1000))
                 
-                self._taskButton.spinning = !(self.runningTasks.isEmpty && self.tasker.queue.isEmpty)
+                self._taskButton.spinning = self.tasker.wantsExposure || self.runningTasks.anySatisfy { !$0.hidden }
                 self._taskButton.isEnabled = self._taskButton.spinning
                 NSAnimationContext.runAnimationGroup {_ in
                     NSAnimationContext.current.duration = 0.25

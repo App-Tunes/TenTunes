@@ -145,7 +145,7 @@ class ViewController: NSViewController {
         taskPopover.animates = true
         taskPopover.behavior = .transient
 
-        playerChangedStatus(player)
+        playerChangedState(player)
         
         _waveformView.postsFrameChangedNotifications = true
         NotificationCenter.default.addObserver(self, selector: #selector(updateTimesHidden), name: NSView.frameDidChangeNotification, object: _waveformView)
@@ -362,11 +362,13 @@ extension ViewController: NSPopoverDelegate {
 }
 
 extension ViewController: PlayerDelegate {
-    func playerChangedStatus(_ player: Player) {
+    func playerChangedState(_ player: Player) {
         self.updateTimesHidden(self)
         
         _previous.isEnabled = player.history.playingIndex >= 0
         _next.isEnabled = player.history.playingIndex < player.history.count && player.history.count > 0
+        
+        _queueButton.isEnabled = player.history.count > 0
         
         guard let track = player.playing else {
             _play.image = #imageLiteral(resourceName: "play")
@@ -378,6 +380,7 @@ extension ViewController: PlayerDelegate {
             _waveformView.analysis = nil
             _waveformView.jumpSegment = 0
             _waveformView.duration = 1
+            
             
             return
         }

@@ -27,7 +27,7 @@ extension AVPlayer {
 }
 
 protocol PlayerDelegate {
-    func playerChangedStatus(_ player: Player)
+    func playerChangedState(_ player: Player)
     func playerTriggeredRepeat(_ player: Player)
 
     var currentHistory: PlayHistory? { get }
@@ -152,7 +152,7 @@ protocol PlayerDelegate {
             sanityCheck()
             player.play()
             
-            delegate?.playerChangedStatus(self)
+            delegate?.playerChangedState(self)
         }
         else {
             self.pause()
@@ -170,7 +170,7 @@ protocol PlayerDelegate {
 
     func play(track: Track?) throws {
         defer {
-            delegate?.playerChangedStatus(self)
+            delegate?.playerChangedState(self)
         }
         
         if player.isPlaying {
@@ -293,7 +293,7 @@ protocol PlayerDelegate {
         player.play(from: player.currentTime, to: player.duration)
         player.stop()
         
-        delegate?.playerChangedStatus(self)
+        delegate?.playerChangedState(self)
     }
     
     @discardableResult

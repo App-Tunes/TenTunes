@@ -12,6 +12,9 @@
 
 @property (nonatomic, retain) IBOutlet NSMenu *holdMenu;
 
+@property (nonatomic, retain) IBInspectable NSImage *idleImage;
+@property (nonatomic, retain) IBInspectable NSImage *hoverImage;
+
 - (void)showContextMenu;
 
 @end

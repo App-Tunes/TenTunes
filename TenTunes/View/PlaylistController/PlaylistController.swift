@@ -42,6 +42,9 @@ protocol PlaylistControllerDelegate {
     @IBOutlet var _back: NSButton!
     @IBOutlet var _forwards: NSButton!
     
+    @IBOutlet var _addPlaylist: SMButtonWithMenu!
+    @IBOutlet var _addGroup: SMButtonWithMenu!
+    
     var selectedPlaylists: [(Int, Playlist)] {
         return _outlineView.selectedRowIndexes.map {
             return ($0, _outlineView.item(atRow: $0) as! Playlist)
@@ -50,6 +53,12 @@ protocol PlaylistControllerDelegate {
     
     override func awakeFromNib() {
         _outlineView.registerForDraggedTypes(pasteboardTypes)
+        
+        _addPlaylist.hoverImage = NSImage(named: .init("caret-down"))?.tinted(in: .lightGray)
+        _addPlaylist.idleImage = NSImage(named: .init("add"))?.tinted(in: .lightGray)
+        
+        _addGroup.hoverImage = _addPlaylist.hoverImage
+        _addGroup.idleImage = _addPlaylist.idleImage
         
         registerObservers()
     }

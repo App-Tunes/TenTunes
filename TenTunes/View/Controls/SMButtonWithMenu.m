@@ -16,28 +16,18 @@
 
 - (void)awakeFromNib {
     [self addTrackingArea: [[NSTrackingArea alloc] initWithRect:self.bounds options:NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways owner:self userInfo:nil]];
+    
+    [self setHoverImage:[NSImage imageNamed:@"caret-down"]];
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
+
+    int triangleWidth = 11, triangleHeight = triangleWidth;
+    int width = [self bounds].size.width, height = [self bounds].size.height;
+    int margin = 0;
     
-    if (_showTriangle) {
-        CGContextRef ref = NSGraphicsContext.currentContext.CGContext;
-        
-        int triangleWidth = 8;
-        int triangleHeight = triangleWidth / 2 + 1;
-        int width = [self bounds].size.width, height = [self bounds].size.height;
-        int margin = 1;
-        
-        CGContextSetFillColorWithColor(ref, [NSColor labelColor].CGColor);
-        
-        CGContextBeginPath(ref);
-        CGContextMoveToPoint(ref, width - triangleWidth / 2 - margin, height - margin);
-        CGContextAddLineToPoint(ref, width - triangleWidth - margin, height - triangleHeight - margin);
-        CGContextAddLineToPoint(ref, width - margin, height - triangleHeight - margin);
-        CGContextAddLineToPoint(ref, width - triangleWidth / 2 - margin, height - margin);
-        CGContextFillPath(ref);
-    }
+    [(_showTriangle ? _hoverImage : _idleImage) drawInRect:NSMakeRect(width - triangleWidth - margin, height - triangleHeight - margin, triangleWidth, triangleHeight)];
 }
 
 //- (void)rightMouseDown:(NSEvent *)event {

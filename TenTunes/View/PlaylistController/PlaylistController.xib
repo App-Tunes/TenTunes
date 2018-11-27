@@ -8,6 +8,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PlaylistController" customModule="TenTunes" customModuleProvider="target">
             <connections>
+                <outlet property="_addGroup" destination="s5V-cO-NDS" id="9FN-Qy-Aab"/>
+                <outlet property="_addPlaylist" destination="XDO-KJ-zFo" id="yiq-1g-vh1"/>
                 <outlet property="_back" destination="8Z0-Gt-dbf" id="6qN-Q0-cgl"/>
                 <outlet property="_forwards" destination="2x8-2J-xWJ" id="ZiZ-Vs-y8A"/>
                 <outlet property="_outlineView" destination="jaf-cH-DJt" id="sJF-Dr-Ogf"/>

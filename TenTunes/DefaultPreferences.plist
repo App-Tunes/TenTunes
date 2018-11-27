@@ -6,6 +6,8 @@
 	<false/>
 	<key>trackColumnsHidden</key>
 	<dict>
+		<key>dateAddedColumn</key>
+		<true/>
 		<key>keyColumn</key>
 		<true/>
 		<key>bpmColumn</key>

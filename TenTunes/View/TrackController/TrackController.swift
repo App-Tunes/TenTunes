@@ -225,6 +225,9 @@ class TrackController: NSViewController {
         // We believe in tags, not genres
         _tableView.tableColumn(withIdentifier: ColumnIdentifiers.genre)?.isHidden = true
         tableViewHiddenManager.ignore.append(ColumnIdentifiers.genre.rawValue)
+        
+        _tableView.tableColumn(withIdentifier: ColumnIdentifiers.dateAdded)?.isHidden = true
+        tableViewHiddenManager.ignore.append(ColumnIdentifiers.dateAdded.rawValue)
     }
     
     func titleify() {
@@ -339,6 +342,7 @@ extension TrackController: NSTableViewDelegate {
         static let bpm = NSUserInterfaceItemIdentifier(rawValue: "bpmColumn")
         static let key = NSUserInterfaceItemIdentifier(rawValue: "keyColumn")
         static let duration = NSUserInterfaceItemIdentifier(rawValue: "durationColumn")
+        static let dateAdded = NSUserInterfaceItemIdentifier(rawValue: "dateAddedColumn")
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
@@ -400,6 +404,10 @@ extension TrackController: NSTableViewDelegate {
             view.textField?.bind(.value, to: track, withKeyPath: \.rDuration)
             return view
         }
+        else if tableColumn?.identifier == ColumnIdentifiers.dateAdded, let view = tableView.makeView(withIdentifier: CellIdentifiers.duration, owner: nil) as? NSTableCellView {
+            view.textField?.bind(.value, to: track, withKeyPath: \.rCreationDate)
+            return view
+        }
 
         return nil
     }
@@ -446,6 +454,8 @@ extension TrackController: NSTableViewDelegate {
                 desired.sort = { ($0.speed ?? Track.Speed.zero) < ($1.speed ?? Track.Speed.zero)  }
             case "duration":
                 desired.sort = { ($0.duration ?? kCMTimeZero) < ($1.duration ?? kCMTimeZero)  }
+            case "dateAdded":
+                desired.sort = { $0.creationDate.timeIntervalSinceReferenceDate < $1.creationDate.timeIntervalSinceReferenceDate }
             default:
                 fatalError("Unknown Sort Descriptor Key")
             }

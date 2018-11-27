@@ -16,6 +16,8 @@ public class Track: NSManagedObject {
     static let pasteboardType = NSPasteboard.PasteboardType(rawValue: "tentunes.track")
     
     static let unknownTitle = "Unknown Title"
+    
+    static let dateFormatter = DateFormatter(format: "yyyy-MM-dd")
 
     var analysis: Analysis?
     
@@ -113,6 +115,10 @@ public class Track: NSManagedObject {
         return Int(CMTimeGetSeconds(duration)).timeString
     }
     
+    @objc var rCreationDate: String {
+        return Track.dateFormatter.string(from: creationDate as Date)
+    }
+    
     var searchable: [String] {
         return [rTitle, author ?? Artist.unknown, album ?? Album.unknown, remixAuthor].compactMap { $0 }
     }
@@ -142,6 +148,7 @@ public class Track: NSManagedObject {
             #keyPath(Track.speed): [#keyPath(Track.bpmString)],
             #keyPath(Track.key): [#keyPath(Track.keyString)],
             #keyPath(Track.artworkPreview): [#keyPath(Track.visuals.artworkPreview)],
+            #keyPath(Track.rCreationDate): [#keyPath(Track.creationDate)],
             ][key] ?? super.keyPathsForValuesAffectingValue(forKey: key)
     }
 }

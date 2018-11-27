@@ -122,10 +122,10 @@ class ViewController: NSViewController {
         }
         
         _queueButton.wantsLayer = true
-        _queueButton.layer!.borderWidth = 1
-        _queueButton.layer!.borderColor = NSColor(white: 0.4, alpha: 0.2).cgColor
-        _queueButton.layer!.backgroundColor = NSColor(white: 0.0, alpha: 0.1).cgColor
-        _queueButton.layer!.cornerRadius = 4
+        _queueButton.layer!.borderWidth = 0.8
+        _queueButton.layer!.borderColor = NSColor(white: 0.8, alpha: 0.1).cgColor
+        _queueButton.layer!.backgroundColor = NSColor(white: 0.08, alpha: 0.2).cgColor
+        _queueButton.layer!.cornerRadius = 6
 
         queuePopover = NSPopover()
         queuePopover.delegate = self

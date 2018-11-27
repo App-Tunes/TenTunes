@@ -41,6 +41,12 @@
                         <action selector="menuPlayNext:" target="-2" id="H7R-ad-VKr"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Show Info" id="uuL-gX-RmY">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="menuShowInfo:" target="-2" id="BpT-Re-ECY"/>
+                    </connections>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="526-ei-Uns"/>
                 <menuItem title="Show in Finder" id="Kft-bu-qTl">
                     <modifierMask key="keyEquivalentModifierMask"/>

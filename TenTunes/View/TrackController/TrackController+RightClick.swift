@@ -91,6 +91,11 @@ extension TrackController: NSMenuDelegate {
         }
     }
     
+    @IBAction func menuShowInfo(_ sender: Any) {
+        trackEditorGuard.show(elements: menuTracks)
+        trackEditorGuard.isHidden = false
+    }
+    
     @IBAction func menuShowInPlaylist(_ sender: Any) {
         guard let item = sender as? NSMenuItem, let playlist = item.representedObject as? Playlist else {
             return

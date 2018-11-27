@@ -54,7 +54,14 @@ protocol PlaylistControllerDelegate {
     @IBAction func didDoubleClick(_ sender: Any) {
         let clicked = _outlineView.clickedRow
         if clicked >= 0 {
-            delegate?.playlistController(self, play: _outlineView.item(atRow: clicked) as! Playlist)
+            let playlist = _outlineView.item(atRow: clicked) as! Playlist
+            
+            if outlineView(_outlineView, isItemExpandable: playlist) {
+                _outlineView.toggleItemExpanded(playlist)
+            }
+            else {
+                delegate?.playlistController(self, play: playlist)
+            }
         }
     }
     

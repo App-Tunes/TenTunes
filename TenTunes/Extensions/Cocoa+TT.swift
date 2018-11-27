@@ -294,6 +294,17 @@ extension NSOutlineView {
         let itemRow = row(forItem: item)
         return itemRow >= 0 ? view(atColumn: column, row: itemRow, makeIfNecessary: makeIfNecessary) : nil
     }
+    
+    @discardableResult
+    func toggleItemExpanded(_ item: Any?) -> Bool {
+        guard isItemExpanded(item) else {
+            expandItem(item)
+            return true
+        }
+
+        collapseItem(item)
+        return false
+    }
 }
 
 extension FileManager {

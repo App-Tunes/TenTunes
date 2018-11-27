@@ -298,11 +298,11 @@ extension NSOutlineView {
     @discardableResult
     func toggleItemExpanded(_ item: Any?) -> Bool {
         guard isItemExpanded(item) else {
-            expandItem(item)
+            (animator() as NSOutlineView).expandItem(item)
             return true
         }
 
-        collapseItem(item)
+        (animator() as NSOutlineView).collapseItem(item)
         return false
     }
 }

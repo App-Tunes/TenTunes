@@ -136,9 +136,10 @@
                                                                 <constraint firstAttribute="width" secondItem="a35-bI-I59" secondAttribute="height" multiplier="1:1" id="XNQ-y3-hdG"/>
                                                             </constraints>
                                                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="search" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="4vX-d1-0Qz">
-                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
+                                                            <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                             <connections>
                                                                 <action selector="performFindEverywherePanelAction:" target="XfG-lQ-9wD" id="rD3-fT-HKa"/>
                                                             </connections>
@@ -360,6 +361,7 @@ IA
                     </view>
                     <connections>
                         <outlet property="_coverImage" destination="w8H-st-uUl" id="e7N-Kw-sIr"/>
+                        <outlet property="_find" destination="a35-bI-I59" id="U9h-oe-g7v"/>
                         <outlet property="_next" destination="Ws9-gx-fi8" id="l56-Fl-VBO"/>
                         <outlet property="_play" destination="4Fc-0r-wVE" id="DPb-N7-0hb"/>
                         <outlet property="_playLeftConstraint" destination="slS-7r-cFJ" id="1Up-R5-mBv"/>

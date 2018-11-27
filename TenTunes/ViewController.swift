@@ -34,6 +34,7 @@ class ViewController: NSViewController {
     
     @IBOutlet var _shuffle: NSButton!
     @IBOutlet var _repeat: SpinningButton!
+    @IBOutlet var _find: NSButton!
     @IBOutlet var _taskRightConstraint: NSLayoutConstraint!
     
     @IBOutlet var _timePlayed: NSTextField!
@@ -277,6 +278,11 @@ extension ViewController: NSUserInterfaceValidations {
     }
     
     @IBAction func performFindEverywherePanelAction(_ sender: AnyObject) {
+        guard playlistController.history.current != .library || !trackController.filterBar.isOpen else {
+            trackController.filterBar.close()
+            return
+        }
+        
         playlistController.selectLibrary(self)
         trackController.performFindPanelAction(self)
     }

@@ -505,12 +505,10 @@ extension TrackController : HideableBarDelegate {
             _ruleButton.state = state ? .on : .off
         }
         else if bar == filterBar {
-            if state == false {
-                desired.filter = nil
-            }
-            else {
-                desired.filter = filterController.rules.filter(in: Library.shared.viewContext)
-            }
+            desired.filter = state ? filterController.rules.filter(in: Library.shared.viewContext) : nil
+            
+            // TODO Too omniscient, let ViewController observe it itself
+            ViewController.shared._find.state = state ? .on : .off
         }
         
         view.window?.makeFirstResponder(_tableView)

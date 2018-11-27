@@ -23,6 +23,11 @@ extension ViewController {
                 
                 self._taskButton.spinning = !(self.runningTasks.isEmpty && self.tasker.queue.isEmpty)
                 self._taskButton.isEnabled = self._taskButton.spinning
+                NSAnimationContext.runAnimationGroup {_ in
+                    NSAnimationContext.current.duration = 0.25
+                    NSAnimationContext.current.timingFunction = .init(name: kCAMediaTimingFunctionEaseInEaseOut)
+                    self._taskRightConstraint.animator().constant = self._taskButton.spinning ? 20 : -15
+                }
                 
                 if !self._timePlayed.isHidden, !self._timeLeft.isHidden {
                     self._timePlayed.stringValue = Int(self.player.player.currentTime).timeString

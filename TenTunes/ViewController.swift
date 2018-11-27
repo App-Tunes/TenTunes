@@ -33,6 +33,7 @@ class ViewController: NSViewController {
     
     @IBOutlet var _shuffle: NSButton!
     @IBOutlet var _repeat: SpinningButton!
+    @IBOutlet var _taskRightConstraint: NSLayoutConstraint!
     
     @IBOutlet var _timePlayed: NSTextField!
     @IBOutlet var _timeLeft: NSTextField!

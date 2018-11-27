@@ -370,6 +370,7 @@ IA
                         <outlet property="_shuffle" destination="7Y2-7h-2Y4" id="znx-qG-XRl"/>
                         <outlet property="_splitView" destination="A22-NE-xw5" id="0eO-Fs-b7A"/>
                         <outlet property="_taskButton" destination="ETj-HU-NV5" id="FXd-mp-8jl"/>
+                        <outlet property="_taskRightConstraint" destination="PnR-Zt-5BC" id="iuQ-hK-5sG"/>
                         <outlet property="_timeLeft" destination="9Bx-lC-97p" id="NbD-28-VlR"/>
                         <outlet property="_timePlayed" destination="1Xa-l4-VRg" id="RJx-GO-IGU"/>
                         <outlet property="_trackGuardView" destination="wx1-Jg-18R" id="HRP-am-Qv3"/>

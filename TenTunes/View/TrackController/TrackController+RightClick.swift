@@ -109,7 +109,7 @@ extension TrackController: NSMenuDelegate {
         ViewController.shared.playlistController.selectLibrary(self)
         let track = menuTracks.first!
 
-        ViewController.shared.trackController.openFindPanel()
+        ViewController.shared.trackController.filterBar.open()
         ViewController.shared.trackController.filterController.rules = SmartPlaylistRules(tokens: track.authors.map(SmartPlaylistRules.Token.Author.init))
     }
 
@@ -118,7 +118,7 @@ extension TrackController: NSMenuDelegate {
         let track = menuTracks.first!
         
         let trackController = ViewController.shared.trackController!
-        trackController.openFindPanel()
+        trackController.filterBar.open()
         trackController.filterController.rules = SmartPlaylistRules(tokens: [.InAlbum(album: track.rAlbum!)])
     }
 

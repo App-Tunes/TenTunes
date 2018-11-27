@@ -26,12 +26,8 @@ extension TrackController: NSUserInterfaceValidations {
     }
     
     @IBAction func performFindPanelAction(_ sender: AnyObject) {
-        openFindPanel()
-        view.window?.makeFirstResponder(filterController._tokenField)
-    }
-    
-    func openFindPanel() {
         filterBar.open()
+        view.window?.makeFirstResponder(filterController._tokenField)
     }
     
     @IBAction func delete(_ sender: AnyObject) {

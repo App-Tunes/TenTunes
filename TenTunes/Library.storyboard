@@ -130,7 +130,7 @@
                                                                 <action selector="toggleShuffle:" target="XfG-lQ-9wD" id="PPw-wd-bDy"/>
                                                             </connections>
                                                         </button>
-                                                        <button toolTip="Shuffle" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YPk-ZN-PTb">
+                                                        <button toolTip="Repeat (Play Forever)" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YPk-ZN-PTb">
                                                             <rect key="frame" x="143" y="14" width="19" height="19"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="YPk-ZN-PTb" secondAttribute="height" multiplier="1:1" id="GZA-kk-d2R"/>
@@ -393,7 +393,7 @@ IA
         <image name="play" width="178" height="200"/>
         <image name="play-next" width="129" height="178"/>
         <image name="play-previous" width="130" height="179"/>
-        <image name="repeat" width="201" height="200"/>
+        <image name="repeat" width="243" height="200"/>
         <image name="shuffle" width="205" height="180"/>
         <image name="tasks" width="199" height="197"/>
     </resources>

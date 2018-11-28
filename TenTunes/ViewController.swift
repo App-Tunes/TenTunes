@@ -69,7 +69,7 @@ class ViewController: NSViewController {
     
     var taskViewController: TaskViewController!
     
-    override func awakeFromNib() {        
+    override func viewDidLoad() {        
         trackController = TrackController(nibName: .init(rawValue: "TrackController"), bundle: nil)
         trackController.view.frame = _trackView.frame
         

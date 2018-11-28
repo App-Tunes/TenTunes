@@ -12,9 +12,11 @@ class CurrentPlaylistUpdater: Tasker {
     override var promise: Float? { return 0 }
     
     override func spawn(running: [Task]) -> Task? {
-        guard let trackController = ViewController.shared.trackController, let desired = trackController.desired, desired._changed else {
+        guard let trackController = ViewController.shared.trackController, trackController.desired._changed else {
             return nil
         }
+        
+        let desired = trackController.desired
         
         let others = running.of(type: UpdateCurrentPlaylist.self).filter({ $0.trackController == trackController })
         guard others.isEmpty else {

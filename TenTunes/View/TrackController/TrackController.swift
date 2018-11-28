@@ -11,10 +11,7 @@ import Cocoa
 import AVFoundation
 
 @objc class PlayHistorySetup : NSObject {
-    var completion: (PlayHistory) -> Swift.Void
-    
-    init(completion: @escaping (PlayHistory) -> Swift.Void) {
-        self.completion = completion
+    override init() {
     }
     
     var _changed = false {
@@ -100,7 +97,7 @@ class TrackController: NSViewController {
             }
         }
     }
-    @objc dynamic var desired: PlayHistorySetup!
+    @objc dynamic var desired: PlayHistorySetup = PlayHistorySetup()
     @IBOutlet var _loadingIndicator: NSProgressIndicator!
 
     var mode: Mode = .tracksList
@@ -122,8 +119,6 @@ class TrackController: NSViewController {
     }
 
     override func awakeFromNib() {
-        desired = PlayHistorySetup { self.history = $0 }
-        
         observeHiddenToken = desired.observe(\.isDone, options: [.new, .initial]) { [unowned self] object, change in
             guard self.mode != .title else {
                 return
@@ -210,6 +205,9 @@ class TrackController: NSViewController {
         _tableView.enclosingScrollView?.backgroundColor = NSColor.clear
         _tableView.usesAlternatingRowBackgroundColors = false  // TODO In NSPanels, this is solid while everything else isn't
         trackEditorGuard.removeFromSuperview()
+        
+        self._loadingIndicator.isHidden = true
+        observeHiddenToken = nil // We don't want loading animations round here
         
         playTrackNext = { [unowned self] in
             let tracksBefore = self.history.tracks

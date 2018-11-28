@@ -22,7 +22,7 @@ class VisualizerView: SyphonableOpenGLView {
     static let resonanceSteepness = 15.0
     
     @objc @IBOutlet
-    var delegate: VisualizerViewDelegate?
+    weak var delegate: VisualizerViewDelegate?
     
     var resonance: [Number] = []
     var numbness: [Number] = []

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol MultiplicityGuardDelegate {
+protocol MultiplicityGuardDelegate : class {
     func multiplicityGuard(_ view: MultiplicityGuardView, show elements: [Any]) -> MultiplicityGuardView.ShowAction
 }
 
@@ -23,7 +23,7 @@ class MultiplicityGuardView: NSView {
     var dragHighlightView: DragHighlightView!
 
     var contentView: NSView?
-    var delegate: MultiplicityGuardDelegate?
+    weak var delegate: MultiplicityGuardDelegate?
     
     var deferredElements: [Element]? = nil
     

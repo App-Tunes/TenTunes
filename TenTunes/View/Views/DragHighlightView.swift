@@ -13,7 +13,7 @@ class DragHighlightView: NSView {
         didSet { needsDisplay = true }
     }
     
-    var delegate: NSDraggingDestination?
+    weak var delegate: NSDraggingDestination?
     
     static func add(to view: NSView) -> DragHighlightView {
         let highlight = DragHighlightView()

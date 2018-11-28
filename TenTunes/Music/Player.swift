@@ -26,7 +26,7 @@ extension AVPlayer {
     }
 }
 
-protocol PlayerDelegate {
+protocol PlayerDelegate : class {
     func playerChangedState(_ player: Player)
     func playerTriggeredRepeat(_ player: Player)
 
@@ -39,7 +39,7 @@ protocol PlayerDelegate {
     var backingPlayer: AKPlayer
     var playing: Track?
     
-    var delegate: PlayerDelegate?
+    weak var delegate: PlayerDelegate?
     
     var mixer: AKMixer
     @objc var outputNode: AKBooster

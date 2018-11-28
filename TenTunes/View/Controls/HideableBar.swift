@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol HideableBarDelegate {
+protocol HideableBarDelegate : class {
     func hideableBar(_ bar: HideableBar, didChangeState state: Bool)
 }
 
@@ -27,7 +27,7 @@ class HideableBar: NSViewController {
         }
     }
     
-    var delegate: HideableBarDelegate?
+    weak var delegate: HideableBarDelegate?
     
     override func awakeFromNib() {
         _heightConstraint.constant = 0

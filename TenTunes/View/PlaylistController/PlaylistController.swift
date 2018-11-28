@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol PlaylistControllerDelegate {
+protocol PlaylistControllerDelegate : class {
     func playlistController(_ controller: PlaylistController, selectionDidChange playlists: [PlaylistProtocol])
     func playlistController(_ controller: PlaylistController, play playlist: PlaylistProtocol)
 }
@@ -35,7 +35,7 @@ protocol PlaylistControllerDelegate {
     
     var history: History<SelectionMoment> = History(default: .library)
     
-    var delegate: PlaylistControllerDelegate?
+    weak var delegate: PlaylistControllerDelegate?
     
     @IBOutlet var _outlineView: NSOutlineView!
     

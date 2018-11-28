@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol TagEditorDelegate {
+protocol TagEditorDelegate : class {
     var tagEditorTracks: [Track] { get }
     var tagEditorOutline: NSOutlineView { get }
     var tagEditorMasterItem: AnyObject { get }
@@ -16,7 +16,7 @@ protocol TagEditorDelegate {
 }
 
 class TagEditor: NSObject {
-    var delegate: TagEditorDelegate
+    weak var delegate: TagEditorDelegate?
     
     init(delegate: TagEditorDelegate) {
         self.delegate = delegate
@@ -25,10 +25,10 @@ class TagEditor: NSObject {
     var tagTokens : [ViewableTag] = []
     var outlineTokens : [ViewableTag] { return tagTokens + [.new] }
     
-    var tracks: [Track] { return delegate.tagEditorTracks }
-    var outlineView: NSOutlineView { return delegate.tagEditorOutline }
-    var masterItem: AnyObject { return delegate.tagEditorMasterItem }
-    var context: NSManagedObjectContext { return delegate.tagEditorContext }
+    var tracks: [Track] { return delegate!.tagEditorTracks }
+    var outlineView: NSOutlineView { return delegate!.tagEditorOutline }
+    var masterItem: AnyObject { return delegate!.tagEditorMasterItem }
+    var context: NSManagedObjectContext { return delegate!.tagEditorContext }
 
     func viewDidLoad() {
         NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: .NSManagedObjectContextObjectsDidChange, object: Library.shared.viewContext)

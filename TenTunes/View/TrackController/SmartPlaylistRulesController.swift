@@ -93,9 +93,7 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
                 ]))
         }
         
-        let dateFormatter = DateFormatter() // TODO Parse better
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        if let date = dateFormatter.date(from: substring) {
+        if let date = HumanDates.date(from: substring) {
             groups.append(.init(title: "Add Date", contents: [
                 SmartPlaylistRules.Token.AddedAfter(date: date, after: true),
                 SmartPlaylistRules.Token.AddedAfter(date: date, after: false)

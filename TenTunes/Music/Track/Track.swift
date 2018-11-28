@@ -17,8 +17,6 @@ public class Track: NSManagedObject {
     
     static let unknownTitle = "Unknown Title"
     
-    static let dateFormatter = DateFormatter(format: "yyyy-MM-dd")
-
     var analysis: Analysis?
     
     var library : Library {
@@ -116,7 +114,7 @@ public class Track: NSManagedObject {
     }
     
     @objc var rCreationDate: String {
-        return Track.dateFormatter.string(from: creationDate as Date)
+        return HumanDates.string(from: creationDate as Date)
     }
     
     var searchable: [String] {

@@ -302,7 +302,7 @@ extension SmartPlaylistRules.Token {
         }
         
         override func representation(in context: NSManagedObjectContext?) -> String {
-            return (not ? "Before " : "After ") + "\(self.date.description)"
+            return (not ? "Before " : "After ") + "\(HumanDates.string(from: date))"
         }
     }
 }

@@ -62,6 +62,7 @@
 		807092EC20C69D8F00DFED53 /* ExportPlaylistsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 807092EA20C69D8F00DFED53 /* ExportPlaylistsController.xib */; };
 		8071F63221AC250A0005685B /* TrackController+Updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8071F63121AC250A0005685B /* TrackController+Updates.swift */; };
 		8071F63521AC299D0005685B /* PlaylistController+Updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8071F63421AC299D0005685B /* PlaylistController+Updates.swift */; };
+		8071F63721AEBA700005685B /* HumanDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8071F63621AEBA700005685B /* HumanDates.swift */; };
 		8074044921367A1F007E0B4C /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8074044821367A1F007E0B4C /* Artist.swift */; };
 		8074044C2136CE68007E0B4C /* Interpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8074044B2136CE68007E0B4C /* Interpolation.swift */; };
 		8079F6D32106551100B7A278 /* SmartPlaylistRulesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8079F6D12106551100B7A278 /* SmartPlaylistRulesController.swift */; };
@@ -144,7 +145,6 @@
 		80CC986A21A880D20030F04B /* NSTableView+Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC986921A880D20030F04B /* NSTableView+Header.swift */; };
 		80CC986E21A887AB0030F04B /* DJPreferences.plist in Resources */ = {isa = PBXBuildFile; fileRef = 80CC986D21A887AB0030F04B /* DJPreferences.plist */; };
 		80CED03C20C88055001E710F /* AVFoundation+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CED03B20C88055001E710F /* AVFoundation+TT.swift */; };
-		80CFDA0A203C4E2300C7A506 /* LazyVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CFDA09203C4E2300C7A506 /* LazyVar.swift */; };
 		80D9448C21662E0100C135CA /* ResonanceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D9448B21662E0100C135CA /* ResonanceProvider.swift */; };
 		80E02C63217FB8B000251D24 /* Document-TTL.icns in Resources */ = {isa = PBXBuildFile; fileRef = 80E02C62217FB8AF00251D24 /* Document-TTL.icns */; };
 		80E02C65217FC4F200251D24 /* PlaylistPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E02C64217FC4F200251D24 /* PlaylistPromise.swift */; };
@@ -297,6 +297,7 @@
 		807092EA20C69D8F00DFED53 /* ExportPlaylistsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExportPlaylistsController.xib; sourceTree = "<group>"; };
 		8071F63121AC250A0005685B /* TrackController+Updates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackController+Updates.swift"; sourceTree = "<group>"; };
 		8071F63421AC299D0005685B /* PlaylistController+Updates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistController+Updates.swift"; sourceTree = "<group>"; };
+		8071F63621AEBA700005685B /* HumanDates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanDates.swift; sourceTree = "<group>"; };
 		8074044821367A1F007E0B4C /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		8074044B2136CE68007E0B4C /* Interpolation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interpolation.swift; sourceTree = "<group>"; };
 		8079F6D12106551100B7A278 /* SmartPlaylistRulesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartPlaylistRulesController.swift; sourceTree = "<group>"; };
@@ -381,7 +382,6 @@
 		80CC986921A880D20030F04B /* NSTableView+Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTableView+Header.swift"; sourceTree = "<group>"; };
 		80CC986D21A887AB0030F04B /* DJPreferences.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DJPreferences.plist; sourceTree = "<group>"; };
 		80CED03B20C88055001E710F /* AVFoundation+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVFoundation+TT.swift"; sourceTree = "<group>"; };
-		80CFDA09203C4E2300C7A506 /* LazyVar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyVar.swift; sourceTree = "<group>"; };
 		80D8A0FC212460BE003E1F11 /* Library.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Library.storyboard; path = "/Users/lukas/XCode Projects/TenTunes/TenTunes/Library.storyboard"; sourceTree = "<absolute>"; };
 		80D9448B21662E0100C135CA /* ResonanceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResonanceProvider.swift; sourceTree = "<group>"; };
 		80DCA9B0203F636900B1E9B1 /* TenTunes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TenTunes-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -716,6 +716,7 @@
 				80B15823215D657D0015294B /* Cocoa+IBInspectable.swift */,
 				80CB65342052C9CC0031A6D7 /* CoreData+TT.swift */,
 				80CED03B20C88055001E710F /* AVFoundation+TT.swift */,
+				8071F63621AEBA700005685B /* HumanDates.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -751,7 +752,6 @@
 		80CB65392052CB910031A6D7 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				80CFDA09203C4E2300C7A506 /* LazyVar.swift */,
 				803E972E20C7EF2C00D46565 /* LazyMap.swift */,
 				80E6811A20573DC800DA5702 /* SimpleTransformer.swift */,
 				80E6811C2057479B00DA5702 /* ValueTransformers.swift */,
@@ -1096,7 +1096,6 @@
 				80E6811D2057479B00DA5702 /* ValueTransformers.swift in Sources */,
 				8079F6EA211B822900B7A278 /* UnscalingMenu.swift in Sources */,
 				80E939F1215AFAA4005112EF /* MultiplicityGuardView.swift in Sources */,
-				80CFDA0A203C4E2300C7A506 /* LazyVar.swift in Sources */,
 				80F855042069187D009A8FBE /* PlaylistController+Menu.swift in Sources */,
 				804DCC74215D01D30021A753 /* GraySliderCell.swift in Sources */,
 				8030E01920FE33D2006B4AE8 /* ExportPlaylists.swift in Sources */,
@@ -1137,6 +1136,7 @@
 				80C1F16D2142AA010032E554 /* RFOpenGLView.m in Sources */,
 				80C1F143213B1DE80032E554 /* Foundation+Collections.swift in Sources */,
 				80F97030209625E800A989D8 /* PreferencesWindowController.swift in Sources */,
+				8071F63721AEBA700005685B /* HumanDates.swift in Sources */,
 				80CC986A21A880D20030F04B /* NSTableView+Header.swift in Sources */,
 				8093467120A62319001D15CD /* TrackController+Pasteboard.swift in Sources */,
 				807A82E02179D76F00236A13 /* SyphonableOpenGLView.swift in Sources */,

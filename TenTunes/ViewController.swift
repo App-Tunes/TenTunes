@@ -69,13 +69,7 @@ class ViewController: NSViewController {
     
     var taskViewController: TaskViewController!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        #if !DEBUG
-        SuperpoweredSplash.show(in: _trackGuardView.superview!.superview!)
-        #endif
-
+    override func awakeFromNib() {        
         trackController = TrackController(nibName: .init(rawValue: "TrackController"), bundle: nil)
         trackController.view.frame = _trackView.frame
         
@@ -84,22 +78,22 @@ class ViewController: NSViewController {
         _trackGuardView.warnSelectionBig = "Many Playlists Selected"
         _trackGuardView.confirmShowView = "Show them all"
         _trackGuardView.delegate = self
-
+        
         playingTrackController = TrackController(nibName: .init(rawValue: "TrackController"), bundle: nil)
         playingTrackController.view.frame = _playingTrackView.frame
         _playingTrackView.setFullSizeContent(playingTrackController.view)
         playingTrackController.titleify()
-
+        
         playlistController = PlaylistController(nibName: .init(rawValue: "PlaylistController"), bundle: nil)
         playlistController.view.frame = _playlistView.frame
         _splitView.replaceSubview(_playlistView, with: playlistController.view)
-
+        
         queueController = TrackController(nibName: .init(rawValue: "TrackController"), bundle: nil)
-
+        
         taskViewController = TaskViewController(nibName: .init(rawValue: "TaskViewController"), bundle: nil)
-
+        
         ViewController.shared = self
-
+        
         player.delegate = self
         player.start()
         player.history = queueController.history // Empty but != nil
@@ -107,7 +101,7 @@ class ViewController: NSViewController {
         playlistController.delegate = self
         playlistController.masterPlaylist = Library.shared.masterPlaylist
         playlistController.library = Library.shared.allTracks
-
+        
         trackController.playTrack = { [unowned self] in
             self.player.play(at: $0, in: self.trackController.history) // TODO Support for multiple
             if let position = $1 {
@@ -126,7 +120,7 @@ class ViewController: NSViewController {
         _queueButton.layer!.borderColor = NSColor(white: 0.8, alpha: 0.1).cgColor
         _queueButton.layer!.backgroundColor = NSColor(white: 0.08, alpha: 0.2).cgColor
         _queueButton.layer!.cornerRadius = 6
-
+        
         queuePopover = NSPopover()
         queuePopover.delegate = self
         queuePopover.contentViewController = queueController
@@ -140,17 +134,17 @@ class ViewController: NSViewController {
                 }
             }
         }
-
+        
         taskPopover = NSPopover()
         taskPopover.contentViewController = taskViewController
         taskPopover.animates = true
         taskPopover.behavior = .transient
-
+        
         playerChangedState(player)
         
         _waveformView.postsFrameChangedNotifications = true
         NotificationCenter.default.addObserver(self, selector: #selector(updateTimesHidden), name: NSView.frameDidChangeNotification, object: _waveformView)
-                
+        
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             return self.keyDown(with: $0)
         }
@@ -161,7 +155,7 @@ class ViewController: NSViewController {
         
         mediaKeyTap = MediaKeyTap(delegate: self, for: [.playPause, .previous, .rewind, .next, .fastForward])
         mediaKeyTap?.start()
-
+        
         taskers.append(AnalyzeCurrentTrack())
         taskers.append(CurrentPlaylistUpdater())
         startBackgroundTasks()

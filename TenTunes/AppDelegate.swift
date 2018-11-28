@@ -105,6 +105,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func commenceAfterWelcome() {
+        #if !DEBUG
+        SuperpoweredSplash.show(in: (libraryWindowController.contentViewController as! ViewController)._trackGuardView.superview!.superview!)
+        #endif
+
         libraryWindowController.window!.makeKeyAndOrderFront(self)
     }
     

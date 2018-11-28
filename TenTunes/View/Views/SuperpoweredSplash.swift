@@ -23,6 +23,7 @@ class SuperpoweredSplash: NSView {
 </body>
 """, baseURL: splashURL.deletingLastPathComponent())
 
+        webView.frame = view.bounds
         view.addSubview(webView)
         view.addConstraints(NSLayoutConstraint.copyLayout(from: view, for: webView))
         

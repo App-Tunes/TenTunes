@@ -269,8 +269,8 @@ extension SmartPlaylistRules.Token {
         }
     }
     
-    @objc(TenTunes_SmartPlaylistRules_Token_AddedAfter)
-    class AddedAfter : SmartPlaylistRules.Token {
+    @objc(TenTunes_SmartPlaylistRules_Token_WithDate)
+    class WithDate : SmartPlaylistRules.Token {
         var date: Date
         
         init(date: Date, after: Bool) {
@@ -290,19 +290,33 @@ extension SmartPlaylistRules.Token {
             aCoder.encode(date, forKey: "date")
             super.encode(with: aCoder)
         }
-        
+    }
+    
+    @objc(TenTunes_SmartPlaylistRules_Token_AddedAfter)
+    class AddedAfter : WithDate {
         override func filter(in context: NSManagedObjectContext, rguard: RecursionGuard<Playlist>) -> (Track) -> Bool {
             return {
-//                guard let url = $0.url, let attributes = try? FileManager.default.attributesOfItem(atPath: url.path), let date = attributes[.creationDate] as? NSDate else {
-//                    return false
-//                }
                 let date = $0.creationDate
-                return (date.timeIntervalSinceReferenceDate > self.date.timeIntervalSinceReferenceDate) != self.not
+                return (date.timeIntervalSinceReferenceDate >= self.date.timeIntervalSinceReferenceDate) != self.not
             }
         }
         
         override func representation(in context: NSManagedObjectContext?) -> String {
-            return (not ? "Before " : "After ") + "\(HumanDates.string(from: date))"
+            return (not ? "Added Before " : "Added After ") + "\(HumanDates.string(from: date))"
+        }
+    }
+    
+    @objc(TenTunes_SmartPlaylistRules_Token_ReleasedAfter)
+    class ReleasedAfter : WithDate {
+        override func filter(in context: NSManagedObjectContext, rguard: RecursionGuard<Playlist>) -> (Track) -> Bool {
+            return {
+                let date = Calendar.current.date(from: DateComponents(year: Int($0.year)))! // TODO Real date with month and day?
+                return (date.timeIntervalSinceReferenceDate >= self.date.timeIntervalSinceReferenceDate) != self.not
+            }
+        }
+        
+        override func representation(in context: NSManagedObjectContext?) -> String {
+            return (not ? "Released Before " : "Released After ") + "\(HumanDates.string(from: date))"
         }
     }
 }

@@ -94,6 +94,11 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
         }
         
         if let date = HumanDates.date(from: substring) {
+            groups.append(.init(title: "Release Date", contents: [
+                SmartPlaylistRules.Token.ReleasedAfter(date: date, after: true),
+                SmartPlaylistRules.Token.ReleasedAfter(date: date, after: false)
+                ]))
+
             groups.append(.init(title: "Add Date", contents: [
                 SmartPlaylistRules.Token.AddedAfter(date: date, after: true),
                 SmartPlaylistRules.Token.AddedAfter(date: date, after: false)

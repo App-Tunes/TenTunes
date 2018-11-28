@@ -330,6 +330,8 @@ extension TrackController: NSTableViewDelegate {
         static let bpm = NSUserInterfaceItemIdentifier(rawValue: "bpmCell")
         static let key = NSUserInterfaceItemIdentifier(rawValue: "keyCell")
         static let duration = NSUserInterfaceItemIdentifier(rawValue: "durationCell")
+        static let dateAdded = NSUserInterfaceItemIdentifier(rawValue: "dateAddedCell")
+        static let year = NSUserInterfaceItemIdentifier(rawValue: "yearCell")
     }
     
     fileprivate enum ColumnIdentifiers {
@@ -341,6 +343,7 @@ extension TrackController: NSTableViewDelegate {
         static let key = NSUserInterfaceItemIdentifier(rawValue: "keyColumn")
         static let duration = NSUserInterfaceItemIdentifier(rawValue: "durationColumn")
         static let dateAdded = NSUserInterfaceItemIdentifier(rawValue: "dateAddedColumn")
+        static let year = NSUserInterfaceItemIdentifier(rawValue: "yearColumn")
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
@@ -402,8 +405,14 @@ extension TrackController: NSTableViewDelegate {
             view.textField?.bind(.value, to: track, withKeyPath: \.rDuration)
             return view
         }
-        else if tableColumn?.identifier == ColumnIdentifiers.dateAdded, let view = tableView.makeView(withIdentifier: CellIdentifiers.duration, owner: nil) as? NSTableCellView {
+        else if tableColumn?.identifier == ColumnIdentifiers.dateAdded, let view = tableView.makeView(withIdentifier: CellIdentifiers.dateAdded, owner: nil) as? NSTableCellView {
             view.textField?.bind(.value, to: track, withKeyPath: \.rCreationDate)
+            return view
+        }
+        else if tableColumn?.identifier == ColumnIdentifiers.year, let view = tableView.makeView(withIdentifier: CellIdentifiers.year, owner: nil) as? NSTableCellView {
+            view.textField?.bind(.value, to: track, withKeyPath: \.year) {
+                ($0 == 0 ? nil : String($0)) as NSString?
+            }
             return view
         }
 
@@ -454,6 +463,8 @@ extension TrackController: NSTableViewDelegate {
                 desired.sort = { ($0.duration ?? kCMTimeZero) < ($1.duration ?? kCMTimeZero)  }
             case "dateAdded":
                 desired.sort = { $0.creationDate.timeIntervalSinceReferenceDate < $1.creationDate.timeIntervalSinceReferenceDate }
+            case "year":
+                desired.sort = { $0.year < $1.year }
             default:
                 fatalError("Unknown Sort Descriptor Key")
             }

@@ -272,13 +272,17 @@ extension ViewController: NSUserInterfaceValidations {
     }
     
     @IBAction func performFindEverywherePanelAction(_ sender: AnyObject) {
+        playlistController.selectLibrary(self)
+        trackController.performFindPanelAction(self)
+    }
+    
+    @IBAction func findButtonClicked(_ sender: AnyObject) {
         guard playlistController.history.current != .library || !trackController.filterBar.isOpen else {
             trackController.filterBar.close()
             return
         }
         
-        playlistController.selectLibrary(self)
-        trackController.performFindPanelAction(self)
+        performFindEverywherePanelAction(sender)
     }
     
     @IBAction func updateTimesHidden(_ sender: AnyObject) {

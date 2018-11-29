@@ -141,7 +141,7 @@
                                                             </buttonCell>
                                                             <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                             <connections>
-                                                                <action selector="performFindEverywherePanelAction:" target="XfG-lQ-9wD" id="rD3-fT-HKa"/>
+                                                                <action selector="findButtonClicked:" target="XfG-lQ-9wD" id="HVc-Yd-mk9"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>

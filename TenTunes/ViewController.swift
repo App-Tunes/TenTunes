@@ -303,6 +303,10 @@ extension ViewController: PlaylistControllerDelegate {
             return
         }
         
+        if !UserDefaults.standard.keepFilterBetweenPlaylists, trackController.filterBar.isOpen {
+            trackController.filterBar.close()
+        }
+        
         _trackGuardView.present(elements: playlists)
     }
     

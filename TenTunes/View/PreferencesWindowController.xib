@@ -19,14 +19,14 @@
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="480" height="403"/>
+            <rect key="contentRect" x="196" y="240" width="480" height="452"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" wantsLayer="YES" id="se5-gp-TjO">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="403"/>
+                <rect key="frame" x="0.0" y="0.0" width="480" height="452"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N25-ue-Ra4">
-                        <rect key="frame" x="18" y="365" width="110" height="17"/>
+                        <rect key="frame" x="18" y="414" width="110" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Initial Key Display" id="ra8-ZU-q15">
                             <font key="font" metaFont="system"/>
@@ -35,7 +35,7 @@
                         </textFieldCell>
                     </textField>
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oQS-Mt-2Xw">
-                        <rect key="frame" x="266" y="359" width="197" height="26"/>
+                        <rect key="frame" x="266" y="408" width="197" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" title="German" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="rN0-sR-rSX" id="5co-ql-jS8">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -49,12 +49,40 @@
                         </popUpButtonCell>
                     </popUpButton>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cfB-Yn-Vho">
-                        <rect key="frame" x="18" y="328" width="122" height="17"/>
+                        <rect key="frame" x="18" y="377" width="122" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Title Bar Stylization" id="5XM-Hg-X23">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OhU-Hj-YaW">
+                        <rect key="frame" x="266" y="373" width="196" height="24"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.25" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="sdL-HN-lnT"/>
+                        <connections>
+                            <binding destination="JLH-og-fhR" name="value" keyPath="values.titleBarStylization" id="HZR-6O-rut"/>
+                        </connections>
+                    </slider>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MmB-FJ-Niy">
+                        <rect key="frame" x="32" y="324" width="245" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Keep the current filter" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ygB-Vt-ET8">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="JLH-og-fhR" name="value" keyPath="values.keepFilterBetweenPlaylists" id="cBU-EL-JDF"/>
+                        </connections>
+                    </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="puQ-Fs-h4Z">
+                        <rect key="frame" x="18" y="348" width="165" height="17"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="When switching playlists..." id="V51-eR-G1d">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sjg-fU-sbP">
@@ -189,14 +217,6 @@
                             <binding destination="JLH-og-fhR" name="value" keyPath="values.autoAnalyzeTracksOnAdd" id="cdI-VK-Ugd"/>
                         </connections>
                     </button>
-                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OhU-Hj-YaW">
-                        <rect key="frame" x="266" y="324" width="196" height="24"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.25" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="sdL-HN-lnT"/>
-                        <connections>
-                            <binding destination="JLH-og-fhR" name="value" keyPath="values.titleBarStylization" id="HZR-6O-rut"/>
-                        </connections>
-                    </slider>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RqY-9t-PtY">
                         <rect key="frame" x="18" y="42" width="155" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -233,7 +253,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
             </connections>
-            <point key="canvasLocation" x="139" y="228.5"/>
+            <point key="canvasLocation" x="124" y="261"/>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="JLH-og-fhR"/>
     </objects>

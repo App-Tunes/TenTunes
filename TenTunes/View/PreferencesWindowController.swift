@@ -129,6 +129,10 @@ extension UserDefaults {
     var quantizedJump: Bool {
         return bool(forKey: "quantizedJump")
     }
+    
+    var keepFilterBetweenPlaylists: Bool {
+        return bool(forKey: "keepFilterBetweenPlaylists")
+    }
 }
 
 class PreferencesWindowController: NSWindowController {

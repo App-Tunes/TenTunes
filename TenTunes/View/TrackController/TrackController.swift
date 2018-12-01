@@ -374,6 +374,7 @@ extension TrackController: NSTableViewDelegate {
             // For the small previews, less fps is enough (for performance)
             view.updateTime = 1 / 10
             view.completeTransitionSteps = 10
+            view.duration = track.duration?.seconds ?? 1
 
             view.setInstantly(analysis: track.analysis)
             return view

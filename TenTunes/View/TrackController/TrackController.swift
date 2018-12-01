@@ -216,17 +216,16 @@ class TrackController: NSViewController {
             self._tableView.animateDifference(from: tracksBefore, to: self.history.tracks)
         }
         
-         // Unintuitive to use in a queue
-        // TODO Make non-interactable?
-        _tableView.tableColumn(withIdentifier: ColumnIdentifiers.waveform)?.isHidden = true
-        tableViewHiddenManager.ignore.append(ColumnIdentifiers.waveform.rawValue)
-        
-        // We believe in tags, not genres
-        _tableView.tableColumn(withIdentifier: ColumnIdentifiers.genre)?.isHidden = true
-        tableViewHiddenManager.ignore.append(ColumnIdentifiers.genre.rawValue)
-        
-        _tableView.tableColumn(withIdentifier: ColumnIdentifiers.dateAdded)?.isHidden = true
-        tableViewHiddenManager.ignore.append(ColumnIdentifiers.dateAdded.rawValue)
+        for column in _tableView.tableColumns {
+            switch column.identifier {
+            case ColumnIdentifiers.artwork, ColumnIdentifiers.title, ColumnIdentifiers.key, ColumnIdentifiers.bpm, ColumnIdentifiers.duration, ColumnIdentifiers.author:
+                continue
+            default:
+                // Unintuitive to use in a queue
+                column.isHidden = true
+                tableViewHiddenManager.ignore.append(column.identifier.rawValue)
+            }
+        }
     }
     
     func titleify() {

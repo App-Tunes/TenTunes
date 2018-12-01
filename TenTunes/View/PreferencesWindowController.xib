@@ -19,14 +19,14 @@
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="480" height="452"/>
+            <rect key="contentRect" x="196" y="240" width="982" height="302"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" wantsLayer="YES" id="se5-gp-TjO">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="452"/>
+                <rect key="frame" x="0.0" y="0.0" width="982" height="302"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N25-ue-Ra4">
-                        <rect key="frame" x="18" y="414" width="110" height="17"/>
+                        <rect key="frame" x="18" y="264" width="110" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Initial Key Display" id="ra8-ZU-q15">
                             <font key="font" metaFont="system"/>
@@ -35,7 +35,7 @@
                         </textFieldCell>
                     </textField>
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oQS-Mt-2Xw">
-                        <rect key="frame" x="266" y="408" width="197" height="26"/>
+                        <rect key="frame" x="266" y="258" width="197" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" title="German" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="rN0-sR-rSX" id="5co-ql-jS8">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -49,7 +49,7 @@
                         </popUpButtonCell>
                     </popUpButton>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cfB-Yn-Vho">
-                        <rect key="frame" x="18" y="377" width="122" height="17"/>
+                        <rect key="frame" x="18" y="227" width="122" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Title Bar Stylization" id="5XM-Hg-X23">
                             <font key="font" metaFont="system"/>
@@ -57,16 +57,100 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wq1-eW-n9x">
+                        <rect key="frame" x="768" y="130" width="197" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <popUpButtonCell key="cell" type="push" title="Link File" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="nWm-Ue-MBV" id="fG1-Th-VkK">
+                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="menu"/>
+                            <menu key="menu" id="yS2-2h-PiF">
+                                <items>
+                                    <menuItem title="Link File" state="on" id="nWm-Ue-MBV"/>
+                                    <menuItem title="Progress Only" tag="1" id="sjX-xF-eb9"/>
+                                    <menuItem title="Indeterminate Only" tag="2" id="JSL-J5-hjl"/>
+                                    <menuItem title="None" tag="3" id="IYe-pb-NS4"/>
+                                </items>
+                            </menu>
+                        </popUpButtonCell>
+                    </popUpButton>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YPV-Np-tB2">
+                        <rect key="frame" x="520" y="210" width="136" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="When opening a file..." id="MrY-Q9-bvS">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MkG-bN-PzE">
+                        <rect key="frame" x="520" y="135" width="197" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="When adding a track to library..." id="9bs-iJ-9DM">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O4y-U5-wa6">
+                        <rect key="frame" x="536" y="186" width="104" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Add to library" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="szB-g8-qik">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K3r-vq-lKw">
+                        <rect key="frame" x="536" y="166" width="82" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Play track" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Kjw-qs-bU8">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="JLH-og-fhR" name="value" keyPath="values.autoPlayTracksOnOpen" id="bNq-sg-koZ"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oRB-Xv-pse">
+                        <rect key="frame" x="536" y="111" width="104" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Analyze track" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="1M9-gd-KSa">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="JLH-og-fhR" name="value" keyPath="values.autoAnalyzeTracksOnAdd" id="cdI-VK-Ugd"/>
+                        </connections>
+                    </button>
                     <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OhU-Hj-YaW">
-                        <rect key="frame" x="266" y="373" width="196" height="24"/>
+                        <rect key="frame" x="266" y="223" width="196" height="24"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.25" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="sdL-HN-lnT"/>
                         <connections>
                             <binding destination="JLH-og-fhR" name="value" keyPath="values.titleBarStylization" id="HZR-6O-rut"/>
                         </connections>
                     </slider>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RqY-9t-PtY">
+                        <rect key="frame" x="520" y="79" width="155" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="When editing an album..." id="QWS-kj-ucH">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ffc-uQ-aNq">
+                        <rect key="frame" x="536" y="55" width="169" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Updade all album tracks" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="dK7-d2-p3f">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="JLH-og-fhR" name="value" keyPath="values.updatingTrackUpdatesAlbum" id="R6Z-mA-esN"/>
+                        </connections>
+                    </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MmB-FJ-Niy">
-                        <rect key="frame" x="32" y="324" width="245" height="18"/>
+                        <rect key="frame" x="534" y="242" width="245" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Keep the current filter" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ygB-Vt-ET8">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -77,16 +161,56 @@
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="puQ-Fs-h4Z">
-                        <rect key="frame" x="18" y="348" width="165" height="17"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <rect key="frame" x="520" y="266" width="165" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="When switching playlists..." id="V51-eR-G1d">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K1c-zh-cW2">
+                        <rect key="frame" x="18" y="188" width="44" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Tracks" id="j4U-VA-MZD">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <box horizontalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="gYn-HN-KER">
+                        <rect key="frame" x="488" y="12" width="5" height="278"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                    </box>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rnt-7N-iqB">
+                        <rect key="frame" x="30" y="164" width="255" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Show Artist and Album in Title Column" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="s83-0C-0Fe">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="JLH-og-fhR" name="value" keyPath="values.trackCombinedTitleSource" id="4QU-9y-0mH"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hSi-wn-TVF">
+                        <rect key="frame" x="30" y="144" width="103" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Smaller Rows" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="5aE-S7-EOP">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="JLH-og-fhR" name="enabled" keyPath="values.trackCombinedTitleSource" id="QRU-FM-ijb">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                </dictionary>
+                            </binding>
+                            <binding destination="JLH-og-fhR" name="value" keyPath="values.trackSmallRows" id="MDg-Ci-bdc"/>
+                        </connections>
+                    </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sjg-fU-sbP">
-                        <rect key="frame" x="18" y="293" width="65" height="17"/>
+                        <rect key="frame" x="18" y="108" width="65" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Waveform" id="Vdh-P3-175">
                             <font key="font" metaFont="system"/>
@@ -95,7 +219,7 @@
                         </textFieldCell>
                     </textField>
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EnB-L7-CUp">
-                        <rect key="frame" x="266" y="287" width="197" height="26"/>
+                        <rect key="frame" x="266" y="102" width="197" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" title="Bars" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Bz0-WG-KIO" id="uZs-ee-YDG">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -111,7 +235,7 @@
                         </popUpButtonCell>
                     </popUpButton>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V4p-yK-HJJ">
-                        <rect key="frame" x="34" y="269" width="202" height="18"/>
+                        <rect key="frame" x="34" y="84" width="202" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Animate waveform transitions" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0oP-yE-0lf">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -122,7 +246,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cje-gw-Gqa">
-                        <rect key="frame" x="61" y="249" width="186" height="18"/>
+                        <rect key="frame" x="61" y="64" width="186" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Animate waveform analysis" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="1wA-hE-QAE">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -134,7 +258,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VkT-4s-95F">
-                        <rect key="frame" x="61" y="229" width="202" height="18"/>
+                        <rect key="frame" x="61" y="44" width="202" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Preview result during analysis" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="heM-Au-K1X">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -153,92 +277,8 @@
                             <binding destination="JLH-og-fhR" name="value" keyPath="values.previewWaveformAnalysis" id="kZL-c2-NBW"/>
                         </connections>
                     </button>
-                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wq1-eW-n9x">
-                        <rect key="frame" x="266" y="93" width="197" height="26"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="push" title="Link File" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="nWm-Ue-MBV" id="fG1-Th-VkK">
-                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
-                            <menu key="menu" id="yS2-2h-PiF">
-                                <items>
-                                    <menuItem title="Link File" state="on" id="nWm-Ue-MBV"/>
-                                    <menuItem title="Progress Only" tag="1" id="sjX-xF-eb9"/>
-                                    <menuItem title="Indeterminate Only" tag="2" id="JSL-J5-hjl"/>
-                                    <menuItem title="None" tag="3" id="IYe-pb-NS4"/>
-                                </items>
-                            </menu>
-                        </popUpButtonCell>
-                    </popUpButton>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YPV-Np-tB2">
-                        <rect key="frame" x="18" y="173" width="136" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="When opening a file..." id="MrY-Q9-bvS">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MkG-bN-PzE">
-                        <rect key="frame" x="18" y="98" width="197" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="When adding a track to library..." id="9bs-iJ-9DM">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O4y-U5-wa6">
-                        <rect key="frame" x="34" y="149" width="104" height="18"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Add to library" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="szB-g8-qik">
-                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                    </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K3r-vq-lKw">
-                        <rect key="frame" x="34" y="129" width="82" height="18"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Play track" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Kjw-qs-bU8">
-                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <binding destination="JLH-og-fhR" name="value" keyPath="values.autoPlayTracksOnOpen" id="bNq-sg-koZ"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oRB-Xv-pse">
-                        <rect key="frame" x="34" y="74" width="104" height="18"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Analyze track" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="1M9-gd-KSa">
-                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <binding destination="JLH-og-fhR" name="value" keyPath="values.autoAnalyzeTracksOnAdd" id="cdI-VK-Ugd"/>
-                        </connections>
-                    </button>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RqY-9t-PtY">
-                        <rect key="frame" x="18" y="42" width="155" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="When editing an album..." id="QWS-kj-ucH">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ffc-uQ-aNq">
-                        <rect key="frame" x="34" y="18" width="169" height="18"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Updade all album tracks" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="dK7-d2-p3f">
-                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <binding destination="JLH-og-fhR" name="value" keyPath="values.updatingTrackUpdatesAlbum" id="R6Z-mA-esN"/>
-                        </connections>
-                    </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Hm-TD-J6k">
-                        <rect key="frame" x="34" y="203" width="254" height="18"/>
+                        <rect key="frame" x="34" y="18" width="254" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Jump with the Beat (Hold ⌥ to toggle)" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ruh-or-hUx">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -253,7 +293,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
             </connections>
-            <point key="canvasLocation" x="124" y="261"/>
+            <point key="canvasLocation" x="375" y="183"/>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="JLH-og-fhR"/>
     </objects>

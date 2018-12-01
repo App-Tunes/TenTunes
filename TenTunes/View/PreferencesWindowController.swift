@@ -133,6 +133,14 @@ extension UserDefaults {
     var keepFilterBetweenPlaylists: Bool {
         return bool(forKey: "keepFilterBetweenPlaylists")
     }
+    
+    var trackCombinedTitleSource: Bool {
+        return bool(forKey: "trackCombinedTitleSource")
+    }
+
+    var trackSmallRows: Bool {
+        return bool(forKey: "trackSmallRows")
+    }
 }
 
 class PreferencesWindowController: NSWindowController {

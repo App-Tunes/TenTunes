@@ -222,7 +222,7 @@
                                                 <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="title"/>
                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 <prototypeCellViews>
-                                                    <tableCellView identifier="titleCell" id="MG7-FD-VAR" customClass="TitleSubtitleCellView" customModule="TenTunes" customModuleProvider="target">
+                                                    <tableCellView identifier="combinedTitleCell" id="MG7-FD-VAR" customClass="TitleSubtitleCellView" customModule="TenTunes" customModuleProvider="target">
                                                         <rect key="frame" x="137" y="1" width="203" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
@@ -254,6 +254,28 @@
                                                         <connections>
                                                             <outlet property="subtitleTextField" destination="pMV-Br-S7j" id="Q0P-L1-kmZ"/>
                                                             <outlet property="textField" destination="EPA-xW-B2p" id="u7g-mg-hBf"/>
+                                                        </connections>
+                                                    </tableCellView>
+                                                    <tableCellView identifier="titleCell" id="BGM-XR-tfY">
+                                                        <rect key="frame" x="137" y="33" width="203" height="30"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <subviews>
+                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="OZa-7I-hUE">
+                                                                <rect key="frame" x="0.0" y="7" width="203" height="17"/>
+                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Title" id="JWw-df-2yw">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="OZa-7I-hUE" firstAttribute="centerY" secondItem="BGM-XR-tfY" secondAttribute="centerY" id="Bkx-us-cuE"/>
+                                                            <constraint firstAttribute="trailing" secondItem="OZa-7I-hUE" secondAttribute="trailing" constant="2" id="b9j-03-xq5"/>
+                                                            <constraint firstItem="OZa-7I-hUE" firstAttribute="leading" secondItem="BGM-XR-tfY" secondAttribute="leading" constant="2" id="vwt-VD-9Mp"/>
+                                                        </constraints>
+                                                        <connections>
+                                                            <outlet property="textField" destination="OZa-7I-hUE" id="3jS-S3-Ou8"/>
                                                         </connections>
                                                     </tableCellView>
                                                 </prototypeCellViews>

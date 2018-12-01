@@ -326,6 +326,7 @@ extension TrackController: NSTableViewDelegate {
         static let artwork = NSUserInterfaceItemIdentifier(rawValue: "artworkCell")
         static let waveform = NSUserInterfaceItemIdentifier(rawValue: "waveformCell")
         static let title = NSUserInterfaceItemIdentifier(rawValue: "titleCell")
+        static let combinedTitle = NSUserInterfaceItemIdentifier(rawValue: "combinedTitleCell")
         static let author = NSUserInterfaceItemIdentifier(rawValue: "authorCell")
         static let album = NSUserInterfaceItemIdentifier(rawValue: "albumCell")
         static let genre = NSUserInterfaceItemIdentifier(rawValue: "genreCell")
@@ -383,10 +384,16 @@ extension TrackController: NSTableViewDelegate {
             view.setInstantly(analysis: track.analysis)
             return view
         }
-        else if tableColumn?.identifier == ColumnIdentifiers.title, let view = tableView.makeView(withIdentifier: CellIdentifiers.title, owner: nil) as? TitleSubtitleCellView {
-            view.textField?.bind(.value, to: track, withKeyPath: \.rTitle)
-            view.subtitleTextField?.bind(.value, to: track, withKeyPath: \.rSource)
-            return view
+        else if tableColumn?.identifier == ColumnIdentifiers.title {
+            if UserDefaults.standard.trackCombinedTitleSource, let view = tableView.makeView(withIdentifier: CellIdentifiers.combinedTitle, owner: nil) as? TitleSubtitleCellView {
+                view.textField?.bind(.value, to: track, withKeyPath: \.rTitle)
+                view.subtitleTextField?.bind(.value, to: track, withKeyPath: \.rSource)
+                return view
+            }
+            else if let view = tableView.makeView(withIdentifier: CellIdentifiers.title, owner: nil) as? NSTableCellView {
+                view.textField?.bind(.value, to: track, withKeyPath: \.rTitle)
+                return view
+            }
         }
         else if tableColumn?.identifier == ColumnIdentifiers.author, let view = tableView.makeView(withIdentifier: CellIdentifiers.author, owner: nil) as? NSTableCellView {
             view.textField?.bind(.value, to: track, withKeyPath: \.author)
@@ -449,7 +456,14 @@ extension TrackController: NSTableViewDelegate {
     }
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
-        return history.playingIndex == row ? tableView.rowHeight + 2 : tableView.rowHeight
+        if mode == .queue {
+            return history.playingIndex == row ? tableView.rowHeight + 2 : tableView.rowHeight
+        }
+        else if mode == .tracksList {
+            return UserDefaults.standard.trackSmallRows && !UserDefaults.standard.trackCombinedTitleSource ? 20 : tableView.rowHeight
+        }
+        
+        return tableView.rowHeight
     }
     
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {

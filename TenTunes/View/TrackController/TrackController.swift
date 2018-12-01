@@ -326,6 +326,8 @@ extension TrackController: NSTableViewDelegate {
         static let artwork = NSUserInterfaceItemIdentifier(rawValue: "artworkCell")
         static let waveform = NSUserInterfaceItemIdentifier(rawValue: "waveformCell")
         static let title = NSUserInterfaceItemIdentifier(rawValue: "titleCell")
+        static let author = NSUserInterfaceItemIdentifier(rawValue: "authorCell")
+        static let album = NSUserInterfaceItemIdentifier(rawValue: "albumCell")
         static let genre = NSUserInterfaceItemIdentifier(rawValue: "genreCell")
         static let bpm = NSUserInterfaceItemIdentifier(rawValue: "bpmCell")
         static let key = NSUserInterfaceItemIdentifier(rawValue: "keyCell")
@@ -338,6 +340,8 @@ extension TrackController: NSTableViewDelegate {
         static let artwork = NSUserInterfaceItemIdentifier(rawValue: "artworkColumn")
         static let waveform = NSUserInterfaceItemIdentifier(rawValue: "waveformColumn")
         static let title = NSUserInterfaceItemIdentifier(rawValue: "titleColumn")
+        static let author = NSUserInterfaceItemIdentifier(rawValue: "authorColumn")
+        static let album = NSUserInterfaceItemIdentifier(rawValue: "albumColumn")
         static let genre = NSUserInterfaceItemIdentifier(rawValue: "genreColumn")
         static let bpm = NSUserInterfaceItemIdentifier(rawValue: "bpmColumn")
         static let key = NSUserInterfaceItemIdentifier(rawValue: "keyColumn")
@@ -382,6 +386,14 @@ extension TrackController: NSTableViewDelegate {
         else if tableColumn?.identifier == ColumnIdentifiers.title, let view = tableView.makeView(withIdentifier: CellIdentifiers.title, owner: nil) as? TitleSubtitleCellView {
             view.textField?.bind(.value, to: track, withKeyPath: \.rTitle)
             view.subtitleTextField?.bind(.value, to: track, withKeyPath: \.rSource)
+            return view
+        }
+        else if tableColumn?.identifier == ColumnIdentifiers.author, let view = tableView.makeView(withIdentifier: CellIdentifiers.author, owner: nil) as? NSTableCellView {
+            view.textField?.bind(.value, to: track, withKeyPath: \.author)
+            return view
+        }
+        else if tableColumn?.identifier == ColumnIdentifiers.album, let view = tableView.makeView(withIdentifier: CellIdentifiers.album, owner: nil) as? NSTableCellView {
+            view.textField?.bind(.value, to: track, withKeyPath: \.album)
             return view
         }
         else if tableColumn?.identifier == ColumnIdentifiers.genre, let view = tableView.makeView(withIdentifier: CellIdentifiers.genre, owner: nil) as? NSTableCellView {
@@ -454,6 +466,10 @@ extension TrackController: NSTableViewDelegate {
             switch key {
             case "title":
                 desired.sort = { $0.rTitle < $1.rTitle }
+            case "author":
+                desired.sort = { $0.author ?? "" < $1.author ?? "" }
+            case "album":
+                desired.sort = { $0.album ?? "" < $1.album ?? "" }
             case "genre":
                 desired.sort = { Optional<String>.compare($0.genre, $1.genre) }
             case "key":

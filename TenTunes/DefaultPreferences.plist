@@ -8,6 +8,10 @@
 	<false/>
 	<key>trackColumnsHidden</key>
 	<dict>
+		<key>albumColumn</key>
+		<string></string>
+		<key>authorColumn</key>
+		<string></string>
 		<key>yearColumn</key>
 		<string></string>
 		<key>dateAddedColumn</key>

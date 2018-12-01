@@ -97,6 +97,7 @@
 		8093467320A628E1001D15CD /* Library+AudioFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093467220A628E1001D15CD /* Library+AudioFile.swift */; };
 		8093467520A629A7001D15CD /* Library+Pasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093467420A629A7001D15CD /* Library+Pasteboard.swift */; };
 		8093467720A99112001D15CD /* DefaultPreferences.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8093467620A99112001D15CD /* DefaultPreferences.plist */; };
+		80987D5E21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80987D5D21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift */; };
 		809CEAB92163E83D008D6AC0 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 809CEAB82163E83D008D6AC0 /* Credits.rtf */; };
 		809CEABC2163EFCD008D6AC0 /* superpowered_splash.svg in Resources */ = {isa = PBXBuildFile; fileRef = 809CEABB2163EFCD008D6AC0 /* superpowered_splash.svg */; };
 		809CEABF2163F345008D6AC0 /* SuperpoweredSplash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809CEABE2163F345008D6AC0 /* SuperpoweredSplash.swift */; };
@@ -332,6 +333,7 @@
 		8093467220A628E1001D15CD /* Library+AudioFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+AudioFile.swift"; sourceTree = "<group>"; };
 		8093467420A629A7001D15CD /* Library+Pasteboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Pasteboard.swift"; sourceTree = "<group>"; };
 		8093467620A99112001D15CD /* DefaultPreferences.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DefaultPreferences.plist; sourceTree = "<group>"; };
+		80987D5D21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSOutlineViewContextSensitiveMenu.swift; sourceTree = "<group>"; };
 		809CEAB82163E83D008D6AC0 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		809CEABB2163EFCD008D6AC0 /* superpowered_splash.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = superpowered_splash.svg; sourceTree = "<group>"; };
 		809CEABE2163F345008D6AC0 /* SuperpoweredSplash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperpoweredSplash.swift; sourceTree = "<group>"; };
@@ -462,6 +464,7 @@
 				809CEABE2163F345008D6AC0 /* SuperpoweredSplash.swift */,
 				802F01D02177F00B00E0EAB6 /* DragHighlightView.swift */,
 				806FC30B2190DA36004B9770 /* DarkBoxView.swift */,
+				80987D5D21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1202,6 +1205,7 @@
 				8071F63221AC250A0005685B /* TrackController+Updates.swift in Sources */,
 				804A15FC2172514200CBF56F /* Honey.swift in Sources */,
 				8026241620FF445F009D7988 /* TTTokenField.swift in Sources */,
+				80987D5E21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift in Sources */,
 				80C1F14F213C77440032E554 /* TrackVisuals+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -71,7 +71,7 @@ extension Library.Import {
         context.insert(playlist)
         
         playlist.addTracks(tracks)
-        library.masterPlaylist.addPlaylist(playlist)
+        library.masterPlaylist.addToChildren(playlist)
         
         return playlist
     }

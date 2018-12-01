@@ -11,6 +11,7 @@
                 <outlet property="_addGroup" destination="s5V-cO-NDS" id="9FN-Qy-Aab"/>
                 <outlet property="_addPlaylist" destination="XDO-KJ-zFo" id="yiq-1g-vh1"/>
                 <outlet property="_back" destination="8Z0-Gt-dbf" id="6qN-Q0-cgl"/>
+                <outlet property="_emptyPlaylistMenu" destination="LUm-Jc-kXw" id="kKN-44-7uf"/>
                 <outlet property="_forwards" destination="2x8-2J-xWJ" id="ZiZ-Vs-y8A"/>
                 <outlet property="_outlineView" destination="jaf-cH-DJt" id="sJF-Dr-Ogf"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
@@ -28,7 +29,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="178" height="490"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" autosaveName="" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autosaveExpandedItems="YES" outlineTableColumn="y9Z-8l-kxU" id="jaf-cH-DJt">
+                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" autosaveName="" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autosaveExpandedItems="YES" outlineTableColumn="y9Z-8l-kxU" id="jaf-cH-DJt" customClass="NSOutlineViewContextSensitiveMenu" customModule="TenTunes" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="178" height="427"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="2" height="3"/>
@@ -272,6 +273,19 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="K5T-46-pVW"/>
+                <menuItem title="New Playlist" id="Lyg-Ok-acj">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="menuNewPlaylist:" target="-2" id="SOA-E9-IPl"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="New Group" id="GCx-br-4d7">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="menuNewGroup:" target="-2" id="jQj-oF-7RJ"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="nbb-03-lb2"/>
                 <menuItem title="Untangle Children" id="EL6-rp-IjK">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -338,6 +352,23 @@
             <point key="canvasLocation" x="288" y="543"/>
         </menu>
         <userDefaultsController representsSharedInstance="YES" id="0Zo-eS-kIn"/>
+        <menu id="LUm-Jc-kXw">
+            <items>
+                <menuItem title="New Playlist" id="idm-dc-EOL">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="menuNewPlaylist:" target="-2" id="MPp-Ne-l2T"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="New Group" id="Hl0-AC-M7A">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="menuNewGroup:" target="-2" id="DRW-F3-JEO"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="293" y="217"/>
+        </menu>
     </objects>
     <resources>
         <image name="NSGoBackTemplate" width="9" height="12"/>

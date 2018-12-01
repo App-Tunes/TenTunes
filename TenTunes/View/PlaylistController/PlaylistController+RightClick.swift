@@ -8,14 +8,21 @@
 
 import Foundation
 
+extension PlaylistController : NSOutlineViewContextSensitiveMenuDelegate {
+    func outlineView(_ outlineView: NSOutlineView, menuForItem item: Any?) -> NSMenu? {
+        return item == nil ? _emptyPlaylistMenu : nil
+    }
+}
+
 extension PlaylistController: NSMenuDelegate {
     var menuPlaylists: [Playlist] {
         return _outlineView.clickedRows.compactMap { _outlineView.item(atRow: $0) as? Playlist }
     }
     
     func menuNeedsUpdate(_ menu: NSMenu) {
-        if menuPlaylists.count < 1 {
+        guard menuPlaylists.count >= 1 else {
             menu.cancelTrackingWithoutAnimation()
+            return
         }
         
         menu.item(withAction: #selector(deletePlaylist(_:)))?.isVisible = menuPlaylists.map(Library.shared.isPlaylist).allSatisfy { $0 }
@@ -63,6 +70,16 @@ extension PlaylistController: NSMenuDelegate {
         }
         
         return folder.childrenList.count > 1 && untangle(playlist: folder, dryRun: true)
+    }
+    
+    @IBAction func menuNewGroup(_ sender: Any) {
+        let (parent, position) = playlistInsertionPosition(row: _outlineView.clickedRow >= 0 ? _outlineView.clickedRow : nil)
+        parent.addPlaylist(PlaylistFolder(context: Library.shared.viewContext), above: position)
+    }
+    
+    @IBAction func menuNewPlaylist(_ sender: Any) {
+        let (parent, position) = playlistInsertionPosition(row: _outlineView.clickedRow >= 0 ? _outlineView.clickedRow : nil)
+        parent.addPlaylist(PlaylistManual(context: Library.shared.viewContext), above: position)
     }
     
     class UntangledPlaylist {
@@ -147,3 +164,4 @@ extension PlaylistController: NSMenuDelegate {
         playlist.childrenList.sort { $0.name < $1.name }
     }
 }
+

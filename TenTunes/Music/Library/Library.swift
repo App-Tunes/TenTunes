@@ -69,7 +69,7 @@ class Library : NSPersistentContainer {
         
         _tagPlaylist = fetchCreateSpecialFolder(key: "Tag Playlist") { playlist in
             playlist.name = "Tags"
-            _masterPlaylist.addPlaylist(playlist)
+            _masterPlaylist.addToChildren(playlist)
         }
     }
     

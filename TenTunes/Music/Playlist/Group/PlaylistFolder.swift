@@ -25,7 +25,7 @@ public class PlaylistFolder: Playlist {
         set { children = NSOrderedSet(array: newValue) }
     }
     
-    func addPlaylist(_ playlist: Playlist, above: Int? = nil) {
+    func addPlaylist(_ playlist: Playlist, above: Int?) {
         addToChildren(playlist)
         
         if let above = above {

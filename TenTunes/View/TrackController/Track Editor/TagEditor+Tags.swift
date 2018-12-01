@@ -140,7 +140,7 @@ extension TagEditor : TTTokenFieldDelegate {
             if NSAlert.confirm(action: "Create New Tag", text: "The tag '\(string)' is unknown. Do you want to create it?") {
                 let newTag = PlaylistManual(context: Library.shared.viewContext)
                 newTag.name = string
-                Library.shared.tagPlaylist.addPlaylist(newTag)
+                Library.shared.tagPlaylist.addToChildren(newTag)
                 
                 return newTag
             }

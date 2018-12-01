@@ -148,7 +148,7 @@ extension Library.Import {
         let masterPlaylist = PlaylistFolder(context: context)
         context.insert(masterPlaylist)
         masterPlaylist.name = "iTunes Library"
-        self.library.masterPlaylist.addPlaylist(masterPlaylist)
+        self.library.masterPlaylist.addToChildren(masterPlaylist)
         
         var existingTracks: [String:Track] = [:]
         // TODO Request
@@ -220,10 +220,10 @@ extension Library.Import {
             }
             
             if let parent = playlistData.object(forKey: "Parent Persistent ID") as? String {
-                (iTunesPlaylists[parent] as! PlaylistFolder).addPlaylist(playlist)
+                (iTunesPlaylists[parent] as! PlaylistFolder).addToChildren(playlist)
             }
             else {
-                masterPlaylist.addPlaylist(playlist)
+                masterPlaylist.addToChildren(playlist)
             }
         }
         

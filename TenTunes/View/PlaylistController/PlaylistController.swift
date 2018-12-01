@@ -45,6 +45,8 @@ protocol PlaylistControllerDelegate : class {
     @IBOutlet var _addPlaylist: SMButtonWithMenu!
     @IBOutlet var _addGroup: SMButtonWithMenu!
     
+    @IBOutlet var _emptyPlaylistMenu: NSMenu!
+    
     var selectedPlaylists: [(Int, Playlist)] {
         return _outlineView.selectedRowIndexes.map {
             return ($0, _outlineView.item(atRow: $0) as! Playlist)
@@ -90,8 +92,8 @@ protocol PlaylistControllerDelegate : class {
         ViewController.shared.trackController.performFindPanelAction(sender)
     }
     
-    var playlistInsertionPosition: (PlaylistFolder, Int?) {
-        if let idx = _outlineView.selectedRowIndexes.last {
+    func playlistInsertionPosition(row: Int?) -> (PlaylistFolder, Int?) {
+        if let idx = row {
             let selectedPlaylist = _outlineView.item(atRow: idx) as! Playlist
             
             if let selectedPlaylist = selectedPlaylist as? PlaylistFolder {
@@ -164,7 +166,7 @@ protocol PlaylistControllerDelegate : class {
     }
     
     func insert(playlist: Playlist) {
-        let (parent, idx) = playlistInsertionPosition
+        let (parent, idx) = playlistInsertionPosition(row: _outlineView.selectedRowIndexes.last)
         parent.addPlaylist(playlist, above: idx)
     }
     
@@ -186,7 +188,7 @@ protocol PlaylistControllerDelegate : class {
 
         if selected.count > 1, selected.map({ $0.1.parent }).uniqueElement != nil {
             for (_, playlist) in selected {
-                group.addPlaylist(playlist)
+                group.addToChildren(playlist)
             }
         }
         

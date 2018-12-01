@@ -13,6 +13,10 @@ extension TrackController: NSMenuDelegate {
         return _tableView.clickedRows.compactMap { history.track(at: $0) }
     }
     
+    var trackEditorWantsUpdate: Bool {
+        return menuTracks != trackEditor.tracks || trackEditorGuard.isHidden
+    }
+    
     func menuNeedsUpdate(_ menu: NSMenu) {
         guard menu !== _showInPlaylistSubmenu.submenu else {
             menu.removeAllItems()
@@ -31,7 +35,9 @@ extension TrackController: NSMenuDelegate {
         }
         
         menu.item(withAction: #selector(menuPlay))?.isVisible = playTrack != nil
-        
+
+        menu.item(withAction: #selector(menuShowInfo))?.title = trackEditorWantsUpdate ? "Show Info" : "Hide Info"
+
         _showInPlaylistSubmenu.isVisible = menuTracks.count == 1
         if _showInPlaylistSubmenu.isVisible {
             _showInPlaylistSubmenu.isEnabled = !Library.shared.playlists(containing: menuTracks.first!).isEmpty 
@@ -92,6 +98,11 @@ extension TrackController: NSMenuDelegate {
     }
     
     @IBAction func menuShowInfo(_ sender: Any) {
+        guard trackEditorWantsUpdate else {
+            trackEditorGuard.isHidden = true
+            return
+        }
+        
         trackEditorGuard.show(elements: menuTracks)
         trackEditorGuard.isHidden = false
     }

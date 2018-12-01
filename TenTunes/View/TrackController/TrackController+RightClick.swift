@@ -29,7 +29,23 @@ extension TrackController: NSMenuDelegate {
             
             return
         }
-        
+
+        guard menu !== _addToPlaylistSubmenu.submenu else {
+            menu.removeAllItems()
+            let tracks = menuTracks
+            for playlist in Library.shared.allPlaylists().of(type: PlaylistManual.self)
+                .filter({ !Library.shared.isTag(playlist: $0) })
+                .filter({ playlist in tracks.anySatisfy { !playlist.tracksList.contains($0) } }) {
+                    
+                let item = NSMenuItem(title: playlist.name, action: #selector(menuAddToPlaylist), keyEquivalent: "")
+                item.target = self
+                item.representedObject = playlist
+                menu.addItem(item)
+            }
+            
+            return
+        }
+
         if menuTracks.count < 1 {
             menu.cancelTrackingWithoutAnimation()
         }
@@ -114,6 +130,14 @@ extension TrackController: NSMenuDelegate {
         
         ViewController.shared.playlistController.select(playlist: playlist)
         // TODO select track
+    }
+    
+    @IBAction func menuAddToPlaylist(_ sender: Any) {
+        guard let item = sender as? NSMenuItem, let playlist = item.representedObject as? PlaylistManual else {
+            return
+        }
+        
+        playlist.addTracks(menuTracks)
     }
     
     @IBAction func menuShowAuthor(_ sender: Any) {

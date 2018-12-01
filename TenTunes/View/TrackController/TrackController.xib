@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TrackController" customModule="TenTunes" customModuleProvider="target">
             <connections>
+                <outlet property="_addToPlaylistSubmenu" destination="hF9-UQ-dW3" id="iey-Pc-4RV"/>
                 <outlet property="_analyzeSubmenu" destination="rAL-JR-UxV" id="Vvq-LS-eak"/>
                 <outlet property="_filterBarContainer" destination="utN-ND-KA3" id="cBT-He-il8"/>
                 <outlet property="_loadingIndicator" destination="Q4S-45-Dyj" id="uIh-jH-P5s"/>
@@ -77,6 +78,14 @@
                     </menu>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="Rd7-Gj-f0d"/>
+                <menuItem title="Add to Playlist" id="hF9-UQ-dW3">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Add to Playlist" id="Vuo-PC-JBv">
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="6g4-8v-qvP"/>
+                        </connections>
+                    </menu>
+                </menuItem>
                 <menuItem title="Show in Playlist" id="RJZ-UA-3i7">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Show in Playlist" id="RnA-44-hUX">

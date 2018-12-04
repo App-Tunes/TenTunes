@@ -163,6 +163,7 @@
 		80E4F9CE20A0DD7E0014532E /* Library+iTunes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E4F9CD20A0DD7E0014532E /* Library+iTunes.swift */; };
 		80E6811B20573DC800DA5702 /* SimpleTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E6811A20573DC800DA5702 /* SimpleTransformer.swift */; };
 		80E6811D2057479B00DA5702 /* ValueTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E6811C2057479B00DA5702 /* ValueTransformers.swift */; };
+		80E7E6B621B6004E00B1A31D /* PlayImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E7E6B521B6004E00B1A31D /* PlayImageView.swift */; };
 		80E937592039C2850014C835 /* Keycodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E937582039C2850014C835 /* Keycodes.swift */; };
 		80E939F1215AFAA4005112EF /* MultiplicityGuardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E939F0215AFAA4005112EF /* MultiplicityGuardView.swift */; };
 		80E939F7215BE604005112EF /* PlaylistMultiple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E939F6215BE604005112EF /* PlaylistMultiple.swift */; };
@@ -403,6 +404,7 @@
 		80E4F9CD20A0DD7E0014532E /* Library+iTunes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+iTunes.swift"; sourceTree = "<group>"; };
 		80E6811A20573DC800DA5702 /* SimpleTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTransformer.swift; sourceTree = "<group>"; };
 		80E6811C2057479B00DA5702 /* ValueTransformers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueTransformers.swift; sourceTree = "<group>"; };
+		80E7E6B521B6004E00B1A31D /* PlayImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayImageView.swift; sourceTree = "<group>"; };
 		80E937582039C2850014C835 /* Keycodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keycodes.swift; sourceTree = "<group>"; };
 		80E939F0215AFAA4005112EF /* MultiplicityGuardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplicityGuardView.swift; sourceTree = "<group>"; };
 		80E939F6215BE604005112EF /* PlaylistMultiple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistMultiple.swift; sourceTree = "<group>"; };
@@ -465,6 +467,7 @@
 				802F01D02177F00B00E0EAB6 /* DragHighlightView.swift */,
 				806FC30B2190DA36004B9770 /* DarkBoxView.swift */,
 				80987D5D21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift */,
+				80E7E6B521B6004E00B1A31D /* PlayImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1104,6 +1107,7 @@
 				8030E01920FE33D2006B4AE8 /* ExportPlaylists.swift in Sources */,
 				80A40993216FA216006AF67B /* RFOpenGLView+Swift.swift in Sources */,
 				80E2C9E0204AE18E00298E81 /* Track.swift in Sources */,
+				80E7E6B621B6004E00B1A31D /* PlayImageView.swift in Sources */,
 				80E02C65217FC4F200251D24 /* PlaylistPromise.swift in Sources */,
 				80802588203F0399008D4168 /* PlaylistController.swift in Sources */,
 				806AC1332040D7C700857B1B /* PlayHistory.swift in Sources */,

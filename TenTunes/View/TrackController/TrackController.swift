@@ -354,7 +354,7 @@ extension TrackController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let track = history.track(at: row)!
         
-        if tableColumn?.identifier == ColumnIdentifiers.artwork, let view = tableView.makeView(withIdentifier: CellIdentifiers.artwork, owner: nil) as? NSImageView {
+        if tableColumn?.identifier == ColumnIdentifiers.artwork, let view = tableView.makeView(withIdentifier: CellIdentifiers.artwork, owner: nil) as? PlayImageView {
             view.wantsLayer = true
             
             view.layer!.borderWidth = 1.0
@@ -363,6 +363,10 @@ extension TrackController: NSTableViewDelegate {
             view.layer!.masksToBounds = true
 
             view.bind(.value, to: track, withKeyPath: \.artworkPreview, options: [.nullPlaceholder: Album.missingArtwork])
+            if mode != .title {
+                // TODO Too Omniscient?
+                view.observe(track: track, playingIn: ViewController.shared.player)
+            }
 
             return view
         }

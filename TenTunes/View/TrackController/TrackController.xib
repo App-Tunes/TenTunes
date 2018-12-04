@@ -192,7 +192,7 @@
                                                 <imageCell key="dataCell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="music_missing" id="EyP-QP-l4R"/>
                                                 <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="none"/>
                                                 <prototypeCellViews>
-                                                    <imageView identifier="artworkCell" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="iaK-Lm-X6C">
+                                                    <imageView identifier="artworkCell" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="iaK-Lm-X6C" customClass="PlayImageView" customModule="TenTunes" customModuleProvider="target">
                                                         <rect key="frame" x="1" y="1" width="30" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="music_missing" id="alI-a2-7TY"/>

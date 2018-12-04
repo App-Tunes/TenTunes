@@ -35,9 +35,9 @@ protocol PlayerDelegate : class {
 
 @objc class Player : NSObject {
     var history: PlayHistory = PlayHistory(playlist: PlaylistEmpty())
-    var player: AKPlayer
-    var backingPlayer: AKPlayer
-    var playing: Track?
+    @objc dynamic var player: AKPlayer
+    @objc dynamic var backingPlayer: AKPlayer
+    @objc dynamic var playing: Track?
     
     weak var delegate: PlayerDelegate?
     
@@ -74,7 +74,7 @@ protocol PlayerDelegate : class {
         AudioKit.output = outputNode
     }
     
-    var isPlaying : Bool {
+    @objc dynamic var isPlaying : Bool {
         return player.isPlaying
     }
     
@@ -324,5 +324,12 @@ protocol PlayerDelegate : class {
         track.usesMediaDirectory = false
         
         return true
+    }
+    
+    override public class func keyPathsForValuesAffectingValue(forKey key: String) -> Set<String> {
+        return [
+            // TODO This doesn't work yet unfortunately
+            #keyPath(Player.isPlaying): [#keyPath(Player.player.isPlaying)],
+            ][key] ?? super.keyPathsForValuesAffectingValue(forKey: key)
     }
 }

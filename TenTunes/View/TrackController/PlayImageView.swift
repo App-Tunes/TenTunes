@@ -10,7 +10,11 @@ import Cocoa
 
 class PlayImageView: NSImageView {
     var showsPlaying: Bool = false {
-        didSet { setNeedsDisplay() }
+        didSet {
+            if showsPlaying != oldValue {
+                setNeedsDisplay()
+            }
+        }
     }
     var isPlaying: Bool = false {
         didSet {

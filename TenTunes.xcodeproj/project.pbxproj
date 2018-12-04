@@ -467,7 +467,6 @@
 				802F01D02177F00B00E0EAB6 /* DragHighlightView.swift */,
 				806FC30B2190DA36004B9770 /* DarkBoxView.swift */,
 				80987D5D21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift */,
-				80E7E6B521B6004E00B1A31D /* PlayImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -868,6 +867,7 @@
 				80B68BA82101255D00A32E3D /* TrackController+Rules.swift */,
 				8071F63121AC250A0005685B /* TrackController+Updates.swift */,
 				80074CF7204583CF0055B87E /* TrackController.xib */,
+				80E7E6B521B6004E00B1A31D /* PlayImageView.swift */,
 				807D7B5F21A7FD340021C73B /* Track Editor */,
 				8079F6D12106551100B7A278 /* SmartPlaylistRulesController.swift */,
 				8079F6D22106551100B7A278 /* SmartPlaylistRulesController.xib */,

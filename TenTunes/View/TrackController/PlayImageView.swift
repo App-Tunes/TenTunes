@@ -42,10 +42,10 @@ class PlayImageView: NSImageView {
         super.draw(dirtyRect)
         
         if showsPlaying {
-            NSColor(white: 0, alpha: 0.3).set()
+            NSColor(white: 0, alpha: 0.5).set()
             dirtyRect.fill()
             
-            (isPlaying ? playImage : pauseImage)?.draw(in: NSMakeRect(bounds.minX + bounds.width / 5, bounds.minY + bounds.height / 5, bounds.width / 5 * 3, bounds.height / 5 * 3), from: NSZeroRect, operation: .sourceOver, fraction: 0.5)
+            (isPlaying ? playImage : pauseImage)?.draw(in: NSMakeRect(bounds.minX + bounds.width / 5, bounds.minY + bounds.height / 5, bounds.width / 5 * 3, bounds.height / 5 * 3), from: NSZeroRect, operation: .sourceOver, fraction: 0.7)
         }
     }
     

@@ -17,6 +17,8 @@ extension VisualizerWindowController {
             _visualizerView = Cloud()
         case "honey":
             _visualizerView = Honey()
+        case "darkMatter":
+            _visualizerView = DarkMatter()
         default:
             fatalError("Unknown Mode!")
         }

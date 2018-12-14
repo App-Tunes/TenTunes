@@ -12,43 +12,52 @@ import OpenGL
 
 extension RFOpenGLView {
     class PingPongFramebuffer {
-        let left = Framebuffer()
-        let right = Framebuffer()
+        let buffers: [Framebuffer]
 
-        var source: Framebuffer { return target === left ? right : left }
-        var target: Framebuffer?
+        var targetIndex = 0
+
+        var source: Framebuffer?
+        var target: Framebuffer { return buffers[targetIndex] }
 
         var size: CGSize {
             set {
-                left.size = newValue
-                right.size = newValue
+                buffers.forEach { $0.size = newValue }
             }
-            get { return left.size }
+            get { return buffers.first!.size }
+        }
+        
+        init(count: Int = 2) {
+            buffers = (0 ..< count).map { _ in
+                Framebuffer()
+            }
         }
 
         func create() {
-            left.create()
-            right.create()
+            buffers.forEach { $0.create() }
         }
 
         func start() {
-            target = right
-            
-            source.texture.unbind()
-            target!.bind()
+            source?.texture.unbind()
+
+            targetIndex = 0
+            source = nil
+
+            target.bind()
         }
         
-        func `switch`(onto: Framebuffer? = nil) {
-            target = onto ?? source
+        func next() {
+            source = target
+            targetIndex = (targetIndex + 1) % buffers.count
             
-            target!.bind()
-            source.texture.bind()
+            target.bind()
+            source!.texture.bind()
         }
 
         func end(rebind: Bool = false) {
             Framebuffer.unbind()
-            if rebind { target!.texture.bind() }
-            else { target!.texture.unbind() }
+            source = target
+            if rebind { source!.texture.bind() }
+            else { source!.texture.unbind() }
         }
     }
     

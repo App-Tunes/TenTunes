@@ -102,4 +102,18 @@ extension VisualizerView {
             try checkUniformError()
         }
     }
+    
+    class SubtractShader: Shared {
+        var guSource: Uniform = .none
+        var guSubtract: Uniform = .none
+
+        override func compile(vertex: String, fragment: String) throws {
+            try super.compile(vertex: vertex, fragment: fragment)
+            
+            guSource = find(uniform: "source")
+            guSubtract = find(uniform: "subtract")
+            
+            try checkUniformError()
+        }
+    }
 }

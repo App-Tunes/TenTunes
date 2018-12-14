@@ -70,8 +70,8 @@
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="90" y="125" width="416" height="399"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
-            <view key="contentView" id="ENc-Eb-lrQ">
-                <rect key="frame" x="0.0" y="0.0" width="416" height="400"/>
+            <view key="contentView" misplaced="YES" id="ENc-Eb-lrQ">
+                <rect key="frame" x="0.0" y="0.0" width="416" height="399"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6Jb-mX-sNA">
@@ -339,8 +339,15 @@ DQ
                             <font key="font" metaFont="menu"/>
                             <menu key="menu" id="E5w-hc-tQT">
                                 <items>
-                                    <menuItem title="Suns" state="on" identifier="suns" id="VyU-ba-smI"/>
-                                    <menuItem title="Honey" identifier="honey" id="DnR-os-kRN"/>
+                                    <menuItem title="Suns" state="on" identifier="suns" id="VyU-ba-smI">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                    </menuItem>
+                                    <menuItem title="Honey" identifier="honey" id="DnR-os-kRN">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                    </menuItem>
+                                    <menuItem title="Dark Matter" identifier="darkMatter" id="JX2-Ei-c4b">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                    </menuItem>
                                 </items>
                             </menu>
                         </popUpButtonCell>

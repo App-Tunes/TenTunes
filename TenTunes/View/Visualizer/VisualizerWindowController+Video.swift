@@ -13,8 +13,6 @@ extension VisualizerWindowController {
         let old = _visualizerView!
         
         switch (sender as! NSPopUpButton).selectedItem!.identifier!.rawValue {
-        case "suns":
-            _visualizerView = Cloud()
         case "honey":
             _visualizerView = Honey()
         case "darkMatter":

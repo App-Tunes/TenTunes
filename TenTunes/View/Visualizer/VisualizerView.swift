@@ -33,6 +33,7 @@ class VisualizerView: SyphonableOpenGLView {
     var time : Number { return Number(-startDate.timeIntervalSinceNow) }
         
     // Settings
+    @objc var effectStrength: Number = 0.0
     @objc var colorVariance: Number = 0.3
     @objc var brightness: Number = 0.7
     @objc var psychedelic: Number = 0.5

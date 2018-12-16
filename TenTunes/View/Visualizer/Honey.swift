@@ -29,6 +29,11 @@ class Honey: Cloud {
     }
     
     override func prepareSyphonableFrame() {
+        guard effectStrength > 0 else {
+            super.prepareSyphonableFrame()
+            return
+        }
+        
         pingPong.size = bounds.size
         pingPong.start()
         
@@ -49,8 +54,8 @@ class Honey: Cloud {
         DynamicTexture.active(1) { bloomState.next() }
         
         glUniform2f(bloom.guDirVec, 0.001, 0)
-        glUniform1f(bloom.guRetainer, 0.46)
-        glUniform1f(bloom.guAdder, 0.1)
+        glUniform1f(bloom.guRetainer, 0.495 * effectStrength)
+        glUniform1f(bloom.guAdder, 0.5 - 0.45 * effectStrength)
         drawFullScreenRect()
         
         DynamicTexture.active(1) { bloomState.next() }
@@ -65,6 +70,11 @@ class Honey: Cloud {
     }
     
     override func drawSyphonableFrame() {
+        guard effectStrength > 0 else {
+            super.drawSyphonableFrame()
+            return
+        }
+
         glClearColor(0,0,0,0)
         glClear(GLbitfield(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT))
         

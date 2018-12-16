@@ -53,9 +53,10 @@ class Honey: Cloud {
         
         DynamicTexture.active(1) { bloomState.next() }
         
+        let scaledEffect = pow(effectStrength, 0.2)
         glUniform2f(bloom.guDirVec, 0.001, 0)
-        glUniform1f(bloom.guRetainer, 0.495 * effectStrength)
-        glUniform1f(bloom.guAdder, 0.5 - 0.45 * effectStrength)
+        glUniform1f(bloom.guRetainer, 0.495 * scaledEffect)
+        glUniform1f(bloom.guAdder, 0.5 - 0.45 * scaledEffect)
         drawFullScreenRect()
         
         DynamicTexture.active(1) { bloomState.next() }

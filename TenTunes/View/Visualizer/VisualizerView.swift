@@ -24,6 +24,8 @@ class VisualizerView: SyphonableOpenGLView {
     @objc @IBOutlet
     weak var delegate: VisualizerViewDelegate?
     
+    var deepResonance: [[Number]] = Array(repeating: [], count: 5)
+    
     var resonance: [Number] = []
     var numbness: [Number] = []
     var totalResonance: Number = 0
@@ -44,19 +46,20 @@ class VisualizerView: SyphonableOpenGLView {
     
     func update(withFFT fft: [Number]) {
         let desiredLength = min(Int(details * 6 + 4), 10)
+        
         if resonance.count != desiredLength {
             resonance = resonance.remap(toSize: desiredLength, default: 0)
             numbness = numbness.remap(toSize: desiredLength, default: 0)
+            deepResonance = deepResonance.map { return $0.remap(toSize: desiredLength, default: 0) }
         }
-        
-        // TODO Add Gravity so that any particular resonance can't stay high for long so we get more dynamic movement (like how ears adjust to fucking noise fuck I'm a genius)
+
         let desired: [Number] = (0 ..< resonance.count).map { idx in
             let middle = (pow(2.0, Number(idx)) - 1) / pow(2, Number(resonance.count)) * Number(fft.count - VisualizerView.skipFrequencies) + Number(VisualizerView.skipFrequencies)
-
+            
             // Old method
             let steepness: Number = 4.0
             let gain = pow(0.5, -steepness)
-
+            
             return fft.enumerated().map { (idx, val) in
                 // Later frequencies stretch across more values
                 let stretch = 1 + Number(idx) / 2
@@ -65,26 +68,30 @@ class VisualizerView: SyphonableOpenGLView {
                 // Multiply since this diminishes the carefully balanced values a bit
                 return pow(val / (1 + pow(dist / stretch, steepness) * gain) * 2.2, 0.9 + frantic * 0.2)
                 }.reduce(0, +) / (Interpolation.linear(1, 0.001 + numbness[idx], amount: max(0, (frantic - 0.4) * 2.5)))
+            
+            //            return fft.enumerated().map { (idx, val) in
+            //                // Later frequencies stretch across more values
+            //                let variance = pow((1 + Double(idx)) / VisualizerView.resonanceSteepness, 2)
+            //                let scalar = pow(4.0 / VisualizerView.resonanceSteepness, 2)
+            //                // Frequencies that are farther away shall not be picked up as strongly
+            //                let dist = pow(Double(Double(idx) - middle), 2)
+            //                // Normal distribution
+            //                let resonance = 1 / sqrt(2 * Double.pi * scalar) * pow(Darwin.M_E, (-dist / (2 * variance))) * 5
+            //                return val * resonance
+            //                }.reduce(0, +)
+        }
 
-//            return fft.enumerated().map { (idx, val) in
-//                // Later frequencies stretch across more values
-//                let variance = pow((1 + Double(idx)) / VisualizerView.resonanceSteepness, 2)
-//                let scalar = pow(4.0 / VisualizerView.resonanceSteepness, 2)
-//                // Frequencies that are farther away shall not be picked up as strongly
-//                let dist = pow(Double(Double(idx) - middle), 2)
-//                // Normal distribution
-//                let resonance = 1 / sqrt(2 * Double.pi * scalar) * pow(Darwin.M_E, (-dist / (2 * variance))) * 5
-//                return val * resonance
-//                }.reduce(0, +)
+        deepResonance = deepResonance.enumerated().map { (idx, resonance) in
+            let lerp = 0.03 * (Number(idx) + 1) + frantic * 0.1
+            return Interpolation.linear(resonance, desired, amount: lerp)
         }
         
         let lerp = 0.1 + frantic * 0.1
-        resonance = Interpolation.linear(resonance, desired, amount: lerp)
+        resonance = Array(arrayZip(deepResonance)).map { $0.reduce(0, +) / Float(deepResonance.count) }
+        
         totalResonance = Interpolation.linear(totalResonance, fft.reduce(0, +) / Number(fft.count) * 650, amount: lerp)
         let highFFT = fft.enumerated().map { (idx, val) in val * pow(Number(idx) / Number(fft.count), 3) }
         highResonance = Interpolation.linear(highResonance, highFFT.reduce(0, +) / Number(highFFT.count) * 900, amount: lerp)
-        
-        numbness = Interpolation.linear(numbness, resonance, amount: lerp * 0.5)
     }
     
     @discardableResult

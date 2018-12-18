@@ -15,6 +15,51 @@ func longZip<Sequence1, Sequence2>(_ sequence1: Sequence1, _ sequence2: Sequence
     return zipped
 }
 
+struct ArrayZipSequence<SequenceT> : Sequence where SequenceT : Sequence {
+    typealias Element = [SequenceT.Element]
+    
+    let sequences: [SequenceT]
+    
+    init(_ sequences: [SequenceT]) {
+        self.sequences = sequences
+    }
+    
+    func makeIterator() -> ArrayZipIterator<SequenceT.Iterator> {
+        return ArrayZipIterator(sequences.map { $0.makeIterator() })
+    }
+}
+
+struct ArrayZipIterator<Iterator>: IteratorProtocol where Iterator : IteratorProtocol {
+    typealias Element = [Iterator.Element]
+    
+    var iterators: [Iterator]
+    
+    init(_ iterators: [Iterator]) {
+        self.iterators = iterators
+    }
+    
+    mutating func next() -> Element? {
+        let step: [(Iterator, Iterator.Element)] = iterators.compactMap { it in
+            var iterator = it
+            if let element = iterator.next() {
+                return (iterator, element)
+            }
+            return nil
+        }
+        
+        guard step.count == iterators.count else {
+            return nil
+        }
+        
+        iterators = step.map { $0.0 }
+        return step.map { $0.1 }
+    }
+}
+
+func arrayZip<Sequence1>(_ sequences: [Sequence1]) -> ArrayZipSequence<Sequence1> where Sequence1 : Sequence {
+    return ArrayZipSequence(sequences)
+}
+
 extension Sequence {
     func crossProduct<T2:Sequence>(_ rhs : T2) -> AnySequence<(Iterator.Element,T2.Iterator.Element)>
     {

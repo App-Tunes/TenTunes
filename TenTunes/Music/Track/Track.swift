@@ -101,7 +101,7 @@ public class Track: NSManagedObject {
     }
         
     var authors: [Artist] {
-        return ((author ?=> Artist.all) ?? []) + Array(compact: remixAuthor ?=> Artist.init)
+        return ((author ?=> Artist.all) ?? []) + ((remixAuthor ?=> Artist.all) ?? [])
     }
     
     var rAlbum: Album? {

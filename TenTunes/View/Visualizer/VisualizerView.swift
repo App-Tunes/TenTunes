@@ -83,7 +83,6 @@ class VisualizerView: SyphonableOpenGLView {
 
         deepResonance = deepResonance.enumerated().map { (idx, resonance) in
             let lerp = 0.03 * (Number(idx) + 1) + frantic * 0.1
-            print(lerp)
             return Interpolation.linear(resonance, desired, amount: lerp)
         }
         
@@ -93,6 +92,8 @@ class VisualizerView: SyphonableOpenGLView {
         totalResonance = Interpolation.linear(totalResonance, fft.reduce(0, +) / Number(fft.count) * 650, amount: lerp)
         let highFFT = fft.enumerated().map { (idx, val) in val * pow(Number(idx) / Number(fft.count), 3) }
         highResonance = Interpolation.linear(highResonance, highFFT.reduce(0, +) / Number(highFFT.count) * 900, amount: lerp)
+
+        numbness = Interpolation.linear(numbness, resonance, amount: lerp * 0.5)
     }
     
     @discardableResult

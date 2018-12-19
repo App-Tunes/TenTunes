@@ -83,6 +83,7 @@ class VisualizerView: SyphonableOpenGLView {
 
         deepResonance = deepResonance.enumerated().map { (idx, resonance) in
             let lerp = 0.03 * (Number(idx) + 1) + frantic * 0.1
+            print(lerp)
             return Interpolation.linear(resonance, desired, amount: lerp)
         }
         

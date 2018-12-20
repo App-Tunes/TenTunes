@@ -153,6 +153,9 @@ void main( void ) {
 
     float totalOmega = decay;
     float prevOmega;
+//    float nearestDist = 9999999;
+//    vec3 nearestColor = vec3(0);
+    
     for (int i = 0; i < resonanceCount; i++) {
         float rawDist = distPoint(i, pTime, pos);
         float sunDist = atan(rawDist * (resonance[i] * 0.5 + 1), rawDist * rawDist * 50.0);
@@ -171,9 +174,13 @@ void main( void ) {
         
         color.rgb += pointColor * inf;
         // color.a = min(color.a + resonance[i] / 10, 1);
+        
+//        nearestColor = mix(pointColor, nearestColor, (sign(rawDist - nearestDist) + 1) / 2);
+//        nearestDist = min(nearestDist, rawDist);
     }
     
     color.rgb /= totalOmega;
+//    color.rgb = mix(color.rgb, nearestColor, 0.5);
     
     fragColour = clamp(color, 0, 1);
 }

@@ -269,7 +269,7 @@
                 <menuItem title="Play" id="DWl-hq-9u6">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="didDoubleClick:" target="-2" id="ilf-kI-BUX"/>
+                        <action selector="menuPlay:" target="-2" id="VCZ-hu-3HR"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="K5T-46-pVW"/>

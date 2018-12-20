@@ -40,6 +40,14 @@ extension PlaylistController: NSMenuDelegate {
         return true
     }
     
+    @IBAction func menuPlay(_ sender: Any) {
+        let clicked = _outlineView.clickedRow
+        if clicked >= 0 {
+            let playlist = _outlineView.item(atRow: clicked) as! Playlist            
+            delegate?.playlistController(self, play: playlist)
+        }
+    }
+    
     @IBAction func duplicatePlaylist(_ sender: Any) {
         for playlist in menuPlaylists {
             let copy = playlist.duplicate()

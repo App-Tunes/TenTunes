@@ -383,6 +383,9 @@ extension TrackController: NSTableViewDelegate {
             }
             else {
                 view.isEnabled = false
+                
+                view.target = nil
+                view.action = nil
             }
             
             return view

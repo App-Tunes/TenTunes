@@ -262,8 +262,8 @@ class TrackController: NSViewController {
     }
     
     func playCurrentTrack() {
-        if selectedTrack != nil, let playTrack = playTrack {
-            playTrack(self._tableView.selectedRow, nil)
+        if selectedTrack != nil {
+            playTrack?(self._tableView.selectedRow, nil)
         }
     }
     
@@ -274,10 +274,8 @@ class TrackController: NSViewController {
     @IBAction func doubleClick(_ sender: Any) {
         let row = _tableView.clickedRow
         
-        if let playTrack = playTrack {
-            if history.track(at: row) != nil {
-                playTrack(row, nil)
-            }
+        if history.track(at: row) != nil {
+            playTrack?(row, nil)
         }
     }
     
@@ -290,8 +288,8 @@ class TrackController: NSViewController {
     
     @IBAction func waveformViewClicked(_ sender: Any?) {
         if let view = sender as? WaveformView {
-            if let row = view.superview ?=> _tableView.row, history.track(at: row) != nil, let playTrack = playTrack {
-                playTrack(row, view.location)
+            if let row = view.superview ?=> _tableView.row, history.track(at: row) != nil {
+                playTrack?(row, view.location)
             }
             
             view.location = nil
@@ -318,7 +316,18 @@ class TrackController: NSViewController {
 
         playlist.removeTracks(indices.compactMap { history.track(at: $0) })
         // Don't reload data, we'll be updated in async
-    }    
+    }
+    
+    @IBAction func albumCoverClicked(_ sender: Any?) {
+        let row = _tableView.row(for: sender as! NSView)
+        let track = history.track(at: row)
+        
+        guard ViewController.shared.player.playing != track else {
+            return
+        }
+        
+        playTrack?(row, nil)
+    }
 }
 
 extension TrackController: NSTableViewDelegate {
@@ -362,12 +371,15 @@ extension TrackController: NSTableViewDelegate {
             view.layer!.cornerRadius = 3.0
             view.layer!.masksToBounds = true
 
-            view.bind(.value, to: track, withKeyPath: \.artworkPreview, options: [.nullPlaceholder: Album.missingArtwork])
+            view.bind(.image, to: track, withKeyPath: \.artworkPreview, options: [.nullPlaceholder: Album.missingArtwork])
             if mode != .title {
                 // TODO Too Omniscient?
                 view.observe(track: track, playingIn: ViewController.shared.player)
             }
-
+            
+            view.target = self
+            view.action = #selector(albumCoverClicked)
+            
             return view
         }
         else if tableColumn?.identifier == ColumnIdentifiers.waveform, let view = tableView.makeView(withIdentifier: CellIdentifiers.waveform, owner: nil) as? WaveformView {

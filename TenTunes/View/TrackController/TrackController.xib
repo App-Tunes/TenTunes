@@ -192,11 +192,14 @@
                                                 <imageCell key="dataCell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="music_missing" id="EyP-QP-l4R"/>
                                                 <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="none"/>
                                                 <prototypeCellViews>
-                                                    <imageView identifier="artworkCell" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="iaK-Lm-X6C" customClass="PlayImageView" customModule="TenTunes" customModuleProvider="target">
-                                                        <rect key="frame" x="1" y="1" width="30" height="30"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="music_missing" id="alI-a2-7TY"/>
-                                                    </imageView>
+                                                    <button identifier="artworkCell" id="yeK-z6-hyi" customClass="PlayImageView" customModule="TenTunes" customModuleProvider="target">
+                                                        <rect key="frame" x="1" y="1" width="30" height="48"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="music_missing" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="6nI-1O-hPE">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                    </button>
                                                 </prototypeCellViews>
                                             </tableColumn>
                                             <tableColumn identifier="waveformColumn" width="100" minWidth="50" maxWidth="100000" id="lAg-cD-irz">

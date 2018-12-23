@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class PlayImageView: NSImageView {
+class PlayImageView: NSButton {
     var showsPlaying: Bool = false {
         didSet {
             if showsPlaying != oldValue {
@@ -24,7 +24,14 @@ class PlayImageView: NSImageView {
 
     var observeTrackToken: NSKeyValueObservation?
 
-    var playImage = NSImage(named: .init("music"))?.tinted(in: .white)
+    var playImage = NSImage(named: .init("play"))?.tinted(in: .white)
+    var playingImage = NSImage(named: .init("music"))?.tinted(in: .white)
+    
+    var isHovering = false {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
 
     func observe(track: Track, playingIn player: Player) {
         observeTrackToken = player.observe(\.playing, options: [.initial, .new]) { [unowned self] player, _  in
@@ -32,15 +39,37 @@ class PlayImageView: NSImageView {
         }
     }
     
+    override func updateTrackingAreas() {
+        super.updateTrackingAreas()
+        addTrackingArea(NSTrackingArea(rect: bounds, options: [.activeAlways, .mouseEnteredAndExited], owner: self, userInfo: nil))
+    }
+    
+    override func mouseEntered(with event: NSEvent) { isHovering = true }
+    
+    override func mouseExited(with event: NSEvent) { isHovering = false }
+    
+    var symbolRect: NSRect {
+        return NSMakeRect(bounds.minX + bounds.width / 5, bounds.minY + bounds.height / 5, bounds.width / 5 * 3, bounds.height / 5 * 3)
+    }
+    
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
-        if showsPlaying {
+        if showsPlaying || isHovering {
             NSColor(white: 0, alpha: 0.5).set()
             dirtyRect.fill()
-            
-            playImage?.draw(in: NSMakeRect(bounds.minX + bounds.width / 5, bounds.minY + bounds.height / 5, bounds.width / 5 * 3, bounds.height / 5 * 3), from: NSZeroRect, operation: .sourceOver, fraction: 0.7)
+        }
+        
+        let transform = NSAffineTransform()
+        transform.translateX(by: 0, yBy: bounds.height)
+        transform.scaleX(by: 1, yBy: -1)
+        transform.concat()
+        
+        if showsPlaying {
+            playingImage?.draw(in: symbolRect, from: NSZeroRect, operation: .sourceOver, fraction: 0.7)
+        }
+        else if isHovering {
+            playImage?.draw(in: symbolRect, from: NSZeroRect, operation: .sourceOver, fraction: 0.7)
         }
     }
-    
 }

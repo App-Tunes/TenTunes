@@ -27,7 +27,6 @@ extension AVPlayer {
 }
 
 protocol PlayerDelegate : class {
-    func playerChangedState(_ player: Player)
     func playerTriggeredRepeat(_ player: Player)
 
     var currentHistory: PlayHistory? { get }
@@ -189,11 +188,6 @@ protocol PlayerDelegate : class {
     }
 
     func play(track: Track?) throws {
-        defer {
-            delegate?.playerChangedState(self)
-        }
-        
-
         if player.isPlaying {
             player.stop()
         }

@@ -54,6 +54,7 @@ class ViewController: NSViewController {
     
     @objc let player: Player = Player()
     var observerIsPlaying: NSKeyValueObservation?
+    var observerPlaying: NSKeyValueObservation?
 
     var runningTasks: [Task] = []
     var taskers: [Tasker] = []
@@ -141,8 +142,6 @@ class ViewController: NSViewController {
         taskPopover.animates = true
         taskPopover.behavior = .transient
         
-        playerChangedState(player)
-        
         _waveformView.postsFrameChangedNotifications = true
         NotificationCenter.default.addObserver(self, selector: #selector(updateTimesHidden), name: NSView.frameDidChangeNotification, object: _waveformView)
         
@@ -161,6 +160,10 @@ class ViewController: NSViewController {
         taskers.append(CurrentPlaylistUpdater())
         startBackgroundTasks()
         
+        playerChangedTrack(player)
+        observerPlaying = player.observe(\.playing) { [unowned self] player, _ in
+            self.playerChangedTrack(player)
+        }
         observerIsPlaying = player.observe(\.isPlaying) { [unowned self] player, _ in
             self._play.image = player.isPlaying ? #imageLiteral(resourceName: "pause") : #imageLiteral(resourceName: "play")
         }
@@ -375,7 +378,7 @@ extension ViewController: NSPopoverDelegate {
 }
 
 extension ViewController: PlayerDelegate {
-    func playerChangedState(_ player: Player) {
+    func playerChangedTrack(_ player: Player) {
         self.updateTimesHidden(self)
         
         _previous.isEnabled = player.history.playingIndex >= 0

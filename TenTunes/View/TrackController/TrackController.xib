@@ -193,13 +193,18 @@
                                                 <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="none"/>
                                                 <prototypeCellViews>
                                                     <button identifier="artworkCell" id="yeK-z6-hyi" customClass="PlayImageView" customModule="TenTunes" customModuleProvider="target">
-                                                        <rect key="frame" x="1" y="1" width="30" height="48"/>
+                                                        <rect key="frame" x="1" y="1" width="30" height="29"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="music_missing" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="6nI-1O-hPE">
+                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="music_missing" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="6nI-1O-hPE">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                     </button>
+                                                    <imageView identifier="staticArtworkCell" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="aYO-zA-0J8">
+                                                        <rect key="frame" x="1" y="32" width="30" height="31"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="music_missing" id="n3k-fI-Z0c"/>
+                                                    </imageView>
                                                 </prototypeCellViews>
                                             </tableColumn>
                                             <tableColumn identifier="waveformColumn" width="100" minWidth="50" maxWidth="100000" id="lAg-cD-irz">

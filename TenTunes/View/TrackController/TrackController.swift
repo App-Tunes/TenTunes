@@ -333,6 +333,7 @@ class TrackController: NSViewController {
 extension TrackController: NSTableViewDelegate {
     fileprivate enum CellIdentifiers {
         static let artwork = NSUserInterfaceItemIdentifier(rawValue: "artworkCell")
+        static let staticArtwork = NSUserInterfaceItemIdentifier(rawValue: "staticArtworkCell")
         static let waveform = NSUserInterfaceItemIdentifier(rawValue: "waveformCell")
         static let title = NSUserInterfaceItemIdentifier(rawValue: "titleCell")
         static let combinedTitle = NSUserInterfaceItemIdentifier(rawValue: "combinedTitleCell")
@@ -363,7 +364,7 @@ extension TrackController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let track = history.track(at: row)!
         
-        if tableColumn?.identifier == ColumnIdentifiers.artwork, let view = tableView.makeView(withIdentifier: CellIdentifiers.artwork, owner: nil) as? PlayImageView {
+        if tableColumn?.identifier == ColumnIdentifiers.artwork, let view = tableView.makeView(withIdentifier: mode != .title ? CellIdentifiers.artwork : CellIdentifiers.staticArtwork, owner: nil) {
             view.wantsLayer = true
             
             view.layer!.borderWidth = 1.0
@@ -372,20 +373,15 @@ extension TrackController: NSTableViewDelegate {
             view.layer!.masksToBounds = true
 
             view.bind(.image, to: track, withKeyPath: \.artworkPreview, options: [.nullPlaceholder: Album.missingArtwork])
-            if mode != .title {
-                view.isEnabled = true
+            
+            if let button = view as? PlayImageView {
+                button.isEnabled = true
                 
                 // TODO Too Omniscient?
-                view.observe(track: track, playingIn: ViewController.shared.player)
-                
-                view.target = self
-                view.action = #selector(albumCoverClicked)
-            }
-            else {
-                view.isEnabled = false
-                
-                view.target = nil
-                view.action = nil
+                button.observe(track: track, playingIn: ViewController.shared.player)
+
+                button.target = self
+                button.action = #selector(albumCoverClicked)
             }
             
             return view

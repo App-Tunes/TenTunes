@@ -54,11 +54,7 @@ class PlayImageView: NSButton {
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
-        
-        guard action != nil else {
-            return
-        }
-        
+                
         if showsPlaying || isHovering {
             NSColor(white: 0, alpha: 0.5).set()
             dirtyRect.fill()

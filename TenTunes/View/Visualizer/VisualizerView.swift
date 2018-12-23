@@ -24,7 +24,7 @@ class VisualizerView: SyphonableOpenGLView {
     @objc @IBOutlet
     weak var delegate: VisualizerViewDelegate?
     
-    var deepResonance: [[Number]] = Array(repeating: [], count: 5)
+    var deepResonance: [[Number]] = Array(repeating: [], count: 6)
     
     var resonance: [Number] = []
     var numbness: [Number] = []
@@ -82,7 +82,7 @@ class VisualizerView: SyphonableOpenGLView {
         }
 
         deepResonance = deepResonance.enumerated().map { (idx, resonance) in
-            let lerp = 0.03 * (Number(idx) + 1) + frantic * 0.1
+            let lerp = pow(0.6, Number(idx) + 3) + frantic * 0.1
             return Interpolation.linear(resonance, desired, amount: lerp)
         }
         

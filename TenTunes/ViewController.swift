@@ -53,6 +53,7 @@ class ViewController: NSViewController {
     var backgroundTimer: Timer!
     
     @objc let player: Player = Player()
+    var observerIsPlaying: NSKeyValueObservation?
 
     var runningTasks: [Task] = []
     var taskers: [Tasker] = []
@@ -159,6 +160,10 @@ class ViewController: NSViewController {
         taskers.append(AnalyzeCurrentTrack())
         taskers.append(CurrentPlaylistUpdater())
         startBackgroundTasks()
+        
+        observerIsPlaying = player.observe(\.isPlaying) { [unowned self] player, _ in
+            self._play.image = player.isPlaying ? #imageLiteral(resourceName: "pause") : #imageLiteral(resourceName: "play")
+        }
     }
     
     override func viewDidAppear() {        
@@ -379,8 +384,6 @@ extension ViewController: PlayerDelegate {
         _queueButton.isEnabled = player.history.count > 0
         
         guard let track = player.playing else {
-            _play.image = #imageLiteral(resourceName: "play")
-            
             playingTrackController.history = PlayHistory(playlist: PlaylistEmpty())
             
             _coverImage.image = nil
@@ -391,8 +394,6 @@ extension ViewController: PlayerDelegate {
             
             return
         }
-        
-        _play.image = player.isPaused ? #imageLiteral(resourceName: "play") : #imageLiteral(resourceName: "pause")
         
         if playingTrackController.history.track(at: 0) != track {
             playingTrackController.history.insert(tracks: [track], before: 0)

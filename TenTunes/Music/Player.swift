@@ -156,18 +156,23 @@ protocol PlayerDelegate : class {
             return
         }
         
+        willChangeValue(for: \.isPlaying)
+        
         sanityCheck()
         let currentTime = player.currentTime
         player.pause()
         player.play(from: currentTime, to: player.duration)
+        
+        didChangeValue(for: \.isPlaying)
     }
     
     func togglePlay() {        
         if isPaused {
             sanityCheck()
-            player.play(from: startTime, to: player.duration)
             
-            delegate?.playerChangedState(self)
+            willChangeValue(for: \.isPlaying)
+            player.play(from: startTime, to: player.duration)
+            didChangeValue(for: \.isPlaying)
         }
         else {
             self.pause()
@@ -188,10 +193,17 @@ protocol PlayerDelegate : class {
             delegate?.playerChangedState(self)
         }
         
+
         if player.isPlaying {
             player.stop()
         }
-        
+
+        // We don't entirely know if it changes but it might, and we don't want to check on EVERY path here
+        willChangeValue(for: \.isPlaying)
+        defer {
+            didChangeValue(for: \.isPlaying)
+        }
+
         sanityCheck()
         
         if let track = track {
@@ -302,12 +314,14 @@ protocol PlayerDelegate : class {
     
     func pause() {
         sanityCheck()
-        
+
+        willChangeValue(for: \.isPlaying)
+
         // The set position is reset when we play again
         startTime = player.currentTime
         player.stop()
         
-        delegate?.playerChangedState(self)
+        didChangeValue(for: \.isPlaying)
     }
     
     @discardableResult
@@ -326,10 +340,14 @@ protocol PlayerDelegate : class {
         return true
     }
     
-    override public class func keyPathsForValuesAffectingValue(forKey key: String) -> Set<String> {
-        return [
-            // TODO This doesn't work yet unfortunately
-            #keyPath(Player.isPlaying): [#keyPath(Player.player.isPlaying)],
-            ][key] ?? super.keyPathsForValuesAffectingValue(forKey: key)
+    override class func automaticallyNotifiesObservers(forKey key: String) -> Bool {
+        return key != #keyPath(isPlaying)
     }
+
+//    override public class func keyPathsForValuesAffectingValue(forKey key: String) -> Set<String> {
+//        return [
+            // TODO This doesn't work yet unfortunately, but is observed manually
+//            #keyPath(Player.isPlaying): [#keyPath(Player.player.isPlaying)],
+//            ][key] ?? super.keyPathsForValuesAffectingValue(forKey: key)
+//    }
 }

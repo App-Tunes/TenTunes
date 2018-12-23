@@ -23,18 +23,12 @@ class PlayImageView: NSImageView {
     }
 
     var observeTrackToken: NSKeyValueObservation?
-    var observePlayingToken: NSKeyValueObservation?
 
-    var playImage = NSImage(named: .init("play"))?.tinted(in: .white)
-    var pauseImage = NSImage(named: .init("pause"))?.tinted(in: .white)
+    var playImage = NSImage(named: .init("music"))?.tinted(in: .white)
 
     func observe(track: Track, playingIn player: Player) {
-        observeTrackToken = player.observe(\.playing, options: [.initial, .new]) { _,_  in
+        observeTrackToken = player.observe(\.playing, options: [.initial, .new]) { [unowned self] player, _  in
             self.showsPlaying = track == player.playing
-        }
-
-        observePlayingToken = player.observe(\.playing, options: [.initial, .new]) { _,_  in
-            self.isPlaying = player.isPlaying
         }
     }
     
@@ -45,7 +39,7 @@ class PlayImageView: NSImageView {
             NSColor(white: 0, alpha: 0.5).set()
             dirtyRect.fill()
             
-            (isPlaying ? playImage : pauseImage)?.draw(in: NSMakeRect(bounds.minX + bounds.width / 5, bounds.minY + bounds.height / 5, bounds.width / 5 * 3, bounds.height / 5 * 3), from: NSZeroRect, operation: .sourceOver, fraction: 0.7)
+            playImage?.draw(in: NSMakeRect(bounds.minX + bounds.width / 5, bounds.minY + bounds.height / 5, bounds.width / 5 * 3, bounds.height / 5 * 3), from: NSZeroRect, operation: .sourceOver, fraction: 0.7)
         }
     }
     

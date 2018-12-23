@@ -373,12 +373,17 @@ extension TrackController: NSTableViewDelegate {
 
             view.bind(.image, to: track, withKeyPath: \.artworkPreview, options: [.nullPlaceholder: Album.missingArtwork])
             if mode != .title {
+                view.isEnabled = true
+                
                 // TODO Too Omniscient?
                 view.observe(track: track, playingIn: ViewController.shared.player)
+                
+                view.target = self
+                view.action = #selector(albumCoverClicked)
             }
-            
-            view.target = self
-            view.action = #selector(albumCoverClicked)
+            else {
+                view.isEnabled = false
+            }
             
             return view
         }

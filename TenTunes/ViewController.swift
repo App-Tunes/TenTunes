@@ -55,6 +55,7 @@ class ViewController: NSViewController {
     @objc let player: Player = Player()
     var observerIsPlaying: NSKeyValueObservation?
     var observerPlaying: NSKeyValueObservation?
+    var observerCoverImage: NSKeyValueObservation?
 
     var runningTasks: [Task] = []
     var taskers: [Tasker] = []
@@ -166,6 +167,9 @@ class ViewController: NSViewController {
         }
         observerIsPlaying = player.observe(\.isPlaying) { [unowned self] player, _ in
             self._play.image = player.isPlaying ? #imageLiteral(resourceName: "pause") : #imageLiteral(resourceName: "play")
+        }
+        observerCoverImage = player.observe(\Player.playing?.artworkPreview) { [unowned self] player, _ in
+            self._coverImage.transitionWithImage(image: player.playing?.artworkPreview)
         }
     }
     
@@ -389,8 +393,6 @@ extension ViewController: PlayerDelegate {
         guard let track = player.playing else {
             playingTrackController.history = PlayHistory(playlist: PlaylistEmpty())
             
-            _coverImage.image = nil
-            
             _waveformView.analysis = nil
             _waveformView.jumpSegment = 0
             _waveformView.duration = 1
@@ -409,7 +411,6 @@ extension ViewController: PlayerDelegate {
             }
         }
         
-        _coverImage.transitionWithImage(image: track.artworkPreview)
         _waveformView.analysis = track.analysis
         
         _waveformView.duration = track.duration?.seconds ?? 1

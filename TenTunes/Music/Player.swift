@@ -165,7 +165,7 @@ protocol PlayerDelegate : class {
         didChangeValue(for: \.isPlaying)
     }
     
-    func togglePlay() {        
+    func togglePlay() {
         if isPaused {
             sanityCheck()
             

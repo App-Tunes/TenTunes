@@ -11,6 +11,16 @@ import Cocoa
 import AudioKitUI
 
 extension VisualizerWindowController {
+    @objc class AudioConnection : NSObject {
+        let fft: FFTTap.AVNode
+        let pause: (() -> VisualizerWindow.PauseResult)?
+        
+        init(fft: FFTTap.AVNode, pause: (() -> VisualizerWindow.PauseResult)? = nil) {
+            self.fft = fft
+            self.pause = pause
+        }
+    }
+    
     enum AudioCapture {
         case direct
         case input(device: AKDevice)
@@ -49,8 +59,8 @@ extension VisualizerWindowController {
         
         let visible = window?.occlusionState.contains(.visible) ?? false
         
-        fft?.stop()
-        fft = nil
+        connection?.fft.stop()
+        connection = nil
 
         guard visible || syphon != nil else {
             return
@@ -59,9 +69,15 @@ extension VisualizerWindowController {
         do {
             switch captureMethod {
             case .direct:
-                fft = try! FFTTap.AVNode(ViewController.shared.player.mixer.avAudioNode)
+                let player = ViewController.shared.player
+                connection = .init(fft: try! FFTTap.AVNode(player.mixer.avAudioNode),
+                    pause: {
+                        player.togglePlay()
+                        return player.isPlaying ? .played : .paused
+                    }
+                )
             case .input(let device):
-                fft = try FFTTap.AVAudioDevice(deviceID: device.deviceID)
+                connection = .init(fft: try FFTTap.AVAudioDevice(deviceID: device.deviceID))
 //        case .output(let device):
 //            break
             }
@@ -70,7 +86,7 @@ extension VisualizerWindowController {
             NSAlert(error: error).runModal()
         }
         
-        fft?.volume = volume
-        fft?.addObserver(self, forKeyPath: #keyPath(FFTTap.AVNode.resonance), options: [.new], context: nil)
+        connection?.fft.volume = volume
+        connection?.fft.addObserver(self, forKeyPath: #keyPath(FFTTap.AVNode.resonance), options: [.new], context: nil)
     }
 }

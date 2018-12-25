@@ -17,10 +17,10 @@ class VisualizerWindowController: NSWindowController {
 
     @IBOutlet var _visualizerView: VisualizerView!
     
-    @objc dynamic var fft: FFTTap.AVNode?
+    @objc dynamic var connection: AudioConnection?
     @objc dynamic var volume: Double = 1 {
         didSet {
-            fft?.volume = volume
+            connection?.fft.volume = volume
         }
     }
 
@@ -131,5 +131,11 @@ extension VisualizerWindowController : VisualizerViewDelegate {
 
         // Update on fft changes
 //        view.update(withFFT: fft?.resonance)
+    }
+}
+
+extension VisualizerWindowController : VisualizerWindowDelegate {
+    func togglePlay() -> VisualizerWindow.PauseResult? {
+        return connection?.pause?()
     }
 }

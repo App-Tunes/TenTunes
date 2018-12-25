@@ -21,7 +21,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Visualizer" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="visualizer_window" animationBehavior="default" tabbingIdentifier="visualizer_window" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="F0z-JX-Cv5">
+        <window title="Visualizer" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="visualizer_window" animationBehavior="default" tabbingIdentifier="visualizer_window" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="F0z-JX-Cv5" customClass="VisualizerWindow" customModule="TenTunes" customModuleProvider="target">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="487" y="320" width="480" height="270"/>
@@ -70,8 +70,8 @@
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="90" y="125" width="416" height="399"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
-            <view key="contentView" id="ENc-Eb-lrQ">
-                <rect key="frame" x="0.0" y="0.0" width="416" height="425"/>
+            <view key="contentView" misplaced="YES" id="ENc-Eb-lrQ">
+                <rect key="frame" x="0.0" y="0.0" width="416" height="399"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6Jb-mX-sNA">
@@ -352,12 +352,12 @@ DQ
                     </button>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="k6L-Dx-CNP">
                         <rect key="frame" x="138" y="383" width="261" height="25"/>
-                        <popUpButtonCell key="cell" type="push" title="Honey" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="DnR-os-kRN" id="KvW-gk-Ljb">
+                        <popUpButtonCell key="cell" type="push" title="Honey" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="DnR-os-kRN" id="KvW-gk-Ljb">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="menu"/>
                             <menu key="menu" id="E5w-hc-tQT">
                                 <items>
-                                    <menuItem title="Honey" identifier="honey" id="DnR-os-kRN">
+                                    <menuItem title="Honey" state="on" identifier="honey" id="DnR-os-kRN">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
                                     <menuItem title="Dark Matter" identifier="darkMatter" id="JX2-Ei-c4b">

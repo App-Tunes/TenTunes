@@ -60,8 +60,6 @@ extension Library {
         }
         
         ViewController.shared.tasker.enqueue(task: UpdateExports(library: self))
-        
-        exportSemaphore.signalAfter(seconds: 60)
     }
         
     class UpdateExports: Task {
@@ -83,6 +81,12 @@ extension Library {
                 self.library.export(mox).updateExports()
                 self.finish()
             }
+        }
+        
+        override func finish() {
+            super.finish()
+            
+            library.exportSemaphore.signalAfter(seconds: 30)
         }
     }
 

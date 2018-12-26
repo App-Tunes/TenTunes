@@ -27,6 +27,13 @@ class PlayImageView: NSButton {
     var playImage = NSImage(named: .init("play"))?.tinted(in: .white)
     var playingImage = NSImage(named: .init("music"))?.tinted(in: .white)
     
+    var hoverTrackingArea: NSTrackingArea? {
+        didSet {
+            oldValue ?=> removeTrackingArea
+            hoverTrackingArea ?=> addTrackingArea
+        }
+    }
+    
     var isHovering = false {
         didSet {
             setNeedsDisplay()
@@ -41,7 +48,8 @@ class PlayImageView: NSButton {
     
     override func updateTrackingAreas() {
         super.updateTrackingAreas()
-        addTrackingArea(NSTrackingArea(rect: bounds, options: [.activeAlways, .mouseEnteredAndExited], owner: self, userInfo: nil))
+        
+        hoverTrackingArea = NSTrackingArea(rect: bounds, options: [.activeAlways, .mouseEnteredAndExited], owner: self, userInfo: nil)
     }
     
     override func mouseEntered(with event: NSEvent) { isHovering = true }

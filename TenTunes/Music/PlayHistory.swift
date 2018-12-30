@@ -118,17 +118,12 @@ class PlayHistory {
     }
     
     func enqueue(tracks: [Track], at: QueueLocation) {
-        let insertionPosition = at == .end && queueEndIndex > playingIndex
-            ? queueEndIndex : playingIndex + 1
+        let queueStart = playingIndex + 1
+        let queueEnd = queueEndIndex > playingIndex ? queueEndIndex : queueStart
         
-        insert(tracks: tracks, before: insertionPosition)
+        insert(tracks: tracks, before: at == .start ? queueStart : queueEnd)
         
-        if queueEndIndex <= playingIndex {
-            queueEndIndex = insertionPosition + tracks.count
-        }
-        else {
-            queueEndIndex += tracks.count
-        }
+        queueEndIndex = queueEnd + tracks.count
     }
 
     func rearrange(tracks: [Track], before: Int) {

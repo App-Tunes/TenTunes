@@ -48,6 +48,7 @@
                         <action selector="menuPlayLater:" target="-2" id="EZn-iY-9y2"/>
                     </connections>
                 </menuItem>
+                <menuItem isSeparatorItem="YES" id="4bF-q7-lqb"/>
                 <menuItem title="Show Info" id="uuL-gX-RmY">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>

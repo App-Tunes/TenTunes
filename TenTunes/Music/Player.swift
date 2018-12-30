@@ -183,8 +183,8 @@ protocol PlayerDelegate : class {
         case error(message: String?)
     }
     
-    func enqueue(tracks: [Track]) {
-        history.insert(tracks: tracks, before: history.playingIndex + 1)
+    func enqueue(tracks: [Track], at: PlayHistory.QueueLocation) {
+        history.enqueue(tracks: tracks, at: at)
     }
 
     func play(track: Track?) throws {

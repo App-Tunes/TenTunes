@@ -58,6 +58,7 @@ class TrackController: NSViewController {
 
     var playTrack: ((Int, Double?) -> Swift.Void)?
     var playTrackNext: ((Int) -> Swift.Void)?
+    var playTrackLater: ((Int) -> Swift.Void)?
 
     var history: PlayHistory = PlayHistory(playlist: PlaylistEmpty()) {
         didSet {
@@ -212,7 +213,13 @@ class TrackController: NSViewController {
         
         playTrackNext = { [unowned self] in
             let tracksBefore = self.history.tracks
-            self.history.insert(tracks: [self.history.track(at: $0)!], before: self.history.playingIndex + 1)
+            self.history.enqueue(tracks: [self.history.track(at: $0)!], at: .start)
+            self._tableView.animateDifference(from: tracksBefore, to: self.history.tracks)
+        }
+        
+        playTrackLater = { [unowned self] in
+            let tracksBefore = self.history.tracks
+            self.history.enqueue(tracks: [self.history.track(at: $0)!], at: .end)
             self._tableView.animateDifference(from: tracksBefore, to: self.history.tracks)
         }
         

@@ -26,7 +26,9 @@ class PlayHistory {
     var order: [Track]
     var shuffled: [Track]?
     var playingIndex: Int = -1
-    
+
+    var queueEndIndex: Int = -1
+
     init(playlist: PlaylistProtocol) {
         self.playlist = playlist
         self.order = Array(playlist.tracksList)
@@ -55,6 +57,8 @@ class PlayHistory {
         
     // Order, Filter
     func filter(by filter: @escaping (Track) -> Bool) {
+        queueEndIndex = -1
+
         if shuffled != nil {
             shuffled!.removeAll(keepTrackOf: &playingIndex) { !filter($0) }
             order.removeAll { !filter($0) }
@@ -65,6 +69,8 @@ class PlayHistory {
     }
     
     func sort(by sort: (Track, Track) -> Bool) {
+        queueEndIndex = -1
+
         let playing = order[safe: playingIndex]
         
         order = order.sorted(by: sort)
@@ -75,6 +81,8 @@ class PlayHistory {
     }
     
     func unshuffle() {
+        queueEndIndex = -1
+
         let playing = playingTrack
         shuffled = nil
         if let playing = playing {
@@ -84,6 +92,8 @@ class PlayHistory {
     }
     
     func shuffle() {
+        queueEndIndex = -1
+
         let playing = playingTrack
         
         shuffled = order
@@ -97,11 +107,33 @@ class PlayHistory {
     }
     
     func insert(tracks: [Track], before: Int) {
+        queueEndIndex = -1
+
         if shuffled != nil  { shuffled!.insert(contentsOf: tracks, at: min(shuffled!.count, before)) }
         else                { order.insert(contentsOf: tracks, at: min(order.count, before)) }
     }
+    
+    enum QueueLocation {
+        case start, end
+    }
+    
+    func enqueue(tracks: [Track], at: QueueLocation) {
+        let insertionPosition = at == .end && queueEndIndex > playingIndex
+            ? queueEndIndex : playingIndex + 1
+        
+        insert(tracks: tracks, before: insertionPosition)
+        
+        if queueEndIndex <= playingIndex {
+            queueEndIndex = insertionPosition + tracks.count
+        }
+        else {
+            queueEndIndex += tracks.count
+        }
+    }
 
     func rearrange(tracks: [Track], before: Int) {
+        queueEndIndex = -1
+        
         // TODO Doesn't work with the same track being in the playlist twice
 
         let playing = playingTrack
@@ -115,6 +147,8 @@ class PlayHistory {
     }
     
     func remove(indices: [Int]) {
+        queueEndIndex = -1
+
         if shuffled != nil  { shuffled!.remove(at: indices) }
         else                { order.remove(at: indices) }
     }

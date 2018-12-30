@@ -106,10 +106,16 @@ extension TrackController: NSMenuDelegate {
     @IBAction func menuPlayNext(_ sender: Any) {
         let row = self._tableView.clickedRow
         
-        if let playTrackNext = playTrackNext {
-            if history.track(at: row) != nil {
-                playTrackNext(row)
-            }
+        if history.track(at: row) != nil {
+            playTrackNext?(row)
+        }
+    }
+    
+    @IBAction func menuPlayLater(_ sender: Any) {
+        let row = self._tableView.clickedRow
+        
+        if history.track(at: row) != nil {
+            playTrackLater?(row)
         }
     }
     

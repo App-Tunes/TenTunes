@@ -95,12 +95,12 @@ extension TrackController {
             let history = player.history
             
             if dropOperation == .on {
-                player.enqueue(tracks: tracks)
+                player.enqueue(tracks: tracks, at: .start)
                 if history.playingIndex >= 0 { history.remove(indices: [history.playingIndex]) }
                 player.play(at: history.playingIndex, in: nil) // Reload track
             }
             else {
-                player.enqueue(tracks: tracks)
+                player.enqueue(tracks: tracks, at: .start)
 
                 if self.history.count == 0 {
                     // User added this probably to play it

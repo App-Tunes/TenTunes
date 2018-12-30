@@ -113,9 +113,14 @@ class ViewController: NSViewController {
         }
         trackController.playTrackNext = { [unowned self] in
             // TODO Support for multiple
-            // TODO What if history doesn't exist? No feedback!!
             let next = [self.trackController.history.track(at: $0)!]
-            self.player.enqueue(tracks: next)
+            self.player.enqueue(tracks: next, at: .start)
+        }
+        
+        trackController.playTrackLater = { [unowned self] in
+            // TODO Support for multiple
+            let next = [self.trackController.history.track(at: $0)!]
+            self.player.enqueue(tracks: next, at: .end)
         }
         
         _queueButton.wantsLayer = true

@@ -42,6 +42,12 @@
                         <action selector="menuPlayNext:" target="-2" id="H7R-ad-VKr"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Play Later" id="HSy-Aa-Jha">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="menuPlayLater:" target="-2" id="EZn-iY-9y2"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="Show Info" id="uuL-gX-RmY">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>

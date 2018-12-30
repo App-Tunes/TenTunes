@@ -306,7 +306,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         let tracks = objects.compactMap { $0 as? Track }
         if tracks.count > 0, UserDefaults.standard.playOpenedFiles == .play {
-            ViewController.shared.player.enqueue(tracks: tracks)
+            ViewController.shared.player.enqueue(tracks: tracks, at: .end)
             ViewController.shared.player.play(moved: 1)
         }
     }

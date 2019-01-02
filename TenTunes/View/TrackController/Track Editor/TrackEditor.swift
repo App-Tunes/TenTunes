@@ -101,9 +101,9 @@ class TrackEditor: NSViewController {
     }
     
     func toggleEdit(textField: NSTextField) {
-        guard textField.convert(textField.bounds, to: nil).contains(textField.window!.mouseLocationOutsideOfEventStream) else {
-            return
-        }
+//        guard textField.convert(textField.bounds, to: nil).contains(textField.window!.mouseLocationOutsideOfEventStream) else {
+//            return
+//        }
         
         guard textField.currentEditor() == nil else {
             textField.resignFirstResponder()
@@ -124,12 +124,11 @@ class TrackEditor: NSViewController {
             return
         }
         
-        if let cell = view as? TrackDataCell, let textField = cell.valueTextField {
-            toggleEdit(textField: textField)
+        guard let cell = view as? TrackDataCell, let textField = cell.valueTextField else {
+            return
         }
-        else if let cell = view as? NSTableCellView, let textField = cell.textField {
-            toggleEdit(textField: textField)
-        }
+        
+        toggleEdit(textField: textField)
     }
     
     @IBAction func outlineViewDoubleAction(_ sender: Any) {
@@ -213,6 +212,7 @@ extension TrackEditor: NSOutlineViewDataSource {
                 view.textField?.stringValue = data.title
                 
                 view.valueTextField?.bind(.value, to: tracksController, withKeyPath: "selection." + data.path._kvcKeyPathString!, options: (data.options ?? [:]).merging([.nullPlaceholder: "..."], uniquingKeysWith: { (a, _) in a }))
+                view.valueTextField?.bind(.toolTip, to: tracksController, withKeyPath: "selection." + data.path._kvcKeyPathString!, options: data.options)
                 
                 editActionStubs.bind(view.valueTextField!) { [unowned self] _ in
                     self.attributeEdited(data.path, skipWrite: data.skipWrite)

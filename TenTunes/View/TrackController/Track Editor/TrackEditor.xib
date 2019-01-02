@@ -72,6 +72,7 @@
                                                     <string key="NSNullPlaceholder">Title...</string>
                                                 </dictionary>
                                             </binding>
+                                            <binding destination="i0G-Xb-2QU" name="toolTip" keyPath="selection.title" id="5HC-o7-pWe"/>
                                         </connections>
                                     </textField>
                                     <textField toolTip="Author" horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IxQ-nY-WjC" customClass="EnterReturningTextField" customModule="TenTunes" customModuleProvider="target">
@@ -90,6 +91,7 @@
                                                     <string key="NSNullPlaceholder">Unknown Author</string>
                                                 </dictionary>
                                             </binding>
+                                            <binding destination="i0G-Xb-2QU" name="toolTip" keyPath="selection.author" id="axN-oL-dIH"/>
                                         </connections>
                                     </textField>
                                     <textField toolTip="Album" horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mfs-pi-vdb" customClass="EnterReturningTextField" customModule="TenTunes" customModuleProvider="target">
@@ -108,6 +110,7 @@
                                                     <string key="NSNullPlaceholder">No Album</string>
                                                 </dictionary>
                                             </binding>
+                                            <binding destination="i0G-Xb-2QU" name="toolTip" keyPath="selection.album" id="Ydm-wZ-uv5"/>
                                         </connections>
                                     </textField>
                                     <imageView toolTip="Cover Art" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GGH-Dw-GOG">

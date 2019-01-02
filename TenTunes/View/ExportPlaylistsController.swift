@@ -83,6 +83,11 @@ class ExportPlaylistsController: NSWindowController {
             playlists = try! Library.shared.viewContext.fetch(Playlist.fetchRequest())
         }
         
+        guard !playlists.isEmpty else {
+            NSAlert.informational(title: "No Playlists Selected", text: "There are no playlists to export! Please make sure that you actually select some.")
+            return
+        }
+        
         ViewController.shared.tasker.enqueue(task: ExportPlaylists(libraryURL: _trackLibrary.url!, playlists: playlists, destinationURL: _destinationDirectory.url!, aliasURL: _aliasDirectory.url!))
         
         NSAlert.informational(title: "Exporting Playlists", text: "\(playlists.count) playlists are being exported. You can check the progress in the task view.")

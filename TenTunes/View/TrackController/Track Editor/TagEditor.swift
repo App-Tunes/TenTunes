@@ -122,12 +122,14 @@ extension TagEditor: NSOutlineViewDataSource {
                 view.imageView?.bind(.value, to: track, withKeyPath: \.artworkPreview, options: [.nullPlaceholder: Album.missingArtwork])
                 
                 view.textField?.bind(.value, to: track, withKeyPath: \.rTitle)
+                view.textField?.bind(.toolTip, to: track, withKeyPath: \.rTitle)
 
                 return view
             }
         case .tag(let playlist):
             if let view = outlineView.makeView(withIdentifier: CellIdentifiers.tagCell, owner: nil) as? NSTableCellView {
                 view.textField?.bind(.value, to: playlist, withKeyPath: \.name)
+                view.textField?.bind(.toolTip, to: playlist, withKeyPath: \.name)
 
                 return view
             }

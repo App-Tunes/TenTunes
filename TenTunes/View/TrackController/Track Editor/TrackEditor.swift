@@ -101,10 +101,6 @@ class TrackEditor: NSViewController {
     }
     
     func toggleEdit(textField: NSTextField) {
-//        guard textField.convert(textField.bounds, to: nil).contains(textField.window!.mouseLocationOutsideOfEventStream) else {
-//            return
-//        }
-        
         guard textField.currentEditor() == nil else {
             textField.resignFirstResponder()
             return
@@ -125,9 +121,23 @@ class TrackEditor: NSViewController {
         }
         
         guard let cell = view as? TrackDataCell, let textField = cell.valueTextField else {
+            // Some other text field
+            if let cell = view as? NSTableCellView, let textField = cell.textField {
+                guard textField.convert(textField.bounds, to: nil).contains(textField.window!.mouseLocationOutsideOfEventStream) else {
+                    return
+                }
+
+                toggleEdit(textField: textField)
+            }
+            
             return
         }
         
+        // tag text field
+        guard view.convert(view.bounds, to: nil).contains(textField.window!.mouseLocationOutsideOfEventStream) else {
+            return
+        }
+
         toggleEdit(textField: textField)
     }
     

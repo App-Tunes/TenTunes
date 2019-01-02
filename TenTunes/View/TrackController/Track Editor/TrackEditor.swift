@@ -226,6 +226,7 @@ extension TrackEditor: NSOutlineViewDataSource {
                 view.textField?.stringValue = data.title
                 
                 view.valueTextField?.stringValue = (tracks.uniqueElement ?=> data.show) ?? ""
+                view.valueTextField?.toolTip = view.valueTextField?.stringValue
                 view.valueTextField?.isEditable = false
                 
                 return view

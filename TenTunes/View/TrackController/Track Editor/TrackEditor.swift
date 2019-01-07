@@ -32,6 +32,7 @@ class TrackEditor: NSViewController {
         GroupData(title: "Album", icon: #imageLiteral(resourceName: "album"), data: [
             EditData(title: "Album Author", path: \Track.albumArtist, options: nil),
             EditData(title: "Year", path: \Track.year, options: [.valueTransformerName: "IntStringNullable"]),
+            EditData(title: "Publisher", path: \Track.publisher, options: nil),
             EditData(title: "Track No.", path: \Track.trackNumber, options: [.valueTransformerName: "IntStringNullable"]),
             EditData(title: "CD No.", path: \Track.albumNumberOfCD, options: [.valueTransformerName: "IntStringNullable"]),
             EditData(title: "CD Count", path: \Track.albumNumberOfCDs, options: [.valueTransformerName: "IntStringNullable"]),

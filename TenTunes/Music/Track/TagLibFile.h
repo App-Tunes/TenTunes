@@ -29,11 +29,15 @@
 
 @property(nullable) NSString *comments;
 
+@property(nullable) NSString *publisher;
+
 @property unsigned int year;
 @property unsigned int trackNumber;
 
 @property(nullable) NSString *partOfSet;
 
+@property(nullable, readonly) NSString *id3Description;
+    
 -(BOOL)write:(NSError * _Nullable __autoreleasing * _Nullable)error;
 
 @end

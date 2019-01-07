@@ -55,6 +55,15 @@ extension Track {
         }
     }
     
+    @objc dynamic var publisher: String? {
+        get {
+            return tagLibFile?.publisher
+        }
+        set {
+            writeToFile { $0.publisher = newValue }
+        }
+    }
+    
     @objc dynamic var albumNumberOfCDs: Int {
         get { return (partOfSet?.split(separator: "/")[safe: 1].flatMap { Int($0) }) ?? 0 }
         set {

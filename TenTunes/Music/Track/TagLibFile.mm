@@ -225,9 +225,17 @@ inline const TagLib::String TagLibStringFromNS(NSString *string) {
 - (void)setComments:(NSString *)comments {
     [self tag]->setComment(TagLibStringFromNS(comments));
 }
-
+    
 - (NSString *)comments {
     return TagLibStringToNS([self tag]->comment());
+}
+
+- (void)setPublisher:(NSString *)publisher {
+    [self setID3:AVMetadataID3MetadataKeyPublisher text:publisher];
+}
+    
+- (NSString *)publisher {
+    return [self getID3v2Text:AVMetadataID3MetadataKeyPublisher];
 }
 
 - (void)setYear:(unsigned int)year {
@@ -256,7 +264,7 @@ inline const TagLib::String TagLibStringFromNS(NSString *string) {
 
 // ID3v1 is auto-supported with taglib's default setters and getters
 #pragma mark ID3v2
-
+    
 - (TagLib::ID3v2::Tag *)id3v2Tag:(BOOL)create {
     // TODO Create
     if (TagLib::MPEG::File *file = dynamic_cast<TagLib::MPEG::File *>(_fileRef.file())) {
@@ -287,6 +295,25 @@ inline const TagLib::String TagLibStringFromNS(NSString *string) {
 
     return nil;
 }
+    
+- (NSString *)id3Description {
+    auto tag = [self id3v2Tag: false];
+    if (tag) {
+        NSMutableString *description = [NSMutableString string];
+        
+        TagLib::ID3v2::FrameList::ConstIterator it = tag->frameList().begin();
+        for(; it != tag->frameList().end(); it++) {
+            if(auto text_frame = dynamic_cast<TagLib::ID3v2::TextIdentificationFrame *>(*it)) {
+                [description appendFormat:@"%@: %@\n",
+                 TagLibStringToNS(text_frame->frameID()), TagLibStringToNS(text_frame->toString())];
+            }
+        }
+        
+        return description;
+    }
+    return nil;
+}
+
 
 - (NSString *)getID3v2Text:(NSString *)key {
     auto tag = [self id3v2Tag: false];

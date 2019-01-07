@@ -39,12 +39,9 @@ extension Library.Export {
         
         try! to.ensurePathExists()
         
-        var data = contents.data(using: .windowsCP1252, allowLossyConversion: false)
-        if data == nil {
-            print("Lossy Conversion of m3u \(to)!")
-            data = contents.data(using: .windowsCP1252, allowLossyConversion: true)
-        }
-        
+        // Allow lossy conversion since you can set yourself if you want m3u compatible filenames. And artist names are alright like this.
+        let data = contents.data(using: .windowsCP1252, allowLossyConversion: true)
+
         try! data!.write(to: to)
     }
 }

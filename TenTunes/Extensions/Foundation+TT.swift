@@ -146,8 +146,8 @@ extension String {
     
     var asSimpleFileName: String {
         // Remove diacritics
-        let simplified = asFileName.folding(options: [.diacriticInsensitive, .widthInsensitive, .caseInsensitive], locale: nil)
-        // Remove everything else 
+        let simplified = asFileName.folding(options: [.diacriticInsensitive, .widthInsensitive], locale: nil)
+        // Remove everything else
         return Character.regexNotSimplePosix.stringByReplacingMatches(in: simplified, range: NSMakeRange(0, simplified.count), withTemplate: "")
     }
     

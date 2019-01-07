@@ -69,7 +69,8 @@ class MediaLocation {
                 return
             }
             
-            try! FileManager.default.removeItem(at: component)
+            // If delete fails, it might have been deleted by another thread somehwere
+            try? FileManager.default.removeItem(at: component)
             component = component.deletingLastPathComponent()
         }
     }
@@ -104,10 +105,12 @@ class MediaLocation {
     }
     
     func desiredLocation(for track: Track) -> URL {
+        let mod: (String) -> String = UserDefaults.standard.forceSimpleFilePaths ? { $0.asSimpleFileName } : { $0.asFileName }
+        
         let pathExtension = track.resolvedURL?.pathExtension ?? ""
-        return directory.appendingPathComponent(Artist.describe(track.authors).asFileName)
-                        .appendingPathComponent((track.album ?? Album.unknown).asFileName)
-                        .appendingPathComponent(track.rTitle)
+        return directory.appendingPathComponent(mod(Artist.describe(track.authors)))
+                        .appendingPathComponent(mod(track.album ?? Album.unknown))
+                        .appendingPathComponent(mod(track.rTitle))
                         .appendingPathExtension(pathExtension)
     }
     

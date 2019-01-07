@@ -58,7 +58,7 @@
                         </textFieldCell>
                     </textField>
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wq1-eW-n9x">
-                        <rect key="frame" x="768" y="130" width="197" height="26"/>
+                        <rect key="frame" x="768" y="93" width="197" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" title="Link File" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="nWm-Ue-MBV" id="fG1-Th-VkK">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -74,7 +74,7 @@
                         </popUpButtonCell>
                     </popUpButton>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YPV-Np-tB2">
-                        <rect key="frame" x="520" y="210" width="136" height="17"/>
+                        <rect key="frame" x="520" y="173" width="136" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="When opening a file..." id="MrY-Q9-bvS">
                             <font key="font" metaFont="system"/>
@@ -83,7 +83,7 @@
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MkG-bN-PzE">
-                        <rect key="frame" x="520" y="135" width="197" height="17"/>
+                        <rect key="frame" x="520" y="98" width="197" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="When adding a track to library..." id="9bs-iJ-9DM">
                             <font key="font" metaFont="system"/>
@@ -92,7 +92,7 @@
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O4y-U5-wa6">
-                        <rect key="frame" x="536" y="186" width="104" height="18"/>
+                        <rect key="frame" x="536" y="149" width="104" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Add to library" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="szB-g8-qik">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -100,7 +100,7 @@
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K3r-vq-lKw">
-                        <rect key="frame" x="536" y="166" width="82" height="18"/>
+                        <rect key="frame" x="536" y="129" width="82" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Play track" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Kjw-qs-bU8">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -111,7 +111,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oRB-Xv-pse">
-                        <rect key="frame" x="536" y="111" width="104" height="18"/>
+                        <rect key="frame" x="536" y="74" width="104" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Analyze track" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="1M9-gd-KSa">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -130,7 +130,7 @@
                         </connections>
                     </slider>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RqY-9t-PtY">
-                        <rect key="frame" x="520" y="79" width="155" height="17"/>
+                        <rect key="frame" x="520" y="42" width="155" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="When editing an album..." id="QWS-kj-ucH">
                             <font key="font" metaFont="system"/>
@@ -139,7 +139,7 @@
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ffc-uQ-aNq">
-                        <rect key="frame" x="536" y="55" width="169" height="18"/>
+                        <rect key="frame" x="536" y="18" width="169" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Updade all album tracks" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="dK7-d2-p3f">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -150,7 +150,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MmB-FJ-Niy">
-                        <rect key="frame" x="534" y="242" width="245" height="18"/>
+                        <rect key="frame" x="534" y="205" width="245" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Keep the current filter" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ygB-Vt-ET8">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -161,7 +161,7 @@
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="puQ-Fs-h4Z">
-                        <rect key="frame" x="520" y="266" width="165" height="17"/>
+                        <rect key="frame" x="520" y="229" width="165" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="When switching playlists..." id="V51-eR-G1d">
                             <font key="font" metaFont="system"/>
@@ -286,6 +286,21 @@
                         </buttonCell>
                         <connections>
                             <binding destination="JLH-og-fhR" name="value" keyPath="values.quantizedJump" id="zHp-x5-Swu"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l9F-0H-Emg">
+                        <rect key="frame" x="520" y="263" width="249" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Allow special characters in file names" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="YJu-a4-mZ0">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="JLH-og-fhR" name="value" keyPath="values.forceSimpleFilePaths" id="x8B-WE-QIK">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </button>
                 </subviews>

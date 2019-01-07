@@ -144,6 +144,13 @@ extension String {
             .replacingOccurrences(of: "/", with: ":") // : is a slash in filenames
     }
     
+    var asSimpleFileName: String {
+        // Remove diacritics
+        let simplified = asFileName.folding(options: [.diacriticInsensitive, .widthInsensitive, .caseInsensitive], locale: nil)
+        // Remove everything else 
+        return Character.regexNotSimplePosix.stringByReplacingMatches(in: simplified, range: NSMakeRange(0, simplified.count), withTemplate: "")
+    }
+    
     var filterAlphanumeric: String {
         return Character.regexNotAlphanumeric.stringByReplacingMatches(in: self, range: NSMakeRange(0, count), withTemplate: "")
     }
@@ -163,6 +170,7 @@ extension String {
 
 extension Character {
     static var regexNotAlphanumeric = try! NSRegularExpression(pattern: "[^A-Za-z0-9]+", options: [])
+    static var regexNotSimplePosix = try! NSRegularExpression(pattern: "[^A-Za-z0-9_\\-, ]+", options: [])
 }
 
 extension DispatchSemaphore {

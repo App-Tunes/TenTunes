@@ -141,6 +141,10 @@ extension UserDefaults {
     var trackSmallRows: Bool {
         return bool(forKey: "trackSmallRows")
     }
+    
+    var forceSimpleFilePaths: Bool {
+        return bool(forKey: "forceSimpleFilePaths")
+    }
 }
 
 class PreferencesWindowController: NSWindowController {

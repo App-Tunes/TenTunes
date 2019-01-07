@@ -101,7 +101,7 @@ public class Track: NSManagedObject {
     }
         
     var authors: [Artist] {
-        return ((author ?=> Artist.all) ?? []) + ((remixAuthor ?=> Artist.all) ?? [])
+        return (((author ?=> Artist.all) ?? []) + ((remixAuthor ?=> Artist.all) ?? [])).dissimilarElements
     }
     
     var rAlbum: Album? {

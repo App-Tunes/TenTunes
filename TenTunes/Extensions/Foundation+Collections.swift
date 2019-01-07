@@ -333,6 +333,20 @@ extension Array where Element: Equatable {
     }
 }
 
+extension Array where Element: Hashable {
+    var dissimilarElements: [Element] {
+        var buffer = [Element]()
+        var added = Set<Element>()
+        for elem in self {
+            if !added.contains(elem) {
+                buffer.append(elem)
+                added.insert(elem)
+            }
+        }
+        return buffer
+    }
+}
+
 extension Array where Iterator.Element: FloatingPoint {
     func remap(toSize: Int, default defaultValue: Element = 0) -> [Element] {
         return Array<Int>(0 ..< toSize).map { idx in

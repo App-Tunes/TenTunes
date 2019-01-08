@@ -225,6 +225,9 @@ protocol PlayerDelegate : class {
                 player.play()
                 playing = track
                 
+                mixer.volume = UserDefaults.standard.useNormalizedVolumes
+                    ? max(0.5, min(1.5, 1.0 / track.loudness)) : 1.0
+                
                 if !NSApp.isActive {
                     notifyPlay(of: track)
                 }

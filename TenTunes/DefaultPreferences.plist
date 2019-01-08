@@ -4,6 +4,8 @@
 <dict>
 	<key>forceSimpleFilePaths</key>
 	<true/>
+	<key>useNormalizedVolumes</key>
+	<true/>
 	<key>trackSmallRows</key>
 	<false/>
 	<key>trackCombinedTitleSource</key>

@@ -145,6 +145,10 @@ extension UserDefaults {
     var forceSimpleFilePaths: Bool {
         return bool(forKey: "forceSimpleFilePaths")
     }
+
+    var useNormalizedVolumes: Bool {
+        return bool(forKey: "useNormalizedVolumes")
+    }
 }
 
 class PreferencesWindowController: NSWindowController {

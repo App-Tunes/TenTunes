@@ -111,6 +111,9 @@ class SPInterpreter {
         analysis.values = [wf, lows, mids, highs]
         analysis.complete = true
         
+        // TODO Also use peakDecibel for a cap?
+        track.loudness = -12 / analyzer.loudpartsAverageDecibel
+
         if flags.contains(.speed) {
             track.speed = Track.Speed(beatsPerMinute: Double(analyzer.bpm))
         }

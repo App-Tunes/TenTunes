@@ -32,6 +32,7 @@
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="iTunesID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="keyString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="loudness" attributeType="Float" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="metadataFetchDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="path" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="remixAuthor" optional="YES" attributeType="String" syncable="YES"/>
@@ -54,7 +55,7 @@
         <element name="PlaylistFolder" positionX="-218" positionY="171" width="128" height="60"/>
         <element name="PlaylistManual" positionX="-218" positionY="252" width="128" height="58"/>
         <element name="PlaylistSmart" positionX="-216" positionY="108" width="128" height="60"/>
-        <element name="Track" positionX="-414" positionY="261" width="128" height="375"/>
+        <element name="Track" positionX="-414" positionY="261" width="128" height="390"/>
         <element name="TrackVisuals" positionX="-315" positionY="261" width="128" height="90"/>
     </elements>
 </model>

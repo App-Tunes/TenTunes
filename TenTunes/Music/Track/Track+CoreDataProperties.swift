@@ -32,6 +32,7 @@ extension Track {
     @NSManaged public var album: String?
     @NSManaged public var albumArtist: String?
     @NSManaged public var author: String?
+    @NSManaged public var loudness: Float
     @NSManaged public var bpmString: String?
     @NSManaged public var bitrate: Float
     @NSManaged public var comments: NSString?

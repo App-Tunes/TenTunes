@@ -192,7 +192,7 @@ extension Track.Speed {
     }
     
     @objc dynamic var attributes: [NSAttributedString.Key : Any]? {
-        let color = NSColor(hue: CGFloat(0.5 + (0...0.3).clamp((beatsPerMinute - 70.0) / 300.0)), saturation: CGFloat(0.3), brightness: CGFloat(0.65), alpha: CGFloat(1.0))
+        let color = NSColor(hue: CGFloat(log2(beatsPerMinute)).truncatingRemainder(dividingBy: 1), saturation: CGFloat(0.3), brightness: CGFloat(0.65), alpha: CGFloat(1.0))
 
         return [.foregroundColor: color]
     }

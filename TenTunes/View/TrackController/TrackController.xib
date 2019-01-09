@@ -190,7 +190,7 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                         <tableColumns>
-                                            <tableColumn identifier="artworkColumn" editable="NO" width="30" minWidth="30" maxWidth="30" id="okf-KH-O5q">
+                                            <tableColumn identifier="artworkColumn" editable="NO" width="30" minWidth="10" maxWidth="50" id="okf-KH-O5q">
                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                     <font key="font" metaFont="smallSystem"/>
                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -209,7 +209,7 @@
                                                     </button>
                                                     <imageView identifier="staticArtworkCell" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="aYO-zA-0J8">
                                                         <rect key="frame" x="1" y="32" width="30" height="31"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="music_missing" id="n3k-fI-Z0c"/>
                                                     </imageView>
                                                 </prototypeCellViews>

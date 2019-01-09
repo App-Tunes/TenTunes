@@ -33,6 +33,8 @@ import AVFoundation
 }
 
 class TrackController: NSViewController {
+    static let smallRowHeight: CGFloat = 20
+    
     @IBOutlet var _tableView: ActionTableView!
     @IBOutlet var _tableViewHeight: NSLayoutConstraint!
     var tableViewHiddenManager: NSTableView.HiddenManager!
@@ -69,6 +71,11 @@ class TrackController: NSViewController {
             _trackCounter.stringValue = String(history.count) + (history.count != 1 ? " tracks" : " track")
             
             dragHighlightView.isHidden = !acceptsGeneralDrag
+            
+            // Resize album column to always be of equal width and height
+            // Height of row only changes when history changes right now
+            let albumColumn = _tableView.tableColumns[_tableView.column(withIdentifier: ColumnIdentifiers.artwork)]
+            albumColumn.width = tableView(_tableView, heightOfRow: 0)
             
             guard mode == .tracksList else {
                 return
@@ -487,7 +494,7 @@ extension TrackController: NSTableViewDelegate {
             return history.playingIndex == row ? tableView.rowHeight + 2 : tableView.rowHeight
         }
         else if mode == .tracksList {
-            return UserDefaults.standard.trackSmallRows && !UserDefaults.standard.trackCombinedTitleSource ? 20 : tableView.rowHeight
+            return UserDefaults.standard.trackSmallRows && !UserDefaults.standard.trackCombinedTitleSource ? TrackController.smallRowHeight : tableView.rowHeight
         }
         
         return tableView.rowHeight

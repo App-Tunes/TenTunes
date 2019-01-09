@@ -24,16 +24,14 @@ extension Library.Export {
     }
     
     static func m3u(playlist: Playlist, to: URL, pather: (Track, URL) -> String?) {
-        let tracks: [String] = playlist.tracksList.map { track in
-            let info = "#EXTINF:\(track.durationSeconds ?? 0),\(track.author ?? Artist.unknown) - \(track.rTitle)"
-            
-            // TODO Put in path whether it exists or not
-            if let path = pather(track, to.deletingLastPathComponent()) {
-                return info + "\n" + path
+        let tracks: [String] = playlist.tracksList.compactMap { track in
+            // TODO Put in path whether it exists or not, if we do a local export
+            guard let path = pather(track, to.deletingLastPathComponent()) else {
+                return nil
             }
 
-            print("Failed writing m3u for \(info)")
-            return info + "\nunknown"
+            let info = "#EXTINF:\(track.durationSeconds ?? 0),\(track.author ?? Artist.unknown) - \(track.rTitle)"
+            return info + "\n" + path
         }
         let contents = "#EXTM3U\n" + tracks.joined(separator: "\n")
         

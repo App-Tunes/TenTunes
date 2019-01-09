@@ -11,7 +11,7 @@ import Cocoa
 extension Library.Export {
     func symlinks(tracks: [Track], playlists: [Playlist]) {
         Library.Export.iterate(playlists: playlists, changed: nil, in: url(title: "Alias")) { (url, playlist) in
-            if let playlist = playlist as? PlaylistManual {
+            if !(playlist is PlaylistFolder) {
                 let name = playlist.name.asFileName
                 Library.Export.symlinks(playlist: playlist, to: url.appendingPathComponent(name), pather: library.mediaLocation.pather(absolute: true))
             }
@@ -20,14 +20,14 @@ extension Library.Export {
     
     static func remoteSymlinks(_ playlists: [Playlist], to: URL, pather: @escaping (Track, URL) -> String?) {
         Library.Export.iterate(playlists: playlists, changed: nil, in: to) { (url, playlist) in
-            if let playlist = playlist as? PlaylistManual {
+            if !(playlist is PlaylistFolder) {
                 let name = playlist.name.asFileName
                 Library.Export.symlinks(playlist: playlist, to: url.appendingPathComponent(name), pather: pather)
             }
         }
     }
     
-    static func symlinks(playlist: PlaylistManual, to playlistURL: URL, pather: (Track, URL) -> String?) {
+    static func symlinks(playlist: Playlist, to playlistURL: URL, pather: (Track, URL) -> String?) {
         // TODO Clean Up before
         for track in playlist.tracksList {
             if let trackURL = pather(track, playlistURL) {

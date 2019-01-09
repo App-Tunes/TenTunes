@@ -492,7 +492,7 @@
                                                     </tableCellView>
                                                 </prototypeCellViews>
                                             </tableColumn>
-                                            <tableColumn identifier="durationColumn" width="65" minWidth="54" maxWidth="3.4028234663852886e+38" id="2MG-zO-RVS">
+                                            <tableColumn identifier="durationColumn" width="61" minWidth="54" maxWidth="3.4028234663852886e+38" id="2MG-zO-RVS">
                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Duration">
                                                     <font key="font" metaFont="smallSystem"/>
                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -506,11 +506,11 @@
                                                 <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="duration" ascending="NO"/>
                                                 <prototypeCellViews>
                                                     <tableCellView identifier="durationCell" id="yxb-An-zYo">
-                                                        <rect key="frame" x="889" y="1" width="65" height="30"/>
+                                                        <rect key="frame" x="889" y="1" width="61" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="ViK-Io-hiL">
-                                                                <rect key="frame" x="0.0" y="7" width="59" height="17"/>
+                                                                <rect key="frame" x="0.0" y="7" width="55" height="17"/>
                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="0:00" id="xPI-En-aEw">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -543,7 +543,7 @@
                                                 <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="dateAdded" ascending="NO"/>
                                                 <prototypeCellViews>
                                                     <tableCellView identifier="dateAddedCell" id="S4A-re-Y2z">
-                                                        <rect key="frame" x="957" y="1" width="85" height="30"/>
+                                                        <rect key="frame" x="953" y="1" width="85" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="OhA-Um-NU8">
@@ -580,7 +580,7 @@
                                                 <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="year" ascending="NO"/>
                                                 <prototypeCellViews>
                                                     <tableCellView identifier="yearCell" id="8Y0-rz-kZw">
-                                                        <rect key="frame" x="1045" y="1" width="54" height="30"/>
+                                                        <rect key="frame" x="1041" y="1" width="54" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="SQ4-YB-wkb">

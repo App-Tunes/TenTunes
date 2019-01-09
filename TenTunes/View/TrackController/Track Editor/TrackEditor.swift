@@ -39,7 +39,7 @@ class TrackEditor: NSViewController {
             ]),
         GroupData(title: "Info", icon: #imageLiteral(resourceName: "info"), data: [
             InfoData(title: "Duration") { $0.rDuration },
-            InfoData(title: "Loudness") { String(format: "%0.2f", $0.loudness) },
+            EditData(title: "Loudness", path: \Track.loudness, options: [.valueTransformerName: "SimpleFloatString"], skipWrite: true),
             InfoData(title: "Kbps") { String(format: "%0.2f", $0.bitrate / 1024) },
             InfoData(title: "Location") { $0.path ?? "" },
             ]),

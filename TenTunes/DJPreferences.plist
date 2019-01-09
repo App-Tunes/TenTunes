@@ -7,6 +7,11 @@
 	<key>quantizedJump</key>
 	<true/>
 	<key>trackColumnsHidden</key>
-	<dict/>
+	<dict>
+		<key>albumColumn</key>
+		<string></string>
+		<key>authorColumn</key>
+		<string></string>
+	</dict>
 </dict>
 </plist>

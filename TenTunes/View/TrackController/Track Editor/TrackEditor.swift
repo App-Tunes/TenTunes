@@ -32,7 +32,7 @@ class TrackEditor: NSViewController {
         GroupData(title: "Album", icon: #imageLiteral(resourceName: "album"), data: [
             EditData(title: "Album Author", path: \Track.albumArtist, options: nil),
             EditData(title: "Year", path: \Track.year, options: [.valueTransformerName: "IntStringNullable"]),
-            EditData(title: "Publisher", path: \Track.publisher, options: nil),
+            EditData(title: "Publisher", path: \Track.publisher, options: nil, skipWrite: true), // Live value
             EditData(title: "Track No.", path: \Track.trackNumber, options: [.valueTransformerName: "IntStringNullable"]),
             EditData(title: "CD No.", path: \Track.albumNumberOfCD, options: [.valueTransformerName: "IntStringNullable"]),
             EditData(title: "CD Count", path: \Track.albumNumberOfCDs, options: [.valueTransformerName: "IntStringNullable"]),
@@ -165,6 +165,18 @@ class TrackEditor: NSViewController {
         for track in self.tracks {
             // Don't call the collection method since it auto-saves in the wrong context
             Library.shared.mediaLocation.updateLocation(of: track)
+            
+            if UserDefaults.standard.editingTrackUpdatesAlbum == .update, let album = track.rAlbum {
+                switch attribute {
+                case \Track.year:
+                    album.year = track.year
+                    try! album.writeMetadata(values: [\Track.year])
+                case \Track.publisher:
+                    album.publisher = track.publisher // Dynamic Var, is written automagically
+                default:
+                    break
+                }
+            }
         }
         
         try! self.context.save()

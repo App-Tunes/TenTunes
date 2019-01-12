@@ -49,13 +49,23 @@ class Album {
         get { return tracks.compactMap { $0.artworkPreview }.first ?? Album.missingArtwork }
     }
     
+    var year: Int16 {
+        get { return tracks.compactMap { $0.year }.filter { $0 > 0 }.first ?? 0 }
+        set { tracks.forEach { $0.year = newValue }}
+    }
+    
+    var publisher: String? {
+        get { return tracks.compactMap { $0.publisher }.first }
+        set { tracks.forEach { $0.publisher = newValue } }
+    }
+    
 //    var setLength: Int? {
 //        get { return tracks.compactMap { $0.partOfSet }.first }
 //    }
     
-    func writeMetadata() throws {
+    func writeMetadata(values: [PartialKeyPath<Track>]) throws {
         for track in tracks {
-            try track.writeMetadata(values: [\Track.artwork])
+            try track.writeMetadata(values: values)
         }
     }
 }

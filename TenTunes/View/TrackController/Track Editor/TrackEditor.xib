@@ -64,6 +64,7 @@
                                         </textFieldCell>
                                         <connections>
                                             <action selector="titleChanged:" target="-2" id="t6h-yi-cFw"/>
+                                            <binding destination="i0G-Xb-2QU" name="toolTip" keyPath="selection.title" id="5HC-o7-pWe"/>
                                             <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.title" id="hky-lX-dDj">
                                                 <dictionary key="options">
                                                     <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
@@ -72,7 +73,6 @@
                                                     <string key="NSNullPlaceholder">Title...</string>
                                                 </dictionary>
                                             </binding>
-                                            <binding destination="i0G-Xb-2QU" name="toolTip" keyPath="selection.title" id="5HC-o7-pWe"/>
                                         </connections>
                                     </textField>
                                     <textField toolTip="Author" horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IxQ-nY-WjC" customClass="EnterReturningTextField" customModule="TenTunes" customModuleProvider="target">
@@ -222,7 +222,7 @@
                                                             </imageView>
                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4YU-t3-8TW">
                                                                 <rect key="frame" x="21" y="2" width="259" height="17"/>
-                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="s2C-H8-OLj">
+                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Group" id="s2C-H8-OLj">
                                                                     <font key="font" metaFont="systemBold"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -242,7 +242,7 @@
                                                             <outlet property="textField" destination="4YU-t3-8TW" id="CVr-t4-Fq7"/>
                                                         </connections>
                                                     </tableCellView>
-                                                    <tableCellView identifier="nameCell" id="1tv-sa-C3h" customClass="TrackDataCell" customModule="TenTunes" customModuleProvider="target">
+                                                    <tableCellView identifier="attributeCell" id="1tv-sa-C3h" customClass="TrackDataCell" customModule="TenTunes" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="25" width="286" height="23"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
@@ -251,7 +251,7 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="120" id="Ce4-Ag-dV1"/>
                                                                 </constraints>
-                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell" id="gcX-C5-qIb">
+                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Attribute" id="gcX-C5-qIb">
                                                                     <font key="font" metaFont="systemSemibold" size="12"/>
                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

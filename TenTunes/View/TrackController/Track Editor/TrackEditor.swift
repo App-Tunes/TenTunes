@@ -208,7 +208,7 @@ extension TrackEditor: NSOutlineViewDelegate {
 extension TrackEditor: NSOutlineViewDataSource {
     fileprivate enum CellIdentifiers {
         static let GroupTitleCell = NSUserInterfaceItemIdentifier(rawValue: "groupTitleCell")
-        static let NameCell = NSUserInterfaceItemIdentifier(rawValue: "nameCell")
+        static let AttributeCell = NSUserInterfaceItemIdentifier(rawValue: "attributeCell")
     }
     
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
@@ -234,7 +234,7 @@ extension TrackEditor: NSOutlineViewDataSource {
             }
         }
         else if let data = item as? EditData {
-            if let view = outlineView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? TrackDataCell {
+            if let view = outlineView.makeView(withIdentifier: CellIdentifiers.AttributeCell, owner: nil) as? TrackDataCell {
                 view.textField?.stringValue = data.title
                 
                 view.valueTextField?.bind(.value, to: tracksController, withKeyPath: "selection." + data.path._kvcKeyPathString!, options: (data.options ?? [:]).merging([.nullPlaceholder: "..."], uniquingKeysWith: { (a, _) in a }))
@@ -248,7 +248,7 @@ extension TrackEditor: NSOutlineViewDataSource {
             }
         }
         else if let data = item as? InfoData {
-            if let view = outlineView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? TrackDataCell {
+            if let view = outlineView.makeView(withIdentifier: CellIdentifiers.AttributeCell, owner: nil) as? TrackDataCell {
                 view.textField?.stringValue = data.title
                 
                 view.valueTextField?.stringValue = (tracks.uniqueElement ?=> data.show) ?? ""

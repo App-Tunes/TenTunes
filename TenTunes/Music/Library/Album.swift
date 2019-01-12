@@ -59,6 +59,11 @@ class Album {
         set { tracks.forEach { $0.publisher = newValue } }
     }
     
+    var albumNumberOfCDs: Int {
+        get { return tracks.compactMap { $0.albumNumberOfCDs }.filter { $0 > 0 }.first ?? 0 }
+        set { tracks.forEach { $0.albumNumberOfCDs = newValue }}
+    }
+
 //    var setLength: Int? {
 //        get { return tracks.compactMap { $0.partOfSet }.first }
 //    }

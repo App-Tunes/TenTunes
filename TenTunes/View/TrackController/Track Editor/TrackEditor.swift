@@ -34,8 +34,8 @@ class TrackEditor: NSViewController {
             EditData(title: "Year", path: \Track.year, options: [.valueTransformerName: "IntStringNullable"]),
             EditData(title: "Publisher", path: \Track.publisher, options: nil, skipWrite: true), // Live value
             EditData(title: "Track No.", path: \Track.trackNumber, options: [.valueTransformerName: "IntStringNullable"]),
-            EditData(title: "CD No.", path: \Track.albumNumberOfCD, options: [.valueTransformerName: "IntStringNullable"]),
-            EditData(title: "CD Count", path: \Track.albumNumberOfCDs, options: [.valueTransformerName: "IntStringNullable"]),
+            EditData(title: "CD No.", path: \Track.albumNumberOfCD, options: [.valueTransformerName: "IntStringNullable"], skipWrite: true), // Live Value
+            EditData(title: "CD Count", path: \Track.albumNumberOfCDs, options: [.valueTransformerName: "IntStringNullable"], skipWrite: true), // Live Value
             ]),
         GroupData(title: "Info", icon: #imageLiteral(resourceName: "info"), data: [
             InfoData(title: "Duration") { $0.rDuration },
@@ -152,7 +152,7 @@ class TrackEditor: NSViewController {
         
         for track in self.tracks {
             if UserDefaults.standard.editingTrackUpdatesAlbum == .update, let album = track.rAlbum {
-                album.artwork = image // Dynamic Var, is written automagically
+                album.artwork = image // Live Var
             }
         }
         
@@ -172,7 +172,9 @@ class TrackEditor: NSViewController {
                     album.year = track.year
                     try! album.writeMetadata(values: [\Track.year])
                 case \Track.publisher:
-                    album.publisher = track.publisher // Dynamic Var, is written automagically
+                    album.publisher = track.publisher // Live Var
+                case \Track.albumNumberOfCDs:
+                    album.albumNumberOfCDs = track.albumNumberOfCDs // Live Var
                 default:
                     break
                 }

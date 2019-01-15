@@ -52,7 +52,7 @@ class TTTokenField: NSTokenField {
     }
     
     fileprivate class Row {
-        var buttons: [NSButton] = []
+        var buttons: [ContextualMenuButton] = []
         let view: NSView = NSView()
         let title: NSTextField = NSTextField()
         let ellipsis: NSTextField = NSTextField(string: "...")
@@ -78,7 +78,7 @@ class TTTokenField: NSTokenField {
             row.view.addConstraint(NSLayoutConstraint(item: row.title, attribute: .leading, relatedBy: .equal, toItem: row.view, attribute: .leading, multiplier: 1, constant: 5))
 
             for _ in 0 ..< maxButtonsPerRow {
-                let button = NSButton()
+                let button = ContextualMenuButton()
                 button.translatesAutoresizingMaskIntoConstraints = false
                 button.setButtonType(.momentaryPushIn)
                 button.bezelStyle = .rounded
@@ -162,6 +162,10 @@ class TTTokenField: NSTokenField {
     override func textDidChange(_ notification: Notification) {
         super.textDidChange(notification)
         
+        reloadData()
+    }
+    
+    func reloadData() {
         let editingString = self.editingString
         
         guard let delegate = delegate as? TTTokenFieldDelegate, editingString.count > 0 else {
@@ -209,6 +213,10 @@ class TTTokenField: NSTokenField {
                     button.title = "???"
                 }
                 
+                button.getter = { (delegate.tokenField?(self, hasMenuForRepresentedObject: content) ?? false)
+                    ? delegate.tokenField?(self, menuForRepresentedObject: content)
+                    : nil }
+                
                 actionStubs.bind(button) { _ in
                     self.autocomplete(with: content)
                 }
@@ -234,6 +242,18 @@ class TTTokenField: NSTokenField {
         currentEditor()?.selectedRange = NSMakeRange(idx + 1, 0)
         
         _autocompletePopover?.close()
+    }
+    
+    func replace(tokenAt index: Int?, with replacement: Any) {
+        if let idx = index {
+            tokens[idx] = replacement
+        }
+        else {
+            tokens.append(replacement)
+        }
+        
+        notifyTokenChange()
+        reloadTokens()
     }
     
     override func viewDidHide() {
@@ -268,6 +288,15 @@ extension TTTokenField {
         
         class ContentView : NSView, PopoverFirstResponderStealingSuppression {
             var suppressFirstResponderWhenPopoverShows: Bool { return true }
+        }
+    }
+    
+    class ContextualMenuButton : SMButtonWithMenu {
+        var getter: (() -> NSMenu?)? = nil
+        
+        override func showContextMenu() {
+            holdMenu = getter?()
+            super.showContextMenu()
         }
     }
 }

@@ -165,12 +165,8 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
     
     @IBAction func invertToken(_ sender: Any) {
         let token = (sender as! NSMenuItem).representedObject as! SmartPlaylistRules.Token
-        let inverted = token.inverted()
-        
-        tokens[tokens.index(of: token)!] = inverted
-        _tokenField.notifyTokenChange()
-        
-        _tokenField.reloadTokens()
+
+        _tokenField.replace(tokenAt: tokens.index(of: token), with: token.inverted())
     }
     
     override func controlTextDidChange(_ obj: Notification) {

@@ -188,7 +188,8 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
         if commandSelector == #selector(NSResponder.insertNewlineIgnoringFieldEditor(_:)) {
             // Use the first matching tag
             if let tag = playlistResults(search: labelField.editingString, tag: true).first {
-                labelField.autocomplete(with: tag)
+                let actualTag = NSEvent.modifierFlags.contains(.shift) ? tag.inverted() : tag
+                labelField.autocomplete(with: actualTag)
                 return true
             }
         }

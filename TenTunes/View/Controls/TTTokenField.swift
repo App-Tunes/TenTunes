@@ -252,6 +252,8 @@ class TTTokenField: NSTokenField {
             tokens.append(replacement)
         }
         
+        _autocompletePopover?.close()
+        
         notifyTokenChange()
         reloadTokens()
     }

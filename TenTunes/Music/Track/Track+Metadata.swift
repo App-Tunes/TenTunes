@@ -109,7 +109,8 @@ extension Track {
         var bitrate = avImporter.bitrate ?=> Float.init
         if bitrate == nil || bitrate == 0, let filesize = try? FileManager.default.sizeOfItem(at: url) {
             // Guess based on file size and channels
-            bitrate = Float(Double(filesize) * 8 / avImporter.duration.seconds / avImporter.channels)
+            // According to Wikipedia, all channels count, so no divide by avImporter.channels
+            bitrate = Float(Double(filesize) * 8 / avImporter.duration.seconds)
         }
         self.bitrate = bitrate ?? self.bitrate
         

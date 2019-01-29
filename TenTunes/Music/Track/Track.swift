@@ -26,7 +26,7 @@ public class Track: NSManagedObject {
     }
     
     var resolvedURL: URL? {
-        guard let path = path, let url = path.starts(with: "file://") ? URL(string: path) : URL(fileURLWithPath: path, relativeTo: library.mediaLocation.directory).absoluteURL else {
+        guard let path = path, let url = path.starts(with: "file://") ? URL(string: path) : URL(fileURLWithPath: path, relativeTo: library.mediaLocation.directory.resolvingSymlinksInPath()).absoluteURL else {
             return nil
         }
         

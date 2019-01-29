@@ -233,7 +233,6 @@ protocol PlayerDelegate : class {
                 }
             }
             else {
-                // We are at a track but it's not playable :<
                 playing = nil
                 
                 throw PlayError.missing

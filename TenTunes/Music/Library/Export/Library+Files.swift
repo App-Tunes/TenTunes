@@ -110,7 +110,7 @@ extension Library {
             
             if changed == nil {
                 // Full wipe, we're expected to start over
-                try! FileManager.default.removeItem(at: url(title: nil))
+                try? FileManager.default.removeItem(at: url(title: nil))
             }
             
             let tracks: [Track] = (try! context.fetch(Track.fetchRequest()))

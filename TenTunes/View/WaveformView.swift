@@ -217,11 +217,15 @@ class WaveformView: NSControl, CALayerDelegate {
     
     var analysis: Analysis? {
         set(analysis) {
-            if _analysis !== analysis {
-                transitionSteps = completeTransitionSteps
-                _analysis = analysis
-                updateTimer()
+            guard _analysis !== analysis else {
+                return
             }
+            
+            transitionSteps = completeTransitionSteps
+            location = nil
+
+            _analysis = analysis
+            updateTimer()
         }
         get { return _analysis }
     }

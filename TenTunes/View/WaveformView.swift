@@ -344,6 +344,10 @@ class WaveformView: NSControl, CALayerDelegate {
     }
 
     func click(at: Double) {
+        guard analysis != nil else {
+            return
+        }
+
         self.locationRatio = (0.0...1.0).clamp(jumpPosition(for: at))
         
         if let action = self.action, let target = self.target {
@@ -378,6 +382,10 @@ class WaveformView: NSControl, CALayerDelegate {
     }
     
     override func mouseEntered(with event: NSEvent) {
+        guard analysis != nil else {
+            return
+        }
+        
         waveformLayer.mouseLocation = jumpPosition(for: relativeX(event.locationInWindow))
     }
     
@@ -386,10 +394,6 @@ class WaveformView: NSControl, CALayerDelegate {
     }
     
     override func mouseMoved(with event: NSEvent) {
-        guard waveformLayer.mouseLocation != nil else {
-            return
-        }
-        
         CATransaction.begin()
         CATransaction.setValue(true, forKey:kCATransactionDisableActions)
         waveformLayer.mouseLocation = jumpPosition(for: relativeX(event.locationInWindow))

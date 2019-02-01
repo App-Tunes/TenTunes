@@ -17,6 +17,8 @@ import Cocoa
 }
 
 class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
+    static let pasteboardTypeTokens = NSPasteboard.PasteboardType("TenTunes_Tokens")
+
     @IBOutlet @objc weak open var delegate: SmartPlaylistRulesControllerDelegate?
     
     @IBOutlet var _tokenField: TTTokenField!
@@ -59,28 +61,32 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
     }
 
     var tokens: [SmartPlaylistRules.Token] {
-        get {
-            return (_tokenField.objectValue as? NSArray)?.compactMap {
-                if let string = $0 as? String {
-                    return string.isEmpty ? nil : SmartPlaylistRules.Token.Search(string: string)
-                }
-                return ($0 as! SmartPlaylistRules.Token)
-            } ?? []
-        }
-        set {
-            _tokenField.objectValue = (newValue.map {
-                if let search = $0 as? SmartPlaylistRules.Token.Search {
-                    return search.string
-                }
-                return $0
-            } as [Any]) as NSArray
-        }
+        get { return SmartPlaylistRulesController.tokenize(_tokenField.objectValue) }
+        set { _tokenField.objectValue = SmartPlaylistRulesController.untokenize(newValue) as NSArray }
     }
     
     var playlists: [Playlist] {
         return Library.shared.allPlaylists().filter {
             !Library.shared.path(of: $0).contains(Library.shared.tagPlaylist)
         }
+    }
+    
+    static func tokenize(_ object: Any?) -> [SmartPlaylistRules.Token] {
+        return (object as? NSArray)?.compactMap {
+            if let string = $0 as? String {
+                return string.isEmpty ? nil : SmartPlaylistRules.Token.Search(string: string)
+            }
+            return ($0 as! SmartPlaylistRules.Token)
+            } ?? []
+    }
+    
+    static func untokenize(_ object: [SmartPlaylistRules.Token]) -> [Any] {
+        return (object.map {
+            if let search = $0 as? SmartPlaylistRules.Token.Search {
+                return search.string
+            }
+            return $0
+        } as [Any])
     }
     
     func tokenField(_ tokenField: NSTokenField, completionGroupsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [TTTokenField.TokenGroup]? {
@@ -233,5 +239,24 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
         }
         
         _tokenField.items.append(SmartPlaylistRules.Token.AddedAfter(date: date, after: true))
+    }
+}
+
+extension SmartPlaylistRulesController {
+    func tokenField(_ tokenField: NSTokenField, writeRepresentedObjects objects: [Any], to pboard: NSPasteboard) -> Bool {
+        pboard.declareTypes([SmartPlaylistRulesController.pasteboardTypeTokens], owner: self)
+        pboard.setData(NSKeyedArchiver.archivedData(withRootObject: SmartPlaylistRulesController.tokenize(objects)),
+                       forType: SmartPlaylistRulesController.pasteboardTypeTokens)
+        
+        return true
+    }
+    
+    func tokenField(_ tokenField: NSTokenField, readFrom pboard: NSPasteboard) -> [Any]? {
+        guard let data = pboard.data(forType: SmartPlaylistRulesController.pasteboardTypeTokens),
+            let tokens = NSKeyedUnarchiver.unarchiveObject(with: data) as? [SmartPlaylistRules.Token] else {
+            return nil
+        }
+        
+        return SmartPlaylistRulesController.untokenize(tokens)
     }
 }

@@ -103,7 +103,7 @@ public class Track: NSManagedObject {
     var authors: [Artist] {
         return (((author ?=> Artist.all) ?? []) + ((remixAuthor ?=> Artist.all) ?? [])).dissimilarElements
     }
-    
+
     var rAlbum: Album? {
         return album.map { Album(title: $0, by: (self.albumArtist ?=> Artist.init) ?? self.authors.first) }
     }

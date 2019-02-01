@@ -20,34 +20,30 @@ import Cocoa
     }
     
     func combinedFilter(in context: NSManagedObjectContext) -> (Track) -> Bool {
-        // Every group of playlists must have at least one that contains the track
-        // So we build a set of all tracks from each group 
+        // Every group must have at least one that matches the track
         let matches = combinedMatches(in: context).map {
-            Set($0.flatMap { $0.tracksList })
+            $0.map { $0.filter(in: context, rguard: RecursionGuard()) }
         }
         return { track in
-            matches.allSatisfy { $0.contains(track) }
+            matches.allSatisfy { $0.anySatisfy { $0(track) } }
         }
     }
     
-    func combinedMatches(in context: NSManagedObjectContext) -> [[Playlist]] {
-        return tokens.map({ $0.matches(in: context) })
+    func combinedMatches(in context: NSManagedObjectContext) -> [[SmartPlaylistRules.Token]] {
+        return tokens.map { $0.matches(in: context) }
     }
 
     func crossProduct(in context: NSManagedObjectContext) -> [Combination] {
         guard tokens.count == 2 else {
             return tokens.first?.matches(in: context).map { source in
-                let rules = SmartPlaylistRules(tokens: [.InPlaylist(playlist: source, isTag: false)])
-                return Combination(name: source.name, rules: rules)
+                let rules = SmartPlaylistRules(tokens: [source])
+                return Combination(name: source.representation(in: context), rules: rules)
                 } ?? []
         }
         
         return tokens.first!.matches(in: context).crossProduct(tokens.last!.matches(in: context)).map { (left, right) in
-            let name = "\(left.name) | \(right.name)"
-            let rules = SmartPlaylistRules(tokens: [
-                .InPlaylist(playlist: left, isTag: false),
-                .InPlaylist(playlist: right, isTag: false)
-                ])
+            let name = "\(left.representation(in: context)) | \(right.representation(in: context))"
+            let rules = SmartPlaylistRules(tokens: [left, right])
             return Combination(name: name, rules: rules)
         }
     }
@@ -81,7 +77,7 @@ import Cocoa
             
         }
         
-        func matches(in context: NSManagedObjectContext) -> [Playlist] {
+        func matches(in context: NSManagedObjectContext) -> [SmartPlaylistRules.Token] {
             return []
         }
         
@@ -124,13 +120,23 @@ extension CartesianRules.Token {
             return Library.shared.playlist(byId: playlistID, in: context) as? PlaylistFolder
         }
         
-        override func matches(in context: NSManagedObjectContext) -> [Playlist] {
-            return playlist(in: context)?.childrenList ?? []
+        override func matches(in context: NSManagedObjectContext) -> [SmartPlaylistRules.Token] {
+            return playlist(in: context)?.childrenList.map { SmartPlaylistRules.Token.InPlaylist(playlist: $0, isTag: false) } ?? []
         }
         
         override func representation(in context: NSManagedObjectContext? = nil) -> String {
             let playlistName = context != nil ? playlist(in: context!)?.name : playlistID?.description
             return "📁 " + (playlistName ?? "Invalid Playlist")
+        }
+    }
+
+    @objc(TenTunes_CartesianRules_Token_Artists) class Artists : CartesianRules.Token {
+        override func matches(in context: NSManagedObjectContext) -> [SmartPlaylistRules.Token] {
+            return Library.shared.allAuthors.map { SmartPlaylistRules.Token.Author(author: $0) }
+        }
+        
+        override func representation(in context: NSManagedObjectContext? = nil) -> String {
+            return "👤 Authors"
         }
     }
 }

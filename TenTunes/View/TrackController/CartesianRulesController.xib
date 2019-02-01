@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="CartesianRulesController" customModule="TenTunes" customModuleProvider="target">
             <connections>
+                <outlet property="_addTokenButton" destination="QN0-H2-Mj6" id="A7o-JL-7YE"/>
                 <outlet property="_tokenField" destination="gdZ-4S-w0E" id="gZu-cI-Wb2"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -18,7 +19,7 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="32"/>
             <subviews>
                 <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gdZ-4S-w0E" customClass="TTTokenField" customModule="TenTunes" customModuleProvider="target">
-                    <rect key="frame" x="4" y="4" width="468" height="24"/>
+                    <rect key="frame" x="4" y="4" width="439" height="24"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="6gd-Lp-Zzn"/>
                     </constraints>
@@ -31,14 +32,33 @@
                         <outlet property="delegate" destination="-2" id="zfk-OI-tZ7"/>
                     </connections>
                 </tokenField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QN0-H2-Mj6" customClass="SMButtonWithMenu">
+                    <rect key="frame" x="451" y="6" width="21" height="19"/>
+                    <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSAddTemplate" imagePosition="overlaps" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zw4-Fy-vc1">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="cellTitle"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="showAddTokenMenu:" target="-2" id="p2C-Xj-Au1"/>
+                        <outlet property="holdMenu" destination="jaV-Pi-fif" id="nIL-aW-KTG"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="gdZ-4S-w0E" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="DEs-qR-h1h"/>
-                <constraint firstAttribute="trailing" secondItem="gdZ-4S-w0E" secondAttribute="trailing" constant="8" id="MUJ-GA-tsz"/>
                 <constraint firstItem="gdZ-4S-w0E" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="4" id="Map-SY-cH7"/>
+                <constraint firstItem="QN0-H2-Mj6" firstAttribute="centerY" secondItem="gdZ-4S-w0E" secondAttribute="centerY" id="UU3-ct-yXc"/>
+                <constraint firstItem="QN0-H2-Mj6" firstAttribute="leading" secondItem="gdZ-4S-w0E" secondAttribute="trailing" constant="8" id="x3n-e2-zmf"/>
                 <constraint firstAttribute="height" priority="100" constant="32" id="yk5-Od-3e3"/>
+                <constraint firstAttribute="trailing" secondItem="QN0-H2-Mj6" secondAttribute="trailing" constant="8" id="zec-mq-TdF"/>
             </constraints>
             <point key="canvasLocation" x="114" y="109"/>
         </customView>
+        <menu id="jaV-Pi-fif">
+            <point key="canvasLocation" x="321" y="208"/>
+        </menu>
     </objects>
+    <resources>
+        <image name="NSAddTemplate" width="11" height="11"/>
+    </resources>
 </document>

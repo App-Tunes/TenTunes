@@ -210,7 +210,7 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
         delegate?.smartPlaylistRulesController?(self, changedRules: rules)
     }
     
-    @IBAction func addToken(_ sender: Any) {
+    @IBAction func showAddTokenMenu(_ sender: Any) {
         _addTokenButton.showContextMenu()
     }
     

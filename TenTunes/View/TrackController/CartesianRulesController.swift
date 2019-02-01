@@ -18,6 +18,7 @@ class CartesianRulesController : NSViewController, TTTokenFieldDelegate {
     @IBOutlet @objc weak open var delegate: CartesianRulesControllerDelegate?
     
     @IBOutlet var _tokenField: TTTokenField!
+    @IBOutlet var _addTokenButton: SMButtonWithMenu!
     
     var tokens: [CartesianRules.Token] {
         get { return _tokenField.tokens as! [CartesianRules.Token] }
@@ -77,4 +78,13 @@ class CartesianRulesController : NSViewController, TTTokenFieldDelegate {
         delegate?.editingEnded?(cartesianRulesController: self, notification: obj)
         (obj.object as? TTTokenField)?.autocomplete(with: nil)
     }
+    
+    @IBAction func showAddTokenMenu(_ sender: Any) {
+        _addTokenButton.showContextMenu()
+    }
+    
+//    @IBAction func addTokenArtists(_ sender: Any) {
+//        _tokenField.items.append(CartesianRules.Token.Artists())
+//    }
+    
 }

@@ -186,6 +186,7 @@
 		80F97030209625E800A989D8 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F9702E209625E800A989D8 /* PreferencesWindowController.swift */; };
 		80F97031209625E800A989D8 /* PreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80F9702F209625E800A989D8 /* PreferencesWindowController.xib */; };
 		80F9703320962EA200A989D8 /* PopupEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F9703220962EA200A989D8 /* PopupEnum.swift */; };
+		80FA291D2204E662008E6A38 /* LazyVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FA291C2204E662008E6A38 /* LazyVar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -432,6 +433,7 @@
 		80F9702E209625E800A989D8 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
 		80F9702F209625E800A989D8 /* PreferencesWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferencesWindowController.xib; sourceTree = "<group>"; };
 		80F9703220962EA200A989D8 /* PopupEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupEnum.swift; sourceTree = "<group>"; };
+		80FA291C2204E662008E6A38 /* LazyVar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyVar.swift; sourceTree = "<group>"; };
 		A38472EDF8C9143024B15892 /* Pods-TenTunes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenTunes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TenTunes/Pods-TenTunes.debug.xcconfig"; sourceTree = "<group>"; };
 		F519690AE56FC5800E060F88 /* Pods_TenTunes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TenTunes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -764,6 +766,7 @@
 			isa = PBXGroup;
 			children = (
 				803E972E20C7EF2C00D46565 /* LazyMap.swift */,
+				80FA291C2204E662008E6A38 /* LazyVar.swift */,
 				80E6811A20573DC800DA5702 /* SimpleTransformer.swift */,
 				80E6811C2057479B00DA5702 /* ValueTransformers.swift */,
 				8091B9FE20C6B7E50019CE23 /* Hash.swift */,
@@ -1209,6 +1212,7 @@
 				80CB65332052C9530031A6D7 /* Cocoa+TT.swift in Sources */,
 				8058FAC02043409F0086FF8A /* SubtleTableRowView.swift in Sources */,
 				806FC30C2190DA36004B9770 /* DarkBoxView.swift in Sources */,
+				80FA291D2204E662008E6A38 /* LazyVar.swift in Sources */,
 				80E2C9F8204B40A000298E81 /* Playlist+CoreDataProperties.swift in Sources */,
 				80F77BF5203D8B35001E397F /* Key.swift in Sources */,
 				807D749A21C3D05900D3B610 /* DarkMatter.swift in Sources */,

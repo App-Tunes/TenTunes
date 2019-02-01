@@ -57,7 +57,7 @@
                         <font key="font" metaFont="cellTitle"/>
                     </buttonCell>
                     <connections>
-                        <action selector="addToken:" target="-2" id="PH6-2b-puc"/>
+                        <action selector="showAddTokenMenu:" target="-2" id="9CL-L1-apt"/>
                         <outlet property="holdMenu" destination="N7q-8v-v5I" id="hrt-y2-RgA"/>
                     </connections>
                 </button>

@@ -45,6 +45,11 @@
                                     <imageView horizontalHuggingPriority="100" verticalHuggingPriority="100" horizontalCompressionResistancePriority="100" verticalCompressionResistancePriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="xfX-Mm-Orc">
                                         <rect key="frame" x="0.0" y="0.0" width="286" height="79"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="8Uj-V1-3zt"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="_alphaValue">
+                                                <real key="value" value="0.29999999999999999"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <binding destination="i0G-Xb-2QU" name="value" keyPath="selection.artworkPreview" id="Zvv-fB-PBl"/>
                                         </connections>

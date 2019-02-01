@@ -45,8 +45,6 @@ class VisualizerWindowController: NSWindowController {
         
         updateTrackingAreas()
         updateWindowButtons(show: false)
-
-        _settingsButton.alphaValue = 0.35
         
         AudioKit.addObserver(self, forKeyPath: #keyPath(AudioKit.inputDevices), options: [.new, .initial], context: nil)
         MIKMIDIDeviceManager.shared.addObserver(self, forKeyPath: #keyPath(MIKMIDIDeviceManager.virtualSources), options: [.new, .initial], context: nil)

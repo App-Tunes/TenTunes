@@ -47,6 +47,11 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <color key="contentTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="_alphaValue">
+                                <real key="value" value="0.34999999999999998"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="showSettings:" target="-2" id="CUF-Bj-RR4"/>
                         </connections>

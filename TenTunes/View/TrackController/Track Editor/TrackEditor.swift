@@ -70,10 +70,7 @@ class TrackEditor: NSViewController {
         if UserDefaults.standard.consume(toggle: "initialTrackEditorExpansion") {
             _editorOutline.expandItem(nil, expandChildren: true)
         }
-        
-        _titleBackground.wantsLayer = true
-        _titleBackground.alphaValue = 0.3
-        
+                
         tagEditor.viewDidLoad()
     }
 

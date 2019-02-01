@@ -188,6 +188,7 @@
 		80F9703320962EA200A989D8 /* PopupEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F9703220962EA200A989D8 /* PopupEnum.swift */; };
 		80FA291D2204E662008E6A38 /* LazyVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FA291C2204E662008E6A38 /* LazyVar.swift */; };
 		80FA2920220506EC008E6A38 /* TrackController+Tracks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FA291F220506EC008E6A38 /* TrackController+Tracks.swift */; };
+		80FA292222050917008E6A38 /* PlaylistController+Playlists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FA292122050917008E6A38 /* PlaylistController+Playlists.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -436,6 +437,7 @@
 		80F9703220962EA200A989D8 /* PopupEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupEnum.swift; sourceTree = "<group>"; };
 		80FA291C2204E662008E6A38 /* LazyVar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyVar.swift; sourceTree = "<group>"; };
 		80FA291F220506EC008E6A38 /* TrackController+Tracks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackController+Tracks.swift"; sourceTree = "<group>"; };
+		80FA292122050917008E6A38 /* PlaylistController+Playlists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistController+Playlists.swift"; sourceTree = "<group>"; };
 		A38472EDF8C9143024B15892 /* Pods-TenTunes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenTunes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TenTunes/Pods-TenTunes.debug.xcconfig"; sourceTree = "<group>"; };
 		F519690AE56FC5800E060F88 /* Pods_TenTunes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TenTunes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -893,6 +895,7 @@
 			isa = PBXGroup;
 			children = (
 				80802587203F0399008D4168 /* PlaylistController.swift */,
+				80FA292122050917008E6A38 /* PlaylistController+Playlists.swift */,
 				8093466D20A62249001D15CD /* PlaylistController+Pasteboard.swift */,
 				80F8550520691897009A8FBE /* PlaylistController+RightClick.swift */,
 				80F855032069187D009A8FBE /* PlaylistController+Menu.swift */,
@@ -1095,6 +1098,7 @@
 				80E6811B20573DC800DA5702 /* SimpleTransformer.swift in Sources */,
 				80F2C57C2038808000212739 /* ViewController.swift in Sources */,
 				8030E00720FC9749006B4AE8 /* Task.swift in Sources */,
+				80FA292222050917008E6A38 /* PlaylistController+Playlists.swift in Sources */,
 				8030E00F20FCB12C006B4AE8 /* AnalyzeTrack.swift in Sources */,
 				80B6DF9D219EF72E003EA487 /* MIDI.swift in Sources */,
 				80A4098A216D60BC006AF67B /* RFOpenGLView+Texture.swift in Sources */,

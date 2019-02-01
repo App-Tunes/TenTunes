@@ -15,6 +15,8 @@ import Cocoa
 }
 
 class CartesianRulesController : NSViewController, TTTokenFieldDelegate {
+    static let pasteboardTypeTokens = NSPasteboard.PasteboardType("TenTunes_CartesianTokens")
+
     @IBOutlet @objc weak open var delegate: CartesianRulesControllerDelegate?
     
     @IBOutlet var _tokenField: TTTokenField!
@@ -87,4 +89,23 @@ class CartesianRulesController : NSViewController, TTTokenFieldDelegate {
 //        _tokenField.items.append(CartesianRules.Token.Artists())
 //    }
     
+}
+
+extension CartesianRulesController {
+    func tokenField(_ tokenField: NSTokenField, writeRepresentedObjects objects: [Any], to pboard: NSPasteboard) -> Bool {
+        pboard.declareTypes([CartesianRulesController.pasteboardTypeTokens], owner: self)
+        pboard.setData(NSKeyedArchiver.archivedData(withRootObject: objects),
+                       forType: CartesianRulesController.pasteboardTypeTokens)
+        
+        return true
+    }
+    
+    func tokenField(_ tokenField: NSTokenField, readFrom pboard: NSPasteboard) -> [Any]? {
+        guard let data = pboard.data(forType: CartesianRulesController.pasteboardTypeTokens),
+            let tokens = NSKeyedUnarchiver.unarchiveObject(with: data) as? [CartesianRules.Token] else {
+                return nil
+        }
+        
+        return tokens
+    }
 }

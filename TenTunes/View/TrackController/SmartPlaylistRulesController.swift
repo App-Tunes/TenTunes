@@ -17,7 +17,7 @@ import Cocoa
 }
 
 class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
-    static let pasteboardTypeTokens = NSPasteboard.PasteboardType("TenTunes_Tokens")
+    static let pasteboardTypeTokens = NSPasteboard.PasteboardType("TenTunes_SmartPlaylistTokens")
 
     @IBOutlet @objc weak open var delegate: SmartPlaylistRulesControllerDelegate?
     

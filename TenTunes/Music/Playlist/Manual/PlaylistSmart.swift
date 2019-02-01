@@ -45,7 +45,7 @@ extension PlaylistSmart : ModifiablePlaylist {
         }
         
         return rguard.protected(self) {
-            return modifableTokenPlaylists?.allSatisfy { $0.supports(action: action) } ?? false
+            return modifableTokenPlaylists?.allSatisfy { $0._supports(action: action, rguard: rguard) } ?? false
         } ?? false
     }
     

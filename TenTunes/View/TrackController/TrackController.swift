@@ -511,8 +511,15 @@ extension TrackController: NSTableViewDelegate {
     }
     
     func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
-        // TODO We only care about the first
-        if let descriptor = tableView.sortDescriptors.first, let key = descriptor.key, key != "none" {
+        if let sortDescriptor = tableView.sortDescriptors.onlyElement, sortDescriptor.key == oldDescriptors.onlyElement?.key, sortDescriptor.ascending {
+            // clicked third time, unsort nao
+            desired.sort = nil
+            tableView.sortDescriptors = []
+
+            return
+        }
+        
+        if let descriptor = tableView.sortDescriptors.onlyElement, let key = descriptor.key, key != "none" {
             switch key {
             case "title":
                 desired.sort = { $0.rTitle < $1.rTitle }

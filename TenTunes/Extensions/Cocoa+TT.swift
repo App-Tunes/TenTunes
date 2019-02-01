@@ -335,6 +335,12 @@ extension FileManager {
 }
 
 extension NSView {
+    @IBInspectable
+    var _alphaValue: CGFloat {
+        set { alphaValue = newValue }
+        get { return alphaValue }
+    }
+    
     func removeSubview(_ remove: NSView?, andAdd add: NSView?, order: NSWindow.OrderingMode? = nil) {
         if let remove = remove, let add = add {
             replaceSubview(remove, with: add)

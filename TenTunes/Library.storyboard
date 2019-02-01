@@ -41,6 +41,11 @@
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" red="0.46460580583756339" green="0.46460580583756339" blue="0.46460580583756339" alpha="0.30492829623287671" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </textFieldCell>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="_alphaValue">
+                                                                <real key="value" value="0.5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                     </textField>
                                                     <textField toolTip="Duration Played" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1Xa-l4-VRg">
                                                         <rect key="frame" x="8" y="21" width="70" height="22"/>
@@ -52,6 +57,11 @@
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" red="0.46460580579999999" green="0.46460580579999999" blue="0.46460580579999999" alpha="0.3049282962" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </textFieldCell>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="_alphaValue">
+                                                                <real key="value" value="0.5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                     </textField>
                                                 </subviews>
                                                 <constraints>

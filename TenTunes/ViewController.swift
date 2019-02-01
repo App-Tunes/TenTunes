@@ -174,11 +174,6 @@ class ViewController: NSViewController {
             self._coverImage.transitionWithImage(image: player.playing?.artworkPreview)
         }
     }
-    
-    override func viewDidAppear() {        
-        _timePlayed.alphaValue = 0.5
-        _timeLeft.alphaValue = 0.5        
-    }
         
     func keyDown(with event: NSEvent) -> NSEvent? {
         guard view.window?.isKeyWindow ?? false else {

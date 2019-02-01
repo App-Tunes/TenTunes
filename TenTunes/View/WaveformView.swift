@@ -239,14 +239,16 @@ class WaveformView: NSControl, CALayerDelegate {
     
     var transitionSteps = 0
     
-    var updateTime = 1.0 / 30.0 {
+    @IBInspectable
+    var updateTime : Double = 1.0 / 30.0 {
         didSet {
             if updateTime != oldValue {
                 updateTimer()
             }
         }
     }
-    var completeTransitionSteps = 10 // 1/3 Second
+    @IBInspectable
+    var completeTransitionSteps : Int = 10 // 1/3 Second
 
     var barWidth: Int {
         set(barWidth) { waveformLayer._barsLayer.barWidth = barWidth }

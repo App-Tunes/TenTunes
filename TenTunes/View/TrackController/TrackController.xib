@@ -761,6 +761,14 @@
                 <customView hidden="YES" fixedFrame="YES" id="eZA-1m-Cok" customClass="TrackEditorMultiplicityView" customModule="TenTunes" customModuleProvider="target">
                     <rect key="frame" x="678" y="0.0" width="91" height="360"/>
                     <autoresizingMask key="autoresizingMask"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="errorSelectionEmpty" value="No Tracks Selected"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="warnSelectionBig" value="Many Tracks Selected"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="confirmShowView" value="Edit Anyway"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="bigSelectionCount">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </customView>
             </subviews>
             <holdingPriorities>

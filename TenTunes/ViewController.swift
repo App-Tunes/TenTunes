@@ -77,9 +77,6 @@ class ViewController: NSViewController {
         trackController.view.frame = _trackView.frame
         
         _trackGuardView.contentView = trackController.view
-        _trackGuardView.bigSelectionCount = 5
-        _trackGuardView.warnSelectionBig = "Many Playlists Selected"
-        _trackGuardView.confirmShowView = "Show them all"
         _trackGuardView.delegate = self
         
         playingTrackController = TrackController(nibName: .init(rawValue: "TrackController"), bundle: nil)

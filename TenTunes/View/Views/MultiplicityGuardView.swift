@@ -49,14 +49,16 @@ class MultiplicityGuardView: NSView {
     @IBOutlet var _errorTextField: NSTextField!
     
     @IBInspectable
-    var errorSelectionEmpty = "No Items Selected"
+    var errorSelectionEmpty: String = "No Items Selected"
     
     @IBInspectable
-    var bigSelectionCount = 2
+    var bigSelectionCount: Int = 2
+    @IBInspectable
     var warnSelectionBig: String {
         get { return _manyTextField.stringValue }
         set { _manyTextField.stringValue = newValue }
     }
+    @IBInspectable
     var confirmShowView: String {
         get { return _confirmShowMany.title }
         set { _confirmShowMany.title = newValue }

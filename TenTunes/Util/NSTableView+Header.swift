@@ -9,13 +9,15 @@
 import Cocoa
 
 extension NSTableView {
-    class HiddenManager : NSObject, NSMenuDelegate {
+    class ColumnHiddenManager : NSObject, NSMenuDelegate {
         let tableView: NSTableView
         let defaultsKey: String
         
         var ignore: [String]
         
         var observerToken: NSKeyValueObservation?
+        
+        var titles: [NSUserInterfaceItemIdentifier: String] = [:]
         
         var defaults: [String: Bool] {
             get { return (UserDefaults.standard.dictionary(forKey: defaultsKey) as? [String : Bool]) ?? [:] }
@@ -48,7 +50,7 @@ extension NSTableView {
                     continue
                 }
                 
-                let item = NSMenuItem(title: column.headerCell.stringValue, action: #selector(columnItemClicked(_:)), keyEquivalent: "")
+                let item = NSMenuItem(title: titles[column.identifier] ?? column.headerCell.stringValue, action: #selector(columnItemClicked(_:)), keyEquivalent: "")
                 item.target = self
                 
                 column.isHidden = defaults[column.identifier.rawValue] ?? false

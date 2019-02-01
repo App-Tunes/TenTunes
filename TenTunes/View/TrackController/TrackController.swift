@@ -37,7 +37,7 @@ class TrackController: NSViewController {
     
     @IBOutlet var _tableView: ActionTableView!
     @IBOutlet var _tableViewHeight: NSLayoutConstraint!
-    var tableViewHiddenManager: NSTableView.HiddenManager!
+    var tableViewHiddenManager: NSTableView.ColumnHiddenManager!
     
     @IBOutlet var filterController: SmartPlaylistRulesController!
     @IBOutlet var filterBar: HideableBar!
@@ -189,7 +189,9 @@ class TrackController: NSViewController {
         dragHighlightView.registerForDraggedTypes(TrackPromise.pasteboardTypes)
         dragHighlightView.delegate = self
         
-        tableViewHiddenManager = .init(tableView: _tableView, defaultsKey: "trackColumnsHidden", ignore: [ColumnIdentifiers.title.rawValue, ColumnIdentifiers.artwork.rawValue])
+        tableViewHiddenManager = .init(tableView: _tableView, defaultsKey: "trackColumnsHidden", ignore: [ColumnIdentifiers.title.rawValue])
+        tableViewHiddenManager.titles[ColumnIdentifiers.artwork] = "Artwork"
+        tableViewHiddenManager.titles[ColumnIdentifiers.waveform] = "Waveform"
         tableViewHiddenManager.start()
         
         registerObservers()

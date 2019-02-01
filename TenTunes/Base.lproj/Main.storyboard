@@ -63,15 +63,35 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="File" id="bib-Uj-vzu">
                                     <items>
-                                        <menuItem title="New Playlist" keyEquivalent="n" id="Was-JA-tGl">
-                                            <connections>
-                                                <action selector="newDocument:" target="Ady-hI-5gd" id="4Si-XN-c54"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="New Group" keyEquivalent="N" id="gpT-Nq-InL">
-                                            <connections>
-                                                <action selector="createGroup:" target="Ady-hI-5gd" id="URW-MB-JRS"/>
-                                            </connections>
+                                        <menuItem title="New" id="GgZ-6y-JI8">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="New" id="N5e-UL-U9D">
+                                                <items>
+                                                    <menuItem title="Playlist" keyEquivalent="n" id="Was-JA-tGl">
+                                                        <connections>
+                                                            <action selector="createPlaylist:" target="Ady-hI-5gd" id="gyH-hK-8KV"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Smart Playlist" keyEquivalent="n" id="G8v-MS-sQK">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                        <connections>
+                                                            <action selector="createSmartPlaylist:" target="Ady-hI-5gd" id="WfZ-ja-Vs4"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem isSeparatorItem="YES" id="hnH-DO-P97"/>
+                                                    <menuItem title="Group" keyEquivalent="N" id="gpT-Nq-InL">
+                                                        <connections>
+                                                            <action selector="createGroup:" target="Ady-hI-5gd" id="URW-MB-JRS"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Cartesian Group" id="4ry-jM-dP9">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="createCartesianPlaylist:" target="Ady-hI-5gd" id="lac-BD-DfN"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
                                         </menuItem>
                                         <menuItem title="Open…" keyEquivalent="o" id="IAo-SY-fd9">
                                             <connections>

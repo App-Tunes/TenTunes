@@ -139,7 +139,7 @@ class WaveformLayer : CALayer {
 
         let gradientSteps = 10
         _bgLayer.colors = (0 ... gradientSteps).reversed().map {
-            NSColor.black.withAlphaComponent(CGFloat($0 * 0.5) / CGFloat(gradientSteps)).cgColor
+            NSColor.black.withAlphaComponent(CGFloat($0) * 0.5 / CGFloat(gradientSteps)).cgColor
         }
         // "Ease In"
         _bgLayer.locations = (0 ... gradientSteps).map { NSNumber(value: pow(Double($0) / Double(gradientSteps), 2)) }
@@ -202,8 +202,8 @@ class WaveformLayer : CALayer {
 
 class WaveformView: NSControl, CALayerDelegate {
     var location: Double? {
-        set { locationRatio = newValue.map { $0 / duration } }
-        get { return locationRatio.map { $0 * duration } }
+        set { locationRatio = newValue.map { $0 / (track?.duration?.seconds ?? 1) } }
+        get { return locationRatio.map { $0 * (track?.duration?.seconds ?? 1) } }
     }
     
     var locationRatio: Double? {
@@ -213,7 +213,7 @@ class WaveformView: NSControl, CALayerDelegate {
         }
         get { return waveformLayer.location }
     }
-    var duration: Double = 1
+    var track: Track?
     
     var analysis: Analysis? {
         set(analysis) {
@@ -407,8 +407,7 @@ class WaveformView: NSControl, CALayerDelegate {
     }
 }
 
-import AudioKit
-import AudioKitUI
+import AVFoundation
 
 extension WaveformView {
     func updateLocation(_ location: Double?, duration: CMTime) {
@@ -420,7 +419,13 @@ extension WaveformView {
         CATransaction.commit()
     }
     
-    func updateLocation(by player: Player, duration: CMTime) {
-        updateLocation(player.currentTime, duration: duration)
+    func observe(for track: Track?, in player: Player) {
+        self.track = track
+        
+        NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.addObserver(forName: ViewController.userInterfaceUpdateNotification, object: nil, queue: OperationQueue.main) { [unowned self] _ in
+            self.updateLocation((self.track == nil || self.track == player.playing) ? player.currentTime : nil,
+                           duration: ViewController.userInterfaceUpdateDuration)
+        }
     }
 }

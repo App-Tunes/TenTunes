@@ -10,6 +10,7 @@ import Cocoa
 import Foundation
 
 import MediaKeyTap
+import AVFoundation
 
 func synced(_ lock: Any, closure: () -> ()) {
     objc_sync_enter(lock)
@@ -18,6 +19,8 @@ func synced(_ lock: Any, closure: () -> ()) {
 }
 
 class ViewController: NSViewController {
+    static let userInterfaceUpdateNotification = NSNotification.Name("TenTunesInterfaceUpdate")
+    static let userInterfaceUpdateDuration = CMTime(seconds: 1.0 / 10.0, preferredTimescale: 1000)
 
     static var shared: ViewController!
     
@@ -174,7 +177,7 @@ class ViewController: NSViewController {
             self._coverImage.transitionWithImage(image: player.playing?.artworkPreview)
         }
     }
-        
+    
     func keyDown(with event: NSEvent) -> NSEvent? {
         guard view.window?.isKeyWindow ?? false else {
             return event
@@ -387,12 +390,13 @@ extension ViewController: PlayerDelegate {
         
         _queueButton.isEnabled = player.history.count > 0
         
+        _waveformView.track = player.playing
+
         guard let track = player.playing else {
             playingTrackController.history = PlayHistory(playlist: PlaylistEmpty())
             
             _waveformView.analysis = nil
             _waveformView.jumpSegment = 0
-            _waveformView.duration = 1
             
             return
         }
@@ -410,7 +414,6 @@ extension ViewController: PlayerDelegate {
         
         _waveformView.analysis = track.analysis
         
-        _waveformView.duration = track.duration?.seconds ?? 1
         if let speed = track.speed {
             // Always jump 16 beats
             _waveformView.jumpSegment = (speed.secondsPerBeat * 16) / player.player.duration

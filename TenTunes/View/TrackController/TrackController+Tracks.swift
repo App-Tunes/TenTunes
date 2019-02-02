@@ -163,9 +163,11 @@ extension TrackController: NSTableViewDelegate {
             view.target = self
             view.action = #selector(waveformViewClicked)
             
-            view.duration = track.duration?.seconds ?? 1
-            
+            view.track = track
             view.setInstantly(analysis: track.analysis)
+            
+            view.observe(for: track, in: ViewController.shared.player)
+            
             return view
         }
         else if tableColumn?.identifier == ColumnIdentifiers.title {

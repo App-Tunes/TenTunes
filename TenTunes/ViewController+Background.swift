@@ -18,9 +18,9 @@ extension ViewController {
     func startBackgroundTasks() {
         self.backgroundTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 10.0, repeats: true ) { [unowned self] (timer) in
             if self.view.window?.isVisible ?? false {
-                // Main Window Visuals
-                self._waveformView.updateLocation(by: self.player, duration: CMTime(seconds: 1.0 / 10.0, preferredTimescale: 1000))
+                NotificationCenter.default.post(name: ViewController.userInterfaceUpdateNotification, object: self)
                 
+                // Main Window Visuals
                 self._taskButton.spinning = self.tasker.wantsExposure || self.runningTasks.anySatisfy { !$0.hidden }
                 self._taskButton.isEnabled = self._taskButton.spinning
                 NSAnimationContext.runAnimationGroup {_ in
@@ -127,16 +127,16 @@ extension ViewController {
                 }
             }])
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleAudioRouteChange(_:)), name: NSNotification.Name.AVAudioEngineConfigurationChange, object: nil)
-    }
-    
-    @objc func handleAudioRouteChange(_ notification: NSNotification) {
-        // Sanity check audio player
-        if player.isPlaying {
-//            player.sanityCheck()
-            
-            // Otherwise it doesn't reset correctly, it plays but no audio is hearable
-            player.restartPlay()
+        NotificationCenter.default.addObserver(forName: .AVAudioEngineConfigurationChange, object: nil, queue: OperationQueue.main) { [unowned self] _ in
+            // Sanity check audio player
+            if self.player.isPlaying {
+                //            player.sanityCheck()
+                
+                // Otherwise it doesn't reset correctly, it plays but no audio is hearable
+                self.player.restartPlay()
+            }
         }
+        
+        _waveformView.observe(for: nil, in: player)
     }
 }

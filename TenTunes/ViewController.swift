@@ -270,23 +270,6 @@ class ViewController: NSViewController {
         
         taskPopover.show(relativeTo: view.bounds, of: view, preferredEdge: .maxY)
     }
-}
-
-extension ViewController: NSUserInterfaceValidations {
-    func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
-        guard let action = item.action else {
-            return false
-        }
-        
-        if action == #selector(performFindEverywherePanelAction) { return true }
-
-        return false
-    }
-    
-    @IBAction func performFindEverywherePanelAction(_ sender: AnyObject) {
-        playlistController.selectLibrary(self)
-        trackController.performFindPanelAction(self)
-    }
     
     @IBAction func findButtonClicked(_ sender: AnyObject) {
         guard playlistController.history.current != .library || !trackController.filterBar.isOpen else {

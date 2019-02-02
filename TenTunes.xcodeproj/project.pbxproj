@@ -189,6 +189,7 @@
 		80FA291D2204E662008E6A38 /* LazyVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FA291C2204E662008E6A38 /* LazyVar.swift */; };
 		80FA2920220506EC008E6A38 /* TrackController+Tracks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FA291F220506EC008E6A38 /* TrackController+Tracks.swift */; };
 		80FA292222050917008E6A38 /* PlaylistController+Playlists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FA292122050917008E6A38 /* PlaylistController+Playlists.swift */; };
+		80FA29242205AF07008E6A38 /* ViewController+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FA29232205AF07008E6A38 /* ViewController+Menu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -438,6 +439,7 @@
 		80FA291C2204E662008E6A38 /* LazyVar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyVar.swift; sourceTree = "<group>"; };
 		80FA291F220506EC008E6A38 /* TrackController+Tracks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackController+Tracks.swift"; sourceTree = "<group>"; };
 		80FA292122050917008E6A38 /* PlaylistController+Playlists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistController+Playlists.swift"; sourceTree = "<group>"; };
+		80FA29232205AF07008E6A38 /* ViewController+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Menu.swift"; sourceTree = "<group>"; };
 		A38472EDF8C9143024B15892 /* Pods-TenTunes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenTunes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TenTunes/Pods-TenTunes.debug.xcconfig"; sourceTree = "<group>"; };
 		F519690AE56FC5800E060F88 /* Pods_TenTunes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TenTunes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -852,6 +854,7 @@
 				809CEAC72164D31E008D6AC0 /* API */,
 				80F2C5792038808000212739 /* AppDelegate.swift */,
 				80F2C57B2038808000212739 /* ViewController.swift */,
+				80FA29232205AF07008E6A38 /* ViewController+Menu.swift */,
 				803717282043629700DB9EAA /* ViewController+Background.swift */,
 				80C1F1712146E14D0032E554 /* LibraryWindowController.swift */,
 				80F2C5822038808000212739 /* Main.storyboard */,
@@ -1218,6 +1221,7 @@
 				806EFC27204B65C10079DBAA /* PlaylistProtocol.swift in Sources */,
 				80CB65332052C9530031A6D7 /* Cocoa+TT.swift in Sources */,
 				8058FAC02043409F0086FF8A /* SubtleTableRowView.swift in Sources */,
+				80FA29242205AF07008E6A38 /* ViewController+Menu.swift in Sources */,
 				806FC30C2190DA36004B9770 /* DarkBoxView.swift in Sources */,
 				80FA291D2204E662008E6A38 /* LazyVar.swift in Sources */,
 				80E2C9F8204B40A000298E81 /* Playlist+CoreDataProperties.swift in Sources */,

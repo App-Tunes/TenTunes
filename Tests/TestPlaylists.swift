@@ -82,10 +82,10 @@ class TestPlaylists : TestDatabase {
         cartesian.rules.tokens.append(CartesianRules.Token.Folder(playlist: groups[1]))
         groups[2].addToChildren(cartesian)
         
-        cartesian.checkSanity(in: context)
-        
         try! context.save()
 
+        cartesian.checkSanity(in: context)
+        
         let expectedTokens: [[SmartPlaylistRules.Token]] = [
             [.InPlaylist(playlist: manual1_1, isTag: false), .InPlaylist(playlist: manual2_1, isTag: false)],
             [.InPlaylist(playlist: manual1_1, isTag: false), .InPlaylist(playlist: manual2_2, isTag: false)],

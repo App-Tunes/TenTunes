@@ -49,6 +49,7 @@
 		806611812124622100C3948E /* Library.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80D8A0FC212460BE003E1F11 /* Library.storyboard */; };
 		8066118A2125B9BF00C3948E /* TagEditor+Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806611892125B9BF00C3948E /* TagEditor+Tags.swift */; };
 		8069C0882208668700CD3396 /* TestIntegrity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8069C0872208668700CD3396 /* TestIntegrity.swift */; };
+		8069C08C22086E9900CD3396 /* TestInitialState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8069C08B22086E9900CD3396 /* TestInitialState.swift */; };
 		806AC1332040D7C700857B1B /* PlayHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AC1322040D7C700857B1B /* PlayHistory.swift */; };
 		806AC13A2041EDD900857B1B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806AC1392041EDD900857B1B /* AVFoundation.framework */; };
 		806AC13E2041EDEE00857B1B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806AC13D2041EDEE00857B1B /* AudioToolbox.framework */; };
@@ -300,6 +301,7 @@
 		8069C06D22085FB900CD3396 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8069C07122085FB900CD3396 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8069C0872208668700CD3396 /* TestIntegrity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestIntegrity.swift; sourceTree = "<group>"; };
+		8069C08B22086E9900CD3396 /* TestInitialState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TestInitialState.swift; path = "/Users/lukas/XCode Projects/TenTunes/Tests/TestInitialState.swift"; sourceTree = "<absolute>"; };
 		806AC1322040D7C700857B1B /* PlayHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayHistory.swift; sourceTree = "<group>"; };
 		806AC1372041EC8400857B1B /* libSuperpoweredAudioOSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSuperpoweredAudioOSX.a; path = ../../../SuperpoweredSDK/Superpowered/libSuperpoweredAudioOSX.a; sourceTree = "<group>"; };
 		806AC1392041EDD900857B1B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -607,6 +609,7 @@
 		8069C06E22085FB900CD3396 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				8069C08B22086E9900CD3396 /* TestInitialState.swift */,
 				8069C0872208668700CD3396 /* TestIntegrity.swift */,
 				8069C07122085FB900CD3396 /* Info.plist */,
 			);
@@ -1153,6 +1156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8069C0882208668700CD3396 /* TestIntegrity.swift in Sources */,
+				8069C08C22086E9900CD3396 /* TestInitialState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

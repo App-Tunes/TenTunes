@@ -12,14 +12,6 @@ import XCTest
 
 class TestIntegrity: XCTestCase {
 
-    override func setUp() {
-        
-    }
-
-    override func tearDown() {
-        
-    }
-
     func testLibraryLocation() {
         let container = Library.shared.directory.deletingLastPathComponent()
         XCTAssertEqual(container, FileManager.default.temporaryDirectory, "Library is not temp directory")

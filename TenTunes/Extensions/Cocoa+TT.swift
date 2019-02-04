@@ -258,10 +258,12 @@ extension NSOutlineView {
             return
         }
         
-        for t in items {
-            if let (pos, parent) = position(t) {
-                insertItems(at: IndexSet(integer: pos), inParent: parent, withAnimation: .slideUp)
-            }
+        let positioned = items.compactMap(position).sorted {
+            return $0.0 < $1.0
+        }
+        
+        for (pos, parent) in positioned {
+            insertItems(at: IndexSet(integer: pos), inParent: parent, withAnimation: .slideUp)
         }
     }
     

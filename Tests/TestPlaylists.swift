@@ -12,7 +12,7 @@ import XCTest
 
 class TestPlaylists : TestDatabase {
     override func setUp() {
-        create(tracks: 2, groups: 3)
+        create(tracks: 3, groups: 3, tags: 2)
     }
 
     func testTree() {
@@ -36,6 +36,25 @@ class TestPlaylists : TestDatabase {
         
         XCTAssertEqual(sub1.childrenList, [manual1])
         XCTAssertEqual(sub2.childrenList, [])
+    }
+    
+    func testSmartTags() {
+        tracks[0].tags = Set([tags[0], tags[1]])
+        tracks[1].tags = Set([tags[0]])
+        tracks[2].tags = Set([tags[1]])
+        
+        let smart = PlaylistSmart(context: context)
+        groups[0].addToChildren(smart)
+        
+        try! context.save()
+
+        smart.rules = SmartPlaylistRules(tokens: [.InPlaylist(playlist: tags[0], isTag: true)], any: false)
+        XCTAssertEqual(Set(smart.tracksList), Set([tracks[0], tracks[1]]))
+
+        try! context.save()
+        
+        smart.rules = SmartPlaylistRules(tokens: [.InPlaylist(playlist: tags[1], isTag: true)], any: false)
+        XCTAssertEqual(Set(smart.tracksList), Set([tracks[0], tracks[2]]))
     }
 
     func testCartesian() {

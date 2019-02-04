@@ -13,6 +13,7 @@ import XCTest
 class TestDatabase: XCTestCase {
     var tracks: [Track] = []
     var groups: [PlaylistFolder] = []
+    var tags: [PlaylistManual] = []
 
     var context: NSManagedObjectContext {
         return Library.shared.viewContext
@@ -22,7 +23,7 @@ class TestDatabase: XCTestCase {
         return Library.shared
     }
     
-    func create(tracks: Int, groups: Int) {
+    func create(tracks: Int = 0, groups: Int = 0, tags: Int = 0) {
         self.tracks = (0 ..< tracks).map { _ in
             Track(context: self.context)
         }
@@ -32,6 +33,12 @@ class TestDatabase: XCTestCase {
             self.library.masterPlaylist.addToChildren(group)
             return group
         }
+        
+        self.tags = ((0 ..< tags).map { _ in
+            let tag = PlaylistManual(context: self.context)
+            self.library.tagPlaylist.addToChildren(tag)
+            return tag
+        })
         
         try! context.save()
     }
@@ -46,5 +53,10 @@ class TestDatabase: XCTestCase {
         
         context.delete(all: tracks)
         tracks = []
+        
+        context.delete(all: tags)
+        tags = []
+        
+        try! context.save()
     }
 }

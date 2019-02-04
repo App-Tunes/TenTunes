@@ -10,6 +10,7 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+    static let testUserDefaultsSuite = "TenTunes_TestDefaults"
 
     var welcomeController: WelcomeWindowController!
 
@@ -24,6 +25,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationWillFinishLaunching(_ notification: Notification) {
+        if AppDelegate.isTest {
+            UserDefaults.standard.removeSuite(named: Bundle.main.bundleIdentifier!)
+            UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+            UserDefaults.standard.addSuite(named: AppDelegate.testUserDefaultsSuite)
+        }
+        
         setupBackwardsCompatibility()
         
         ValueTransformers.register()
@@ -105,7 +112,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         WindowWarden.shared.remember(window: libraryWindowController.window!, key: ("0", .command))
         WindowWarden.shared.remember(window: visualizerController.window!, key: ("t", .command), toggleable: true)
         
-        if UserDefaults.standard.consume(toggle: "WelcomeWindow") {
+        if !AppDelegate.isTest && UserDefaults.standard.consume(toggle: "WelcomeWindow") {
             welcomeController.showWindow(self)
         }
         else {

@@ -21,4 +21,8 @@ class TestIntegrity: XCTestCase {
         let container = Library.shared.mediaLocation.directory.deletingLastPathComponent().deletingLastPathComponent()
         XCTAssertEqual(container, FileManager.default.temporaryDirectory, "Media Directory is not temp directory")
     }
+    
+    func testUserDefaults() {
+        XCTAssertEqual(UserDefaults.standard.bool(forKey: "WelcomeWindow"), false, "Welcome Window consumed! Most likely wrong user defaults!")
+    }
 }

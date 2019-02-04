@@ -48,6 +48,7 @@
 		8058FAC02043409F0086FF8A /* SubtleTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058FABF2043409F0086FF8A /* SubtleTableRowView.swift */; };
 		806611812124622100C3948E /* Library.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80D8A0FC212460BE003E1F11 /* Library.storyboard */; };
 		8066118A2125B9BF00C3948E /* TagEditor+Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806611892125B9BF00C3948E /* TagEditor+Tags.swift */; };
+		8069C0882208668700CD3396 /* TestIntegrity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8069C0872208668700CD3396 /* TestIntegrity.swift */; };
 		806AC1332040D7C700857B1B /* PlayHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AC1322040D7C700857B1B /* PlayHistory.swift */; };
 		806AC13A2041EDD900857B1B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806AC1392041EDD900857B1B /* AVFoundation.framework */; };
 		806AC13E2041EDEE00857B1B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806AC13D2041EDEE00857B1B /* AudioToolbox.framework */; };
@@ -193,6 +194,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8069C07222085FB900CD3396 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 80F2C56E2038808000212739 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 80F2C5752038808000212739;
+			remoteInfo = TenTunes;
+		};
 		80C0C2A3203F6DCA00FA6083 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 80C0C29F203F6DCA00FA6083 /* taglib.xcodeproj */;
@@ -289,6 +297,9 @@
 		8058FABB20432A730086FF8A /* MediaKeyTap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaKeyTap.framework; path = Carthage/Build/Mac/MediaKeyTap.framework; sourceTree = SOURCE_ROOT; };
 		8058FABF2043409F0086FF8A /* SubtleTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtleTableRowView.swift; sourceTree = "<group>"; };
 		806611892125B9BF00C3948E /* TagEditor+Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TagEditor+Tags.swift"; sourceTree = "<group>"; };
+		8069C06D22085FB900CD3396 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8069C07122085FB900CD3396 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8069C0872208668700CD3396 /* TestIntegrity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestIntegrity.swift; sourceTree = "<group>"; };
 		806AC1322040D7C700857B1B /* PlayHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayHistory.swift; sourceTree = "<group>"; };
 		806AC1372041EC8400857B1B /* libSuperpoweredAudioOSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSuperpoweredAudioOSX.a; path = ../../../SuperpoweredSDK/Superpowered/libSuperpoweredAudioOSX.a; sourceTree = "<group>"; };
 		806AC1392041EDD900857B1B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -445,6 +456,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8069C06A22085FB900CD3396 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		80F2C5732038808000212739 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -584,6 +602,15 @@
 				8074044821367A1F007E0B4C /* Artist.swift */,
 			);
 			path = Library;
+			sourceTree = "<group>";
+		};
+		8069C06E22085FB900CD3396 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				8069C0872208668700CD3396 /* TestIntegrity.swift */,
+				8069C07122085FB900CD3396 /* Info.plist */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		807D7B5F21A7FD340021C73B /* Track Editor */ = {
@@ -830,6 +857,7 @@
 		80F2C56D2038808000212739 = {
 			isa = PBXGroup;
 			children = (
+				8069C06E22085FB900CD3396 /* Tests */,
 				80DCA9B6203F645400B1E9B1 /* Frameworks */,
 				80F2C5782038808000212739 /* TenTunes */,
 				80F2C5772038808000212739 /* Products */,
@@ -841,6 +869,7 @@
 			isa = PBXGroup;
 			children = (
 				80F2C5762038808000212739 /* Ten Tunes.app */,
+				8069C06D22085FB900CD3396 /* Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -920,6 +949,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8069C06C22085FB900CD3396 /* Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8069C07422085FB900CD3396 /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildPhases = (
+				8069C06922085FB900CD3396 /* Sources */,
+				8069C06A22085FB900CD3396 /* Frameworks */,
+				8069C06B22085FB900CD3396 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8069C07322085FB900CD3396 /* PBXTargetDependency */,
+			);
+			name = Tests;
+			productName = Tests;
+			productReference = 8069C06D22085FB900CD3396 /* Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		80F2C5752038808000212739 /* TenTunes */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 80F2C5892038808000212739 /* Build configuration list for PBXNativeTarget "TenTunes" */;
@@ -947,10 +994,15 @@
 		80F2C56E2038808000212739 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0920;
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = ivorius;
 				TargetAttributes = {
+					8069C06C22085FB900CD3396 = {
+						CreatedOnToolsVersion = 10.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 80F2C5752038808000212739;
+					};
 					80F2C5752038808000212739 = {
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 0920;
@@ -983,6 +1035,7 @@
 			projectRoot = "";
 			targets = (
 				80F2C5752038808000212739 /* TenTunes */,
+				8069C06C22085FB900CD3396 /* Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -998,6 +1051,13 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8069C06B22085FB900CD3396 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		80F2C5742038808000212739 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1088,6 +1148,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8069C06922085FB900CD3396 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8069C0882208668700CD3396 /* TestIntegrity.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		80F2C5722038808000212739 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1240,6 +1308,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		8069C07322085FB900CD3396 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 80F2C5752038808000212739 /* TenTunes */;
+			targetProxy = 8069C07222085FB900CD3396 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		80F2C5822038808000212739 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -1252,6 +1328,47 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8069C07522085FB900CD3396 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 5GU22J823J;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ivorius.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ten Tunes.app/Contents/MacOS/Ten Tunes";
+			};
+			name = Debug;
+		};
+		8069C07622085FB900CD3396 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 5GU22J823J;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ivorius.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ten Tunes.app/Contents/MacOS/Ten Tunes";
+			};
+			name = Release;
+		};
 		80F2C5872038808000212739 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1440,6 +1557,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8069C07422085FB900CD3396 /* Build configuration list for PBXNativeTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8069C07522085FB900CD3396 /* Debug */,
+				8069C07622085FB900CD3396 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		80F2C5712038808000212739 /* Build configuration list for PBXProject "TenTunes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -19,6 +19,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var exportPlaylistsController: ExportPlaylistsController!
     var visualizerController: VisualizerWindowController!
     
+    class var isTest : Bool {
+        return (ProcessInfo.processInfo.environment["IS_TT_TEST"] as NSString?)?.boolValue ?? false
+    }
+    
     func applicationWillFinishLaunching(_ notification: Notification) {
         setupBackwardsCompatibility()
         
@@ -39,6 +43,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         var freedomToChoose = NSEvent.modifierFlags.contains(.option)
 
+        if AppDelegate.isTest {
+            // TODO Do SQL in-memory
+            location = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
+            persistentContainer = Library(name: "TenTunes", at: location, create: create)
+        }
+        
         while persistentContainer == nil {
             if freedomToChoose {
                 switch NSAlert.choose(title: "Choose Library", text: "Please choose or create a library location. This is where your data and music are stored.", actions: ["Choose Existing", "New Library", "Cancel", ]) {

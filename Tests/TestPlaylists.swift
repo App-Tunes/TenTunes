@@ -13,8 +13,12 @@ import XCTest
 class TestPlaylists: XCTestCase {
     var group: PlaylistFolder!
     
+    var viewContext: NSManagedObjectContext {
+        return Library.shared.viewContext
+    }
+    
     override func setUp() {
-        group = PlaylistFolder()
+        group = PlaylistFolder(context: viewContext)
         Library.shared.masterPlaylist.addToChildren(group)
     }
 
@@ -24,18 +28,18 @@ class TestPlaylists: XCTestCase {
     }
 
     func testTree() {
-        let sub1 = PlaylistFolder()
-        let sub2 = PlaylistFolder()
+        let sub1 = PlaylistFolder(context: viewContext)
+        let sub2 = PlaylistFolder(context: viewContext)
         
         group.addToChildren(sub1)
         group.addToChildren(sub2)
         
-        let manual1 = PlaylistManual()
+        let manual1 = PlaylistManual(context: viewContext)
         sub1.addToChildren(manual1)
 
         
-        let manual2 = PlaylistManual()
-        let manual3 = PlaylistManual()
+        let manual2 = PlaylistManual(context: viewContext)
+        let manual3 = PlaylistManual(context: viewContext)
         group.addToChildren(manual2)
         group.addToChildren(manual3)
         

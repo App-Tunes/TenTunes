@@ -94,6 +94,7 @@
 		8085DC7020C936D6008F4084 /* ActionStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8085DC6F20C936D6008F4084 /* ActionStub.swift */; };
 		8087A406206D933F003F1821 /* Analysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087A405206D933F003F1821 /* Analysis.swift */; };
 		8087A494206597DC00CC9569 /* EnterReturningTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087A493206597DC00CC9569 /* EnterReturningTextField.swift */; };
+		80905F652208708E00A6A830 /* TestPlaylists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80905F642208708E00A6A830 /* TestPlaylists.swift */; };
 		8091B9FF20C6B7E50019CE23 /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8091B9FE20C6B7E50019CE23 /* Hash.swift */; };
 		8093466E20A62249001D15CD /* PlaylistController+Pasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093466D20A62249001D15CD /* PlaylistController+Pasteboard.swift */; };
 		8093467120A62319001D15CD /* TrackController+Pasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093467020A62319001D15CD /* TrackController+Pasteboard.swift */; };
@@ -348,6 +349,7 @@
 		8085DC6F20C936D6008F4084 /* ActionStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionStub.swift; sourceTree = "<group>"; };
 		8087A405206D933F003F1821 /* Analysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analysis.swift; sourceTree = "<group>"; };
 		8087A493206597DC00CC9569 /* EnterReturningTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterReturningTextField.swift; sourceTree = "<group>"; };
+		80905F642208708E00A6A830 /* TestPlaylists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPlaylists.swift; sourceTree = "<group>"; };
 		8091B9FE20C6B7E50019CE23 /* Hash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hash.swift; sourceTree = "<group>"; };
 		8093466D20A62249001D15CD /* PlaylistController+Pasteboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistController+Pasteboard.swift"; sourceTree = "<group>"; };
 		8093467020A62319001D15CD /* TrackController+Pasteboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackController+Pasteboard.swift"; sourceTree = "<group>"; };
@@ -609,6 +611,7 @@
 		8069C06E22085FB900CD3396 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				80905F642208708E00A6A830 /* TestPlaylists.swift */,
 				8069C08B22086E9900CD3396 /* TestInitialState.swift */,
 				8069C0872208668700CD3396 /* TestIntegrity.swift */,
 				8069C07122085FB900CD3396 /* Info.plist */,
@@ -1157,6 +1160,7 @@
 			files = (
 				8069C0882208668700CD3396 /* TestIntegrity.swift in Sources */,
 				8069C08C22086E9900CD3396 /* TestInitialState.swift in Sources */,
+				80905F652208708E00A6A830 /* TestPlaylists.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

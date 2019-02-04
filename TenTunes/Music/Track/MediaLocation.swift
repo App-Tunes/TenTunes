@@ -105,7 +105,7 @@ class MediaLocation {
     }
     
     func desiredLocation(for track: Track) -> URL {
-        let mod: (String) -> String = UserDefaults.standard.forceSimpleFilePaths ? { $0.asSimpleFileName } : { $0.asFileName }
+        let mod: (String) -> String = AppDelegate.defaults.forceSimpleFilePaths ? { $0.asSimpleFileName } : { $0.asFileName }
         
         let pathExtension = track.resolvedURL?.pathExtension ?? ""
         return directory.appendingPathComponent(mod(Artist.describe(track.authors)))

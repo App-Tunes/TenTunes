@@ -15,7 +15,7 @@ class PopupEnum<E>: NSObject {
     
     @objc dynamic var selectedItem: Int {
         didSet {
-            UserDefaults.standard.set(valueTransform(values[selectedItem]), forKey: userDefaultsKey)
+            AppDelegate.defaults.set(valueTransform(values[selectedItem]), forKey: userDefaultsKey)
         }
     }
 
@@ -24,7 +24,7 @@ class PopupEnum<E>: NSObject {
         self.values = values
         self.valueTransform = valueTransform
         
-        let current = UserDefaults.standard.value(forKey: userDefaultsKey) as? String
+        let current = AppDelegate.defaults.value(forKey: userDefaultsKey) as? String
         selectedItem = (values.index { valueTransform($0) == current }) ?? 0
     }
     

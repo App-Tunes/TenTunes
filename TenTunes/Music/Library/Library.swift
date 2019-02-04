@@ -247,7 +247,7 @@ class Library : NSPersistentContainer {
     // Adding
     
     func initialAdd(track: Track, moveAction: UserDefaults.FileLocationOnAdd? = nil) {
-        let moveAction = moveAction ?? UserDefaults.standard.fileLocationOnAdd
+        let moveAction = moveAction ?? AppDelegate.defaults.fileLocationOnAdd
         
         if moveAction  == .copy || moveAction == .move {
             ViewController.shared.tasker.enqueue(task: MoveTrackToMediaLocation(track: track, copy: moveAction == .copy))

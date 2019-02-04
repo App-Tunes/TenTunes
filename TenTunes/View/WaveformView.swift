@@ -49,7 +49,7 @@ class BarsLayer: CALayer {
     }
     
     func startObservers() {
-        styleObserver = UserDefaults.standard.observe(\.waveformDisplay, options: [.new]) { (defaults, change) in
+        styleObserver = AppDelegate.defaults.observe(\.waveformDisplay, options: [.new]) { (defaults, change) in
             self.setNeedsDisplay()
         }
     }
@@ -67,7 +67,7 @@ class BarsLayer: CALayer {
 
         let start = frame.minX + (frame.width - CGFloat(numBars) * segmentWidth) / 2
         
-        let display = UserDefaults.standard._waveformDisplay
+        let display = AppDelegate.defaults._waveformDisplay
         
         for idx in 0..<numBars {
             // Frame
@@ -320,7 +320,7 @@ class WaveformView: NSControl, CALayerDelegate {
             let isComplete = self.analysis?.complete ?? true
             if isComplete { self.transitionSteps -= 1 }
 
-            guard UserDefaults.standard.animateWaveformTransitions == .animate else {
+            guard AppDelegate.defaults.animateWaveformTransitions == .animate else {
                 self.waveformLayer._barsLayer.values = (isComplete ? self.analysis?.values : nil) ?? BarsLayer.defaultValues
 
                 return
@@ -366,7 +366,7 @@ class WaveformView: NSControl, CALayerDelegate {
     }
     
     func jumpPosition(for position: Double) -> Double {
-        guard NSEvent.modifierFlags.contains(.option) != UserDefaults.standard.quantizedJump else {
+        guard NSEvent.modifierFlags.contains(.option) != AppDelegate.defaults.quantizedJump else {
             return position
         }
         

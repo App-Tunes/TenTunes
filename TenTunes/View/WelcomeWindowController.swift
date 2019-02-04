@@ -26,7 +26,7 @@ class WelcomeWindowController: NSWindowController {
         window!.close()
 
         for (key, value) in NSDictionary(contentsOf: Bundle.main.url(forResource: "DJPreferences", withExtension: "plist")!)! as! [String: Any?] {
-            UserDefaults.standard.set(value, forKey: key)
+            AppDelegate.defaults.set(value, forKey: key)
         }
         
         (NSApp.delegate as! AppDelegate).commenceAfterWelcome()

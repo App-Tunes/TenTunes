@@ -155,7 +155,7 @@ class ViewController: NSViewController {
             return self.keyDown(with: $0)
         }
         
-        coverImageObserver = UserDefaults.standard.observe(\.titleBarStylization, options: [.initial, .new]) { (defaults, change) in
+        coverImageObserver = AppDelegate.defaults.observe(\.titleBarStylization, options: [.initial, .new]) { (defaults, change) in
             self._coverImage.alphaValue = CGFloat(change.newValue ?? 0)
         }
         
@@ -298,7 +298,7 @@ extension ViewController: PlaylistControllerDelegate {
             return
         }
         
-        if !UserDefaults.standard.keepFilterBetweenPlaylists, trackController.filterBar.isOpen {
+        if !AppDelegate.defaults.keepFilterBetweenPlaylists, trackController.filterBar.isOpen {
             trackController.filterBar.close()
         }
         

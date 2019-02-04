@@ -10,7 +10,7 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    static let testUserDefaultsSuite = "TenTunes_TestDefaults"
+    static let testUserDefaultsSuite = "ivorius.TenTunesTests"
 
     var welcomeController: WelcomeWindowController!
 
@@ -24,23 +24,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return (ProcessInfo.processInfo.environment["IS_TT_TEST"] as NSString?)?.boolValue ?? false
     }
     
+    static var defaults : UserDefaults = UserDefaults.standard
+    
     func applicationWillFinishLaunching(_ notification: Notification) {
         if AppDelegate.isTest {
-            UserDefaults.standard.removeSuite(named: Bundle.main.bundleIdentifier!)
-            UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-            UserDefaults.standard.addSuite(named: AppDelegate.testUserDefaultsSuite)
+            let defaults = UserDefaults(suiteName: AppDelegate.testUserDefaultsSuite)!
+            defaults.removePersistentDomain(forName: AppDelegate.testUserDefaultsSuite)
+            AppDelegate.defaults = defaults
         }
         
         setupBackwardsCompatibility()
         
         ValueTransformers.register()
-        UserDefaults.standard.register(defaults: NSDictionary(contentsOf: Bundle.main.url(forResource: "DefaultPreferences", withExtension: "plist")!) as! [String : Any])
+        AppDelegate.defaults.register(defaults: NSDictionary(contentsOf: Bundle.main.url(forResource: "DefaultPreferences", withExtension: "plist")!) as! [String : Any])
 
         var location: URL!
         var create: Bool?
         
         let defaultURL = { () -> URL in
-            if let previous = UserDefaults.standard.url(forKey: "libraryLocation") {
+            if let previous = AppDelegate.defaults.url(forKey: "libraryLocation") {
                 return previous
             }
             
@@ -95,7 +97,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
         
-        UserDefaults.standard.set(location, forKey: "libraryLocation")
+        AppDelegate.defaults.set(location, forKey: "libraryLocation")
         
         welcomeController = WelcomeWindowController(windowNibName: .init("WelcomeWindowController"))
 
@@ -112,7 +114,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         WindowWarden.shared.remember(window: libraryWindowController.window!, key: ("0", .command))
         WindowWarden.shared.remember(window: visualizerController.window!, key: ("t", .command), toggleable: true)
         
-        if !AppDelegate.isTest && UserDefaults.standard.consume(toggle: "WelcomeWindow") {
+        if !AppDelegate.isTest && AppDelegate.defaults.consume(toggle: "WelcomeWindow") {
             welcomeController.showWindow(self)
         }
         else {
@@ -266,7 +268,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 alert.runModal()
             }
             
-            if UserDefaults.standard.consume(toggle: "iTunesImportTutorial") {
+            if AppDelegate.defaults.consume(toggle: "iTunesImportTutorial") {
                 NSAlert.tutorial(topic: "iTunes Import", text: "On iTunes imports, imported tracks will not be automatically moved to your media directory.")
             }
         }
@@ -317,12 +319,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         try! Library.shared.viewContext.save()
         
-        if UserDefaults.standard.consume(toggle: "fileImportTutorial") {
+        if AppDelegate.defaults.consume(toggle: "fileImportTutorial") {
             NSAlert.tutorial(topic: "Importing Tracks", text: "When adding tracks to your library, the files will automatically be copied to your media directory. You can change this behavior in the preferences.")
         }
 
         let tracks = objects.compactMap { $0 as? Track }
-        if tracks.count > 0, UserDefaults.standard.playOpenedFiles == .play {
+        if tracks.count > 0, AppDelegate.defaults.playOpenedFiles == .play {
             ViewController.shared.player.enqueue(tracks: tracks, at: .end)
             ViewController.shared.player.play(moved: 1)
         }

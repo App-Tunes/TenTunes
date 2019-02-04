@@ -67,7 +67,7 @@ class TrackEditor: NSViewController {
         _editorOutline.autosaveName = .init("trackEditor")
         _editorOutline.autosaveExpandedItems = true
 
-        if UserDefaults.standard.consume(toggle: "initialTrackEditorExpansion") {
+        if AppDelegate.defaults.consume(toggle: "initialTrackEditorExpansion") {
             _editorOutline.expandItem(nil, expandChildren: true)
         }
                 
@@ -148,7 +148,7 @@ class TrackEditor: NSViewController {
         let image = (sender as! NSImageView).image
         
         for track in self.tracks {
-            if UserDefaults.standard.editingTrackUpdatesAlbum == .update, let album = track.rAlbum {
+            if AppDelegate.defaults.editingTrackUpdatesAlbum == .update, let album = track.rAlbum {
                 album.artwork = image // Live Var
             }
         }
@@ -163,7 +163,7 @@ class TrackEditor: NSViewController {
             // Don't call the collection method since it auto-saves in the wrong context
             Library.shared.mediaLocation.updateLocation(of: track)
             
-            if UserDefaults.standard.editingTrackUpdatesAlbum == .update, let album = track.rAlbum {
+            if AppDelegate.defaults.editingTrackUpdatesAlbum == .update, let album = track.rAlbum {
                 switch attribute {
                 case \Track.year:
                     album.year = track.year

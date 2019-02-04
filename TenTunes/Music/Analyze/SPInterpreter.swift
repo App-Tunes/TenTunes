@@ -32,7 +32,7 @@ class SPInterpreter {
         var floats: [CGFloat] = Array(repeating: CGFloat(0), count: previewSamplesTotal)
 
         let setProgress: (Float) -> Swift.Void = { (progress) in
-            guard UserDefaults.standard.animateWaveformAnalysis == .animate else {
+            guard AppDelegate.defaults.animateWaveformAnalysis == .animate else {
                 analysis.values = BarsLayer.defaultValues
                 return
             }
@@ -54,7 +54,7 @@ class SPInterpreter {
                 return CGFloat(max(0.7 - distance * 20.0, 0.0) + water * 0.3)
             }
             
-            let doPreview = UserDefaults.standard.previewWaveformAnalysis == .preview
+            let doPreview = AppDelegate.defaults.previewWaveformAnalysis == .preview
             let waveIndex = min(Int(progress * Float(Analysis.sampleCount)), Analysis.sampleCount)
             let approxWave = floats[0..<currentSamples].remap(toSize: waveIndex)
             values.insert(Array(0..<Analysis.sampleCount).map {createWave($0) + (doPreview && $0 < waveIndex ? approxWave[$0] : 0.0)}, at: 0)

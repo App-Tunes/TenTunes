@@ -23,6 +23,6 @@ class TestIntegrity: XCTestCase {
     }
     
     func testUserDefaults() {
-        XCTAssertEqual(UserDefaults.standard.bool(forKey: "WelcomeWindow"), false, "Welcome Window consumed! Most likely wrong user defaults!")
+        XCTAssertEqual(AppDelegate.defaults.bool(forKey: "WelcomeWindow"), false, "Welcome Window consumed! Most likely wrong user defaults!")
     }
 }

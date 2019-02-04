@@ -20,8 +20,8 @@ extension NSTableView {
         var titles: [NSUserInterfaceItemIdentifier: String] = [:]
         
         var defaults: [String: Bool] {
-            get { return (UserDefaults.standard.dictionary(forKey: defaultsKey) as? [String : Bool]) ?? [:] }
-            set { UserDefaults.standard.set(newValue, forKey: defaultsKey) }
+            get { return (AppDelegate.defaults.dictionary(forKey: defaultsKey) as? [String : Bool]) ?? [:] }
+            set { AppDelegate.defaults.set(newValue, forKey: defaultsKey) }
         }
 
         init(tableView: NSTableView, defaultsKey: String, ignore: [String]) {
@@ -34,7 +34,7 @@ extension NSTableView {
             tableView.headerView!.menu = NSMenu()
             tableView.headerView!.menu!.delegate = self
             
-            observerToken = UserDefaults.standard.observe(\.trackColumnsHidden, options: [.initial, .new]) { _, _ in
+            observerToken = AppDelegate.defaults.observe(\.trackColumnsHidden, options: [.initial, .new]) { _, _ in
                 self.updateMenu()
             }
         }

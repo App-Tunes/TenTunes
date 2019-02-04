@@ -171,7 +171,7 @@ extension TrackController: NSTableViewDelegate {
             return view
         }
         else if tableColumn?.identifier == ColumnIdentifiers.title {
-            if UserDefaults.standard.trackCombinedTitleSource, let view = tableView.makeView(withIdentifier: CellIdentifiers.combinedTitle, owner: nil) as? TitleSubtitleCellView {
+            if AppDelegate.defaults.trackCombinedTitleSource, let view = tableView.makeView(withIdentifier: CellIdentifiers.combinedTitle, owner: nil) as? TitleSubtitleCellView {
                 view.textField?.bind(.value, to: track, withKeyPath: \.rTitle)
                 view.subtitleTextField?.bind(.value, to: track, withKeyPath: \.rSource)
                 return view
@@ -246,7 +246,7 @@ extension TrackController: NSTableViewDelegate {
             return history.playingIndex == row ? tableView.rowHeight + 2 : tableView.rowHeight
         }
         else if mode == .tracksList {
-            return UserDefaults.standard.trackSmallRows && !UserDefaults.standard.trackCombinedTitleSource ? TrackController.smallRowHeight : tableView.rowHeight
+            return AppDelegate.defaults.trackSmallRows && !AppDelegate.defaults.trackCombinedTitleSource ? TrackController.smallRowHeight : tableView.rowHeight
         }
         
         return tableView.rowHeight

@@ -11,7 +11,6 @@ import XCTest
 @testable import TenTunes
 
 class TestIntegrity: XCTestCase {
-
     func testLibraryLocation() {
         let container = Library.shared.directory.deletingLastPathComponent()
         XCTAssertEqual(container, FileManager.default.temporaryDirectory, "Library is not temp directory")

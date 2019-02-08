@@ -43,12 +43,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         var create: Bool?
         
         let defaultURL = { () -> URL in
-            if let previous = AppDelegate.defaults.url(forKey: "libraryLocation") {
-                return previous
-            }
-            
-            let musicDir = FileManager.default.urls(for: .musicDirectory, in: .userDomainMask).first!
-            return musicDir.appendingPathComponent("Ten Tunes")
+            return AppDelegate.defaults.url(forKey: "libraryLocation") ?? Library.defaultURL()
         }
         
         var freedomToChoose = NSEvent.modifierFlags.contains(.option)

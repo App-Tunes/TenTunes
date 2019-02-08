@@ -10,6 +10,14 @@ import XCTest
 
 @testable import TenTunes
 
+func XCTAssertFileExists(at url: URL) {
+    XCTAssert(FileManager.default.fileExists(atPath: url.path), String(format: "File doesn't exist: %@", url.path))
+}
+
+func XCTAssertFileNotExists(at url: URL) {
+    XCTAssertFalse(FileManager.default.fileExists(atPath: url.path), String(format: "File exists: %@", url.path))
+}
+
 class TestDatabase: XCTestCase {
     var tracks: [Track] = []
     var groups: [PlaylistFolder] = []

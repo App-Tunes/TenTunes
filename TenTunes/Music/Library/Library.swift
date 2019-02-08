@@ -137,6 +137,12 @@ class Library : NSPersistentContainer {
         return _allAlbums!
     }
     
+    static func defaultURL() -> URL {        
+        let musicDir = FileManager.default.urls(for: .musicDirectory, in: .userDomainMask).first!
+        return musicDir.appendingPathComponent("Ten Tunes")
+    }
+
+    
     // Querying
     
     func track(byId: NSManagedObjectID, in context: NSManagedObjectContext? = nil) -> Track? {

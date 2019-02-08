@@ -104,6 +104,7 @@
 		808BAAE8220DAD0A0017557C /* FilesPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808BAAE6220DAD0A0017557C /* FilesPreferences.swift */; };
 		808BAAE9220DAD0A0017557C /* FilesPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 808BAAE7220DAD0A0017557C /* FilesPreferences.xib */; };
 		808BAAEB220DB7290017557C /* TestKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808BAAEA220DB7290017557C /* TestKeys.swift */; };
+		808BAAED220E252B0017557C /* TestMediaLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808BAAEC220E252B0017557C /* TestMediaLocation.swift */; };
 		80905F652208708E00A6A830 /* TestPlaylists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80905F642208708E00A6A830 /* TestPlaylists.swift */; };
 		80905F682208906A00A6A830 /* TestDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80905F672208906A00A6A830 /* TestDatabase.swift */; };
 		8091B9FF20C6B7E50019CE23 /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8091B9FE20C6B7E50019CE23 /* Hash.swift */; };
@@ -368,6 +369,7 @@
 		808BAAE6220DAD0A0017557C /* FilesPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesPreferences.swift; sourceTree = "<group>"; };
 		808BAAE7220DAD0A0017557C /* FilesPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilesPreferences.xib; sourceTree = "<group>"; };
 		808BAAEA220DB7290017557C /* TestKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKeys.swift; sourceTree = "<group>"; };
+		808BAAEC220E252B0017557C /* TestMediaLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMediaLocation.swift; sourceTree = "<group>"; };
 		80905F642208708E00A6A830 /* TestPlaylists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPlaylists.swift; sourceTree = "<group>"; };
 		80905F672208906A00A6A830 /* TestDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDatabase.swift; sourceTree = "<group>"; };
 		8091B9FE20C6B7E50019CE23 /* Hash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hash.swift; sourceTree = "<group>"; };
@@ -629,6 +631,7 @@
 		8069C06E22085FB900CD3396 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				808BAAEC220E252B0017557C /* TestMediaLocation.swift */,
 				808BAAEA220DB7290017557C /* TestKeys.swift */,
 				80905F672208906A00A6A830 /* TestDatabase.swift */,
 				80905F642208708E00A6A830 /* TestPlaylists.swift */,
@@ -1196,6 +1199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8069C0882208668700CD3396 /* TestIntegrity.swift in Sources */,
+				808BAAED220E252B0017557C /* TestMediaLocation.swift in Sources */,
 				8069C08C22086E9900CD3396 /* TestInitialState.swift in Sources */,
 				808BAAEB220DB7290017557C /* TestKeys.swift in Sources */,
 				80905F682208906A00A6A830 /* TestDatabase.swift in Sources */,

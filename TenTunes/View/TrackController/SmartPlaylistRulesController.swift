@@ -151,7 +151,11 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
     }
     
     func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {
-        return (representedObject as? SmartPlaylistRules.Token)?.representation(in: Library.shared.viewContext)
+        guard let token = (representedObject as? SmartPlaylistRules.Token) else {
+            return nil
+        }
+        
+        return token.icons + " " + token.representation(in: Library.shared.viewContext)
     }
     
     func tokenField(_ tokenField: NSTokenField, changedTokens tokens: [Any]) {

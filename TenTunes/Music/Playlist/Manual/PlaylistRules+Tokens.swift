@@ -46,7 +46,7 @@ extension SmartPlaylistRules.Token {
             }
         }
         
-        override func positiveRepresentation(in context: NSManagedObjectContext? = nil) -> String {
+        override func representation(in context: NSManagedObjectContext? = nil) -> String {
             return string
         }
     }
@@ -93,9 +93,13 @@ extension SmartPlaylistRules.Token {
             }
         }
         
-        override func positiveRepresentation(in context: NSManagedObjectContext? = nil) -> String {
+        override var icons: String {
+            return super.icons + (isTag ? "🏷" : "📁")
+        }
+        
+        override func representation(in context: NSManagedObjectContext? = nil) -> String {
             let playlistName = context != nil ? playlist(in: context!)?.name : playlistID?.description
-            return (isTag ? "🏷 " : "📁 ") + (playlistName ?? "Invalid Playlist")
+            return playlistName ?? "Invalid Playlist"
         }
     }
     
@@ -125,8 +129,12 @@ extension SmartPlaylistRules.Token {
             return { $0.authors.contains(self.author) }
         }
         
-        override func positiveRepresentation(in context: NSManagedObjectContext? = nil) -> String {
-            return "👤 " + author.description
+        override var icons: String {
+            return super.icons + "👤"
+        }
+        
+        override func representation(in context: NSManagedObjectContext? = nil) -> String {
+            return author.description
         }
     }
     
@@ -157,8 +165,12 @@ extension SmartPlaylistRules.Token {
             return { $0.rAlbum == self.album }
         }
         
-        override func positiveRepresentation(in context: NSManagedObjectContext? = nil) -> String {
-            return "💿 \(album.title) 👤 \(Artist.describe(album.author))"
+        override var icons: String {
+            return super.icons + "💿"
+        }
+        
+        override func representation(in context: NSManagedObjectContext? = nil) -> String {
+            return "\(album.title) 👤 \(Artist.describe(album.author))"
         }
     }
     
@@ -189,8 +201,12 @@ extension SmartPlaylistRules.Token {
             return { $0.genre?.lowercased() == lowerGenre }
         }
         
-        override func positiveRepresentation(in context: NSManagedObjectContext? = nil) -> String {
-            return "📗 " + genre
+        override var icons: String {
+            return super.icons + "📗"
+        }
+        
+        override func representation(in context: NSManagedObjectContext? = nil) -> String {
+            return genre
         }
     }
     
@@ -218,6 +234,10 @@ extension SmartPlaylistRules.Token {
             return { $0.bitrate >= bitrate }
         }
         
+        override var icons: String {
+            return ""
+        }
+        
         override func representation(in context: NSManagedObjectContext?) -> String {
             return "kbps \(not ? "<" : "≥") \(bitrate)"
         }
@@ -241,6 +261,10 @@ extension SmartPlaylistRules.Token {
             return { $0.usesMediaDirectory }
         }
         
+        override var icons: String {
+            return ""
+        }
+        
         override func representation(in context: NSManagedObjectContext?) -> String {
             return not ? "Linked File" : "In Media Directory"
         }
@@ -262,6 +286,10 @@ extension SmartPlaylistRules.Token {
         
         override func positiveFilter(in context: NSManagedObjectContext?, rguard: RecursionGuard<Playlist>) -> (Track) -> Bool {
             return { $0.liveURL == nil }
+        }
+        
+        override var icons: String {
+            return ""
         }
         
         override func representation(in context: NSManagedObjectContext?) -> String {
@@ -301,6 +329,10 @@ extension SmartPlaylistRules.Token {
             }
         }
         
+        override var icons: String {
+            return ""
+        }
+        
         override func representation(in context: NSManagedObjectContext?) -> String {
             return (not ? "Added Before " : "Added After ") + "\(HumanDates.string(from: date))"
         }
@@ -313,6 +345,10 @@ extension SmartPlaylistRules.Token {
                 let date = Calendar.current.date(from: DateComponents(year: Int($0.year)))! // TODO Real date with month and day?
                 return (date.timeIntervalSinceReferenceDate >= self.date.timeIntervalSinceReferenceDate) != self.not
             }
+        }
+        
+        override var icons: String {
+            return ""
         }
         
         override func representation(in context: NSManagedObjectContext?) -> String {

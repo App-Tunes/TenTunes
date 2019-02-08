@@ -87,9 +87,13 @@ import Cocoa
             return { _ in return false }
         }
         
-        func representation(in context: NSManagedObjectContext? = nil) -> String {
+        var icons : String {
             // TODO Use red background instead when possible
-            return (not ? "🚫 " : "") + positiveRepresentation(in: context)
+            return (not ? "🚫" : "")
+        }
+        
+        func representation(in context: NSManagedObjectContext? = nil) -> String {
+            return ""
         }
         
         func inverted() -> SmartPlaylistRules.Token {
@@ -97,8 +101,6 @@ import Cocoa
             copy._not = !_not
             return copy
         }
-        
-        func positiveRepresentation(in context: NSManagedObjectContext? = nil) -> String { return "" }
         
         var data : Data { return NSKeyedArchiver.archivedData(withRootObject: self) }
         

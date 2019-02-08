@@ -94,6 +94,13 @@
 		8085DC7020C936D6008F4084 /* ActionStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8085DC6F20C936D6008F4084 /* ActionStub.swift */; };
 		8087A406206D933F003F1821 /* Analysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087A405206D933F003F1821 /* Analysis.swift */; };
 		8087A494206597DC00CC9569 /* EnterReturningTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087A493206597DC00CC9569 /* EnterReturningTextField.swift */; };
+		808BAAD9220DA71B0017557C /* Preferences.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 808BAAD7220DA71A0017557C /* Preferences.framework */; };
+		808BAADA220DA71B0017557C /* Preferences.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 808BAAD7220DA71A0017557C /* Preferences.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		808BAADE220DA7C60017557C /* BehaviorPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808BAADC220DA7C60017557C /* BehaviorPreferences.swift */; };
+		808BAADF220DA7C60017557C /* BehaviorPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 808BAADD220DA7C60017557C /* BehaviorPreferences.xib */; };
+		808BAAE2220DA8D80017557C /* ViewPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808BAAE0220DA8D80017557C /* ViewPreferences.swift */; };
+		808BAAE3220DA8D80017557C /* ViewPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 808BAAE1220DA8D80017557C /* ViewPreferences.xib */; };
+		808BAAE5220DA99A0017557C /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808BAAE4220DA99A0017557C /* Preferences.swift */; };
 		80905F652208708E00A6A830 /* TestPlaylists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80905F642208708E00A6A830 /* TestPlaylists.swift */; };
 		80905F682208906A00A6A830 /* TestDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80905F672208906A00A6A830 /* TestDatabase.swift */; };
 		8091B9FF20C6B7E50019CE23 /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8091B9FE20C6B7E50019CE23 /* Hash.swift */; };
@@ -187,8 +194,6 @@
 		80F8550620691897009A8FBE /* PlaylistController+RightClick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F8550520691897009A8FBE /* PlaylistController+RightClick.swift */; };
 		80F8F6F32053EA2C004A07D6 /* TrackEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F8F6F12053EA2C004A07D6 /* TrackEditor.swift */; };
 		80F8F6F42053EA2C004A07D6 /* TrackEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80F8F6F22053EA2C004A07D6 /* TrackEditor.xib */; };
-		80F97030209625E800A989D8 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F9702E209625E800A989D8 /* PreferencesWindowController.swift */; };
-		80F97031209625E800A989D8 /* PreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80F9702F209625E800A989D8 /* PreferencesWindowController.xib */; };
 		80F9703320962EA200A989D8 /* PopupEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F9703220962EA200A989D8 /* PopupEnum.swift */; };
 		80FA291D2204E662008E6A38 /* LazyVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FA291C2204E662008E6A38 /* LazyVar.swift */; };
 		80FA2920220506EC008E6A38 /* TrackController+Tracks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FA291F220506EC008E6A38 /* TrackController+Tracks.swift */; };
@@ -223,6 +228,7 @@
 				804539B1215ACA8B0080153F /* AudioKitUI.framework in Embed Frameworks */,
 				80B6DFA6219F06E9003EA487 /* MIKMIDI.framework in Embed Frameworks */,
 				8030CA7F2164DDB300229398 /* Syphon.framework in Embed Frameworks */,
+				808BAADA220DA71B0017557C /* Preferences.framework in Embed Frameworks */,
 				8058FABE20432D3D0086FF8A /* MediaKeyTap.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -350,6 +356,12 @@
 		8085DC6F20C936D6008F4084 /* ActionStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionStub.swift; sourceTree = "<group>"; };
 		8087A405206D933F003F1821 /* Analysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analysis.swift; sourceTree = "<group>"; };
 		8087A493206597DC00CC9569 /* EnterReturningTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterReturningTextField.swift; sourceTree = "<group>"; };
+		808BAAD7220DA71A0017557C /* Preferences.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Preferences.framework; sourceTree = "<group>"; };
+		808BAADC220DA7C60017557C /* BehaviorPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BehaviorPreferences.swift; sourceTree = "<group>"; };
+		808BAADD220DA7C60017557C /* BehaviorPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BehaviorPreferences.xib; sourceTree = "<group>"; };
+		808BAAE0220DA8D80017557C /* ViewPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPreferences.swift; sourceTree = "<group>"; };
+		808BAAE1220DA8D80017557C /* ViewPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewPreferences.xib; sourceTree = "<group>"; };
+		808BAAE4220DA99A0017557C /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		80905F642208708E00A6A830 /* TestPlaylists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPlaylists.swift; sourceTree = "<group>"; };
 		80905F672208906A00A6A830 /* TestDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDatabase.swift; sourceTree = "<group>"; };
 		8091B9FE20C6B7E50019CE23 /* Hash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hash.swift; sourceTree = "<group>"; };
@@ -450,8 +462,6 @@
 		80F8550520691897009A8FBE /* PlaylistController+RightClick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistController+RightClick.swift"; sourceTree = "<group>"; };
 		80F8F6F12053EA2C004A07D6 /* TrackEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackEditor.swift; sourceTree = "<group>"; };
 		80F8F6F22053EA2C004A07D6 /* TrackEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackEditor.xib; sourceTree = "<group>"; };
-		80F9702E209625E800A989D8 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
-		80F9702F209625E800A989D8 /* PreferencesWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferencesWindowController.xib; sourceTree = "<group>"; };
 		80F9703220962EA200A989D8 /* PopupEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupEnum.swift; sourceTree = "<group>"; };
 		80FA291C2204E662008E6A38 /* LazyVar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyVar.swift; sourceTree = "<group>"; };
 		80FA291F220506EC008E6A38 /* TrackController+Tracks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackController+Tracks.swift"; sourceTree = "<group>"; };
@@ -481,6 +491,7 @@
 				806AC13A2041EDD900857B1B /* AVFoundation.framework in Frameworks */,
 				8013720E203F7C9C00CA9036 /* AudioKit.framework in Frameworks */,
 				80B6DFA4219F06E4003EA487 /* MIKMIDI.framework in Frameworks */,
+				808BAAD9220DA71B0017557C /* Preferences.framework in Frameworks */,
 				8058FABC20432A730086FF8A /* MediaKeyTap.framework in Frameworks */,
 				0418D7C40668030CCFCB5446 /* Pods_TenTunes.framework in Frameworks */,
 			);
@@ -566,12 +577,11 @@
 				80F8550220691866009A8FBE /* PlaylistController */,
 				80F854FC206917D6009A8FBE /* TrackController */,
 				80C1F1702142E9E60032E554 /* Visualizer */,
+				808BAADB220DA73C0017557C /* Preferences */,
 				80F2C58E20389B9B00212739 /* WaveformView.swift */,
 				8058FABF2043409F0086FF8A /* SubtleTableRowView.swift */,
 				8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */,
 				80E937582039C2850014C835 /* Keycodes.swift */,
-				80F9702E209625E800A989D8 /* PreferencesWindowController.swift */,
-				80F9702F209625E800A989D8 /* PreferencesWindowController.xib */,
 				807092E920C69D8F00DFED53 /* ExportPlaylistsController.swift */,
 				807092EA20C69D8F00DFED53 /* ExportPlaylistsController.xib */,
 				8030E01220FCBDAA006B4AE8 /* TaskViewController.swift */,
@@ -660,6 +670,18 @@
 				8093467220A628E1001D15CD /* Library+AudioFile.swift */,
 			);
 			path = Export;
+			sourceTree = "<group>";
+		};
+		808BAADB220DA73C0017557C /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				808BAAE4220DA99A0017557C /* Preferences.swift */,
+				808BAADC220DA7C60017557C /* BehaviorPreferences.swift */,
+				808BAADD220DA7C60017557C /* BehaviorPreferences.xib */,
+				808BAAE0220DA8D80017557C /* ViewPreferences.swift */,
+				808BAAE1220DA8D80017557C /* ViewPreferences.xib */,
+			);
+			path = Preferences;
 			sourceTree = "<group>";
 		};
 		809CEABD2163EFE9008D6AC0 /* Resources */ = {
@@ -830,6 +852,7 @@
 		80DCA9B6203F645400B1E9B1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				808BAAD7220DA71A0017557C /* Preferences.framework */,
 				80B6DFA3219F06E4003EA487 /* MIKMIDI.framework */,
 				809CEAC02164CF76008D6AC0 /* Syphon.framework */,
 				80074CFE2046BB0B0055B87E /* QuartzCore.framework */,
@@ -1072,6 +1095,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80C1F1682142928B0032E554 /* default.vs in Resources */,
+				808BAADF220DA7C60017557C /* BehaviorPreferences.xib in Resources */,
 				809CEABC2163EFCD008D6AC0 /* superpowered_splash.svg in Resources */,
 				80CC986E21A887AB0030F04B /* DJPreferences.plist in Resources */,
 				8079F6D42106551100B7A278 /* SmartPlaylistRulesController.xib in Resources */,
@@ -1079,7 +1103,6 @@
 				807092EC20C69D8F00DFED53 /* ExportPlaylistsController.xib in Resources */,
 				807D749D21C4074B00D3B610 /* subtract.fs in Resources */,
 				8079F6D82106661A00B7A278 /* HideableBar.xib in Resources */,
-				80F97031209625E800A989D8 /* PreferencesWindowController.xib in Resources */,
 				8093467720A99112001D15CD /* DefaultPreferences.plist in Resources */,
 				80C1F16621428FA40032E554 /* default.fs in Resources */,
 				80F2C5812038808000212739 /* Assets.xcassets in Resources */,
@@ -1095,6 +1118,7 @@
 				806611812124622100C3948E /* Library.storyboard in Resources */,
 				80E02C63217FB8B000251D24 /* Document-TTL.icns in Resources */,
 				80074CF9204583CF0055B87E /* TrackController.xib in Resources */,
+				808BAAE3220DA8D80017557C /* ViewPreferences.xib in Resources */,
 				80F2C5842038808000212739 /* Main.storyboard in Resources */,
 				80CC986721A877810030F04B /* WelcomeWindowController.xib in Resources */,
 			);
@@ -1242,7 +1266,7 @@
 				80A7CABD216252340075C499 /* Track+Live.swift in Sources */,
 				80C1F16D2142AA010032E554 /* RFOpenGLView.m in Sources */,
 				80C1F143213B1DE80032E554 /* Foundation+Collections.swift in Sources */,
-				80F97030209625E800A989D8 /* PreferencesWindowController.swift in Sources */,
+				808BAADE220DA7C60017557C /* BehaviorPreferences.swift in Sources */,
 				8071F63721AEBA700005685B /* HumanDates.swift in Sources */,
 				80CC986A21A880D20030F04B /* NSTableView+Header.swift in Sources */,
 				8093467120A62319001D15CD /* TrackController+Pasteboard.swift in Sources */,
@@ -1276,6 +1300,8 @@
 				80F854FF2069180A009A8FBE /* TrackController+RightClick.swift in Sources */,
 				808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */,
 				8071F63521AC299D0005685B /* PlaylistController+Updates.swift in Sources */,
+				808BAAE2220DA8D80017557C /* ViewPreferences.swift in Sources */,
+				808BAAE5220DA99A0017557C /* Preferences.swift in Sources */,
 				8079F6EC211B87A700B7A278 /* SpinningButton.swift in Sources */,
 				802F01CE2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift in Sources */,
 				8066118A2125B9BF00C3948E /* TagEditor+Tags.swift in Sources */,

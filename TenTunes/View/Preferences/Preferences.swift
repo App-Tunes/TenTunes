@@ -1,9 +1,9 @@
 //
-//  PreferencesWindowController.swift
+//  Preferences.swift
 //  TenTunes
 //
-//  Created by Lukas Tenbrink on 29.04.18.
-//  Copyright © 2018 ivorius. All rights reserved.
+//  Created by Lukas Tenbrink on 08.02.19.
+//  Copyright © 2019 ivorius. All rights reserved.
 //
 
 import Cocoa
@@ -30,7 +30,7 @@ extension UserDefaults {
             }
         }
     }
-
+    
     var initialKeyDisplay: InitialKeyDisplay {
         return (string(forKey: InitialKeyDisplay.key) ?=> InitialKeyDisplay.init) ?? .camelot
     }
@@ -73,10 +73,10 @@ extension UserDefaults {
             }
         }
     }
-
+    
     // observable hack
     @objc dynamic var waveformDisplay: NSString? { return string(forKey: WaveformDisplay.key) as NSString? }
-
+    
     var _waveformDisplay: WaveformDisplay {
         return (string(forKey: WaveformDisplay.key) ?=> WaveformDisplay.init) ?? .bars
     }
@@ -137,7 +137,7 @@ extension UserDefaults {
     var trackCombinedTitleSource: Bool {
         return bool(forKey: "trackCombinedTitleSource")
     }
-
+    
     var trackSmallRows: Bool {
         return bool(forKey: "trackSmallRows")
     }
@@ -145,7 +145,7 @@ extension UserDefaults {
     var forceSimpleFilePaths: Bool {
         return bool(forKey: "forceSimpleFilePaths")
     }
-
+    
     var useNormalizedVolumes: Bool {
         return bool(forKey: "useNormalizedVolumes")
     }
@@ -156,22 +156,5 @@ extension UserDefaults {
     
     @objc dynamic var trackWordPlural: String {
         return string(forKey: "trackWordPlural") ?? "songs"
-    }
-}
-
-class PreferencesWindowController: NSWindowController {
-
-    @IBOutlet var initialKeyDisplay: NSPopUpButton!
-    
-    @IBOutlet var waveformDisplay: NSPopUpButton!
-
-    @IBOutlet var fileLocationOnAdd: NSPopUpButton!
-
-    override func windowDidLoad() {
-        super.windowDidLoad()
-
-        PopupEnum<UserDefaults.InitialKeyDisplay>.bind(initialKeyDisplay, toUserDefaultsKey: UserDefaults.InitialKeyDisplay.key, with: [.camelot, .english, .german], by: { $0.rawValue }, title: { $0.title })
-        PopupEnum<UserDefaults.WaveformDisplay>.bind(waveformDisplay, toUserDefaultsKey: UserDefaults.WaveformDisplay.key, with: [.bars, .rounded], by: { $0.rawValue }, title: { $0.title })
-        PopupEnum<UserDefaults.FileLocationOnAdd>.bind(fileLocationOnAdd, toUserDefaultsKey: UserDefaults.FileLocationOnAdd.key, with: [.copy, .move, .link], by: { $0.rawValue }, title: { $0.title })
     }
 }

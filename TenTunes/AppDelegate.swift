@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Preferences
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -104,7 +105,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let libraryStoryboard = NSStoryboard(name: .init("Library"), bundle: nil)
         libraryWindowController = (libraryStoryboard.instantiateInitialController() as! NSWindowController)
         
-        preferencesController = PreferencesWindowController(windowNibName: .init(rawValue: "PreferencesWindowController"))
+        preferencesController = PreferencesWindowController(viewControllers: [
+            BehaviorPreferences(),
+            ViewPreferences(),
+        ])
         
         exportPlaylistsController = ExportPlaylistsController(windowNibName: .init(rawValue: "ExportPlaylistsController"))
         

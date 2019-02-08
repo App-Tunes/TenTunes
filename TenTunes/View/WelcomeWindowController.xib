@@ -15,14 +15,14 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Ten Tunes" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" titlebarAppearsTransparent="YES" id="F0z-JX-Cv5">
             <windowStyleMask key="styleMask" titled="YES"/>
-            <rect key="contentRect" x="509" y="267" width="440" height="311"/>
+            <rect key="contentRect" x="509" y="267" width="477" height="271"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" wantsLayer="YES" id="se5-gp-TjO">
-                <rect key="frame" x="0.0" y="0.0" width="440" height="271"/>
+                <rect key="frame" x="0.0" y="0.0" width="477" height="271"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GMz-6n-hUc">
-                        <rect key="frame" x="18" y="237" width="404" height="25"/>
+                        <rect key="frame" x="18" y="237" width="441" height="25"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Ten Tunes says Hi! Are you a..." id="LgW-mA-Oze">
                             <font key="font" size="21" name="GoudyOldStyleT-Regular"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -30,10 +30,10 @@
                         </textFieldCell>
                     </textField>
                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="fdQ-fQ-ADh">
-                        <rect key="frame" x="20" y="229" width="400" height="5"/>
+                        <rect key="frame" x="20" y="229" width="437" height="5"/>
                     </box>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="ijW-QC-vOh">
-                        <rect key="frame" x="250" y="51" width="150" height="150"/>
+                        <rect key="frame" x="287" y="51" width="150" height="150"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="album" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="yuB-7X-m96">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -59,7 +59,7 @@
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0tP-Qu-30P">
-                        <rect key="frame" x="263" y="20" width="124" height="29"/>
+                        <rect key="frame" x="300" y="20" width="124" height="29"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Disc Jockey" id="2Vr-wi-1VX">
                             <font key="font" size="25" name="GoudyOldStyleT-Bold"/>
                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -74,10 +74,21 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oPd-iE-ov7">
+                        <rect key="frame" x="228" y="115" width="21" height="23"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="or" id="8mr-2E-mgq">
+                            <font key="font" size="19" name="GoudyOldStyleT-Regular"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="oPd-iE-ov7" firstAttribute="centerY" secondItem="Gq4-1m-v2S" secondAttribute="centerY" id="3Fc-D5-Yhz"/>
+                    <constraint firstItem="ijW-QC-vOh" firstAttribute="leading" secondItem="oPd-iE-ov7" secondAttribute="trailing" constant="40" id="4Pw-ec-XDS"/>
                     <constraint firstAttribute="bottom" secondItem="0tP-Qu-30P" secondAttribute="bottom" constant="20" id="FIh-Pl-A7Y"/>
                     <constraint firstItem="fdQ-fQ-ADh" firstAttribute="top" secondItem="GMz-6n-hUc" secondAttribute="bottom" constant="5" id="H2J-rI-tfn"/>
+                    <constraint firstItem="oPd-iE-ov7" firstAttribute="leading" secondItem="Gq4-1m-v2S" secondAttribute="trailing" constant="40" id="JTq-3G-5vd"/>
                     <constraint firstItem="QO4-MY-0wx" firstAttribute="top" secondItem="Gq4-1m-v2S" secondAttribute="bottom" constant="2" id="NVo-d5-Tc6"/>
                     <constraint firstItem="Gq4-1m-v2S" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="40" id="OeB-83-sJj"/>
                     <constraint firstItem="GMz-6n-hUc" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="20" id="OuY-fs-h0c"/>
@@ -87,20 +98,20 @@
                     <constraint firstAttribute="trailing" secondItem="GMz-6n-hUc" secondAttribute="trailing" constant="20" id="SgD-xK-n4m"/>
                     <constraint firstAttribute="bottom" secondItem="QO4-MY-0wx" secondAttribute="bottom" constant="20" id="T1d-le-cmQ"/>
                     <constraint firstItem="QO4-MY-0wx" firstAttribute="centerX" secondItem="Gq4-1m-v2S" secondAttribute="centerX" id="Zjq-Vh-2wK"/>
+                    <constraint firstItem="oPd-iE-ov7" firstAttribute="centerX" secondItem="se5-gp-TjO" secondAttribute="centerX" id="a2g-Ax-8EW"/>
                     <constraint firstItem="fdQ-fQ-ADh" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="20" id="dG8-gf-29i"/>
                     <constraint firstItem="GMz-6n-hUc" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="9" id="doM-Qt-Oa6"/>
                     <constraint firstAttribute="trailing" secondItem="ijW-QC-vOh" secondAttribute="trailing" constant="40" id="hBL-qc-cGj"/>
                     <constraint firstItem="0tP-Qu-30P" firstAttribute="top" secondItem="ijW-QC-vOh" secondAttribute="bottom" constant="2" id="kn4-PQ-1v3"/>
                     <constraint firstItem="ijW-QC-vOh" firstAttribute="top" secondItem="fdQ-fQ-ADh" secondAttribute="bottom" constant="30" id="lJt-ep-4VD"/>
                     <constraint firstItem="ijW-QC-vOh" firstAttribute="top" secondItem="Gq4-1m-v2S" secondAttribute="top" id="pU5-fL-erv"/>
-                    <constraint firstItem="ijW-QC-vOh" firstAttribute="leading" secondItem="Gq4-1m-v2S" secondAttribute="trailing" constant="60" id="vrj-md-V4v"/>
                     <constraint firstItem="0tP-Qu-30P" firstAttribute="centerX" secondItem="ijW-QC-vOh" secondAttribute="centerX" id="yNe-gC-YL9"/>
                 </constraints>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
             </connections>
-            <point key="canvasLocation" x="211" y="168"/>
+            <point key="canvasLocation" x="229.5" y="147.5"/>
         </window>
     </objects>
     <resources>

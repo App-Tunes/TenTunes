@@ -101,8 +101,8 @@
 		808BAAE2220DA8D80017557C /* ViewPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808BAAE0220DA8D80017557C /* ViewPreferences.swift */; };
 		808BAAE3220DA8D80017557C /* ViewPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 808BAAE1220DA8D80017557C /* ViewPreferences.xib */; };
 		808BAAE5220DA99A0017557C /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808BAAE4220DA99A0017557C /* Preferences.swift */; };
-		808BAAE8220DAD0A0017557C /* ExportsPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808BAAE6220DAD0A0017557C /* ExportsPreferences.swift */; };
-		808BAAE9220DAD0A0017557C /* ExportsPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 808BAAE7220DAD0A0017557C /* ExportsPreferences.xib */; };
+		808BAAE8220DAD0A0017557C /* FilesPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808BAAE6220DAD0A0017557C /* FilesPreferences.swift */; };
+		808BAAE9220DAD0A0017557C /* FilesPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 808BAAE7220DAD0A0017557C /* FilesPreferences.xib */; };
 		80905F652208708E00A6A830 /* TestPlaylists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80905F642208708E00A6A830 /* TestPlaylists.swift */; };
 		80905F682208906A00A6A830 /* TestDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80905F672208906A00A6A830 /* TestDatabase.swift */; };
 		8091B9FF20C6B7E50019CE23 /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8091B9FE20C6B7E50019CE23 /* Hash.swift */; };
@@ -364,8 +364,8 @@
 		808BAAE0220DA8D80017557C /* ViewPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPreferences.swift; sourceTree = "<group>"; };
 		808BAAE1220DA8D80017557C /* ViewPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewPreferences.xib; sourceTree = "<group>"; };
 		808BAAE4220DA99A0017557C /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
-		808BAAE6220DAD0A0017557C /* ExportsPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportsPreferences.swift; sourceTree = "<group>"; };
-		808BAAE7220DAD0A0017557C /* ExportsPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExportsPreferences.xib; sourceTree = "<group>"; };
+		808BAAE6220DAD0A0017557C /* FilesPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesPreferences.swift; sourceTree = "<group>"; };
+		808BAAE7220DAD0A0017557C /* FilesPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilesPreferences.xib; sourceTree = "<group>"; };
 		80905F642208708E00A6A830 /* TestPlaylists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPlaylists.swift; sourceTree = "<group>"; };
 		80905F672208906A00A6A830 /* TestDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDatabase.swift; sourceTree = "<group>"; };
 		8091B9FE20C6B7E50019CE23 /* Hash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hash.swift; sourceTree = "<group>"; };
@@ -684,8 +684,8 @@
 				808BAADD220DA7C60017557C /* BehaviorPreferences.xib */,
 				808BAAE0220DA8D80017557C /* ViewPreferences.swift */,
 				808BAAE1220DA8D80017557C /* ViewPreferences.xib */,
-				808BAAE6220DAD0A0017557C /* ExportsPreferences.swift */,
-				808BAAE7220DAD0A0017557C /* ExportsPreferences.xib */,
+				808BAAE6220DAD0A0017557C /* FilesPreferences.swift */,
+				808BAAE7220DAD0A0017557C /* FilesPreferences.xib */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -1126,7 +1126,7 @@
 				80074CF9204583CF0055B87E /* TrackController.xib in Resources */,
 				808BAAE3220DA8D80017557C /* ViewPreferences.xib in Resources */,
 				80F2C5842038808000212739 /* Main.storyboard in Resources */,
-				808BAAE9220DAD0A0017557C /* ExportsPreferences.xib in Resources */,
+				808BAAE9220DAD0A0017557C /* FilesPreferences.xib in Resources */,
 				80CC986721A877810030F04B /* WelcomeWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1339,7 +1339,7 @@
 				80FA291D2204E662008E6A38 /* LazyVar.swift in Sources */,
 				80E2C9F8204B40A000298E81 /* Playlist+CoreDataProperties.swift in Sources */,
 				80F77BF5203D8B35001E397F /* Key.swift in Sources */,
-				808BAAE8220DAD0A0017557C /* ExportsPreferences.swift in Sources */,
+				808BAAE8220DAD0A0017557C /* FilesPreferences.swift in Sources */,
 				807D749A21C3D05900D3B610 /* DarkMatter.swift in Sources */,
 				80F2C57A2038808000212739 /* AppDelegate.swift in Sources */,
 				807F6A37210202A8002048B1 /* Library+Sanity.swift in Sources */,

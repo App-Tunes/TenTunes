@@ -10,6 +10,10 @@ import Cocoa
 import Preferences
 
 extension UserDefaults {
+    var forceSimpleFilePaths: Bool {
+        return bool(forKey: "forceSimpleFilePaths")
+    }
+
     var skipExportITunes: Bool {
         return bool(forKey: "skipExportITunes")
     }
@@ -23,8 +27,8 @@ extension UserDefaults {
     }
 }
 
-class ExportsPreferences: NSViewController, Preferenceable {
-    var toolbarItemTitle: String = "Exports"
+class FilesPreferences: NSViewController, Preferenceable {
+    var toolbarItemTitle: String = "Files"
     var toolbarItemIcon: NSImage = NSImage(named: .folderSmart)!
         
     override func viewDidLoad() {

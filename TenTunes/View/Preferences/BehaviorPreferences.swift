@@ -63,10 +63,6 @@ extension UserDefaults {
         return bool(forKey: "keepFilterBetweenPlaylists")
     }
         
-    var forceSimpleFilePaths: Bool {
-        return bool(forKey: "forceSimpleFilePaths")
-    }
-    
     var useNormalizedVolumes: Bool {
         return bool(forKey: "useNormalizedVolumes")
     }

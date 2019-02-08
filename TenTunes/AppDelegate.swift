@@ -108,7 +108,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         preferencesController = PreferencesWindowController(viewControllers: [
             BehaviorPreferences(),
             ViewPreferences(),
-            ExportsPreferences(),
+            FilesPreferences(),
         ])
         
         exportPlaylistsController = ExportPlaylistsController(windowNibName: .init(rawValue: "ExportPlaylistsController"))

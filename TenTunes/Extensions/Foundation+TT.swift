@@ -138,6 +138,10 @@ extension String {
             return String(self[startIndex..<endIndex])
         }
     }
+    
+    init(describe number: Int, singular: @autoclosure () -> String, plural: @autoclosure () -> String) {
+        self.init(format: "%d %@", number, number == 1 ? singular() : plural())
+    }
 
     var asFileName: String {
         return replacingOccurrences(of: ":", with: "_") // Remove :

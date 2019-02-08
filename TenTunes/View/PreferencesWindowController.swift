@@ -149,6 +149,14 @@ extension UserDefaults {
     var useNormalizedVolumes: Bool {
         return bool(forKey: "useNormalizedVolumes")
     }
+    
+    @objc dynamic var trackWordSingular: String {
+        return string(forKey: "trackWordSingular") ?? "song"
+    }
+    
+    @objc dynamic var trackWordPlural: String {
+        return string(forKey: "trackWordPlural") ?? "songs"
+    }
 }
 
 class PreferencesWindowController: NSWindowController {

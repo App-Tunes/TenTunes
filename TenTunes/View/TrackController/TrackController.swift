@@ -68,7 +68,9 @@ class TrackController: NSViewController {
             
             _playlistTitle.stringValue = history.playlist.name
             _playlistIcon.image = history.playlist.icon
-            _trackCounter.stringValue = String(history.count) + (history.count != 1 ? " tracks" : " track")
+            _trackCounter.stringValue = String(describe: history.count,
+                                               singular: AppDelegate.defaults.trackWordSingular,
+                                               plural: AppDelegate.defaults.trackWordPlural)
             
             dragHighlightView.isHidden = !acceptsGeneralDrag
             
@@ -124,7 +126,8 @@ class TrackController: NSViewController {
     @IBOutlet var _trackCounter: NSTextField!
     
     var observeHiddenToken: NSKeyValueObservation?
-    
+    var observeTrackWord: [NSKeyValueObservation] = []
+
     enum Mode {
         case tracksList, queue, title
     }

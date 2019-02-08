@@ -13,6 +13,14 @@ extension TrackController {
         let notificationCenter = NotificationCenter.default
         
         notificationCenter.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: .NSManagedObjectContextObjectsDidChange, object: Library.shared.viewContext)
+        
+        observeTrackWord = [\UserDefaults.trackWordSingular, \UserDefaults.trackWordPlural].map {
+            AppDelegate.defaults.observe($0) { (defaults, _) in
+                self._trackCounter.stringValue = String(describe: self.history.count,
+                                                        singular: defaults.trackWordSingular,
+                                                        plural: defaults.trackWordPlural)
+            }
+        }
     }
     
     @IBAction func managedObjectContextObjectsDidChange(notification: NSNotification) {

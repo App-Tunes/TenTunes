@@ -9,6 +9,84 @@
 import Cocoa
 import Preferences
 
+extension UserDefaults {
+    @objc dynamic var titleBarStylization: Double {
+        return double(forKey: "titleBarStylization")
+    }
+    
+    enum InitialKeyDisplay: String {
+        static let key: String = "intialKeyDisplay"
+        
+        case camelot = "camelot", english = "english", german = "german"
+        
+        var title: String {
+            switch(self) {
+            case .german: return "German"
+            case .camelot: return "Camelot"
+            case .english: return "English"
+            }
+        }
+    }
+    
+    var initialKeyDisplay: InitialKeyDisplay {
+        return (string(forKey: InitialKeyDisplay.key) ?=> InitialKeyDisplay.init) ?? .camelot
+    }
+    
+    enum AnimateWaveformTransitions {
+        static let key: String = "animateWaveformTransitions"
+        case animate, dont
+    }
+    
+    var animateWaveformTransitions: AnimateWaveformTransitions {
+        return bool(forKey: AnimateWaveformTransitions.key) ? .animate : .dont
+    }
+    
+    enum AnimateWaveformAnalysis {
+        static let key: String = "animateWaveformAnalysis"
+        case animate, dont
+    }
+    
+    var animateWaveformAnalysis: AnimateWaveformAnalysis {
+        return bool(forKey: AnimateWaveformAnalysis.key) ? .animate : .dont
+    }
+    
+    enum PreviewWaveformAnalysis {
+        static let key: String = "previewWaveformAnalysis"
+        case preview, dont
+    }
+    
+    var previewWaveformAnalysis: PreviewWaveformAnalysis {
+        return bool(forKey: PreviewWaveformAnalysis.key) ? .preview : .dont
+    }
+    
+    enum WaveformDisplay: String {
+        static let key: String = "waveformDisplay"
+        case bars = "bars", rounded = "hill"
+        
+        var title: String {
+            switch(self) {
+            case .bars: return "Bars"
+            case .rounded: return "Rounded"
+            }
+        }
+    }
+    
+    // observable hack
+    @objc dynamic var waveformDisplay: NSString? { return string(forKey: WaveformDisplay.key) as NSString? }
+    
+    var _waveformDisplay: WaveformDisplay {
+        return (string(forKey: WaveformDisplay.key) ?=> WaveformDisplay.init) ?? .bars
+    }
+    
+    var trackCombinedTitleSource: Bool {
+        return bool(forKey: "trackCombinedTitleSource")
+    }
+    
+    var trackSmallRows: Bool {
+        return bool(forKey: "trackSmallRows")
+    }    
+}
+
 class ViewPreferences: NSViewController, Preferenceable {
     var toolbarItemTitle: String = "View"
     var toolbarItemIcon: NSImage = NSImage(named: .colorPanel)!

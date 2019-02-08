@@ -108,6 +108,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         preferencesController = PreferencesWindowController(viewControllers: [
             BehaviorPreferences(),
             ViewPreferences(),
+            ExportsPreferences(),
         ])
         
         exportPlaylistsController = ExportPlaylistsController(windowNibName: .init(rawValue: "ExportPlaylistsController"))
@@ -292,6 +293,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction
     func showPreferences(sender: Any?) {
+        if !(preferencesController.window?.isVisible ?? false) {
+            preferencesController.window?.center()
+        }
         preferencesController.showWindow(self)
     }
     

@@ -17,19 +17,20 @@ extension UserDefaults {
     enum InitialKeyDisplay: String {
         static let key: String = "intialKeyDisplay"
         
-        case camelot = "camelot", english = "english", german = "german"
+        case openKey = "openKey", camelot = "camelot", english = "english", german = "german"
         
         var title: String {
             switch(self) {
             case .german: return "German"
             case .camelot: return "Camelot"
+            case .openKey: return "Open Key"
             case .english: return "English"
             }
         }
     }
     
     var initialKeyDisplay: InitialKeyDisplay {
-        return (string(forKey: InitialKeyDisplay.key) ?=> InitialKeyDisplay.init) ?? .camelot
+        return (string(forKey: InitialKeyDisplay.key) ?=> InitialKeyDisplay.init) ?? .openKey
     }
     
     enum AnimateWaveformTransitions {
@@ -97,7 +98,7 @@ class ViewPreferences: NSViewController, Preferenceable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        PopupEnum<UserDefaults.InitialKeyDisplay>.bind(initialKeyDisplay, toUserDefaultsKey: UserDefaults.InitialKeyDisplay.key, with: [.camelot, .english, .german], by: { $0.rawValue }, title: { $0.title })
+        PopupEnum<UserDefaults.InitialKeyDisplay>.bind(initialKeyDisplay, toUserDefaultsKey: UserDefaults.InitialKeyDisplay.key, with: [.openKey, .camelot, .english, .german], by: { $0.rawValue }, title: { $0.title })
         PopupEnum<UserDefaults.WaveformDisplay>.bind(waveformDisplay, toUserDefaultsKey: UserDefaults.WaveformDisplay.key, with: [.bars, .rounded], by: { $0.rawValue }, title: { $0.title })
     }
     

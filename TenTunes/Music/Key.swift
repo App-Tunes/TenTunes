@@ -14,7 +14,7 @@ enum Note {
     static var camelotWheel: [Note] = [.C, .G, .D, .A, .E, .B, .Gb, .Db, .Ab, .Eb, .Bb, .F]
     static var order: [Note] = [.A, .Bb, .B, .C, .Db, .D, .Eb, .E, .F, .Gb, .G, .Ab]
 
-    static func parse(_ string: String, isMinor: Bool) -> Note? {
+    static func parse(_ string: String) -> Note? {
         switch string.lowercased() {
         case "a":
             return .A
@@ -44,17 +44,37 @@ enum Note {
             break
         }
         
-        if let i = Int(string) {
-            if i >= 1 && i <= 12 {
-                return camelotWheel[(i - 1 + (isMinor ? 3 : 0)) % camelotWheel.count]
-            }
-        }
-        
         return nil
     }
     
+    static func from(openKey: Int, isMinor: Bool) -> Note? {
+        return Note.from(camelot: toCamelot(openKey: openKey), isMinor: isMinor)
+    }
+    
+    static func from(camelot: Int, isMinor: Bool) -> Note? {
+        guard camelot >= 1 && camelot <= 12 else {
+            return nil
+        }
+        
+        return Note.camelotWheel[((camelot - 1) + (isMinor ? 3 : 0)) % Note.camelotWheel.count]
+    }
+    
+    static func toCamelot(openKey: Int) -> Int {
+        if openKey < 1 || openKey > 12 { return 0 }
+        return ((openKey - 1 + 5) % 12) + 1
+    }
+    
+    static func toOpenKey(camelot: Int) -> Int {
+        if camelot < 1 || camelot > 12 { return 0 }
+        return ((camelot - 1 + 7) % 12) + 1
+    }
+    
+    func openKey(isMinor: Bool) -> Int {
+        return Note.toOpenKey(camelot: camelot(isMinor: isMinor))
+    }
+    
     func camelot(isMinor: Bool) -> Int {
-        return (Note.camelotWheel.index(of: self)! + (isMinor ? 9 : 0)) % Note.camelotWheel.count
+        return ((Note.camelotWheel.index(of: self)! + (isMinor ? 9 : 0)) % Note.camelotWheel.count) + 1
     }
     
     var description: String {
@@ -85,65 +105,59 @@ enum Note {
             return "A♭"
         }
     }
-
+    
     var write: String {
-        switch self {
-        case .A:
-            return "a"
-        case .Bb:
-            return "bb"
-        case .B:
-            return "b"
-        case .C:
-            return "c"
-        case .Db:
-            return "db"
-        case .D:
-            return "d"
-        case .Eb:
-            return "eb"
-        case .E:
-            return "e"
-        case .F:
-            return "f"
-        case .Gb:
-            return "gb"
-        case .G:
-            return "g"
-        case .Ab:
-            return "ab"
-        }
+        return description.replacingOccurrences(of: "♭", with: "b")
     }
 }
 
 @objc class Key : NSObject {
+    static let suffices = [
+        ("maj", false),
+        ("min", true),
+        ("d", false),
+        ("m", true),
+    ]
+
     var note: Note
     var isMinor: Bool
 
-    static func parse(_ string: String) -> Key? {
-        if string.count == 0 {
+    static func parse(_ toParse: String) -> Key? {
+        if toParse.count == 0 {
             return nil
         }
+        let string = toParse.lowercased()
+
         var noteString = string
-        
         var isMinor = false
-        if (string.last == "m" || string.last == "A") && string.count >= 2 {
-            noteString = String(string.dropLast())
-            isMinor = true
-        }
-        else if (string.last == "d" || string.last == "B") && string.count >= 2 {
-            noteString = String(string.dropLast())
-        }
-        else if string.hasSuffix("min") {
-            noteString = String(string.dropLast(3))
-            isMinor = true
-        }
-        else if string.hasSuffix("maj") {
-            noteString = String(string.dropLast(3))
+        if string.count >= 2 {
+            guard string.last != "a" && string.last != "b" else {
+                // Open Key
+                isMinor = string.last == "a"
+                guard let number = Int(string.dropLast()), let note = Note.from(openKey: number, isMinor: isMinor) else {
+                    return nil
+                }
+                
+                return Key(note: note, isMinor: isMinor)
+            }
+            
+            if let suffix = Key.suffices.filter({ string.hasSuffix($0.0) }).first {
+                noteString = String(string.dropLast(suffix.0.count))
+                isMinor = suffix.1
+            }
+            
+            if let number = Int(noteString) {
+                // Camelot
+                guard let note = Note.from(camelot: number, isMinor: isMinor) else {
+                    return nil
+                }
+                
+                return Key(note: note, isMinor: isMinor)
+            }
         }
 
-        guard let note = Note.parse(noteString, isMinor: isMinor) else {
-            print("Failed to parse key: \(string)")
+        guard let note = Note.parse(noteString) else {
+            print("Failed to parse note: \(string)")
             return nil
         }
         
@@ -155,20 +169,24 @@ enum Note {
         self.isMinor = isMinor
     }
     
+    var openKey: Int {
+        return note.openKey(isMinor: isMinor)
+    }
+    
     var camelot: Int {
-        return self.note.camelot(isMinor: isMinor)
+        return note.camelot(isMinor: isMinor)
     }
     
     var isMajor: Bool {
-        return !self.isMinor
+        return !isMinor
     }
     
     var major: Key {
-        return Key(note: self.note, isMinor: false)
+        return Key(note: note, isMinor: false)
     }
     
     var minor: Key {
-        return Key(note: self.note, isMinor: true)
+        return Key(note: note, isMinor: true)
     }
     
     var write: String {
@@ -181,8 +199,10 @@ enum Note {
         switch AppDelegate.defaults.initialKeyDisplay {
         case .german:
             description = isMinor ? description.lowercased() : description
+        case .openKey:
+            description = "\(((note.openKey(isMinor: isMinor) + 7) % 12) + 1)\(isMinor ? "A" : "B")"
         case .camelot:
-            description = "\(((note.camelot(isMinor: isMinor) + 7) % 12) + 1)\(isMinor ? "A" : "B")"
+            description = "\(((note.openKey(isMinor: isMinor) + 7) % 12) + 1)\(isMinor ? "d" : "m")"
         default:
             description = isMinor ? description + "m" : description
         }
@@ -191,17 +211,25 @@ enum Note {
     }
     
     @objc dynamic var attributes: [NSAttributedString.Key : Any]? {
-        let color = NSColor(hue: CGFloat(camelot - 1) / CGFloat(12), saturation: CGFloat(0.6), brightness: CGFloat(1.0), alpha: CGFloat(1.0))
+        let color = NSColor(hue: CGFloat(openKey - 1) / CGFloat(12), saturation: CGFloat(0.6), brightness: CGFloat(1.0), alpha: CGFloat(1.0))
 
         return [.foregroundColor: color]
+    }
+    
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let other = object as? Key else {
+            return false
+        }
+        return note == other.note
+            && isMinor == other.isMinor
     }
 }
 
 extension Key : Comparable {    
     static func <(lhs: Key, rhs: Key) -> Bool {
         // Sort by note, then minorness
-        return lhs.camelot < rhs.camelot ? true
-            : rhs.camelot < lhs.camelot ? false : lhs.isMinor
+        return lhs.openKey < rhs.openKey ? true
+            : rhs.openKey < lhs.openKey ? false : lhs.isMinor
     }
     
     static func ==(lhs: Key, rhs: Key) -> Bool {

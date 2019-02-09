@@ -10,8 +10,9 @@ import XCTest
 
 @testable import TenTunes
 
-class TestMediaLocation : TestDatabase {
+class TestMediaLocation : TenTunesTest {
     override func setUp() {
+        super.setUp()
         create(tracks: 3)
         
         for track in tracks {

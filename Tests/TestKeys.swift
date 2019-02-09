@@ -10,7 +10,7 @@ import XCTest
 
 @testable import TenTunes
 
-class TestKeys: XCTestCase {
+class TestKeys: TenTunesTest {
     func testParsing() {
         XCTAssertEqual(Key.parse("Abm"),
                        Key(note: .Ab, isMinor: true)

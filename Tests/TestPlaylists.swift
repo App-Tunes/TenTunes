@@ -10,8 +10,9 @@ import XCTest
 
 @testable import TenTunes
 
-class TestPlaylists : TestDatabase {
+class TestPlaylists : TenTunesTest {
     override func setUp() {
+        super.setUp()
         create(tracks: 3, groups: 3, tags: 2)
     }
 

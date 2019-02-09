@@ -18,7 +18,7 @@ func XCTAssertFileNotExists(at url: URL) {
     XCTAssertFalse(FileManager.default.fileExists(atPath: url.path), String(format: "File exists: %@", url.path))
 }
 
-class TestDatabase: XCTestCase {
+class TenTunesTest: XCTestCase {
     var tracks: [Track] = []
     var groups: [PlaylistFolder] = []
     var tags: [PlaylistManual] = []
@@ -52,7 +52,17 @@ class TestDatabase: XCTestCase {
     }
     
     override func setUp() {
-        
+        if Library.shared.directory.deletingLastPathComponent() != FileManager.default.temporaryDirectory {
+            fatalError("Library is not temp directory")
+        }
+
+        if Library.shared.mediaLocation.directory.deletingLastPathComponent().deletingLastPathComponent() != FileManager.default.temporaryDirectory {
+            fatalError("Media Directory is not temp directory")
+        }
+
+        if AppDelegate.defaults.bool(forKey: "WelcomeWindow") {
+            fatalError("Welcome Window consumed! Most likely wrong user defaults!")
+        }
     }
 
     override func tearDown() {

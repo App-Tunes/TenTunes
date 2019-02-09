@@ -9,7 +9,7 @@ import XCTest
 
 @testable import TenTunes
 
-class TestInitialState: XCTestCase {
+class TestInitialState: TenTunesTest {
 
     func testPlaylists() {
         XCTAssertEqual(Set(Library.shared.masterPlaylist.childrenList), Set([

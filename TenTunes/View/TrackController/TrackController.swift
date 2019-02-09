@@ -9,6 +9,7 @@
 import Cocoa
 
 import AVFoundation
+import Defaults
 
 @objc class PlayHistorySetup : NSObject {
     override init() {
@@ -69,8 +70,8 @@ class TrackController: NSViewController {
             _playlistTitle.stringValue = history.playlist.name
             _playlistIcon.image = history.playlist.icon
             _trackCounter.stringValue = String(describe: history.count,
-                                               singular: AppDelegate.defaults.trackWordSingular,
-                                               plural: AppDelegate.defaults.trackWordPlural)
+                                               singular: AppDelegate.defaults[.trackWordSingular],
+                                               plural: AppDelegate.defaults[.trackWordPlural])
             
             dragHighlightView.isHidden = !acceptsGeneralDrag
             
@@ -126,7 +127,7 @@ class TrackController: NSViewController {
     @IBOutlet var _trackCounter: NSTextField!
     
     var observeHiddenToken: NSKeyValueObservation?
-    var observeTrackWord: [NSKeyValueObservation] = []
+    var observeTrackWord: [DefaultsObservation] = []
 
     enum Mode {
         case tracksList, queue, title
@@ -274,7 +275,7 @@ extension TrackController : MultiplicityGuardDelegate {
     func multiplicityGuard(_ view: MultiplicityGuardView, show elements: [Any]) -> MultiplicityGuardView.ShowAction {
         let tracks = elements as! [Track]
         guard tracks.allSatisfy({ $0.liveURL != nil }) else {
-            return .error(text: String(format: "%@ Not Found", AppDelegate.defaults.trackWordSingular))
+            return .error(text: String(format: "%@ Not Found", AppDelegate.defaults[.trackWordSingular]))
         }
         
         trackEditor!.show(tracks: tracks)

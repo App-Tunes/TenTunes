@@ -7,9 +7,48 @@
 //
 
 import Cocoa
+import Defaults
 
-extension UserDefaults {
-    @objc dynamic var trackColumnsHidden: [String: Bool] {
-        return dictionary(forKey: "trackColumnsHidden") as! [String: Bool]
+extension Defaults.Keys {
+    static let trackColumnsHidden = Key<[String: Bool]>("trackColumnsHidden", default: [
+        "albumColumn" : true,
+        "authorColumn" : true,
+        "yearColumn" : true,
+        "dateAddedColumn" : true,
+        "keyColumn" : true,
+        "bpmColumn" : true
+        ])
+    
+    static func eagerLoad() {
+        // Meh, but static vars are lazily loaded......
+        let array: [Defaults.Keys] = [
+            .trackColumnsHidden,
+            
+            .analyzeNewTracks,
+            .fileLocationOnAdd,
+            .playOpenedFiles,
+            .editingTrackUpdatesAlbum,
+            .quantizedJump,
+            .keepFilterBetweenPlaylists,
+            .useNormalizedVolumes,
+            .trackWordSingular,
+            .trackWordPlural,
+            
+            .titleBarStylization,
+            .initialKeyDisplay,
+            .animateWaveformTransitions,
+            .animateWaveformAnalysis,
+            .previewWaveformAnalysis,
+            .waveformDisplay,
+            .trackCombinedTitleSource,
+            .trackSmallRows,
+            
+            .forceSimpleFilePaths,
+            .skipExportITunes,
+            .skipExportM3U,
+            .skipExportAlias,
+        ]
+        
+        _ = array
     }
 }

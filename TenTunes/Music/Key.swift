@@ -196,7 +196,7 @@ enum Note {
     override var description: String {
         var description = note.description
         
-        switch AppDelegate.defaults.initialKeyDisplay {
+        switch AppDelegate.defaults[.initialKeyDisplay] {
         case .german:
             description = isMinor ? description.lowercased() : description
         case .openKey:

@@ -8,6 +8,7 @@
 
 import Cocoa
 import Preferences
+import Defaults
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -37,7 +38,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setupBackwardsCompatibility()
         
         ValueTransformers.register()
-        AppDelegate.defaults.register(defaults: NSDictionary(contentsOf: Bundle.main.url(forResource: "DefaultPreferences", withExtension: "plist")!) as! [String : Any])
+        Defaults.Keys.eagerLoad()
 
         var location: URL!
         var create: Bool?
@@ -327,7 +328,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         let tracks = objects.compactMap { $0 as? Track }
-        if tracks.count > 0, AppDelegate.defaults.playOpenedFiles == .play {
+        if tracks.count > 0, AppDelegate.defaults[.playOpenedFiles] {
             ViewController.shared.player.enqueue(tracks: tracks, at: .end)
             ViewController.shared.player.play(moved: 1)
         }

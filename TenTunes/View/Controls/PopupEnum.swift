@@ -7,29 +7,28 @@
 //
 
 import Cocoa
+import Defaults
 
-class PopupEnum<E>: NSObject {
-    let userDefaultsKey: String
+class PopupEnum<E : Equatable & Codable>: NSObject {
+    let userDefaultsKey: Defaults.Key<E>
     let values: [E]
-    let valueTransform: (E) -> String
     
     @objc dynamic var selectedItem: Int {
         didSet {
-            AppDelegate.defaults.set(valueTransform(values[selectedItem]), forKey: userDefaultsKey)
+            AppDelegate.defaults[userDefaultsKey] = values[selectedItem]
         }
     }
 
-    init(userDefaultsKey: String, values: [E], valueTransform: @escaping (E) -> String) {
+    init(userDefaultsKey: Defaults.Key<E>, values: [E]) {
         self.userDefaultsKey = userDefaultsKey
         self.values = values
-        self.valueTransform = valueTransform
         
-        let current = AppDelegate.defaults.value(forKey: userDefaultsKey) as? String
-        selectedItem = (values.index { valueTransform($0) == current }) ?? 0
+        let current = AppDelegate.defaults[userDefaultsKey]
+        selectedItem = (values.firstIndex { $0 == current }) ?? 0
     }
     
-    static func bind(_ popup: NSPopUpButton, toUserDefaultsKey: String, with: [E], by: @escaping (E) -> String, title: (E) -> String) {
-        let controller = PopupEnum(userDefaultsKey: toUserDefaultsKey, values: with, valueTransform: by)
+    static func bind(_ popup: NSPopUpButton, toUserDefaultsKey key: Defaults.Key<E>, with: [E], title: (E) -> String) {
+        let controller = PopupEnum(userDefaultsKey: key, values: with)
         
         popup.removeAllItems()
         for item in with {

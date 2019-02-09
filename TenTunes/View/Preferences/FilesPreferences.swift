@@ -9,22 +9,14 @@
 import Cocoa
 import Preferences
 
-extension UserDefaults {
-    var forceSimpleFilePaths: Bool {
-        return bool(forKey: "forceSimpleFilePaths")
-    }
+import Defaults
 
-    var skipExportITunes: Bool {
-        return bool(forKey: "skipExportITunes")
-    }
-    
-    var skipExportM3U: Bool {
-        return bool(forKey: "skipExportM3U")
-    }
-    
-    var skipExportAlias: Bool {
-        return bool(forKey: "skipExportAlias")
-    }
+extension Defaults.Keys {
+    static let forceSimpleFilePaths = Key<Bool>("forceSimpleFilePaths", default: true)
+
+    static let skipExportITunes = Key<Bool>("skipExportITunes", default: false)
+    static let skipExportM3U = Key<Bool>("skipExportM3U", default: false)
+    static let skipExportAlias = Key<Bool>("skipExportAlias", default: false)
 }
 
 class FilesPreferences: NSViewController, Preferenceable {

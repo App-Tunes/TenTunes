@@ -118,15 +118,15 @@ extension Library {
             (try! context.fetch(Playlist.fetchRequest())) // Pre-Grab all the playlists for performance reasons
             let playlists: [Playlist] = [context.convert(library.masterPlaylist)!].flatten { ($0 as? PlaylistFolder)?.childrenList }
 
-            if !AppDelegate.defaults.skipExportM3U {
+            if !AppDelegate.defaults[.skipExportM3U] {
                 m3uPlaylists(playlists: playlists, changed: changed)
             }
             
-            if !AppDelegate.defaults.skipExportITunes {
+            if !AppDelegate.defaults[.skipExportITunes] {
                 iTunesLibraryXML(tracks: tracks, playlists: playlists)
             }
             
-            if !AppDelegate.defaults.skipExportAlias {
+            if !AppDelegate.defaults[.skipExportAlias] {
                 symlinks(tracks: tracks, playlists: playlists)
             }
         }

@@ -11,6 +11,7 @@ import Foundation
 
 import MediaKeyTap
 import AVFoundation
+import Defaults
 
 func synced(_ lock: Any, closure: () -> ()) {
     objc_sync_enter(lock)
@@ -25,7 +26,7 @@ class ViewController: NSViewController {
     static var shared: ViewController!
     
     @IBOutlet var _coverImage: NSImageView!
-    var coverImageObserver: NSKeyValueObservation?
+    var coverImageObserver: DefaultsObservation?
 
     @IBOutlet var _playLeftConstraint: NSLayoutConstraint!
     @IBOutlet var _play: NSButton!
@@ -155,7 +156,7 @@ class ViewController: NSViewController {
             return self.keyDown(with: $0)
         }
         
-        coverImageObserver = AppDelegate.defaults.observe(\.titleBarStylization, options: [.initial, .new]) { (defaults, change) in
+        coverImageObserver = UserDefaults.swifty.observe(.titleBarStylization, options: [.initial, .new]) { change in
             self._coverImage.alphaValue = CGFloat(change.newValue ?? 0)
         }
         
@@ -298,7 +299,7 @@ extension ViewController: PlaylistControllerDelegate {
             return
         }
         
-        if !AppDelegate.defaults.keepFilterBetweenPlaylists, trackController.filterBar.isOpen {
+        if !AppDelegate.defaults[.keepFilterBetweenPlaylists], trackController.filterBar.isOpen {
             trackController.filterBar.close()
         }
         

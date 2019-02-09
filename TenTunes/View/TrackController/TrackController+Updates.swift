@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Defaults
 
 extension TrackController {
     func registerObservers() {
@@ -14,11 +15,11 @@ extension TrackController {
         
         notificationCenter.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: .NSManagedObjectContextObjectsDidChange, object: Library.shared.viewContext)
         
-        observeTrackWord = [\UserDefaults.trackWordSingular, \UserDefaults.trackWordPlural].map {
-            AppDelegate.defaults.observe($0) { (defaults, _) in
+        observeTrackWord = [Defaults.Keys.trackWordSingular, Defaults.Keys.trackWordPlural].map {
+            UserDefaults.swifty.observe($0) { _ in
                 self._trackCounter.stringValue = String(describe: self.history.count,
-                                                        singular: defaults.trackWordSingular,
-                                                        plural: defaults.trackWordPlural)
+                                                        singular: AppDelegate.defaults[.trackWordSingular],
+                                                        plural: AppDelegate.defaults[.trackWordPlural])
             }
         }
     }

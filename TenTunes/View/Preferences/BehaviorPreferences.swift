@@ -8,20 +8,12 @@
 
 import Cocoa
 import Preferences
+import Defaults
 
-extension UserDefaults {
-    enum AnalyzeNewTracks {
-        static let key: String = "autoAnalyzeTracksOnAdd"
-        case analyze, dont
-    }
+extension Defaults.Keys {
+    static let analyzeNewTracks = Key<Bool>("autoAnalyzeTracksOnAdd", default: true)
     
-    var analyzeNewTracks: AnalyzeNewTracks {
-        return bool(forKey: AnalyzeNewTracks.key) ? .analyze : .dont
-    }
-    
-    enum FileLocationOnAdd: String {
-        static let key: String = "fileLocationOnAdd"
-        
+    enum FileLocationOnAdd: String, Codable {
         case link = "link", copy = "copy", move = "move"
         
         var title: String {
@@ -32,48 +24,16 @@ extension UserDefaults {
             }
         }
     }
-    
-    var fileLocationOnAdd: FileLocationOnAdd {
-        return (string(forKey: FileLocationOnAdd.key) ?=> FileLocationOnAdd.init) ?? .copy
-    }
-    
-    enum PlayOpenedFiles {
-        static let key: String = "autoPlayTracksOnOpen"
-        case play, dont
-    }
-    
-    var playOpenedFiles: PlayOpenedFiles {
-        return bool(forKey: PlayOpenedFiles.key) ? .play : .dont
-    }
-    
-    enum EditingTrackUpdatesAlbum {
-        static let key: String = "updatingTrackUpdatesAlbum"
-        case update, dont
-    }
-    
-    var editingTrackUpdatesAlbum: EditingTrackUpdatesAlbum {
-        return bool(forKey: EditingTrackUpdatesAlbum.key) ? .update : .dont
-    }
-    
-    var quantizedJump: Bool {
-        return bool(forKey: "quantizedJump")
-    }
-    
-    var keepFilterBetweenPlaylists: Bool {
-        return bool(forKey: "keepFilterBetweenPlaylists")
-    }
-        
-    var useNormalizedVolumes: Bool {
-        return bool(forKey: "useNormalizedVolumes")
-    }
-    
-    @objc dynamic var trackWordSingular: String {
-        return string(forKey: "trackWordSingular") ?? "song"
-    }
-    
-    @objc dynamic var trackWordPlural: String {
-        return string(forKey: "trackWordPlural") ?? "songs"
-    }
+
+    static let fileLocationOnAdd = Key<FileLocationOnAdd>("fileLocationOnAdd", default: .copy)
+    static let playOpenedFiles = Key<Bool>("autoPlayTracksOnOpen", default: true)
+    static let editingTrackUpdatesAlbum = Key<Bool>("editingTrackUpdatesAlbum", default: true)
+    static let quantizedJump = Key<Bool>("quantizedJump", default: false)
+    static let keepFilterBetweenPlaylists = Key<Bool>("keepFilterBetweenPlaylists", default: false)
+    static let useNormalizedVolumes = Key<Bool>("useNormalizedVolumes", default: true)
+
+    static let trackWordSingular = Key<String>("trackWordSingular", default: "song")
+    static let trackWordPlural = Key<String>("trackWordPlural", default: "songs")
 }
 
 class BehaviorPreferences: NSViewController, Preferenceable {
@@ -85,7 +45,7 @@ class BehaviorPreferences: NSViewController, Preferenceable {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        PopupEnum<UserDefaults.FileLocationOnAdd>.bind(fileLocationOnAdd, toUserDefaultsKey: UserDefaults.FileLocationOnAdd.key, with: [.copy, .move, .link], by: { $0.rawValue }, title: { $0.title })
+        PopupEnum<Defaults.Keys.FileLocationOnAdd>.bind(fileLocationOnAdd, toUserDefaultsKey: .fileLocationOnAdd, with: [.copy, .move, .link], title: { $0.title })
     }
     
 }

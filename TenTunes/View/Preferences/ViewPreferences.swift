@@ -9,14 +9,12 @@
 import Cocoa
 import Preferences
 
-extension UserDefaults {
-    @objc dynamic var titleBarStylization: Double {
-        return double(forKey: "titleBarStylization")
-    }
+import Defaults
+
+extension Defaults.Keys {
+    static let titleBarStylization = Key<Double>("titleBarStylization", default: 0.5)
     
-    enum InitialKeyDisplay: String {
-        static let key: String = "intialKeyDisplay"
-        
+    enum InitialKeyDisplay: String, Codable {
         case openKey = "openKey", camelot = "camelot", english = "english", german = "german"
         
         var title: String {
@@ -28,40 +26,13 @@ extension UserDefaults {
             }
         }
     }
-    
-    var initialKeyDisplay: InitialKeyDisplay {
-        return (string(forKey: InitialKeyDisplay.key) ?=> InitialKeyDisplay.init) ?? .openKey
-    }
-    
-    enum AnimateWaveformTransitions {
-        static let key: String = "animateWaveformTransitions"
-        case animate, dont
-    }
-    
-    var animateWaveformTransitions: AnimateWaveformTransitions {
-        return bool(forKey: AnimateWaveformTransitions.key) ? .animate : .dont
-    }
-    
-    enum AnimateWaveformAnalysis {
-        static let key: String = "animateWaveformAnalysis"
-        case animate, dont
-    }
-    
-    var animateWaveformAnalysis: AnimateWaveformAnalysis {
-        return bool(forKey: AnimateWaveformAnalysis.key) ? .animate : .dont
-    }
-    
-    enum PreviewWaveformAnalysis {
-        static let key: String = "previewWaveformAnalysis"
-        case preview, dont
-    }
-    
-    var previewWaveformAnalysis: PreviewWaveformAnalysis {
-        return bool(forKey: PreviewWaveformAnalysis.key) ? .preview : .dont
-    }
-    
-    enum WaveformDisplay: String {
-        static let key: String = "waveformDisplay"
+
+    static let initialKeyDisplay = Key<InitialKeyDisplay>("initialKeyDisplay", default: .openKey)
+    static let animateWaveformTransitions = Key<Bool>("animateWaveformTransitions", default: true)
+    static let animateWaveformAnalysis = Key<Bool>("animateWaveformAnalysis", default: true)
+    static let previewWaveformAnalysis = Key<Bool>("previewWaveformAnalysis", default: true)
+
+    enum WaveformDisplay: String, Codable {
         case bars = "bars", rounded = "hill"
         
         var title: String {
@@ -71,21 +42,11 @@ extension UserDefaults {
             }
         }
     }
-    
-    // observable hack
-    @objc dynamic var waveformDisplay: NSString? { return string(forKey: WaveformDisplay.key) as NSString? }
-    
-    var _waveformDisplay: WaveformDisplay {
-        return (string(forKey: WaveformDisplay.key) ?=> WaveformDisplay.init) ?? .bars
-    }
-    
-    var trackCombinedTitleSource: Bool {
-        return bool(forKey: "trackCombinedTitleSource")
-    }
-    
-    var trackSmallRows: Bool {
-        return bool(forKey: "trackSmallRows")
-    }    
+
+    static let waveformDisplay = Key<WaveformDisplay>("waveformDisplay", default: .bars)
+    static let trackCombinedTitleSource = Key<Bool>("trackCombinedTitleSource", default: true)
+    static let trackSmallRows = Key<Bool>("trackSmallRows", default: true)
+
 }
 
 class ViewPreferences: NSViewController, Preferenceable {
@@ -98,8 +59,8 @@ class ViewPreferences: NSViewController, Preferenceable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        PopupEnum<UserDefaults.InitialKeyDisplay>.bind(initialKeyDisplay, toUserDefaultsKey: UserDefaults.InitialKeyDisplay.key, with: [.openKey, .camelot, .english, .german], by: { $0.rawValue }, title: { $0.title })
-        PopupEnum<UserDefaults.WaveformDisplay>.bind(waveformDisplay, toUserDefaultsKey: UserDefaults.WaveformDisplay.key, with: [.bars, .rounded], by: { $0.rawValue }, title: { $0.title })
+        PopupEnum<Defaults.Keys.InitialKeyDisplay>.bind(initialKeyDisplay, toUserDefaultsKey: .initialKeyDisplay, with: [.openKey, .camelot, .english, .german], title: { $0.title })
+        PopupEnum<Defaults.Keys.WaveformDisplay>.bind(waveformDisplay, toUserDefaultsKey: .waveformDisplay, with: [.bars, .rounded], title: { $0.title })
     }
     
 }

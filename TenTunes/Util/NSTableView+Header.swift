@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Defaults
 
 extension NSTableView {
     class ColumnHiddenManager : NSObject, NSMenuDelegate {
@@ -15,7 +16,7 @@ extension NSTableView {
         
         var ignore: [String]
         
-        var observerToken: NSKeyValueObservation?
+        var observerToken: DefaultsObservation?
         
         var titles: [NSUserInterfaceItemIdentifier: String] = [:]
         
@@ -34,7 +35,7 @@ extension NSTableView {
             tableView.headerView!.menu = NSMenu()
             tableView.headerView!.menu!.delegate = self
             
-            observerToken = AppDelegate.defaults.observe(\.trackColumnsHidden, options: [.initial, .new]) { _, _ in
+            observerToken = UserDefaults.swifty.observe(.trackColumnsHidden, options: [.initial, .new]) { _ in
                 self.updateMenu()
             }
         }

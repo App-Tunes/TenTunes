@@ -411,14 +411,6 @@ extension NSImageView {
     }
 }
 
-extension UserDefaults {
-    func consume(toggle: String) -> Bool {
-        let consumed = bool(forKey: toggle)
-        if !consumed { set(true, forKey: toggle) }
-        return !consumed
-    }
-}
-
 extension NSSplitView {
     func toggleSubviewHidden(_ view: NSView) {
         if isSubviewCollapsed(view) {

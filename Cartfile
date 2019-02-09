@@ -3,4 +3,5 @@ github "audiokit/AudioKit"
 github "mixedinkey-opensource/MIKMIDI"
 git "https://github.com/reitermarkus/MediaKeyTap" "master"
 github "sindresorhus/Preferences"
+github "sindresorhus/Defaults"
 

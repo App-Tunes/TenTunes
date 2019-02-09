@@ -30,7 +30,7 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
     
     var lastEditingString: String = ""
 
-    enum Accumulation {
+    enum Accumulation : String, Codable {
         case all, any
         
         var title: String {

@@ -28,11 +28,12 @@ class ExportPlaylists: Task {
     override func execute() {
         super.execute()
 
-        Library.shared.performChildBackgroundTask { [unowned self] mox in
+        let library = Library.shared
+        performChildBackgroundTask(for: library) { [unowned self] mox in
             let playlists = mox.compactConvert(self.playlists)
             
-            let pather = self.libraryURL == Library.shared.mediaLocation.directory
-                ? Library.shared.mediaLocation.pather()
+            let pather = self.libraryURL == library.mediaLocation.directory
+                ? library.mediaLocation.pather()
                 : MediaLocation.pather(for: self.libraryURL)
             
             Library.Export.remoteM3uPlaylists(playlists, to: self.destinationURL, pather: pather)

@@ -16,9 +16,13 @@ class Library : NSPersistentContainer {
     static let libraryFolderName = "Library.ttl"
     
     static var shared: Library {
-        return (NSApp.delegate as! AppDelegate).persistentContainer
+        return async! // In main thread, it's always there
     }
-
+    
+    static var async: Library? {
+        return (NSApp.delegate as? AppDelegate)?.persistentContainer
+    }
+    
     init?(name: String, at url: URL, create: Bool?) {
         directory = url.pathExtension == "ttl" ? url.deletingLastPathComponent() : url
 

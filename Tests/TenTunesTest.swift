@@ -10,12 +10,16 @@ import XCTest
 
 @testable import TenTunes
 
-func XCTAssertFileExists(at url: URL) {
-    XCTAssert(FileManager.default.fileExists(atPath: url.path), String(format: "File doesn't exist: %@", url.path))
+func XCTAssertFileExists(at url: URL,
+                         file: StaticString = #file, line: UInt = #line) {
+    XCTAssert(FileManager.default.fileExists(atPath: url.path), String(format: "File doesn't exist: %@", url.path),
+              file: file, line: line)
 }
 
-func XCTAssertFileNotExists(at url: URL) {
-    XCTAssertFalse(FileManager.default.fileExists(atPath: url.path), String(format: "File exists: %@", url.path))
+func XCTAssertFileNotExists(at url: URL,
+                            file: StaticString = #file, line: UInt = #line) {
+    XCTAssertFalse(FileManager.default.fileExists(atPath: url.path), String(format: "File exists: %@", url.path),
+                   file: file, line: line)
 }
 
 class TenTunesTest: XCTestCase {

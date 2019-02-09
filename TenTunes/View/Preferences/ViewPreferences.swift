@@ -27,7 +27,7 @@ extension Defaults.Keys {
         }
     }
 
-    static let initialKeyDisplay = Key<InitialKeyDisplay>("initialKeyDisplay", default: .openKey)
+    static let initialKeyDisplay = Key<InitialKeyDisplay>("initialKeyDisplay", default: .english)
     static let animateWaveformTransitions = Key<Bool>("animateWaveformTransitions", default: true)
     static let animateWaveformAnalysis = Key<Bool>("animateWaveformAnalysis", default: true)
     static let previewWaveformAnalysis = Key<Bool>("previewWaveformAnalysis", default: true)

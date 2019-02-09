@@ -9,7 +9,6 @@
 import Cocoa
 
 class WelcomeWindowController: NSWindowController {
-
     override func windowDidLoad() {
         super.windowDidLoad()
 
@@ -25,10 +24,16 @@ class WelcomeWindowController: NSWindowController {
     @IBAction func switchDJ(_ sender: Any) {
         window!.close()
 
-        for (key, value) in NSDictionary(contentsOf: Bundle.main.url(forResource: "DJPreferences", withExtension: "plist")!)! as! [String: Any?] {
-            AppDelegate.defaults.set(value, forKey: key)
-        }
-        
+        AppDelegate.defaults[.trackWordSingular] = "track"
+        AppDelegate.defaults[.trackWordPlural] = "tracks"
+        AppDelegate.defaults[.keepFilterBetweenPlaylists] = true
+        AppDelegate.defaults[.quantizedJump] = true
+        AppDelegate.defaults[.initialKeyDisplay] = .openKey
+        AppDelegate.defaults[.trackColumnsHidden] = [
+            "albumColumn": true,
+            "authorColumn": true,
+        ]
+
         (NSApp.delegate as! AppDelegate).commenceAfterWelcome()
     }
 }

@@ -51,7 +51,7 @@ extension TrackController {
         _tableView.registerForDraggedTypes(pasteboardTypes)
         _tableView.setDraggingSourceOperationMask(.every, forLocal: false) // ESSENTIAL
         
-        tableViewHiddenManager = .init(tableView: _tableView, defaultsKey: "trackColumnsHidden", ignore: [ColumnIdentifiers.title.rawValue])
+        tableViewHiddenManager = .init(tableView: _tableView, defaultsKey: .trackColumnsHidden, ignore: [ColumnIdentifiers.title.rawValue])
         tableViewHiddenManager.titles[ColumnIdentifiers.artwork] = "Artwork"
         tableViewHiddenManager.titles[ColumnIdentifiers.waveform] = "Waveform"
         tableViewHiddenManager.start()

@@ -27,7 +27,7 @@ extension Defaults.Keys {
 
     static let fileLocationOnAdd = Key<FileLocationOnAdd>("fileLocationOnAdd", default: .copy)
     static let playOpenedFiles = Key<Bool>("autoPlayTracksOnOpen", default: true)
-    static let editingTrackUpdatesAlbum = Key<Bool>("editingTrackUpdatesAlbum", default: true)
+    static let editingTrackUpdatesAlbum = Key<Bool>("updatingTrackUpdatesAlbum", default: true)
     static let quantizedJump = Key<Bool>("quantizedJump", default: false)
     static let keepFilterBetweenPlaylists = Key<Bool>("keepFilterBetweenPlaylists", default: false)
     static let useNormalizedVolumes = Key<Bool>("useNormalizedVolumes", default: true)

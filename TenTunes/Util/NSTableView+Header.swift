@@ -12,7 +12,7 @@ import Defaults
 extension NSTableView {
     class ColumnHiddenManager : NSObject, NSMenuDelegate {
         let tableView: NSTableView
-        let defaultsKey: String
+        let defaultsKey: Defaults.Key<[String: Bool]>
         
         var ignore: [String]
         
@@ -21,11 +21,11 @@ extension NSTableView {
         var titles: [NSUserInterfaceItemIdentifier: String] = [:]
         
         var defaults: [String: Bool] {
-            get { return (AppDelegate.defaults.dictionary(forKey: defaultsKey) as? [String : Bool]) ?? [:] }
-            set { AppDelegate.defaults.set(newValue, forKey: defaultsKey) }
+            get { return AppDelegate.defaults[defaultsKey] }
+            set { AppDelegate.defaults[defaultsKey] = newValue }
         }
 
-        init(tableView: NSTableView, defaultsKey: String, ignore: [String]) {
+        init(tableView: NSTableView, defaultsKey: Defaults.Key<[String: Bool]>, ignore: [String]) {
             self.tableView = tableView
             self.defaultsKey = defaultsKey
             self.ignore = ignore
@@ -35,7 +35,7 @@ extension NSTableView {
             tableView.headerView!.menu = NSMenu()
             tableView.headerView!.menu!.delegate = self
             
-            observerToken = UserDefaults.swifty.observe(.trackColumnsHidden, options: [.initial, .new]) { _ in
+            observerToken = UserDefaults.swifty.observe(defaultsKey, options: [.initial, .new]) { _ in
                 self.updateMenu()
             }
         }

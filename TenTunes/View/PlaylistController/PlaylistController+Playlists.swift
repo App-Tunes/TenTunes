@@ -211,7 +211,7 @@ extension PlaylistController {
         case library
         case playlists(_ playlists: [Playlist])
         
-        func playlists(library: PlaylistProtocol) -> [PlaylistProtocol] {
+        func playlists(library: AnyPlaylist) -> [AnyPlaylist] {
             switch self {
             case .library:
                 return [library]

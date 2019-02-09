@@ -56,7 +56,7 @@
 		806AC1482041F73300857B1B /* libtaglib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C0C2A4203F6DCA00FA6083 /* libtaglib.a */; };
 		806C5B2620423AC000C34F49 /* SPInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806C5B2520423AC000C34F49 /* SPInterpreter.swift */; };
 		806EFC22204B63620079DBAA /* PlaylistLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806EFC21204B63620079DBAA /* PlaylistLibrary.swift */; };
-		806EFC27204B65C10079DBAA /* PlaylistProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806EFC26204B65C10079DBAA /* PlaylistProtocol.swift */; };
+		806EFC27204B65C10079DBAA /* AnyPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806EFC26204B65C10079DBAA /* AnyPlaylist.swift */; };
 		806FC30C2190DA36004B9770 /* DarkBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806FC30B2190DA36004B9770 /* DarkBoxView.swift */; };
 		807092EB20C69D8F00DFED53 /* ExportPlaylistsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807092E920C69D8F00DFED53 /* ExportPlaylistsController.swift */; };
 		807092EC20C69D8F00DFED53 /* ExportPlaylistsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 807092EA20C69D8F00DFED53 /* ExportPlaylistsController.xib */; };
@@ -321,7 +321,7 @@
 		806AC1422041EF1900857B1B /* SPAnalyzer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SPAnalyzer.mm; sourceTree = "<group>"; };
 		806C5B2520423AC000C34F49 /* SPInterpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPInterpreter.swift; sourceTree = "<group>"; };
 		806EFC21204B63620079DBAA /* PlaylistLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistLibrary.swift; sourceTree = "<group>"; };
-		806EFC26204B65C10079DBAA /* PlaylistProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistProtocol.swift; sourceTree = "<group>"; };
+		806EFC26204B65C10079DBAA /* AnyPlaylist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyPlaylist.swift; sourceTree = "<group>"; };
 		806FC30B2190DA36004B9770 /* DarkBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkBoxView.swift; sourceTree = "<group>"; };
 		807092E920C69D8F00DFED53 /* ExportPlaylistsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPlaylistsController.swift; sourceTree = "<group>"; };
 		807092EA20C69D8F00DFED53 /* ExportPlaylistsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExportPlaylistsController.xib; sourceTree = "<group>"; };
@@ -882,7 +882,7 @@
 		80E2C9E3204B3D5C00298E81 /* Playlist */ = {
 			isa = PBXGroup;
 			children = (
-				806EFC26204B65C10079DBAA /* PlaylistProtocol.swift */,
+				806EFC26204B65C10079DBAA /* AnyPlaylist.swift */,
 				80E2C9F1204B40A000298E81 /* Playlist.swift */,
 				80E2C9F2204B40A000298E81 /* Playlist+CoreDataProperties.swift */,
 				80B68BA021011F4800A32E3D /* Manual */,
@@ -1335,7 +1335,7 @@
 				80F8F6F32053EA2C004A07D6 /* TrackEditor.swift in Sources */,
 				80C1F14E213C77440032E554 /* TrackVisuals.swift in Sources */,
 				803717292043629800DB9EAA /* ViewController+Background.swift in Sources */,
-				806EFC27204B65C10079DBAA /* PlaylistProtocol.swift in Sources */,
+				806EFC27204B65C10079DBAA /* AnyPlaylist.swift in Sources */,
 				80CB65332052C9530031A6D7 /* Cocoa+TT.swift in Sources */,
 				8058FAC02043409F0086FF8A /* SubtleTableRowView.swift in Sources */,
 				80FA29242205AF07008E6A38 /* ViewController+Menu.swift in Sources */,

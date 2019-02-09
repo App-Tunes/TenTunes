@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class PlaylistLibrary: PlaylistProtocol {
+class PlaylistLibrary: AnyPlaylist {
     var context: NSManagedObjectContext
     
     var _tracks: [Track]?

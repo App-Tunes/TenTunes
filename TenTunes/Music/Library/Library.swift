@@ -165,7 +165,7 @@ class Library : NSPersistentContainer {
         return allPlaylists(in: context).filter { self.isTag(playlist: $0) }
     }
     
-    func isAffected(playlist: PlaylistProtocol, whenChanging: Playlist) -> Bool {
+    func isAffected(playlist: AnyPlaylist, whenChanging: Playlist) -> Bool {
         if let playlist = playlist as? Playlist, whenChanging == playlist {
             return true
         }
@@ -181,7 +181,7 @@ class Library : NSPersistentContainer {
         return false
     }
     
-    func isAffected(playlist: PlaylistProtocol, whenModifying: Track) -> Bool {
+    func isAffected(playlist: AnyPlaylist, whenModifying: Track) -> Bool {
         // Also honestly, who the fuck knows currently if smart playlists need updates. Just update them always
         // Every add to / remove from playlist type change (PlaylistManual) is handled by the above method
         // TODO But maybe add getters in the future, maybe at least wager if we have the POTENTIAL to have to be updated
@@ -214,7 +214,7 @@ class Library : NSPersistentContainer {
 
     // Editing
 
-    func isPlaylist(playlist: PlaylistProtocol) -> Bool {
+    func isPlaylist(playlist: AnyPlaylist) -> Bool {
         guard let playlist = playlist as? Playlist else {
             return false
         }

@@ -8,10 +8,10 @@
 
 import Cocoa
 
-class PlaylistMultiple : PlaylistProtocol {
-    let playlists: [PlaylistProtocol]
+class PlaylistMultiple : AnyPlaylist {
+    let playlists: [AnyPlaylist]
     
-    required init(playlists: [PlaylistProtocol]) {
+    required init(playlists: [AnyPlaylist]) {
         self.playlists = playlists
     }
     

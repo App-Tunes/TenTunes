@@ -11,7 +11,7 @@ import Foundation
 import CoreData
 
 @objc(Playlist)
-public class Playlist: NSManagedObject, PlaylistProtocol {
+public class Playlist: NSManagedObject, AnyPlaylist {
     
     static let pasteboardType = NSPasteboard.PasteboardType(rawValue: "tentunes.playlist")
 

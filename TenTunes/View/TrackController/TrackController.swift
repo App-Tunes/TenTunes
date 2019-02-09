@@ -19,7 +19,7 @@ import AVFoundation
     }
     @objc dynamic var isDone = true
 
-    var playlist: PlaylistProtocol? {
+    var playlist: AnyPlaylist? {
         didSet { _changed = _changed || oldValue !== playlist }
     }
 

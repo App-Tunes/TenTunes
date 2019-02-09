@@ -9,8 +9,8 @@
 import Cocoa
 
 protocol PlaylistControllerDelegate : class {
-    func playlistController(_ controller: PlaylistController, selectionDidChange playlists: [PlaylistProtocol])
-    func playlistController(_ controller: PlaylistController, play playlist: PlaylistProtocol)
+    func playlistController(_ controller: PlaylistController, selectionDidChange playlists: [AnyPlaylist])
+    func playlistController(_ controller: PlaylistController, play playlist: AnyPlaylist)
 }
 
 @objc class PlaylistController: NSViewController {
@@ -75,8 +75,8 @@ protocol PlaylistControllerDelegate : class {
         ViewController.shared.trackController.performFindPanelAction(sender)
     }
         
-    func playlist(fromItem: Any?) -> PlaylistProtocol? {
-        return (fromItem ?? (masterPlaylist as Any?)) as? PlaylistProtocol
+    func playlist(fromItem: Any?) -> AnyPlaylist? {
+        return (fromItem ?? (masterPlaylist as Any?)) as? AnyPlaylist
     }
     
     @IBAction func createPlaylist(_ sender: Any) {

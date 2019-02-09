@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PlaylistEmpty : PlaylistProtocol {
+class PlaylistEmpty : AnyPlaylist {
     var name: String {
         return ""
     }

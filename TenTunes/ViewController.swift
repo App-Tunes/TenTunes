@@ -293,7 +293,7 @@ class ViewController: NSViewController {
 }
 
 extension ViewController: PlaylistControllerDelegate {
-    func playlistController(_ controller: PlaylistController, selectionDidChange playlists: [PlaylistProtocol]) {
+    func playlistController(_ controller: PlaylistController, selectionDidChange playlists: [AnyPlaylist]) {
         guard !playlists.isEmpty else {
             return
         }
@@ -305,7 +305,7 @@ extension ViewController: PlaylistControllerDelegate {
         _trackGuardView.present(elements: playlists)
     }
     
-    func playlistController(_ controller: PlaylistController, play playlist: PlaylistProtocol) {
+    func playlistController(_ controller: PlaylistController, play playlist: AnyPlaylist) {
         _trackGuardView.present(elements: [playlist])
         
         if (self.trackController.history.playlist as? Playlist) == (playlist as? Playlist) {
@@ -325,7 +325,7 @@ extension ViewController : MultiplicityGuardDelegate {
             return .error(text: view.errorSelectionEmpty)
         }
         
-        let playlists = elements as! [PlaylistProtocol]
+        let playlists = elements as! [AnyPlaylist]
         if let playlist = playlists.onlyElement {
             self.trackController.desired.playlist = playlist
         }

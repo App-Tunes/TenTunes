@@ -21,7 +21,7 @@ extension Array {
 }
 
 class PlayHistory {
-    var playlist: PlaylistProtocol
+    var playlist: AnyPlaylist
 
     var order: [Track]
     var shuffled: [Track]?
@@ -29,7 +29,7 @@ class PlayHistory {
 
     var queueEndIndex: Int = -1
 
-    init(playlist: PlaylistProtocol) {
+    init(playlist: AnyPlaylist) {
         self.playlist = playlist
         self.order = Array(playlist.tracksList)
     }

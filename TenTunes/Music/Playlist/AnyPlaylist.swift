@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol PlaylistProtocol : class {
+protocol AnyPlaylist : class {
     var tracksList: [Track] { get }
 
     var name: String { get }
@@ -23,7 +23,7 @@ enum ModifyingAction {
     case add, delete, reorder
 }
 
-protocol ModifiablePlaylist : PlaylistProtocol {
+protocol ModifiablePlaylist : AnyPlaylist {
     func _supports(action: ModifyingAction, rguard: RecursionGuard<Playlist>) -> Bool
 
     func confirm(action: ModifyingAction) -> Bool

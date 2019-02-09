@@ -16,6 +16,10 @@ class TestKeys: TenTunesTest {
                        Key(note: .Ab, isMinor: true)
         )
         
+        XCTAssertEqual(Key.parse("Ab"),
+                       Key(note: .Ab, isMinor: false)
+        )
+        
         XCTAssertEqual(Key.parse("C"),
                        Key(note: .C, isMinor: false)
         )

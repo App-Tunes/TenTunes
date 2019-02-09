@@ -131,10 +131,10 @@ enum Note {
         var noteString = string
         var isMinor = false
         if string.count >= 2 {
-            guard string.last != "a" && string.last != "b" else {
+            if string.last == "a" || string.last == "b", let number = Int(string.dropLast()) {
                 // Open Key
                 isMinor = string.last == "a"
-                guard let number = Int(string.dropLast()), let note = Note.from(openKey: number, isMinor: isMinor) else {
+                guard let note = Note.from(openKey: number, isMinor: isMinor) else {
                     return nil
                 }
                 

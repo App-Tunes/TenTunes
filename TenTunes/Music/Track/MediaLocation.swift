@@ -112,6 +112,7 @@ class MediaLocation {
                         .appendingPathComponent(mod(track.album ?? Album.unknown))
                         .appendingPathComponent(mod(track.rTitle))
                         .appendingPathExtension(pathExtension)
+                        .resolvingSymlinksInPath()
     }
     
     func pather(absolute: Bool = false) -> ((Track, URL) -> String?) {

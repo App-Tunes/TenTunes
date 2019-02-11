@@ -17,27 +17,33 @@ class AVFoundationImporter {
         self.asset = AVURLAsset(url: url)
     }
     
+    var streamDescription: AudioStreamBasicDescription? {
+        guard let track = asset.tracks.first, // Wat? No track??
+            let desc = track.formatDescriptions.first else {
+                return nil
+        }
+        
+        return CMAudioFormatDescriptionGetStreamBasicDescription(desc as! CMAudioFormatDescription)?.pointee
+    }
+    
     var duration: CMTime {
         return asset.duration
     }
     
     var bitrate: Float64? {
-        let track = asset.tracks[0]
-        let desc = track.formatDescriptions[0] as! CMAudioFormatDescription
-        guard let info = CMAudioFormatDescriptionGetStreamBasicDescription(desc)?.pointee else {
+        guard let info = streamDescription else {
             return nil
         }
+        
         return Float64(info.mBitsPerChannel) * info.mSampleRate
     }
     
     var channels: Int {
-        let track = asset.tracks[0]
-        let desc = track.formatDescriptions[0] as! CMAudioFormatDescription
-        guard let info = CMAudioFormatDescriptionGetStreamBasicDescription(desc)?.pointee else {
+        guard let info = streamDescription else {
             print("Guessed Channel number!")
-            return 1 // Guess, but shouldn't happen .... :>
-            // (It does, though... lol)
+            return 1
         }
+
         return Int(info.mChannelsPerFrame)
     }
     

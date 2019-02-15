@@ -48,20 +48,21 @@ extension NSManagedObject {
         return !isDeleted
     }
     
-    func duplicate(only: [String]) -> NSManagedObject {
-        return duplicate { only.contains($0) ? .copy : .none }
+    func duplicate(only: [String], into: NSManagedObjectContext? = nil) -> NSManagedObject {
+        return duplicate(into: into) { only.contains($0) ? .copy : .none }
     }
     
-    func duplicate(except: [String], deep: [String] = []) -> NSManagedObject {
-        return duplicate { deep.contains($0) ? .deepcopy : except.contains($0) ? .none : .copy }
+    func duplicate(except: [String], deep: [String] = [], into: NSManagedObjectContext? = nil) -> NSManagedObject {
+        return duplicate(into: into) { deep.contains($0) ? .deepcopy : except.contains($0) ? .none : .copy }
     }
     
     enum CopyBehavior {
         case none, copy, deepcopy
     }
 
-    func duplicate(byProperties fun: (String) -> CopyBehavior) -> NSManagedObject {
-        let duplicate = NSEntityDescription.insertNewObject(forEntityName: entity.name!, into: managedObjectContext!)
+    func duplicate(into: NSManagedObjectContext? = nil, byProperties fun: (String) -> CopyBehavior) -> NSManagedObject {
+        let context = into ?? managedObjectContext!
+        let duplicate = NSEntityDescription.insertNewObject(forEntityName: entity.name!, into: context)
         
         for propertyName in entity.propertiesByName.keys {
             switch fun(propertyName) {

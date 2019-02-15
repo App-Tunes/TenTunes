@@ -97,7 +97,7 @@ import Cocoa
         }
         
         func inverted() -> SmartPlaylistRules.Token {
-            let copy = NSKeyedUnarchiver.unarchiveObject(with: data) as! SmartPlaylistRules.Token
+            let copy = NSKeyedArchiver.clone(self)!
             copy._not = !_not
             return copy
         }

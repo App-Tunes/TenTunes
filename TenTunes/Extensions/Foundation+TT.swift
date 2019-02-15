@@ -300,3 +300,9 @@ extension FloatingPoint {
         return isNormal ? self : nil
     }
 }
+
+extension NSKeyedArchiver {
+    static func clone<T : NSCoding>(_ object: T) -> T? {
+        return (archivedData(withRootObject: object) ?=> NSKeyedUnarchiver.unarchiveObject) as? T
+    }
+}

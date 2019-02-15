@@ -67,8 +67,12 @@ public class Playlist: NSManagedObject, AnyPlaylist {
         return tracksList.count
     }
     
-    func duplicate() -> Playlist {
-        return duplicate(except: ["id", "creationDate", "parent"], deep: ["children"]) as! Playlist
+    func duplicate(into: NSManagedObjectContext? = nil) -> Playlist {
+        return duplicate(
+            except: ["id", "creationDate", "parent"],
+            deep: ["children"],
+            into: into
+            ) as! Playlist
     }
     
     var isTrivial: Bool { return false }

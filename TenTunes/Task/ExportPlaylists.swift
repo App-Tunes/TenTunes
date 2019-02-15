@@ -9,18 +9,16 @@
 import Cocoa
 
 class ExportPlaylists: Task {
-    let libraryURL: URL
+    let tracksURL: URL
     let playlists: [Playlist]
     
-    let destinationURL: URL
-    let aliasURL: URL
-    
-    init(libraryURL: URL, playlists: [Playlist], destinationURL: URL, aliasURL: URL) {
-        self.libraryURL = libraryURL
+    var destinationURL: URL? = nil
+    var aliasURL: URL? = nil
+    var libraryURL: URL? = nil
+
+    init(tracksURL: URL, playlists: [Playlist]) {
+        self.tracksURL = tracksURL
         self.playlists = playlists
-        
-        self.destinationURL = destinationURL
-        self.aliasURL = aliasURL
     }
     
     override var title: String { return "Exporting Playlists" }
@@ -32,12 +30,21 @@ class ExportPlaylists: Task {
         performChildBackgroundTask(for: library) { [unowned self] mox in
             let playlists = mox.compactConvert(self.playlists)
             
-            let pather = self.libraryURL == library.mediaLocation.directory
+            let pather = self.tracksURL == library.mediaLocation.directory
                 ? library.mediaLocation.pather()
-                : MediaLocation.pather(for: self.libraryURL)
+                : MediaLocation.pather(for: self.tracksURL)
             
-            Library.Export.remoteM3uPlaylists(playlists, to: self.destinationURL, pather: pather)
-            Library.Export.remoteSymlinks(playlists, to: self.aliasURL, pather: pather)
+            if let destinationURL = self.destinationURL {
+                Library.Export.remoteM3uPlaylists(playlists, to: destinationURL, pather: pather)
+            }
+            
+            if let aliasURL = self.aliasURL {
+                Library.Export.remoteSymlinks(playlists, to: aliasURL, pather: pather)
+            }
+            
+            if let libraryURL = self.libraryURL, false {
+                Library.shared.export().remoteLibrary(playlists, to: libraryURL, pather: pather)
+            }
             
             // TODO Alert if some files were missing
             

@@ -15,6 +15,7 @@
 		8017685920743898000DD433 /* NSImageViewAspectFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8017685820743898000DD433 /* NSImageViewAspectFill.swift */; };
 		8020C64D221736A500E6FA5C /* AppDelegate+Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020C64C221736A500E6FA5C /* AppDelegate+Files.swift */; };
 		8020C64F2217372200E6FA5C /* AppDelegate+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020C64E2217372200E6FA5C /* AppDelegate+Menu.swift */; };
+		8020C651221740E800E6FA5C /* Library+ExportLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020C650221740E800E6FA5C /* Library+ExportLibrary.swift */; };
 		8026241620FF445F009D7988 /* TTTokenField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8026241520FF445F009D7988 /* TTTokenField.swift */; };
 		802F01CE2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802F01CD2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift */; };
 		802F01D12177F00B00E0EAB6 /* DragHighlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802F01D02177F00B00E0EAB6 /* DragHighlightView.swift */; };
@@ -256,6 +257,7 @@
 		8017685820743898000DD433 /* NSImageViewAspectFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImageViewAspectFill.swift; sourceTree = "<group>"; };
 		8020C64C221736A500E6FA5C /* AppDelegate+Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Files.swift"; sourceTree = "<group>"; };
 		8020C64E2217372200E6FA5C /* AppDelegate+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Menu.swift"; sourceTree = "<group>"; };
+		8020C650221740E800E6FA5C /* Library+ExportLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+ExportLibrary.swift"; sourceTree = "<group>"; };
 		8026241520FF445F009D7988 /* TTTokenField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTTokenField.swift; sourceTree = "<group>"; };
 		802F01CD2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackEditorMultiplicityView.swift; sourceTree = "<group>"; };
 		802F01D02177F00B00E0EAB6 /* DragHighlightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragHighlightView.swift; sourceTree = "<group>"; };
@@ -680,6 +682,7 @@
 			isa = PBXGroup;
 			children = (
 				80CB652B20514E050031A6D7 /* Library+Files.swift */,
+				8020C650221740E800E6FA5C /* Library+ExportLibrary.swift */,
 				8093467420A629A7001D15CD /* Library+Pasteboard.swift */,
 				80E4F9CA20A0DD4B0014532E /* Library+M3U.swift */,
 				80E4F9CD20A0DD7E0014532E /* Library+iTunes.swift */,
@@ -1223,6 +1226,7 @@
 				804DCC77215D10170021A753 /* TrackPromise.swift in Sources */,
 				80CB652C20514E050031A6D7 /* Library+Files.swift in Sources */,
 				80C1F160214286A40032E554 /* VisualizerWindowController.swift in Sources */,
+				8020C651221740E800E6FA5C /* Library+ExportLibrary.swift in Sources */,
 				8030E00D20FCA04C006B4AE8 /* UpdateCurrentPlaylist.swift in Sources */,
 				80E6811B20573DC800DA5702 /* SimpleTransformer.swift in Sources */,
 				80F2C57C2038808000212739 /* ViewController.swift in Sources */,

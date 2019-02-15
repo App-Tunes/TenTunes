@@ -14,9 +14,16 @@ class ExportPlaylistsController: NSWindowController {
     static let maxReadLength: AVAudioFramePosition = 100000
 
     @IBOutlet var _trackLibrary: NSPathControl!
-    @IBOutlet var _destinationDirectory: NSPathControl!
-    @IBOutlet var _aliasDirectory: NSPathControl!
     
+    @IBOutlet var _libraryDirectory: NSPathControl!
+    @objc dynamic var libraryEnabled: Bool = false
+
+    @IBOutlet var _destinationDirectory: NSPathControl!
+    @objc dynamic var m3uEnabled: Bool = true
+
+    @IBOutlet var _aliasDirectory: NSPathControl!
+    @objc dynamic var aliasEnabled: Bool = true
+
     @IBOutlet var _rekordboxSelect: NSPopUpButton!
     var selectStubs = ActionStubs()
     
@@ -40,31 +47,38 @@ class ExportPlaylistsController: NSWindowController {
         
         _rekordboxSelect.menu?.addItem(NSMenuItem(title: "Select Rekordbox Device...", action: nil, keyEquivalent: ""))
 
-        let paths = FileManager.default.mountedVolumeURLs(includingResourceValuesForKeys: [], options: [])
-        if let urls = paths {
-            for url in urls {
-                let components = url.pathComponents
-                if components.count > 2 && components[1] == "Volumes"
-                {
-                    let libraryURL = url.appendingPathComponent("Contents")
+        guard let mountedURLs = FileManager.default.mountedVolumeURLs(includingResourceValuesForKeys: [], options: []) else {
+            return
+        }
 
-                    if FileManager.default.fileExists(atPath: libraryURL.path) {
-                        let item = NSMenuItem(title: components[2], action: nil, keyEquivalent: "")
-                        selectStubs.bind(item) { [unowned self] _ in
-                            self._trackLibrary.url = libraryURL
-
-                            let playlistsURL = url.appendingPathComponent("Playlists")
-                            try! playlistsURL.ensureIsDirectory()
-                            self._destinationDirectory.url = playlistsURL
-
-                            let aliasURL = url.appendingPathComponent("Playlists - Alias")
-                            try! aliasURL.ensureIsDirectory()
-                            self._aliasDirectory.url = aliasURL
-                        }
-                        _rekordboxSelect.menu?.addItem(item)
-                    }
-                }
+        for mountedURL in mountedURLs {
+            let components = mountedURL.pathComponents
+            
+            guard components.count > 2 && components[1] == "Volumes" else {
+                continue
             }
+            
+            let libraryURL = mountedURL.appendingPathComponent("Contents")
+            
+            guard FileManager.default.fileExists(atPath: libraryURL.path) else {
+                continue
+            }
+            
+            let item = NSMenuItem(title: components[2], action: nil, keyEquivalent: "")
+            selectStubs.bind(item) { [unowned self] _ in
+                self._trackLibrary.url = libraryURL
+                
+                let createMountedDirectory: (String) -> URL = {
+                    let url = mountedURL.appendingPathComponent($0)
+                    try! url.ensureIsDirectory()
+                    return url
+                }
+                
+                self._libraryDirectory.url = createMountedDirectory("Ten Tunes")
+                self._destinationDirectory.url = createMountedDirectory("Playlists")
+                self._aliasDirectory.url = createMountedDirectory("Playlists - Alias")
+            }
+            _rekordboxSelect.menu?.addItem(item)
         }
     }
     
@@ -88,7 +102,12 @@ class ExportPlaylistsController: NSWindowController {
             return
         }
         
-        ViewController.shared.tasker.enqueue(task: ExportPlaylists(libraryURL: _trackLibrary.url!, playlists: playlists, destinationURL: _destinationDirectory.url!, aliasURL: _aliasDirectory.url!))
+        let exportTask = ExportPlaylists(tracksURL: _trackLibrary.url!, playlists: playlists)
+        exportTask.libraryURL = libraryEnabled ? _libraryDirectory.url : nil
+        exportTask.destinationURL = m3uEnabled ? _destinationDirectory.url : nil
+        exportTask.aliasURL = aliasEnabled ? _aliasDirectory.url : nil
+
+        ViewController.shared.tasker.enqueue(task: exportTask)
         
         NSAlert.informational(title: "Exporting Playlists", text: "\(playlists.count) playlists are being exported. You can check the progress in the task view.")
     }

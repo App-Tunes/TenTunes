@@ -83,9 +83,10 @@ extension Library.Export {
             
             otherTrack.key = track.key
             otherTrack.bpmString = track.bpmString
+            otherTrack.durationR = track.durationR
             
-            otherTrack.artworkData = track.artworkData
-            otherTrack.analysisData = track.analysisData
+            otherTrack.forcedVisuals.analysis = track.visuals?.analysis
+            otherTrack.forcedVisuals.artworkPreview = track.artworkPreview
             
             tracks[track] = otherTrack
             

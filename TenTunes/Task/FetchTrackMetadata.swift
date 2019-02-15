@@ -20,7 +20,7 @@ class FetchTrackMetadata: TrackTask {
     override func execute() {
         super.execute()
 
-        performChildBackgroundTask(for: Library.shared) { [unowned self] mox in
+        performChildBackgroundTask(for: library) { [unowned self] mox in
             mox.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
             
             guard let asyncTrack = mox.convert(self.track) else {
@@ -35,7 +35,7 @@ class FetchTrackMetadata: TrackTask {
             else {
                 if self.uncancelable() { return }
                 
-                Library.shared.mediaLocation.updateLocation(of: self.track)
+                self.library.mediaLocation.updateLocation(of: self.track)
             }
             
             try! mox.save()

@@ -96,7 +96,7 @@ class AnalyzeTrack: TrackTask {
         
         ViewController.shared.trackController.reload(track: track) // Get the analysis inside the cell
         
-        performChildBackgroundTask(for: Library.shared) { [unowned self] mox in
+        performChildBackgroundTask(for: library) { [unowned self] mox in
             mox.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
             
             guard let asyncTrack = mox.convert(self.track) else {

@@ -27,12 +27,12 @@ class TenTunesTest: XCTestCase {
     var groups: [PlaylistFolder] = []
     var tags: [PlaylistManual] = []
 
-    var context: NSManagedObjectContext {
-        return Library.shared.viewContext
-    }
-    
     var library: Library {
         return Library.shared
+    }
+
+    var context: NSManagedObjectContext {
+        return library.viewContext
     }
     
     func create(tracks: Int = 0, groups: Int = 0, tags: Int = 0) {
@@ -56,11 +56,11 @@ class TenTunesTest: XCTestCase {
     }
     
     override func setUp() {
-        if Library.shared.directory.deletingLastPathComponent() != FileManager.default.temporaryDirectory {
+        if library.directory.deletingLastPathComponent() != FileManager.default.temporaryDirectory {
             fatalError("Library is not temp directory")
         }
 
-        if Library.shared.mediaLocation.directory.deletingLastPathComponent().deletingLastPathComponent() != FileManager.default.temporaryDirectory {
+        if library.mediaLocation.directory.deletingLastPathComponent().deletingLastPathComponent() != FileManager.default.temporaryDirectory {
             fatalError("Media Directory is not temp directory")
         }
 

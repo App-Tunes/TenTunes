@@ -237,7 +237,7 @@ class Library : NSPersistentContainer {
     func url(of playlist: Playlist, relativeTo: URL) -> URL {
         var url = relativeTo
         
-        for component in Library.shared.path(of: playlist).dropLast().dropFirst() {
+        for component in path(of: playlist).dropLast().dropFirst() {
             url = url.appendingPathComponent(component.name.asFileName)
         }
         
@@ -260,10 +260,10 @@ class Library : NSPersistentContainer {
     func initialAdd(track: Track, moveAction: Defaults.Keys.FileLocationOnAdd? = nil) {
         let moveAction = moveAction ?? AppDelegate.defaults[.fileLocationOnAdd]
         
-        if moveAction  == .copy || moveAction == .move {
+        // TODO Bit hacky to test if we're shared library
+        if moveAction  == .copy || moveAction == .move, self == Library.shared {
             ViewController.shared.tasker.enqueue(task: MoveTrackToMediaLocation(track: track, copy: moveAction == .copy))
         }
-
     }
 }
 

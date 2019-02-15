@@ -12,15 +12,15 @@ import XCTest
 class TestInitialState: TenTunesTest {
 
     func testPlaylists() {
-        XCTAssertEqual(Set(Library.shared.masterPlaylist.childrenList), Set([
-            Library.shared.tagPlaylist
+        XCTAssertEqual(Set(library.masterPlaylist.childrenList), Set([
+            library.tagPlaylist
             ]), "Default playlists are wrong")
             
-            XCTAssertEqual(Library.shared.tagPlaylist.childrenList, [])
+            XCTAssertEqual(library.tagPlaylist.childrenList, [])
     }
 
     func testTracks() {
-        XCTAssertEqual(Library.shared.allTracks.tracksList, [], "There are default tracks")
+        XCTAssertEqual(library.allTracks.tracksList, [], "There are default tracks")
     }
 
 }

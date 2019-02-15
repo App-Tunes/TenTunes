@@ -46,7 +46,7 @@ class ExportPlaylists: Task {
             
             if let libraryURL = self.libraryURL {
                 try! FileManager.default.removeItem(at: libraryURL)
-                Library.shared.export().remoteLibrary(playlists, to: libraryURL, pather: pather)
+                Library.shared.export(mox).remoteLibrary(playlists, to: libraryURL, pather: pather)
             }
             
             // TODO Alert if some files were missing

@@ -135,12 +135,9 @@ extension Library.Export {
             newPlaylist.creationDate = playlist.creationDate
             newPlaylist.iTunesID = playlist.iTunesID
             
-            if let parent = playlists[playlist.parent!] as? PlaylistFolder {
-                parent.addToChildren(newPlaylist)
-            }
-            else {
-                dst.masterPlaylist.convert(to: context)!.addToChildren(newPlaylist)
-            }
+            let parent = (playlists[playlist.parent!] as? PlaylistFolder)
+                ?? dst.masterPlaylist.convert(to: context)!
+            parent.addToChildren(newPlaylist)
             
             return newPlaylist
         }

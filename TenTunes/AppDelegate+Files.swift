@@ -71,7 +71,12 @@ extension AppDelegate {
     }
     
     func `import`(urls: [URL]) {
-        if persistentContainer == nil, let url = urls.onlyElement, url.pathExtension == "ttl" {
+        if let url = urls.onlyElement, url.pathExtension == "ttl" {
+            guard persistentContainer == nil else {
+                print("Ignoring opening ttl file after launch!")
+                return
+            }
+
             chooseLibrary(url)
             return
         }

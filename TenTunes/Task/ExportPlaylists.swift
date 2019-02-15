@@ -35,17 +35,17 @@ class ExportPlaylists: Task {
                 : MediaLocation.pather(for: self.tracksURL)
             
             if let libraryURL = self.libraryURL {
-                try! FileManager.default.removeItem(at: libraryURL)
+                try? FileManager.default.removeItem(at: libraryURL)
                 Library.shared.export(mox).remoteLibrary(playlists, to: libraryURL, pather: pather)
             }
 
             if let destinationURL = self.destinationURL {
-                try! FileManager.default.removeItem(at: destinationURL)
+                try? FileManager.default.removeItem(at: destinationURL)
                 Library.Export.remoteM3uPlaylists(playlists, to: destinationURL, pather: pather)
             }
             
             if let aliasURL = self.aliasURL {
-                try! FileManager.default.removeItem(at: aliasURL)
+                try? FileManager.default.removeItem(at: aliasURL)
                 Library.Export.remoteSymlinks(playlists, to: aliasURL, pather: pather)
             }
             

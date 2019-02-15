@@ -97,10 +97,7 @@ class ExportPlaylistsController: NSWindowController {
         if _exportOnlySelected.state == .on {
             let selected = ViewController.shared.playlistController.selectedPlaylists.map { $0.1 }
             playlists = selected.flatten {
-                if let group = $0 as? PlaylistFolder {
-                    return group.childrenList
-                }
-                return nil
+                ($0 as? PlaylistFolder)?.childrenList
             }
         }
         else {

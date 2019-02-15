@@ -16,6 +16,7 @@
 		8020C64D221736A500E6FA5C /* AppDelegate+Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020C64C221736A500E6FA5C /* AppDelegate+Files.swift */; };
 		8020C64F2217372200E6FA5C /* AppDelegate+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020C64E2217372200E6FA5C /* AppDelegate+Menu.swift */; };
 		8020C651221740E800E6FA5C /* Library+ExportLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020C650221740E800E6FA5C /* Library+ExportLibrary.swift */; };
+		8020C65322177D1500E6FA5C /* TestExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020C65222177D1500E6FA5C /* TestExport.swift */; };
 		8026241620FF445F009D7988 /* TTTokenField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8026241520FF445F009D7988 /* TTTokenField.swift */; };
 		802F01CE2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802F01CD2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift */; };
 		802F01D12177F00B00E0EAB6 /* DragHighlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802F01D02177F00B00E0EAB6 /* DragHighlightView.swift */; };
@@ -258,6 +259,7 @@
 		8020C64C221736A500E6FA5C /* AppDelegate+Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Files.swift"; sourceTree = "<group>"; };
 		8020C64E2217372200E6FA5C /* AppDelegate+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Menu.swift"; sourceTree = "<group>"; };
 		8020C650221740E800E6FA5C /* Library+ExportLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+ExportLibrary.swift"; sourceTree = "<group>"; };
+		8020C65222177D1500E6FA5C /* TestExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExport.swift; sourceTree = "<group>"; };
 		8026241520FF445F009D7988 /* TTTokenField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTTokenField.swift; sourceTree = "<group>"; };
 		802F01CD2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackEditorMultiplicityView.swift; sourceTree = "<group>"; };
 		802F01D02177F00B00E0EAB6 /* DragHighlightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragHighlightView.swift; sourceTree = "<group>"; };
@@ -640,11 +642,12 @@
 			isa = PBXGroup;
 			children = (
 				80905F672208906A00A6A830 /* TenTunesTest.swift */,
+				8069C08B22086E9900CD3396 /* TestInitialState.swift */,
 				808BAAEC220E252B0017557C /* TestMediaLocation.swift */,
 				808BAAEA220DB7290017557C /* TestKeys.swift */,
 				80905F642208708E00A6A830 /* TestPlaylists.swift */,
 				8071FA6E220E666A000B8868 /* TestPlayer.swift */,
-				8069C08B22086E9900CD3396 /* TestInitialState.swift */,
+				8020C65222177D1500E6FA5C /* TestExport.swift */,
 				8069C07122085FB900CD3396 /* Info.plist */,
 			);
 			path = Tests;
@@ -1212,6 +1215,7 @@
 				8069C08C22086E9900CD3396 /* TestInitialState.swift in Sources */,
 				808BAAEB220DB7290017557C /* TestKeys.swift in Sources */,
 				80905F682208906A00A6A830 /* TenTunesTest.swift in Sources */,
+				8020C65322177D1500E6FA5C /* TestExport.swift in Sources */,
 				8071FA6F220E666A000B8868 /* TestPlayer.swift in Sources */,
 				80905F652208708E00A6A830 /* TestPlaylists.swift in Sources */,
 			);

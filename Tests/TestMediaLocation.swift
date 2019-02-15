@@ -14,13 +14,6 @@ class TestMediaLocation : TenTunesTest {
     override func setUp() {
         super.setUp()
         create(tracks: 3)
-        
-        for track in tracks {
-            let file = String(format: "%@/%@.mp3", NSTemporaryDirectory(), UUID().uuidString)
-            
-            try! "sproing".write(toFile: file, atomically: true, encoding: .utf8)
-            track.path = file
-        }
     }
     
     func testLink() {

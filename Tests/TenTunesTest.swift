@@ -37,7 +37,14 @@ class TenTunesTest: XCTestCase {
     
     func create(tracks: Int = 0, groups: Int = 0, tags: Int = 0) {
         self.tracks = (0 ..< tracks).map { _ in
-            Track(context: self.context)
+            let track = Track(context: self.context)
+            
+            let file = String(format: "%@/%@.mp3", NSTemporaryDirectory(), UUID().uuidString)
+            
+            try! "sproing".write(toFile: file, atomically: true, encoding: .utf8)
+            track.path = file
+            
+            return track
         }
 
         self.groups = (0 ..< groups).map { _ in
@@ -73,6 +80,9 @@ class TenTunesTest: XCTestCase {
         context.delete(all: groups)
         groups = []
         
+        for track in tracks {
+            try? (track.path ?=> FileManager.default.removeItem)
+        }
         context.delete(all: tracks)
         tracks = []
         

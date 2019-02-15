@@ -109,6 +109,7 @@ extension Library.Export {
             else if let playlist = playlist as? PlaylistCartesian {
                 let newPlaylist = PlaylistCartesian(context: context)
                 
+                // TODO Adjust IDs of tokens to new library
                 newPlaylist.rules = NSKeyedArchiver.clone(playlist.rules)!
                 
                 otherPlaylist = newPlaylist
@@ -116,6 +117,7 @@ extension Library.Export {
             else if let playlist = playlist as? PlaylistSmart {
                 let newPlaylist = PlaylistSmart(context: context)
                 
+                // TODO Adjust IDs of tokens to new library
                 newPlaylist.rules = NSKeyedArchiver.clone(playlist.rules)!
                 
                 otherPlaylist = newPlaylist

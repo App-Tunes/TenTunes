@@ -68,19 +68,24 @@ class ExportPlaylistsController: NSWindowController {
             selectStubs.bind(item) { [unowned self] _ in
                 self._trackLibrary.url = libraryURL
                 
-                let createMountedDirectory: (String) -> URL = {
-                    let url = mountedURL.appendingPathComponent($0)
+                let createMountedDirectory: ([String]) -> URL = {
+                    let url = $0.reduce(into: mountedURL, {
+                        $0 = $0.appendingPathComponent($1)
+                    })
                     try! url.ensureIsDirectory()
                     return url
                 }
                 
-                self._libraryDirectory.url = createMountedDirectory("Ten Tunes")
+                let tenTunes = ["Ten Tunes"]
+                let exports = tenTunes + ["Exports"]
+                
+                self._libraryDirectory.url = createMountedDirectory(["Ten Tunes"])
                 self.libraryEnabled = true
                 
-                self._destinationDirectory.url = createMountedDirectory("Playlists")
+                self._destinationDirectory.url = createMountedDirectory(exports + ["M3U"])
                 self.m3uEnabled = true
                 
-                self._aliasDirectory.url = createMountedDirectory("Playlists - Alias")
+                self._aliasDirectory.url = createMountedDirectory(exports + ["Alias"])
                 self.aliasEnabled = true
             }
             _rekordboxSelect.menu?.addItem(item)

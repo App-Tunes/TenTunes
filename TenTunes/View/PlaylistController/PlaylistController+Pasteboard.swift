@@ -14,11 +14,7 @@ extension PlaylistController {
     }
     
     func outlineView(_ outlineView: NSOutlineView, pasteboardWriterForItem item: Any) -> NSPasteboardWriting? {
-        let playlist = item as! Playlist
-        
-        let pbitem = NSPasteboardItem()
-        Library.shared.export().write(playlist, toPasteboarditem: pbitem)
-        return pbitem
+        return (item as? Playlist) ?=> Library.shared.export().pasteboardItem
     }
     
     func outlineView(_ outlineView: NSOutlineView, validateDrop info: NSDraggingInfo, proposedItem item: Any?, proposedChildIndex index: Int) -> NSDragOperation {

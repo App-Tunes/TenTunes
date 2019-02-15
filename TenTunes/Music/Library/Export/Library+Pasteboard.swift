@@ -9,7 +9,7 @@
 import Cocoa
 
 extension Library.Export {    
-    func write(_ track: Track, toPasteboarditem item: NSPasteboardItem) {
+    func write(_ track: Track, toPasteboardItem item: NSPasteboardItem) {
         item.setString(stringID(of: track), forType: Track.pasteboardType)
         
         if let url = track.resolvedURL {
@@ -17,8 +17,20 @@ extension Library.Export {
         }
     }
     
-    func write(_ playlist: Playlist, toPasteboarditem item: NSPasteboardItem) {
+    func pasteboardItem(representing track: Track) -> NSPasteboardItem {
+        let item = NSPasteboardItem()
+        write(track, toPasteboardItem: item)
+        return item
+    }
+    
+    func write(_ playlist: Playlist, toPasteboardItem item: NSPasteboardItem) {
         item.setString(stringID(of: playlist), forType: Playlist.pasteboardType)
+    }
+    
+    func pasteboardItem(representing playlist: Playlist) -> NSPasteboardItem {
+        let item = NSPasteboardItem()
+        write(playlist, toPasteboardItem: item)
+        return item
     }
 }
 

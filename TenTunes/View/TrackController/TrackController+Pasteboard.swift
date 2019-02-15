@@ -16,9 +16,7 @@ extension TrackController {
     }
     
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
-        let item = NSPasteboardItem()
-        Library.shared.export().write(history.track(at: row)!, toPasteboarditem: item)
-        return item
+        return history.track(at: row) ?=> Library.shared.export().pasteboardItem
     }
     
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {

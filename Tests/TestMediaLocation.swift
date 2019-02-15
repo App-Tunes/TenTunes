@@ -86,5 +86,58 @@ class TestMediaLocation : TenTunesTest {
         XCTAssertFileExists(at: urls[0])
         XCTAssertFileNotExists(at: urls[1])
     }
+    
+    func testLocations() {
+        for track in tracks {
+            track.title = "Track"
+            track.album = "Album"
+            track.author = "Author"
+
+            try! context.save()
+
+            track.usesMediaDirectory = true
+            library.mediaLocation.updateLocation(of: track)
+            
+            try! context.save()
+        }
+        
+        let desired = library.mediaLocation.directory
+            .appendingPathComponent("Author")
+            .appendingPathComponent("Album")
+            .appendingPathComponent("Track.mp3")
+        XCTAssertFileExists(at: desired)
+        
+        XCTAssertEqual(desired, tracks[0].resolvedURL)
+        XCTAssertNotEqual(tracks[0].resolvedURL, tracks[1].resolvedURL)
+        
+        XCTAssertFileExists(at: tracks[1].resolvedURL!)
+        XCTAssertNotEqual(tracks[0].resolvedURL, tracks[2].resolvedURL)
+        XCTAssertEqual(tracks[0].resolvedURL?.deletingLastPathComponent(), tracks[1].resolvedURL?.deletingLastPathComponent())
+
+        XCTAssertFileExists(at: tracks[2].resolvedURL!)
+        XCTAssertNotEqual(tracks[0].resolvedURL, tracks[2].resolvedURL)
+        XCTAssertNotEqual(tracks[1].resolvedURL, tracks[2].resolvedURL)
+        XCTAssertEqual(tracks[0].resolvedURL?.deletingLastPathComponent(), tracks[2].resolvedURL?.deletingLastPathComponent())
+    }
+    
+    func testComplexLocation() {
+        tracks[0].title = "Träck"
+        tracks[0].album = "Älbüm»"
+        tracks[0].author = "Äüthör"
+        
+        try! context.save()
+        
+        tracks[0].usesMediaDirectory = true
+        library.mediaLocation.updateLocation(of: tracks[0])
+        
+        try! context.save()
+        
+        let desired = library.mediaLocation.directory
+            .appendingPathComponent("Author")
+            .appendingPathComponent("Album_")
+            .appendingPathComponent("Track.mp3")
+        XCTAssertFileExists(at: desired)
+        XCTAssertEqual(desired, tracks[0].resolvedURL)
+    }
 }
 

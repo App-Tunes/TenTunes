@@ -62,6 +62,8 @@ extension Track {
             trackNumber = Int16(tagLibFile.trackNumber)
             
             comments = tagLibFile.comments as NSString?
+            
+            duration = CMTime(seconds: Double(tagLibFile.durationInMilliseconds) / 1000.0, preferredTimescale: 1000)
         }
         else {
             print("Failed to load TagLibFile for \(url)")
@@ -104,13 +106,14 @@ extension Track {
             }
         }
         
-        duration = avImporter.duration
+        let avDuration = avImporter.duration
+        duration = avDuration.seconds.isNormal ? avDuration : duration
         
         var bitrate = avImporter.bitrate ?=> Float.init
-        if bitrate == nil || bitrate == 0, let filesize = try? FileManager.default.sizeOfItem(at: url) {
+        if bitrate == nil || bitrate == 0, let filesize = try? FileManager.default.sizeOfItem(at: url), let duration = self.duration {
             // Guess based on file size and channels
             // According to Wikipedia, all channels count, so no divide by avImporter.channels
-            bitrate = Float(Double(filesize) * 8 / avImporter.duration.seconds)
+            bitrate = Float(Double(filesize) * 8 / duration.seconds)
         }
         self.bitrate = bitrate ?? self.bitrate
         

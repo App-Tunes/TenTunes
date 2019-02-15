@@ -152,7 +152,7 @@ extension String {
         // Remove diacritics
         let simplified = asFileName.folding(options: [.diacriticInsensitive, .widthInsensitive], locale: nil)
         // Remove everything else
-        return Character.regexNotSimplePosix.stringByReplacingMatches(in: simplified, range: NSMakeRange(0, simplified.count), withTemplate: "")
+        return Character.regexNotSimplePosix.stringByReplacingMatches(in: simplified, range: NSMakeRange(0, simplified.count), withTemplate: "_")
     }
     
     var filterAlphanumeric: String {
@@ -292,5 +292,11 @@ extension UUID {
             l0 ^ r0, l1 ^ r1, l2 ^ r2, l3 ^ r3, l4 ^ r4, l5 ^ r5, l6 ^ r6, l7 ^ r7,
             l8 ^ r8, l9 ^ r9, la ^ ra, lb ^ rb, lc ^ rc, ld ^ rd, le ^ re, lf ^ rf
         ))
+    }
+}
+
+extension FloatingPoint {
+    var asNormal: Self? {
+        return isNormal ? self : nil
     }
 }

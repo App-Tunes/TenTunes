@@ -49,7 +49,7 @@ extension Library.Export {
 
             if track.year > 0 { trackDict[ordered: "Year"] = track.year }
             trackDict[ordered: "Date Added"] = track.creationDate
-            trackDict[ordered: "Bit Rate"] = Int(track.bitrate / 1024)
+            trackDict[ordered: "Bit Rate"] = Int((track.bitrate.asNormal ?? 0) / 1024)
 
             trackDict[ordered: "Persistent ID"] = track.iTunesID ?? to16Hex(track.id.uuidString) // TODO
             trackDict[ordered: "Track Type"] = "File" // TODO?

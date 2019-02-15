@@ -13,6 +13,8 @@
 		80074CFD204584980055B87E /* PlaylistController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80074CFB204584980055B87E /* PlaylistController.xib */; };
 		8013720E203F7C9C00CA9036 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720C203F7C9C00CA9036 /* AudioKit.framework */; };
 		8017685920743898000DD433 /* NSImageViewAspectFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8017685820743898000DD433 /* NSImageViewAspectFill.swift */; };
+		8020C64D221736A500E6FA5C /* AppDelegate+Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020C64C221736A500E6FA5C /* AppDelegate+Files.swift */; };
+		8020C64F2217372200E6FA5C /* AppDelegate+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020C64E2217372200E6FA5C /* AppDelegate+Menu.swift */; };
 		8026241620FF445F009D7988 /* TTTokenField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8026241520FF445F009D7988 /* TTTokenField.swift */; };
 		802F01CE2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802F01CD2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift */; };
 		802F01D12177F00B00E0EAB6 /* DragHighlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802F01D02177F00B00E0EAB6 /* DragHighlightView.swift */; };
@@ -252,6 +254,8 @@
 		8013720C203F7C9C00CA9036 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = Carthage/Build/Mac/AudioKit.framework; sourceTree = SOURCE_ROOT; };
 		8013720D203F7C9C00CA9036 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = Carthage/Build/Mac/AudioKitUI.framework; sourceTree = SOURCE_ROOT; };
 		8017685820743898000DD433 /* NSImageViewAspectFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImageViewAspectFill.swift; sourceTree = "<group>"; };
+		8020C64C221736A500E6FA5C /* AppDelegate+Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Files.swift"; sourceTree = "<group>"; };
+		8020C64E2217372200E6FA5C /* AppDelegate+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Menu.swift"; sourceTree = "<group>"; };
 		8026241520FF445F009D7988 /* TTTokenField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTTokenField.swift; sourceTree = "<group>"; };
 		802F01CD2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackEditorMultiplicityView.swift; sourceTree = "<group>"; };
 		802F01D02177F00B00E0EAB6 /* DragHighlightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragHighlightView.swift; sourceTree = "<group>"; };
@@ -931,6 +935,8 @@
 				8030E00320FC970E006B4AE8 /* Task */,
 				809CEAC72164D31E008D6AC0 /* API */,
 				80F2C5792038808000212739 /* AppDelegate.swift */,
+				8020C64C221736A500E6FA5C /* AppDelegate+Files.swift */,
+				8020C64E2217372200E6FA5C /* AppDelegate+Menu.swift */,
 				80F2C57B2038808000212739 /* ViewController.swift */,
 				80FA29232205AF07008E6A38 /* ViewController+Menu.swift */,
 				803717282043629700DB9EAA /* ViewController+Background.swift */,
@@ -1275,6 +1281,7 @@
 				80E939F7215BE604005112EF /* PlaylistMultiple.swift in Sources */,
 				80B68BA92101255D00A32E3D /* TrackController+Rules.swift in Sources */,
 				807092EB20C69D8F00DFED53 /* ExportPlaylistsController.swift in Sources */,
+				8020C64F2217372200E6FA5C /* AppDelegate+Menu.swift in Sources */,
 				806AC1432041EF1900857B1B /* SPAnalyzer.mm in Sources */,
 				8030E01720FE2C3B006B4AE8 /* Alerts.swift in Sources */,
 				8091B9FF20C6B7E50019CE23 /* Hash.swift in Sources */,
@@ -1304,6 +1311,7 @@
 				8074044C2136CE68007E0B4C /* Interpolation.swift in Sources */,
 				80E2C9F7204B40A000298E81 /* Playlist.swift in Sources */,
 				8030E01B20FE7AAC006B4AE8 /* MoveTrackToMediaLocation.swift in Sources */,
+				8020C64D221736A500E6FA5C /* AppDelegate+Files.swift in Sources */,
 				8093466E20A62249001D15CD /* PlaylistController+Pasteboard.swift in Sources */,
 				80B15824215D657D0015294B /* Cocoa+IBInspectable.swift in Sources */,
 				8079F6E8211B015B00B7A278 /* RecursionGuard.swift in Sources */,

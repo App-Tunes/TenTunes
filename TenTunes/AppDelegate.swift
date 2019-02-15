@@ -14,6 +14,8 @@ import Defaults
 class AppDelegate: NSObject, NSApplicationDelegate {
     static let testUserDefaultsSuite = "ivorius.TenTunesTests"
 
+    static var defaults : UserDefaults = UserDefaults.standard
+
     var welcomeController: WelcomeWindowController!
 
     var libraryWindowController: NSWindowController!
@@ -22,11 +24,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var exportPlaylistsController: ExportPlaylistsController!
     var visualizerController: VisualizerWindowController!
     
+    var persistentContainer: Library!
+    
     class var isTest : Bool {
         return (ProcessInfo.processInfo.environment["IS_TT_TEST"] as NSString?)?.boolValue ?? false
     }
     
-    static var defaults : UserDefaults = UserDefaults.standard
+    func setupBackwardsCompatibility() {
+        let renamedClasses: [(AnyClass, String)] = [
+            (SmartPlaylistRules.self, "TenTunes.PlaylistRules"),
+            (SmartPlaylistRules.Token.InPlaylist.self, "_TtCC8TenTunes10TrackLabel10InPlaylist"),
+            (SmartPlaylistRules.Token.InPlaylist.self, "_TtCCC8TenTunes18SmartPlaylistRules5Token10InPlaylist"),
+            (SmartPlaylistRules.Token.MinBitrate.self, "_TtCC8TenTunes10TrackLabel10MinBitrate"),
+            (SmartPlaylistRules.Token.MinBitrate.self, "_TtCCC8TenTunes18SmartPlaylistRules5Token10MinBitrate"),
+            
+            (CartesianRules.Token.Folder.self, "_TtCC8TenTunes13PlaylistLabel6Folder"),
+            (CartesianRules.Token.Folder.self, "_TtCCC8TenTunes14CartesianRules5Token6Folder"),
+        ]
+        
+        for (new, old) in renamedClasses {
+            NSKeyedUnarchiver.setClass(new, forClassName: old)
+        }
+    }
     
     func applicationWillFinishLaunching(_ notification: Notification) {
         if AppDelegate.isTest {
@@ -39,8 +58,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         ValueTransformers.register()
         Defaults.Keys.eagerLoad()
-
-        var location: URL!
+    }
+    
+    func chooseLibrary(_ url: URL? = nil) {
+        var location: URL! = url
         var create: Bool?
         
         let defaultURL = { () -> URL in
@@ -48,7 +69,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         var freedomToChoose = NSEvent.modifierFlags.contains(.option)
-
+        
         if AppDelegate.isTest {
             // TODO Do SQL in-memory
             location = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
@@ -93,11 +114,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 freedomToChoose = true
             }
         }
+    }
+    
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        NSUserNotificationCenter.default.delegate = self
         
-        AppDelegate.defaults.set(location, forKey: "libraryLocation")
+        if persistentContainer == nil {
+            chooseLibrary()
+        }
+        AppDelegate.defaults.set(Library.shared.directory, forKey: "libraryLocation")
         
         welcomeController = WelcomeWindowController(windowNibName: .init("WelcomeWindowController"))
-
+        
         let libraryStoryboard = NSStoryboard(name: .init("Library"), bundle: nil)
         libraryWindowController = (libraryStoryboard.instantiateInitialController() as! NSWindowController)
         
@@ -105,7 +133,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             BehaviorPreferences(),
             ViewPreferences(),
             FilesPreferences(),
-        ])
+            ])
         
         exportPlaylistsController = ExportPlaylistsController(windowNibName: .init(rawValue: "ExportPlaylistsController"))
         
@@ -121,67 +149,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         else {
             commenceAfterWelcome()
         }
-        
     }
     
     func commenceAfterWelcome() {
         #if !DEBUG
         SuperpoweredSplash.show(in: (libraryWindowController.contentViewController as! ViewController)._trackGuardView.superview!.superview!)
         #endif
-
+        
         libraryWindowController.window!.makeKeyAndOrderFront(self)
     }
     
-    func setupBackwardsCompatibility() {
-        let renamedClasses: [(AnyClass, String)] = [
-            (SmartPlaylistRules.self, "TenTunes.PlaylistRules"),
-            (SmartPlaylistRules.Token.InPlaylist.self, "_TtCC8TenTunes10TrackLabel10InPlaylist"),
-            (SmartPlaylistRules.Token.InPlaylist.self, "_TtCCC8TenTunes18SmartPlaylistRules5Token10InPlaylist"),
-            (SmartPlaylistRules.Token.MinBitrate.self, "_TtCC8TenTunes10TrackLabel10MinBitrate"),
-            (SmartPlaylistRules.Token.MinBitrate.self, "_TtCCC8TenTunes18SmartPlaylistRules5Token10MinBitrate"),
-            
-            (CartesianRules.Token.Folder.self, "_TtCC8TenTunes13PlaylistLabel6Folder"),
-            (CartesianRules.Token.Folder.self, "_TtCCC8TenTunes14CartesianRules5Token6Folder"),
-        ]
-        
-        for (new, old) in renamedClasses {
-            NSKeyedUnarchiver.setClass(new, forClassName: old)
-        }
-    }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
-    
-    func applicationDidFinishLaunching(_ notification: Notification) {
-        NSUserNotificationCenter.default.delegate = self
-    }
-
-    // MARK: - Core Data stack
-    
-    var persistentContainer: Library!
-    
-    // MARK: - Core Data Saving and Undo support
-
-    // TODO Replace?? We auto-save normally.
-    @IBAction func saveDocument(_ sender: AnyObject?) {
-        // Performs the save action for the application, which is to send the save: message to the application's managed object context. Any encountered errors are presented to the user.
-        let context = persistentContainer.viewContext
-
-        if !context.commitEditing() {
-            NSLog("\(NSStringFromClass(type(of: self))) unable to commit editing before saving")
-        }
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                // Customize this code block to include application-specific recovery steps.
-                let nserror = error as NSError
-                NSApplication.shared.presentError(nserror)
-            }
-        }
-    }
-
     func windowWillReturnUndoManager(window: NSWindow) -> UndoManager? {
         // Returns the NSUndoManager for the application. In this case, the manager returned is that of the managed object context for the application.
         return persistentContainer.viewContext.undoManager
@@ -247,100 +224,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // If we got here, it is time to quit.
         return .terminateNow
     }
-
-    @IBAction func importFromITunes(_ sender: Any) {
-        let dialog = NSOpenPanel()
         
-        dialog.title                   = "Select an iTunes Library"
-        dialog.allowsMultipleSelection = false
-        dialog.allowedFileTypes        = ["xml"]
-        
-        if dialog.runModal() == NSApplication.ModalResponse.OK {
-            guard let url = dialog.url else {
-                return
-            }
-            
-            if !Library.shared.import().iTunesLibraryXML(url: url) {
-                let alert: NSAlert = NSAlert()
-                alert.messageText = "Invalid File"
-                alert.informativeText = "The selected file is not a valid iTunes library file."
-                alert.alertStyle = .warning
-                alert.addButton(withTitle: "OK")
-                alert.runModal()
-            }
-            
-            if AppDelegate.defaults.consume(toggle: "iTunesImportTutorial") {
-                NSAlert.tutorial(topic: "iTunes Import", text: "On iTunes imports, imported tracks will not be automatically moved to your media directory.")
-            }
-        }
-    }
-    
-    @IBAction func revealExports(_ sender: Any) {
-        NSWorkspace.shared.activateFileViewerSelecting([Library.shared.export().url(title: nil)])
-    }
-    
-    @IBAction func refreshExports(_ sender: Any) {
-        Library.shared._exportChanged = nil
-    }
-    
-    @IBAction func exportPlaylists(_ sender: Any) {
-        exportPlaylistsController.showWindow(self)
-    }
-    
-    @IBAction
-    func showPreferences(sender: Any?) {
-        if !(preferencesController.window?.isVisible ?? false) {
-            preferencesController.window?.center()
-        }
-        preferencesController.showWindow(self)
-    }
-    
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
         if !flag {
             ViewController.shared.view.window?.makeKeyAndOrderFront(self)
         }
         
         return true
-    }
-    
-    @IBAction func openDocument(_ sender: Any) {
-        let dialog = Library.Import.dialogue(allowedFiles: Library.FileTypes.all)
-
-        // TODO Allow only audiovisual files, and m3u
-        
-        if dialog.runModal() == NSApplication.ModalResponse.OK {
-            self.import(urls: dialog.urls)
-        }
-    }
-    
-    func application(_ sender: NSApplication, openFiles filenames: [String]) {
-        let urls = filenames.map { URL(fileURLWithPath: $0) }
-        self.import(urls: urls)
-    }
-    
-    func `import`(urls: [URL]) {
-        let objects = urls.compactMap { Library.shared.import().guess(url: $0) }
-        
-        try! Library.shared.viewContext.save()
-        
-        if AppDelegate.defaults.consume(toggle: "fileImportTutorial") {
-            NSAlert.tutorial(topic: "Importing Tracks", text: "When adding tracks to your library, the files will automatically be copied to your media directory. You can change this behavior in the preferences.")
-        }
-
-        let tracks = objects.compactMap { $0 as? Track }
-        if tracks.count > 0, AppDelegate.defaults[.playOpenedFiles] {
-            ViewController.shared.player.enqueue(tracks: tracks, at: .end)
-            ViewController.shared.player.play(moved: 1)
-        }
-    }
-    
-    @IBAction
-    func refreshMetadata(sender: Any?) {
-        for track in Library.shared.allTracks.tracksList {
-            track.metadataFetchDate = nil
-        }
-        
-        try! Library.shared.viewContext.save()
     }
 }
 

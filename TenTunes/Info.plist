@@ -35,8 +35,20 @@
 			</array>
 		</dict>
 		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>ttl</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>Document-TTL</string>
+			<key>CFBundleTypeName</key>
+			<string>Library</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>de.ivorius.tentunes.library</string>
+			</array>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>

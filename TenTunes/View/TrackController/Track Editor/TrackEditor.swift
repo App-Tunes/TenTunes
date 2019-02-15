@@ -66,6 +66,7 @@ class TrackEditor: NSViewController {
         _editorOutline.enterAction = #selector(outlineViewAction(_:))
         _editorOutline.autosaveName = .init("trackEditor")
         _editorOutline.autosaveExpandedItems = true
+        _editorOutline.setDraggingSourceOperationMask(.every, forLocal: false) // ESSENTIAL
 
         if AppDelegate.defaults.consume(toggle: "initialTrackEditorExpansion") {
             _editorOutline.expandItem(nil, expandChildren: true)

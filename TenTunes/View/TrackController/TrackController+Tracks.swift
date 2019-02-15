@@ -285,7 +285,7 @@ extension TrackController: NSTableViewDataSource {
     }
     
     func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
-        if let sortDescriptor = tableView.sortDescriptors.onlyElement, sortDescriptor.key == oldDescriptors.onlyElement?.key, sortDescriptor.ascending {
+        if let sortDescriptor = tableView.sortDescriptors.first, sortDescriptor.key == oldDescriptors.first?.key, !sortDescriptor.ascending {
             // clicked third time, unsort nao
             desired.sort = nil
             tableView.sortDescriptors = []
@@ -293,18 +293,19 @@ extension TrackController: NSTableViewDataSource {
             return
         }
         
-        if let descriptor = tableView.sortDescriptors.onlyElement, let key = descriptor.key, key != "none" {
+        // TODO Other descriptors, ignore?
+        if let descriptor = tableView.sortDescriptors.first, let key = descriptor.key, key != "none" {
             switch key {
             case "title":
-                desired.sort = { $0.rTitle < $1.rTitle }
+                desired.sort = { $1.rTitle < $0.rTitle }
             case "author":
-                desired.sort = { $0.author ?? "" < $1.author ?? "" }
+                desired.sort = { $1.author ?? "" < $0.author ?? "" }
             case "album":
-                desired.sort = { $0.album ?? "" < $1.album ?? "" }
+                desired.sort = { $1.album ?? "" < $0.album ?? "" }
             case "genre":
-                desired.sort = { Optional<String>.compare($0.genre, $1.genre) }
+                desired.sort = { Optional<String>.compare($1.genre, $0.genre) }
             case "key":
-                desired.sort = { Optional<Key>.compare($0.key, $1.key) }
+                desired.sort = { Optional<Key>.compare($1.key, $0.key) }
             case "bpm":
                 desired.sort = { ($0.speed ?? Track.Speed.zero) < ($1.speed ?? Track.Speed.zero)  }
             case "duration":

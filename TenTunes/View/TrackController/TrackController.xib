@@ -197,7 +197,7 @@
                                                     <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                 </tableHeaderCell>
                                                 <imageCell key="dataCell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="music_missing" id="EyP-QP-l4R"/>
-                                                <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="none"/>
+                                                <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="none" ascending="NO"/>
                                                 <prototypeCellViews>
                                                     <button identifier="artworkCell" id="yeK-z6-hyi" customClass="PlayImageView" customModule="TenTunes" customModuleProvider="target">
                                                         <rect key="frame" x="1" y="1" width="30" height="29"/>
@@ -221,6 +221,7 @@
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </tableHeaderCell>
                                                 <customCell key="dataCell" alignment="left" id="3DE-GQ-cS9"/>
+                                                <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="none" ascending="NO"/>
                                                 <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                                 <prototypeCellViews>
                                                     <customView identifier="waveformCell" id="po2-en-Xal" customClass="WaveformView" customModule="TenTunes" customModuleProvider="target">
@@ -251,7 +252,7 @@
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
-                                                <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="title"/>
+                                                <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="title" ascending="NO"/>
                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 <prototypeCellViews>
                                                     <tableCellView identifier="combinedTitleCell" id="MG7-FD-VAR" customClass="TitleSubtitleCellView" customModule="TenTunes" customModuleProvider="target">
@@ -323,7 +324,7 @@
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
-                                                <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="genre"/>
+                                                <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="genre" ascending="NO"/>
                                                 <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                                 <prototypeCellViews>
                                                     <tableCellView identifier="genreCell" id="T85-td-EhY">
@@ -361,7 +362,7 @@
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
-                                                <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="author"/>
+                                                <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="author" ascending="NO"/>
                                                 <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                                 <prototypeCellViews>
                                                     <tableCellView identifier="authorCell" id="4Xe-3G-LZ3">
@@ -399,7 +400,7 @@
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
-                                                <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="album"/>
+                                                <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="album" ascending="NO"/>
                                                 <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                                 <prototypeCellViews>
                                                     <tableCellView identifier="albumCell" id="pYN-mO-Oa2">
@@ -474,7 +475,7 @@
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
-                                                <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="key"/>
+                                                <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="key" ascending="NO"/>
                                                 <prototypeCellViews>
                                                     <tableCellView identifier="keyCell" id="SxX-Gk-R8t">
                                                         <rect key="frame" x="844" y="1" width="42" height="30"/>

@@ -143,11 +143,11 @@ extension PlaylistController : NSOutlineViewDataSource {
     }
     
     func outlineView(_ outlineView: NSOutlineView, persistentObjectForItem item: Any?) -> Any? {
-        return Library.shared.writePlaylistID(of: item as! Playlist)
+        return Library.shared.export().stringID(of: item as! Playlist)
     }
     
     func outlineView(_ outlineView: NSOutlineView, itemForPersistentObject object: Any) -> Any? {
-        return Library.shared.restoreFrom(playlistID: object)
+        return Library.shared.import().playlist(id: object)
     }
 }
 

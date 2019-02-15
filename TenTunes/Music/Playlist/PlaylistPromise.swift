@@ -20,7 +20,7 @@ class PlaylistPromise {
         
         switch type {
         case Playlist.pasteboardType:
-            return (pasteboard.pasteboardItems ?? []).compactMap(library.readPlaylist)
+            return (pasteboard.pasteboardItems ?? []).compactMap(library.import().playlist)
                 .map { .Existing($0) }
         case .fileURL:
             let urls = pasteboard.readObjects(forClasses: [NSURL.self], options: [.urlReadingFileURLsOnly: true]) as! [NSURL]

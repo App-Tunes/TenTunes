@@ -621,7 +621,6 @@
 			isa = PBXGroup;
 			children = (
 				80ADCD4920442E1200AA9A89 /* Library.swift */,
-				8093467420A629A7001D15CD /* Library+Pasteboard.swift */,
 				807F6A36210202A8002048B1 /* Library+Sanity.swift */,
 				807F6A352102029B002048B1 /* Export */,
 				808161CE2040520900AEA64F /* AVFoundationImporter.swift */,
@@ -677,6 +676,7 @@
 			isa = PBXGroup;
 			children = (
 				80CB652B20514E050031A6D7 /* Library+Files.swift */,
+				8093467420A629A7001D15CD /* Library+Pasteboard.swift */,
 				80E4F9CA20A0DD4B0014532E /* Library+M3U.swift */,
 				80E4F9CD20A0DD7E0014532E /* Library+iTunes.swift */,
 				80F11E5820CA732E00331D12 /* Library+Symlink.swift */,

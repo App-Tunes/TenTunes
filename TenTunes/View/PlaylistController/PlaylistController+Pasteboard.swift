@@ -17,7 +17,7 @@ extension PlaylistController {
         let playlist = item as! Playlist
         
         let pbitem = NSPasteboardItem()
-        Library.shared.writePlaylist(playlist, toPasteboarditem: pbitem)
+        Library.shared.export().write(playlist, toPasteboarditem: pbitem)
         return pbitem
     }
     
@@ -35,7 +35,7 @@ extension PlaylistController {
             guard let parent = item as? PlaylistFolder, !parent.automatesChildren else {
                 return []
             }
-            let playlists = (pasteboard.pasteboardItems ?? []).compactMap(Library.shared.readPlaylist)
+            let playlists = (pasteboard.pasteboardItems ?? []).compactMap(Library.shared.import().playlist)
             guard playlists.allSatisfy({ Library.shared.isPlaylist(playlist: $0) || $0.parent == parent }) else {
                 return []
             }

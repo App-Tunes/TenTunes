@@ -160,11 +160,11 @@ extension TagEditor: NSOutlineViewDataSource {
         switch item {
         case ViewableTag.related(let track):
             let pasteboardItem = NSPasteboardItem()
-            Library.shared.writeTrack(track, toPasteboarditem: pasteboardItem)
+            Library.shared.export().write(track, toPasteboarditem: pasteboardItem)
             return pasteboardItem
         case ViewableTag.tag(let playlist):
             let pasteboardItem = NSPasteboardItem()
-            Library.shared.writePlaylist(playlist, toPasteboarditem: pasteboardItem)
+            Library.shared.export().write(playlist, toPasteboarditem: pasteboardItem)
             return pasteboardItem
         default:
             return nil

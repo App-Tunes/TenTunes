@@ -48,6 +48,10 @@ extension Library {
             
             return track(url: url) // TODO Only if audiovisual
         }
+        
+        func objectID(from idString: String) -> NSManagedObjectID? {
+            return URL(string: idString) ?=> library.persistentStoreCoordinator.managedObjectID
+        }
     }
     
     func export(_ context: NSManagedObjectContext? = nil) -> Export {
@@ -141,6 +145,10 @@ extension Library {
                 let url = Library.shared.url(of: playlist, relativeTo: directory)
                 block(url, playlist)
             }
+        }
+        
+        func stringID(of: NSManagedObject) -> String {
+            return of.objectID.uriRepresentation().absoluteString
         }
     }
 }

@@ -17,7 +17,7 @@ extension TrackController {
     
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
         let item = NSPasteboardItem()
-        Library.shared.writeTrack(history.track(at: row)!, toPasteboarditem: item)
+        Library.shared.export().write(history.track(at: row)!, toPasteboarditem: item)
         return item
     }
     

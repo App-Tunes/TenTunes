@@ -79,7 +79,7 @@ class Library : NSPersistentContainer {
     }
     
     func fetchCreateSpecialFolder(key: String, create: (PlaylistFolder) -> Swift.Void) -> PlaylistFolder {
-        if let url = defaultMetadata[key], let playlist = restoreFrom(playlistID: url) as? PlaylistFolder {
+        if let url = defaultMetadata[key], let playlist = self.import().playlist(id: url) as? PlaylistFolder {
             return playlist
         }
         else {
@@ -91,7 +91,7 @@ class Library : NSPersistentContainer {
             try! viewContext.save()
             
             // Need to do this after initial save, otherwise the ID is temporary.............
-            defaultMetadata[key] = writePlaylistID(of: playlist)
+            defaultMetadata[key] = export().stringID(of: playlist)
             try! viewContext.save()
             
             return playlist

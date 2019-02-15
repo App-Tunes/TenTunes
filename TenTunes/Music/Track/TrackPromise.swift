@@ -20,7 +20,7 @@ class TrackPromise {
         
         switch type {
         case Track.pasteboardType:
-            return (pasteboard.pasteboardItems ?? []).compactMap(library.readTrack)
+            return (pasteboard.pasteboardItems ?? []).compactMap(library.import().track)
                 .map { .Existing($0) }
         case .fileURL:
             let urls = pasteboard.readObjects(forClasses: [NSURL.self], options: [.urlReadingFileURLsOnly: true]) as! [NSURL]

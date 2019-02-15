@@ -35,7 +35,7 @@ class Library : NSPersistentContainer {
 
         mediaLocation = MediaLocation(directory: directory.appendingPathComponent("Media"))
 
-        super.init(name: name, managedObjectModel: NSManagedObjectModel(contentsOf: Bundle.main.url(forResource: name, withExtension: "momd")!)!)
+        super.init(name: name, managedObjectModel: AppDelegate.objectModel)
         
         if (try? libraryURL.ensureIsDirectory()) == nil {
             return nil
@@ -175,7 +175,7 @@ class Library : NSPersistentContainer {
             return true
         }
         
-        if let playlist = playlist as? PlaylistFolder, path(of: whenChanging).contains(playlist) {
+        if let playlist = playlist as? PlaylistFolder, whenChanging.path.contains(playlist) {
             return true
         }
         
@@ -193,14 +193,6 @@ class Library : NSPersistentContainer {
         return playlist is PlaylistSmart || playlist is PlaylistCartesian
     }
 
-    func path(of: Playlist) -> [Playlist] {
-        var path = [of]
-        while let current = path.first, let parent = current.parent {
-            path.insert(parent, at: 0)
-        }
-        return path
-    }
-    
     func position(of: Playlist) -> (PlaylistFolder, Int)? {
         if let parent = of.parent {
             return (parent, parent.childrenList.index(of: of)!)
@@ -209,7 +201,7 @@ class Library : NSPersistentContainer {
     }
     
     func isTag(playlist: Playlist) -> Bool {
-        return path(of: playlist).map { $0.objectID }.contains(tagPlaylist.objectID) && playlist.objectID != tagPlaylist.objectID
+        return playlist.path.map { $0.objectID }.contains(tagPlaylist.objectID) && playlist.objectID != tagPlaylist.objectID
     }
     
     func playlists(containing track: Track) -> [PlaylistManual] {
@@ -237,7 +229,7 @@ class Library : NSPersistentContainer {
     func url(of playlist: Playlist, relativeTo: URL) -> URL {
         var url = relativeTo
         
-        for component in path(of: playlist).dropLast().dropFirst() {
+        for component in playlist.path.dropLast().dropFirst() {
             url = url.appendingPathComponent(component.name.asFileName)
         }
         

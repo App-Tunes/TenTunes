@@ -63,6 +63,14 @@ public class Playlist: NSManagedObject, AnyPlaylist {
         return tracksList[at]
     }
     
+    var path : [Playlist] {
+        var path = [self]
+        while let current = path.first, let parent = current.parent {
+            path.insert(parent, at: 0)
+        }
+        return path
+    }
+    
     var size: Int {
         return tracksList.count
     }

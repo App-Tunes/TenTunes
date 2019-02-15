@@ -72,7 +72,7 @@ extension PlaylistController {
             didSelect(.library)
         case .playlists(let playlists):
             // Expand so all items are in view
-            let paths = playlists.map(Library.shared.path)
+            let paths = playlists.map { $0.path }
             for path in paths {
                 for parent in path.dropLast() {
                     _outlineView.expandItem(parent)

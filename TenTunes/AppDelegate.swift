@@ -15,6 +15,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     static let testUserDefaultsSuite = "ivorius.TenTunesTests"
 
     static var defaults : UserDefaults = UserDefaults.standard
+    
+    static let objectModel = NSManagedObjectModel(contentsOf: Bundle.main.url(forResource: "TenTunes", withExtension: "momd")!)!
 
     var welcomeController: WelcomeWindowController!
 

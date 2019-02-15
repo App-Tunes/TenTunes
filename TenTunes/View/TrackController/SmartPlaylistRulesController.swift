@@ -67,7 +67,7 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
     
     var playlists: [Playlist] {
         return Library.shared.allPlaylists().filter {
-            !Library.shared.path(of: $0).contains(Library.shared.tagPlaylist)
+            $0.path.contains(Library.shared.tagPlaylist)
         }
     }
     

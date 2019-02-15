@@ -19,10 +19,10 @@ class ExportPlaylistsController: NSWindowController {
     @objc dynamic var libraryEnabled: Bool = false
 
     @IBOutlet var _destinationDirectory: NSPathControl!
-    @objc dynamic var m3uEnabled: Bool = true
+    @objc dynamic var m3uEnabled: Bool = false
 
     @IBOutlet var _aliasDirectory: NSPathControl!
-    @objc dynamic var aliasEnabled: Bool = true
+    @objc dynamic var aliasEnabled: Bool = false
 
     @IBOutlet var _rekordboxSelect: NSPopUpButton!
     var selectStubs = ActionStubs()
@@ -75,8 +75,13 @@ class ExportPlaylistsController: NSWindowController {
                 }
                 
                 self._libraryDirectory.url = createMountedDirectory("Ten Tunes")
+                self.libraryEnabled = true
+                
                 self._destinationDirectory.url = createMountedDirectory("Playlists")
+                self.m3uEnabled = true
+                
                 self._aliasDirectory.url = createMountedDirectory("Playlists - Alias")
+                self.aliasEnabled = true
             }
             _rekordboxSelect.menu?.addItem(item)
         }

@@ -15,7 +15,7 @@ extension Library.Import {
             return track
         }
 
-        let track = Track(context: Library.shared.viewContext)
+        let track = Track(context: context)
         
          // Possibly temporary location, if it will be auto-moved after import
         track.path = url.absoluteString
@@ -25,7 +25,7 @@ extension Library.Import {
         
         context.insert(track)
         
-        Library.shared.initialAdd(track: track)
+        library.initialAdd(track: track)
         
         return track
     }

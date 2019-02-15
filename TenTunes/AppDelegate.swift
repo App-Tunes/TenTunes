@@ -62,12 +62,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func chooseLibrary(_ url: URL? = nil) {
         var location: URL! = url
+            ?? AppDelegate.defaults.url(forKey: "libraryLocation")
+            ?? Library.defaultURL()
+        
         var create: Bool?
-        
-        let defaultURL = { () -> URL in
-            return AppDelegate.defaults.url(forKey: "libraryLocation") ?? Library.defaultURL()
-        }
-        
         var freedomToChoose = NSEvent.modifierFlags.contains(.option)
         
         if AppDelegate.isTest {
@@ -90,16 +88,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     dialog.canChooseFiles = true // packages are considered files by finder, library is a package
                     dialog.canChooseDirectories = true
                     dialog.allowedFileTypes = ["de.ivorius.tentunes.library"]
-                    dialog.directoryURL = defaultURL()
+                    dialog.directoryURL = location
                     
                     location = dialog.runModal() == .OK ? dialog.url : nil
                     create = false
                 default:
                     NSApp.terminate(self)
                 }
-            }
-            else {
-                location = defaultURL()
             }
             
             guard location != nil else {

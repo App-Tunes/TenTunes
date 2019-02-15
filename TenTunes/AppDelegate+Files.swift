@@ -71,6 +71,16 @@ extension AppDelegate {
     }
     
     func `import`(urls: [URL]) {
+        if persistentContainer == nil, let url = urls.onlyElement, url.pathExtension == "ttl" {
+            chooseLibrary(url)
+            return
+        }
+        
+        if persistentContainer == nil {
+            // Will be called via openFiles before didFinishLaunching
+            chooseLibrary()
+        }
+        
         let objects = urls.compactMap { Library.shared.import().guess(url: $0) }
         
         try! Library.shared.viewContext.save()

@@ -11,9 +11,7 @@ import Cocoa
 import AudioKit
 
 class DynamicAudioHasher: NSObject {
-    static let skipHashes = 12
-    
-    let hashFunction: (URL, Int) -> (Data, Bool)?
+    let hashFunction: (URL, Int, Int) -> (Data, Bool)?
     
     var entries: [Data: Entry] = [:]
     var cache: [URL: PartialAudioHash] = [:]
@@ -26,13 +24,13 @@ class DynamicAudioHasher: NSObject {
         collect(at: url)
     }
     
-    static func md5Audio(url: URL, limit: Int) -> (Data, Bool)? {
+    static func md5Audio(url: URL, start: Int, end: Int) -> (Data, Bool)? {
         guard let file = try? AKAudioFile(forReading: url) else {
             print("Failed to create audio file for \(url)")
             return nil
         }
         
-        let readLength = AVAudioFrameCount(min(AVAudioFramePosition(limit), file.length))
+        let readLength = AVAudioFrameCount(min(AVAudioFramePosition(end), file.length))
         let buffer = AVAudioPCMBuffer(pcmFormat: file.processingFormat,
                                       frameCapacity: readLength)
         
@@ -42,7 +40,11 @@ class DynamicAudioHasher: NSObject {
             print("error cannot readIntBuffer, Error: \(error)")
         }
         
-        return (buffer!.withUnsafePointer(block: Hash.md5), AVAudioFramePosition(limit) >= file.length)
+        let hash = buffer!.withUnsafePointer {
+            Hash.md5(of: $0.advanced(by: start), length: $1 - start)
+        }
+        
+        return (hash, AVAudioFramePosition(end) >= file.length)
     }
 
     func collect(at topURL: URL) {
@@ -137,9 +139,10 @@ class DynamicAudioHasher: NSObject {
             return nil
         }
         
-        let hashLength = Int(pow(2, DynamicAudioHasher.skipHashes + partialHash.hashes.count))
-        
-        guard let (hash, isComplete) = hashFunction(partialHash.url, hashLength) else {
+        let prevHashEnd = PartialAudioHash.hashEnd(iteration: partialHash.hashes.count - 1)
+        let hashEnd = PartialAudioHash.hashEnd(iteration: partialHash.hashes.count)
+
+        guard let (hash, isComplete) = hashFunction(partialHash.url, prevHashEnd, hashEnd) else {
             return nil
         }
         
@@ -155,12 +158,20 @@ class DynamicAudioHasher: NSObject {
     }
     
     class PartialAudioHash {
+        static let skipHashes = 12
+
         var url: URL
         var hashes: [Data] = []
         var isComplete = false
         
         init(url: URL) {
             self.url = url
+        }
+        
+        static func hashEnd(iteration: Int) -> Int {
+            return iteration < 0
+                ? 0
+                : Int(pow(2, PartialAudioHash.skipHashes + iteration))
         }
         
         var longest: Data {

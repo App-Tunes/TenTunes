@@ -15,13 +15,19 @@ extension Library.Export {
             return nil
         }
         
+        let masterPlaylist = library.masterPlaylist.convert(to: context)!
+        
         let tracks = rawPlaylists.flatMap {
             $0.tracksList
         }.uniqueElements
         
-        let playlists: [Playlist] = [library.masterPlaylist.convert(to: context)!].flatten {
+        var implicityIncludedPlaylists = Set(rawPlaylists.flatten { $0.path })
+        implicityIncludedPlaylists.remove(masterPlaylist)
+        
+        // Sort by their tree rep so we always have parents first
+        let playlists: [Playlist] = [masterPlaylist].flatten {
             ($0 as? PlaylistFolder)?.childrenList
-        }.filter(rawPlaylists.contains)
+        }.filter(implicityIncludedPlaylists.contains)
         
         let otherContext = other.newChildBackgroundContext()
         otherContext.performAndWait {

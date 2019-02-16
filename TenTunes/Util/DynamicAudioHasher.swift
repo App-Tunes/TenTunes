@@ -11,27 +11,28 @@ import Cocoa
 import AudioKit
 
 class DynamicAudioHasher: NSObject {
-    let hashFunction: (URL) -> Data?
+    static let skipHashes = 12
     
-    var src: [Data: URL] = [:]
-    let dst: LazyMap<URL, Data?>
+    let hashFunction: (URL, Int) -> (Data, Bool)?
+    
+    var entries: [Data: Entry] = [:]
+    var cache: [URL: PartialAudioHash] = [:]
     
     init(at url: URL) {
         self.hashFunction = DynamicAudioHasher.md5Audio
-        self.dst = LazyMap(hashFunction)
         
         super.init()
         
         collect(at: url)
     }
     
-    static func md5Audio(url: URL) -> Data? {
+    static func md5Audio(url: URL, limit: Int) -> (Data, Bool)? {
         guard let file = try? AKAudioFile(forReading: url) else {
             print("Failed to create audio file for \(url)")
             return nil
         }
         
-        let readLength = AVAudioFrameCount(min(ExportPlaylistsController.maxReadLength, file.length))
+        let readLength = AVAudioFrameCount(min(AVAudioFramePosition(limit), file.length))
         let buffer = AVAudioPCMBuffer(pcmFormat: file.processingFormat,
                                       frameCapacity: readLength)
         
@@ -41,40 +42,129 @@ class DynamicAudioHasher: NSObject {
             print("error cannot readIntBuffer, Error: \(error)")
         }
         
-        return buffer!.withUnsafePointer(block: Hash.md5)
+        return (buffer!.withUnsafePointer(block: Hash.md5), AVAudioFramePosition(limit) >= file.length)
     }
 
     func collect(at topURL: URL) {
-        var srcFound = 0
-        var srcFailed = 0
         for url in FileManager.default.regularFiles(inDirectory: topURL) {
-            if let md5 = hash(fileAt: url) {
-                if let existing = src[md5], existing != url {
-                    print("Hash collision between urls \(url) and \(existing)")
-                }
-                
-                src[md5] = url
-                srcFound += 1
-                
-                if srcFound % 100 == 0 {
-                    print("Found \(srcFound)")
-                }
-            }
-            else {
-                srcFailed += 1
-            }
+            collect(fileAt: url)
+        }
+    }
+    
+    @discardableResult
+    func collect(fileAt url: URL) -> PartialAudioHash? {
+        guard let partialHash = hash(fileAt: url) else {
+            // File unhashable
+            return nil
         }
         
-        if srcFailed > 0 {
-            print("Failed sources: \(srcFailed)")
+        while true {
+            let curHash = partialHash.longest
+            
+            guard let existing = entries[curHash] else {
+                // We have found an empty spot! Yay!
+                entries[curHash] = .hashPoint(hash: partialHash)
+                cache[partialHash.url] = partialHash
+                
+                return partialHash
+            }
+            
+            switch existing {
+            case .hashMore:
+                if computeNextHash(for: partialHash) == nil {
+                    print("Discarding 'incomplete' file \( url )!")
+                    return nil
+                }
+            case .hashPoint(let other):
+                if other.isComplete && partialHash.isComplete {
+                    // Same file, doesn't matter which we keep
+                    cache[partialHash.url] = partialHash
+                    
+                    return partialHash
+                }
+
+                entries[other.hashes.last!] = .hashMore
+                computeNextHash(for: other)
+                entries[other.hashes.last!] = .hashPoint(hash: other)
+            }
         }
     }
     
-    func hash(fileAt url: URL) -> Data? {
-        return dst[url]
+    func find(url: URL) -> URL? {
+        guard let partialHash = hash(fileAt: url) else {
+            // File unhashable
+            return nil
+        }
+
+        while true {
+            let curHash = partialHash.longest
+            
+            guard let existing = entries[curHash] else {
+                return nil
+            }
+            
+            switch existing {
+            case .hashMore:
+                break
+            case .hashPoint(let other):
+                return other.url
+            }
+            
+            if computeNextHash(for: partialHash) == nil {
+                print("Ignoring 'incomplete' file \( url )!")
+                return nil
+            }
+        }
     }
     
-    func url(for data: Data) -> URL? {
-        return src[data]
+    func hash(fileAt url: URL) -> PartialAudioHash? {
+        if let existing = cache[url] {
+            return existing
+        }
+
+        let hash = PartialAudioHash(url: url)
+        guard computeNextHash(for: hash) != nil else {
+            return nil
+        }
+        
+        cache[url] = hash
+        return hash
+    }
+    
+    @discardableResult
+    func computeNextHash(for partialHash: PartialAudioHash) -> Data? {
+        guard !partialHash.isComplete else {
+            return nil
+        }
+        
+        let hashLength = Int(pow(2, DynamicAudioHasher.skipHashes + partialHash.hashes.count))
+        
+        guard let (hash, isComplete) = hashFunction(partialHash.url, hashLength) else {
+            return nil
+        }
+        
+        partialHash.hashes.append(hash)
+        partialHash.isComplete = isComplete
+        
+        return hash
+    }
+    
+    enum Entry {
+        case hashMore
+        case hashPoint(hash: PartialAudioHash)
+    }
+    
+    class PartialAudioHash {
+        var url: URL
+        var hashes: [Data] = []
+        var isComplete = false
+        
+        init(url: URL) {
+            self.url = url
+        }
+        
+        var longest: Data {
+            return hashes.last!
+        }
     }
 }

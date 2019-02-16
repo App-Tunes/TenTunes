@@ -9,7 +9,7 @@
 import Cocoa
 
 class Hash {    
-    static func md5(of pointer: UnsafeRawPointer, length: Int) -> Data? {
+    static func md5(of pointer: UnsafeRawPointer, length: Int) -> Data {
         // Create and initialize MD5 context:
         var context = CC_MD5_CTX()
         CC_MD5_Init(&context)
@@ -24,7 +24,7 @@ class Hash {
         return digest
     }
     
-    static func md5(of data: Data) -> Data? {
+    static func md5(of data: Data) -> Data {
         // Create and initialize MD5 context:
         var context = CC_MD5_CTX()
         CC_MD5_Init(&context)

@@ -11,8 +11,6 @@ import AudioKit
 
 class ExportPlaylistsController: NSWindowController {
     
-    static let maxReadLength: AVAudioFramePosition = 100000
-
     @IBOutlet var _trackLibrary: NSPathControl!
     
     @IBOutlet var _libraryDirectory: NSPathControl!

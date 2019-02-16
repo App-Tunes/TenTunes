@@ -110,15 +110,17 @@ protocol PlayerDelegate : class {
         }
         catch PlayError.missing {
             let track = track!
-            if track.path == nil {
-                if NSAlert.confirm(action: "Invalid File", text: "The file could not be played since no path was provided? That's kinda weird.", confirmTitle: "Choose file", style: .warning), askReplacement(for: track) {
-                    play(at: at, in: history)
-                }
-            }
-            else {
-                if NSAlert.confirm(action: "Missing File", text: "The file could not be played since the file could not be found.", confirmTitle: "Choose file", style: .warning), askReplacement(for: track) {
-                    play(at: at, in: history)
-                }
+            let noPathProvided = track.path == nil
+            
+            let action = noPathProvided
+                ? "Invalid File"
+                : "Missing File"
+            let message = noPathProvided
+                ? "There is no file attached to this \(AppDelegate.defaults[.trackWordSingular])."
+                : "The \(AppDelegate.defaults[.trackWordSingular]) could not be played since the file could not be found."
+            
+            if NSAlert.confirm(action: action, text: message, confirmTitle: "Choose file", style: .warning), askReplacement(for: track) {
+                play(at: at, in: history)
             }
         }
         catch PlayError.error(let message) {

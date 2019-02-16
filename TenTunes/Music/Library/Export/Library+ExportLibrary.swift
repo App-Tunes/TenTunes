@@ -80,6 +80,7 @@ extension Library.Export {
             
             // Non-Copyable
             otherTrack.creationDate = track.creationDate
+            // When pather returns nil, it simply doesn't exist
             otherTrack.path = pather(track, dst.directory)
             
             // Shortcut
@@ -87,7 +88,7 @@ extension Library.Export {
             otherTrack.album = track.album
             otherTrack.author = track.author
             
-            otherTrack.key = track.key
+            otherTrack.keyString = track.keyString
             otherTrack.bpmString = track.bpmString
             otherTrack.durationR = track.durationR
             

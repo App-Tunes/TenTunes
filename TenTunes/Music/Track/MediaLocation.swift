@@ -129,11 +129,11 @@ class MediaLocation {
         
     static func pather(for hasher: DynamicAudioHasher) -> ((Track, URL) -> String?) {
         return { (track, dstURL) in
-            guard let hash = track.resolvedURL ?=> hasher.hash else {
+            guard let url = track.resolvedURL ?=> hasher.find else {
                 return nil
             }
             
-            return hasher.url(for: hash)?.relativePath(from: dstURL)
+            return url.relativePath(from: dstURL)
         }
     }
 }

@@ -31,7 +31,7 @@ class TestExport: TenTunesTest {
         groups[0].addToChildren(manual)
         
         let exportURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("Copy")
-        library.export(context).remoteLibrary(groups + [manual], to: exportURL, pather: library.mediaLocation.pather())
+        library.export(context).remoteLibrary([groups[1], manual], to: exportURL, pather: library.mediaLocation.pather())
         
         let other = Library(name: "TenTunes", at: exportURL, create: false)!
         

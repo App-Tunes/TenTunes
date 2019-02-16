@@ -21,7 +21,7 @@ extension Library.Export {
             $0.tracksList
         }.uniqueElements
         
-        var implicityIncludedPlaylists = Set(rawPlaylists.flatten { $0.path })
+        var implicityIncludedPlaylists = Set(rawPlaylists.flatMap { $0.path })
         implicityIncludedPlaylists.remove(masterPlaylist)
         
         // Sort by their tree rep so we always have parents first

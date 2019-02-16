@@ -8,8 +8,6 @@
 
 import Cocoa
 
-import AudioKit
-
 class MediaLocation {
     var directory: URL
     
@@ -128,60 +126,14 @@ class MediaLocation {
             return url.path
         }
     }
-    
-    static func md5Audio(url: URL) -> Data? {
-        guard let file = try? AKAudioFile(forReading: url) else {
-            print("Failed to create audio file for \(url)")
-            return nil
-        }
         
-        let readLength = AVAudioFrameCount(min(ExportPlaylistsController.maxReadLength, file.length))
-        let buffer = AVAudioPCMBuffer(pcmFormat: file.processingFormat,
-                                      frameCapacity: readLength)
-        
-        do {
-            try file.read(into: buffer!, frameCount: readLength)
-        } catch let error as NSError {
-            print("error cannot readIntBuffer, Error: \(error)")
-        }
-        
-        return buffer!.withUnsafePointer(block: Hash.md5)
-    }
-    
-    static func pather(for libraryURL: URL, absolute: Bool = false) -> ((Track, URL) -> String?) {
-        var src: [Data: URL] = [:]
-        let dst: LazyMap<URL, Data?> = LazyMap(MediaLocation.md5Audio)
-                
-        var srcFound = 0
-        var srcFailed = 0
-        for url in FileManager.default.regularFiles(inDirectory: libraryURL) {
-            if let md5 = md5Audio(url: url) {
-                if let existing = src[md5] {
-                    print("Hash collision between urls \(url) and \(existing)")
-                }
-                
-                src[md5] = url
-                srcFound += 1
-                
-                if srcFound % 100 == 0 {
-                    print("Found \(srcFound)")
-                }
-            }
-            else {
-                srcFailed += 1
-            }
-        }
-        
-        if srcFailed > 0 {
-            print("Failed sources: \(srcFailed)")
-        }
-        
+    static func pather(for hasher: DynamicAudioHasher) -> ((Track, URL) -> String?) {
         return { (track, dstURL) in
-            guard let url = track.resolvedURL, let hash = dst[url] else {
+            guard let hash = track.resolvedURL ?=> hasher.hash else {
                 return nil
             }
             
-            return src[hash]?.relativePath(from: dstURL)
+            return hasher.url(for: hash)?.relativePath(from: dstURL)
         }
     }
 }

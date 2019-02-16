@@ -18,6 +18,7 @@
 		8020C651221740E800E6FA5C /* Library+ExportLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020C650221740E800E6FA5C /* Library+ExportLibrary.swift */; };
 		8020C65322177D1500E6FA5C /* TestExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020C65222177D1500E6FA5C /* TestExport.swift */; };
 		8026241620FF445F009D7988 /* TTTokenField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8026241520FF445F009D7988 /* TTTokenField.swift */; };
+		8029A5F3221858D600C1F0CC /* DynamicAudioHasher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8029A5F2221858D600C1F0CC /* DynamicAudioHasher.swift */; };
 		802F01CE2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802F01CD2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift */; };
 		802F01D12177F00B00E0EAB6 /* DragHighlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802F01D02177F00B00E0EAB6 /* DragHighlightView.swift */; };
 		802F9EFA2170A4C000D497AE /* bloom.fs in Resources */ = {isa = PBXBuildFile; fileRef = 802F9EF92170A4C000D497AE /* bloom.fs */; };
@@ -261,6 +262,7 @@
 		8020C650221740E800E6FA5C /* Library+ExportLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+ExportLibrary.swift"; sourceTree = "<group>"; };
 		8020C65222177D1500E6FA5C /* TestExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExport.swift; sourceTree = "<group>"; };
 		8026241520FF445F009D7988 /* TTTokenField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTTokenField.swift; sourceTree = "<group>"; };
+		8029A5F2221858D600C1F0CC /* DynamicAudioHasher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicAudioHasher.swift; sourceTree = "<group>"; };
 		802F01CD2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackEditorMultiplicityView.swift; sourceTree = "<group>"; };
 		802F01D02177F00B00E0EAB6 /* DragHighlightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragHighlightView.swift; sourceTree = "<group>"; };
 		802F9EF92170A4C000D497AE /* bloom.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = bloom.fs; sourceTree = "<group>"; };
@@ -871,6 +873,7 @@
 				80C1F1732146E4A70032E554 /* WindowWarden.swift */,
 				80B6DF9C219EF72E003EA487 /* MIDI.swift */,
 				80CC986921A880D20030F04B /* NSTableView+Header.swift */,
+				8029A5F2221858D600C1F0CC /* DynamicAudioHasher.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1373,6 +1376,7 @@
 				804A15FC2172514200CBF56F /* Honey.swift in Sources */,
 				8026241620FF445F009D7988 /* TTTokenField.swift in Sources */,
 				80987D5E21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift in Sources */,
+				8029A5F3221858D600C1F0CC /* DynamicAudioHasher.swift in Sources */,
 				80C1F14F213C77440032E554 /* TrackVisuals+CoreDataProperties.swift in Sources */,
 				80FA2920220506EC008E6A38 /* TrackController+Tracks.swift in Sources */,
 			);

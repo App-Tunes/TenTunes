@@ -52,7 +52,7 @@ class ValueTransformers {
         
         SimpleTransformer<NSNumber, NSString>.simple("SimpleFloatString",
                                                      there: { ($0 as? Float).map { NSString(format: "%.2f", $0) } },
-                                                     back: { (($0 ?=> String.init) ?=> Float.init) ?=> NSNumber.init }
+                                                     back: { ((($0 ?=> String.init) ?=> Float.init) ?? 0) ?=> NSNumber.init }
         )
         
         DoubleTransformer.double("Pow2Transformer", there: log2, back: curry(pow)(2))

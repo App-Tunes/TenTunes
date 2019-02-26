@@ -34,16 +34,18 @@ import Cocoa
     }
 
     func crossProduct(in context: NSManagedObjectContext) -> [Combination] {
-        guard tokens.count == 2 else {
+        guard tokens.count > 1 else {
             return tokens.first?.matches(in: context).map { source in
                 let rules = SmartPlaylistRules(tokens: [source])
                 return Combination(name: source.representation(in: context), rules: rules)
                 } ?? []
         }
         
-        return tokens.first!.matches(in: context).crossProduct(tokens.last!.matches(in: context)).map { (left, right) in
-            let name = "\(left.representation(in: context)) | \(right.representation(in: context))"
-            let rules = SmartPlaylistRules(tokens: [left, right])
+        let matches: [[SmartPlaylistRules.Token]] = tokens.map { $0.matches(in: context) }
+        
+        return matches.innerCrossProduct().map { combinationTokens in
+            let name = combinationTokens.map { $0.representation(in: context) }.joined(separator: " | ")
+            let rules = SmartPlaylistRules(tokens: combinationTokens)
             return Combination(name: name, rules: rules)
         }
     }

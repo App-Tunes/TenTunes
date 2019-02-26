@@ -61,15 +61,29 @@ func arrayZip<Sequence1>(_ sequences: [Sequence1]) -> ArrayZipSequence<Sequence1
 }
 
 extension Sequence {
-    func crossProduct<T2:Sequence>(_ rhs : T2) -> AnySequence<(Iterator.Element,T2.Iterator.Element)>
-    {
+    func crossProduct<T2:Sequence>(_ rhs : T2) -> AnySequence<(Iterator.Element,T2.Iterator.Element)> {
         return AnySequence (
             lazy.flatMap { x in rhs.lazy.map { y in (x,y) }}
         )
     }
-    
+
     func retain(_ retainer: (Element) -> Bool) -> [Element] {
         return filter { !retainer($0) }
+    }
+}
+
+extension Array where Element : Sequence {
+    func innerCrossProduct() -> AnySequence<[Element.Element]> {
+        guard let start = first?.map({ [$0] }) else {
+            return AnySequence([])
+        }
+        return dropFirst().reduce(AnySequence(start)) { (curCross, next) in
+            AnySequence(
+                curCross.crossProduct(next).lazy.map { (combination, add) in
+                    combination + [add]
+                }
+            )
+        }
     }
 }
 

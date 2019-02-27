@@ -30,33 +30,29 @@ public class PlaylistSmart: Playlist {
 }
 
 extension PlaylistSmart : ModifiablePlaylist {
-    var modifableTokenPlaylists: [ModifiablePlaylist]? {
-        guard let playlistTokens = rrules.tokens as? [SmartPlaylistRules.Token.InPlaylist] else {
-            return nil
-        }
-        
-        return playlistTokens.map({ $0.playlist(in: self.managedObjectContext!) }) as? [ModifiablePlaylist]
-    }
-    
     func _supports(action: ModifyingAction, rguard: RecursionGuard<Playlist>) -> Bool {
         // Add to all on all add, remove from all on any delete
-        guard (action == .add && !rrules.any) || (action == .delete && rules.any) else {
+        guard (action == .add && rrules.mode == .all) || (action == .delete && rules.mode == .any) else {
             return false
         }
         
+        let conform = action == .add
+        
         return rguard.protected(self) {
-            return modifableTokenPlaylists?.allSatisfy { $0._supports(action: action, rguard: rguard) } ?? false
+            return rrules.tokens.allSatisfy {
+                self.canSetConformity(of: $0, to: conform, rguard: rguard)
+            }
         } ?? false
     }
     
     func confirm(action: ModifyingAction) -> Bool {
         switch action {
         case .add:
-            return NSAlert.confirm(action: "Add to all playlists", text: "The tracks will be added to all playlists that are part of this playlists' rules (\( modifableTokenPlaylists!.count )).")
+            return NSAlert.confirm(action: "Add to smart playlist", text: "The tracks will be added to this playlist by conforming to all its rules (\( rrules.tokens.count )).")
         case .delete:
-            return NSAlert.confirm(action: "Remove from all playlists", text: "The tracks will be removed from all playlists that are part of this playlists' rules (\( modifableTokenPlaylists!.count )).")
+            return NSAlert.confirm(action: "Remove from all playlists", text: "The tracks will be removed from this playlist by ceising to conform to all its rules (\( rrules.tokens.count )).")
         default:
-            return true
+            return false
         }
     }
     
@@ -65,14 +61,43 @@ extension PlaylistSmart : ModifiablePlaylist {
             fatalError("Reorder not supported")
         }
         
-        for playlist in modifableTokenPlaylists! {
-            playlist.addTracks(tracks, above: nil)
+        for token in rrules.tokens {
+            set(tracks: tracks, toConform: true, toToken: token)
         }
     }
     
     func removeTracks(_ tracks: [Track]) {
-        for playlist in modifableTokenPlaylists! {
-            playlist.removeTracks(tracks)
+        for token in rrules.tokens {
+            set(tracks: tracks, toConform: false, toToken: token)
+        }
+    }
+    
+    func canSetConformity(of token: SmartPlaylistRules.Token, to conform: Bool, rguard: RecursionGuard<Playlist>) -> Bool {
+        if let playlistToken = token as? SmartPlaylistRules.Token.InPlaylist {
+            guard let playlist = playlistToken.playlist(in: managedObjectContext!) as? ModifiablePlaylist else {
+                return false
+            }
+            
+            return conform == token.not
+                ? playlist._supports(action: .delete, rguard: rguard)
+                : playlist._supports(action: .add, rguard: rguard)
+        }
+        
+        return false
+    }
+    
+    func set(tracks: [Track], toConform conform: Bool, toToken token: SmartPlaylistRules.Token) {
+        if let playlistToken = token as? SmartPlaylistRules.Token.InPlaylist {
+            guard let playlist = playlistToken.playlist(in: managedObjectContext!) as? ModifiablePlaylist else {
+                return
+            }
+            
+            if conform == token.not {
+                playlist.removeTracks(tracks)
+            }
+            else {
+                playlist.addTracks(tracks)
+            }
         }
     }
 }

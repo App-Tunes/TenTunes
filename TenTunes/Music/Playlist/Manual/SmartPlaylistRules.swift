@@ -10,21 +10,21 @@ import Cocoa
 
 @objc public class SmartPlaylistRules : NSObject, NSCoding {
     let tokens: [SmartPlaylistRules.Token]
-    let any: Bool
+    let mode: Mode
     
     static var trivial: (Track) -> Bool {
         return { _ in true }
     }
     
     func filter(in context: NSManagedObjectContext, rguard: RecursionGuard<Playlist>? = nil) -> ((Track) -> Bool)? {
-        guard !tokens.isEmpty || any else {
+        guard !tokens.isEmpty || mode == .any else {
             return nil
         }
         
         let rguard = rguard ?? RecursionGuard()
         
         let filters = tokens.map { $0.filter(in: context, rguard: rguard) }
-        let satisfier = any ? filters.anySatisfy : filters.allSatisfy
+        let satisfier = mode == .any ? filters.anySatisfy : filters.allSatisfy
         
         return { track in
             // Try is because satisfier blindly rethrows
@@ -34,21 +34,21 @@ import Cocoa
 
     public func encode(with aCoder: NSCoder) {
         aCoder.encode(tokens, forKey: "labels")
-        aCoder.encode(any, forKey: "modeAny")
+        aCoder.encode(mode == .any, forKey: "modeAny")
     }
 
     public required init?(coder aDecoder: NSCoder) {
         tokens = (aDecoder.decodeObject(forKey: "labels") as? [SmartPlaylistRules.Token?])?.compactMap { $0 } ?? []
-        any = aDecoder.decodeBool(forKey: "modeAny")
+        mode = aDecoder.decodeBool(forKey: "modeAny") ? .any : .all
     }
     
-    init(tokens: [SmartPlaylistRules.Token] = [], any: Bool = false) {
+    init(tokens: [SmartPlaylistRules.Token] = [], mode: Mode = .all) {
         self.tokens = tokens
-        self.any = any
+        self.mode = mode
     }
     
     public override var description: String {
-        return "[\((tokens.map { $0.representation() }).joined(separator: any ? " | " : ", "))]"
+        return "[\((tokens.map { $0.representation() }).joined(separator: mode == .any ? " | " : ", "))]"
     }
     
     override public func isEqual(_ object: Any?) -> Bool {
@@ -56,7 +56,20 @@ import Cocoa
             return false
         }
         
-        return tokens == object.tokens && any == object.any
+        return tokens == object.tokens && mode == object.mode
+    }
+    
+    enum Mode : String, Codable {
+        case any, all
+        
+        var title: String {
+            switch self {
+            case .all:
+                return "All"
+            case .any:
+                return "Any"
+            }
+        }
     }
     
     @objc(TenTunes_SmartPlaylistRules_Token) class Token : NSObject, NSCoding {

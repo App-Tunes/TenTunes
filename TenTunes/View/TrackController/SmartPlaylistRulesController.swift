@@ -29,33 +29,20 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
     @IBOutlet var _accumulationType: NSPopUpButton!
     
     var lastEditingString: String = ""
-
-    enum Accumulation : String, Codable {
-        case all, any
-        
-        var title: String {
-            switch self {
-            case .all:
-                return "All"
-            case .any:
-                return "Any"
-            }
-        }
-    }
     
     override func awakeFromNib() {
-        PopupEnum.represent(in: _accumulationType, with: [Accumulation.all, Accumulation.any], title: { $0.title })
+        PopupEnum.represent(in: _accumulationType, with: [SmartPlaylistRules.Mode.all, SmartPlaylistRules.Mode.any], title: { $0.title })
         
         _tokenField.tokenizingCharacterSet = CharacterSet(charactersIn: "%%")
     }
     
     var rules: SmartPlaylistRules {
         get {
-            let acc = _accumulationType.selectedItem?.representedObject as! Accumulation
-            return SmartPlaylistRules(tokens: tokens, any: acc == .any)
+            let mode = _accumulationType.selectedItem?.representedObject as! SmartPlaylistRules.Mode
+            return SmartPlaylistRules(tokens: tokens, mode: mode)
         }
         set {
-            _accumulationType.select(_accumulationType.menu!.item(withRepresentedObject: newValue.any ? Accumulation.any : Accumulation.all))
+            _accumulationType.select(_accumulationType.menu!.item(withRepresentedObject: newValue.mode))
             tokens = newValue.tokens
         }
     }

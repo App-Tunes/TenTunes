@@ -157,7 +157,6 @@ enum Note {
         }
 
         guard let note = Note.parse(noteString) else {
-            print("Failed to parse note: \(string)")
             return nil
         }
         

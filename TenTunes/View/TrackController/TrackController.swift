@@ -275,7 +275,7 @@ extension TrackController : MultiplicityGuardDelegate {
     func multiplicityGuard(_ view: MultiplicityGuardView, show elements: [Any]) -> MultiplicityGuardView.ShowAction {
         let tracks = elements as! [Track]
         guard tracks.allSatisfy({ $0.liveURL != nil }) else {
-            return .error(text: String(format: "%@ Not Found", AppDelegate.defaults[.trackWordSingular]))
+            return .error(text: String(format: "%@ Not Found", AppDelegate.defaults[.trackWordSingular].capitalized))
         }
         
         trackEditor!.show(tracks: tracks)

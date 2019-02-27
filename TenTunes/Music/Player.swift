@@ -93,6 +93,12 @@ protocol PlayerDelegate : class {
         
         return player.currentTime
     }
+    
+    var timeUntilNextTrack: Double? {
+        return currentTime.map {
+            player.duration - $0
+        }
+    }
 
     func play(at: Int?, in history: PlayHistory?) {
         if let history = history {

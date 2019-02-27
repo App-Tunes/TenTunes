@@ -30,8 +30,8 @@ extension ViewController {
                 }
                 
                 if !self._timePlayed.isHidden, !self._timeLeft.isHidden {
-                    self._timePlayed.stringValue = Int(self.player.player.currentTime).timeString
-                    self._timeLeft.stringValue = Int(self.player.player.duration - self.player.player.currentTime).timeString
+                    self._timePlayed.stringValue = self.player.currentTime.map { Int($0) }?.timeString ?? ""
+                    self._timeLeft.stringValue = self.player.timeUntilNextTrack.map { Int($0) }?.timeString ?? ""
                 }
             }
             

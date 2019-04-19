@@ -11,7 +11,6 @@
 		800134A8213835C0001FB5CE /* TagLibFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 800134A7213835C0001FB5CE /* TagLibFile.mm */; };
 		80074CF9204583CF0055B87E /* TrackController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80074CF7204583CF0055B87E /* TrackController.xib */; };
 		80074CFD204584980055B87E /* PlaylistController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80074CFB204584980055B87E /* PlaylistController.xib */; };
-		8013720E203F7C9C00CA9036 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720C203F7C9C00CA9036 /* AudioKit.framework */; };
 		8017685920743898000DD433 /* NSImageViewAspectFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8017685820743898000DD433 /* NSImageViewAspectFill.swift */; };
 		8020C64D221736A500E6FA5C /* AppDelegate+Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020C64C221736A500E6FA5C /* AppDelegate+Files.swift */; };
 		8020C64F2217372200E6FA5C /* AppDelegate+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020C64E2217372200E6FA5C /* AppDelegate+Menu.swift */; };
@@ -141,7 +140,6 @@
 		80B6DF97219EF473003EA487 /* LICENSE-MIKMIDI.txt in Resources */ = {isa = PBXBuildFile; fileRef = 80B6DF96219EF473003EA487 /* LICENSE-MIKMIDI.txt */; };
 		80B6DF9D219EF72E003EA487 /* MIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B6DF9C219EF72E003EA487 /* MIDI.swift */; };
 		80B6DF9F219EFAF0003EA487 /* VisualizerWindowController+MIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B6DF9E219EFAF0003EA487 /* VisualizerWindowController+MIDI.swift */; };
-		80B6DFA4219F06E4003EA487 /* MIKMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80B6DFA3219F06E4003EA487 /* MIKMIDI.framework */; };
 		80B6DFA5219F06E9003EA487 /* MIKMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80B6DFA3219F06E4003EA487 /* MIKMIDI.framework */; };
 		80B6DFA6219F06E9003EA487 /* MIKMIDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 80B6DFA3219F06E4003EA487 /* MIKMIDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		80B764562072F38D003BD7F8 /* PlaylistEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B764552072F38D003BD7F8 /* PlaylistEmpty.swift */; };
@@ -515,8 +513,6 @@
 				808067BB226A6DD1009942F5 /* Defaults.framework in Frameworks */,
 				808067BD226A6DD1009942F5 /* Preferences.framework in Frameworks */,
 				806AC13A2041EDD900857B1B /* AVFoundation.framework in Frameworks */,
-				8013720E203F7C9C00CA9036 /* AudioKit.framework in Frameworks */,
-				80B6DFA4219F06E4003EA487 /* MIKMIDI.framework in Frameworks */,
 				0418D7C40668030CCFCB5446 /* Pods_TenTunes.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1060,7 +1056,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = ivorius;
 				TargetAttributes = {
 					8069C06C22085FB900CD3396 = {

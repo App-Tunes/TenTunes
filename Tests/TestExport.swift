@@ -13,8 +13,7 @@ import XCTest
 class TestExport: TenTunesTest {
     override func setUp() {
         super.setUp()
-        // TODO Tags don't work yet
-        create(tracks: 3, groups: 2, tags: 0)
+        create(tracks: 3, groups: 2, tags: 2)
     }
     
     func testLibrary() {
@@ -24,6 +23,9 @@ class TestExport: TenTunesTest {
         
         groups[0].name = "Group0"
         groups[1].name = "Group1"
+
+        tags[0].name = "Tag0"
+        tags[1].name = "Tag1"
 
         let manual = PlaylistManual(context: context)
         manual.name = "Manual"
@@ -47,6 +49,10 @@ class TestExport: TenTunesTest {
             XCTAssert(otherPlaylists.contains { $0.name == "Group0" })
             XCTAssert(otherPlaylists.contains { $0.name == "Group1" })
             XCTAssert(otherPlaylists.contains { $0.name == "Manual" })
+            
+            let otherTags = other.allTags()
+            XCTAssert(otherTags.contains { $0.name == "Tag0" })
+            XCTAssert(otherTags.contains { $0.name == "Tag1" })
         }
         
         // Cleanup

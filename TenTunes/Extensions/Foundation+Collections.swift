@@ -172,7 +172,7 @@ extension NSOrderedSet {
 extension Array where Element: Equatable {
     @discardableResult
     public mutating func remove(element: Element) -> Bool {
-        if let idx = self.index(of: element) {
+        if let idx = self.firstIndex(of: element) {
             remove(at: idx)
             return true
         }
@@ -193,7 +193,7 @@ extension Array where Element: Equatable {
     }
     
     public mutating func rearrange(elements: [Element], to: Int) {
-        rearrange(from: elements.map { self.index(of: $0)! }, to: to)
+        rearrange(from: elements.map { self.firstIndex(of: $0)! }, to: to)
     }
     
     func flatten(by: (Element) -> [Element]?) -> [Element] {
@@ -281,7 +281,7 @@ extension Array where Element: Equatable {
         guard to.count > 50 else {
             // Any more and it looks shit
             // Can reasonably do index(of)
-            let indices = compactMap { to.index(of: $0) }
+            let indices = compactMap { to.firstIndex(of: $0) }
             // Everything has a unique index
             guard Set(indices).count == to.count else {
                 return nil

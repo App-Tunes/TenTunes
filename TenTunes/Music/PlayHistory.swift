@@ -76,7 +76,7 @@ class PlayHistory {
         order = order.sorted(by: sort)
         
         if shuffled == nil, let playing = playing {
-            playingIndex = order.index(of: playing)!
+            playingIndex = order.firstIndex(of: playing)!
         }
     }
     
@@ -86,7 +86,7 @@ class PlayHistory {
         let playing = playingTrack
         shuffled = nil
         if let playing = playing {
-            playingIndex = order.index(of: playing)!
+            playingIndex = order.firstIndex(of: playing)!
         }
         // Else we were at start or end
     }
@@ -161,7 +161,7 @@ class PlayHistory {
     }
     
     func indexOf(track: Track) -> Int? {
-        return tracks.index(of: track)
+        return tracks.firstIndex(of: track)
     }
     
     func move(to: Int) {

@@ -68,7 +68,7 @@ class TagEditor: NSObject {
         }
         
         // Can't use remove elements since enum.case !== enum.case (copy by value)
-        outlineView.removeItems(at: IndexSet(items.map { tagTokens.index(of: $0)! }), inParent: masterItem, withAnimation: .slideDown)
+        outlineView.removeItems(at: IndexSet(items.map { tagTokens.firstIndex(of: $0)! }), inParent: masterItem, withAnimation: .slideDown)
         tagTokens = tagTokens.filter { !items.contains($0) }
         
         tokensChanged()

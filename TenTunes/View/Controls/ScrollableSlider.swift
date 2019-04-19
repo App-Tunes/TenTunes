@@ -37,10 +37,10 @@ class ScrollableSlider: NSSlider {
             let maxValue = Float(self.maxValue)
             
             if value < minValue {
-                value = maxValue - fabs(increment)
+                value = maxValue - abs(increment)
             }
             if value > maxValue {
-                value = minValue + fabs(increment)
+                value = minValue + abs(increment)
             }
         }
         

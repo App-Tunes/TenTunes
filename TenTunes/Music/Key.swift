@@ -74,7 +74,7 @@ enum Note {
     }
     
     func camelot(isMinor: Bool) -> Int {
-        return ((Note.camelotWheel.index(of: self)! + (isMinor ? 9 : 0)) % Note.camelotWheel.count) + 1
+        return ((Note.camelotWheel.firstIndex(of: self)! + (isMinor ? 9 : 0)) % Note.camelotWheel.count) + 1
     }
     
     var description: String {

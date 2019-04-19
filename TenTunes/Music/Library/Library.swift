@@ -195,7 +195,7 @@ class Library : NSPersistentContainer {
 
     func position(of: Playlist) -> (PlaylistFolder, Int)? {
         if let parent = of.parent {
-            return (parent, parent.childrenList.index(of: of)!)
+            return (parent, parent.childrenList.firstIndex(of: of)!)
         }
         return nil
     }

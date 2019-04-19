@@ -135,7 +135,7 @@ extension TrackController: NSMenuDelegate {
         }
         
         ViewController.shared.playlistController.select(playlist: playlist)
-        // TODO select track
+        ViewController.shared.trackController.select(tracks: menuTracks)
     }
     
     @IBAction func menuAddToPlaylist(_ sender: Any) {

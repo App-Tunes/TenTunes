@@ -125,6 +125,14 @@ extension TrackController {
         playTrack?(row, nil)
     }
 
+    func select(tracks: [Track]) {
+        // First selection, for most cases this is enough, but there's no better way anyway
+        let indices = tracks.compactMap(history.indexOf)
+        
+        if let first = indices.first { _tableView.scrollRowToVisible(first) }
+        // didSelect will be called automatically by delegate method
+        _tableView.selectRowIndexes(IndexSet(indices), byExtendingSelection: false)
+    }
 }
 
 extension TrackController: NSTableViewDelegate {

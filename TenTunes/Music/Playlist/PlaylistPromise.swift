@@ -26,7 +26,10 @@ class PlaylistPromise {
             let urls = pasteboard.readObjects(forClasses: [NSURL.self], options: [.urlReadingFileURLsOnly: true]) as! [NSURL]
             
             guard urls.allSatisfy({
-                let type = try! NSWorkspace.shared.type(ofFile: $0.path!)
+                guard let type = try? NSWorkspace.shared.type(ofFile: $0.path!) else {
+                    return false // Contains missing file => Can't import anyway
+                }
+                
                 return PlaylistPromise.utiTypes.anySatisfy { NSWorkspace.shared.type(type, conformsToType: $0) }
             }) else {
                 return nil

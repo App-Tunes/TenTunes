@@ -197,16 +197,16 @@ extension TagEditor {
             }
         }
         
-        var hashValue: Int {
+        func hash(into hasher: inout Hasher) {
             switch self {
             case .related(let track):
-                return track.hashValue
+                hasher.combine(track)
             case .tag(let playlist):
-                return playlist.hashValue
+                hasher.combine(playlist)
             case .new:
-                return 1
+                break
             case .many(let playlists):
-                return playlists.hashValue
+                hasher.combine(playlists)
             }
         }
     }

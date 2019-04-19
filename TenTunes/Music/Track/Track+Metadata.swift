@@ -98,7 +98,7 @@ extension Track {
         if artwork == nil {
             let imgGenerator = AVAssetImageGenerator(asset: AVURLAsset(url: url))
             do {
-                let img = try imgGenerator.copyCGImage(at: CMTimeMake(0, 60), actualTime: nil)
+                let img = try imgGenerator.copyCGImage(at: CMTimeMake(value: 0, timescale: 60), actualTime: nil)
                 artwork = NSImage(cgImage: img, size: NSZeroSize)
             }
             catch {

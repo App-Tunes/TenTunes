@@ -21,7 +21,7 @@ extension Defaults.Keys {
 
 class FilesPreferences: NSViewController, Preferenceable {
     var toolbarItemTitle: String = "Files"
-    var toolbarItemIcon: NSImage = NSImage(named: .folderSmart)!
+    var toolbarItemIcon: NSImage = NSImage(named: NSImage.Name.folderSmartName)!
         
     override func viewDidLoad() {
         super.viewDidLoad()

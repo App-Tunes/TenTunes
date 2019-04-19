@@ -24,8 +24,8 @@ class PlayImageView: NSButton {
 
     var observeTrackToken: NSKeyValueObservation?
 
-    var playImage = NSImage(named: .init("play"))?.tinted(in: .white)
-    var playingImage = NSImage(named: .init("music"))?.tinted(in: .white)
+    var playImage = NSImage(named: "play")?.tinted(in: .white)
+    var playingImage = NSImage(named: "music")?.tinted(in: .white)
     
     var hoverTrackingArea: NSTrackingArea? {
         didSet {

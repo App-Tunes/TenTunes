@@ -56,8 +56,8 @@ protocol PlaylistControllerDelegate : class {
     override func awakeFromNib() {
         _outlineView.registerForDraggedTypes(pasteboardTypes)
         
-        _addPlaylist.hoverImage = NSImage(named: .init("caret-down"))?.tinted(in: .lightGray)
-        _addPlaylist.idleImage = NSImage(named: .init("add"))?.tinted(in: .lightGray)
+        _addPlaylist.hoverImage = NSImage(named: "caret-down")?.tinted(in: .lightGray)
+        _addPlaylist.idleImage = NSImage(named: "add")?.tinted(in: .lightGray)
         
         _addGroup.hoverImage = _addPlaylist.hoverImage
         _addGroup.idleImage = _addPlaylist.idleImage

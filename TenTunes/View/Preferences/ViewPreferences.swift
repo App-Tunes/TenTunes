@@ -51,7 +51,7 @@ extension Defaults.Keys {
 
 class ViewPreferences: NSViewController, Preferenceable {
     var toolbarItemTitle: String = "View"
-    var toolbarItemIcon: NSImage = NSImage(named: .colorPanel)!
+    var toolbarItemIcon: NSImage = NSImage(named: NSImage.Name.colorPanelName)!
     
     @IBOutlet var initialKeyDisplay: NSPopUpButton!
     @IBOutlet var waveformDisplay: NSPopUpButton!

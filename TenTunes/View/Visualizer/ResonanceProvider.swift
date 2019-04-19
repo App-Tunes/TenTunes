@@ -7,9 +7,8 @@
 //
 
 import Cocoa
-
 import AVFoundation
-import AudioKitUI
+import AudioKit
 
 @objc protocol ResonanceProvider {
     @objc var resonance: [Double] { get }

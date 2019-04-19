@@ -375,13 +375,13 @@ extension NSView {
     
     class func fromNib<T: NSView>() -> T? {
         var topLevel: NSArray?
-        Bundle.main.loadNibNamed(NSNib.Name(rawValue: String(describing: T.self)), owner: nil, topLevelObjects: &topLevel)
+        Bundle.main.loadNibNamed(NSNib.Name(String(describing: T.self)), owner: nil, topLevelObjects: &topLevel)
         return topLevel?.firstObject as? T
     }
     
     @discardableResult
     func loadNib(namedAfter clazz: Any) -> Bool {
-        return Bundle.main.loadNibNamed(NSNib.Name(rawValue: String(describing: type(of: clazz))), owner: self, topLevelObjects: nil)
+        return Bundle.main.loadNibNamed(NSNib.Name(String(describing: type(of: clazz))), owner: self, topLevelObjects: nil)
     }
     
     var isInWindowResponderChain: Bool {
@@ -401,8 +401,8 @@ extension NSImageView {
     func transitionWithImage(image: NSImage?, duration: Double = 0.2) {
         let transition = CATransition()
         transition.duration = duration
-        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        transition.type = kCATransitionFade
+        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        transition.type = .fade
         
         wantsLayer = true
         layer?.add(transition, forKey: kCATransition)

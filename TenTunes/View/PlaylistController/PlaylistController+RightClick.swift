@@ -14,7 +14,7 @@ extension PlaylistController : NSOutlineViewContextSensitiveMenuDelegate {
     }
 }
 
-extension PlaylistController: NSMenuDelegate {
+extension PlaylistController: NSMenuDelegate, NSMenuItemValidation {
     var menuPlaylists: [Playlist] {
         return _outlineView.clickedRows.compactMap { _outlineView.item(atRow: $0) as? Playlist }
     }
@@ -31,7 +31,7 @@ extension PlaylistController: NSMenuDelegate {
         menu.item(withAction: #selector(sortPlaylistChildren(_:)))?.isVisible = !((menuPlaylists.uniqueElement as? PlaylistFolder)?.automatesChildren ?? true)
     }
     
-    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         // Probably the main Application menu
         if menuItem.target !== self {
             return validateUserInterfaceItem(menuItem)

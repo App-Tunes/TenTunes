@@ -35,7 +35,7 @@ class PopupEnum<E : Equatable & Codable>: NSObject {
             popup.addItem(withTitle: title(item))
         }
         
-        popup.bind(.init(rawValue: "selectedIndex"), to: controller, withKeyPath: "selectedItem", options: [:])
+        popup.bind(.init("selectedIndex"), to: controller, withKeyPath: "selectedItem", options: [:])
     }
     
     static func represent(in popup: NSPopUpButton, with: [E], title: (E) -> String) {

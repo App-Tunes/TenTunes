@@ -24,7 +24,7 @@ class PlaylistMultiple : AnyPlaylist {
     }
     
     var icon: NSImage {
-        return NSImage(named: .init("playlist-smart"))!
+        return NSImage(named: "playlist-smart")!
     }
     
     var tracksList: [Track] {

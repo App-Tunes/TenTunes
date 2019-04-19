@@ -18,7 +18,7 @@ extension PlaylistController {
     }
     
     func outlineView(_ outlineView: NSOutlineView, validateDrop info: NSDraggingInfo, proposedItem item: Any?, proposedChildIndex index: Int) -> NSDragOperation {
-        let pasteboard = info.draggingPasteboard()
+        let pasteboard = info.draggingPasteboard
         let playlist = item as? Playlist ?? masterPlaylist!
 
         if TrackPromise.inside(pasteboard: pasteboard, for: Library.shared) != nil {
@@ -47,7 +47,7 @@ extension PlaylistController {
     }
     
     func outlineView(_ outlineView: NSOutlineView, acceptDrop info: NSDraggingInfo, item: Any?, childIndex index: Int) -> Bool {
-        let pasteboard = info.draggingPasteboard()
+        let pasteboard = info.draggingPasteboard
         
         let parent = item as? Playlist ?? masterPlaylist!
         

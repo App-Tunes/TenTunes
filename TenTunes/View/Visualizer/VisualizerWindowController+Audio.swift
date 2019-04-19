@@ -7,8 +7,7 @@
 //
 
 import Cocoa
-
-import AudioKitUI
+import AudioKit
 
 extension VisualizerWindowController {
     @objc class AudioConnection : NSObject {

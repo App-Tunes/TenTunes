@@ -7,11 +7,10 @@
 //
 
 import Cocoa
-
-import AudioKitUI
 import CoreGraphics
 
 import MIKMIDI
+import AudioKit
 
 class VisualizerWindowController: NSWindowController {
 

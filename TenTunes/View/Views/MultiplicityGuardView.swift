@@ -86,7 +86,7 @@ class MultiplicityGuardView: NSView {
         _manyTextField.drawsBackground = false
         _manyTextField.isBordered = false
         _manyTextField.textColor = .secondaryLabelColor
-        _manyTextField.setContentCompressionResistancePriority(.init(rawValue: 50), for: .horizontal)
+        _manyTextField.setContentCompressionResistancePriority(.init(50), for: .horizontal)
         
         _confirmShowMany = NSButton(title: "Show", target: self, action: #selector(showSuggested))
         _confirmShowMany.translatesAutoresizingMaskIntoConstraints = false
@@ -114,7 +114,7 @@ class MultiplicityGuardView: NSView {
         _errorTextField.drawsBackground = false
         _errorTextField.isBordered = false
         _errorTextField.textColor = .secondaryLabelColor
-        _errorTextField.setContentCompressionResistancePriority(.init(rawValue: 50), for: .horizontal)
+        _errorTextField.setContentCompressionResistancePriority(.init(50), for: .horizontal)
         
         _errorPlaceholder!.addSubview(_errorTextField)
         _errorPlaceholder!.addConstraints(NSLayoutConstraint.center(in: _errorPlaceholder!, for: _errorTextField!))

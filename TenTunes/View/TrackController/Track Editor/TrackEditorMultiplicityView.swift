@@ -17,7 +17,7 @@ class TrackEditorMultiplicityView : MultiplicityGuardView {
     }
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
-        guard TrackPromise.inside(pasteboard: sender.draggingPasteboard(), for: Library.shared) != nil else {
+        guard TrackPromise.inside(pasteboard: sender.draggingPasteboard, for: Library.shared) != nil else {
             return []
         }
 
@@ -34,7 +34,7 @@ class TrackEditorMultiplicityView : MultiplicityGuardView {
     }
 
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
-        guard let promises = TrackPromise.inside(pasteboard: sender.draggingPasteboard(), for: Library.shared) else {
+        guard let promises = TrackPromise.inside(pasteboard: sender.draggingPasteboard, for: Library.shared) else {
             return false
         }
         

@@ -25,7 +25,7 @@ extension ViewController {
                 self._taskButton.isEnabled = self._taskButton.spinning
                 NSAnimationContext.runAnimationGroup {_ in
                     NSAnimationContext.current.duration = 0.25
-                    NSAnimationContext.current.timingFunction = .init(name: kCAMediaTimingFunctionEaseInEaseOut)
+                    NSAnimationContext.current.timingFunction = .init(name: .easeInEaseOut)
                     self._taskRightConstraint.animator().constant = self._taskButton.spinning ? 20 : -17
                 }
                 

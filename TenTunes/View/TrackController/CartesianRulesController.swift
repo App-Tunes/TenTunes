@@ -76,7 +76,7 @@ class CartesianRulesController : NSViewController, TTTokenFieldDelegate {
         }
     }
     
-    override func controlTextDidEndEditing(_ obj: Notification) {
+    func controlTextDidEndEditing(_ obj: Notification) {
         delegate?.editingEnded?(cartesianRulesController: self, notification: obj)
         (obj.object as? TTTokenField)?.autocomplete(with: nil)
     }

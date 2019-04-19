@@ -165,8 +165,8 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
 
         _tokenField.replace(tokenAt: tokens.index(of: token), with: token.inverted())
     }
-    
-    override func controlTextDidChange(_ obj: Notification) {
+
+    func controlTextDidChange(_ obj: Notification) {
         if _tokenField.editingString != lastEditingString && lastEditingString != (rules.tokens.last as? SmartPlaylistRules.Token.Search)?.string {
             // Live search changed
             lastEditingString = _tokenField.editingString
@@ -174,7 +174,7 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
         }
     }
     
-    override func controlTextDidEndEditing(_ obj: Notification) {
+    func controlTextDidEndEditing(_ obj: Notification) {
         delegate?.editingEnded?(smartPlaylistRulesController: self, notification: obj)
         _tokenField.autocompletePopover.close()
     }

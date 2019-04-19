@@ -40,7 +40,6 @@
 		8030E01B20FE7AAC006B4AE8 /* MoveTrackToMediaLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E01A20FE7AAC006B4AE8 /* MoveTrackToMediaLocation.swift */; };
 		803717292043629800DB9EAA /* ViewController+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803717282043629700DB9EAA /* ViewController+Background.swift */; };
 		803E972F20C7EF2C00D46565 /* LazyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803E972E20C7EF2C00D46565 /* LazyMap.swift */; };
-		804539B1215ACA8B0080153F /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720D203F7C9C00CA9036 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8046CDA3204EF1ED00E732E7 /* TitleSubtitleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */; };
 		804A15FC2172514200CBF56F /* Honey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804A15FB2172514200CBF56F /* Honey.swift */; };
 		804A15FF217252BC00CBF56F /* Cloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804A15FE217252BC00CBF56F /* Cloud.swift */; };
@@ -48,8 +47,6 @@
 		804DCC77215D10170021A753 /* TrackPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804DCC76215D10170021A753 /* TrackPromise.swift */; };
 		8055FE7E20C947A300559F45 /* Volumes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8055FE7D20C947A300559F45 /* Volumes.swift */; };
 		8058FA8F204317080086FF8A /* libSuperpoweredAudioOSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8058FA8E204317080086FF8A /* libSuperpoweredAudioOSX.a */; };
-		8058FABC20432A730086FF8A /* MediaKeyTap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8058FABB20432A730086FF8A /* MediaKeyTap.framework */; };
-		8058FABE20432D3D0086FF8A /* MediaKeyTap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8058FABB20432A730086FF8A /* MediaKeyTap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8058FAC02043409F0086FF8A /* SubtleTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058FABF2043409F0086FF8A /* SubtleTableRowView.swift */; };
 		806611812124622100C3948E /* Library.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80D8A0FC212460BE003E1F11 /* Library.storyboard */; };
 		8066118A2125B9BF00C3948E /* TagEditor+Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806611892125B9BF00C3948E /* TagEditor+Tags.swift */; };
@@ -59,6 +56,9 @@
 		806AC13E2041EDEE00857B1B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806AC13D2041EDEE00857B1B /* AudioToolbox.framework */; };
 		806AC1432041EF1900857B1B /* SPAnalyzer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 806AC1422041EF1900857B1B /* SPAnalyzer.mm */; };
 		806AC1482041F73300857B1B /* libtaglib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C0C2A4203F6DCA00FA6083 /* libtaglib.a */; };
+		806C31C5226A323000D545BC /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720C203F7C9C00CA9036 /* AudioKit.framework */; };
+		806C31C6226A323000D545BC /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720C203F7C9C00CA9036 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		806C31C8226A3B4800D545BC /* NSImage+Hacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806C31C7226A3B4800D545BC /* NSImage+Hacks.swift */; };
 		806C5B2620423AC000C34F49 /* SPInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806C5B2520423AC000C34F49 /* SPInterpreter.swift */; };
 		806EFC22204B63620079DBAA /* PlaylistLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806EFC21204B63620079DBAA /* PlaylistLibrary.swift */; };
 		806EFC27204B65C10079DBAA /* AnyPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806EFC26204B65C10079DBAA /* AnyPlaylist.swift */; };
@@ -69,8 +69,6 @@
 		8071F63521AC299D0005685B /* PlaylistController+Updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8071F63421AC299D0005685B /* PlaylistController+Updates.swift */; };
 		8071F63721AEBA700005685B /* HumanDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8071F63621AEBA700005685B /* HumanDates.swift */; };
 		8071FA6F220E666A000B8868 /* TestPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8071FA6E220E666A000B8868 /* TestPlayer.swift */; };
-		8071FA72220EE8A6000B8868 /* Defaults.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8071FA71220EE8A6000B8868 /* Defaults.framework */; };
-		8071FA73220EE8A6000B8868 /* Defaults.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8071FA71220EE8A6000B8868 /* Defaults.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8071FA75220EF627000B8868 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8071FA74220EF627000B8868 /* Defaults.swift */; };
 		8074044921367A1F007E0B4C /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8074044821367A1F007E0B4C /* Artist.swift */; };
 		8074044C2136CE68007E0B4C /* Interpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8074044B2136CE68007E0B4C /* Interpolation.swift */; };
@@ -97,13 +95,17 @@
 		807F6A37210202A8002048B1 /* Library+Sanity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807F6A36210202A8002048B1 /* Library+Sanity.swift */; };
 		80802586203EFCC0008D4168 /* Foundation+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802585203EFCC0008D4168 /* Foundation+TT.swift */; };
 		80802588203F0399008D4168 /* PlaylistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802587203F0399008D4168 /* PlaylistController.swift */; };
+		808067BB226A6DD1009942F5 /* Defaults.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8071FA71220EE8A6000B8868 /* Defaults.framework */; };
+		808067BC226A6DD1009942F5 /* Defaults.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8071FA71220EE8A6000B8868 /* Defaults.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		808067BD226A6DD1009942F5 /* Preferences.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 808BAAD7220DA71A0017557C /* Preferences.framework */; };
+		808067BE226A6DD1009942F5 /* Preferences.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 808BAAD7220DA71A0017557C /* Preferences.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		808067BF226A6DD1009942F5 /* MediaKeyTap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8058FABB20432A730086FF8A /* MediaKeyTap.framework */; };
+		808067C0226A6DD1009942F5 /* MediaKeyTap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8058FABB20432A730086FF8A /* MediaKeyTap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808161CE2040520900AEA64F /* AVFoundationImporter.swift */; };
 		808161D2204059FE00AEA64F /* TrackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808161D1204059FE00AEA64F /* TrackController.swift */; };
 		8085DC7020C936D6008F4084 /* ActionStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8085DC6F20C936D6008F4084 /* ActionStub.swift */; };
 		8087A406206D933F003F1821 /* Analysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087A405206D933F003F1821 /* Analysis.swift */; };
 		8087A494206597DC00CC9569 /* EnterReturningTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087A493206597DC00CC9569 /* EnterReturningTextField.swift */; };
-		808BAAD9220DA71B0017557C /* Preferences.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 808BAAD7220DA71A0017557C /* Preferences.framework */; };
-		808BAADA220DA71B0017557C /* Preferences.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 808BAAD7220DA71A0017557C /* Preferences.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		808BAADE220DA7C60017557C /* BehaviorPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808BAADC220DA7C60017557C /* BehaviorPreferences.swift */; };
 		808BAADF220DA7C60017557C /* BehaviorPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 808BAADD220DA7C60017557C /* BehaviorPreferences.xib */; };
 		808BAAE2220DA8D80017557C /* ViewPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808BAAE0220DA8D80017557C /* ViewPreferences.swift */; };
@@ -235,12 +237,12 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				804539B1215ACA8B0080153F /* AudioKitUI.framework in Embed Frameworks */,
+				806C31C6226A323000D545BC /* AudioKit.framework in Embed Frameworks */,
 				80B6DFA6219F06E9003EA487 /* MIKMIDI.framework in Embed Frameworks */,
-				8071FA73220EE8A6000B8868 /* Defaults.framework in Embed Frameworks */,
+				808067BC226A6DD1009942F5 /* Defaults.framework in Embed Frameworks */,
+				808067BE226A6DD1009942F5 /* Preferences.framework in Embed Frameworks */,
 				8030CA7F2164DDB300229398 /* Syphon.framework in Embed Frameworks */,
-				808BAADA220DA71B0017557C /* Preferences.framework in Embed Frameworks */,
-				8058FABE20432D3D0086FF8A /* MediaKeyTap.framework in Embed Frameworks */,
+				808067C0226A6DD1009942F5 /* MediaKeyTap.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -254,8 +256,7 @@
 		80074CF7204583CF0055B87E /* TrackController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackController.xib; sourceTree = "<group>"; };
 		80074CFB204584980055B87E /* PlaylistController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistController.xib; sourceTree = "<group>"; };
 		80074CFE2046BB0B0055B87E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		8013720C203F7C9C00CA9036 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = Carthage/Build/Mac/AudioKit.framework; sourceTree = SOURCE_ROOT; };
-		8013720D203F7C9C00CA9036 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = Carthage/Build/Mac/AudioKitUI.framework; sourceTree = SOURCE_ROOT; };
+		8013720C203F7C9C00CA9036 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = Carthage/Build/Mac/Static/AudioKit.framework; sourceTree = SOURCE_ROOT; };
 		8017685820743898000DD433 /* NSImageViewAspectFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImageViewAspectFill.swift; sourceTree = "<group>"; };
 		8020C64C221736A500E6FA5C /* AppDelegate+Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Files.swift"; sourceTree = "<group>"; };
 		8020C64E2217372200E6FA5C /* AppDelegate+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Menu.swift"; sourceTree = "<group>"; };
@@ -332,6 +333,7 @@
 		806AC13D2041EDEE00857B1B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		806AC1412041EF1900857B1B /* SPAnalyzer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPAnalyzer.h; sourceTree = "<group>"; };
 		806AC1422041EF1900857B1B /* SPAnalyzer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SPAnalyzer.mm; sourceTree = "<group>"; };
+		806C31C7226A3B4800D545BC /* NSImage+Hacks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Hacks.swift"; sourceTree = "<group>"; };
 		806C5B2520423AC000C34F49 /* SPInterpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPInterpreter.swift; sourceTree = "<group>"; };
 		806EFC21204B63620079DBAA /* PlaylistLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistLibrary.swift; sourceTree = "<group>"; };
 		806EFC26204B65C10079DBAA /* AnyPlaylist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyPlaylist.swift; sourceTree = "<group>"; };
@@ -504,16 +506,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				8030CA812164DDE300229398 /* Syphon.framework in Frameworks */,
+				808067BF226A6DD1009942F5 /* MediaKeyTap.framework in Frameworks */,
 				8058FA8F204317080086FF8A /* libSuperpoweredAudioOSX.a in Frameworks */,
-				8071FA72220EE8A6000B8868 /* Defaults.framework in Frameworks */,
+				806C31C5226A323000D545BC /* AudioKit.framework in Frameworks */,
 				806AC1482041F73300857B1B /* libtaglib.a in Frameworks */,
 				80B6DFA5219F06E9003EA487 /* MIKMIDI.framework in Frameworks */,
 				806AC13E2041EDEE00857B1B /* AudioToolbox.framework in Frameworks */,
+				808067BB226A6DD1009942F5 /* Defaults.framework in Frameworks */,
+				808067BD226A6DD1009942F5 /* Preferences.framework in Frameworks */,
 				806AC13A2041EDD900857B1B /* AVFoundation.framework in Frameworks */,
 				8013720E203F7C9C00CA9036 /* AudioKit.framework in Frameworks */,
 				80B6DFA4219F06E4003EA487 /* MIKMIDI.framework in Frameworks */,
-				808BAAD9220DA71B0017557C /* Preferences.framework in Frameworks */,
-				8058FABC20432A730086FF8A /* MediaKeyTap.framework in Frameworks */,
 				0418D7C40668030CCFCB5446 /* Pods_TenTunes.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -822,6 +825,7 @@
 				80CED03B20C88055001E710F /* AVFoundation+TT.swift */,
 				8071F63621AEBA700005685B /* HumanDates.swift */,
 				8071FA74220EF627000B8868 /* Defaults.swift */,
+				806C31C7226A3B4800D545BC /* NSImage+Hacks.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -893,7 +897,6 @@
 				806AC1392041EDD900857B1B /* AVFoundation.framework */,
 				806AC1372041EC8400857B1B /* libSuperpoweredAudioOSX.a */,
 				8013720C203F7C9C00CA9036 /* AudioKit.framework */,
-				8013720D203F7C9C00CA9036 /* AudioKitUI.framework */,
 				80C0C29F203F6DCA00FA6083 /* taglib.xcodeproj */,
 				F519690AE56FC5800E060F88 /* Pods_TenTunes.framework */,
 			);
@@ -1275,6 +1278,7 @@
 				807D7B6221A7FDA50021C73B /* TagEditor.swift in Sources */,
 				8074044921367A1F007E0B4C /* Artist.swift in Sources */,
 				80802586203EFCC0008D4168 /* Foundation+TT.swift in Sources */,
+				806C31C8226A3B4800D545BC /* NSImage+Hacks.swift in Sources */,
 				8079F6DE210674F700B7A278 /* CartesianRules.swift in Sources */,
 				8055FE7E20C947A300559F45 /* Volumes.swift in Sources */,
 				8017685920743898000DD433 /* NSImageViewAspectFill.swift in Sources */,
@@ -1420,7 +1424,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = ivorius.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ten Tunes.app/Contents/MacOS/Ten Tunes";
 			};
 			name = Debug;
@@ -1440,7 +1444,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = ivorius.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ten Tunes.app/Contents/MacOS/Ten Tunes";
 			};
 			name = Release;
@@ -1571,6 +1575,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/Mac/Static",
 				);
 				HEADER_SEARCH_PATHS = (
 					"${SRCROOT}/../../taglib-src/taglib/**",
@@ -1589,7 +1594,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TenTunes/TenTunes-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1609,6 +1614,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/Mac/Static",
 				);
 				HEADER_SEARCH_PATHS = (
 					"${SRCROOT}/../../taglib-src/taglib/**",
@@ -1626,7 +1632,7 @@
 				PRODUCT_NAME = "Ten Tunes";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TenTunes/TenTunes-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

@@ -159,25 +159,25 @@ class TrackController: NSViewController {
         
         _playlistTitle.stringValue = ""
         
-        filterBar = HideableBar(nibName: .init(rawValue: "HideableBar"), bundle: nil)
+        filterBar = HideableBar(nibName: .init("HideableBar"), bundle: nil)
         filterBar.height = 32
         filterBar.delegate = self
         _filterBarContainer.setFullSizeContent(filterBar.view)
         
-        filterController = SmartPlaylistRulesController(nibName: .init(rawValue: "SmartPlaylistRulesController"), bundle: nil)
+        filterController = SmartPlaylistRulesController(nibName: .init("SmartPlaylistRulesController"), bundle: nil)
         filterController.delegate = self
         filterBar.contentView = filterController.view
 
-        ruleBar = HideableBar(nibName: .init(rawValue: "HideableBar"), bundle: nil)
+        ruleBar = HideableBar(nibName: .init("HideableBar"), bundle: nil)
         ruleBar.height = 32
         ruleBar.delegate = self
         _ruleBarContainer.setFullSizeContent(ruleBar.view)
 
-        smartPlaylistRuleController = SmartPlaylistRulesController(nibName: .init(rawValue: "SmartPlaylistRulesController"), bundle: nil)
+        smartPlaylistRuleController = SmartPlaylistRulesController(nibName: .init("SmartPlaylistRulesController"), bundle: nil)
         smartPlaylistRuleController.delegate = self
         ruleBar.contentView = smartPlaylistRuleController.view
         
-        smartFolderRuleController = CartesianRulesController(nibName: .init(rawValue: "CartesianRulesController"), bundle: nil)
+        smartFolderRuleController = CartesianRulesController(nibName: .init("CartesianRulesController"), bundle: nil)
         smartFolderRuleController.delegate = self
         smartFolderRuleController.loadView()
 

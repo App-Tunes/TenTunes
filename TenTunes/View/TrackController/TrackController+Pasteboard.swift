@@ -21,14 +21,14 @@ extension TrackController {
     
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
         
-        if let playlistPromises = PlaylistPromise.inside(pasteboard: info.draggingPasteboard(), for: Library.shared) {
+        if let playlistPromises = PlaylistPromise.inside(pasteboard: info.draggingPasteboard, for: Library.shared) {
             guard dropOperation == .on, let playlists = (playlistPromises as? [PlaylistPromise.Existing])?.map({ $0.fire() }) else {
                 return []
             }
             return playlists.allSatisfy({ ($0 as? ModifiablePlaylist)?.supports(action: .add) ?? false }) ? .link : []
         }
         
-        guard let promises = TrackPromise.inside(pasteboard: info.draggingPasteboard(), for: Library.shared) else {
+        guard let promises = TrackPromise.inside(pasteboard: info.draggingPasteboard, for: Library.shared) else {
             return []
         }
         
@@ -55,7 +55,7 @@ extension TrackController {
     }
     
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
-        if let playlistPromises = PlaylistPromise.inside(pasteboard: info.draggingPasteboard(), for: Library.shared) {
+        if let playlistPromises = PlaylistPromise.inside(pasteboard: info.draggingPasteboard, for: Library.shared) {
             let playlists = playlistPromises.compactMap { $0.fire() }
             guard let track = history.track(at: row) else {
                 return false
@@ -70,7 +70,7 @@ extension TrackController {
             return true
         }
         
-        guard let promises = TrackPromise.inside(pasteboard: info.draggingPasteboard(), for: Library.shared) else {
+        guard let promises = TrackPromise.inside(pasteboard: info.draggingPasteboard, for: Library.shared) else {
             return false
         }
 
@@ -79,7 +79,7 @@ extension TrackController {
         if mode == .queue {
             let tracksBefore = history.tracks
             
-            if (info.draggingSource() as AnyObject) === _tableView {
+            if (info.draggingSource as AnyObject) === _tableView {
                 history.rearrange(tracks: tracks, before: row)
             }
             else {
@@ -135,7 +135,7 @@ extension TrackController: NSDraggingDestination {
     }
     
     func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
-        guard acceptsGeneralDrag, TrackPromise.inside(pasteboard: sender.draggingPasteboard(), for: Library.shared) != nil else {
+        guard acceptsGeneralDrag, TrackPromise.inside(pasteboard: sender.draggingPasteboard, for: Library.shared) != nil else {
             return []
         }
         
@@ -156,7 +156,7 @@ extension TrackController: NSDraggingDestination {
             return false
         }
 
-        let pasteboard = sender.draggingPasteboard()
+        let pasteboard = sender.draggingPasteboard
         
         let parent = history.playlist
         

@@ -77,24 +77,24 @@ class ViewController: NSViewController {
     var taskViewController: TaskViewController!
     
     override func viewDidLoad() {        
-        trackController = TrackController(nibName: .init(rawValue: "TrackController"), bundle: nil)
+        trackController = TrackController(nibName: .init("TrackController"), bundle: nil)
         trackController.view.frame = _trackView.frame
         
         _trackGuardView.contentView = trackController.view
         _trackGuardView.delegate = self
         
-        playingTrackController = TrackController(nibName: .init(rawValue: "TrackController"), bundle: nil)
+        playingTrackController = TrackController(nibName: .init("TrackController"), bundle: nil)
         playingTrackController.view.frame = _playingTrackView.frame
         _playingTrackView.setFullSizeContent(playingTrackController.view)
         playingTrackController.titleify()
         
-        playlistController = PlaylistController(nibName: .init(rawValue: "PlaylistController"), bundle: nil)
+        playlistController = PlaylistController(nibName: .init("PlaylistController"), bundle: nil)
         playlistController.view.frame = _playlistView.frame
         _splitView.replaceSubview(_playlistView, with: playlistController.view)
         
-        queueController = TrackController(nibName: .init(rawValue: "TrackController"), bundle: nil)
+        queueController = TrackController(nibName: .init("TrackController"), bundle: nil)
         
-        taskViewController = TaskViewController(nibName: .init(rawValue: "TaskViewController"), bundle: nil)
+        taskViewController = TaskViewController(nibName: .init("TaskViewController"), bundle: nil)
         
         ViewController.shared = self
         
@@ -160,7 +160,7 @@ class ViewController: NSViewController {
             self._coverImage.alphaValue = CGFloat(change.newValue ?? 0)
         }
         
-        mediaKeyTap = MediaKeyTap(delegate: self, for: [.playPause, .previous, .rewind, .next, .fastForward])
+        mediaKeyTap = MediaKeyTap(delegate: self)
         mediaKeyTap?.start()
         
         taskers.append(AnalyzeCurrentTrack())
@@ -339,7 +339,7 @@ extension ViewController : MultiplicityGuardDelegate {
 }
 
 extension ViewController: MediaKeyTapDelegate {
-    func handle(mediaKey: MediaKey, event: KeyEvent?) {
+    func handle(mediaKey: MediaKey, event: KeyEvent) {
         switch mediaKey {
         case .playPause:
             _play.performClick(self)
@@ -347,8 +347,6 @@ extension ViewController: MediaKeyTapDelegate {
             _previous.performClick(self)
         case .next, .fastForward:
             _next.performClick(self)
-        default:
-            break
         }
     }
 }

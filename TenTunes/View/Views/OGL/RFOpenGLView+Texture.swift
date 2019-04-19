@@ -95,7 +95,7 @@ extension RFOpenGLView {
             glGenFramebuffers(1, &framebufferID);
             glBindFramebuffer(GLenum(GL_FRAMEBUFFER), framebufferID);
             
-            glFramebufferTexture(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), texture.textureID, 0);
+            glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), texture.textureID, 0, 0);
             
             let status = glCheckFramebufferStatus(GLenum(GL_FRAMEBUFFER))
             if status != GL_FRAMEBUFFER_COMPLETE {

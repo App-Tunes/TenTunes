@@ -309,7 +309,7 @@ extension TrackController: NSTableViewDataSource {
             case "bpm":
                 desired.sort = { ($0.speed ?? Track.Speed.zero) < ($1.speed ?? Track.Speed.zero)  }
             case "duration":
-                desired.sort = { ($0.duration ?? kCMTimeZero) < ($1.duration ?? kCMTimeZero)  }
+                desired.sort = { ($0.duration ?? CMTime.zero) < ($1.duration ?? CMTime.zero)  }
             case "dateAdded":
                 desired.sort = { $0.creationDate.timeIntervalSinceReferenceDate < $1.creationDate.timeIntervalSinceReferenceDate }
             case "year":

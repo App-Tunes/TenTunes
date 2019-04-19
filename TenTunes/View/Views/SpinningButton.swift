@@ -32,7 +32,7 @@ class SpinningButton: NSButton {
         ani.toValue = -Double.pi * 2
         ani.duration = .seconds(1)
         ani.delegate = self
-        ani.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        ani.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         ani.isRemovedOnCompletion = true
         layer?.add(ani, forKey: "spin")
     }

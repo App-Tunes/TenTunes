@@ -10,7 +10,7 @@ import Cocoa
 
 extension ValueTransformer {
     class func register(_ name: String, _ with: ValueTransformer) {
-        setValueTransformer(with, forName: .init(rawValue: name))
+        setValueTransformer(with, forName: .init(name))
     }
 }
 

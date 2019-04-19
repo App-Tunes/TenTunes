@@ -167,7 +167,7 @@ extension TagEditor : TTTokenFieldDelegate {
         return false
     }
     
-    override func controlTextDidEndEditing(_ obj: Notification) {
+    func controlTextDidEndEditing(_ obj: Notification) {
         if let labelField = obj.object as? TTTokenField {
             labelField.objectValue = [] // Clear instead of letting it become a Token
         }

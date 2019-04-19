@@ -14,7 +14,7 @@ class PlaylistEmpty : AnyPlaylist {
     }
     
     var icon: NSImage {
-        return NSImage(named: .init("playlist"))!
+        return NSImage(named: "playlist")!
     }
     
     var persistentID: UUID {

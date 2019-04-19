@@ -38,7 +38,7 @@ extension Defaults.Keys {
 
 class BehaviorPreferences: NSViewController, Preferenceable {
     var toolbarItemTitle: String = "Behavior"
-    var toolbarItemIcon: NSImage = NSImage(named: .advanced)!
+    var toolbarItemIcon: NSImage = NSImage(named: NSImage.Name.advancedName)!
 
     @IBOutlet var fileLocationOnAdd: NSPopUpButton!
 

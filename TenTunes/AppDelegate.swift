@@ -132,7 +132,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             FilesPreferences(),
             ])
         
-        exportPlaylistsController = ExportPlaylistsController(windowNibName: .init(rawValue: "ExportPlaylistsController"))
+        exportPlaylistsController = ExportPlaylistsController(windowNibName: .init("ExportPlaylistsController"))
         
         visualizerController = VisualizerWindowController(windowNibName: .init("VisualizerWindowController"))
         visualizerController.loadWindow()

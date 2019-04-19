@@ -81,7 +81,7 @@ extension TrackController: NSMenuDelegate {
         }
     }
     
-    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         // Probably the main Application menu
         if menuItem.target !== self {
             return validateUserInterfaceItem(menuItem)

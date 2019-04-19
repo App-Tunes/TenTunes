@@ -69,7 +69,7 @@ class PlaylistLibrary: AnyPlaylist {
     }
     
     var icon: NSImage {
-        return NSImage(named: .init("home"))!
+        return NSImage(named: "home")!
     }
 }
 

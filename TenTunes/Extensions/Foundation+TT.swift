@@ -10,8 +10,13 @@ import Foundation
 
 func longZip<Sequence1, Sequence2>(_ sequence1: Sequence1, _ sequence2: Sequence2) -> [(Sequence1.Element?, Sequence2.Element?)] where Sequence1 : Sequence, Sequence2 : Sequence {
     var zipped : [(Sequence1.Element?, Sequence2.Element?)] = Array(zip(sequence1, sequence2).map { ($0.0 as Sequence1.Element?, $0.1 as Sequence2.Element?) })
-    zipped.append(contentsOf: sequence1.dropFirst(zipped.count).map { ($0, nil) })
-    zipped.append(contentsOf: sequence2.dropFirst(zipped.count).map { (nil, $0) })
+    
+    let ext1: [(Sequence1.Element?, Sequence2.Element?)] = sequence1.dropFirst(zipped.count).map { ($0, nil) }
+    zipped.append(contentsOf: ext1)
+    
+    let ext2: [(Sequence1.Element?, Sequence2.Element?)] = sequence2.dropFirst(zipped.count).map { (nil, $0) }
+    zipped.append(contentsOf: ext2)
+    
     return zipped
 }
 
@@ -116,7 +121,7 @@ extension Int {
 }
 
 extension NSAttributedString {
-    func with(_ value: Any, for key: NSAttributedStringKey) -> NSAttributedString {
+    func with(_ value: Any, for key: NSAttributedString.Key) -> NSAttributedString {
         let mutableCopy = self.mutableCopy() as! NSMutableAttributedString
         mutableCopy.addAttribute(key, value: value, range: NSRange(location: 0, length: mutableCopy.length))
         return mutableCopy

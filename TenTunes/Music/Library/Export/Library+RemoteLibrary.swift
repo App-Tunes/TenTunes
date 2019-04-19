@@ -104,7 +104,10 @@ extension Library.Export {
         func convert(_ playlist: Playlist) -> Playlist? {
             var otherPlaylist: Playlist? = nil
             
-            if let playlist = playlist as? PlaylistManual {
+            if playlist == self.src.tagPlaylist {
+                otherPlaylist = self.dst.tagPlaylist
+            }
+            else if let playlist = playlist as? PlaylistManual {
                 let newPlaylist = PlaylistManual(context: context)
                 
                 newPlaylist.addTracks(playlist.tracksList.compactMap {

@@ -31,10 +31,11 @@ extension AppDelegate {
     @IBAction func importFromITunes(_ sender: Any) {
         let dialog = NSOpenPanel()
         
-        dialog.title                   = "Select an iTunes Library"
+        dialog.title = "Select an iTunes Library"
         dialog.allowsMultipleSelection = false
-        dialog.allowedFileTypes        = ["xml"]
-        
+        dialog.allowedFileTypes = ["xml"]
+        dialog.directoryURL = MediaLocation.musicDirectory?.appendingPathComponent("iTunes")
+
         if dialog.runModal() == NSApplication.ModalResponse.OK {
             guard let url = dialog.url else {
                 return

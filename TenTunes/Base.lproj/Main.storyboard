@@ -146,8 +146,8 @@
                                                 </items>
                                             </menu>
                                         </menuItem>
-                                        <menuItem title="Import from iTunes..." keyEquivalent="i" id="YKS-7l-PFL">
-                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                        <menuItem title="Import from iTunes..." id="YKS-7l-PFL">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="importFromITunes:" target="Voe-Tx-rLC" id="Ku1-Yj-GbZ"/>
                                             </connections>

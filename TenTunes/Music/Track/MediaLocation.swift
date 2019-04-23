@@ -17,6 +17,10 @@ class MediaLocation {
         // TODO Clean up Garbage in the Media directory. ITS OURS
         // Move it to 'media-trash' or something :D
     }
+    
+    static var musicDirectory: URL? {
+        return FileManager.default.urls(for: .musicDirectory, in: .userDomainMask).first
+    }
         
     func updateLocation(of track: Track, copy: Bool = false) {
         guard track.usesMediaDirectory else {

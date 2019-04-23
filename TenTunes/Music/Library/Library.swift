@@ -143,8 +143,7 @@ class Library : NSPersistentContainer {
     }
     
     static func defaultURL() -> URL {        
-        let musicDir = FileManager.default.urls(for: .musicDirectory, in: .userDomainMask).first!
-        return musicDir.appendingPathComponent("Ten Tunes")
+        return MediaLocation.musicDirectory!.appendingPathComponent("Ten Tunes")
     }
 
     

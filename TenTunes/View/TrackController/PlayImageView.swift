@@ -36,7 +36,9 @@ class PlayImageView: NSButton {
     
     var isHovering = false {
         didSet {
-            setNeedsDisplay()
+            if isHovering != oldValue {
+                setNeedsDisplay()
+            }
         }
     }
 
@@ -50,6 +52,10 @@ class PlayImageView: NSButton {
         super.updateTrackingAreas()
         
         hoverTrackingArea = NSTrackingArea(rect: bounds, options: [.activeAlways, .mouseEnteredAndExited], owner: self, userInfo: nil)
+        
+        if (!bounds.contains(convert(NSEvent.mouseLocation, from: nil))) {
+            isHovering = false
+        }
     }
     
     override func mouseEntered(with event: NSEvent) { isHovering = true }

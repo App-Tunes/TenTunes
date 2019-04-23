@@ -97,7 +97,7 @@ public class Track: NSManagedObject {
     }
     
     @objc var rSource: String {
-        return album != nil ? "\(author ?? Artist.unknown) - \(album!)" : (author ?? Artist.unknown)
+        return album != nil ? "\(author ?? Artist.unknown) — \(album!)" : (author ?? Artist.unknown)
     }
         
     var authors: [Artist] {

@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension TrackController: NSMenuDelegate {
+extension TrackController: NSMenuDelegate, NSMenuItemValidation {
     var menuTracks: [Track] {
         return _tableView.clickedRows.compactMap { history.track(at: $0) }
     }

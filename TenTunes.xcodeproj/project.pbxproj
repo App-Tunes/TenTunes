@@ -55,6 +55,10 @@
 		806AC13E2041EDEE00857B1B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806AC13D2041EDEE00857B1B /* AudioToolbox.framework */; };
 		806AC1432041EF1900857B1B /* SPAnalyzer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 806AC1422041EF1900857B1B /* SPAnalyzer.mm */; };
 		806AC1482041F73300857B1B /* libtaglib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C0C2A4203F6DCA00FA6083 /* libtaglib.a */; };
+		806BC9C4226F727F00F9B609 /* Defaults.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806BC9C3226F727F00F9B609 /* Defaults.framework */; };
+		806BC9C5226F727F00F9B609 /* Defaults.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 806BC9C3226F727F00F9B609 /* Defaults.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		806BC9C7226F72B800F9B609 /* Preferences.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806BC9C6226F72B800F9B609 /* Preferences.framework */; };
+		806BC9C8226F72B800F9B609 /* Preferences.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 806BC9C6226F72B800F9B609 /* Preferences.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		806C31C5226A323000D545BC /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720C203F7C9C00CA9036 /* AudioKit.framework */; };
 		806C31C6226A323000D545BC /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720C203F7C9C00CA9036 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		806C31C8226A3B4800D545BC /* NSImage+Hacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806C31C7226A3B4800D545BC /* NSImage+Hacks.swift */; };
@@ -94,10 +98,6 @@
 		807F6A37210202A8002048B1 /* Library+Sanity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807F6A36210202A8002048B1 /* Library+Sanity.swift */; };
 		80802586203EFCC0008D4168 /* Foundation+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802585203EFCC0008D4168 /* Foundation+TT.swift */; };
 		80802588203F0399008D4168 /* PlaylistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802587203F0399008D4168 /* PlaylistController.swift */; };
-		808067BB226A6DD1009942F5 /* Defaults.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8071FA71220EE8A6000B8868 /* Defaults.framework */; };
-		808067BC226A6DD1009942F5 /* Defaults.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8071FA71220EE8A6000B8868 /* Defaults.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		808067BD226A6DD1009942F5 /* Preferences.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 808BAAD7220DA71A0017557C /* Preferences.framework */; };
-		808067BE226A6DD1009942F5 /* Preferences.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 808BAAD7220DA71A0017557C /* Preferences.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		808067BF226A6DD1009942F5 /* MediaKeyTap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8058FABB20432A730086FF8A /* MediaKeyTap.framework */; };
 		808067C0226A6DD1009942F5 /* MediaKeyTap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8058FABB20432A730086FF8A /* MediaKeyTap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808161CE2040520900AEA64F /* AVFoundationImporter.swift */; };
@@ -236,9 +236,9 @@
 			dstSubfolderSpec = 10;
 			files = (
 				806C31C6226A323000D545BC /* AudioKit.framework in Embed Frameworks */,
+				806BC9C8226F72B800F9B609 /* Preferences.framework in Embed Frameworks */,
 				80B6DFA6219F06E9003EA487 /* MIKMIDI.framework in Embed Frameworks */,
-				808067BC226A6DD1009942F5 /* Defaults.framework in Embed Frameworks */,
-				808067BE226A6DD1009942F5 /* Preferences.framework in Embed Frameworks */,
+				806BC9C5226F727F00F9B609 /* Defaults.framework in Embed Frameworks */,
 				8030CA7F2164DDB300229398 /* Syphon.framework in Embed Frameworks */,
 				808067C0226A6DD1009942F5 /* MediaKeyTap.framework in Embed Frameworks */,
 			);
@@ -331,6 +331,8 @@
 		806AC13D2041EDEE00857B1B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		806AC1412041EF1900857B1B /* SPAnalyzer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPAnalyzer.h; sourceTree = "<group>"; };
 		806AC1422041EF1900857B1B /* SPAnalyzer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SPAnalyzer.mm; sourceTree = "<group>"; };
+		806BC9C3226F727F00F9B609 /* Defaults.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Defaults.framework; path = Carthage/Build/Mac/Defaults.framework; sourceTree = "<group>"; };
+		806BC9C6226F72B800F9B609 /* Preferences.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Preferences.framework; path = Carthage/Build/Mac/Preferences.framework; sourceTree = "<group>"; };
 		806C31C7226A3B4800D545BC /* NSImage+Hacks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Hacks.swift"; sourceTree = "<group>"; };
 		806C5B2520423AC000C34F49 /* SPInterpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPInterpreter.swift; sourceTree = "<group>"; };
 		806EFC21204B63620079DBAA /* PlaylistLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistLibrary.swift; sourceTree = "<group>"; };
@@ -342,7 +344,6 @@
 		8071F63421AC299D0005685B /* PlaylistController+Updates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistController+Updates.swift"; sourceTree = "<group>"; };
 		8071F63621AEBA700005685B /* HumanDates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanDates.swift; sourceTree = "<group>"; };
 		8071FA6E220E666A000B8868 /* TestPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPlayer.swift; sourceTree = "<group>"; };
-		8071FA71220EE8A6000B8868 /* Defaults.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Defaults.framework; sourceTree = "<group>"; };
 		8071FA74220EF627000B8868 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		8074044821367A1F007E0B4C /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		8074044B2136CE68007E0B4C /* Interpolation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interpolation.swift; sourceTree = "<group>"; };
@@ -509,9 +510,9 @@
 				806C31C5226A323000D545BC /* AudioKit.framework in Frameworks */,
 				806AC1482041F73300857B1B /* libtaglib.a in Frameworks */,
 				80B6DFA5219F06E9003EA487 /* MIKMIDI.framework in Frameworks */,
+				806BC9C4226F727F00F9B609 /* Defaults.framework in Frameworks */,
 				806AC13E2041EDEE00857B1B /* AudioToolbox.framework in Frameworks */,
-				808067BB226A6DD1009942F5 /* Defaults.framework in Frameworks */,
-				808067BD226A6DD1009942F5 /* Preferences.framework in Frameworks */,
+				806BC9C7226F72B800F9B609 /* Preferences.framework in Frameworks */,
 				806AC13A2041EDD900857B1B /* AVFoundation.framework in Frameworks */,
 				0418D7C40668030CCFCB5446 /* Pods_TenTunes.framework in Frameworks */,
 			);
@@ -881,7 +882,6 @@
 		80DCA9B6203F645400B1E9B1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8071FA71220EE8A6000B8868 /* Defaults.framework */,
 				808BAAD7220DA71A0017557C /* Preferences.framework */,
 				80B6DFA3219F06E4003EA487 /* MIKMIDI.framework */,
 				809CEAC02164CF76008D6AC0 /* Syphon.framework */,
@@ -918,6 +918,8 @@
 		80F2C56D2038808000212739 = {
 			isa = PBXGroup;
 			children = (
+				806BC9C6226F72B800F9B609 /* Preferences.framework */,
+				806BC9C3226F727F00F9B609 /* Defaults.framework */,
 				8069C06E22085FB900CD3396 /* Tests */,
 				80DCA9B6203F645400B1E9B1 /* Frameworks */,
 				80F2C5782038808000212739 /* TenTunes */,

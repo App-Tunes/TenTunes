@@ -8,6 +8,8 @@
 
 import Cocoa
 
+import Defaults
+
 enum Note {
     case A, Bb, B, C, Db, D, Eb, E, F, Gb, G, Ab
     
@@ -195,18 +197,22 @@ enum Note {
     override var description: String {
         var description = note.description
         
+        var type: Defaults.Keys.InitialKeyWrite
         switch AppDelegate.defaults[.initialKeyDisplay] {
-        case .german:
-            description = isMinor ? description.lowercased() : description
-        case .openKey:
-            description = "\(((note.openKey(isMinor: isMinor) + 7) % 12) + 1)\(isMinor ? "A" : "B")"
-        case .camelot:
-            description = "\(((note.openKey(isMinor: isMinor) + 7) % 12) + 1)\(isMinor ? "d" : "m")"
-        default:
-            description = isMinor ? description + "m" : description
+        case .custom(let custom): type = custom
+        default: type = AppDelegate.defaults[.initialKeyWrite]
         }
-
-        return description
+        
+        switch type {
+        case .german:
+            return isMinor ? description.lowercased() : description
+        case .openKey:
+            return "\(((note.openKey(isMinor: isMinor) + 7) % 12) + 1)\(isMinor ? "A" : "B")"
+        case .camelot:
+            return "\(((note.openKey(isMinor: isMinor) + 7) % 12) + 1)\(isMinor ? "d" : "m")"
+        case .english:
+            return isMinor ? description + "m" : description
+        }
     }
     
     @objc dynamic var attributes: [NSAttributedString.Key : Any]? {

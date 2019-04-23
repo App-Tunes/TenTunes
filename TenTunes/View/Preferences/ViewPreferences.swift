@@ -14,20 +14,51 @@ import Defaults
 extension Defaults.Keys {
     static let titleBarStylization = Key<Double>("titleBarStylization", default: 0.5)
     
-    enum InitialKeyDisplay: String, Codable {
-        case openKey = "openKey", camelot = "camelot", english = "english", german = "german"
+    enum InitialKeyDisplay: Codable, Equatable {
+        case custom(type: InitialKeyWrite)
+        case file, idealFile
+
+        init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            
+            if let custom = try? InitialKeyWrite.init(from: decoder) {
+                self = .custom(type: custom)
+            }
+            
+            switch try container.decode(String.self) {
+            case "file": self = .file
+            case "idealFile": self = .idealFile
+            default: throw DecodingError.dataCorruptedError(in: container, debugDescription: "Unrecognized Value")
+            }
+        }
+        
+        func encode(to encoder: Encoder) throws {
+            var container = encoder.singleValueContainer()
+            try container.encode(write)
+        }
+        
+        var write: String {
+            switch(self) {
+            case .custom(let type): return type.rawValue
+            case .file: return "file"
+            case .idealFile: return "idealFile"
+            }
+        }
         
         var title: String {
             switch(self) {
-            case .german: return "German"
-            case .camelot: return "Camelot"
-            case .openKey: return "Open Key"
-            case .english: return "English"
+            case .custom(let type): return type.rawValue
+            case .file: return "From File"
+            case .idealFile: return "Default"
             }
+        }
+        
+        static func ==(lhs: InitialKeyDisplay, rhs: InitialKeyDisplay) -> Bool {
+            return lhs.write == rhs.write
         }
     }
 
-    static let initialKeyDisplay = Key<InitialKeyDisplay>("initialKeyDisplay", default: .english)
+    static let initialKeyDisplay = Key<InitialKeyDisplay>("initialKeyDisplay", default: .idealFile)
     static let animateWaveformTransitions = Key<Bool>("animateWaveformTransitions", default: true)
     static let animateWaveformAnalysis = Key<Bool>("animateWaveformAnalysis", default: true)
     static let previewWaveformAnalysis = Key<Bool>("previewWaveformAnalysis", default: true)
@@ -59,7 +90,8 @@ class ViewPreferences: NSViewController, Preferenceable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        PopupEnum<Defaults.Keys.InitialKeyDisplay>.bind(initialKeyDisplay, toUserDefaultsKey: .initialKeyDisplay, with: [.openKey, .camelot, .english, .german], title: { $0.title })
+        let customDisplays = Defaults.Keys.InitialKeyWrite.values.map(Defaults.Keys.InitialKeyDisplay.custom)
+        PopupEnum<Defaults.Keys.InitialKeyDisplay>.bind(initialKeyDisplay, toUserDefaultsKey: .initialKeyDisplay, with: [.idealFile, .file] + customDisplays, title: { $0.title })
         PopupEnum<Defaults.Keys.WaveformDisplay>.bind(waveformDisplay, toUserDefaultsKey: .waveformDisplay, with: [.bars, .rounded], title: { $0.title })
     }
     

@@ -28,7 +28,7 @@ class WelcomeWindowController: NSWindowController {
         AppDelegate.defaults[.trackWordPlural] = "tracks"
         AppDelegate.defaults[.keepFilterBetweenPlaylists] = true
         AppDelegate.defaults[.quantizedJump] = true
-        AppDelegate.defaults[.initialKeyDisplay] = .openKey
+        AppDelegate.defaults[.initialKeyWrite] = .openKey
         AppDelegate.defaults[.trackColumnsHidden] = [
             "albumColumn": true,
             "authorColumn": true,

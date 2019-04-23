@@ -57,6 +57,53 @@ extension TrackController {
         tableViewHiddenManager.start()
     }
     
+    func reloadGUI() {
+        _playlistTitle.stringValue = history.playlist.name
+        _playlistIcon.image = history.playlist.icon
+        _trackCounter.stringValue = String(describe: history.count,
+                                           singular: AppDelegate.defaults[.trackWordSingular],
+                                           plural: AppDelegate.defaults[.trackWordPlural])
+        
+        dragHighlightView.isHidden = !acceptsGeneralDrag
+        
+        // Resize album column to always be of equal width and height
+        // Height of row only changes when history changes right now
+        let albumColumn = _tableView.tableColumns[_tableView.column(withIdentifier: ColumnIdentifiers.artwork)]
+        albumColumn.width = tableView(_tableView, heightOfRow: 0)
+        
+        self._emptyIndicator.isHidden = !(self.mode == .title && self.history.playingTrack == nil)
+        
+        guard mode == .tracksList else {
+            return
+        }
+        
+        if let playlist = history.playlist as? PlaylistSmart {
+            _ruleButton.isHidden = false
+            if smartPlaylistRuleController.rules != playlist.rrules {
+                smartPlaylistRuleController.rules = playlist.rrules
+            }
+            ruleBar.contentView = smartPlaylistRuleController.view
+            
+            smartPlaylistRuleController._tokenField.isEditable = !playlist.parent!.automatesChildren
+            if smartPlaylistRuleController.tokens.isEmpty { ruleBar.open() }
+        }
+        else if let playlist = history.playlist as? PlaylistCartesian {
+            _ruleButton.isHidden = false
+            if smartFolderRuleController.tokens != playlist.rules.tokens {
+                smartFolderRuleController.tokens = playlist.rules.tokens
+            }
+            ruleBar.contentView = smartFolderRuleController.view
+            
+            smartFolderRuleController._tokenField.isEditable = !playlist.parent!.automatesChildren
+            if smartFolderRuleController.tokens.isEmpty { ruleBar.open() }
+        }
+        else {
+            _ruleButton.isHidden = true
+            ruleBar.close()
+        }
+
+    }
+    
     func playCurrentTrack() {
         if selectedTrack != nil {
             playTrack?(self._tableView.selectedRow, nil)

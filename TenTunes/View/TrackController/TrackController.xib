@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="_addToPlaylistSubmenu" destination="hF9-UQ-dW3" id="iey-Pc-4RV"/>
                 <outlet property="_analyzeSubmenu" destination="rAL-JR-UxV" id="Vvq-LS-eak"/>
+                <outlet property="_emptyIndicator" destination="w8y-Qk-NUZ" id="7SZ-3f-NYc"/>
                 <outlet property="_filterBarContainer" destination="utN-ND-KA3" id="cBT-He-il8"/>
                 <outlet property="_loadingIndicator" destination="Q4S-45-Dyj" id="uIh-jH-P5s"/>
                 <outlet property="_moveToMediaDirectory" destination="e6s-jT-drv" id="Mxx-MY-rhK"/>
@@ -171,20 +172,20 @@
             <point key="canvasLocation" x="644" y="134"/>
         </menu>
         <splitView autosaveName="TrackDivider" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NYt-ks-eHN">
-            <rect key="frame" x="0.0" y="0.0" width="1110" height="360"/>
+            <rect key="frame" x="0.0" y="0.0" width="1109" height="363"/>
             <subviews>
                 <view id="xJh-CN-pmz">
-                    <rect key="frame" x="0.0" y="0.0" width="1101" height="360"/>
+                    <rect key="frame" x="0.0" y="0.0" width="1100" height="363"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <subviews>
                         <scrollView verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="J4f-bg-DFw">
-                            <rect key="frame" x="0.0" y="30" width="1101" height="302"/>
+                            <rect key="frame" x="0.0" y="30" width="1100" height="305"/>
                             <clipView key="contentView" copiesOnScroll="NO" id="FmM-r7-abk">
-                                <rect key="frame" x="0.0" y="0.0" width="1101" height="302"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1100" height="305"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveName="tracks" rowHeight="30" headerView="sMk-yA-QjA" viewBased="YES" floatsGroupRows="NO" id="4mk-XS-5ci" customClass="ActionTableView" customModule="TenTunes" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="1101" height="256"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1100" height="259"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <size key="intercellSpacing" width="3" height="2"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -636,23 +637,36 @@
                                 <autoresizingMask key="autoresizingMask"/>
                             </scroller>
                             <tableHeaderView key="headerView" id="sMk-yA-QjA">
-                                <rect key="frame" x="0.0" y="0.0" width="1101" height="23"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1100" height="23"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </tableHeaderView>
                         </scrollView>
                         <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" doubleValue="2" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Q4S-45-Dyj">
-                            <rect key="frame" x="535" y="164" width="32" height="32"/>
+                            <rect key="frame" x="534" y="166" width="32" height="32"/>
                         </progressIndicator>
+                        <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="w8y-Qk-NUZ">
+                            <rect key="frame" x="535" y="167" width="30" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="w8y-Qk-NUZ" secondAttribute="height" multiplier="1:1" id="5uV-UM-YkS"/>
+                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="30" id="nMf-FF-25h"/>
+                            </constraints>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="music" id="vWo-eo-d2u"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="_alphaValue">
+                                    <real key="value" value="0.29999999999999999"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </imageView>
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="no2-Pk-ubw">
-                            <rect key="frame" x="0.0" y="0.0" width="1101" height="25"/>
+                            <rect key="frame" x="0.0" y="0.0" width="1100" height="25"/>
                             <subviews>
                                 <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="underWindowBackground" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="RrY-WV-3rf">
-                                    <rect key="frame" x="0.0" y="0.0" width="1101" height="25"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1100" height="25"/>
                                 </visualEffectView>
                                 <box autoresizesSubviews="NO" boxType="custom" borderType="line" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Lmv-fl-fCt">
-                                    <rect key="frame" x="-1" y="-1" width="1103" height="26"/>
+                                    <rect key="frame" x="-1" y="-1" width="1102" height="26"/>
                                     <view key="contentView" id="Iy5-UE-8Jl">
-                                        <rect key="frame" x="1" y="1" width="1101" height="24"/>
+                                        <rect key="frame" x="1" y="1" width="1100" height="24"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </view>
                                     <color key="borderColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -674,7 +688,7 @@
                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="playlist" id="3rp-k8-iYe"/>
                                 </imageView>
                                 <button hidden="YES" toolTip="The rules that define the contents of this playlist" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RVc-tT-TEm">
-                                    <rect key="frame" x="1033" y="3" width="48" height="19"/>
+                                    <rect key="frame" x="1032" y="3" width="48" height="19"/>
                                     <buttonCell key="cell" type="recessed" title="Rules" bezelStyle="recessed" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zkM-Rz-wEu">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                         <font key="font" metaFont="systemBold" size="12"/>
@@ -684,7 +698,7 @@
                                     </connections>
                                 </button>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Xki-oe-dMl">
-                                    <rect key="frame" x="549" y="4" width="4" height="17"/>
+                                    <rect key="frame" x="548" y="4" width="4" height="17"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="XrJ-Fh-vG6">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -715,10 +729,10 @@
                             </constraints>
                         </customView>
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="utN-ND-KA3">
-                            <rect key="frame" x="0.0" y="332" width="1101" height="28"/>
+                            <rect key="frame" x="0.0" y="335" width="1100" height="28"/>
                             <subviews>
                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="5dq-V7-Pxb">
-                                    <rect key="frame" x="0.0" y="0.0" width="1101" height="28"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1100" height="28"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="28" placeholder="YES" id="JCI-nb-5Nt"/>
                                     </constraints>
@@ -732,10 +746,10 @@
                             </constraints>
                         </customView>
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="49r-TX-xMK">
-                            <rect key="frame" x="0.0" y="25" width="1101" height="28"/>
+                            <rect key="frame" x="0.0" y="25" width="1100" height="28"/>
                             <subviews>
                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="ZeZ-1Q-VgQ">
-                                    <rect key="frame" x="0.0" y="0.0" width="1101" height="28"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1100" height="28"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="28" placeholder="YES" id="ypl-AS-NeQ"/>
                                     </constraints>
@@ -750,6 +764,8 @@
                         </customView>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="49r-TX-xMK" firstAttribute="top" relation="greaterThanOrEqual" secondItem="w8y-Qk-NUZ" secondAttribute="bottom" constant="4" id="0YN-u1-HVh"/>
+                        <constraint firstItem="w8y-Qk-NUZ" firstAttribute="centerY" secondItem="xJh-CN-pmz" secondAttribute="centerY" id="3L8-M6-2ah"/>
                         <constraint firstItem="no2-Pk-ubw" firstAttribute="top" secondItem="49r-TX-xMK" secondAttribute="bottom" id="E0n-2n-sTo"/>
                         <constraint firstItem="Q4S-45-Dyj" firstAttribute="centerY" secondItem="xJh-CN-pmz" secondAttribute="centerY" id="EY4-LI-S6T"/>
                         <constraint firstItem="J4f-bg-DFw" firstAttribute="top" secondItem="utN-ND-KA3" secondAttribute="bottom" id="Igb-Fx-wLa"/>
@@ -758,13 +774,17 @@
                         <constraint firstItem="utN-ND-KA3" firstAttribute="top" secondItem="xJh-CN-pmz" secondAttribute="top" id="LOb-BB-myu"/>
                         <constraint firstAttribute="trailing" secondItem="49r-TX-xMK" secondAttribute="trailing" id="LkI-69-5rA"/>
                         <constraint firstItem="49r-TX-xMK" firstAttribute="leading" secondItem="xJh-CN-pmz" secondAttribute="leading" id="OKw-kd-7uA"/>
+                        <constraint firstItem="w8y-Qk-NUZ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="utN-ND-KA3" secondAttribute="bottom" constant="4" id="VD1-A9-GPF"/>
                         <constraint firstItem="utN-ND-KA3" firstAttribute="leading" secondItem="xJh-CN-pmz" secondAttribute="leading" id="Vzl-Yt-XOz"/>
                         <constraint firstItem="49r-TX-xMK" firstAttribute="top" secondItem="J4f-bg-DFw" secondAttribute="bottom" constant="-23" id="bwF-h7-RhZ"/>
                         <constraint firstAttribute="trailing" secondItem="no2-Pk-ubw" secondAttribute="trailing" id="cu7-TG-cFD"/>
+                        <constraint firstItem="w8y-Qk-NUZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="xJh-CN-pmz" secondAttribute="leading" constant="4" id="gjM-HO-Fhn"/>
                         <constraint firstAttribute="bottom" secondItem="no2-Pk-ubw" secondAttribute="bottom" id="nj9-83-RAH"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="w8y-Qk-NUZ" secondAttribute="trailing" constant="4" id="rMl-Hv-Rgt"/>
                         <constraint firstAttribute="trailing" secondItem="utN-ND-KA3" secondAttribute="trailing" id="rYE-YT-YTi"/>
                         <constraint firstItem="no2-Pk-ubw" firstAttribute="leading" secondItem="xJh-CN-pmz" secondAttribute="leading" id="sTr-D3-7QQ"/>
                         <constraint firstAttribute="trailing" secondItem="J4f-bg-DFw" secondAttribute="trailing" id="vGr-VU-bFh"/>
+                        <constraint firstItem="w8y-Qk-NUZ" firstAttribute="centerX" secondItem="xJh-CN-pmz" secondAttribute="centerX" id="xSj-CI-gsh"/>
                     </constraints>
                 </view>
                 <customView hidden="YES" fixedFrame="YES" id="eZA-1m-Cok" customClass="TrackEditorMultiplicityView" customModule="TenTunes" customModuleProvider="target">
@@ -787,11 +807,12 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="JuO-5U-V7g"/>
             </connections>
-            <point key="canvasLocation" x="404" y="609"/>
+            <point key="canvasLocation" x="403.5" y="610.5"/>
         </splitView>
     </objects>
     <resources>
-        <image name="music_missing" width="250" height="250"/>
+        <image name="music" width="205" height="200"/>
+        <image name="music_missing" width="500" height="500"/>
         <image name="playlist" width="205" height="167"/>
     </resources>
 </document>

@@ -66,53 +66,13 @@ class TrackController: NSViewController {
     var history: PlayHistory = PlayHistory(playlist: PlaylistEmpty()) {
         didSet {
             _tableView?.animateDifference(from: oldValue.tracks, to: history.tracks)
-            
-            _playlistTitle.stringValue = history.playlist.name
-            _playlistIcon.image = history.playlist.icon
-            _trackCounter.stringValue = String(describe: history.count,
-                                               singular: AppDelegate.defaults[.trackWordSingular],
-                                               plural: AppDelegate.defaults[.trackWordPlural])
-            
-            dragHighlightView.isHidden = !acceptsGeneralDrag
-            
-            // Resize album column to always be of equal width and height
-            // Height of row only changes when history changes right now
-            let albumColumn = _tableView.tableColumns[_tableView.column(withIdentifier: ColumnIdentifiers.artwork)]
-            albumColumn.width = tableView(_tableView, heightOfRow: 0)
-            
-            guard mode == .tracksList else {
-                return
-            }
-            
-            if let playlist = history.playlist as? PlaylistSmart {
-                _ruleButton.isHidden = false
-                if smartPlaylistRuleController.rules != playlist.rrules {
-                    smartPlaylistRuleController.rules = playlist.rrules
-                }
-                ruleBar.contentView = smartPlaylistRuleController.view
-                
-                smartPlaylistRuleController._tokenField.isEditable = !playlist.parent!.automatesChildren
-                if smartPlaylistRuleController.tokens.isEmpty { ruleBar.open() }
-            }
-            else if let playlist = history.playlist as? PlaylistCartesian {
-                _ruleButton.isHidden = false
-                if smartFolderRuleController.tokens != playlist.rules.tokens {
-                    smartFolderRuleController.tokens = playlist.rules.tokens
-                }
-                ruleBar.contentView = smartFolderRuleController.view
-                
-                smartFolderRuleController._tokenField.isEditable = !playlist.parent!.automatesChildren
-                if smartFolderRuleController.tokens.isEmpty { ruleBar.open() }
-            }
-            else {
-                _ruleButton.isHidden = true
-                ruleBar.close()
-            }
+            self.reloadGUI()
         }
     }
     @objc dynamic var desired: PlayHistorySetup = PlayHistorySetup()
     @IBOutlet var _loadingIndicator: NSProgressIndicator!
-
+    @IBOutlet var _emptyIndicator: NSImageView!
+    
     var mode: Mode = .tracksList
 
     var isDark: Bool {
@@ -141,7 +101,9 @@ class TrackController: NSViewController {
             
             let isDone = change.newValue!
             
-            if !isDone { self._loadingIndicator.startAnimation(self) }
+            if !isDone {
+                self._loadingIndicator.startAnimation(self)
+            }
 
             NSAnimationContext.runAnimationGroup({ context in
                 context.duration = 0.5

@@ -252,7 +252,7 @@ extension NSRegularExpression {
 
     func split(string: String) -> [String] {
         let results = matches(in: string, range: NSRange(string.startIndex..., in: string))
-        let indices = [NSMakeRange(0, string.startIndex.encodedOffset)] + results.map { $0.range } + [NSMakeRange(string.endIndex.encodedOffset, 0)]
+        let indices = [NSMakeRange(0, string.startIndex.utf16Offset(in: string))] + results.map { $0.range } + [NSMakeRange(string.endIndex.utf16Offset(in: string), 0)]
         
         return indices.neighbors.map { arg in
             let (prev, next) = arg

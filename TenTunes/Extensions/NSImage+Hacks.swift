@@ -11,7 +11,7 @@ import Cocoa
 extension NSImage.Name {
     // Somehow these are missing in some build
     // TODO Remove when it's showing up again
-    static let advancedName: NSImage.Name = "advanced"
-    static let colorPanelName: NSImage.Name = "colorPanel"
-    static let folderSmartName: NSImage.Name = "folderSmart"
+    static let advancedName: NSImage.Name = "NSAdvanced"
+    static let colorPanelName: NSImage.Name = "NSColorPanel"
+    static let folderSmartName: NSImage.Name = "NSFolderSmart"
 }

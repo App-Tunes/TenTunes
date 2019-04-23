@@ -429,7 +429,7 @@
                                                 </prototypeCellViews>
                                             </tableColumn>
                                             <tableColumn identifier="bpmColumn" width="49" minWidth="49" maxWidth="3.4028234663852886e+38" headerToolTip="Beats per Minute" id="gTv-W1-iSh">
-                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="♩=">
+                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="♩=">
                                                     <font key="font" metaFont="smallSystem"/>
                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

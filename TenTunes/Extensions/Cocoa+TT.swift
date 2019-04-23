@@ -436,6 +436,8 @@ extension CALayer {
             border.frame = CGRect(x: 0, y: 0, width: thickness, height: frame.height)
         case .maxX:
             border.frame = CGRect(x: frame.width - thickness, y: 0, width: thickness, height: frame.height)
+        @unknown default:
+            fatalError()
         }
         
         border.backgroundColor = color.cgColor;

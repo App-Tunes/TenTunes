@@ -235,8 +235,8 @@ extension TrackEditor: NSOutlineViewDataSource {
             if let view = outlineView.makeView(withIdentifier: CellIdentifiers.AttributeCell, owner: nil) as? TrackDataCell {
                 view.textField?.stringValue = data.title
                 
-                view.valueTextField?.bind(.value, to: tracksController, withKeyPath: "selection." + data.path._kvcKeyPathString!, options: (data.options ?? [:]).merging([.nullPlaceholder: "..."], uniquingKeysWith: { (a, _) in a }))
-                view.valueTextField?.bind(.toolTip, to: tracksController, withKeyPath: "selection." + data.path._kvcKeyPathString!, options: data.options)
+                view.valueTextField?.bind(.value, to: tracksController!, withKeyPath: "selection." + data.path._kvcKeyPathString!, options: (data.options ?? [:]).merging([.nullPlaceholder: "..."], uniquingKeysWith: { (a, _) in a }))
+                view.valueTextField?.bind(.toolTip, to: tracksController!, withKeyPath: "selection." + data.path._kvcKeyPathString!, options: data.options)
                 
                 editActionStubs.bind(view.valueTextField!) { [unowned self] _ in
                     self.attributeEdited(data.path, skipWrite: data.skipWrite)

@@ -157,7 +157,7 @@ class ViewController: NSViewController {
         }
         
         coverImageObserver = UserDefaults.swifty.observe(.titleBarStylization, options: [.initial, .new]) { change in
-            self._coverImage.alphaValue = CGFloat(change.newValue ?? 0)
+            self._coverImage.alphaValue = CGFloat(change.newValue)
         }
         
         mediaKeyTap = MediaKeyTap(delegate: self)

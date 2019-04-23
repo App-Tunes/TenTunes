@@ -96,12 +96,12 @@ class MultiplicityGuardView: NSView {
         
         // Center
         _manyPlaceholder!.addConstraints(NSLayoutConstraint.center(in: _manyPlaceholder!, for: _confirmShowMany!))
-        _manyPlaceholder?.addConstraint(NSLayoutConstraint(item: _manyTextField, attribute: .bottom, relatedBy: .equal, toItem: _confirmShowMany, attribute: .top, multiplier: 1, constant: -10))
-        _manyPlaceholder?.addConstraint(NSLayoutConstraint(item: _manyTextField, attribute: .centerX, relatedBy: .equal, toItem: _confirmShowMany, attribute: .centerX, multiplier: 1, constant: 0))
+        _manyPlaceholder?.addConstraint(NSLayoutConstraint(item: _manyTextField!, attribute: .bottom, relatedBy: .equal, toItem: _confirmShowMany, attribute: .top, multiplier: 1, constant: -10))
+        _manyPlaceholder?.addConstraint(NSLayoutConstraint(item: _manyTextField!, attribute: .centerX, relatedBy: .equal, toItem: _confirmShowMany, attribute: .centerX, multiplier: 1, constant: 0))
         
         // Don't squish
-        _manyPlaceholder?.addConstraint(NSLayoutConstraint(item: _manyTextField, attribute: .leading, relatedBy: .greaterThanOrEqual, toItem: _manyPlaceholder!, attribute: .leading, multiplier: 1, constant: 0))
-        _manyPlaceholder?.addConstraint(NSLayoutConstraint(item: _confirmShowMany, attribute: .leading, relatedBy: .greaterThanOrEqual, toItem: _manyPlaceholder!, attribute: .leading, multiplier: 1, constant: 0))
+        _manyPlaceholder?.addConstraint(NSLayoutConstraint(item: _manyTextField!, attribute: .leading, relatedBy: .greaterThanOrEqual, toItem: _manyPlaceholder!, attribute: .leading, multiplier: 1, constant: 0))
+        _manyPlaceholder?.addConstraint(NSLayoutConstraint(item: _confirmShowMany!, attribute: .leading, relatedBy: .greaterThanOrEqual, toItem: _manyPlaceholder!, attribute: .leading, multiplier: 1, constant: 0))
         
         //
         
@@ -118,7 +118,7 @@ class MultiplicityGuardView: NSView {
         
         _errorPlaceholder!.addSubview(_errorTextField)
         _errorPlaceholder!.addConstraints(NSLayoutConstraint.center(in: _errorPlaceholder!, for: _errorTextField!))
-        _errorPlaceholder?.addConstraint(NSLayoutConstraint(item: _errorTextField, attribute: .leading, relatedBy: .greaterThanOrEqual, toItem: _errorPlaceholder!, attribute: .leading, multiplier: 1, constant: 0))
+        _errorPlaceholder?.addConstraint(NSLayoutConstraint(item: _errorTextField!, attribute: .leading, relatedBy: .greaterThanOrEqual, toItem: _errorPlaceholder!, attribute: .leading, multiplier: 1, constant: 0))
         
         //
 

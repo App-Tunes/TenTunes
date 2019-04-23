@@ -35,7 +35,7 @@ extension VisualizerWindowController {
         window?.contentView?.addConstraints(NSLayoutConstraint.copyLayout(from: window!.contentView!, for: _visualizerView))
         
         // Re-Setup Output
-        selectedRenderingMethod(_renderingMethodSelector)
+        selectedRenderingMethod(_renderingMethodSelector!)
     }
     
     @IBAction func selectedRenderingMethod(_ sender: Any) {

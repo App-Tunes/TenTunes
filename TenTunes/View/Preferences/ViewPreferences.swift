@@ -48,7 +48,7 @@ extension Defaults.Keys {
         
         var title: String {
             switch(self) {
-            case .custom(let type): return type.rawValue
+            case .custom(let type): return type.title
             case .file: return "From File"
             case .idealFile: return "Default"
             }

@@ -73,9 +73,7 @@ extension TrackController {
         // Height of row only changes when history changes right now
         let albumColumn = _tableView.tableColumns[_tableView.column(withIdentifier: ColumnIdentifiers.artwork)]
         albumColumn.width = tableView(_tableView, heightOfRow: 0)
-        
-        self._emptyIndicator.isHidden = !(self.mode == .title && self.history.playingTrack == nil)
-        
+                
         guard mode == .tracksList else {
             return
         }

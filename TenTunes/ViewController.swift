@@ -373,6 +373,7 @@ extension ViewController: PlayerDelegate {
         _queueButton.isEnabled = player.history.count > 0
         
         _waveformView.track = player.playing
+        playingTrackController._emptyIndicator.isHidden = player.playing != nil
 
         guard let track = player.playing else {
             playingTrackController.history = PlayHistory(playlist: PlaylistEmpty())

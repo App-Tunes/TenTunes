@@ -429,7 +429,8 @@ extension WaveformView {
                 return // Deallocated in the meantime
             }
             
-            self.updateLocation((self.track == nil || self.track == player.playing) ? player.currentTime : nil,
+            let matchesTrack = self.track != nil ? self.track == player.playing : player.playing != nil
+            self.updateLocation(matchesTrack ? player.currentTime : nil,
                            duration: ViewController.userInterfaceUpdateDuration)
         }
     }

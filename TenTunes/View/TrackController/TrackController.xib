@@ -191,7 +191,7 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                         <tableColumns>
-                                            <tableColumn identifier="artworkColumn" editable="NO" width="30" minWidth="10" maxWidth="50" id="okf-KH-O5q">
+                                            <tableColumn identifier="artworkColumn" editable="NO" width="30" minWidth="10" maxWidth="50" headerToolTip="Cover Art" id="okf-KH-O5q">
                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="⊡">
                                                     <font key="font" metaFont="smallSystem"/>
                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -215,7 +215,7 @@
                                                     </imageView>
                                                 </prototypeCellViews>
                                             </tableColumn>
-                                            <tableColumn identifier="waveformColumn" width="100" minWidth="50" maxWidth="100000" id="lAg-cD-irz">
+                                            <tableColumn identifier="waveformColumn" width="100" minWidth="50" maxWidth="100000" headerToolTip="Waveform" id="lAg-cD-irz">
                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="⏦">
                                                     <font key="font" metaFont="smallSystem"/>
                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -428,7 +428,7 @@
                                                     </tableCellView>
                                                 </prototypeCellViews>
                                             </tableColumn>
-                                            <tableColumn identifier="bpmColumn" width="49" minWidth="49" maxWidth="3.4028234663852886e+38" id="gTv-W1-iSh">
+                                            <tableColumn identifier="bpmColumn" width="49" minWidth="49" maxWidth="3.4028234663852886e+38" headerToolTip="Beats per Minute" id="gTv-W1-iSh">
                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="♩=">
                                                     <font key="font" metaFont="smallSystem"/>
                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -465,7 +465,7 @@
                                                     </tableCellView>
                                                 </prototypeCellViews>
                                             </tableColumn>
-                                            <tableColumn identifier="keyColumn" width="42" minWidth="42" maxWidth="3.4028234663852886e+38" id="h7G-XK-5sv">
+                                            <tableColumn identifier="keyColumn" width="42" minWidth="42" maxWidth="3.4028234663852886e+38" headerToolTip="Initial Key" id="h7G-XK-5sv">
                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="♫">
                                                     <font key="font" metaFont="smallSystem"/>
                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>

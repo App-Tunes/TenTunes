@@ -54,6 +54,8 @@ extension TrackController {
         tableViewHiddenManager = .init(tableView: _tableView, defaultsKey: .trackColumnsHidden, ignore: [ColumnIdentifiers.title.rawValue])
         tableViewHiddenManager.titles[ColumnIdentifiers.artwork] = "Artwork"
         tableViewHiddenManager.titles[ColumnIdentifiers.waveform] = "Waveform"
+        tableViewHiddenManager.titles[ColumnIdentifiers.bpm] = "Beats per Minute (♩=)"
+        tableViewHiddenManager.titles[ColumnIdentifiers.key] = "Initial Key (♫)"
         tableViewHiddenManager.start()
     }
     

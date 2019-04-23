@@ -195,7 +195,7 @@ enum Note {
     }
     
     override var description: String {
-        var description = note.description
+        let description = note.description
         
         var type: Defaults.Keys.InitialKeyWrite
         switch AppDelegate.defaults[.initialKeyDisplay] {

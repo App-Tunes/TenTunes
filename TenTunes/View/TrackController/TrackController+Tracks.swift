@@ -209,9 +209,18 @@ extension TrackController: NSTableViewDelegate {
             return view
         }
         else if tableColumn?.identifier == ColumnIdentifiers.key, let view = tableView.makeView(withIdentifier: CellIdentifiers.key, owner: nil) as? NSTableCellView {
-            view.textField?.bind(.value, to: track, withKeyPath: \.key) { $0.map {
-                NSAttributedString(string: $0.description, attributes: $0.attributes).with(alignment: .center)
-                } }
+            view.textField?.bind(.value, to: track, withKeyPath: \.keyString) {
+                $0.map {
+                    if let key = Key.parse($0) {
+                        let string = AppDelegate.defaults[.initialKeyDisplay] == .file ? $0 : key.description
+                        
+                        return NSAttributedString(string: string, attributes: key.attributes).with(alignment: .center)
+                    }
+                    else {
+                        return NSAttributedString(string: $0)
+                    }
+                }
+            }
             
             return view
         }

@@ -39,6 +39,7 @@ protocol PlaylistControllerDelegate : class {
     
     @IBOutlet var _outlineView: NSOutlineView!
     
+    @IBOutlet var _home: NSButton!
     @IBOutlet var _back: NSButton!
     @IBOutlet var _forwards: NSButton!
     

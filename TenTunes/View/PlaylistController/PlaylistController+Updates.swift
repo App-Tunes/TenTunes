@@ -21,6 +21,10 @@ extension PlaylistController {
         
         _back.isEnabled = history.canGoBack
         _forwards.isEnabled = history.canGoForwards
+        
+        if #available(OSX 10.14, *) {
+            _home.contentTintColor = history.current == .library ? .selectedMenuItemTextColor : nil
+        }
     }
     
     @IBAction func managedObjectContextObjectsDidChange(notification: NSNotification) {

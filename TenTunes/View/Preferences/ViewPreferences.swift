@@ -23,6 +23,7 @@ extension Defaults.Keys {
             
             if let custom = try? InitialKeyWrite.init(from: decoder) {
                 self = .custom(type: custom)
+                return
             }
             
             switch try container.decode(String.self) {

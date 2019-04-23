@@ -502,8 +502,8 @@
                                                     </tableCellView>
                                                 </prototypeCellViews>
                                             </tableColumn>
-                                            <tableColumn identifier="durationColumn" width="61" minWidth="54" maxWidth="3.4028234663852886e+38" id="2MG-zO-RVS">
-                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Duration">
+                                            <tableColumn identifier="durationColumn" width="61" minWidth="54" maxWidth="3.4028234663852886e+38" headerToolTip="Duration" id="2MG-zO-RVS">
+                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="◷">
                                                     <font key="font" metaFont="smallSystem"/>
                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

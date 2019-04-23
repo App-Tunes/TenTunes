@@ -56,6 +56,7 @@ extension TrackController {
         tableViewHiddenManager.titles[ColumnIdentifiers.waveform] = "Waveform (⏦)"
         tableViewHiddenManager.titles[ColumnIdentifiers.bpm] = "Beats per Minute (♩=)"
         tableViewHiddenManager.titles[ColumnIdentifiers.key] = "Initial Key (♫)"
+        tableViewHiddenManager.titles[ColumnIdentifiers.duration] = "Duration (◷)"
         tableViewHiddenManager.start()
     }
     

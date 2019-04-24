@@ -32,9 +32,12 @@ extension PlaylistController {
                 return []
             }
             let playlists = (pasteboard.pasteboardItems ?? []).compactMap(Library.shared.import().playlist)
-            guard playlists.allSatisfy({ Library.shared.isPlaylist(playlist: $0) || $0.parent == parent }) else {
+
+            guard playlists.allSatisfy({ Library.shared.isPlaylist(playlist: $0) == (parent != masterPlaylist) }) else {
+                // Only allow special playlists in master playlist, but nowhere else
                 return []
             }
+
             // If any dropping playlist contains (or is) the new parent, don't drop
             guard playlists.noneSatisfy({Library.find(parent: $0, of: parent)}) else {
                 return []

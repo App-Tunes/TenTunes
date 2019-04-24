@@ -32,6 +32,7 @@ protocol PlaylistControllerDelegate : class {
             }
         }
     }
+    var defaultPlaylist: PlaylistFolder?
     
     var history: History<SelectionMoment> = History(default: .library)
     

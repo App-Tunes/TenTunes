@@ -70,6 +70,10 @@ class Library : NSPersistentContainer {
         setSpecial(for: PlaylistRole.master, to: fetchCreateSpecialFolder(key: "Master Playlist") { playlist in
             playlist.name = "Master Playlist"
         })
+        setSpecial(for: PlaylistRole.playlists, to: fetchCreateSpecialFolder(key: "Super Playlist") { playlist in
+            playlist.name = "Playlists"
+            self[PlaylistRole.master].addToChildren(playlist)
+        })
         setSpecial(for: PlaylistRole.tags, to: fetchCreateSpecialFolder(key: "Tag Playlist") { playlist in
             playlist.name = "Tags"
             self[PlaylistRole.master].addToChildren(playlist)
@@ -250,6 +254,9 @@ class Library : NSPersistentContainer {
         if role === PlaylistRole.tags {
             return #imageLiteral(resourceName: "tag")
         }
+        else if role === PlaylistRole.playlists {
+            return NSImage(named: .musicName)!
+        }
 
         return playlist.icon
     }
@@ -324,5 +331,7 @@ class LibraryRole<Type> {
 class PlaylistRole {
     static let library = LibraryRole<PlaylistLibrary>(0)
     static let master = LibraryRole<PlaylistFolder>(1)
-    static let tags = LibraryRole<PlaylistFolder>(2)
+    
+    static let playlists = LibraryRole<PlaylistFolder>(2)
+    static let tags = LibraryRole<PlaylistFolder>(3)
 }

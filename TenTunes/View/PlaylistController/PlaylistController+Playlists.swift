@@ -46,7 +46,7 @@ extension PlaylistController {
             }
         }
         else {
-            return (masterPlaylist!, nil)
+            return (defaultPlaylist ?? masterPlaylist!, nil)
         }
     }
     
@@ -156,16 +156,25 @@ extension PlaylistController : NSOutlineViewDelegate {
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         let playlist = item as! Playlist
         
-        if let view = outlineView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? NSTableCellView {
-            view.textField?.stringValue = playlist.name
-            view.imageView?.image = Library.shared.icon(of: playlist)
-            
-            // Doesn't work from interface builder
-            view.textField?.delegate = self
-            view.textField?.target = self
-            view.textField?.action = #selector(editPlaylistTitle)
-            view.textField?.isEditable = Library.shared.isPlaylist(playlist: playlist)
-            return view
+        if playlist.parent == masterPlaylist {
+            if let view = outlineView.makeView(withIdentifier: CellIdentifiers.CategoryCell, owner: nil) as? NSTableCellView {
+                view.textField?.stringValue = playlist.name
+                view.imageView?.image = Library.shared.icon(of: playlist)
+                return view
+            }
+        }
+        else {
+            if let view = outlineView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? NSTableCellView {
+                view.textField?.stringValue = playlist.name
+                view.imageView?.image = Library.shared.icon(of: playlist)
+                
+                // Doesn't work from interface builder
+                view.textField?.delegate = self
+                view.textField?.target = self
+                view.textField?.action = #selector(editPlaylistTitle)
+                view.textField?.isEditable = Library.shared.isPlaylist(playlist: playlist)
+                return view
+            }
         }
 
         return nil
@@ -187,8 +196,12 @@ extension PlaylistController : NSOutlineViewDelegate {
         return SubtleTableRowView()
     }
     
+    func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
+        return (item as! Playlist).parent != masterPlaylist
+    }
+    
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
-        return 17
+        return (item as! Playlist).parent == masterPlaylist ? 23 : 17
     }
 }
 

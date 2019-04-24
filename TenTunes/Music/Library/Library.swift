@@ -161,8 +161,8 @@ class Library : NSPersistentContainer {
         return (_roleDict[role.index] as! AnyPlaylist).convert(to: context ?? viewContext)! as! Type
     }
     
-    func role<Type : AnyPlaylist>(of: Type) -> LibraryRole<Type>? {
-        return _roleDictReverse[of.persistentID] as? LibraryRole<Type>
+    func role<Type : AnyPlaylist>(of: Type) -> AnyObject? {
+        return _roleDictReverse[of.persistentID]
     }
     
     func allPlaylists(in context: NSManagedObjectContext? = nil) -> [Playlist] {

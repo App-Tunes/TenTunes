@@ -34,11 +34,14 @@ extension Library {
             // Copy array so it won't get modified while running over it
             let allPlaylists = Array(library.allPlaylists(in: context))
             let master = library[PlaylistRole.master, in: context]
+            let defaultPlaylist = library[PlaylistRole.playlists, in: context]
+
+            if master.parent != nil { master.parent = nil }
             
-            for playlist in allPlaylists {
-                // All must go to master eventually
-                if !Library.find(parent: master, of: playlist) {
-                    master.addToChildren(playlist)
+            for playlist in allPlaylists where playlist != master {
+                if !library.inLegalSpot(playlist: playlist, master: master) {
+                    let parent = library.role(of: playlist) == nil ? defaultPlaylist : master
+                    parent.addToChildren(playlist)
                 }
             }
             
@@ -56,6 +59,20 @@ extension Library {
 
             try! context.save()
         }
+    }
+    
+    func inLegalSpot(playlist: Playlist, master: PlaylistFolder) -> Bool {
+        // All must be some child of master
+        guard Library.find(parent: master, of: playlist) else {
+            return false
+        }
+        
+        // Only special playlists allowed in master, but nowhere else
+        guard (role(of: playlist) != nil) == (playlist.parent == master) else {
+            return false
+        }
+        
+        return true
     }
     
     static func find(parent: Playlist, of: Playlist) -> Bool {

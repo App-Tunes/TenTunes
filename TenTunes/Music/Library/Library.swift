@@ -66,6 +66,10 @@ class Library : NSPersistentContainer {
         
         registerObservers()
         
+        ensureInitialState()
+    }
+    
+    func ensureInitialState() {
         setSpecial(for: PlaylistRole.library, to: PlaylistLibrary(context: viewContext))
         setSpecial(for: PlaylistRole.master, to: fetchCreateSpecialFolder(key: "Master Playlist") { playlist in
             playlist.name = "Master Playlist"
@@ -88,13 +92,12 @@ class Library : NSPersistentContainer {
             let playlist = PlaylistFolder(context: viewContext)
             
             create(playlist)
-            
             viewContext.insert(playlist)
-            try! viewContext.save()
             
-            // Need to do this after initial save, otherwise the ID is temporary.............
-            defaultMetadata[key] = export().stringID(of: playlist)
-            try! viewContext.save()
+            // Can't set this before save, since IDs yet temporary
+            _saveDefer.append {
+                self.defaultMetadata[key] = self.export().stringID(of: playlist)
+            }
             
             return playlist
         }
@@ -103,6 +106,7 @@ class Library : NSPersistentContainer {
     var directory: URL
     var mediaLocation: MediaLocation
     
+    var _saveDefer = [() -> Void]()
     var _roleDict = [Int: AnyObject]()
     var _roleDictReverse = [UUID: AnyObject]()
 
@@ -281,6 +285,15 @@ class Library : NSPersistentContainer {
 extension Library {
     func registerObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: .NSManagedObjectContextObjectsDidChange, object: viewContext)
+        NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextDidSave), name: .NSManagedObjectContextDidSave, object: viewContext)
+    }
+    
+    @IBAction func managedObjectContextDidSave(notification: NSNotification) {
+        for fun in _saveDefer {
+            fun()
+        }
+        
+        _saveDefer = []
     }
     
     @IBAction func managedObjectContextObjectsDidChange(notification: NSNotification) {

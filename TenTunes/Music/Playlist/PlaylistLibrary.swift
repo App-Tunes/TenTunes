@@ -40,6 +40,10 @@ class PlaylistLibrary: AnyPlaylist {
     }
     
     func convert(to: NSManagedObjectContext) -> Self? {
+        guard to != context else {
+            return self
+        }
+        
         let converted = type(of: self).init(context: to)
         // Faster than executing a new fetch request
         // If not calculated yet DON'T run it since

@@ -120,7 +120,7 @@ extension Library {
             let tracks: [Track] = (try! context.fetch(Track.fetchRequest()))
             
             (try! context.fetch(Playlist.fetchRequest())) // Pre-Grab all the playlists for performance reasons
-            let playlists: [Playlist] = [context.convert(library.masterPlaylist)!].flatten { ($0 as? PlaylistFolder)?.childrenList }
+            let playlists: [Playlist] = [library[PlaylistRole.master, in: context]].flatten { ($0 as? PlaylistFolder)?.childrenList }
 
             if !AppDelegate.defaults[.skipExportM3U] {
                 m3uPlaylists(playlists: playlists, changed: changed)

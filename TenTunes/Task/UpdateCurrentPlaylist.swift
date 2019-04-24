@@ -74,7 +74,7 @@ class UpdateCurrentPlaylist: Task {
             
             DispatchQueue.main.async {
                 history?.convert(to: Library.shared.viewContext)
-                self.trackController.history = history ?? PlayHistory(playlist: Library.shared.allTracks)
+                self.trackController.history = history ?? PlayHistory(playlist: Library.shared[PlaylistRole.library])
                 desired.isDone = !desired._changed
 
                 self.finish()

@@ -15,7 +15,7 @@ extension Library.Export {
             return nil
         }
         
-        let masterPlaylist = library.masterPlaylist.convert(to: context)!
+        let masterPlaylist = library[PlaylistRole.master].convert(to: context)!
         
         let tracks = rawPlaylists.flatMap {
             $0.tracksList
@@ -104,8 +104,8 @@ extension Library.Export {
         func convert(_ playlist: Playlist) -> Playlist? {
             var otherPlaylist: Playlist? = nil
             
-            if playlist == self.src.tagPlaylist {
-                otherPlaylist = self.dst.tagPlaylist
+            if playlist == self.src[PlaylistRole.tags] {
+                otherPlaylist = self.dst[PlaylistRole.tags]
             }
             else if let playlist = playlist as? PlaylistManual {
                 let newPlaylist = PlaylistManual(context: context)
@@ -149,7 +149,7 @@ extension Library.Export {
             newPlaylist.iTunesID = playlist.iTunesID
             
             let parent = (playlists[playlist.parent!] as? PlaylistFolder)
-                ?? dst.masterPlaylist.convert(to: context)!
+                ?? dst[PlaylistRole.master, in: context]
             parent.addToChildren(newPlaylist)
             
             return newPlaylist

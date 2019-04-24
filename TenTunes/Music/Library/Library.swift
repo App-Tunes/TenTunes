@@ -65,17 +65,15 @@ class Library : NSPersistentContainer {
         })
         
         registerObservers()
-
-        allTracks = PlaylistLibrary(context: viewContext)
         
-        _masterPlaylist = fetchCreateSpecialFolder(key: "Master Playlist") { playlist in
+        setSpecial(for: PlaylistRole.library, to: PlaylistLibrary(context: viewContext))
+        setSpecial(for: PlaylistRole.master, to: fetchCreateSpecialFolder(key: "Master Playlist") { playlist in
             playlist.name = "Master Playlist"
-        }
-        
-        _tagPlaylist = fetchCreateSpecialFolder(key: "Tag Playlist") { playlist in
+        })
+        setSpecial(for: PlaylistRole.tags, to: fetchCreateSpecialFolder(key: "Tag Playlist") { playlist in
             playlist.name = "Tags"
-            _masterPlaylist.addToChildren(playlist)
-        }
+            self[PlaylistRole.master].addToChildren(playlist)
+        })
     }
     
     func fetchCreateSpecialFolder(key: String, create: (PlaylistFolder) -> Swift.Void) -> PlaylistFolder {
@@ -101,16 +99,8 @@ class Library : NSPersistentContainer {
     var directory: URL
     var mediaLocation: MediaLocation
     
-    var allTracks: PlaylistLibrary!
-    var _masterPlaylist: PlaylistFolder!
-    var masterPlaylist: PlaylistFolder {
-        return _masterPlaylist
-    }
-    
-    var _tagPlaylist: PlaylistFolder!
-    var tagPlaylist: PlaylistFolder {
-        return _tagPlaylist
-    }
+    var _roleDict = [Int: AnyObject]()
+    var _roleDictReverse = [UUID: AnyObject]()
 
     var sanityChanged = true
     var sanitySemaphore = DispatchSemaphore(value: 1)
@@ -118,10 +108,14 @@ class Library : NSPersistentContainer {
     var _exportChanged: Set<NSManagedObjectID>? = Set()
     var exportSemaphore = DispatchSemaphore(value: 1)
     
+    func allTracks(in context: NSManagedObjectContext? = nil) -> [Track] {
+        return self[PlaylistRole.library, in: context].tracksList
+    }
+    
     var _allAuthors: Set<Artist>?
     var allAuthors: Set<Artist> {
         if _allAuthors == nil {
-            _allAuthors = Set(allTracks.tracksList.flatMap { $0.authors })
+            _allAuthors = Set(allTracks().flatMap { $0.authors })
         }
         return _allAuthors!
     }
@@ -129,7 +123,7 @@ class Library : NSPersistentContainer {
     var _allGenres: Set<String>?
     var allGenres: Set<String> {
         if _allGenres == nil {
-            _allGenres = Set(allTracks.tracksList.compactMap { $0.genre })
+            _allGenres = Set(allTracks().compactMap { $0.genre })
         }
         return _allGenres!
     }
@@ -137,7 +131,7 @@ class Library : NSPersistentContainer {
     var _allAlbums: Set<Album>?
     var allAlbums: Set<Album> {
         if _allAlbums == nil {
-            _allAlbums = Set(allTracks.tracksList.compactMap { $0.rAlbum })
+            _allAlbums = Set(allTracks().compactMap { $0.rAlbum })
         }
         return _allAlbums!
     }
@@ -157,6 +151,18 @@ class Library : NSPersistentContainer {
     func playlist(byId: NSManagedObjectID, in context: NSManagedObjectContext? = nil) -> Playlist? {
         let context = context ?? viewContext
         return (try? context.existingObject(with: byId)) as? Playlist
+    }
+    
+    subscript<Type>(_ role: LibraryRole<Type>) -> Type {
+        return self[role, in: nil]
+    }
+    
+    subscript<Type>(_ role: LibraryRole<Type>, in context: NSManagedObjectContext?) -> Type {
+        return (_roleDict[role.index] as! AnyPlaylist).convert(to: context ?? viewContext)! as! Type
+    }
+    
+    func role<Type : AnyPlaylist>(of: Type) -> LibraryRole<Type>? {
+        return _roleDictReverse[of.persistentID] as? LibraryRole<Type>
     }
     
     func allPlaylists(in context: NSManagedObjectContext? = nil) -> [Playlist] {
@@ -200,7 +206,8 @@ class Library : NSPersistentContainer {
     }
     
     func isTag(playlist: Playlist) -> Bool {
-        return playlist.path.map { $0.objectID }.contains(tagPlaylist.objectID) && playlist.objectID != tagPlaylist.objectID
+        let tagsID = self[PlaylistRole.tags].objectID
+        return playlist.path.map { $0.objectID }.contains(tagsID) && playlist.objectID != tagsID
     }
     
     func playlists(containing track: Track) -> [PlaylistManual] {
@@ -214,7 +221,7 @@ class Library : NSPersistentContainer {
         guard let playlist = playlist as? Playlist else {
             return false
         }
-        return playlist != tagPlaylist
+        return role(of: playlist) == nil
     }
             
     // iTunes
@@ -237,13 +244,14 @@ class Library : NSPersistentContainer {
     
     // Visual
     
-    func icon(of playlist: Playlist) -> NSImage {
-        switch playlist {
-        case tagPlaylist:
+    func icon<Type: AnyPlaylist>(of playlist: Type) -> NSImage {
+        let role = self.role(of: playlist)
+        
+        if role === PlaylistRole.tags {
             return #imageLiteral(resourceName: "tag")
-        default:
-            return playlist.icon
         }
+
+        return playlist.icon
     }
     
     // Adding
@@ -255,6 +263,11 @@ class Library : NSPersistentContainer {
         if moveAction  == .copy || moveAction == .move, self == Library.shared {
             ViewController.shared.tasker.enqueue(task: MoveTrackToMediaLocation(track: track, copy: moveAction == .copy))
         }
+    }
+    
+    private func setSpecial<Type: AnyPlaylist>(for role: LibraryRole<Type>, to: Type) {
+        self._roleDict[role.index] = to as AnyObject
+        self._roleDictReverse[to.persistentID] = role
     }
 }
 
@@ -276,7 +289,7 @@ extension Library {
             }
             
             if let playlist = delete as? Playlist {
-                if playlist == masterPlaylist {
+                if playlist == self[PlaylistRole.master] {
                     fatalError("Attempting to delete the Master Playlist!")
                 }
             }
@@ -298,4 +311,18 @@ extension Library {
             _allGenres = nil
         }
     }
+}
+
+class LibraryRole<Type> {
+    let index: Int
+    
+    init(_ index: Int) {
+        self.index = index
+    }
+}
+
+class PlaylistRole {
+    static let library = LibraryRole<PlaylistLibrary>(0)
+    static let master = LibraryRole<PlaylistFolder>(1)
+    static let tags = LibraryRole<PlaylistFolder>(2)
 }

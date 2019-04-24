@@ -101,6 +101,10 @@ extension NSManagedObject {
 
 extension NSManagedObjectContext {
     public func convert<T : NSManagedObject>(_ t: T) -> T? {
+        guard t.managedObjectContext != self else {
+            return t
+        }
+        
         let converted = object(with: t.objectID) as? T
         return (converted?.isDeleted ?? false) ? nil : converted
     }

@@ -32,8 +32,8 @@ extension Library {
         
         func check(in context: NSManagedObjectContext) {
             // Copy array so it won't get modified while running over it
-            let allPlaylists = Array(self.library.allPlaylists(in: context))
-            let master = self.library.masterPlaylist.convert(to: context)!
+            let allPlaylists = Array(library.allPlaylists(in: context))
+            let master = library[PlaylistRole.master, in: context]
             
             for playlist in allPlaylists {
                 // All must go to master eventually

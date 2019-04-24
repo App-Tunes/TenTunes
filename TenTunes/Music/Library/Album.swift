@@ -21,7 +21,7 @@ class Album {
     }
     
     var tracks: [Track] {
-        return Library.shared.allTracks.tracksList.filter { $0.rAlbum == self }
+        return Library.shared.allTracks().filter { $0.rAlbum == self }
     }
     
     static func preview(for artwork: NSImage?) -> NSImage? {

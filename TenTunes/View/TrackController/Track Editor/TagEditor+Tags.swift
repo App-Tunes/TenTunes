@@ -39,7 +39,7 @@ extension TagEditor : TTTokenFieldDelegate {
     }
     
     func trackResults(search: String) -> [Track] {
-        return Library.shared.allTracks.tracksList.filter {
+        return Library.shared.allTracks().filter {
                 $0.rTitle.range(of: search, options: [.diacriticInsensitive, .caseInsensitive]) != nil
             }
             .filter { !self.tracks.contains($0) }
@@ -140,7 +140,7 @@ extension TagEditor : TTTokenFieldDelegate {
             if NSAlert.confirm(action: "Create New Tag", text: "The tag '\(string)' is unknown. Do you want to create it?") {
                 let newTag = PlaylistManual(context: Library.shared.viewContext)
                 newTag.name = string
-                Library.shared.tagPlaylist.addToChildren(newTag)
+                Library.shared[PlaylistRole.tags].addToChildren(newTag)
                 
                 return newTag
             }

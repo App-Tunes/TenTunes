@@ -24,13 +24,13 @@
             <rect key="frame" x="0.0" y="0.0" width="178" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <scrollView horizontalHuggingPriority="750" horizontalCompressionResistancePriority="25" verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="IaV-BJ-2N9">
+                <scrollView horizontalHuggingPriority="750" horizontalCompressionResistancePriority="25" verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="IaV-BJ-2N9">
                     <rect key="frame" x="0.0" y="-5" width="178" height="490"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="lbM-WH-AFJ">
                         <rect key="frame" x="0.0" y="0.0" width="178" height="490"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" autosaveName="" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autosaveExpandedItems="YES" outlineTableColumn="y9Z-8l-kxU" id="jaf-cH-DJt" customClass="NSOutlineViewContextSensitiveMenu" customModule="TenTunes" customModuleProvider="target">
+                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" autosaveName="" rowHeight="23" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autosaveExpandedItems="YES" outlineTableColumn="y9Z-8l-kxU" id="jaf-cH-DJt" customClass="NSOutlineViewContextSensitiveMenu" customModule="TenTunes" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="178" height="427"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="2" height="3"/>
@@ -55,12 +55,12 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I85-vY-J6p">
-                                                        <rect key="frame" x="3" y="0.0" width="17" height="17"/>
+                                                        <rect key="frame" x="5" y="0.0" width="17" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="playlist" id="pJx-EJ-XRV"/>
                                                     </imageView>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fv7-FW-mKj" customClass="EnterReturningTextField" customModule="TenTunes" customModuleProvider="target">
-                                                        <rect key="frame" x="25" y="0.0" width="151" height="17"/>
+                                                        <rect key="frame" x="27" y="0.0" width="151" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" usesSingleLineMode="YES" id="C8d-Y8-Trs">
                                                             <font key="font" metaFont="system"/>
@@ -76,6 +76,43 @@
                                                 <connections>
                                                     <outlet property="imageView" destination="I85-vY-J6p" id="BbY-iS-yDu"/>
                                                     <outlet property="textField" destination="fv7-FW-mKj" id="cDe-R4-Igq"/>
+                                                </connections>
+                                            </tableCellView>
+                                            <tableCellView identifier="categoryCell" id="8ll-LH-Qot">
+                                                <rect key="frame" x="1" y="21" width="176" height="23"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="Mjd-CS-Uxv">
+                                                        <rect key="frame" x="8" y="2" width="17" height="17"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="Mjd-CS-Uxv" secondAttribute="height" multiplier="1:1" id="A1b-FT-POZ"/>
+                                                        </constraints>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="playlist" id="0n3-1x-Lvj"/>
+                                                    </imageView>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6TD-kd-f0T" customClass="EnterReturningTextField" customModule="TenTunes" customModuleProvider="target">
+                                                        <rect key="frame" x="30" y="2" width="146" height="17"/>
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" usesSingleLineMode="YES" id="7hk-gd-xsE">
+                                                            <font key="font" metaFont="systemMedium" size="13"/>
+                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </textFieldCell>
+                                                        <connections>
+                                                            <action selector="editPlaylistTitle:" target="-1" id="LBK-nn-MCS"/>
+                                                            <outlet property="delegate" destination="-2" id="DF2-g5-ERr"/>
+                                                        </connections>
+                                                    </textField>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="Mjd-CS-Uxv" firstAttribute="leading" secondItem="8ll-LH-Qot" secondAttribute="leading" constant="8" id="6gC-Qc-fR2"/>
+                                                    <constraint firstItem="6TD-kd-f0T" firstAttribute="leading" secondItem="Mjd-CS-Uxv" secondAttribute="trailing" constant="7" id="9yC-WK-EXA"/>
+                                                    <constraint firstAttribute="trailing" secondItem="6TD-kd-f0T" secondAttribute="trailing" constant="2" id="e5e-mo-lby"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Mjd-CS-Uxv" secondAttribute="bottom" constant="2" id="eHe-d1-aPo"/>
+                                                    <constraint firstItem="Mjd-CS-Uxv" firstAttribute="top" secondItem="8ll-LH-Qot" secondAttribute="top" constant="4" id="sqg-r5-WXP"/>
+                                                    <constraint firstItem="6TD-kd-f0T" firstAttribute="centerY" secondItem="Mjd-CS-Uxv" secondAttribute="centerY" id="z7J-7A-wEs"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="imageView" destination="Mjd-CS-Uxv" id="9hX-lZ-Jao"/>
+                                                    <outlet property="textField" destination="6TD-kd-f0T" id="eXx-pa-AUJ"/>
                                                 </connections>
                                             </tableCellView>
                                         </prototypeCellViews>

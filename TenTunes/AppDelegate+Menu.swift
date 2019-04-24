@@ -31,7 +31,7 @@ extension AppDelegate {
     
     @IBAction
     func refreshMetadata(sender: Any?) {
-        for track in Library.shared.allTracks.tracksList {
+        for track in Library.shared.allTracks() {
             track.metadataFetchDate = nil
         }
         

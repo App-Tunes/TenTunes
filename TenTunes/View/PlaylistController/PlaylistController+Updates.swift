@@ -48,7 +48,7 @@ extension PlaylistController {
                     guard let (parent, idx) = library.position(of: $0) else {
                         return nil
                     }
-                    return (idx, parent == library.masterPlaylist ? nil : parent)
+                    return (idx, parent == library[PlaylistRole.master] ? nil : parent)
                 }
                 
                 if let insertedPlaylist = playlistInserts.uniqueElement, library.isPlaylist(playlist: insertedPlaylist), insertedPlaylist.name.contains("Unnamed") {
@@ -68,7 +68,7 @@ extension PlaylistController {
             
             // TODO Animate movement?
             // It's enough if we reload only updated ones since deletes / inserts are auto-reloaded
-            _outlineView.reloadItems(playlistUpdates.map { $0 == library.masterPlaylist ? nil : $0 }, reloadChildren: true)
+            _outlineView.reloadItems(playlistUpdates.map { $0 == library[PlaylistRole.master] ? nil : $0 }, reloadChildren: true)
             
             if let prevSelected = prevSelected {
                 select(playlist: prevSelected)

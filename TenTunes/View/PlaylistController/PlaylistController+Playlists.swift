@@ -11,6 +11,7 @@ import Cocoa
 extension PlaylistController {
     enum CellIdentifiers {
         static let NameCell = NSUserInterfaceItemIdentifier(rawValue: "nameCell")
+        static let CategoryCell = NSUserInterfaceItemIdentifier(rawValue: "categoryCell")
     }
 
     @IBAction func didClick(_ sender: Any) {
@@ -166,7 +167,7 @@ extension PlaylistController : NSOutlineViewDelegate {
             view.textField?.isEditable = Library.shared.isPlaylist(playlist: playlist)
             return view
         }
-        
+
         return nil
     }
     
@@ -184,6 +185,10 @@ extension PlaylistController : NSOutlineViewDelegate {
     
     func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
         return SubtleTableRowView()
+    }
+    
+    func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
+        return 17
     }
 }
 

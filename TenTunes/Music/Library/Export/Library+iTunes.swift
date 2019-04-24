@@ -76,19 +76,19 @@ extension Library.Export {
                 return nil
             }
             
-            let isMaster = playlist.objectID == library.masterPlaylist.objectID
+            let isMaster = playlist.objectID == library[PlaylistRole.master].objectID
             let playlistDict = OrderedDictionary()
             
             if isMaster { playlistDict[ordered: "Master"] = true }
             playlistDict[ordered: "Playlist ID"] = idx
-            if let parent = playlist.parent, parent.objectID != library.masterPlaylist.objectID {
+            if let parent = playlist.parent, parent.objectID != library[PlaylistRole.master].objectID {
                 playlistDict[ordered: "Parent Persistent ID"] = playlistPersistentID(parent)
             }
             playlistDict[ordered: "Playlist Persistent ID"] = playlistPersistentID(playlist)
             
             var tracks = playlist.tracksList
             if isMaster {
-                tracks = library.allTracks.convert(to: context)!.tracksList
+                tracks = library.allTracks(in: context)
                 
                 playlistDict[ordered: "All Items"] = true
                 playlistDict[ordered: "Visible"] = false
@@ -148,11 +148,11 @@ extension Library.Import {
         let masterPlaylist = PlaylistFolder(context: context)
         context.insert(masterPlaylist)
         masterPlaylist.name = "iTunes Library"
-        self.library.masterPlaylist.addToChildren(masterPlaylist)
+        library[PlaylistRole.master].addToChildren(masterPlaylist)
         
         var existingTracks: [String:Track] = [:]
         // TODO Request
-        for track in library.allTracks.tracksList {
+        for track in library.allTracks() {
             if let iTunesID = track.iTunesID {
                 existingTracks[iTunesID] = track
             }

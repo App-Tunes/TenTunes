@@ -11,7 +11,7 @@ import Cocoa
 @objc(PlaylistCartesian)
 class PlaylistCartesian: PlaylistFolder {    
     func checkSanity(in context: NSManagedObjectContext) {
-        let allTracks = Library.shared.allTracks.convert(to: context)!.tracksList
+        let allTracks = Library.shared.allTracks(in: context)
         
         let cross = crossProduct(in: context)
             .filter { allTracks.anySatisfy($0.rules.filter(in: context) ?? SmartPlaylistRules.trivial) }
@@ -48,7 +48,7 @@ class PlaylistCartesian: PlaylistFolder {
     
     override func _freshTracksList(rguard: RecursionGuard<Playlist>) -> [Track] {
         // Isn't guarded because all tracks is NEVER recursive
-        let all = Library.shared.allTracks.convert(to: self.managedObjectContext!)!.tracksList
+        let all = Library.shared.allTracks(in: self.managedObjectContext)
         // And likewise is the combinedFilter
         return all.filter(self.combinedFilter(in: self.managedObjectContext!))
     }

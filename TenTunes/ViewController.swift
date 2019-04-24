@@ -103,8 +103,8 @@ class ViewController: NSViewController {
         player.history = queueController.history // Empty but != nil
         
         playlistController.delegate = self
-        playlistController.masterPlaylist = Library.shared.masterPlaylist
-        playlistController.library = Library.shared.allTracks
+        playlistController.masterPlaylist = Library.shared[PlaylistRole.master]
+        playlistController.library = Library.shared[PlaylistRole.library]
         
         trackController.playTrack = { [unowned self] in
             self.player.play(at: $0, in: self.trackController.history) // TODO Support for multiple

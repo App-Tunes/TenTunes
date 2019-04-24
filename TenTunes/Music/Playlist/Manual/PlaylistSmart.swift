@@ -13,8 +13,8 @@ import CoreData
 public class PlaylistSmart: Playlist {
     override func _freshTracksList(rguard: RecursionGuard<Playlist>) -> [Track] {
         return rguard.protected(self) {
-            let all = Library.shared.allTracks.convert(to: managedObjectContext!)!.tracksList
-            return all.filter(filter(in: managedObjectContext!, rguard: rguard) ?? SmartPlaylistRules.trivial)
+            return Library.shared.allTracks(in: managedObjectContext!)
+                .filter(filter(in: managedObjectContext!, rguard: rguard) ?? SmartPlaylistRules.trivial)
         } ?? []
     }
         

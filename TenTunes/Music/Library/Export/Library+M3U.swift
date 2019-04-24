@@ -66,7 +66,7 @@ extension Library.Import {
         context.insert(playlist)
         
         playlist.addTracks(tracks)
-        library.masterPlaylist.addToChildren(playlist)
+        library[PlaylistRole.master].addToChildren(playlist)
         
         return playlist
     }

@@ -160,6 +160,7 @@ extension PlaylistController : NSOutlineViewDelegate {
             if let view = outlineView.makeView(withIdentifier: CellIdentifiers.CategoryCell, owner: nil) as? NSTableCellView {
                 view.textField?.stringValue = playlist.name
                 view.imageView?.image = Library.shared.icon(of: playlist)
+                
                 return view
             }
         }
@@ -201,7 +202,13 @@ extension PlaylistController : NSOutlineViewDelegate {
     }
     
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
-        return (item as! Playlist).parent == masterPlaylist ? 23 : 17
+        let item = item as! Playlist
+        
+        guard item.parent == masterPlaylist else {
+            return 17
+        }
+        
+        return 25
     }
 }
 

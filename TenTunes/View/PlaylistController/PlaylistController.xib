@@ -83,14 +83,15 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="Mjd-CS-Uxv">
-                                                        <rect key="frame" x="8" y="2" width="17" height="17"/>
+                                                        <rect key="frame" x="8" y="1" width="17" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="Mjd-CS-Uxv" secondAttribute="height" multiplier="1:1" id="A1b-FT-POZ"/>
+                                                            <constraint firstAttribute="height" constant="17" id="kkT-pf-lGw"/>
                                                         </constraints>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="playlist" id="0n3-1x-Lvj"/>
                                                     </imageView>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6TD-kd-f0T" customClass="EnterReturningTextField" customModule="TenTunes" customModuleProvider="target">
-                                                        <rect key="frame" x="30" y="2" width="146" height="17"/>
+                                                        <rect key="frame" x="30" y="1" width="146" height="17"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" usesSingleLineMode="YES" id="7hk-gd-xsE">
                                                             <font key="font" metaFont="systemMedium" size="13"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -105,9 +106,8 @@
                                                 <constraints>
                                                     <constraint firstItem="Mjd-CS-Uxv" firstAttribute="leading" secondItem="8ll-LH-Qot" secondAttribute="leading" constant="8" id="6gC-Qc-fR2"/>
                                                     <constraint firstItem="6TD-kd-f0T" firstAttribute="leading" secondItem="Mjd-CS-Uxv" secondAttribute="trailing" constant="7" id="9yC-WK-EXA"/>
+                                                    <constraint firstItem="Mjd-CS-Uxv" firstAttribute="centerY" secondItem="8ll-LH-Qot" secondAttribute="centerY" constant="2" id="Brn-LL-78t"/>
                                                     <constraint firstAttribute="trailing" secondItem="6TD-kd-f0T" secondAttribute="trailing" constant="2" id="e5e-mo-lby"/>
-                                                    <constraint firstAttribute="bottom" secondItem="Mjd-CS-Uxv" secondAttribute="bottom" constant="2" id="eHe-d1-aPo"/>
-                                                    <constraint firstItem="Mjd-CS-Uxv" firstAttribute="top" secondItem="8ll-LH-Qot" secondAttribute="top" constant="4" id="sqg-r5-WXP"/>
                                                     <constraint firstItem="6TD-kd-f0T" firstAttribute="centerY" secondItem="Mjd-CS-Uxv" secondAttribute="centerY" id="z7J-7A-wEs"/>
                                                 </constraints>
                                                 <connections>

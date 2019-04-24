@@ -148,7 +148,7 @@ extension Library.Import {
         let masterPlaylist = PlaylistFolder(context: context)
         context.insert(masterPlaylist)
         masterPlaylist.name = "iTunes Library"
-        library[PlaylistRole.master].addToChildren(masterPlaylist)
+        library[PlaylistRole.playlists].addToChildren(masterPlaylist)
         
         var existingTracks: [String:Track] = [:]
         // TODO Request

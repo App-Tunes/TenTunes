@@ -51,9 +51,10 @@ extension PlaylistController: NSMenuDelegate, NSMenuItemValidation {
     @IBAction func duplicatePlaylist(_ sender: Any) {
         for playlist in menuPlaylists {
             let copy = playlist.duplicate()
-            let idx = playlist.parent!.children.index(of: playlist)
             
-            playlist.parent!.addPlaylist(copy, above: idx)
+            // Use this so we get a legal insertion position no matter what
+            let (parent, idx) = playlistInsertionPosition(row: _outlineView.row(forItem: playlist), allowInside: false)
+            parent.addPlaylist(copy, above: idx)
         }
         
         try! Library.shared.viewContext.save()

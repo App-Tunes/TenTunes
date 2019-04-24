@@ -31,11 +31,11 @@ extension PlaylistController {
         }
     }
     
-    func playlistInsertionPosition(row: Int?) -> (PlaylistFolder, Int?) {
+    func playlistInsertionPosition(row: Int?, allowInside: Bool = true) -> (PlaylistFolder, Int?) {
         if let idx = row {
             let selectedPlaylist = _outlineView.item(atRow: idx) as! Playlist
             
-            if let selectedPlaylist = selectedPlaylist as? PlaylistFolder {
+            if allowInside, let selectedPlaylist = selectedPlaylist as? PlaylistFolder {
                 // Add inside, as last
                 return (selectedPlaylist, nil)
             }

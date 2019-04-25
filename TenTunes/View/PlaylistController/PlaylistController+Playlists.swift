@@ -8,108 +8,7 @@
 
 import Cocoa
 
-extension PlaylistController {
-    class Item : ValidatableItem, Hashable {
-        var title: String { fatalError() }
-        var icon: NSImage { fatalError() }
-        
-        var isValid: Bool { fatalError() }
-        var persistentID: String { fatalError() }
-        
-        // TODO Generify everything using this
-        var asPlaylist: Playlist? { return nil }
-        var asAnyPlaylist: AnyPlaylist? { return asPlaylist }
-
-        weak var parent: Item?
-        
-        init(parent: Item? = nil) {
-            self.parent = parent
-        }
-        
-        var path: [Item] {
-            var path = [self]
-            while let current = path.first, let parent = current.parent {
-                path.insert(parent, at: 0)
-            }
-            return path
-        }
-
-        static func == (lhs: PlaylistController.Item, rhs: PlaylistController.Item) -> Bool {
-            return lhs.persistentID == rhs.persistentID
-        }
-        
-        func hash(into hasher: inout Hasher) {
-            hasher.combine(persistentID)
-        }
-    }
-    
-    class Folder : Item {
-        typealias Child = Item
-        
-        var isFolder: Bool { return true }
-        
-        func children(cache: PlaylistController.Cache) -> [Child] { fatalError() }
-        // TODO
-        func load(id: String, cache: PlaylistController.Cache) -> Child? { fatalError() }
-        
-        // TODO
-        func accepts(item: Child) -> Bool { fatalError() }
-        // TODO
-        func add(item: Child, at: Int) { fatalError() }
-    }
-}
-
 extension PlaylistController.Item {
-    class MasterItem: PlaylistController.Folder {
-        var items = [PlaylistController.Item]()
-        var playlist: AnyPlaylist
-        
-        init(items: [PlaylistController.Item], playlist: AnyPlaylist) {
-            self.items = items
-            self.playlist = playlist
-            super.init()
-            
-            for item in items {
-                item.parent = self
-            }
-        }
-
-        override var title: String {
-            return "Library"
-        }
-        
-        override var icon: NSImage {
-            return NSImage(named: .homeName)!
-        }
-        
-        override func children(cache: PlaylistController.Cache) -> [Child] {
-            return items
-        }
-        
-        override var asAnyPlaylist: AnyPlaylist? { return playlist }
-        
-        override var isValid: Bool { return true }
-        
-        override var persistentID: String { return "Master" }
-        
-        override func load(id: String, cache: PlaylistController.Cache) -> Child? {
-            if let match = items.filter({ $0.persistentID == id }).first {
-                return match
-            }
-            
-            // TODO
-            return nil
-        }
-        
-        override func accepts(item: Child) -> Bool {
-            return items.contains(item)
-        }
-        
-        override func add(item: Child, at: Int) {
-            items.rearrange(elements: [item], to: at)
-        }
-    }
-    
     class PlaylistItem : PlaylistController.Folder {
         let playlist: Playlist
         
@@ -330,11 +229,21 @@ extension PlaylistController : NSOutlineViewDelegate {
                 view.textField?.stringValue = item.title
                 view.imageView?.image = item.icon
                 
-                // Doesn't work from interface builder
-                view.textField?.delegate = self
-                view.textField?.target = self
-                view.textField?.action = #selector(editPlaylistTitle)
-                view.textField?.isEditable = (item.asAnyPlaylist ?=> Library.shared.isPlaylist) ?? false
+                if !item.enabled {
+                    view.textField?.textColor = .disabledControlTextColor
+                    if #available(OSX 10.14, *) {
+                        view.imageView?.contentTintColor = .disabledControlTextColor
+                    } 
+                }
+                
+                if item is Item.PlaylistItem {
+                    // Doesn't work from interface builder
+                    view.textField?.delegate = self
+                    view.textField?.target = self
+                    view.textField?.action = #selector(editPlaylistTitle)
+                    view.textField?.isEditable = (item.asAnyPlaylist ?=> Library.shared.isPlaylist) ?? false
+                }
+                
                 return view
             }
         }
@@ -359,7 +268,8 @@ extension PlaylistController : NSOutlineViewDelegate {
     }
     
     func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
-        return (item as! Item).parent != masterItem
+        let item = item as! Item
+        return item.parent != masterItem && item.enabled
     }
     
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {

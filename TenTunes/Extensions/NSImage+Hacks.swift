@@ -17,4 +17,8 @@ extension NSImage.Name {
     
     static let homeName: NSImage.Name = "home"
     static let musicName: NSImage.Name = "music"
+    static let advancedInfoName: NSImage.Name = "advanced-info"
+    static let artistName: NSImage.Name = "artist"
+    static let genreName: NSImage.Name = "genre"
+    static let albumName: NSImage.Name = "album"
 }

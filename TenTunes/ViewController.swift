@@ -105,8 +105,8 @@ class ViewController: NSViewController {
         playlistController.delegate = self
         playlistController.masterItem = PlaylistController.Item.MasterItem(items: [
             PlaylistController.Item.IndexItem(),
-            playlistController.cache.playlistItem(Library.shared[PlaylistRole.tags]),
-            playlistController.cache.playlistItem(Library.shared[PlaylistRole.playlists]),
+            playlistController.cache.categoryPlaylistItem(Library.shared[PlaylistRole.tags]),
+            playlistController.cache.categoryPlaylistItem(Library.shared[PlaylistRole.playlists]),
             ], playlist: Library.shared[PlaylistRole.library])
         playlistController.defaultPlaylist = Library.shared[PlaylistRole.playlists]
         

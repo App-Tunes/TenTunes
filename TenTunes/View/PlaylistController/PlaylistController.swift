@@ -116,11 +116,19 @@ protocol PlaylistControllerDelegate : class {
 }
 
 extension PlaylistController {
-    class Cache : CacheRegistry<Item> {
+    class Cache : CacheRegistry<Item> {        
+        func _playlistItem(_ playlist: Playlist, placeholderChild: Bool) -> Item.PlaylistItem {
+            return get(Item.PlaylistItem.persistentID(for: playlist)) { _ in
+                Item.PlaylistItem(playlist, parent: playlist.parent ?=> playlistItem, placeholderChild: placeholderChild)
+                } as! PlaylistController.Item.PlaylistItem
+        }
+        
         func playlistItem(_ playlist: Playlist) -> Item.PlaylistItem {
-            return get(Item.PlaylistItem.persistentID(for: playlist))
-            { _ in Item.PlaylistItem(playlist, parent: playlist.parent ?=> playlistItem) }
-                as! PlaylistController.Item.PlaylistItem
+            return _playlistItem(playlist, placeholderChild: false)
+        }
+        
+        func categoryPlaylistItem(_ playlist: Playlist) -> Item.PlaylistItem {
+            return _playlistItem(playlist, placeholderChild: true)
         }
     }
 }

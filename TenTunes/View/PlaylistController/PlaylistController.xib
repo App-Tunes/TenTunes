@@ -24,13 +24,13 @@
             <rect key="frame" x="0.0" y="0.0" width="178" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <scrollView horizontalHuggingPriority="750" horizontalCompressionResistancePriority="25" verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="IaV-BJ-2N9">
+                <scrollView horizontalHuggingPriority="750" horizontalCompressionResistancePriority="25" verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="IaV-BJ-2N9">
                     <rect key="frame" x="0.0" y="-5" width="178" height="490"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="lbM-WH-AFJ">
                         <rect key="frame" x="0.0" y="0.0" width="178" height="490"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" autosaveName="" rowHeight="23" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autosaveExpandedItems="YES" outlineTableColumn="y9Z-8l-kxU" id="jaf-cH-DJt" customClass="NSOutlineViewContextSensitiveMenu" customModule="TenTunes" customModuleProvider="target">
+                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" autosaveName="" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autosaveExpandedItems="YES" outlineTableColumn="y9Z-8l-kxU" id="jaf-cH-DJt" customClass="NSOutlineViewContextSensitiveMenu" customModule="TenTunes" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="178" height="427"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="2" height="3"/>
@@ -113,6 +113,28 @@
                                                 <connections>
                                                     <outlet property="imageView" destination="Mjd-CS-Uxv" id="9hX-lZ-Jao"/>
                                                     <outlet property="textField" destination="6TD-kd-f0T" id="eXx-pa-AUJ"/>
+                                                </connections>
+                                            </tableCellView>
+                                            <tableCellView identifier="placeholderCell" id="SaM-kL-Tw9">
+                                                <rect key="frame" x="1" y="47" width="176" height="17"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Mp6-mu-lW6">
+                                                        <rect key="frame" x="8" y="0.0" width="170" height="17"/>
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="There is nothing here yet!" id="h1f-Cc-pSD">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="Mp6-mu-lW6" secondAttribute="trailing" id="0gj-hD-VW4"/>
+                                                    <constraint firstItem="Mp6-mu-lW6" firstAttribute="leading" secondItem="SaM-kL-Tw9" secondAttribute="leading" constant="10" id="8ug-yY-rmd"/>
+                                                    <constraint firstItem="Mp6-mu-lW6" firstAttribute="centerY" secondItem="SaM-kL-Tw9" secondAttribute="centerY" id="ohx-dr-mAt"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="textField" destination="Mp6-mu-lW6" id="y5c-em-QWp"/>
                                                 </connections>
                                             </tableCellView>
                                         </prototypeCellViews>

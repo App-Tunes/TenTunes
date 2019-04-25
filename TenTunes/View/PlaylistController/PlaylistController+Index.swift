@@ -59,6 +59,14 @@ extension PlaylistController {
         // TODO
         func add(item: Child, at: Int) { fatalError() }
     }
+    
+    class Placeholder : Item {
+        override var title: String { return "There is nothing here yet!" }
+        
+        override var persistentID: String {
+            return (parent?.persistentID ?? "") + ".placeholder"
+        }
+    }
 }
 
 extension PlaylistController.Item {

@@ -11,10 +11,14 @@ import Cocoa
 extension PlaylistController.Item {
     class PlaylistItem : PlaylistController.Folder {
         let playlist: Playlist
+        let placeholderChild: Bool
+        var placeholder: PlaylistController.Placeholder! = nil
         
-        init(_ playlist: Playlist, parent: PlaylistController.Item?) {
+        init(_ playlist: Playlist, parent: PlaylistController.Item?, placeholderChild: Bool = false) {
             self.playlist = playlist
+            self.placeholderChild = placeholderChild
             super.init(parent: parent)
+            self.placeholder = .init(parent: self)
         }
         
         override var asPlaylist: Playlist? {
@@ -28,8 +32,14 @@ extension PlaylistController.Item {
         override var isFolder: Bool { return playlist is PlaylistFolder }
 
         override func children(cache: PlaylistController.Cache) -> [Child] {
-            return ((playlist as? PlaylistFolder)?.childrenList ?? [])
-                .map(cache.playlistItem)
+            guard let folder = playlist as? PlaylistFolder else {
+                return []
+            }
+            
+            let children = folder.childrenList.map(cache.playlistItem)
+            
+            return children.isEmpty && placeholderChild
+            ? [placeholder] : children
         }
         
         override var isValid: Bool {
@@ -63,6 +73,7 @@ extension PlaylistController {
     enum CellIdentifiers {
         static let NameCell = NSUserInterfaceItemIdentifier(rawValue: "nameCell")
         static let CategoryCell = NSUserInterfaceItemIdentifier(rawValue: "categoryCell")
+        static let PlaceholderCell = NSUserInterfaceItemIdentifier(rawValue: "placeholderCell")
     }
 
     @IBAction func didClick(_ sender: Any) {
@@ -187,7 +198,7 @@ extension PlaylistController {
 extension PlaylistController : NSOutlineViewDataSource {
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
         guard let item = self.item(raw: item) as? Folder else {
-            return 0  // Not initialized yet
+            return 0
         }
         
         return item.children(cache: cache).count
@@ -216,7 +227,14 @@ extension PlaylistController : NSOutlineViewDelegate {
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         let item = item as! Item
         
-        if item.parent == masterItem {
+        if item is Placeholder {
+            if let view = outlineView.makeView(withIdentifier: CellIdentifiers.PlaceholderCell, owner: nil) as? NSTableCellView {
+                view.textField?.stringValue = item.title
+                
+                return view
+            }
+        }
+        else if item.parent == masterItem {
             if let view = outlineView.makeView(withIdentifier: CellIdentifiers.CategoryCell, owner: nil) as? NSTableCellView {
                 view.textField?.stringValue = item.title
                 view.imageView?.image = item.icon

@@ -50,7 +50,10 @@ extension PlaylistController: NSMenuDelegate, NSMenuItemValidation {
             return
         }
         
-        let playlist = (_outlineView.item(atRow: clicked) as! Item).asPlaylist!
+        guard let playlist = (_outlineView.item(atRow: clicked) as! Item).asPlaylist else {
+            return
+        }
+        
         delegate?.playlistController(self, play: playlist)
     }
     

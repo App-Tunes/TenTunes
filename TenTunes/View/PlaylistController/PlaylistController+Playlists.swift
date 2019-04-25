@@ -146,19 +146,17 @@ extension PlaylistController {
             _outlineView.deselectAll(self)
             didSelect(.master)
         case .items(let items):
-            let playlists = items.compactMap { $0.asPlaylist }
-            
             // Expand so all items are in view
-            let paths = playlists.map { $0.path }
+            let paths = items.map { $0.path }
             for path in paths {
                 for parent in path.dropLast() {
-                    _outlineView.expandItem(cache.playlistItem(parent))
+                    _outlineView.expandItem(parent)
                 }
             }
             
             // First selection, for most cases this is enough, but there's no better way anyway
-            let indices: [IndexSet.Element] = playlists.compactMap {
-                return _outlineView.row(forItem: cache.playlistItem($0))
+            let indices: [IndexSet.Element] = items.compactMap {
+                _outlineView.row(forItem: $0)
             }
             
             if let first = indices.first { _outlineView.scrollRowToVisible(first) }

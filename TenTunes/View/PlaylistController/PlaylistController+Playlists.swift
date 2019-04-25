@@ -101,13 +101,13 @@ extension PlaylistController {
             return (defaultPlaylist!, nil)
         }
         
-        let selectedItem = _outlineView.item(atRow: row) as! Item
+        let item = _outlineView.item(atRow: row) as! Item
         
-        if selectedItem is Placeholder, let parent = selectedItem.parent?.asPlaylist as? PlaylistFolder {
+        if item is Placeholder, let parent = item.parent?.asPlaylist as? PlaylistFolder {
             return (parent, nil)
         }
         
-        guard let playlist = (selectedItem as? Item.PlaylistItem)?.playlist else {
+        guard let playlist = (item as? Item.PlaylistItem)?.playlist else {
             return (defaultPlaylist!, nil)
         }
         
@@ -115,11 +115,13 @@ extension PlaylistController {
             // Add inside, as last
             return (folder, nil)
         }
-        else {
-            // Add below
-            let (parent, idx) = Library.shared.position(of: playlist)!
-            return (parent, idx + 1)
+
+        guard let (parent, idx) = Library.shared.position(of: playlist), parent.supports(action: .add) else {
+            return (defaultPlaylist!, nil)
         }
+        
+        // Add below
+        return (parent, idx + 1)
     }
     
     func select(playlist: Playlist, editTitle: Bool = false) {

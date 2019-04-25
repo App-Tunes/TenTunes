@@ -115,8 +115,8 @@ protocol PlaylistControllerDelegate : class {
     }
 }
 
-extension PlaylistController {    class Cache : CacheRegistry<Item> {
-        // TODO Move to somewhere sensible
+extension PlaylistController {
+    class Cache : CacheRegistry<Item> {
         func playlistItem(_ playlist: Playlist) -> Item.PlaylistItem {
             return get(Item.PlaylistItem.persistentID(for: playlist))
             { _ in Item.PlaylistItem(playlist, parent: playlist.parent ?=> playlistItem) }

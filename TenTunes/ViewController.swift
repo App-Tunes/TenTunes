@@ -106,7 +106,7 @@ class ViewController: NSViewController {
         playlistController.masterItem = PlaylistController.Item.MasterItem(items: [
             playlistController.cache.playlistItem(Library.shared[PlaylistRole.tags]),
             playlistController.cache.playlistItem(Library.shared[PlaylistRole.playlists]),
-        ])
+            ], playlist: Library.shared[PlaylistRole.library])
         playlistController.defaultPlaylist = Library.shared[PlaylistRole.playlists]
 
         trackController.playTrack = { [unowned self] in

@@ -17,7 +17,7 @@ extension PlaylistController {
     }
     
     @IBAction func historyMoved(notification: NSNotification) {
-        delegate?.playlistController(self, selectionDidChange: history.current.items(master: masterItem!).compactMap { $0.asPlaylist })
+        delegate?.playlistController(self, selectionDidChange: history.current.items(master: masterItem!).compactMap { $0.asAnyPlaylist })
         
         _back.isEnabled = history.canGoBack
         _forwards.isEnabled = history.canGoForwards

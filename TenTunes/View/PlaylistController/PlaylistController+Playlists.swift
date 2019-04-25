@@ -18,7 +18,8 @@ extension PlaylistController {
         
         // TODO Generify everything using this
         var asPlaylist: Playlist? { return nil }
-        
+        var asAnyPlaylist: AnyPlaylist? { return asPlaylist }
+
         weak var parent: Item?
         
         init(parent: Item? = nil) {
@@ -61,10 +62,12 @@ extension PlaylistController {
 extension PlaylistController.Item {
     class MasterItem: PlaylistController.Folder {
         var items = [PlaylistController.Item]()
+        var playlist: AnyPlaylist
         
-        init(items: [PlaylistController.Item], parent: PlaylistController.Item? = nil) {
-            super.init(parent: parent)
+        init(items: [PlaylistController.Item], playlist: AnyPlaylist) {
             self.items = items
+            self.playlist = playlist
+            super.init()
             
             for item in items {
                 item.parent = self
@@ -82,6 +85,8 @@ extension PlaylistController.Item {
         override func children(cache: PlaylistController.Cache) -> [Child] {
             return items
         }
+        
+        override var asAnyPlaylist: AnyPlaylist? { return playlist }
         
         override var isValid: Bool { return true }
         
@@ -128,7 +133,9 @@ extension PlaylistController.Item {
                 .map(cache.playlistItem)
         }
         
-        override var isValid: Bool { return !playlist.isDeleted }
+        override var isValid: Bool {
+            return !playlist.isDeleted && playlist.managedObjectContext != nil
+        }
         
         override var icon: NSImage {
             return Library.shared.icon(of: playlist)
@@ -327,7 +334,7 @@ extension PlaylistController : NSOutlineViewDelegate {
                 view.textField?.delegate = self
                 view.textField?.target = self
                 view.textField?.action = #selector(editPlaylistTitle)
-                view.textField?.isEditable = (item.asPlaylist ?=> Library.shared.isPlaylist) ?? false
+                view.textField?.isEditable = (item.asAnyPlaylist ?=> Library.shared.isPlaylist) ?? false
                 return view
             }
         }

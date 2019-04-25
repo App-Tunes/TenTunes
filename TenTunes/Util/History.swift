@@ -70,7 +70,7 @@ class History<Element> : NSObject {
     func forwards(skip: ((Element) -> Bool)? = nil) -> Element {
         index = min(count - 1, index + 1)
         while index < count - 1 && (skip?(current) ?? false) {
-            index -= 1
+            index += 1
         }
         
         historyMoved()

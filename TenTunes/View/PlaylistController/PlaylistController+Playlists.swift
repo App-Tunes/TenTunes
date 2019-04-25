@@ -97,11 +97,15 @@ extension PlaylistController {
     }
     
     func playlistInsertionPosition(row: Int?, allowInside: Bool = true) -> (PlaylistFolder, Int?) {
-        guard  let idx = row else {
+        guard  let row = row else {
             return (defaultPlaylist!, nil)
         }
         
-        let selectedItem = _outlineView.item(atRow: idx) as! Item
+        let selectedItem = _outlineView.item(atRow: row) as! Item
+        
+        if selectedItem is Placeholder, let parent = selectedItem.parent?.asPlaylist as? PlaylistFolder {
+            return (parent, nil)
+        }
         
         guard let playlist = (selectedItem as? Item.PlaylistItem)?.playlist else {
             return (defaultPlaylist!, nil)

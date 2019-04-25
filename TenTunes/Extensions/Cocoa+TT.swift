@@ -307,6 +307,11 @@ extension NSOutlineView {
         (animator() as NSOutlineView).collapseItem(item)
         return false
     }
+    
+    func orow(forItem: Any?) -> Int? {
+        let row = self.row(forItem: forItem)
+        return row >= 0 ? row : nil
+    }
 }
 
 extension FileManager {

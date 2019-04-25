@@ -9,6 +9,151 @@
 import Cocoa
 
 extension PlaylistController {
+    class Item : ValidatableItem, Hashable {
+        var title: String { fatalError() }
+        var icon: NSImage { fatalError() }
+        
+        var isValid: Bool { fatalError() }
+        var persistentID: String { fatalError() }
+        
+        // TODO Generify everything using this
+        var asPlaylist: Playlist? { return nil }
+        
+        weak var parent: Item?
+        
+        init(parent: Item? = nil) {
+            self.parent = parent
+        }
+        
+        var path: [Item] {
+            var path = [self]
+            while let current = path.first, let parent = current.parent {
+                path.insert(parent, at: 0)
+            }
+            return path
+        }
+
+        static func == (lhs: PlaylistController.Item, rhs: PlaylistController.Item) -> Bool {
+            return lhs.persistentID == rhs.persistentID
+        }
+        
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(persistentID)
+        }
+    }
+    
+    class Folder : Item {
+        typealias Child = Item
+        
+        var isFolder: Bool { return true }
+        
+        func children(cache: PlaylistController.Cache) -> [Child] { fatalError() }
+        // TODO
+        func load(id: String, cache: PlaylistController.Cache) -> Child? { fatalError() }
+        
+        // TODO
+        func accepts(item: Child) -> Bool { fatalError() }
+        // TODO
+        func add(item: Child, at: Int) { fatalError() }
+    }
+}
+
+extension PlaylistController.Item {
+    class MasterItem: PlaylistController.Folder {
+        var items = [PlaylistController.Item]()
+        
+        init(items: [PlaylistController.Item], parent: PlaylistController.Item? = nil) {
+            super.init(parent: parent)
+            self.items = items
+            
+            for item in items {
+                item.parent = self
+            }
+        }
+
+        override var title: String {
+            return "Library"
+        }
+        
+        override var icon: NSImage {
+            return NSImage(named: .homeName)!
+        }
+        
+        override func children(cache: PlaylistController.Cache) -> [Child] {
+            return items
+        }
+        
+        override var isValid: Bool { return true }
+        
+        override var persistentID: String { return "Master" }
+        
+        override func load(id: String, cache: PlaylistController.Cache) -> Child? {
+            if let match = items.filter({ $0.persistentID == id }).first {
+                return match
+            }
+            
+            // TODO
+            return nil
+        }
+        
+        override func accepts(item: Child) -> Bool {
+            return items.contains(item)
+        }
+        
+        override func add(item: Child, at: Int) {
+            items.rearrange(elements: [item], to: at)
+        }
+    }
+    
+    class PlaylistItem : PlaylistController.Folder {
+        let playlist: Playlist
+        
+        init(_ playlist: Playlist, parent: PlaylistController.Item?) {
+            self.playlist = playlist
+            super.init(parent: parent)
+        }
+        
+        override var asPlaylist: Playlist? {
+            return playlist
+        }
+        
+        override var title: String {
+            return playlist.name
+        }
+        
+        override var isFolder: Bool { return playlist is PlaylistFolder }
+
+        override func children(cache: PlaylistController.Cache) -> [Child] {
+            return ((playlist as? PlaylistFolder)?.childrenList ?? [])
+                .map(cache.playlistItem)
+        }
+        
+        override var isValid: Bool { return !playlist.isDeleted }
+        
+        override var icon: NSImage {
+            return Library.shared.icon(of: playlist)
+        }
+        
+        class func persistentID(for playlist: Playlist) -> String {
+            return Library.shared.export().stringID(of: playlist)
+        }
+        
+        override var persistentID: String {
+            return PlaylistItem.persistentID(for: playlist)
+        }
+        
+        override func load(id: String, cache: PlaylistController.Cache) -> Child? {
+            return Library.shared.import().playlist(id: playlist)
+                .map(cache.playlistItem)
+        }
+        
+        override func accepts(item: Child) -> Bool {
+            return true
+        }
+    }
+}
+
+extension PlaylistController {
     enum CellIdentifiers {
         static let NameCell = NSUserInterfaceItemIdentifier(rawValue: "nameCell")
         static let CategoryCell = NSUserInterfaceItemIdentifier(rawValue: "categoryCell")
@@ -19,47 +164,55 @@ extension PlaylistController {
     
     @IBAction func didDoubleClick(_ sender: Any) {
         let clicked = _outlineView.clickedRow
-        if clicked >= 0 {
-            let playlist = _outlineView.item(atRow: clicked) as! Playlist
-            
-            if outlineView(_outlineView, isItemExpandable: playlist) {
-                _outlineView.toggleItemExpanded(playlist)
-            }
-            else {
-                delegate?.playlistController(self, play: playlist)
-            }
+        guard clicked >= 0 else {
+            return
+        }
+        
+        let item = _outlineView.item(atRow: clicked) as! Item
+        
+        guard !outlineView(_outlineView, isItemExpandable: item) else {
+            _outlineView.toggleItemExpanded(item)
+            return
+        }
+        
+        if let item = item as? Item.PlaylistItem {
+            // TODO Generify
+            delegate?.playlistController(self, play: item.playlist)
         }
     }
     
     func playlistInsertionPosition(row: Int?, allowInside: Bool = true) -> (PlaylistFolder, Int?) {
-        if let idx = row {
-            let selectedPlaylist = _outlineView.item(atRow: idx) as! Playlist
-            
-            if allowInside, let selectedPlaylist = selectedPlaylist as? PlaylistFolder {
-                // Add inside, as last
-                return (selectedPlaylist, nil)
-            }
-            else {
-                // Add below
-                let (parent, idx) = Library.shared.position(of: selectedPlaylist)!
-                return (parent, idx + 1)
-            }
+        guard  let idx = row else {
+            return (defaultPlaylist!, nil)
+        }
+        
+        let selectedItem = _outlineView.item(atRow: idx) as! Item
+        
+        guard let playlist = (selectedItem as? Item.PlaylistItem)?.playlist else {
+            return (defaultPlaylist!, nil)
+        }
+        
+        if allowInside, let folder = playlist as? PlaylistFolder {
+            // Add inside, as last
+            return (folder, nil)
         }
         else {
-            return (defaultPlaylist ?? masterPlaylist!, nil)
+            // Add below
+            let (parent, idx) = Library.shared.position(of: playlist)!
+            return (parent, idx + 1)
         }
     }
     
     func select(playlist: Playlist, editTitle: Bool = false) {
-        select(.playlists([playlist]))
+        let item = cache.playlistItem(playlist)
+        
+        select(.items([item]))
         
         guard editTitle else {
             return
         }
         
-        let idx = _outlineView.row(forItem: playlist)
-        
-        guard idx >= 0 else {
+        guard let idx = _outlineView.orow(forItem: item) else {
             fatalError("Playlist does not exist in view even though it must!")
         }
         
@@ -68,22 +221,23 @@ extension PlaylistController {
     
     func select(_ selection: SelectionMoment) {
         switch selection {
-        case .library:
+        case .master:
             _outlineView.deselectAll(self)
-            didSelect(.library)
-        case .playlists(let playlists):
+            didSelect(.master)
+        case .items(let items):
+            let playlists = items.compactMap { $0.asPlaylist }
+            
             // Expand so all items are in view
             let paths = playlists.map { $0.path }
             for path in paths {
                 for parent in path.dropLast() {
-                    _outlineView.expandItem(parent)
+                    _outlineView.expandItem(cache.playlistItem(parent))
                 }
             }
             
             // First selection, for most cases this is enough, but there's no better way anyway
             let indices: [IndexSet.Element] = playlists.compactMap {
-                let idx = self._outlineView.row(forItem: $0)
-                return idx >= 0 ? idx : nil
+                return _outlineView.row(forItem: cache.playlistItem($0))
             }
             
             if let first = indices.first { _outlineView.scrollRowToVisible(first) }
@@ -106,7 +260,7 @@ extension PlaylistController {
     }
     
     func delete(indices: [Int]?, confirmed: Bool = true) {
-        guard let playlists = indices?.compactMap({ _outlineView.item(atRow: $0) as? Playlist }) else {
+        guard let playlists = indices?.compactMap({ (_outlineView.item(atRow: $0) as! Item).asPlaylist }) else {
             return
         }
         
@@ -126,54 +280,54 @@ extension PlaylistController {
 
 extension PlaylistController : NSOutlineViewDataSource {
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
-        guard let playlist = self.playlist(fromItem: item) else {
+        guard let item = self.item(raw: item) as? Folder else {
             return 0  // Not initialized yet
         }
         
-        return (playlist as! PlaylistFolder).childrenList.count
+        return item.children(cache: cache).count
     }
     
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
-        let playlist = self.playlist(fromItem: item)!
+        let item = self.item(raw: item) as! Folder
         
-        return (playlist as! PlaylistFolder).childrenList[index]
+        return item.children(cache: cache)[index]
     }
     
     func outlineView(_ outlineView: NSOutlineView, objectValueFor tableColumn: NSTableColumn?, byItem item: Any?) -> Any? {
-        return item as! Playlist
+        return item as! Item
     }
     
     func outlineView(_ outlineView: NSOutlineView, persistentObjectForItem item: Any?) -> Any? {
-        return Library.shared.export().stringID(of: item as! Playlist)
+        return (item as! Item).persistentID
     }
     
     func outlineView(_ outlineView: NSOutlineView, itemForPersistentObject object: Any) -> Any? {
-        return Library.shared.import().playlist(id: object)
+        return (object as? String).flatMap { masterItem?.load(id: $0, cache: self.cache) }
     }
 }
 
 extension PlaylistController : NSOutlineViewDelegate {
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
-        let playlist = item as! Playlist
+        let item = item as! Item
         
-        if playlist.parent == masterPlaylist {
+        if item.parent == masterItem {
             if let view = outlineView.makeView(withIdentifier: CellIdentifiers.CategoryCell, owner: nil) as? NSTableCellView {
-                view.textField?.stringValue = playlist.name
-                view.imageView?.image = Library.shared.icon(of: playlist)
+                view.textField?.stringValue = item.title
+                view.imageView?.image = item.icon
                 
                 return view
             }
         }
         else {
             if let view = outlineView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? NSTableCellView {
-                view.textField?.stringValue = playlist.name
-                view.imageView?.image = Library.shared.icon(of: playlist)
+                view.textField?.stringValue = item.title
+                view.imageView?.image = item.icon
                 
                 // Doesn't work from interface builder
                 view.textField?.delegate = self
                 view.textField?.target = self
                 view.textField?.action = #selector(editPlaylistTitle)
-                view.textField?.isEditable = Library.shared.isPlaylist(playlist: playlist)
+                view.textField?.isEditable = (item.asPlaylist ?=> Library.shared.isPlaylist) ?? false
                 return view
             }
         }
@@ -182,7 +336,7 @@ extension PlaylistController : NSOutlineViewDelegate {
     }
     
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
-        return item is PlaylistFolder
+        return (item as? Folder)?.isFolder ?? false
     }
 
     func outlineViewSelectionDidChange(_ notification: Notification) {
@@ -190,7 +344,7 @@ extension PlaylistController : NSOutlineViewDelegate {
             return
         }
         
-        didSelect(.playlists(_outlineView.selectedRowIndexes.map { self._outlineView.item(atRow: $0) as! Playlist }))
+        didSelect(.items(_outlineView.selectedRowIndexes.map { self._outlineView.item(atRow: $0) as! Item }))
     }
     
     func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
@@ -198,13 +352,13 @@ extension PlaylistController : NSOutlineViewDelegate {
     }
     
     func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
-        return (item as! Playlist).parent != masterPlaylist
+        return (item as! Item).parent != masterItem
     }
     
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
-        let item = item as! Playlist
+        let item = item as! Item
         
-        guard item.parent == masterPlaylist else {
+        guard item.parent == masterItem else {
             return 17
         }
         
@@ -220,7 +374,7 @@ extension PlaylistController: NSTextFieldDelegate {
         textField.resignFirstResponder()
         
         let row = _outlineView.row(for: textField.superview!)
-        if let playlist = (_outlineView.item(atRow: row)) as? Playlist {
+        if let playlist = (_outlineView.item(atRow: row) as! Item).asPlaylist {
             if playlist.name != textField.stringValue {
                 playlist.name = textField.stringValue
             }
@@ -233,24 +387,37 @@ extension PlaylistController: NSTextFieldDelegate {
 
 extension PlaylistController {
     enum SelectionMoment : Equatable, ExposedAssociatedValues {
-        case library
-        case playlists(_ playlists: [Playlist])
+        case master
+        case items(_ items: [Item])
         
-        func playlists(library: AnyPlaylist) -> [AnyPlaylist] {
+        static func == (lhs: PlaylistController.SelectionMoment, rhs: PlaylistController.SelectionMoment) -> Bool {
+            return lhs.comparable() == rhs.comparable()
+        }
+
+        func items(master: Item) -> [Item] {
             switch self {
-            case .library:
-                return [library]
-            case .playlists(let playlists):
-                return playlists
+            case .master:
+                return [master]
+            case .items(let items):
+                return items
+            }
+        }
+        
+        private func comparable() -> [Item]? {
+            switch self {
+            case .master:
+                return nil
+            case .items(let items):
+                return items
             }
         }
         
         var isValid: Bool {
             switch self {
-            case .library:
+            case .master:
                 return true
-            case .playlists(let playlists):
-                return playlists.noneSatisfy { $0.isDeleted }
+            case .items(let items):
+                return items.allSatisfy { $0.isValid }
             }
         }
     }

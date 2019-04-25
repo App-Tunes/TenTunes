@@ -15,12 +15,16 @@ extension PlaylistController : NSOutlineViewContextSensitiveMenuDelegate {
 }
 
 extension PlaylistController: NSMenuDelegate, NSMenuItemValidation {
+    var menuItems: [Item] {
+        return _outlineView.clickedRows.compactMap { _outlineView.item(atRow: $0) as? Item }
+    }
+    
     var menuPlaylists: [Playlist] {
-        return _outlineView.clickedRows.compactMap { _outlineView.item(atRow: $0) as? Playlist }
+        return menuItems.compactMap { $0.asPlaylist }
     }
     
     func menuNeedsUpdate(_ menu: NSMenu) {
-        guard menuPlaylists.count >= 1 else {
+        guard menuItems.count >= 1 else {
             menu.cancelTrackingWithoutAnimation()
             return
         }
@@ -42,10 +46,12 @@ extension PlaylistController: NSMenuDelegate, NSMenuItemValidation {
     
     @IBAction func menuPlay(_ sender: Any) {
         let clicked = _outlineView.clickedRow
-        if clicked >= 0 {
-            let playlist = _outlineView.item(atRow: clicked) as! Playlist            
-            delegate?.playlistController(self, play: playlist)
+        guard clicked >= 0 else {
+            return
         }
+        
+        let playlist = (_outlineView.item(atRow: clicked) as! Item).asPlaylist!
+        delegate?.playlistController(self, play: playlist)
     }
     
     @IBAction func duplicatePlaylist(_ sender: Any) {
@@ -53,7 +59,7 @@ extension PlaylistController: NSMenuDelegate, NSMenuItemValidation {
             let copy = playlist.duplicate()
             
             // Use this so we get a legal insertion position no matter what
-            let (parent, idx) = playlistInsertionPosition(row: _outlineView.row(forItem: playlist), allowInside: false)
+            let (parent, idx) = playlistInsertionPosition(row: _outlineView.orow(forItem: cache.playlistItem(playlist)), allowInside: false)
             parent.addPlaylist(copy, above: idx)
         }
         

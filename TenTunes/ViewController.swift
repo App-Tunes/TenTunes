@@ -103,8 +103,10 @@ class ViewController: NSViewController {
         player.history = queueController.history // Empty but != nil
         
         playlistController.delegate = self
-        playlistController.masterPlaylist = Library.shared[PlaylistRole.master]
-        playlistController.library = Library.shared[PlaylistRole.library]
+        playlistController.masterItem = PlaylistController.Item.MasterItem(items: [
+            playlistController.cache.playlistItem(Library.shared[PlaylistRole.tags]),
+            playlistController.cache.playlistItem(Library.shared[PlaylistRole.playlists]),
+        ])
         playlistController.defaultPlaylist = Library.shared[PlaylistRole.playlists]
 
         trackController.playTrack = { [unowned self] in
@@ -274,7 +276,7 @@ class ViewController: NSViewController {
     }
     
     @IBAction func findButtonClicked(_ sender: AnyObject) {
-        guard playlistController.history.current != .library || !trackController.filterBar.isOpen else {
+        guard playlistController.history.current != .master || !trackController.filterBar.isOpen else {
             trackController.filterBar.close()
             return
         }

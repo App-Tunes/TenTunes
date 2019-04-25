@@ -17,13 +17,13 @@ extension PlaylistController {
     }
     
     @IBAction func historyMoved(notification: NSNotification) {
-        delegate?.playlistController(self, selectionDidChange: history.current.playlists(library: library!))
+        delegate?.playlistController(self, selectionDidChange: history.current.items(master: masterItem!).compactMap { $0.asPlaylist })
         
         _back.isEnabled = history.canGoBack
         _forwards.isEnabled = history.canGoForwards
         
         if #available(OSX 10.14, *) {
-            _home.contentTintColor = history.current == .library ? .selectedMenuItemTextColor : nil
+            _home.contentTintColor = history.current == .master ? .selectedMenuItemTextColor : nil
         }
     }
     
@@ -44,11 +44,11 @@ extension PlaylistController {
         // Use while so we can use break to nope out lol
         while !playlistUpdates.isEmpty || !playlistDeletes.isEmpty || !playlistInserts.isEmpty {
             if !playlistInserts.isEmpty && playlistUpdates.uniqueElement == playlistInserts.uniqueElement?.parent {
-                _outlineView.animateInsert(items: Array(playlistInserts)) {
-                    guard let (parent, idx) = library.position(of: $0) else {
+                _outlineView.animateInsert(items: playlistInserts.map(cache.playlistItem)) {
+                    guard let (parent, idx) = library.position(of: $0.playlist) else {
                         return nil
                     }
-                    return (idx, parent == library[PlaylistRole.master] ? nil : parent)
+                    return (idx, parent == library[PlaylistRole.master] ? nil : cache.playlistItem(parent))
                 }
                 
                 if let insertedPlaylist = playlistInserts.uniqueElement, library.isPlaylist(playlist: insertedPlaylist), insertedPlaylist.name.contains("Unnamed") {
@@ -60,7 +60,7 @@ extension PlaylistController {
             }
             
             if !playlistDeletes.isEmpty && playlistUpdates.uniqueElement == playlistDeletes.uniqueElement?.parent {
-                _outlineView.animateDelete(items: Array(deletes.of(type: Playlist.self)))
+                _outlineView.animateDelete(items: deletes.of(type: Playlist.self).map(cache.playlistItem))
                 break
             }
             
@@ -68,7 +68,12 @@ extension PlaylistController {
             
             // TODO Animate movement?
             // It's enough if we reload only updated ones since deletes / inserts are auto-reloaded
-            _outlineView.reloadItems(playlistUpdates.map { $0 == library[PlaylistRole.master] ? nil : $0 }, reloadChildren: true)
+            _outlineView.reloadItems(
+                playlistUpdates
+                    .map { $0 == library[PlaylistRole.master] ? nil : $0 }
+                    .map { $0 ?=> cache.playlistItem },
+                reloadChildren: true
+            )
             
             if let prevSelected = prevSelected {
                 select(playlist: prevSelected)

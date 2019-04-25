@@ -15,5 +15,6 @@ extension NSImage.Name {
     static let colorPanelName: NSImage.Name = "NSColorPanel"
     static let folderSmartName: NSImage.Name = "NSFolderSmart"
     
+    static let homeName: NSImage.Name = "home"
     static let musicName: NSImage.Name = "music"
 }

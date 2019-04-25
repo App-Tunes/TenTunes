@@ -14,7 +14,9 @@ protocol PlaylistControllerDelegate : class {
 }
 
 @objc class PlaylistController: NSViewController {
-    var masterPlaylist: PlaylistFolder? {
+    let cache = Cache()
+    
+    var masterItem: Folder? {
         didSet {
             _outlineView?.reloadData()
             
@@ -23,18 +25,9 @@ protocol PlaylistControllerDelegate : class {
             _outlineView.autosaveExpandedItems = true
         }
     }
-    var library: PlaylistLibrary? {
-        didSet {
-            _outlineView?.reloadData()
-            
-            if history.current == .library {
-                delegate?.playlistController(self, selectionDidChange: [library!])
-            }
-        }
-    }
     var defaultPlaylist: PlaylistFolder?
     
-    var history: History<SelectionMoment> = History(default: .library)
+    var history: History<SelectionMoment> = History(default: .master)
     
     weak var delegate: PlaylistControllerDelegate?
     
@@ -51,7 +44,7 @@ protocol PlaylistControllerDelegate : class {
     
     var selectedPlaylists: [(Int, Playlist)] {
         return _outlineView.selectedRowIndexes.map {
-            return ($0, _outlineView.item(atRow: $0) as! Playlist)
+            return ($0, (_outlineView.item(atRow: $0) as! Item).asPlaylist!)
         }
     }
     
@@ -68,7 +61,7 @@ protocol PlaylistControllerDelegate : class {
     }
         
     @IBAction func selectLibrary(_ sender: Any) {
-        select(.library)
+        select(.master)
     }
     
     @IBAction func performFindPanelAction(_ sender: AnyObject) {
@@ -77,8 +70,8 @@ protocol PlaylistControllerDelegate : class {
         ViewController.shared.trackController.performFindPanelAction(sender)
     }
         
-    func playlist(fromItem: Any?) -> AnyPlaylist? {
-        return (fromItem ?? (masterPlaylist as Any?)) as? AnyPlaylist
+    func item(raw: Any?) -> Item? {
+        return raw != nil ? (raw as! Item) : masterItem
     }
     
     @IBAction func createPlaylist(_ sender: Any) {
@@ -119,5 +112,15 @@ protocol PlaylistControllerDelegate : class {
     @IBAction func forwards(_ sender: Any) {
         history.forwards(skip: { !$0.isValid })
         select(history.current)
+    }
+}
+
+extension PlaylistController {    class Cache : CacheRegistry<Item> {
+        // TODO Move to somewhere sensible
+        func playlistItem(_ playlist: Playlist) -> Item.PlaylistItem {
+            return get(Item.PlaylistItem.persistentID(for: playlist))
+            { _ in Item.PlaylistItem(playlist, parent: playlist.parent ?=> playlistItem) }
+                as! PlaylistController.Item.PlaylistItem
+        }
     }
 }

@@ -14,12 +14,15 @@ extension PlaylistController {
     }
     
     func outlineView(_ outlineView: NSOutlineView, pasteboardWriterForItem item: Any) -> NSPasteboardWriting? {
-        return (item as? Playlist) ?=> Library.shared.export().pasteboardItem
+        return (item as? Item)?.asPlaylist ?=> Library.shared.export().pasteboardItem
     }
     
     func outlineView(_ outlineView: NSOutlineView, validateDrop info: NSDraggingInfo, proposedItem item: Any?, proposedChildIndex index: Int) -> NSDragOperation {
         let pasteboard = info.draggingPasteboard
-        let playlist = item as? Playlist ?? masterPlaylist!
+
+        guard let item = self.item(raw: item), let playlist = item.asPlaylist else {
+            return []
+        }
 
         if TrackPromise.inside(pasteboard: pasteboard, for: Library.shared) != nil {
             return ((playlist as? ModifiablePlaylist)?.supports(action: .add) ?? false) ? .link : []
@@ -27,13 +30,12 @@ extension PlaylistController {
         
         if PlaylistPromise.inside(pasteboard: pasteboard, for: Library.shared) != nil {
             // We can always rearrange, except into playlists
-            let item = (item as? Playlist) ?? masterPlaylist!
-            guard let parent = item as? PlaylistFolder, !parent.automatesChildren else {
+            guard let parent = playlist as? PlaylistFolder, !parent.automatesChildren else {
                 return []
             }
             let playlists = (pasteboard.pasteboardItems ?? []).compactMap(Library.shared.import().playlist)
 
-            guard playlists.allSatisfy({ Library.shared.isPlaylist(playlist: $0) == (parent != masterPlaylist) }) else {
+            guard playlists.allSatisfy({ Library.shared.isPlaylist(playlist: $0) == (item != masterItem) }) else {
                 // Only allow special playlists in master playlist, but nowhere else
                 return []
             }
@@ -52,7 +54,9 @@ extension PlaylistController {
     func outlineView(_ outlineView: NSOutlineView, acceptDrop info: NSDraggingInfo, item: Any?, childIndex index: Int) -> Bool {
         let pasteboard = info.draggingPasteboard
         
-        let parent = item as? Playlist ?? masterPlaylist!
+        guard let parent = (item as! Item).asPlaylist else {
+            return false
+        }
         
         if let promises = TrackPromise.inside(pasteboard: pasteboard, for: Library.shared) {
             guard (parent as! ModifiablePlaylist).confirm(action: .add) else {

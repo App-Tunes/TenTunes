@@ -109,7 +109,9 @@ class ViewController: NSViewController {
             playlistController.cache.playlistItem(Library.shared[PlaylistRole.playlists]),
             ], playlist: Library.shared[PlaylistRole.library])
         playlistController.defaultPlaylist = Library.shared[PlaylistRole.playlists]
-
+        
+        _trackGuardView.present(elements: [Library.shared[PlaylistRole.library]])
+        
         trackController.playTrack = { [unowned self] in
             self.player.play(at: $0, in: self.trackController.history) // TODO Support for multiple
             if let position = $1 {

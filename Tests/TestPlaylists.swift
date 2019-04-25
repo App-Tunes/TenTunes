@@ -49,12 +49,12 @@ class TestPlaylists : TenTunesTest {
         
         try! context.save()
 
-        smart.rules = SmartPlaylistRules(tokens: [.InPlaylist(playlist: tags[0], isTag: true)], any: false)
+        smart.rules = SmartPlaylistRules(tokens: [.InPlaylist(playlist: tags[0], isTag: true)], mode: .all)
         XCTAssertEqual(Set(smart.tracksList), Set([tracks[0], tracks[1]]))
 
         try! context.save()
         
-        smart.rules = SmartPlaylistRules(tokens: [.InPlaylist(playlist: tags[1], isTag: true)], any: false)
+        smart.rules = SmartPlaylistRules(tokens: [.InPlaylist(playlist: tags[1], isTag: true)], mode: .all)
         XCTAssertEqual(Set(smart.tracksList), Set([tracks[0], tracks[2]]))
     }
 

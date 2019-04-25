@@ -38,7 +38,7 @@ class TestExport: TenTunesTest {
         let other = Library(name: "TenTunes", at: exportURL, create: false)!
         
         other.viewContext.performAndWait {
-            let otherTracks = other.allTracks.tracksList
+            let otherTracks = other.allTracks()
             
             XCTAssertEqual(otherTracks.count, 3)
             XCTAssert(otherTracks.contains { $0.title == "Track0" })

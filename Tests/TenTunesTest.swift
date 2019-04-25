@@ -49,13 +49,13 @@ class TenTunesTest: XCTestCase {
 
         self.groups = (0 ..< groups).map { _ in
             let group = PlaylistFolder(context: self.context)
-            self.library.masterPlaylist.addToChildren(group)
+            self.library[PlaylistRole.master].addToChildren(group)
             return group
         }
         
         self.tags = ((0 ..< tags).map { _ in
             let tag = PlaylistManual(context: self.context)
-            self.library.tagPlaylist.addToChildren(tag)
+            self.library[PlaylistRole.tags].addToChildren(tag)
             return tag
         })
         

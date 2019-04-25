@@ -226,17 +226,17 @@ extension PlaylistController : NSOutlineViewDelegate {
         }
         else {
             if let view = outlineView.makeView(withIdentifier: CellIdentifiers.NameCell, owner: nil) as? NSTableCellView {
+                let enabled = item.enabled
+
                 view.textField?.stringValue = item.title
                 view.imageView?.image = item.icon
-                
-                if !item.enabled {
-                    view.textField?.textColor = .disabledControlTextColor
-                    if #available(OSX 10.14, *) {
-                        view.imageView?.contentTintColor = .disabledControlTextColor
-                    } 
+
+                view.textField?.textColor = enabled ? .labelColor : .disabledControlTextColor
+                if #available(OSX 10.14, *) {
+                    view.imageView?.contentTintColor = enabled ? nil : .disabledControlTextColor
                 }
                 
-                if item is Item.PlaylistItem {
+                if enabled, item is Item.PlaylistItem {
                     // Doesn't work from interface builder
                     view.textField?.delegate = self
                     view.textField?.target = self

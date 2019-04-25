@@ -48,7 +48,17 @@ extension PlaylistController {
     class Folder : Item {
         typealias Child = Item
         
+        var placeholderChild: Bool = false
+        var placeholder: PlaylistController.Placeholder! = nil
+
+        override init(parent: Item? = nil) {
+            super.init(parent: parent)
+            self.placeholder = .init(parent: self)
+        }
+        
         var isFolder: Bool { return true }
+        
+        var isEmpty: Bool { fatalError() }
         
         func children(cache: PlaylistController.Cache) -> [Child] { fatalError() }
         // TODO
@@ -66,6 +76,8 @@ extension PlaylistController {
         override var persistentID: String {
             return (parent?.persistentID ?? "") + ".placeholder"
         }
+        
+        override var isValid: Bool { return (parent as! Folder).isEmpty }
     }
 }
 
@@ -81,6 +93,8 @@ extension PlaylistController.Item {
                 item.parent = self
             }
         }
+        
+        override var isEmpty: Bool { return items.isEmpty }
         
         override func children(cache: PlaylistController.Cache) -> [Child] {
             return items

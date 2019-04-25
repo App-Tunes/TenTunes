@@ -11,14 +11,11 @@ import Cocoa
 extension PlaylistController.Item {
     class PlaylistItem : PlaylistController.Folder {
         let playlist: Playlist
-        let placeholderChild: Bool
-        var placeholder: PlaylistController.Placeholder! = nil
         
         init(_ playlist: Playlist, parent: PlaylistController.Item?, placeholderChild: Bool = false) {
             self.playlist = playlist
-            self.placeholderChild = placeholderChild
             super.init(parent: parent)
-            self.placeholder = .init(parent: self)
+            self.placeholderChild = placeholderChild
         }
         
         override var asPlaylist: Playlist? {
@@ -31,15 +28,16 @@ extension PlaylistController.Item {
         
         override var isFolder: Bool { return playlist is PlaylistFolder }
 
+        override var isEmpty: Bool {
+            return ((playlist as? PlaylistFolder)?.children.count ?? 0) == 0
+        }
+        
         override func children(cache: PlaylistController.Cache) -> [Child] {
             guard let folder = playlist as? PlaylistFolder else {
                 return []
             }
             
-            let children = folder.childrenList.map(cache.playlistItem)
-            
-            return children.isEmpty && placeholderChild
-            ? [placeholder] : children
+            return folder.childrenList.map(cache.playlistItem)
         }
         
         override var isValid: Bool {
@@ -201,12 +199,20 @@ extension PlaylistController : NSOutlineViewDataSource {
             return 0
         }
         
+        if item.placeholderChild, item.isEmpty {
+            return 1
+        }
+        
         return item.children(cache: cache).count
     }
     
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         let item = self.item(raw: item) as! Folder
-        
+
+        if item.isEmpty {
+            return item.placeholder!
+        }
+
         return item.children(cache: cache)[index]
     }
     

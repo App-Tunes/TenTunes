@@ -82,6 +82,22 @@ extension PlaylistController {
             break
         }
         
+        // Remove all invalid items (e.g. placeholders)
+        _outlineView.animateDelete(items:
+            (0 ..< _outlineView.numberOfRows)
+                .map(_outlineView.item)
+                .of(type: Item.self)
+                .filter { !$0.isValid }
+        )
+
+        // Add all missing placeholders
+        (0 ..< _outlineView.numberOfRows)
+            .map(_outlineView.item)
+            .of(type: Folder.self)
+            .filter { _outlineView.child(0, ofItem: $0) == nil }
+            .filter { $0.placeholderChild && $0.isEmpty }
+            .forEach { _outlineView.insertItems(at: IndexSet(integer: 0), inParent: $0, withAnimation: .slideUp)}
+        
         if !history.current.isValid {
             // Deleted our current playlist! :<
             selectLibrary(self)

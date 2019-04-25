@@ -43,8 +43,11 @@ protocol PlaylistControllerDelegate : class {
     @IBOutlet var _emptyPlaylistMenu: NSMenu!
     
     var selectedPlaylists: [(Int, Playlist)] {
-        return _outlineView.selectedRowIndexes.map {
-            return ($0, (_outlineView.item(atRow: $0) as! Item).asPlaylist!)
+        return _outlineView.selectedRowIndexes.compactMap {
+            guard let playlist = (_outlineView.item(atRow: $0) as! Item).asPlaylist else {
+                return nil
+            }
+            return ($0, playlist)
         }
     }
     

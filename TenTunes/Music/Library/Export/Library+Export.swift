@@ -41,12 +41,23 @@ extension Library {
             return dialog
         }
         
+        @discardableResult
         func guess(url: URL) -> AnyObject? {
-            if url.lastPathComponent.hasSuffix(".m3u") {
+            let suffix = url.lastPathComponent.suffix(10)
+            
+            if suffix == ".m3u" {
                 return m3u(url: url)
             }
+            else if suffix == ".xml" {
+                return iTunesLibraryXML(url: url, flat: false)
+                    ? () as AnyObject : nil
+            }
             
-            return track(url: url) // TODO Only if audiovisual
+            if let track = track(url: url) {
+                return track
+            }
+            
+            return nil
         }
         
         func objectID(from idString: String) -> NSManagedObjectID? {

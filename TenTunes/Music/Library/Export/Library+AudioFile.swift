@@ -14,6 +14,13 @@ extension Library.Import {
         if let track = library.allTracks().filter({ $0.resolvedURL == url }).first {
             return track
         }
+        
+        guard let type = try? url.resourceValues(forKeys: [.typeIdentifierKey]).typeIdentifier,
+            NSWorkspace.shared.type(type, conformsToType: TrackPromise.utiType)
+        else {
+            // Probably not audiovisual content
+            return nil
+        }
 
         let track = Track(context: context)
         

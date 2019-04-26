@@ -142,7 +142,7 @@ public class DisablableView: NSView {
     public var isEnabled: Bool {
         set {
             _disabler.isHidden = newValue
-            self.alphaValue = newValue ? 1.0 : 0.7
+            self.alphaValue = newValue ? 1.0 : 0.5
         }
         get { return _disabler.isHidden }
     }

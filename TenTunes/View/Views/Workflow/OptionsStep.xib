@@ -20,7 +20,7 @@
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hAc-Zr-NuG">
                     <rect key="frame" x="6" y="255" width="468" height="25"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Choose an Option" id="ELR-7g-rhz">
+                    <textFieldCell key="cell" alignment="center" title="Choose an Option" id="ELR-7g-rhz">
                         <font key="font" metaFont="systemBold" size="21"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -32,6 +32,9 @@
                         <rect key="frame" x="3" y="3" width="440" height="227"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="227" id="c5l-k9-eaA"/>
+                    </constraints>
                     <font key="titleFont" metaFont="smallSystem"/>
                 </box>
             </subviews>

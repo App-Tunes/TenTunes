@@ -21,12 +21,16 @@ extension AppDelegate {
         let isFirstLaunch = AppDelegate.defaults.consume(toggle: "WelcomeWindow")
         if force ?? isFirstLaunch {
             if steps.isEmpty {
-                steps.append(
+                steps += [
                     ConfirmStep.create(
                         text: "Ten Tunes says hi!",
-                        buttonText: "Proceed"
+                        buttonText: "Hi!!"
+                    ),
+                    ConfirmStep.create(
+                        text: "You can begin listening shortly!\nBut let's get a few things sorted first.",
+                        buttonText: "Uh... ok."
                     )
-                )
+                ]
             }
 
             steps += [
@@ -51,15 +55,13 @@ extension AppDelegate {
             persistentContainer![PlaylistRole.library].tracksList.count == 0
         
         if force ?? isNewLibrary {
-            if steps.isEmpty {
-                steps.append(
-                    ConfirmStep.create(
-                        text: "Let's get your new library set up.",
-                        buttonText: "Okay dude"
-                    )
+            steps.append(
+                ConfirmStep.create(
+                    text: "Let's get your new library set up.",
+                    buttonText: "Okay dude"
                 )
-            }
-            
+            )
+
             steps += [
                 OptionsStep.create(text: "So where do we start?", options: [
                     .create(text: "Import iTunes Library", image: NSImage(named: .iTunesName)!) { [unowned self] in
@@ -74,15 +76,28 @@ extension AppDelegate {
         }
         
         if !steps.isEmpty {
-            steps.append(
-                ConfirmStep.create(
-                    text: "All Done!",
-                    buttonText: "Let's Go!",
-                    mode: .complete
-                ) { [unowned self] in
-                    self.commenceAfterWelcome()
-                }
-            )
+            if isNewLibrary {
+                steps.append(
+                    ConfirmStep.create(
+                        text: "And that's it!\nHave fun with Ten Tunes!",
+                        buttonText: "Let's Go!",
+                        mode: .complete
+                    ) { [unowned self] in
+                        self.commenceAfterWelcome()
+                    }
+                )
+            }
+            else {
+                steps.append(
+                    ConfirmStep.create(
+                        text: "Alright, that's it. Have fun!",
+                        buttonText: "Sure, thanks!",
+                        mode: .complete
+                    ) { [unowned self] in
+                        self.commenceAfterWelcome()
+                    }
+                )
+            }
         }
         
         return steps

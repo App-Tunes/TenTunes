@@ -62,6 +62,33 @@ extension AppDelegate {
         
         return true
     }
+    
+    @discardableResult
+    func importFromDirectory() -> Bool {
+        let dialog = NSOpenPanel()
+        
+        dialog.title = "Select a music folder"
+        dialog.allowsMultipleSelection = false
+        dialog.canChooseFiles = false
+        dialog.canChooseDirectories = true
+        
+        guard dialog.runModal() == NSApplication.ModalResponse.OK, let url = dialog.url else {
+            return false
+        }
+        
+        guard !Library.shared.import(moveAction: .link).allFrom(url: url).isEmpty else {
+            let alert: NSAlert = NSAlert()
+            alert.messageText = "No Music"
+            alert.informativeText = "Could not locate a single audiovisual file in the directory!"
+            alert.alertStyle = .warning
+            alert.addButton(withTitle: "OK")
+            alert.runModal()
+            
+            return false
+        }
+        
+        return true
+    }
 
     @IBAction func openDocument(_ sender: Any) {
         let dialog = Library.Import.dialogue(allowedFiles: Library.FileTypes.all)

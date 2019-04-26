@@ -7,10 +7,15 @@
 //
 
 import Cocoa
+import Defaults
 
 extension Library {
-    func `import`(_ context: NSManagedObjectContext? = nil) -> Import {
-        return Import(library: self, context: context ?? viewContext)
+    func `import`(_ context: NSManagedObjectContext? = nil, moveAction: Defaults.Keys.FileLocationOnAdd? = nil) -> Import {
+        return Import(
+            library: self,
+            context: context ?? viewContext,
+            moveAction: moveAction
+        )
     }
     
     struct FileTypes: OptionSet {
@@ -23,10 +28,12 @@ extension Library {
     class Import {
         let library: Library
         let context: NSManagedObjectContext
+        let moveAction: Defaults.Keys.FileLocationOnAdd?
         
-        init(library: Library, context: NSManagedObjectContext) {
+        init(library: Library, context: NSManagedObjectContext, moveAction: Defaults.Keys.FileLocationOnAdd? = nil) {
             self.library = library
             self.context = context
+            self.moveAction = moveAction
         }
         
         class func dialogue(allowedFiles: Library.FileTypes) -> NSOpenPanel {
@@ -58,6 +65,12 @@ extension Library {
             }
             
             return nil
+        }
+        
+        @discardableResult
+        func allFrom(url: URL) -> [AnyObject] {
+            return FileManager.default.regularFiles(inDirectory: url)
+                .compactMap(guess)
         }
         
         func objectID(from idString: String) -> NSManagedObjectID? {

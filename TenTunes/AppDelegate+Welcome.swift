@@ -49,7 +49,9 @@ extension AppDelegate {
                     .create(text: "Import iTunes Library", image: NSImage(named: .iTunesName)!) { [unowned self] in
                         return self.importFromITunes(flat: true)
                     },
-                    .create(text: "Import Music Folder", image: NSImage(named: .musicName)!, action: nil),
+                    .create(text: "Import Music Folder", image: NSImage(named: .musicName)!) { [unowned self] in
+                        return self.importFromDirectory()
+                    },
                     .create(text: "Start Fresh", image: NSImage(named: .nameName)!) {
                         return true
                     },

@@ -32,7 +32,7 @@ extension Library.Import {
         
         context.insert(track)
         
-        library.initialAdd(track: track)
+        library.initialAdd(track: track, moveAction: moveAction)
         
         return track
     }

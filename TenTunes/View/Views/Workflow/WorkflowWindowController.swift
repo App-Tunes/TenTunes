@@ -8,6 +8,11 @@
 
 import Cocoa
 
+protocol WorkflowAware {
+    func takeFocus()
+    func resignFocus()
+}
+
 class WorkflowWindowController: NSWindowController {
     var _steps: [NSViewController] = []
     var _currentStep = 0
@@ -90,6 +95,7 @@ class WorkflowWindowController: NSWindowController {
         }
         
         showWindow(self)
+        window!.center()
     }
     
     func addStep(_ step: NSViewController) {
@@ -97,6 +103,7 @@ class WorkflowWindowController: NSWindowController {
     }
     
     func next() {
+        (_steps[_currentStep] as? WorkflowAware)?.resignFocus()
         _currentStep += 1
         
         scrollToCurrentStep()
@@ -107,6 +114,7 @@ class WorkflowWindowController: NSWindowController {
             view.isEnabled = _currentStep == idx
         }
 
+        (_steps[_currentStep] as? WorkflowAware)?.takeFocus()
         let target = container(forStepAt: _currentStep)
         
         NSAnimationContext.runAnimationGroup { context in
@@ -176,6 +184,11 @@ public class DisablableView: NSView {
 
 extension WorkflowWindowController : NSWindowDelegate {
     func windowDidChangeOcclusionState(_ notification: Notification) {
+        // God knows why it sometimes doesn't play
+        _scrollView.magnification = 1
+        _scrollView.minMagnification = 1
+        _scrollView.maxMagnification = 1
+
         scrollToCurrentStep(instant: true)
     }
 }

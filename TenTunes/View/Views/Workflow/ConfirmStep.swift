@@ -50,3 +50,14 @@ class ConfirmStep: NSViewController {
         action?()
     }
 }
+
+extension ConfirmStep : WorkflowAware {
+    func takeFocus() {
+        _button.keyEquivalent = "\r"
+        _button.window?.makeFirstResponder(_button)
+    }
+
+    func resignFocus() {
+        _button.keyEquivalent = ""
+    }
+}

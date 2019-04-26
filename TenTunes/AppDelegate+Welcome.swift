@@ -58,7 +58,7 @@ extension AppDelegate {
             steps.append(
                 ConfirmStep.create(
                     text: "Let's get your new library set up.",
-                    buttonText: "Okay dude"
+                    buttonText: "Sure"
                 )
             )
 
@@ -91,7 +91,7 @@ extension AppDelegate {
                 steps.append(
                     ConfirmStep.create(
                         text: "Alright, that's it. Have fun!",
-                        buttonText: "Sure, thanks!",
+                        buttonText: "Cool, thanks!",
                         mode: .complete
                     ) { [unowned self] in
                         self.commenceAfterWelcome()

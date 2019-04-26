@@ -162,12 +162,18 @@
 		80C1F1722146E14D0032E554 /* LibraryWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C1F1712146E14D0032E554 /* LibraryWindowController.swift */; };
 		80C1F1742146E4A70032E554 /* WindowWarden.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C1F1732146E4A70032E554 /* WindowWarden.swift */; };
 		80C8559E210512B400177035 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C8559D210512B400177035 /* Album.swift */; };
+		80CAECF122730C5D001DD856 /* WorkflowWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAECEF22730C5D001DD856 /* WorkflowWindowController.swift */; };
+		80CAECF222730C5D001DD856 /* WorkflowWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80CAECF022730C5D001DD856 /* WorkflowWindowController.xib */; };
+		80CAECF722730D50001DD856 /* CompletionStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAECF522730D50001DD856 /* CompletionStep.swift */; };
+		80CAECF822730D50001DD856 /* CompletionStep.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80CAECF622730D50001DD856 /* CompletionStep.xib */; };
+		80CAECFB22731605001DD856 /* OptionsStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAECF922731605001DD856 /* OptionsStep.swift */; };
+		80CAECFC22731605001DD856 /* OptionsStep.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80CAECFA22731605001DD856 /* OptionsStep.xib */; };
+		80CAED0322731FB3001DD856 /* OptionStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAED0122731FB3001DD856 /* OptionStep.swift */; };
+		80CAED0422731FB3001DD856 /* OptionStep.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80CAED0222731FB3001DD856 /* OptionStep.xib */; };
 		80CB652C20514E050031A6D7 /* Library+Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652B20514E050031A6D7 /* Library+Files.swift */; };
 		80CB652F2052C6CD0031A6D7 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652E2052C6CD0031A6D7 /* Operators.swift */; };
 		80CB65332052C9530031A6D7 /* Cocoa+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB65322052C9530031A6D7 /* Cocoa+TT.swift */; };
 		80CB65352052C9CC0031A6D7 /* CoreData+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB65342052C9CC0031A6D7 /* CoreData+TT.swift */; };
-		80CC986621A877810030F04B /* WelcomeWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC986421A877810030F04B /* WelcomeWindowController.swift */; };
-		80CC986721A877810030F04B /* WelcomeWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80CC986521A877810030F04B /* WelcomeWindowController.xib */; };
 		80CC986A21A880D20030F04B /* NSTableView+Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC986921A880D20030F04B /* NSTableView+Header.swift */; };
 		80CED03C20C88055001E710F /* AVFoundation+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CED03B20C88055001E710F /* AVFoundation+TT.swift */; };
 		80D9448C21662E0100C135CA /* ResonanceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D9448B21662E0100C135CA /* ResonanceProvider.swift */; };
@@ -438,12 +444,18 @@
 		80C1F1712146E14D0032E554 /* LibraryWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryWindowController.swift; sourceTree = "<group>"; };
 		80C1F1732146E4A70032E554 /* WindowWarden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowWarden.swift; sourceTree = "<group>"; };
 		80C8559D210512B400177035 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
+		80CAECEF22730C5D001DD856 /* WorkflowWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowWindowController.swift; sourceTree = "<group>"; };
+		80CAECF022730C5D001DD856 /* WorkflowWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkflowWindowController.xib; sourceTree = "<group>"; };
+		80CAECF522730D50001DD856 /* CompletionStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionStep.swift; sourceTree = "<group>"; };
+		80CAECF622730D50001DD856 /* CompletionStep.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompletionStep.xib; sourceTree = "<group>"; };
+		80CAECF922731605001DD856 /* OptionsStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsStep.swift; sourceTree = "<group>"; };
+		80CAECFA22731605001DD856 /* OptionsStep.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OptionsStep.xib; sourceTree = "<group>"; };
+		80CAED0122731FB3001DD856 /* OptionStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionStep.swift; sourceTree = "<group>"; };
+		80CAED0222731FB3001DD856 /* OptionStep.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OptionStep.xib; sourceTree = "<group>"; };
 		80CB652B20514E050031A6D7 /* Library+Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Files.swift"; sourceTree = "<group>"; };
 		80CB652E2052C6CD0031A6D7 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		80CB65322052C9530031A6D7 /* Cocoa+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocoa+TT.swift"; sourceTree = "<group>"; };
 		80CB65342052C9CC0031A6D7 /* CoreData+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreData+TT.swift"; sourceTree = "<group>"; };
-		80CC986421A877810030F04B /* WelcomeWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeWindowController.swift; sourceTree = "<group>"; };
-		80CC986521A877810030F04B /* WelcomeWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WelcomeWindowController.xib; sourceTree = "<group>"; };
 		80CC986921A880D20030F04B /* NSTableView+Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTableView+Header.swift"; sourceTree = "<group>"; };
 		80CED03B20C88055001E710F /* AVFoundation+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVFoundation+TT.swift"; sourceTree = "<group>"; };
 		80D8A0FC212460BE003E1F11 /* Library.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Library.storyboard; path = "/Users/lukas/XCode Projects/TenTunes/TenTunes/Library.storyboard"; sourceTree = "<absolute>"; };
@@ -539,6 +551,7 @@
 				802F01D02177F00B00E0EAB6 /* DragHighlightView.swift */,
 				806FC30B2190DA36004B9770 /* DarkBoxView.swift */,
 				80987D5D21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift */,
+				80CAECF422730D3E001DD856 /* Workflow */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -611,8 +624,6 @@
 				807092EA20C69D8F00DFED53 /* ExportPlaylistsController.xib */,
 				8030E01220FCBDAA006B4AE8 /* TaskViewController.swift */,
 				8030E01320FCBDAA006B4AE8 /* TaskViewController.xib */,
-				80CC986421A877810030F04B /* WelcomeWindowController.swift */,
-				80CC986521A877810030F04B /* WelcomeWindowController.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -811,6 +822,21 @@
 				80D9448B21662E0100C135CA /* ResonanceProvider.swift */,
 			);
 			path = Visualizer;
+			sourceTree = "<group>";
+		};
+		80CAECF422730D3E001DD856 /* Workflow */ = {
+			isa = PBXGroup;
+			children = (
+				80CAECEF22730C5D001DD856 /* WorkflowWindowController.swift */,
+				80CAECF022730C5D001DD856 /* WorkflowWindowController.xib */,
+				80CAECF522730D50001DD856 /* CompletionStep.swift */,
+				80CAECF622730D50001DD856 /* CompletionStep.xib */,
+				80CAECF922731605001DD856 /* OptionsStep.swift */,
+				80CAECFA22731605001DD856 /* OptionsStep.xib */,
+				80CAED0122731FB3001DD856 /* OptionStep.swift */,
+				80CAED0222731FB3001DD856 /* OptionStep.xib */,
+			);
+			path = Workflow;
 			sourceTree = "<group>";
 		};
 		80CB65302052C9180031A6D7 /* Extensions */ = {
@@ -1132,13 +1158,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				80C1F1682142928B0032E554 /* default.vs in Resources */,
+				80CAECF822730D50001DD856 /* CompletionStep.xib in Resources */,
 				808BAADF220DA7C60017557C /* BehaviorPreferences.xib in Resources */,
+				80CAECF222730C5D001DD856 /* WorkflowWindowController.xib in Resources */,
 				809CEABC2163EFCD008D6AC0 /* superpowered_splash.svg in Resources */,
 				8079F6D42106551100B7A278 /* SmartPlaylistRulesController.xib in Resources */,
 				80F8F6F42053EA2C004A07D6 /* TrackEditor.xib in Resources */,
 				807092EC20C69D8F00DFED53 /* ExportPlaylistsController.xib in Resources */,
 				807D749D21C4074B00D3B610 /* subtract.fs in Resources */,
 				8079F6D82106661A00B7A278 /* HideableBar.xib in Resources */,
+				80CAED0422731FB3001DD856 /* OptionStep.xib in Resources */,
 				80C1F16621428FA40032E554 /* default.fs in Resources */,
 				80F2C5812038808000212739 /* Assets.xcassets in Resources */,
 				80C1F16421428EC80032E554 /* visualizer.fs in Resources */,
@@ -1152,11 +1181,11 @@
 				802F9EFA2170A4C000D497AE /* bloom.fs in Resources */,
 				806611812124622100C3948E /* Library.storyboard in Resources */,
 				80E02C63217FB8B000251D24 /* Document-TTL.icns in Resources */,
+				80CAECFC22731605001DD856 /* OptionsStep.xib in Resources */,
 				80074CF9204583CF0055B87E /* TrackController.xib in Resources */,
 				808BAAE3220DA8D80017557C /* ViewPreferences.xib in Resources */,
 				80F2C5842038808000212739 /* Main.storyboard in Resources */,
 				808BAAE9220DAD0A0017557C /* FilesPreferences.xib in Resources */,
-				80CC986721A877810030F04B /* WelcomeWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1260,6 +1289,7 @@
 				80CED03C20C88055001E710F /* AVFoundation+TT.swift in Sources */,
 				80DADAE421D2BA1300FAF6D3 /* VisualizerWindow.swift in Sources */,
 				8079F6D72106661A00B7A278 /* HideableBar.swift in Sources */,
+				80CAECFB22731605001DD856 /* OptionsStep.swift in Sources */,
 				8030E00120FC8F0C006B4AE8 /* ActionTableView.swift in Sources */,
 				80E0885020FFB3A3001FFE26 /* TTWindow.swift in Sources */,
 				80F855012069183E009A8FBE /* TrackController+Menu.swift in Sources */,
@@ -1280,6 +1310,7 @@
 				80E092A12066C42D000CA4D5 /* MediaLocation.swift in Sources */,
 				80D9448C21662E0100C135CA /* ResonanceProvider.swift in Sources */,
 				807D7B6221A7FDA50021C73B /* TagEditor.swift in Sources */,
+				80CAECF722730D50001DD856 /* CompletionStep.swift in Sources */,
 				8074044921367A1F007E0B4C /* Artist.swift in Sources */,
 				80802586203EFCC0008D4168 /* Foundation+TT.swift in Sources */,
 				806C31C8226A3B4800D545BC /* NSImage+Hacks.swift in Sources */,
@@ -1295,7 +1326,6 @@
 				80E2C9FC204B40A000298E81 /* PlaylistFolder+CoreDataProperties.swift in Sources */,
 				8079F6E4210A2C5400B7A278 /* PlaylistRules+Tokens.swift in Sources */,
 				8079F6DB2106745600B7A278 /* CartesianRulesController.swift in Sources */,
-				80CC986621A877810030F04B /* WelcomeWindowController.swift in Sources */,
 				80C1F151214033C40032E554 /* Enumerations.swift in Sources */,
 				80E939F7215BE604005112EF /* PlaylistMultiple.swift in Sources */,
 				80B68BA92101255D00A32E3D /* TrackController+Rules.swift in Sources */,
@@ -1307,6 +1337,7 @@
 				8030CA852164E3F100229398 /* VisualizerWindowController+Video.swift in Sources */,
 				80A7CABD216252340075C499 /* Track+Live.swift in Sources */,
 				80C1F16D2142AA010032E554 /* RFOpenGLView.m in Sources */,
+				80CAED0322731FB3001DD856 /* OptionStep.swift in Sources */,
 				80C1F143213B1DE80032E554 /* Foundation+Collections.swift in Sources */,
 				808BAADE220DA7C60017557C /* BehaviorPreferences.swift in Sources */,
 				8071F63721AEBA700005685B /* HumanDates.swift in Sources */,
@@ -1346,6 +1377,7 @@
 				808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */,
 				8071F63521AC299D0005685B /* PlaylistController+Updates.swift in Sources */,
 				808BAAE2220DA8D80017557C /* ViewPreferences.swift in Sources */,
+				80CAECF122730C5D001DD856 /* WorkflowWindowController.swift in Sources */,
 				808BAAE5220DA99A0017557C /* Preferences.swift in Sources */,
 				8079F6EC211B87A700B7A278 /* SpinningButton.swift in Sources */,
 				802F01CE2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift in Sources */,
@@ -1598,6 +1630,7 @@
 				PRODUCT_MODULE_NAME = TenTunes;
 				PRODUCT_NAME = "Ten Tunes";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "TenTunes/TenTunes-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

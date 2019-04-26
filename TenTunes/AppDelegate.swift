@@ -18,7 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     static let objectModel = NSManagedObjectModel(contentsOf: Bundle.main.url(forResource: "TenTunes", withExtension: "momd")!)!
 
-    var welcomeController: WelcomeWindowController!
+    var welcomeController: WorkflowWindowController!
 
     var libraryWindowController: NSWindowController!
     
@@ -121,6 +121,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
+    static func switchToDJ() {
+        AppDelegate.defaults[.trackWordSingular] = "track"
+        AppDelegate.defaults[.trackWordPlural] = "tracks"
+        AppDelegate.defaults[.keepFilterBetweenPlaylists] = true
+        AppDelegate.defaults[.quantizedJump] = true
+        AppDelegate.defaults[.initialKeyWrite] = .openKey
+        AppDelegate.defaults[.trackColumnsHidden] = [
+            "albumColumn": true,
+            "authorColumn": true,
+        ]
+    }
+    
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSUserNotificationCenter.default.delegate = self
         
@@ -129,7 +141,32 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         AppDelegate.defaults.set(Library.shared.directory, forKey: "libraryLocation")
         
-        welcomeController = WelcomeWindowController(windowNibName: .init("WelcomeWindowController"))
+        welcomeController = WorkflowWindowController.create(title: "Welcome to Ten Tunes!", steps: [
+            OptionsStep.create(text: "What best describes me is...", options: [
+                .create(text: "Music Listener", image: NSImage(named: .musicName)!) {
+                    return true
+                },
+                .create(text: "DJ", image: NSImage(named: .albumName)!) {
+                    #if !DEBUG_WELCOME
+                    AppDelegate.switchToDJ()
+                    #endif
+                    return true
+                },
+                ]),
+            OptionsStep.create(text: "So where do we start?", options: [
+                .create(text: "Import iTunes Library", image: NSImage(named: .iTunesName)!, action: nil),
+                .create(text: "Import Music Folder", image: NSImage(named: .musicName)!, action: nil),
+                .create(text: "Start Fresh", image: NSImage(named: .nameName)!) {
+                    return true
+                },
+                ]),
+            CompletionStep.create(
+                text: "All Done!",
+                buttonText: "Let's Go!"
+            ) { [unowned self] in
+                self.commenceAfterWelcome()
+            },
+        ])
         
         let libraryStoryboard = NSStoryboard(name: .init("Library"), bundle: nil)
         libraryWindowController = (libraryStoryboard.instantiateInitialController() as! NSWindowController)
@@ -148,12 +185,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         WindowWarden.shared.remember(window: libraryWindowController.window!, key: ("0", .command))
         WindowWarden.shared.remember(window: visualizerController.window!, key: ("t", .command), toggleable: true)
         
+        #if DEBUG_WELCOME
+        welcomeController.start()
+        #else
         if !AppDelegate.isTest && AppDelegate.defaults.consume(toggle: "WelcomeWindow") {
-            welcomeController.showWindow(self)
+            welcomeController.start()
         }
         else {
             commenceAfterWelcome()
         }
+        #endif
     }
     
     func commenceAfterWelcome() {

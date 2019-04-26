@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="OptionsStep" customModule="TenTunes" customModuleProvider="target">
+            <connections>
+                <outlet property="_box" destination="vzw-j1-dQq" id="nRm-I8-x2d"/>
+                <outlet property="_text" destination="hAc-Zr-NuG" id="yVB-Jh-kf7"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="300"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hAc-Zr-NuG">
+                    <rect key="frame" x="6" y="255" width="468" height="25"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Choose an Option" id="ELR-7g-rhz">
+                        <font key="font" metaFont="systemBold" size="21"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <box title="Box" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vzw-j1-dQq">
+                    <rect key="frame" x="17" y="16" width="446" height="233"/>
+                    <view key="contentView" id="nKf-2n-Xan">
+                        <rect key="frame" x="3" y="3" width="440" height="227"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <font key="titleFont" metaFont="smallSystem"/>
+                </box>
+            </subviews>
+            <constraints>
+                <constraint firstItem="vzw-j1-dQq" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="4mV-mS-UsL"/>
+                <constraint firstItem="hAc-Zr-NuG" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="7j7-l0-Yig"/>
+                <constraint firstAttribute="bottom" secondItem="vzw-j1-dQq" secondAttribute="bottom" constant="20" id="XW0-jY-gc0"/>
+                <constraint firstItem="vzw-j1-dQq" firstAttribute="top" secondItem="hAc-Zr-NuG" secondAttribute="bottom" constant="8" id="kJs-fK-Qjv"/>
+                <constraint firstAttribute="trailing" secondItem="vzw-j1-dQq" secondAttribute="trailing" constant="20" id="pd5-mg-XTM"/>
+                <constraint firstAttribute="trailing" secondItem="hAc-Zr-NuG" secondAttribute="trailing" constant="8" id="roF-ep-MU6"/>
+                <constraint firstItem="hAc-Zr-NuG" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="8" id="zQL-dm-WkA"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="105.5"/>
+        </customView>
+    </objects>
+</document>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="OptionStep" customModule="TenTunes" customModuleProvider="target">
+            <connections>
+                <outlet property="_image" destination="x6i-aZ-7DH" id="YqT-sI-6Av"/>
+                <outlet property="_text" destination="3Gm-xy-1ur" id="TJH-R6-R8f"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3Gm-xy-1ur">
+                    <rect key="frame" x="10" y="238" width="460" height="22"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Pls Click" id="SNO-Sr-rk9">
+                        <font key="font" metaFont="systemBold" size="18"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="100" verticalCompressionResistancePriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="x6i-aZ-7DH">
+                    <rect key="frame" x="12" y="12" width="456" height="214"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="fvN-aa-LWS"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="sjK-oL-prO"/>
+                    </constraints>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="WcV-Br-8JJ"/>
+                    <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                </imageView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="3Gm-xy-1ur" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="12" id="0dv-hV-FMk"/>
+                <constraint firstItem="x6i-aZ-7DH" firstAttribute="top" secondItem="3Gm-xy-1ur" secondAttribute="bottom" constant="12" id="Jt7-0I-aDt"/>
+                <constraint firstAttribute="trailing" secondItem="x6i-aZ-7DH" secondAttribute="trailing" constant="12" id="TOo-8T-Yjy"/>
+                <constraint firstItem="3Gm-xy-1ur" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="12" id="Xfy-T6-tLS"/>
+                <constraint firstAttribute="trailing" secondItem="3Gm-xy-1ur" secondAttribute="trailing" constant="12" id="a3Q-tB-37X"/>
+                <constraint firstAttribute="bottom" secondItem="x6i-aZ-7DH" secondAttribute="bottom" constant="12" id="hTf-lD-wcB"/>
+                <constraint firstItem="x6i-aZ-7DH" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="12" id="jzm-Qc-ppj"/>
+            </constraints>
+        </customView>
+    </objects>
+</document>

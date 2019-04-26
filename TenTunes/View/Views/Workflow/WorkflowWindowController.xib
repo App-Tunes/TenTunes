@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="WorkflowWindowController" customModule="TenTunes" customModuleProvider="target">
+            <connections>
+                <outlet property="_scrollView" destination="Oo3-1I-mxJ" id="TMp-JD-dMM"/>
+                <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Workflow" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
+            <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES"/>
+            <rect key="contentRect" x="196" y="240" width="556" height="350"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <view key="contentView" id="se5-gp-TjO">
+                <rect key="frame" x="0.0" y="0.0" width="556" height="350"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <scrollView horizontalCompressionResistancePriority="100" verticalCompressionResistancePriority="100" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="Oo3-1I-mxJ" customClass="BCLDisablableScrollView">
+                        <rect key="frame" x="0.0" y="0.0" width="556" height="350"/>
+                        <clipView key="contentView" autoresizesSubviews="NO" drawsBackground="NO" copiesOnScroll="NO" id="MyO-ZD-ccz">
+                            <rect key="frame" x="0.0" y="0.0" width="556" height="350"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <view autoresizesSubviews="NO" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="in5-iK-rz4">
+                                    <rect key="frame" x="0.0" y="0.0" width="557" height="246"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                </view>
+                            </subviews>
+                            <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                        </clipView>
+                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="QhM-4Q-wQ1">
+                            <rect key="frame" x="-100" y="-100" width="554" height="16"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="Las-Og-fuH">
+                            <rect key="frame" x="-100" y="-100" width="16" height="350"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="isEnabled" value="NO"/>
+                        </userDefinedRuntimeAttributes>
+                    </scrollView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="Oo3-1I-mxJ" secondAttribute="bottom" id="8b0-qo-Oy1"/>
+                    <constraint firstAttribute="trailing" secondItem="Oo3-1I-mxJ" secondAttribute="trailing" id="9uM-Di-Kzp"/>
+                    <constraint firstItem="Oo3-1I-mxJ" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="ErN-Gj-mFN"/>
+                    <constraint firstItem="Oo3-1I-mxJ" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="qrM-uy-lhr"/>
+                </constraints>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
+            </connections>
+            <point key="canvasLocation" x="177" y="142.5"/>
+        </window>
+    </objects>
+</document>

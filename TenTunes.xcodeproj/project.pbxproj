@@ -164,8 +164,8 @@
 		80C8559E210512B400177035 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C8559D210512B400177035 /* Album.swift */; };
 		80CAECF122730C5D001DD856 /* WorkflowWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAECEF22730C5D001DD856 /* WorkflowWindowController.swift */; };
 		80CAECF222730C5D001DD856 /* WorkflowWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80CAECF022730C5D001DD856 /* WorkflowWindowController.xib */; };
-		80CAECF722730D50001DD856 /* CompletionStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAECF522730D50001DD856 /* CompletionStep.swift */; };
-		80CAECF822730D50001DD856 /* CompletionStep.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80CAECF622730D50001DD856 /* CompletionStep.xib */; };
+		80CAECF722730D50001DD856 /* ConfirmStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAECF522730D50001DD856 /* ConfirmStep.swift */; };
+		80CAECF822730D50001DD856 /* ConfirmStep.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80CAECF622730D50001DD856 /* ConfirmStep.xib */; };
 		80CAECFB22731605001DD856 /* OptionsStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAECF922731605001DD856 /* OptionsStep.swift */; };
 		80CAECFC22731605001DD856 /* OptionsStep.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80CAECFA22731605001DD856 /* OptionsStep.xib */; };
 		80CAED0322731FB3001DD856 /* OptionStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAED0122731FB3001DD856 /* OptionStep.swift */; };
@@ -447,8 +447,8 @@
 		80C8559D210512B400177035 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		80CAECEF22730C5D001DD856 /* WorkflowWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowWindowController.swift; sourceTree = "<group>"; };
 		80CAECF022730C5D001DD856 /* WorkflowWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkflowWindowController.xib; sourceTree = "<group>"; };
-		80CAECF522730D50001DD856 /* CompletionStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionStep.swift; sourceTree = "<group>"; };
-		80CAECF622730D50001DD856 /* CompletionStep.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompletionStep.xib; sourceTree = "<group>"; };
+		80CAECF522730D50001DD856 /* ConfirmStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmStep.swift; sourceTree = "<group>"; };
+		80CAECF622730D50001DD856 /* ConfirmStep.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmStep.xib; sourceTree = "<group>"; };
 		80CAECF922731605001DD856 /* OptionsStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsStep.swift; sourceTree = "<group>"; };
 		80CAECFA22731605001DD856 /* OptionsStep.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OptionsStep.xib; sourceTree = "<group>"; };
 		80CAED0122731FB3001DD856 /* OptionStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionStep.swift; sourceTree = "<group>"; };
@@ -831,8 +831,8 @@
 			children = (
 				80CAECEF22730C5D001DD856 /* WorkflowWindowController.swift */,
 				80CAECF022730C5D001DD856 /* WorkflowWindowController.xib */,
-				80CAECF522730D50001DD856 /* CompletionStep.swift */,
-				80CAECF622730D50001DD856 /* CompletionStep.xib */,
+				80CAECF522730D50001DD856 /* ConfirmStep.swift */,
+				80CAECF622730D50001DD856 /* ConfirmStep.xib */,
 				80CAECF922731605001DD856 /* OptionsStep.swift */,
 				80CAECFA22731605001DD856 /* OptionsStep.xib */,
 				80CAED0122731FB3001DD856 /* OptionStep.swift */,
@@ -1161,7 +1161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80C1F1682142928B0032E554 /* default.vs in Resources */,
-				80CAECF822730D50001DD856 /* CompletionStep.xib in Resources */,
+				80CAECF822730D50001DD856 /* ConfirmStep.xib in Resources */,
 				808BAADF220DA7C60017557C /* BehaviorPreferences.xib in Resources */,
 				80CAECF222730C5D001DD856 /* WorkflowWindowController.xib in Resources */,
 				809CEABC2163EFCD008D6AC0 /* superpowered_splash.svg in Resources */,
@@ -1313,7 +1313,7 @@
 				80E092A12066C42D000CA4D5 /* MediaLocation.swift in Sources */,
 				80D9448C21662E0100C135CA /* ResonanceProvider.swift in Sources */,
 				807D7B6221A7FDA50021C73B /* TagEditor.swift in Sources */,
-				80CAECF722730D50001DD856 /* CompletionStep.swift in Sources */,
+				80CAECF722730D50001DD856 /* ConfirmStep.swift in Sources */,
 				8074044921367A1F007E0B4C /* Artist.swift in Sources */,
 				80802586203EFCC0008D4168 /* Foundation+TT.swift in Sources */,
 				806C31C8226A3B4800D545BC /* NSImage+Hacks.swift in Sources */,

@@ -143,17 +143,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         visualizerController = VisualizerWindowController(windowNibName: .init("VisualizerWindowController"))
         visualizerController.loadWindow()
         
-        let welcomeSteps = { $0.isEmpty ? [] :
-            $0 + [
-                CompletionStep.create(
-                    text: "All Done!",
-                    buttonText: "Let's Go!"
-                ) { [unowned self] in
-                    self.commenceAfterWelcome()
-                }
-            ]
-        }(wantedWelcomeSteps())
-        
+        let welcomeSteps = wantedWelcomeSteps()
         welcomeController = WorkflowWindowController.create(title: "Welcome to Ten Tunes!", steps: welcomeSteps)
 
         WindowWarden.shared.remember(window: libraryWindowController.window!, key: ("0", .command))

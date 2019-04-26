@@ -8,12 +8,16 @@
 
 import Cocoa
 
-class CompletionStep: NSViewController {
+class ConfirmStep: NSViewController {
+    enum Mode {
+        case next, complete
+    }
     
     @IBOutlet var _text: NSTextField!
     @IBOutlet var _button: NSButton!
     
-    var completion: (() -> Void)?
+    var mode: Mode = .next
+    var action: (() -> Void)?
     
     var text: String {
         get { return _text.stringValue }
@@ -25,17 +29,24 @@ class CompletionStep: NSViewController {
         set { _button.title = newValue }
     }
     
-    static func create(text: String, buttonText: String, completion: @escaping () -> Void) -> CompletionStep {
-        let controller = CompletionStep(nibName: .init("CompletionStep"), bundle: .main)
+    static func create(text: String, buttonText: String, mode: Mode = .next, action: (() -> Void)? = nil) -> ConfirmStep {
+        let controller = ConfirmStep(nibName: .init("ConfirmStep"), bundle: .main)
         controller.loadView()
         controller.text = text
         controller.buttonText = buttonText
-        controller.completion = completion
+        controller.mode = mode
+        controller.action = action
         return controller
     }
     
     @IBAction func action(_ sender: Any) {
-        view.window?.close()
-        completion?()
+        switch mode {
+        case .next:
+            WorkflowWindowController.next(view)
+        case .complete:
+            view.window?.close()
+        }
+        
+        action?()
     }
 }

@@ -16,41 +16,76 @@ extension AppDelegate {
         let force: Bool? = AppDelegate.isTest ? false : nil
         #endif
         
-        let isFirstLaunch = force ?? AppDelegate.defaults.consume(toggle: "WelcomeWindow")
-        let firstLaunchSteps = isFirstLaunch ? [
-            OptionsStep.create(text: "What best describes me is...", options: [
-                .create(text: "Music Listener", image: NSImage(named: .musicName)!) {
-                    return true
-                },
-                .create(text: "DJ", image: NSImage(named: .albumName)!) {
-                    #if !DEBUG_WELCOME
-                    AppDelegate.switchToDJ()
-                    #endif
-                    return true
-                },
-            ])
-        ] : []
+        var steps: [NSViewController] = []
+        
+        let isFirstLaunch = AppDelegate.defaults.consume(toggle: "WelcomeWindow")
+        if force ?? isFirstLaunch {
+            if steps.isEmpty {
+                steps.append(
+                    ConfirmStep.create(
+                        text: "Ten Tunes says hi!",
+                        buttonText: "Proceed"
+                    )
+                )
+            }
+
+            steps += [
+                OptionsStep.create(text: "What best describes me is...", options: [
+                    .create(text: "Music Listener", image: NSImage(named: .musicName)!) {
+                        return true
+                    },
+                    .create(text: "DJ", image: NSImage(named: .albumName)!) {
+                        #if !DEBUG_WELCOME
+                        AppDelegate.switchToDJ()
+                        #endif
+                        return true
+                    },
+                ])
+            ]
+        }
         
         // Not guaranteed to be new, but really
         // If the user has made neither playlists nor imported tracks
         // They probably want this screen anyway
-        let isNewLibrary = force ?? (
-            persistentContainer![PlaylistRole.playlists].children.count == 0 &&
-                persistentContainer![PlaylistRole.library].tracksList.count == 0
-        )
-        let newLibrarySteps = isNewLibrary ? [
-            OptionsStep.create(text: "So where do we start?", options: [
-                .create(text: "Import iTunes Library", image: NSImage(named: .iTunesName)!) { [unowned self] in 
-                    return self.importFromITunes(flat: true)
-                },
-                .create(text: "Import Music Folder", image: NSImage(named: .musicName)!, action: nil),
-                .create(text: "Start Fresh", image: NSImage(named: .nameName)!) {
-                    return true
-                },
-            ])
-        ] : []
+        let isNewLibrary = persistentContainer![PlaylistRole.playlists].children.count == 0 &&
+            persistentContainer![PlaylistRole.library].tracksList.count == 0
         
-        return firstLaunchSteps + newLibrarySteps
+        if force ?? isNewLibrary {
+            if steps.isEmpty {
+                steps.append(
+                    ConfirmStep.create(
+                        text: "Let's get your new library set up.",
+                        buttonText: "Okay dude"
+                    )
+                )
+            }
+            
+            steps += [
+                OptionsStep.create(text: "So where do we start?", options: [
+                    .create(text: "Import iTunes Library", image: NSImage(named: .iTunesName)!) { [unowned self] in
+                        return self.importFromITunes(flat: true)
+                    },
+                    .create(text: "Import Music Folder", image: NSImage(named: .musicName)!, action: nil),
+                    .create(text: "Start Fresh", image: NSImage(named: .nameName)!) {
+                        return true
+                    },
+                ])
+            ]
+        }
+        
+        if !steps.isEmpty {
+            steps.append(
+                ConfirmStep.create(
+                    text: "All Done!",
+                    buttonText: "Let's Go!",
+                    mode: .complete
+                ) { [unowned self] in
+                    self.commenceAfterWelcome()
+                }
+            )
+        }
+        
+        return steps
     }
     
     static func switchToDJ() {

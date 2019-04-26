@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="CompletionStep" customModule="TenTunes" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="ConfirmStep" customModule="TenTunes" customModuleProvider="target">
             <connections>
                 <outlet property="_button" destination="eDS-1u-fkB" id="v1t-5f-5j5"/>
                 <outlet property="_text" destination="Qp8-AD-9dx" id="n4s-wh-a5l"/>

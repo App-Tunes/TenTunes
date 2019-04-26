@@ -162,6 +162,13 @@ public class DisablableView: NSView {
         addSubview(_disabler, positioned: .above, relativeTo: nil)
     }
     
+    public override func keyDown(with event: NSEvent) {
+        guard isEnabled else {
+            return
+        }
+        super.keyDown(with: event)
+    }
+    
     public override func hitTest(_ point: NSPoint) -> NSView? {
         return isEnabled ? super.hitTest(point) : nil
     }

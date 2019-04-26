@@ -62,12 +62,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         Defaults.Keys.eagerLoad()
     }
     
-    func library(at location: URL, create: Bool?) -> Library? {
-        let library = Library(name: "TenTunes", at: location, create: create)
-        if let library = library, library.viewContext.hasChanges {
+    func useLibrary(at location: URL, create: Bool?) {
+        persistentContainer = Library(name: "TenTunes", at: location, create: create)
+        
+        if let library = persistentContainer, library.viewContext.hasChanges {
             try! library.viewContext.save()
         }
-        return library
     }
     
     func chooseLibrary(_ url: URL? = nil) {
@@ -81,7 +81,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if AppDelegate.isTest {
             // TODO Do SQL in-memory
             location = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
-            persistentContainer = library(at: location, create: create)
+            useLibrary(at: location, create: create)
         }
         
         while persistentContainer == nil {
@@ -112,7 +112,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 return
             }
             
-            persistentContainer = library(at: location, create: create)
+            useLibrary(at: location, create: create)
             
             if persistentContainer == nil {
                 NSAlert.informational(title: "Failed to load library", text: "The library could not be read or created anew. Please use a different library location.")

@@ -107,6 +107,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             tryLibrary(at: libraryURL, create: nil)
         }
         
+        guard !AppDelegate.isTest else {
+            commenceAfterWelcome()
+            return
+        }
+        
         let welcomeWorkflow = WorkflowWindowController.create(title: "Welcome to Ten Tunes!")
         addWelcomeSteps(workflow: welcomeWorkflow, chooseLibrary: persistentContainer == nil)
         
@@ -120,6 +125,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func commenceAfterWelcome() {
+        assert(persistentContainer != nil)
+        
         let libraryStoryboard = NSStoryboard(name: .init("Library"), bundle: nil)
         libraryWindowController = (libraryStoryboard.instantiateInitialController() as! NSWindowController)
         

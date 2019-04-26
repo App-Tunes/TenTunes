@@ -9,6 +9,39 @@
 import Cocoa
 
 extension Library {
+    class DynamicallyAdapt: Task {
+        let library: Library
+
+        init(library: Library) {
+            self.library = library
+            super.init(priority: 2)
+        }
+        
+        override var title: String { return "Magically Adapt" }
+        
+        override var preventsQuit: Bool { return false }
+        
+        override func execute() {
+            super.execute()
+            
+            performChildBackgroundTask(for: library) { [unowned self] mox in
+                self.adapt(in: mox)
+                self.finish()
+            }
+        }
+        
+        func adapt(in context: NSManagedObjectContext) {
+            // Copy array so it won't get modified while running over it
+            let allPlaylists = Array(library.allPlaylists(in: context))
+            
+            for case let playlist as PlaylistCartesian in allPlaylists {
+                playlist.checkSanity(in: context)
+            }
+            
+            try! context.save()
+        }
+    }
+    
     class CheckSanity: Task {
         let library: Library
         
@@ -44,13 +77,7 @@ extension Library {
                     parent.addToChildren(playlist)
                 }
             }
-            
-            if self.checkCanceled() { return }
 
-            for case let playlist as PlaylistCartesian in allPlaylists {
-                playlist.checkSanity(in: context)
-            }
-            
             if self.uncancelable() { return }
             
             let brokenVisualsRequest: NSFetchRequest<NSFetchRequestResult> = TrackVisuals.fetchRequest()
@@ -90,14 +117,18 @@ extension Library {
         return false
     }
 
-    func considerSanity() {
-        guard sanityChanged, sanitySemaphore.acquireNow() else {
+    func considerAdapting() {
+        guard dynamicAdaptNeeded, adaptSemaphore.acquireNow() else {
             return
         }
         
-        sanityChanged = false
-        ViewController.shared.tasker.enqueue(task: CheckSanity(library: self))
+        dynamicAdaptNeeded = false
+        ViewController.shared.tasker.enqueue(task: DynamicallyAdapt(library: self))
         
-        sanitySemaphore.signalAfter(seconds: 5)
+        adaptSemaphore.signalAfter(seconds: 5)
+    }
+    
+    func checkSanity() {
+        ViewController.shared.tasker.enqueue(task: CheckSanity(library: self))
     }
 }

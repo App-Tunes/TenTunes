@@ -110,8 +110,8 @@ class Library : NSPersistentContainer {
     var _roleDict = [Int: AnyObject]()
     var _roleDictReverse = [UUID: AnyObject]()
 
-    var sanityChanged = true
-    var sanitySemaphore = DispatchSemaphore(value: 1)
+    var dynamicAdaptNeeded = true
+    var adaptSemaphore = DispatchSemaphore(value: 1)
 
     var _exportChanged: Set<NSManagedObjectID>? = Set()
     var exportSemaphore = DispatchSemaphore(value: 1)
@@ -315,7 +315,7 @@ extension Library {
             }
         }
         
-        sanityChanged = true // No matter what changed
+        dynamicAdaptNeeded = true // No matter what changed
         _exportChanged = _exportChanged?.union(inserts.map { $0.objectID })
                                         .union(deletes.map { $0.objectID })
                                         .union(updates.map { $0.objectID })

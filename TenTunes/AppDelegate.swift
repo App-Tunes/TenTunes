@@ -157,6 +157,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func commenceAfterWelcome() {
+        // Initially check on every launch
+        Library.shared.checkSanity()
+        
         #if !DEBUG
         SuperpoweredSplash.show(in: (libraryWindowController.contentViewController as! ViewController)._trackGuardView.superview!.superview!)
         #endif

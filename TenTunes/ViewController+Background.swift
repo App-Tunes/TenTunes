@@ -37,7 +37,7 @@ extension ViewController {
             
             // Create specific tasks
             Library.shared.considerExport()
-            Library.shared.considerSanity()
+            Library.shared.considerAdapting()
 
             // Run Tasks
             var taskers = PriorityQueue(ascending: true, startingValues: self.taskers)

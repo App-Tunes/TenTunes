@@ -133,15 +133,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ]
     }
     
-    func applicationDidFinishLaunching(_ notification: Notification) {
-        NSUserNotificationCenter.default.delegate = self
+    func wantedWelcomeSteps() -> [NSViewController] {
+        #if DEBUG_WELCOME
+        let force: Bool? = true
+        #else
+        let force: Bool? = AppDelegate.isTest ? false : nil
+        #endif
         
-        if persistentContainer == nil {
-            chooseLibrary()
-        }
-        AppDelegate.defaults.set(Library.shared.directory, forKey: "libraryLocation")
-        
-        welcomeController = WorkflowWindowController.create(title: "Welcome to Ten Tunes!", steps: [
+        let isFirstLaunch = force ?? AppDelegate.defaults.consume(toggle: "WelcomeWindow")
+        let firstLaunchSteps = isFirstLaunch ? [
             OptionsStep.create(text: "What best describes me is...", options: [
                 .create(text: "Music Listener", image: NSImage(named: .musicName)!) {
                     return true
@@ -152,21 +152,36 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     #endif
                     return true
                 },
-                ]),
+            ])
+        ] : []
+        
+        // Not guaranteed to be new, but really
+        // If the user has made neither playlists nor imported tracks
+        // They probably want this screen anyway
+        let isNewLibrary = force ?? (
+            persistentContainer![PlaylistRole.playlists].children.count == 0 &&
+            persistentContainer![PlaylistRole.library].tracksList.count == 0
+        )
+        let newLibrarySteps = isNewLibrary ? [
             OptionsStep.create(text: "So where do we start?", options: [
                 .create(text: "Import iTunes Library", image: NSImage(named: .iTunesName)!, action: nil),
                 .create(text: "Import Music Folder", image: NSImage(named: .musicName)!, action: nil),
                 .create(text: "Start Fresh", image: NSImage(named: .nameName)!) {
                     return true
                 },
-                ]),
-            CompletionStep.create(
-                text: "All Done!",
-                buttonText: "Let's Go!"
-            ) { [unowned self] in
-                self.commenceAfterWelcome()
-            },
-        ])
+            ])
+        ] : []
+        
+        return firstLaunchSteps + newLibrarySteps
+    }
+    
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        NSUserNotificationCenter.default.delegate = self
+        
+        if persistentContainer == nil {
+            chooseLibrary()
+        }
+        AppDelegate.defaults.set(Library.shared.directory, forKey: "libraryLocation")
         
         let libraryStoryboard = NSStoryboard(name: .init("Library"), bundle: nil)
         libraryWindowController = (libraryStoryboard.instantiateInitialController() as! NSWindowController)
@@ -182,19 +197,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         visualizerController = VisualizerWindowController(windowNibName: .init("VisualizerWindowController"))
         visualizerController.loadWindow()
         
+        let welcomeSteps = { $0.isEmpty ? [] :
+            $0 + [
+                CompletionStep.create(
+                    text: "All Done!",
+                    buttonText: "Let's Go!"
+                ) { [unowned self] in
+                    self.commenceAfterWelcome()
+                }
+            ]
+        }(wantedWelcomeSteps())
+        
+        welcomeController = WorkflowWindowController.create(title: "Welcome to Ten Tunes!", steps: welcomeSteps)
+
         WindowWarden.shared.remember(window: libraryWindowController.window!, key: ("0", .command))
         WindowWarden.shared.remember(window: visualizerController.window!, key: ("t", .command), toggleable: true)
         
-        #if DEBUG_WELCOME
-        welcomeController.start()
-        #else
-        if !AppDelegate.isTest && AppDelegate.defaults.consume(toggle: "WelcomeWindow") {
+        if !welcomeSteps.isEmpty {
             welcomeController.start()
         }
         else {
             commenceAfterWelcome()
         }
-        #endif
     }
     
     func commenceAfterWelcome() {

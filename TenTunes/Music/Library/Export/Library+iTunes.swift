@@ -135,7 +135,7 @@ extension Library.Export {
 }
 
 extension Library.Import {
-    func iTunesLibraryXML(url: URL) -> Bool {
+    func iTunesLibraryXML(url: URL, flat: Bool) -> Bool {
         guard let nsdict = NSDictionary(contentsOf: url) else {
             return false
         }
@@ -145,10 +145,19 @@ extension Library.Import {
         // Though it needs to be duplicatable into an editable copy
         
         // TODO Async
-        let masterPlaylist = PlaylistFolder(context: context)
-        context.insert(masterPlaylist)
-        masterPlaylist.name = "iTunes Library"
-        library[PlaylistRole.playlists].addToChildren(masterPlaylist)
+        let masterPlaylist = { () -> PlaylistFolder in
+            let realMaster = self.library[PlaylistRole.playlists]
+            guard !flat else {
+                return realMaster
+            }
+
+            let masterPlaylist = PlaylistFolder(context: context)
+            context.insert(masterPlaylist)
+            masterPlaylist.name = "iTunes Library"
+            realMaster.addToChildren(masterPlaylist)
+
+            return masterPlaylist
+        }()
         
         var existingTracks: [String:Track] = [:]
         // TODO Request

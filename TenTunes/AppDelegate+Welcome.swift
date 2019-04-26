@@ -28,8 +28,8 @@ extension AppDelegate {
                     #endif
                     return true
                 },
-                ])
-            ] : []
+            ])
+        ] : []
         
         // Not guaranteed to be new, but really
         // If the user has made neither playlists nor imported tracks
@@ -40,13 +40,15 @@ extension AppDelegate {
         )
         let newLibrarySteps = isNewLibrary ? [
             OptionsStep.create(text: "So where do we start?", options: [
-                .create(text: "Import iTunes Library", image: NSImage(named: .iTunesName)!, action: nil),
+                .create(text: "Import iTunes Library", image: NSImage(named: .iTunesName)!) { [unowned self] in 
+                    return self.importFromITunes(flat: true)
+                },
                 .create(text: "Import Music Folder", image: NSImage(named: .musicName)!, action: nil),
                 .create(text: "Start Fresh", image: NSImage(named: .nameName)!) {
                     return true
                 },
-                ])
-            ] : []
+            ])
+        ] : []
         
         return firstLaunchSteps + newLibrarySteps
     }

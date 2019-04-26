@@ -29,31 +29,38 @@ extension AppDelegate {
     }
 
     @IBAction func importFromITunes(_ sender: Any) {
+        self.importFromITunes(flat: false)
+    }
+    
+    @discardableResult
+    func importFromITunes(flat: Bool) -> Bool {
         let dialog = NSOpenPanel()
         
         dialog.title = "Select an iTunes Library"
         dialog.allowsMultipleSelection = false
         dialog.allowedFileTypes = ["xml"]
         dialog.directoryURL = MediaLocation.musicDirectory?.appendingPathComponent("iTunes")
-
-        if dialog.runModal() == NSApplication.ModalResponse.OK {
-            guard let url = dialog.url else {
-                return
-            }
-            
-            if !Library.shared.import().iTunesLibraryXML(url: url) {
-                let alert: NSAlert = NSAlert()
-                alert.messageText = "Invalid File"
-                alert.informativeText = "The selected file is not a valid iTunes library file."
-                alert.alertStyle = .warning
-                alert.addButton(withTitle: "OK")
-                alert.runModal()
-            }
-            
-            if AppDelegate.defaults.consume(toggle: "iTunesImportTutorial") {
-                NSAlert.tutorial(topic: "iTunes Import", text: "On iTunes imports, imported tracks will not be automatically moved to your media directory.")
-            }
+        
+        guard dialog.runModal() == NSApplication.ModalResponse.OK, let url = dialog.url else {
+            return false
         }
+        
+        guard Library.shared.import().iTunesLibraryXML(url: url, flat: flat) else {
+            let alert: NSAlert = NSAlert()
+            alert.messageText = "Invalid File"
+            alert.informativeText = "The selected file is not a valid iTunes library file."
+            alert.alertStyle = .warning
+            alert.addButton(withTitle: "OK")
+            alert.runModal()
+
+            return false
+        }
+        
+        if !flat, AppDelegate.defaults.consume(toggle: "iTunesImportTutorial") {
+            NSAlert.tutorial(topic: "iTunes Import", text: "On iTunes imports, imported tracks will not be automatically moved to your media directory.")
+        }
+        
+        return true
     }
 
     @IBAction func openDocument(_ sender: Any) {

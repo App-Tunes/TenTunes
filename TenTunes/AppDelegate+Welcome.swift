@@ -34,7 +34,7 @@ extension AppDelegate {
             }
 
             steps += [
-                OptionsStep.create(text: "What best describes me is...", options: [
+                OptionsStep.create(text: "What best describes you is...", options: [
                     .create(text: "Music Listener", image: NSImage(named: .musicName)!) {
                         return true
                     },

@@ -27,6 +27,7 @@ extension AppDelegate {
             location = dialog.runModal() == .OK ? dialog.url : nil
         }
         
+        // TODO Allow overrides (the save dialogue specifically prompts for it)
         return location.map { tryLibrary(at: $0, create: create) } ?? false
     }
     

@@ -170,6 +170,7 @@
 		80CAECFC22731605001DD856 /* OptionsStep.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80CAECFA22731605001DD856 /* OptionsStep.xib */; };
 		80CAED0322731FB3001DD856 /* OptionStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAED0122731FB3001DD856 /* OptionStep.swift */; };
 		80CAED0422731FB3001DD856 /* OptionStep.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80CAED0222731FB3001DD856 /* OptionStep.xib */; };
+		80CAED0622735E8D001DD856 /* AppDelegate+Welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAED0522735E8D001DD856 /* AppDelegate+Welcome.swift */; };
 		80CB652C20514E050031A6D7 /* Library+Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652B20514E050031A6D7 /* Library+Files.swift */; };
 		80CB652F2052C6CD0031A6D7 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652E2052C6CD0031A6D7 /* Operators.swift */; };
 		80CB65332052C9530031A6D7 /* Cocoa+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB65322052C9530031A6D7 /* Cocoa+TT.swift */; };
@@ -452,6 +453,7 @@
 		80CAECFA22731605001DD856 /* OptionsStep.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OptionsStep.xib; sourceTree = "<group>"; };
 		80CAED0122731FB3001DD856 /* OptionStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionStep.swift; sourceTree = "<group>"; };
 		80CAED0222731FB3001DD856 /* OptionStep.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OptionStep.xib; sourceTree = "<group>"; };
+		80CAED0522735E8D001DD856 /* AppDelegate+Welcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Welcome.swift"; sourceTree = "<group>"; };
 		80CB652B20514E050031A6D7 /* Library+Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Files.swift"; sourceTree = "<group>"; };
 		80CB652E2052C6CD0031A6D7 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		80CB65322052C9530031A6D7 /* Cocoa+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocoa+TT.swift"; sourceTree = "<group>"; };
@@ -976,6 +978,7 @@
 				8030E00320FC970E006B4AE8 /* Task */,
 				809CEAC72164D31E008D6AC0 /* API */,
 				80F2C5792038808000212739 /* AppDelegate.swift */,
+				80CAED0522735E8D001DD856 /* AppDelegate+Welcome.swift */,
 				8020C64C221736A500E6FA5C /* AppDelegate+Files.swift */,
 				8020C64E2217372200E6FA5C /* AppDelegate+Menu.swift */,
 				80F2C57B2038808000212739 /* ViewController.swift */,
@@ -1409,6 +1412,7 @@
 				806FC30C2190DA36004B9770 /* DarkBoxView.swift in Sources */,
 				80FA291D2204E662008E6A38 /* LazyVar.swift in Sources */,
 				80E2C9F8204B40A000298E81 /* Playlist+CoreDataProperties.swift in Sources */,
+				80CAED0622735E8D001DD856 /* AppDelegate+Welcome.swift in Sources */,
 				80F77BF5203D8B35001E397F /* Key.swift in Sources */,
 				808BAAE8220DAD0A0017557C /* FilesPreferences.swift in Sources */,
 				807D749A21C3D05900D3B610 /* DarkMatter.swift in Sources */,

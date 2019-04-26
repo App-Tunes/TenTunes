@@ -14,14 +14,17 @@ protocol WorkflowAware {
 }
 
 class WorkflowWindowController: NSWindowController {
-    var _steps: [NSViewController] = []
+    var _steps: [Step] = []
     var _currentStep = 0
     
-    var _inset: CGFloat = 5000
+    var _inset: CGFloat = 0
     
     @IBOutlet var _scrollView: NSScrollView!
     
-    static func create(title: String, steps: [NSViewController]) -> WorkflowWindowController {
+    var topConstraint: NSLayoutConstraint? = nil
+    var bottomConstraint: NSLayoutConstraint? = nil
+
+    static func create(title: String, steps: [Step] = []) -> WorkflowWindowController {
         let controller = WorkflowWindowController(windowNibName: .init("WorkflowWindowController"))
         controller.loadWindow()
         
@@ -45,78 +48,143 @@ class WorkflowWindowController: NSWindowController {
         set { window!.title = newValue }
     }
     
-    func container(forStep step: NSViewController) -> DisablableView {
-        return step.view.superview! as! DisablableView
+    func container(forStep step : Step) -> DisablableView? {
+        switch  step {
+        case .interaction(let controller):
+            return controller.view.superview! as? DisablableView
+        default:
+            return nil
+        }
     }
     
-    func container(forStepAt idx: Int) -> DisablableView {
-        return container(forStep: _steps[idx])
+    func layoutIfNeeded() {
+        guard let window = window, window.isVisible else {
+            return
+        }
+        
+        window.layoutIfNeeded()
+        scrollToCurrentStep(instant: true)
     }
     
     func start() {
         let container = _scrollView.documentView!
         let clip = _scrollView.contentView
-        
-        _inset = clip.frame.size.width
-        
+
+        _currentStep = 0
+
         // Only auto-resize with width
-        container.subviews.removeAll()
         container.translatesAutoresizingMaskIntoConstraints = false
         clip.addConstraints([
             NSLayoutConstraint(item: container, attribute: .leading, relatedBy: .equal, toItem: clip, attribute: .leading, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: container, attribute: .trailing, relatedBy: .equal, toItem: clip, attribute: .trailing, multiplier: 1, constant: 0),
-            ])
+        ])
         
-        var previous: NSView? = nil
-        for step in _steps {
+        showWindow(self)
+        window!.center()
+        
+        layoutIfNeeded()
+    }
+    
+    var isEmpty: Bool {
+        return _steps.isEmpty
+    }
+    
+    func addStep(_ step: Step) {
+        switch step {
+        case .interaction(let controller):
+            let container = _scrollView.documentView!
+            
+            let previous: NSView? = _steps.compactMap(self.container).last
             let view = DisablableView()
             
-            view.addSubview(step.view)
-            view.setFullSizeContent(step.view)
+            view.addSubview(controller.view)
+            view.setFullSizeContent(controller.view)
             
             view.translatesAutoresizingMaskIntoConstraints = false
             
             container.addSubview(view)
             
+            let top = NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: previous ?? container, attribute: previous == nil ? .top : .bottom, multiplier: 1, constant: previous == nil ? _inset : 0)
             container.addConstraints([
                 NSLayoutConstraint(item: view, attribute: .leading, relatedBy: .equal, toItem: container, attribute: .leading, multiplier: 1, constant: 0),
                 NSLayoutConstraint(item: view, attribute: .trailing, relatedBy: .equal, toItem: container, attribute: .trailing, multiplier: 1, constant: 0),
-                
-                NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: previous ?? container, attribute: previous == nil ? .top : .bottom, multiplier: 1, constant: previous == nil ? _inset : 0),
-                ])
+                top
+            ])
+            if previous == nil { topConstraint = top }
+
+            if let bottomConstraint = bottomConstraint {
+                container.removeConstraint(bottomConstraint)
+            }
             
-            previous = view
+            bottomConstraint = NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: container, attribute: .bottom, multiplier: 1, constant: -_inset)
+            container.addConstraint(bottomConstraint!)
+        default:
+            break
         }
         
-        if let previous = previous {
-            container.addConstraint(
-                NSLayoutConstraint(item: previous, attribute: .bottom, relatedBy: .equal, toItem: container, attribute: .bottom, multiplier: 1, constant: -_inset)
-            )
-        }
+        _steps.append(step)
         
-        showWindow(self)
-        window!.center()
+        layoutIfNeeded()
     }
     
-    func addStep(_ step: NSViewController) {
-        _steps.append(step)
+    func addSteps(_ steps: [Step]) {
+        steps.forEach(addStep)
     }
     
     func next() {
-        (_steps[_currentStep] as? WorkflowAware)?.resignFocus()
-        _currentStep += 1
+        switch _steps[_currentStep] {
+        case .interaction(let controller):
+            (controller as? WorkflowAware)?.resignFocus()
+        default:
+            break
+        }
         
-        scrollToCurrentStep()
+        while _currentStep < _steps.count - 1 {
+            _currentStep += 1
+            
+            let step = _steps[_currentStep]
+            switch step {
+            case .interaction:
+                scrollToCurrentStep()
+                return
+            case .task(let task):
+                task()
+            }
+        }
     }
     
     func scrollToCurrentStep(instant: Bool = false) {
-        _steps.map(container).enumerated().forEach { (idx, view) in
-            view.isEnabled = _currentStep == idx
+        let clip = _scrollView.contentView
+
+        _steps
+            .enumerated()
+            .forEach { (idx, step) in
+                (self.container(forStep: step))?.isEnabled = _currentStep == idx
+        }
+        
+        // Need to set this since the window sometimes changes height
+        _inset = clip.frame.size.width
+        topConstraint?.constant = _inset
+        bottomConstraint?.constant = -_inset
+
+        // God knows why it sometimes doesn't play along
+        _scrollView.magnification = 1
+        _scrollView.minMagnification = 1
+        _scrollView.maxMagnification = 1
+
+        guard let viewStepIdx = (_steps[0 ... _currentStep].lastIndex {
+            Enumerations.is($0, ofType: Step.interaction)
+        }) else {
+            return
         }
 
-        (_steps[_currentStep] as? WorkflowAware)?.takeFocus()
-        let target = container(forStepAt: _currentStep)
+        let viewStep = _steps[viewStepIdx]
+        if viewStepIdx == _currentStep {
+            (Enumerations.associatedValue(of: viewStep, as: Step.interaction)
+                as? WorkflowAware)?.takeFocus()
+        }
         
+        let target = container(forStep: viewStep)!
         NSAnimationContext.runAnimationGroup { context in
             context.duration = instant ? 0 : .seconds(0.5)
             
@@ -124,13 +192,18 @@ class WorkflowWindowController: NSWindowController {
             _scrollView.contentView.animator().bounds.origin.y = target.frame.midY - containerHeight / 2
         }
     }
+    
+    enum Step {
+        case task(_ task: () -> Void)
+        case interaction(_ controller: NSViewController)
+    }
 }
 
 @IBDesignable
 @objc(BCLDisablableScrollView)
 public class DisablableScrollView: NSScrollView {
     @IBInspectable
-    @objc(enabled)
+    @objc(isEnabled)
     public var isEnabled: Bool = true
     
     public override func scrollWheel(with event: NSEvent) {
@@ -184,11 +257,6 @@ public class DisablableView: NSView {
 
 extension WorkflowWindowController : NSWindowDelegate {
     func windowDidChangeOcclusionState(_ notification: Notification) {
-        // God knows why it sometimes doesn't play
-        _scrollView.magnification = 1
-        _scrollView.minMagnification = 1
-        _scrollView.maxMagnification = 1
-
         scrollToCurrentStep(instant: true)
     }
 }

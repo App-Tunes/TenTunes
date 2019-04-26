@@ -18,15 +18,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     static let objectModel = NSManagedObjectModel(contentsOf: Bundle.main.url(forResource: "TenTunes", withExtension: "momd")!)!
 
-    var welcomeController: WorkflowWindowController!
-
     var libraryWindowController: NSWindowController!
     
     var preferencesController: PreferencesWindowController!
     var exportPlaylistsController: ExportPlaylistsController!
     var visualizerController: VisualizerWindowController!
     
+    // Otherwise, gets deallocated
+    var currentWorkflow: WorkflowWindowController?
+    
     var persistentContainer: Library!
+    
+    var launchURLs: [URL] = []
     
     class var isTest : Bool {
         return (ProcessInfo.processInfo.environment["IS_TT_TEST"] as NSString?)?.boolValue ?? false
@@ -62,73 +65,61 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         Defaults.Keys.eagerLoad()
     }
     
-    func useLibrary(at location: URL, create: Bool?) {
+    @discardableResult
+    func tryLibrary(at location: URL, create: Bool?) -> Bool {
         persistentContainer = Library(name: "TenTunes", at: location, create: create)
         
-        if let library = persistentContainer, library.viewContext.hasChanges {
-            try! library.viewContext.save()
+        if let library = persistentContainer {
+            if !AppDelegate.isTest {
+                AppDelegate.defaults.set(Library.shared.directory, forKey: "libraryLocation")
+            }
+            
+            if library.viewContext.hasChanges {
+                try! library.viewContext.save()
+            }
         }
+        
+        return persistentContainer != nil
     }
     
-    func chooseLibrary(_ url: URL? = nil) {
-        var location: URL! = url
-            ?? AppDelegate.defaults.url(forKey: "libraryLocation")
-            ?? Library.defaultURL()
-        
-        var create: Bool?
-        var freedomToChoose = NSEvent.modifierFlags.contains(.option)
-        
-        if AppDelegate.isTest {
-            // TODO Do SQL in-memory
-            location = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
-            useLibrary(at: location, create: create)
-        }
-        
-        while persistentContainer == nil {
-            if freedomToChoose {
-                switch NSAlert.choose(title: "Choose Library", text: "Please choose or create a library location. This is where your data and music are stored.", actions: ["Choose Existing", "New Library", "Cancel", ]) {
-                case .alertSecondButtonReturn:
-                    let dialog = NSSavePanel()
-                    
-                    location = dialog.runModal() == .OK ? dialog.url : nil
-                    create = true
-                case .alertFirstButtonReturn:
-                    let dialog = NSOpenPanel()
-                    
-                    dialog.canChooseFiles = true // packages are considered files by finder, library is a package
-                    dialog.canChooseDirectories = true
-                    dialog.allowedFileTypes = ["de.ivorius.tentunes.library"]
-                    dialog.directoryURL = location
-                    
-                    location = dialog.runModal() == .OK ? dialog.url : nil
-                    create = false
-                default:
-                    NSApp.terminate(self)
-                }
-            }
-            
-            guard location != nil else {
-                NSApp.terminate(self)
-                return
-            }
-            
-            useLibrary(at: location, create: create)
-            
-            if persistentContainer == nil {
-                NSAlert.informational(title: "Failed to load library", text: "The library could not be read or created anew. Please use a different library location.")
-                freedomToChoose = true
-            }
-        }
+    func popLaunchTTL() -> URL? {
+        return launchURLs.popFirst { $0.pathExtension == "ttl" }
     }
             
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSUserNotificationCenter.default.delegate = self
         
-        if persistentContainer == nil {
-            chooseLibrary()
-        }
-        AppDelegate.defaults.set(Library.shared.directory, forKey: "libraryLocation")
+        // Try to get a library going
+        var libraryURL: URL? = popLaunchTTL()
         
+        if AppDelegate.isTest {
+            // TODO Do SQL in-memory
+            // If test, use test library
+            libraryURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
+        }
+        else if !NSEvent.modifierFlags.contains(.option) {
+            // If alt is held, don't use stored one
+            libraryURL = AppDelegate.defaults.url(forKey: "libraryLocation")
+                ?? Library.defaultURL()
+        }
+
+        if let libraryURL = libraryURL {
+            tryLibrary(at: libraryURL, create: nil)
+        }
+        
+        let welcomeWorkflow = WorkflowWindowController.create(title: "Welcome to Ten Tunes!")
+        addWelcomeSteps(workflow: welcomeWorkflow, chooseLibrary: persistentContainer == nil)
+        
+        if !welcomeWorkflow.isEmpty {
+            welcomeWorkflow.start()
+            currentWorkflow = welcomeWorkflow
+        }
+        else {
+            commenceAfterWelcome()
+        }
+    }
+    
+    func commenceAfterWelcome() {
         let libraryStoryboard = NSStoryboard(name: .init("Library"), bundle: nil)
         libraryWindowController = (libraryStoryboard.instantiateInitialController() as! NSWindowController)
         
@@ -143,18 +134,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         visualizerController = VisualizerWindowController(windowNibName: .init("VisualizerWindowController"))
         visualizerController.loadWindow()
         
-        let welcomeSteps = wantedWelcomeSteps()
-        welcomeController = WorkflowWindowController.create(title: "Welcome to Ten Tunes!", steps: welcomeSteps)
-
         WindowWarden.shared.remember(window: libraryWindowController.window!, key: ("0", .command))
         WindowWarden.shared.remember(window: visualizerController.window!, key: ("t", .command), toggleable: true)
         
-        if !welcomeSteps.isEmpty {
-            welcomeController.start()
-        }
-        else {
-            commenceAfterWelcome()
-        }
+        self.import(urls: launchURLs)
+        launchURLs = []
+        
+        // Initially check on every launch
+        Library.shared.checkSanity()
+        
+        #if !DEBUG
+        SuperpoweredSplash.show(in: (libraryWindowController.contentViewController as! ViewController)._trackGuardView.superview!.superview!)
+        #endif
+        
+        libraryWindowController.window!.makeKeyAndOrderFront(self)
     }
         
     func windowWillReturnUndoManager(window: NSWindow) -> UndoManager? {

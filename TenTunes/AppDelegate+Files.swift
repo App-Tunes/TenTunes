@@ -79,19 +79,14 @@ extension AppDelegate {
     }
     
     func `import`(urls: [URL]) {
-        if let url = urls.onlyElement, url.pathExtension == "ttl" {
-            guard persistentContainer == nil else {
-                print("Ignoring opening ttl file after launch!")
-                return
-            }
-
-            chooseLibrary(url)
+        if persistentContainer == nil {
+            launchURLs += urls
             return
         }
         
-        if persistentContainer == nil {
-            // Will be called via openFiles before didFinishLaunching
-            chooseLibrary()
+        if urls.anySatisfy({ $0.pathExtension == "ttl" }) {
+            print("Ignoring opening ttl file after launch!")
+            return
         }
         
         let objects = urls.compactMap { Library.shared.import().guess(url: $0) }

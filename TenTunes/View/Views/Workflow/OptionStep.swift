@@ -56,6 +56,11 @@ class OptionStep: NSViewController {
     }
     
     @IBAction func onAction(_ sender: Any) {
+        guard permanentAnswer == nil else {
+            print("Attempted to act after final answer!")
+            return
+        }
+        
         guard action?() ?? false else {
             return
         }

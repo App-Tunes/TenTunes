@@ -77,21 +77,6 @@ extension Sequence {
     }
 }
 
-extension Array where Element : Sequence {
-    func innerCrossProduct() -> AnySequence<[Element.Element]> {
-        guard let start = first?.map({ [$0] }) else {
-            return AnySequence([])
-        }
-        return dropFirst().reduce(AnySequence(start)) { (curCross, next) in
-            AnySequence(
-                curCross.crossProduct(next).lazy.map { (combination, add) in
-                    combination + [add]
-                }
-            )
-        }
-    }
-}
-
 extension Optional where Wrapped : Comparable {
     // Simply puts the nils at the end
     static func compare(_ lhs: Wrapped?, _ rhs: Wrapped?) -> Bool {

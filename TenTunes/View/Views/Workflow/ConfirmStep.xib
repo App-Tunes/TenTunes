@@ -38,7 +38,7 @@ Test</string>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="action:" target="-2" id="x9I-uf-gc9"/>
+                        <action selector="onButtonPress:" target="-2" id="Csg-fB-bFF"/>
                     </connections>
                 </button>
             </subviews>

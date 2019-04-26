@@ -21,11 +21,10 @@ class Enumerations {
         // Mirror Representation goes like this:
         // ["caseName": Tuple["paramName": Value]]
         // So extract the tuple first, then the actual value
-        guard let elementTupleMirror = Mirror(reflecting: element).children.first,
-            let elementDecomposition = Mirror(reflecting: elementTupleMirror.value).children.first else {
+        guard let elementTupleMirror = Mirror(reflecting: element).children.first else {
                 return nil
         }
-        guard let elementValue = elementDecomposition.value as? Value,
+        guard let elementValue = elementTupleMirror.value as? Value,
             let duplicateTupleMirror = Mirror(reflecting: builder(elementValue)).children.first,
             // Compare the resulting case names (params will always match)
             elementTupleMirror.label == duplicateTupleMirror.label

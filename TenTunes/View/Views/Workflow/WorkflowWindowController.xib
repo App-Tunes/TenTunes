@@ -16,16 +16,17 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Workflow" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="F0z-JX-Cv5">
             <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES"/>
-            <rect key="contentRect" x="196" y="240" width="556" height="350"/>
+            <rect key="contentRect" x="196" y="240" width="750" height="350"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <value key="minSize" type="size" width="750" height="450"/>
             <view key="contentView" id="se5-gp-TjO">
-                <rect key="frame" x="0.0" y="0.0" width="556" height="350"/>
+                <rect key="frame" x="0.0" y="0.0" width="750" height="350"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView horizontalCompressionResistancePriority="100" verticalCompressionResistancePriority="100" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" maxMagnification="1" minMagnification="1" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="Oo3-1I-mxJ" customClass="BCLDisablableScrollView">
-                        <rect key="frame" x="0.0" y="0.0" width="556" height="350"/>
+                        <rect key="frame" x="0.0" y="0.0" width="750" height="350"/>
                         <clipView key="contentView" autoresizesSubviews="NO" drawsBackground="NO" copiesOnScroll="NO" id="MyO-ZD-ccz">
-                            <rect key="frame" x="0.0" y="0.0" width="556" height="350"/>
+                            <rect key="frame" x="0.0" y="0.0" width="750" height="350"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <view autoresizesSubviews="NO" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="in5-iK-rz4">

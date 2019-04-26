@@ -32,14 +32,16 @@ class ConfirmStep: NSViewController {
     static func create(text: String, buttonText: String, mode: Mode = .next, action: (() -> Void)? = nil) -> ConfirmStep {
         let controller = ConfirmStep(nibName: .init("ConfirmStep"), bundle: .main)
         controller.loadView()
+        
         controller.text = text
         controller.buttonText = buttonText
         controller.mode = mode
         controller.action = action
+        
         return controller
     }
     
-    @IBAction func action(_ sender: Any) {
+    @IBAction func onButtonPress(_ sender: Any) {
         switch mode {
         case .next:
             WorkflowWindowController.next(view)

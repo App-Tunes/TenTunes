@@ -33,6 +33,19 @@ extension Array {
         
         return nil
     }
+    
+    mutating func pop(at: Int) -> Element {
+        let obj = self[at]
+        self.remove(at: at)
+        return obj
+    }
+    
+    mutating func popFirst(where fun: (Element) -> Bool) -> Element? {
+        guard let idx = firstIndex(where: fun) else {
+            return nil
+        }
+        return pop(at: idx)
+    }
 }
 
 extension Collection {
@@ -51,6 +64,21 @@ extension Collection {
     
     func anySatisfy(_ predicate: (Self.Element) throws -> Bool) rethrows -> Bool {
         return try !noneSatisfy(predicate)
+    }
+}
+
+extension Array where Element : Sequence {
+    func innerCrossProduct() -> AnySequence<[Element.Element]> {
+        guard let start = first?.map({ [$0] }) else {
+            return AnySequence([])
+        }
+        return dropFirst().reduce(AnySequence(start)) { (curCross, next) in
+            AnySequence(
+                curCross.crossProduct(next).lazy.map { (combination, add) in
+                    combination + [add]
+                }
+            )
+        }
     }
 }
 

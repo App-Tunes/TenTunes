@@ -24,4 +24,5 @@ extension NSImage.Name {
     static let albumName: NSImage.Name = "album"
     static let iTunesName: NSImage.Name = "iTunes"
     static let nameName: NSImage.Name = "name"
+    static let repeatName: NSImage.Name = "repeat"
 }

@@ -9,61 +9,42 @@
 import Cocoa
 
 extension AppDelegate {
-    func wantedWelcomeSteps() -> [NSViewController] {
-        #if DEBUG_WELCOME
-        let force: Bool? = true
-        #else
-        let force: Bool? = AppDelegate.isTest ? false : nil
-        #endif
+    func chooseLibrary(create: Bool) -> Bool {
+        var location: URL?
         
-        var steps: [NSViewController] = []
-        
-        let isFirstLaunch = AppDelegate.defaults.consume(toggle: "WelcomeWindow")
-        if force ?? isFirstLaunch {
-            if steps.isEmpty {
-                steps += [
-                    ConfirmStep.create(
-                        text: "Ten Tunes says hi!",
-                        buttonText: "Hi!!"
-                    ),
-                    ConfirmStep.create(
-                        text: "You can begin listening shortly!\nBut let's get a few things sorted first.",
-                        buttonText: "Uh... ok."
-                    )
-                ]
-            }
-
-            steps += [
-                OptionsStep.create(text: "What best describes you is...", options: [
-                    .create(text: "Music Listener", image: NSImage(named: .musicName)!) {
-                        return true
-                    },
-                    .create(text: "DJ", image: NSImage(named: .albumName)!) {
-                        #if !DEBUG_WELCOME
-                        AppDelegate.switchToDJ()
-                        #endif
-                        return true
-                    },
-                ])
-            ]
+        if create {
+            let dialog = NSSavePanel()
+            location = dialog.runModal() == .OK ? dialog.url : nil
+        }
+        else {
+            let dialog = NSOpenPanel()
+            
+            dialog.canChooseFiles = true // packages are considered files by finder, library is a package
+            dialog.canChooseDirectories = true
+            dialog.allowedFileTypes = ["de.ivorius.tentunes.library"]
+            dialog.directoryURL = location
+            
+            location = dialog.runModal() == .OK ? dialog.url : nil
         }
         
-        // Not guaranteed to be new, but really
-        // If the user has made neither playlists nor imported tracks
-        // They probably want this screen anyway
-        let isNewLibrary = persistentContainer![PlaylistRole.playlists].children.count == 0 &&
+        return location.map { tryLibrary(at: $0, create: create) } ?? false
+    }
+    
+    func addLibraryWelcomeSteps(workflow: WorkflowWindowController, isFirstLaunch: Bool, force: Bool?) {
+        let isNewLibrary =
+            persistentContainer![PlaylistRole.playlists].children.count == 0 &&
             persistentContainer![PlaylistRole.library].tracksList.count == 0
         
         if force ?? isNewLibrary {
-            steps.append(
-                ConfirmStep.create(
+            workflow.addStep(
+                .interaction(ConfirmStep.create(
                     text: "Let's get your new library set up.",
                     buttonText: "Sure"
-                )
+                ))
             )
-
-            steps += [
-                OptionsStep.create(text: "So where do we start?", options: [
+            
+            workflow.addSteps([
+                .interaction(OptionsStep.create(text: "So where do we start?", options: [
                     .create(text: "Import iTunes Library", image: NSImage(named: .iTunesName)!) { [unowned self] in
                         return self.importFromITunes(flat: true)
                     },
@@ -71,36 +52,94 @@ extension AppDelegate {
                     .create(text: "Start Fresh", image: NSImage(named: .nameName)!) {
                         return true
                     },
-                ])
-            ]
+                ]))
+            ])
         }
         
-        if !steps.isEmpty {
-            if isNewLibrary {
-                steps.append(
-                    ConfirmStep.create(
+        // Not guaranteed to be new, but really
+        // If the user has made neither playlists nor imported tracks
+        // They probably want this screen anyway
+        
+        if !workflow.isEmpty {
+            if isFirstLaunch {
+                workflow.addStep(
+                    .interaction(ConfirmStep.create(
                         text: "And that's it!\nHave fun with Ten Tunes!",
                         buttonText: "Let's Go!",
                         mode: .complete
                     ) { [unowned self] in
                         self.commenceAfterWelcome()
-                    }
+                    })
                 )
             }
             else {
-                steps.append(
-                    ConfirmStep.create(
+                workflow.addStep(
+                    .interaction(ConfirmStep.create(
                         text: "Alright, that's it. Have fun!",
                         buttonText: "Cool, thanks!",
                         mode: .complete
                     ) { [unowned self] in
                         self.commenceAfterWelcome()
-                    }
+                    })
                 )
             }
         }
+    }
+    
+    func addWelcomeSteps(workflow: WorkflowWindowController, chooseLibrary: Bool) {        
+        #if DEBUG_WELCOME
+        let force: Bool? = true
+        #else
+        let force: Bool? = AppDelegate.isTest ? false : nil
+        #endif
         
-        return steps
+        let isFirstLaunch = AppDelegate.defaults.consume(toggle: "WelcomeWindow")
+        if force ?? isFirstLaunch {
+            if workflow.isEmpty {
+                workflow.addSteps([
+                    .interaction(ConfirmStep.create(
+                        text: "Ten Tunes says hi!",
+                        buttonText: "Hi!!"
+                    )),
+                    .interaction(ConfirmStep.create(
+                        text: "You can begin listening shortly!\nBut let's get a few things sorted first.",
+                        buttonText: "Uh... ok."
+                    )),
+                    .interaction(OptionsStep.create(text: "What best describes you is...", options: [
+                        .create(text: "Music Listener", image: NSImage(named: .musicName)!) {
+                            return true
+                        },
+                        .create(text: "DJ", image: NSImage(named: .albumName)!) {
+                            #if !DEBUG_WELCOME
+                            AppDelegate.switchToDJ()
+                            #endif
+                            return true
+                        },
+                    ]))
+                ])
+            }
+        }
+        
+        if persistentContainer == nil {
+            // Need to choose a library
+            workflow.addSteps([
+                .interaction(OptionsStep.create(text: "We need a library location\nto store your music.", options: [
+                    .create(text: "Use Existing", image: NSImage(named: .folderName)!) { [unowned self] in
+                        return self.chooseLibrary(create: false)
+                    },
+                    .create(text: "Create New", image: NSImage(named: .repeatName)!) { [unowned self] in
+                        return self.chooseLibrary(create: true)
+                    },
+                ])),
+                .task { [unowned self] in
+                    self.addLibraryWelcomeSteps(workflow: workflow, isFirstLaunch: isFirstLaunch, force: force)
+                }
+            ])
+        }
+        else {
+            // Have a library, but still might be empty
+            addLibraryWelcomeSteps(workflow: workflow, isFirstLaunch: isFirstLaunch, force: force)
+        }
     }
     
     static func switchToDJ() {
@@ -113,16 +152,5 @@ extension AppDelegate {
             "albumColumn": true,
             "authorColumn": true,
         ]
-    }
-
-    func commenceAfterWelcome() {
-        // Initially check on every launch
-        Library.shared.checkSanity()
-        
-        #if !DEBUG
-        SuperpoweredSplash.show(in: (libraryWindowController.contentViewController as! ViewController)._trackGuardView.superview!.superview!)
-        #endif
-        
-        libraryWindowController.window!.makeKeyAndOrderFront(self)
     }
 }

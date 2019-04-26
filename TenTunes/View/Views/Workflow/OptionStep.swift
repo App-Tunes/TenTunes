@@ -47,7 +47,7 @@ class OptionStep: NSViewController {
         view.wantsLayer = true
         
         view.layer!.cornerRadius = 8
-        view.layer!.borderColor = NSColor.gray.cgColor
+        view.layer!.borderColor = NSColor(red: 0.1, green: 0.5, blue: 1, alpha: 0.1).cgColor
         setHovered(false)
 
         trackingArea ?=> view.removeTrackingArea
@@ -83,7 +83,9 @@ class OptionStep: NSViewController {
     func setHovered(_ hovered: Bool) {
         let status = permanentAnswer ?? (isEnabled && hovered)
         
-        let background: NSColor = status ? .lightGray : .clear
+        let background: NSColor = status
+            ? NSColor(red: 0.1, green: 0.5, blue: 1, alpha: 0.05)
+            : .clear
         view.layer!.backgroundColor = background.cgColor
         view.layer!.borderWidth = status ? 2 : 0
         

@@ -9,6 +9,7 @@
 
 #import <OpenGL/OpenGL.h>
 #import <OpenGL/gl3.h>
+#import <OpenGL/gl.h>
 
 @implementation RFOpenGLView
 
@@ -189,6 +190,13 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
         CGLLockContext([[self openGLContext] CGLContextObj]);
         
         [[self openGLContext] update];
+
+        float screenWidth = (float)[[self window] frame].size.width;
+        float screenHeight = (float)[[self window] frame].size.height;
+        glLoadIdentity();
+        glViewport(0,0,screenWidth,screenHeight);
+        glMatrixMode(GL_PROJECTION);
+        glOrtho(1, 1, 1, 1, -1, 1);
 
         CGLUnlockContext([[self openGLContext] CGLContextObj]);
         [self unlockFocus];

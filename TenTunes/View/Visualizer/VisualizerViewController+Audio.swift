@@ -20,9 +20,9 @@ extension Visualizer {
 extension VisualizerViewController {
     @objc class AudioConnection : NSObject {
         let fft: FFTTap.AVNode
-        let pause: (() -> VisualizerWindow.PauseResult)?
+        let pause: (() -> Visualizer.PauseResult)?
         
-        init(fft: FFTTap.AVNode, pause: (() -> VisualizerWindow.PauseResult)? = nil) {
+        init(fft: FFTTap.AVNode, pause: (() -> Visualizer.PauseResult)? = nil) {
             self.fft = fft
             self.pause = pause
         }
@@ -58,7 +58,7 @@ extension VisualizerViewController {
     }
 
     func updateFFT() {
-        let visible = view.window?.occlusionState.contains(.visible) ?? false
+        let visible = view.visibleRect != NSZeroRect
         
         connection?.fft.stop()
         connection = nil

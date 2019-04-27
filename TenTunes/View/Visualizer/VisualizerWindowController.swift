@@ -17,10 +17,3 @@ class VisualizerWindowController: NSWindowController {
         window!.contentView!.setFullSizeContent(visualizerController.view)
     }
 }
-
-// TODO Move to visualizer view
-extension VisualizerWindowController : VisualizerWindowDelegate {
-    func togglePlay() -> VisualizerWindow.PauseResult? {
-        return visualizerController.connection?.pause?()
-    }
-}

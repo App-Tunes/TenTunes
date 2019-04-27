@@ -180,7 +180,6 @@
 		80CC986A21A880D20030F04B /* NSTableView+Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC986921A880D20030F04B /* NSTableView+Header.swift */; };
 		80CED03C20C88055001E710F /* AVFoundation+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CED03B20C88055001E710F /* AVFoundation+TT.swift */; };
 		80D9448C21662E0100C135CA /* ResonanceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D9448B21662E0100C135CA /* ResonanceProvider.swift */; };
-		80DADAE421D2BA1300FAF6D3 /* VisualizerWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DADAE321D2BA1300FAF6D3 /* VisualizerWindow.swift */; };
 		80E02C63217FB8B000251D24 /* Document-TTL.icns in Resources */ = {isa = PBXBuildFile; fileRef = 80E02C62217FB8AF00251D24 /* Document-TTL.icns */; };
 		80E02C65217FC4F200251D24 /* PlaylistPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E02C64217FC4F200251D24 /* PlaylistPromise.swift */; };
 		80E0885020FFB3A3001FFE26 /* TTWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E0884F20FFB3A3001FFE26 /* TTWindow.swift */; };
@@ -466,7 +465,6 @@
 		80CED03B20C88055001E710F /* AVFoundation+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVFoundation+TT.swift"; sourceTree = "<group>"; };
 		80D8A0FC212460BE003E1F11 /* Library.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Library.storyboard; path = "/Users/lukas/XCode Projects/TenTunes/TenTunes/Library.storyboard"; sourceTree = "<absolute>"; };
 		80D9448B21662E0100C135CA /* ResonanceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResonanceProvider.swift; sourceTree = "<group>"; };
-		80DADAE321D2BA1300FAF6D3 /* VisualizerWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerWindow.swift; sourceTree = "<group>"; };
 		80DCA9B0203F636900B1E9B1 /* TenTunes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TenTunes-Bridging-Header.h"; sourceTree = "<group>"; };
 		80E02C62217FB8AF00251D24 /* Document-TTL.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "Document-TTL.icns"; sourceTree = "<group>"; };
 		80E02C64217FC4F200251D24 /* PlaylistPromise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistPromise.swift; sourceTree = "<group>"; };
@@ -816,7 +814,6 @@
 			children = (
 				80C1F15E214286A40032E554 /* VisualizerWindowController.swift */,
 				80C1F15F214286A40032E554 /* VisualizerWindowController.xib */,
-				80DADAE321D2BA1300FAF6D3 /* VisualizerWindow.swift */,
 				80CAED0722746E6F001DD856 /* VisualizerViewController.swift */,
 				80CAED0E227472E9001DD856 /* VisualizerViewController.xib */,
 				80CAED0922746F54001DD856 /* VisualizerViewController+Audio.swift */,
@@ -1297,7 +1294,6 @@
 				8087A494206597DC00CC9569 /* EnterReturningTextField.swift in Sources */,
 				8079F6D32106551100B7A278 /* SmartPlaylistRulesController.swift in Sources */,
 				80CED03C20C88055001E710F /* AVFoundation+TT.swift in Sources */,
-				80DADAE421D2BA1300FAF6D3 /* VisualizerWindow.swift in Sources */,
 				8079F6D72106661A00B7A278 /* HideableBar.swift in Sources */,
 				80CAECFB22731605001DD856 /* OptionsStep.swift in Sources */,
 				8030E00120FC8F0C006B4AE8 /* ActionTableView.swift in Sources */,

@@ -12,13 +12,20 @@ import OpenGL
 import Darwin
 
 @objc protocol VisualizerViewDelegate {
-    func visualizerViewUpdate(_ view: VisualizerView)
-    func setControlsHidden(_ hidden: Bool)
+    @objc optional func visualizerViewUpdate(_ view: VisualizerView)
+    
+    @objc optional func setControlsHidden(_ hidden: Bool)
+    
+    @discardableResult
+    // Actually Visualizer.PauseResult, but can't be represented
+    @objc func togglePlay() -> AnyObject
 }
 
 // For Namespace
 class Visualizer {
-    
+    enum PauseResult {
+        case paused, played
+    }
 }
 
 class VisualizerView: SyphonableOpenGLView {
@@ -136,12 +143,12 @@ class VisualizerView: SyphonableOpenGLView {
             if let window = self.window {
                 if window.isKeyWindow, window.isMouseInside, RFOpenGLView.timeMouseIdle() > 2 {
                     NSCursor.setHiddenUntilMouseMoves(true)
-                    self.delegate?.setControlsHidden(true)
+                    self.delegate?.setControlsHidden?(true)
                 }
             }
         }
         
-        delegate?.visualizerViewUpdate(self)
+        delegate?.visualizerViewUpdate?(self)
     }
     
     func color(_ idx: Int, time: Number, darknessBonus: Number = 0) -> NSColor {
@@ -172,11 +179,11 @@ class VisualizerView: SyphonableOpenGLView {
     }
     
     override func mouseMoved(with event: NSEvent) {
-        delegate?.setControlsHidden(false)
+        delegate?.setControlsHidden?(false)
     }
     
     override func mouseExited(with event: NSEvent) {
-        delegate?.setControlsHidden(true)
+        delegate?.setControlsHidden?(true)
     }
 
     override func updateTrackingAreas() {
@@ -185,5 +192,23 @@ class VisualizerView: SyphonableOpenGLView {
         trackingArea ?=> removeTrackingArea
         trackingArea = NSTrackingArea(rect: bounds, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
         addTrackingArea(trackingArea!)
+    }
+    
+    enum PauseResult {
+        case paused, played
+    }
+    
+    override var acceptsFirstResponder: Bool {
+        return true
+    }
+    
+    override func keyDown(with event: NSEvent) {
+        if event.characters == " " {
+            // TODO Show that we pressed with a small visualization
+            delegate?.togglePlay()
+            return
+        }
+        
+        super.keyDown(with: event)
     }
 }

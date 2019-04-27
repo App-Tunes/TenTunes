@@ -139,4 +139,8 @@ extension VisualizerViewController : VisualizerViewDelegate {
         // Update on fft changes
 //        view.update(withFFT: fft?.resonance)
     }
+    
+    func togglePlay() -> AnyObject {
+        return connection?.pause?() as AnyObject
+    }
 }

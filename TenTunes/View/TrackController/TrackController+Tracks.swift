@@ -183,17 +183,21 @@ extension TrackController {
     }
 }
 
+func makeRoundRect(view: NSView) {
+    view.wantsLayer = true
+    view.layer!.borderWidth = 1.0
+    view.layer!.borderColor = NSColor.lightGray.cgColor.copy(alpha: CGFloat(0.333))
+    view.layer!.cornerRadius = 3.0
+    view.layer!.masksToBounds = true
+}
+
 extension TrackController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let track = history.track(at: row)!
         
         if tableColumn?.identifier == ColumnIdentifiers.artwork, let view = tableView.makeView(withIdentifier: mode != .title ? CellIdentifiers.artwork : CellIdentifiers.staticArtwork, owner: nil) {
-            view.wantsLayer = true
             
-            view.layer!.borderWidth = 1.0
-            view.layer!.borderColor = NSColor.lightGray.cgColor.copy(alpha: CGFloat(0.333))
-            view.layer!.cornerRadius = 3.0
-            view.layer!.masksToBounds = true
+            StylerMyler.makeRoundRect(view)
             
             view.bind(.image, to: track, withKeyPath: \.artworkPreview, options: [.nullPlaceholder: Album.missingArtwork])
             

@@ -74,10 +74,6 @@ class TrackController: NSViewController {
     @IBOutlet var _emptyIndicator: NSImageView!
     
     var mode: Mode = .tracksList
-
-    var isDark: Bool {
-        return self.view.window!.appearance?.name == NSAppearance.Name.vibrantDark
-    }
     
     @IBOutlet var _moveToMediaDirectory: NSMenuItem!
     @IBOutlet var _analyzeSubmenu: NSMenuItem!
@@ -157,8 +153,11 @@ class TrackController: NSViewController {
 
         // Appearance is not yet set in willappear
         if mode == .tracksList {
-            _tableView.enclosingScrollView?.backgroundColor = isDark ? NSColor(white: 0.09, alpha: 1.0) : NSColor(white: 0.73, alpha: 1.0)
-            
+            _tableView.enclosingScrollView?.backgroundColor = view.byAppearance([
+                nil: NSColor(white: 0.73, alpha: 1.0),
+                .vibrantDark: NSColor(white: 0.09, alpha: 1.0),
+            ])
+
             if #available(OSX 10.14, *) {
                 _tableView.headerView?.vibrancyView?.material = .underWindowBackground
             }

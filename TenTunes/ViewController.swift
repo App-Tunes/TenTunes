@@ -70,15 +70,19 @@ class ViewController: NSViewController {
     var mediaKeyTap: MediaKeyTap?
     
     var playlistController: PlaylistController!
-    var trackController: TrackController!
     var playingTrackController: TrackController!
     var queueController: TrackController!
-    
+
+    var trackController: TrackController!
+    var categoryController: CategoryController!
+
     var taskViewController: TaskViewController!
     
     override func viewDidLoad() {        
         trackController = TrackController(nibName: .init("TrackController"), bundle: nil)
-        trackController.view.frame = _trackView.frame
+        
+        categoryController = CategoryController(nibName: .init("CategoryController"), bundle: nil)
+        categoryController.loadView()
         
         _trackGuardView.contentView = trackController.view
         _trackGuardView.delegate = self
@@ -338,11 +342,20 @@ extension ViewController : MultiplicityGuardDelegate {
         
         if let playlists = (items.map(ViewController.asPlaylist) as? [AnyPlaylist]) {
             if let playlist = playlists.onlyElement {
-                self.trackController.desired.playlist = playlist
+                trackController.desired.playlist = playlist
             }
             else {
-                self.trackController.desired.playlist = PlaylistMultiple(playlists: playlists)
+                trackController.desired.playlist = PlaylistMultiple(playlists: playlists)
             }
+            
+            view.contentView = trackController.view
+        }
+        else if items.onlyElement is PlaylistController.Item.AlbumsItem {
+            categoryController.categories = Library.shared.allAlbums
+                .sorted { $0 < $1 }
+                .map(CategoryController.Item.AlbumItem.init)
+            
+            view.contentView = categoryController.view
         }
         else {
             return .error(text: "Can't show this set.")

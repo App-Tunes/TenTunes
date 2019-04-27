@@ -41,7 +41,7 @@ extension PlaylistController.Item {
         }
         
         override var isValid: Bool {
-            return !playlist.isDeleted && playlist.managedObjectContext != nil
+            return !playlist.wasDeleted
         }
         
         override var icon: NSImage {
@@ -62,7 +62,7 @@ extension PlaylistController.Item {
         }
         
         override func load(id: String, cache: PlaylistController.Cache) -> Child? {
-            return load(id: id, cache: cache)
+            return PlaylistItem.load(id: id, cache: cache)
         }
         
         override func accepts(item: Child) -> Bool {

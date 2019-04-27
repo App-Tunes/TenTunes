@@ -97,6 +97,10 @@ extension NSManagedObject {
         
         return duplicate
     }
+    
+    var wasDeleted: Bool {
+        return isDeleted || managedObjectContext == nil
+    }
 }
 
 extension NSManagedObjectContext {

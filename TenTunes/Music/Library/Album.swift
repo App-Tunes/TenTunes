@@ -28,8 +28,12 @@ class Album {
         return artwork?.resized(w: 64, h: 64)
     }
     
+    static func artwork(_ tracks: [Track]) -> NSImage {
+        return tracks.compactMap { $0.artwork }.first ?? Album.missingArtwork
+    }
+    
     var artwork: NSImage? {
-        get { return tracks.compactMap { $0.artwork }.first ?? Album.missingArtwork }
+        get { return Album.artwork(tracks) }
         set {
             let data = newValue?.jpgRepresentation
             let preview = Album.preview(for: newValue)
@@ -84,5 +88,11 @@ extension Album : Hashable {
     static func == (lhs: Album, rhs: Album) -> Bool {
         return lhs.title.lowercased() == rhs.title.lowercased() &&
             lhs.author == rhs.author
+    }
+}
+
+extension Album : Comparable {
+    static func < (lhs: Album, rhs: Album) -> Bool {
+        return lhs.title < rhs.title
     }
 }

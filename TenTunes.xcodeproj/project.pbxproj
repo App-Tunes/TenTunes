@@ -173,6 +173,11 @@
 		80CAED0822746E6F001DD856 /* VisualizerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAED0722746E6F001DD856 /* VisualizerViewController.swift */; };
 		80CAED0A22746F54001DD856 /* VisualizerViewController+Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAED0922746F54001DD856 /* VisualizerViewController+Audio.swift */; };
 		80CAED10227472E9001DD856 /* VisualizerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80CAED0E227472E9001DD856 /* VisualizerViewController.xib */; };
+		80CAED132274ACB6001DD856 /* CategoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAED112274ACB6001DD856 /* CategoryController.swift */; };
+		80CAED142274ACB6001DD856 /* CategoryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80CAED122274ACB6001DD856 /* CategoryController.xib */; };
+		80CAED172274AF6A001DD856 /* CategoryController+Outline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAED162274AF6A001DD856 /* CategoryController+Outline.swift */; };
+		80CAED192274B68A001DD856 /* CategoryController+Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAED182274B68A001DD856 /* CategoryController+Categories.swift */; };
+		80CAED1B2274D062001DD856 /* StylerMyler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAED1A2274D062001DD856 /* StylerMyler.swift */; };
 		80CB652C20514E050031A6D7 /* Library+Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652B20514E050031A6D7 /* Library+Export.swift */; };
 		80CB652F2052C6CD0031A6D7 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652E2052C6CD0031A6D7 /* Operators.swift */; };
 		80CB65332052C9530031A6D7 /* Cocoa+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB65322052C9530031A6D7 /* Cocoa+TT.swift */; };
@@ -457,6 +462,11 @@
 		80CAED0722746E6F001DD856 /* VisualizerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerViewController.swift; sourceTree = "<group>"; };
 		80CAED0922746F54001DD856 /* VisualizerViewController+Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VisualizerViewController+Audio.swift"; sourceTree = "<group>"; };
 		80CAED0E227472E9001DD856 /* VisualizerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VisualizerViewController.xib; sourceTree = "<group>"; };
+		80CAED112274ACB6001DD856 /* CategoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryController.swift; sourceTree = "<group>"; };
+		80CAED122274ACB6001DD856 /* CategoryController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryController.xib; sourceTree = "<group>"; };
+		80CAED162274AF6A001DD856 /* CategoryController+Outline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryController+Outline.swift"; sourceTree = "<group>"; };
+		80CAED182274B68A001DD856 /* CategoryController+Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryController+Categories.swift"; sourceTree = "<group>"; };
+		80CAED1A2274D062001DD856 /* StylerMyler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StylerMyler.swift; sourceTree = "<group>"; };
 		80CB652B20514E050031A6D7 /* Library+Export.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Export.swift"; sourceTree = "<group>"; };
 		80CB652E2052C6CD0031A6D7 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		80CB65322052C9530031A6D7 /* Cocoa+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocoa+TT.swift"; sourceTree = "<group>"; };
@@ -618,6 +628,7 @@
 				807E4B44206428050051C028 /* Controls */,
 				80F8550220691866009A8FBE /* PlaylistController */,
 				80F854FC206917D6009A8FBE /* TrackController */,
+				80CAED152274ACBB001DD856 /* CategoryController */,
 				80C1F1702142E9E60032E554 /* Visualizer */,
 				808BAADB220DA73C0017557C /* Preferences */,
 				80F2C58E20389B9B00212739 /* WaveformView.swift */,
@@ -844,6 +855,17 @@
 			path = Workflow;
 			sourceTree = "<group>";
 		};
+		80CAED152274ACBB001DD856 /* CategoryController */ = {
+			isa = PBXGroup;
+			children = (
+				80CAED112274ACB6001DD856 /* CategoryController.swift */,
+				80CAED162274AF6A001DD856 /* CategoryController+Outline.swift */,
+				80CAED182274B68A001DD856 /* CategoryController+Categories.swift */,
+				80CAED122274ACB6001DD856 /* CategoryController.xib */,
+			);
+			path = CategoryController;
+			sourceTree = "<group>";
+		};
 		80CB65302052C9180031A6D7 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -911,6 +933,7 @@
 				80CC986921A880D20030F04B /* NSTableView+Header.swift */,
 				8029A5F2221858D600C1F0CC /* DynamicAudioHasher.swift */,
 				8033292A22718FBB00408017 /* CacheRegistry.swift */,
+				80CAED1A2274D062001DD856 /* StylerMyler.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1182,6 +1205,7 @@
 				80B6DF97219EF473003EA487 /* LICENSE-MIKMIDI.txt in Resources */,
 				8079F6DC2106745600B7A278 /* CartesianRulesController.xib in Resources */,
 				80074CFD204584980055B87E /* PlaylistController.xib in Resources */,
+				80CAED142274ACB6001DD856 /* CategoryController.xib in Resources */,
 				80C1F161214286A40032E554 /* VisualizerWindowController.xib in Resources */,
 				809CEAB92163E83D008D6AC0 /* Credits.rtf in Resources */,
 				8030E01520FCBDAA006B4AE8 /* TaskViewController.xib in Resources */,
@@ -1292,6 +1316,7 @@
 				803E972F20C7EF2C00D46565 /* LazyMap.swift in Sources */,
 				80C1F1552141F5430032E554 /* Foundation+async.swift in Sources */,
 				8087A494206597DC00CC9569 /* EnterReturningTextField.swift in Sources */,
+				80CAED172274AF6A001DD856 /* CategoryController+Outline.swift in Sources */,
 				8079F6D32106551100B7A278 /* SmartPlaylistRulesController.swift in Sources */,
 				80CED03C20C88055001E710F /* AVFoundation+TT.swift in Sources */,
 				8079F6D72106661A00B7A278 /* HideableBar.swift in Sources */,
@@ -1360,6 +1385,7 @@
 				8033292B22718FBB00408017 /* CacheRegistry.swift in Sources */,
 				80E2C9FA204B40A000298E81 /* PlaylistManual+CoreDataProperties.swift in Sources */,
 				8046CDA3204EF1ED00E732E7 /* TitleSubtitleCellView.swift in Sources */,
+				80CAED1B2274D062001DD856 /* StylerMyler.swift in Sources */,
 				8030E01420FCBDAA006B4AE8 /* TaskViewController.swift in Sources */,
 				80BF21C3212AD9D500B9F0AB /* History.swift in Sources */,
 				8030E01120FCB33C006B4AE8 /* FetchTrackMetadata.swift in Sources */,
@@ -1381,6 +1407,7 @@
 				804A15FF217252BC00CBF56F /* Cloud.swift in Sources */,
 				80F854FF2069180A009A8FBE /* TrackController+RightClick.swift in Sources */,
 				808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */,
+				80CAED132274ACB6001DD856 /* CategoryController.swift in Sources */,
 				8071F63521AC299D0005685B /* PlaylistController+Updates.swift in Sources */,
 				808BAAE2220DA8D80017557C /* ViewPreferences.swift in Sources */,
 				80CAECF122730C5D001DD856 /* WorkflowWindowController.swift in Sources */,
@@ -1397,6 +1424,7 @@
 				806EFC22204B63620079DBAA /* PlaylistLibrary.swift in Sources */,
 				80C1F1722146E14D0032E554 /* LibraryWindowController.swift in Sources */,
 				80F2C57F2038808000212739 /* TenTunes.xcdatamodeld in Sources */,
+				80CAED192274B68A001DD856 /* CategoryController+Categories.swift in Sources */,
 				800134A8213835C0001FB5CE /* TagLibFile.mm in Sources */,
 				80CB65352052C9CC0031A6D7 /* CoreData+TT.swift in Sources */,
 				8093467320A628E1001D15CD /* Library+AudioFile.swift in Sources */,

@@ -400,6 +400,14 @@ extension NSView {
 
         return false
     }
+    
+    var inheritedAppearance: NSAppearance? {
+        return window?.appearance
+    }
+
+    func byAppearance<Type>(_ dict: [NSAppearance.Name?: Type]) -> Type {
+        return dict[inheritedAppearance?.name] ?? dict[nil]!
+    }
 }
 
 extension NSImageView {

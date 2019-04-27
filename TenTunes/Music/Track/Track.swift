@@ -201,16 +201,3 @@ extension Track.Speed {
         return [.foregroundColor: color]
     }
 }
-
-extension Track {
-    static func sortByAlbum(left: Track, right: Track) -> Bool {
-        let leftCD = left.albumNumberOfCD
-        let rightCD = right.albumNumberOfCD
-        
-        if leftCD != rightCD {
-            return leftCD < rightCD
-        }
-        
-        return left.trackNumber < right.trackNumber
-    }
-}

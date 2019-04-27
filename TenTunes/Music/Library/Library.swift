@@ -149,6 +149,7 @@ class Library : NSPersistentContainer {
             let dict = Dictionary(grouping: allTracks()) { $0.rAlbum }
             _allAlbums = Set(dict.compactMap {
                 let album = $0
+                // TODO Sort when cd number is in db
                 album?._tracks = $1
                 return album
             })

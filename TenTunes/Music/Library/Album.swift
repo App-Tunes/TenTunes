@@ -35,8 +35,24 @@ class Album {
         return tracks.compactMap { $0.artwork }.first ?? Album.missingArtwork
     }
     
+    static func compare(lhs: Track, rhs: Track) -> Bool {
+        let leftCD = lhs.albumNumberOfCD
+        let rightCD = rhs.albumNumberOfCD
+        
+        if leftCD != rightCD {
+            return leftCD < rightCD
+        }
+        
+        return lhs.trackNumber < rhs.trackNumber
+    }
+    
+    static func sorted(_ tracks: [Track]) -> [Track] {
+        return tracks.sorted(by: Album.compare)
+    }
+    
     var tracks: [Track] {
         if _tracks == nil {
+            // TODO Sort when numberOfCD is in db
             _tracks = Library.shared.allTracks().filter { $0.rAlbum == self }
         }
         return _tracks!

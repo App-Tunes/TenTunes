@@ -85,7 +85,7 @@ class UpdateCurrentPlaylist: Task {
     // TODO Find a better way (don't "hardcode" in here, maybe ask the tokens? Although technically we don't want to assume there ARE tokens
     static func defaultSort(for tokens: [SmartPlaylistRules.Token]) -> ((Track, Track) -> Bool)? {
         return (tokens.uniqueElement is SmartPlaylistRules.Token.InAlbum)
-            ? Track.sortByAlbum
+            ? Album.compare
             : nil
     }
 }

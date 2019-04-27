@@ -139,7 +139,12 @@ class Library : NSPersistentContainer {
     var _allAlbums: Set<Album>?
     var allAlbums: Set<Album> {
         if _allAlbums == nil {
-            _allAlbums = Set(allTracks().compactMap { $0.rAlbum })
+            let dict = Dictionary(grouping: allTracks()) { $0.rAlbum }
+            _allAlbums = Set(dict.compactMap {
+                let album = $0
+                album?._tracks = $1
+                return album
+            })
         }
         return _allAlbums!
     }

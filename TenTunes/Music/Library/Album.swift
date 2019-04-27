@@ -14,14 +14,17 @@ class Album {
 
     let title: String
     let author: Artist?
+    var _tracks: [Track]?
+    
+    init(title: String, by author: Artist?, tracks: [Track]) {
+        self.title = title
+        self.author = author
+        self._tracks = tracks
+    }
     
     init(title: String, by author: Artist?) {
         self.title = title
         self.author = author
-    }
-    
-    var tracks: [Track] {
-        return Library.shared.allTracks().filter { $0.rAlbum == self }
     }
     
     static func preview(for artwork: NSImage?) -> NSImage? {
@@ -30,6 +33,13 @@ class Album {
     
     static func artwork(_ tracks: [Track]) -> NSImage {
         return tracks.compactMap { $0.artwork }.first ?? Album.missingArtwork
+    }
+    
+    var tracks: [Track] {
+        if _tracks == nil {
+            _tracks = Library.shared.allTracks().filter { $0.rAlbum == self }
+        }
+        return _tracks!
     }
     
     var artwork: NSImage? {

@@ -114,17 +114,28 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
     GLint swapInt = 1;
     [[self openGLContext] setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];
     
-    glGenVertexArrays(1, &vertexArrayObject);
-    glBindVertexArray(vertexArrayObject);
-    
-    glGenBuffers(1, &vertexBuffer);
-    [self uploadVertices];
+    [self setUpVertexBuffer];
     
     [self createDisplayLink];
 
     /////
     
     if ((error = glGetError()) != 0) { NSLog(@"Setup GL Error: %d", error); }
+}
+
+- (void)setUpVertexBuffer {
+    if (vertexArrayObject > 0) {
+        glDeleteVertexArrays(1, &vertexArrayObject);
+    }
+    if (vertexBuffer > 0) {
+        glDeleteBuffers(1, &vertexBuffer);
+    }
+    
+    glGenVertexArrays(1, &vertexArrayObject);
+    glBindVertexArray(vertexArrayObject);
+    
+    glGenBuffers(1, &vertexBuffer);
+    [self uploadVertices];
 }
 
 - (void)uploadVertices {

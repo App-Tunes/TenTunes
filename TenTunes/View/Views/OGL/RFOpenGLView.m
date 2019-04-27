@@ -166,6 +166,7 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
     }
     
     [self updateDisplayLink];
+    [super prepareOpenGL];
 }
 
 - (void)reshape {
@@ -178,24 +179,20 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
         CGLUnlockContext([[self openGLContext] CGLContextObj]);
         [self unlockFocus];
     }
+    [super reshape];
 }
 
 - (BOOL)lockForDraw:(void (^)(void))block {
-    if ([self lockFocusIfCanDraw]) {
-        [[self openGLContext] makeCurrentContext];
-        CGLLockContext([[self openGLContext] CGLContextObj]);
-        
-        block();
-        
-        CGLUnlockContext([[self openGLContext] CGLContextObj]);
-        [self unlockFocus];
-        
-        [RFOpenGLView checkGLError:@"OpenGL Draw Rect"];
-        
-        return true;
-    }
+    [[self openGLContext] makeCurrentContext];
+    CGLLockContext([[self openGLContext] CGLContextObj]);
     
-    return false;
+    block();
+    
+    CGLUnlockContext([[self openGLContext] CGLContextObj]);
+
+    [RFOpenGLView checkGLError:@"OpenGL Draw Rect"];
+
+    return true;
 }
 
 - (void)drawFullScreenRect {

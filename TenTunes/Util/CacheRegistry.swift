@@ -15,8 +15,16 @@ protocol ValidatableItem {
 class CacheRegistry<Item : ValidatableItem> {
     var dictionary: [String: Item] = [:]
     
+    var skippedValidityChecks = 0
+    
     func get(_ key: String) -> Item? {
-        dictionary = dictionary.filter { (_, item) in item.isValid }
+        skippedValidityChecks += 1
+        if skippedValidityChecks > 5000 {
+            // It's alright to do this very little. For now. Hacks.
+            dictionary = dictionary.filter { (_, item) in item.isValid }
+            skippedValidityChecks = 0
+        }
+        
         return dictionary[key]
     }
 

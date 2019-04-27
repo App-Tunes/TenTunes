@@ -150,17 +150,16 @@ extension TrackController: NSMenuDelegate, NSMenuItemValidation {
         ViewController.shared.playlistController.selectLibrary(self)
         let track = menuTracks.first!
 
-        ViewController.shared.trackController.filterBar.open()
-        ViewController.shared.trackController.filterController.rules = SmartPlaylistRules(tokens: track.authors.map(SmartPlaylistRules.Token.Author.init))
+        ViewController.shared.trackController?.show(tokens: track.authors.map(SmartPlaylistRules.Token.Author.init))
     }
 
     @IBAction func menuShowAlbum(_ sender: Any) {
         ViewController.shared.playlistController.selectLibrary(self)
         let track = menuTracks.first!
         
-        let trackController = ViewController.shared.trackController!
-        trackController.filterBar.open()
-        trackController.filterController.rules = SmartPlaylistRules(tokens: [.InAlbum(album: track.rAlbum!)])
+        ViewController.shared.trackController?.show(tokens: [
+            .InAlbum(album: track.rAlbum!)
+        ])
     }
 
     @IBAction func menuShowInFinder(_ sender: Any) {

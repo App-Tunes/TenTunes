@@ -211,6 +211,11 @@ class TrackController: NSViewController {
         _tableView.enclosingScrollView?.verticalScrollElasticity = .none
         _tableView.enclosingScrollView?.horizontalScrollElasticity = .none
     }
+    
+    func show(tokens: [SmartPlaylistRules.Token]) {
+        filterBar.open()
+        filterController.rules = SmartPlaylistRules(tokens: tokens)
+    }
 }
 
 extension TrackController : HideableBarDelegate {

@@ -11,6 +11,8 @@ import Cocoa
 extension CategoryController {
     class Item : ValidatableItem {
         var isValid: Bool { return true }
+        
+        func addMenuItems(to menu: NSMenu) { }
     }
     
     class Cache: CacheRegistry<Item> {

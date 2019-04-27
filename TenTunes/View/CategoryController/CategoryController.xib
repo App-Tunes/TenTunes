@@ -117,6 +117,7 @@
                                 <connections>
                                     <outlet property="dataSource" destination="-2" id="q2o-qu-CiX"/>
                                     <outlet property="delegate" destination="-2" id="4Ob-Pc-lVB"/>
+                                    <outlet property="menu" destination="SCN-sd-Dpt" id="OKw-3u-nuL"/>
                                 </connections>
                             </outlineView>
                         </subviews>
@@ -138,6 +139,11 @@
                 <constraint firstAttribute="bottom" secondItem="YQi-xD-kuw" secondAttribute="bottom" id="vIb-oT-MPj"/>
             </constraints>
         </customView>
+        <menu id="SCN-sd-Dpt">
+            <connections>
+                <outlet property="delegate" destination="-2" id="6s8-ZU-yM5"/>
+            </connections>
+        </menu>
     </objects>
     <resources>
         <image name="album" width="198" height="200"/>

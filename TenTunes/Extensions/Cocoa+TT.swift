@@ -160,6 +160,11 @@ extension NSMenuItem {
             self.image = image.resized(w: image.size.width * max / image.size.height, h: max)
         }
     }
+    
+    convenience init(title: String, action: Selector?, target: AnyObject) {
+        self.init(title: title, action: action, keyEquivalent: "")
+        self.target = target
+    }
 }
 
 extension NSWindow {

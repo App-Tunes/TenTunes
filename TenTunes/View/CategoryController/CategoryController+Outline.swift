@@ -71,3 +71,23 @@ extension CategoryController: NSOutlineViewDelegate {
         return SubtleTableRowView()
     }
 }
+
+extension CategoryController : NSMenuDelegate {
+    var menuItems: [Item] {
+        return _outlineView.clickedRows.compactMap { _outlineView.item(atRow: $0) as? Item }
+    }
+
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        guard let item = menuItems.onlyElement else {
+            menu.cancelTrackingWithoutAnimation()
+            return
+        }
+        
+        menu.removeAllItems()
+        item.addMenuItems(to: menu)
+        
+        if menu.items.isEmpty {
+            menu.cancelTrackingWithoutAnimation()
+        }
+    }
+}

@@ -24,6 +24,18 @@ extension CategoryController.Item {
         override var icon: NSImage { return _artwork }
         
         override var tracks: [Track] { return album.tracks }
+        
+        override func addMenuItems(to menu: NSMenu) {
+            menu.addItem(.init(title: "Show in Library", action: #selector(showInLibrary(_:)), target: self))
+        }
+        
+        @IBAction
+        func showInLibrary(_ sender: AnyObject) {
+            ViewController.shared.playlistController.selectLibrary(self)
+            ViewController.shared.trackController?.show(tokens: [
+                .InAlbum(album: album)
+            ])
+        }
     }
 
     class GenreItem : CategoryController.Category {
@@ -41,6 +53,18 @@ extension CategoryController.Item {
         override var icon: NSImage { return NSImage(named: .genreName)! }
         
         override var tracks: [Track] { return genre.tracks }
+        
+        override func addMenuItems(to menu: NSMenu) {
+            menu.addItem(.init(title: "Show in Library", action: #selector(showInLibrary(_:)), target: self))
+        }
+        
+        @IBAction
+        func showInLibrary(_ sender: AnyObject) {
+            ViewController.shared.playlistController.selectLibrary(self)
+            ViewController.shared.trackController?.show(tokens: [
+                .HasGenre(genre: genre)
+            ])
+        }
     }
 
     class ArtistItem : CategoryController.Category {
@@ -58,5 +82,17 @@ extension CategoryController.Item {
         override var icon: NSImage { return NSImage(named: .artistName)! }
         
         override var tracks: [Track] { return artist.tracks }
+        
+        override func addMenuItems(to menu: NSMenu) {
+            menu.addItem(.init(title: "Show in Library", action: #selector(showInLibrary(_:)), target: self))
+        }
+        
+        @IBAction
+        func showInLibrary(_ sender: AnyObject) {
+            ViewController.shared.playlistController.selectLibrary(self)
+            ViewController.shared.trackController?.show(tokens: [
+                .Author(author: artist)
+            ])
+        }
     }
 }

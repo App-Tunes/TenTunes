@@ -14,13 +14,25 @@ class BarsLayer: CALayer {
         return Array(repeating: Array(repeating: 0.1, count: Analysis.sampleCount), count: 4)
     }
     
-    static var barColorLookup: [CGColor] = Array(1..<100).map {
-        // Don't go the full way so we don't loop back to red
-        NSColor(hue: CGFloat($0) / 100 * 0.8, saturation: CGFloat(0.33), brightness: CGFloat(0.8), alpha: CGFloat(1.0)).cgColor
+    static var currentBarColorLUT: [CGColor] {
+        return Array(1 ..< 100).map {
+            let rotation = CGFloat(AppDelegate.defaults[.waveformColorRotation])
+            
+            // Don't go the full way so we don't loop back to the start
+            return NSColor(
+                hue: (1 + rotation + CGFloat($0) / 100 * 0.8).truncatingRemainder(dividingBy: 1),
+                saturation: CGFloat(0.33),
+                brightness: CGFloat(0.8),
+                alpha: CGFloat(1.0)
+            ).cgColor
+        }
     }
     
+    static var barColorLUT: [CGColor] = BarsLayer.currentBarColorLUT
+    
     static func barColor(_ value: CGFloat) -> CGColor {
-        return barColorLookup[(0...barColorLookup.count - 1).clamp(Int(value * CGFloat(barColorLookup.count)))]
+        return barColorLUT[(0 ... barColorLUT.count - 1)
+            .clamp(Int(value * CGFloat(barColorLUT.count)))]
     }
     
     var values: [[CGFloat]] = defaultValues {
@@ -32,8 +44,8 @@ class BarsLayer: CALayer {
     var barWidth = 2
     var spaceWidth = 2
     
-    var styleObserver: DefaultsObservation?
-    
+    var defaultsObservers: [DefaultsObservation] = []
+
     override init() {
         super.init()
         startObservers()
@@ -50,9 +62,18 @@ class BarsLayer: CALayer {
     }
     
     func startObservers() {
-        styleObserver = UserDefaults.swifty.observe(.waveformDisplay, options: [.new]) { _ in
+        let display = { [unowned self] (_ : Any) in
             self.setNeedsDisplay()
         }
+        
+        defaultsObservers = [
+            UserDefaults.swifty.observe(.waveformDisplay, options: [.new]) { display($0) },
+            UserDefaults.swifty.observe(.waveformColorRotation, options: [.new]) {
+                // Will be called for each view, but eh
+                BarsLayer.barColorLUT = BarsLayer.currentBarColorLUT
+                display($0)
+            },
+        ]
     }
     
     override func draw(in ctx: CGContext) {
@@ -70,7 +91,7 @@ class BarsLayer: CALayer {
         
         let display = AppDelegate.defaults[.waveformDisplay]
         
-        for idx in 0..<numBars {
+        for idx in 0 ..< numBars {
             // Frame
             let h = waveform[idx]
             

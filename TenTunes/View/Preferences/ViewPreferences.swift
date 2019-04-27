@@ -79,6 +79,7 @@ extension Defaults.Keys {
     static let trackCombinedTitleSource = Key<Bool>("trackCombinedTitleSource", default: true)
     static let trackSmallRows = Key<Bool>("trackSmallRows", default: true)
 
+    static let waveformColorRotation = Key<Double>("waveformColorRotation", default: 0.0)
 }
 
 class ViewPreferences: NSViewController, Preferenceable {

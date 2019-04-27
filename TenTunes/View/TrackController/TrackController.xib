@@ -624,8 +624,8 @@
                                 </subviews>
                             </clipView>
                             <constraints>
-                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="300" id="407-lR-Mkm"/>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="FWw-0K-SmB"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="407-lR-Mkm"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="FWw-0K-SmB"/>
                             </constraints>
                             <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="23"/>
                             <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="HkI-Mp-Jrn">

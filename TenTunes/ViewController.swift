@@ -110,7 +110,7 @@ class ViewController: NSViewController {
             ], playlist: Library.shared[PlaylistRole.library])
         playlistController.defaultPlaylist = Library.shared[PlaylistRole.playlists]
         
-        _trackGuardView.present(elements: [Library.shared[PlaylistRole.library]])
+        _trackGuardView.present(elements: [playlistController.masterItem!])
         
         trackController.playTrack = { [unowned self] in
             self.player.play(at: $0, in: self.trackController.history) // TODO Support for multiple
@@ -300,25 +300,12 @@ class ViewController: NSViewController {
 }
 
 extension ViewController: PlaylistControllerDelegate {
-    @discardableResult
-    func present(items: [PlaylistController.Item]) -> Bool {
-        let playlists = items.compactMap { $0.asAnyPlaylist }
-        
-        guard !playlists.isEmpty else {
-            return false
-        }
-        
-        if !AppDelegate.defaults[.keepFilterBetweenPlaylists], trackController.filterBar.isOpen {
-            trackController.filterBar.close()
+    func playlistController(_ controller: PlaylistController, selectionDidChange items: [PlaylistController.Item]) {
+        guard !items.isEmpty else {
+            return
         }
 
-        _trackGuardView.present(elements: playlists)
-        
-        return true
-    }
-    
-    func playlistController(_ controller: PlaylistController, selectionDidChange items: [PlaylistController.Item]) {
-        present(items: items)
+        _trackGuardView.present(elements: items)
     }
     
     func playlistController(_ controller: PlaylistController, play item: PlaylistController.Item) {
@@ -338,19 +325,33 @@ extension ViewController: PlaylistControllerDelegate {
 }
 
 extension ViewController : MultiplicityGuardDelegate {
+    static func asPlaylist(item: PlaylistController.Item) -> AnyPlaylist? {
+        return item.asAnyPlaylist
+    }
+    
     func multiplicityGuard(_ view: MultiplicityGuardView, show elements: [Any]) -> MultiplicityGuardView.ShowAction {
-        guard !elements.isEmpty else {
+        let items = elements as! [PlaylistController.Item]
+        
+        guard !items.isEmpty else {
             return .error(text: view.errorSelectionEmpty)
         }
         
-        let playlists = elements as! [AnyPlaylist]
-        if let playlist = playlists.onlyElement {
-            self.trackController.desired.playlist = playlist
+        if let playlists = (items.map(ViewController.asPlaylist) as? [AnyPlaylist]) {
+            if let playlist = playlists.onlyElement {
+                self.trackController.desired.playlist = playlist
+            }
+            else {
+                self.trackController.desired.playlist = PlaylistMultiple(playlists: playlists)
+            }
         }
-        else if !playlists.isEmpty {
-            self.trackController.desired.playlist = PlaylistMultiple(playlists: playlists)
+        else {
+            return .error(text: "Can't show this set.")
         }
         
+        if !AppDelegate.defaults[.keepFilterBetweenPlaylists], trackController.filterBar.isOpen {
+            trackController.filterBar.close()
+        }
+
         return .show
     }
 }

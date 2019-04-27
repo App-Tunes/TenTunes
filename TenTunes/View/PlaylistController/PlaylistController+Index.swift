@@ -156,8 +156,6 @@ extension PlaylistController.Item {
     }
     
     class ArtistsItem: PlaylistController.Item {
-        override var enabled: Bool { return false }
-        
         override var title: String { return "Artists" }
         
         override var icon: NSImage { return NSImage(named: .artistName)! }

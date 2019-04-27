@@ -16,8 +16,7 @@ extension CategoryController.Item {
             self.album = album
         }
         
-        lazy var _tracks = album.tracks
-        lazy var _artwork = Album.artworkPreview(_tracks)
+        lazy var _artwork = Album.artworkPreview(tracks)
         
         override var title: String { return album.title }
         override var subtitle: String { return Artist.describe(album.author) }
@@ -47,7 +46,12 @@ extension CategoryController.Item {
         }
         
         override var title: String { return artist.name }
+        override var subtitle: String {
+            return AppDelegate.defaults.describe(trackCount: tracks.count)
+        }
         
-        override var tracks: [Track] { fatalError() }
+        override var icon: NSImage { return NSImage(named: .artistName)! }
+        
+        override var tracks: [Track] { return artist.tracks }
     }
 }

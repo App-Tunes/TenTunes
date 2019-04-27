@@ -123,7 +123,14 @@ class Library : NSPersistentContainer {
     var _allAuthors: Set<Artist>?
     var allAuthors: Set<Artist> {
         if _allAuthors == nil {
-            _allAuthors = Set(allTracks().flatMap { $0.authors })
+            let authorPairs = allTracks().flatMap { track in track.authors.map { (track, $0) } }
+            let dict = Dictionary(grouping: authorPairs) { $0.1 }
+            
+            _allAuthors = Set(dict.compactMap {
+                let artist = $0
+                artist._tracks = $1.map { $0.0 }
+                return artist
+            })
         }
         return _allAuthors!
     }

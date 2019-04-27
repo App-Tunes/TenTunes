@@ -82,6 +82,14 @@ extension Defaults.Keys {
     static let waveformColorRotation = Key<Double>("waveformColorRotation", default: 0.0)
 }
 
+extension UserDefaults {
+    func describe(trackCount count: Int) -> String {
+        return String(describe: count,
+               singular: self[.trackWordSingular],
+               plural: self[.trackWordPlural])
+    }
+}
+
 class ViewPreferences: NSViewController, Preferenceable {
     var toolbarItemTitle: String = "View"
     var toolbarItemIcon: NSImage = NSImage(named: NSImage.Name.colorPanelName)!

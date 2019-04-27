@@ -17,9 +17,7 @@ extension TrackController {
         
         observeTrackWord = [Defaults.Keys.trackWordSingular, Defaults.Keys.trackWordPlural].map {
             UserDefaults.swifty.observe($0) { _ in
-                self._trackCounter.stringValue = String(describe: self.history.count,
-                                                        singular: AppDelegate.defaults[.trackWordSingular],
-                                                        plural: AppDelegate.defaults[.trackWordPlural])
+                self._trackCounter.stringValue = AppDelegate.defaults.describe(trackCount: self.history.count)
             }
         }
     }

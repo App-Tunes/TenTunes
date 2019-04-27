@@ -13,6 +13,7 @@ class Artist {
     static let unknown = "Unknown Artist"
     
     let name: String
+    var _tracks: [Track]?
     
     init(name: String) {
         self.name = name
@@ -20,6 +21,16 @@ class Artist {
 
     class func all(in string: String) -> [Artist] {
         return splitRegex.split(string: string).map(Artist.init)
+    }
+    
+    var tracks: [Track] {
+        if _tracks == nil {
+            _tracks = Library.shared.allTracks().filter {
+                $0.authors.contains(self)
+            }
+        }
+        
+        return _tracks!
     }
 }
 
@@ -34,6 +45,12 @@ extension Artist : CustomStringConvertible {
     
     var description: String {
         return name
+    }
+}
+
+extension Artist : Comparable {
+    static func < (lhs: Artist, rhs: Artist) -> Bool {
+        return lhs.name < rhs.name
     }
 }
 

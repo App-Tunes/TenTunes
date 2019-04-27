@@ -358,7 +358,7 @@ extension ViewController : MultiplicityGuardDelegate {
             view.contentView = categoryController.view
         }
         else if items.onlyElement is PlaylistController.Item.ArtistsItem {
-            categoryController.categories = Library.shared.allAuthors
+            categoryController.categories = Library.shared.allArtists
                 .sorted { $0 < $1 }
                 .map(CategoryController.Item.ArtistItem.init)
             

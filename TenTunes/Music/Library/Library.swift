@@ -120,19 +120,19 @@ class Library : NSPersistentContainer {
         return self[PlaylistRole.library, in: context].tracksList
     }
     
-    var _allAuthors: Set<Artist>?
-    var allAuthors: Set<Artist> {
-        if _allAuthors == nil {
+    var _allArtists: Set<Artist>?
+    var allArtists: Set<Artist> {
+        if _allArtists == nil {
             let authorPairs = allTracks().flatMap { track in track.authors.map { (track, $0) } }
             let dict = Dictionary(grouping: authorPairs) { $0.1 }
             
-            _allAuthors = Set(dict.compactMap {
+            _allArtists = Set(dict.compactMap {
                 let artist = $0
                 artist._tracks = $1.map { $0.0 }
                 return artist
             })
         }
-        return _allAuthors!
+        return _allArtists!
     }
     
     var _allGenres: Set<String>?
@@ -342,7 +342,7 @@ extension Library {
         
         if trackInserts.count > 0 || trackUpdates.count > 0 || trackDeletes.count > 0 {
             // Invalidate caches
-            _allAuthors = nil
+            _allArtists = nil
             _allAlbums = nil
             _allGenres = nil
         }

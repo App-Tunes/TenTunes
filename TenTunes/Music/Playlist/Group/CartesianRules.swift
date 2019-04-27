@@ -134,7 +134,7 @@ extension CartesianRules.Token {
 
     @objc(TenTunes_CartesianRules_Token_Artists) class Artists : CartesianRules.Token {
         override func matches(in context: NSManagedObjectContext) -> [SmartPlaylistRules.Token] {
-            return Library.shared.allAuthors.map { SmartPlaylistRules.Token.Author(author: $0) }
+            return Library.shared.allArtists.map { SmartPlaylistRules.Token.Author(author: $0) }
         }
         
         override func representation(in context: NSManagedObjectContext? = nil) -> String {

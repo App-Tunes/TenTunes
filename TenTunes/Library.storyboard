@@ -21,13 +21,28 @@
                                         <rect key="frame" x="0.0" y="0.0" width="1292" height="92"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
-                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="100" verticalCompressionResistancePriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="w8H-st-uUl">
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="r0f-nZ-gb3">
                                                 <rect key="frame" x="0.0" y="0.0" width="1292" height="92"/>
-                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="tuS-iy-Wnr"/>
-                                            </imageView>
-                                            <visualEffectView wantsLayer="YES" blendingMode="withinWindow" material="underWindowBackground" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="ffx-Mi-FNH">
-                                                <rect key="frame" x="0.0" y="0.0" width="1292" height="92"/>
-                                            </visualEffectView>
+                                                <subviews>
+                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="100" verticalCompressionResistancePriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="w8H-st-uUl">
+                                                        <rect key="frame" x="0.0" y="0.0" width="1292" height="92"/>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="tuS-iy-Wnr"/>
+                                                    </imageView>
+                                                    <visualEffectView wantsLayer="YES" blendingMode="withinWindow" material="underWindowBackground" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="ffx-Mi-FNH">
+                                                        <rect key="frame" x="0.0" y="0.0" width="1292" height="92"/>
+                                                    </visualEffectView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="w8H-st-uUl" firstAttribute="top" secondItem="r0f-nZ-gb3" secondAttribute="top" id="4KX-8P-k7V"/>
+                                                    <constraint firstAttribute="bottom" secondItem="w8H-st-uUl" secondAttribute="bottom" id="FRA-ee-KqO"/>
+                                                    <constraint firstAttribute="bottom" secondItem="ffx-Mi-FNH" secondAttribute="bottom" id="URg-1d-d3o"/>
+                                                    <constraint firstItem="ffx-Mi-FNH" firstAttribute="leading" secondItem="r0f-nZ-gb3" secondAttribute="leading" id="XJt-rr-XAI"/>
+                                                    <constraint firstItem="w8H-st-uUl" firstAttribute="leading" secondItem="r0f-nZ-gb3" secondAttribute="leading" id="aeH-vA-AhE"/>
+                                                    <constraint firstItem="ffx-Mi-FNH" firstAttribute="top" secondItem="r0f-nZ-gb3" secondAttribute="top" id="ezW-hG-iM6"/>
+                                                    <constraint firstAttribute="trailing" secondItem="ffx-Mi-FNH" secondAttribute="trailing" id="o7M-gz-bEW"/>
+                                                    <constraint firstAttribute="trailing" secondItem="w8H-st-uUl" secondAttribute="trailing" id="t74-Yo-RQp"/>
+                                                </constraints>
+                                            </customView>
                                             <customView verticalHuggingPriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="TnY-8S-uno" customClass="WaveformView" customModule="TenTunes" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="1292" height="45"/>
                                                 <subviews>
@@ -308,24 +323,20 @@ IA
                                             <constraint firstAttribute="trailing" secondItem="dNV-j7-c8A" secondAttribute="trailing" constant="-5" id="8rc-0C-IAl"/>
                                             <constraint firstItem="mT7-oZ-jSc" firstAttribute="top" secondItem="YW0-i6-Krb" secondAttribute="top" id="B8w-sw-Nwx"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="yki-Tj-fZ1" secondAttribute="bottom" constant="5" id="BXZ-hi-xUV"/>
-                                            <constraint firstItem="w8H-st-uUl" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" id="DDx-XK-Xng"/>
-                                            <constraint firstItem="w8H-st-uUl" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" id="Df9-If-Dwu"/>
                                             <constraint firstItem="dNV-j7-c8A" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mT7-oZ-jSc" secondAttribute="trailing" constant="8" id="Hf8-1M-tjl"/>
-                                            <constraint firstAttribute="trailing" secondItem="ffx-Mi-FNH" secondAttribute="trailing" id="I4z-lG-beE"/>
-                                            <constraint firstAttribute="trailing" secondItem="w8H-st-uUl" secondAttribute="trailing" id="IGX-a1-yOD"/>
-                                            <constraint firstAttribute="bottom" secondItem="ffx-Mi-FNH" secondAttribute="bottom" id="Mpz-rR-kb3"/>
-                                            <constraint firstItem="ffx-Mi-FNH" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" id="Q4z-g0-Va4"/>
                                             <constraint firstItem="yki-Tj-fZ1" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="-5" id="RJX-j8-cW7"/>
-                                            <constraint firstItem="ffx-Mi-FNH" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" id="Usa-CQ-Cz4"/>
+                                            <constraint firstItem="r0f-nZ-gb3" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" id="RVX-Id-qDu"/>
                                             <constraint firstItem="mT7-oZ-jSc" firstAttribute="leading" secondItem="YW0-i6-Krb" secondAttribute="trailing" constant="2" id="XmM-DP-mpM"/>
                                             <constraint firstAttribute="trailing" secondItem="TnY-8S-uno" secondAttribute="trailing" id="ZOi-Zw-7Sx"/>
                                             <constraint firstItem="YW0-i6-Krb" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="-5" id="alc-QM-M2N"/>
                                             <constraint firstItem="YW0-i6-Krb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yki-Tj-fZ1" secondAttribute="trailing" constant="8" id="dAR-hu-m9J"/>
+                                            <constraint firstItem="r0f-nZ-gb3" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" id="gM5-Z9-AZU"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="top" secondItem="dNV-j7-c8A" secondAttribute="bottom" constant="4" id="grl-KM-7o9"/>
                                             <constraint firstAttribute="bottom" secondItem="TnY-8S-uno" secondAttribute="bottom" id="mm5-D9-4tj"/>
+                                            <constraint firstAttribute="bottom" secondItem="r0f-nZ-gb3" secondAttribute="bottom" id="p5n-j4-7mS"/>
                                             <constraint firstItem="YW0-i6-Krb" firstAttribute="centerX" secondItem="CJ8-Em-XgG" secondAttribute="centerX" priority="300" constant="-10" id="ptf-ji-G2W"/>
                                             <constraint firstItem="dNV-j7-c8A" firstAttribute="top" secondItem="CJ8-Em-XgG" secondAttribute="top" constant="-5" id="qzo-Mh-a1e"/>
-                                            <constraint firstAttribute="bottom" secondItem="w8H-st-uUl" secondAttribute="bottom" id="tT1-6k-n2K"/>
+                                            <constraint firstAttribute="trailing" secondItem="r0f-nZ-gb3" secondAttribute="trailing" id="vcP-yV-3Q6"/>
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" id="zi4-6q-OKg"/>
                                         </constraints>
                                     </customView>

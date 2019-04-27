@@ -13,6 +13,12 @@ import Darwin
 
 @objc protocol VisualizerViewDelegate {
     func visualizerViewUpdate(_ view: VisualizerView)
+    func setControlsHidden(_ hidden: Bool)
+}
+
+// For Namespace
+class Visualizer {
+    
 }
 
 class VisualizerView: SyphonableOpenGLView {
@@ -43,6 +49,10 @@ class VisualizerView: SyphonableOpenGLView {
     @objc var frantic: Number = 0.5
 
     var distortionRands = (0 ..< 100).map { _ in Number.random(in: 0 ..< 1 ) }
+    
+    // Controls
+    
+    var trackingArea : NSTrackingArea?
     
     func update(withFFT fft: [Number]) {
         let desiredLength = min(Int(details * 6 + 4), 10)
@@ -122,6 +132,15 @@ class VisualizerView: SyphonableOpenGLView {
     }
         
     override func animate() {
+        DispatchQueue.main.async {
+            if let window = self.window {
+                if window.isKeyWindow, window.isMouseInside, RFOpenGLView.timeMouseIdle() > 2 {
+                    NSCursor.setHiddenUntilMouseMoves(true)
+                    self.delegate?.setControlsHidden(true)
+                }
+            }
+        }
+        
         delegate?.visualizerViewUpdate(self)
     }
     
@@ -150,5 +169,21 @@ class VisualizerView: SyphonableOpenGLView {
     func uploadDefaultUniforms(onto shader: Shared) {
         glUniform1f(shader.guTime, time);
         glUniform2f(shader.guResolution, GLfloat(bounds.size.width), GLfloat(bounds.size.height));
+    }
+    
+    override func mouseMoved(with event: NSEvent) {
+        delegate?.setControlsHidden(false)
+    }
+    
+    override func mouseExited(with event: NSEvent) {
+        delegate?.setControlsHidden(true)
+    }
+
+    override func updateTrackingAreas() {
+        super.updateTrackingAreas()
+        
+        trackingArea ?=> removeTrackingArea
+        trackingArea = NSTrackingArea(rect: bounds, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
+        addTrackingArea(trackingArea!)
     }
 }

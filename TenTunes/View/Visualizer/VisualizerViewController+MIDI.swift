@@ -10,7 +10,7 @@ import Cocoa
 
 import MIKMIDI
 
-extension VisualizerWindowController {
+extension VisualizerViewController {
     func updateMIDISources() {
         _midiSourceSelector.removeAllItems()
         
@@ -39,15 +39,15 @@ extension VisualizerWindowController {
         for (idx, value) in MIDI.numbers.enumerated() {
             switch idx {
             case 0:
-                _visualizerView.colorVariance = value
+                visualizerView.colorVariance = value
             case 1:
-                _visualizerView.brightness = value
+                visualizerView.brightness = value
             case 2:
-                _visualizerView.psychedelic = value
+                visualizerView.psychedelic = value
             case 3:
-                _visualizerView.details = value
+                visualizerView.details = value
             case 4:
-                _visualizerView.frantic = value
+                visualizerView.frantic = value
             default:
                 break
             }

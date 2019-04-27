@@ -24,8 +24,7 @@
 		802F9EFF2170A8DB00D497AE /* VisualizerView+Shaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802F9EFE2170A8DB00D497AE /* VisualizerView+Shaders.swift */; };
 		8030CA7F2164DDB300229398 /* Syphon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 809CEAC02164CF76008D6AC0 /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8030CA812164DDE300229398 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 809CEAC02164CF76008D6AC0 /* Syphon.framework */; };
-		8030CA832164E33200229398 /* VisualizerWindowController+Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030CA822164E33200229398 /* VisualizerWindowController+Audio.swift */; };
-		8030CA852164E3F100229398 /* VisualizerWindowController+Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030CA842164E3F100229398 /* VisualizerWindowController+Video.swift */; };
+		8030CA852164E3F100229398 /* VisualizerViewController+Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030CA842164E3F100229398 /* VisualizerViewController+Video.swift */; };
 		8030E00120FC8F0C006B4AE8 /* ActionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E00020FC8F0C006B4AE8 /* ActionTableView.swift */; };
 		8030E00720FC9749006B4AE8 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E00620FC9749006B4AE8 /* Task.swift */; };
 		8030E00920FC9A91006B4AE8 /* SwiftPriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E00820FC9A91006B4AE8 /* SwiftPriorityQueue.swift */; };
@@ -141,7 +140,7 @@
 		80B68BA92101255D00A32E3D /* TrackController+Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B68BA82101255D00A32E3D /* TrackController+Rules.swift */; };
 		80B6DF97219EF473003EA487 /* LICENSE-MIKMIDI.txt in Resources */ = {isa = PBXBuildFile; fileRef = 80B6DF96219EF473003EA487 /* LICENSE-MIKMIDI.txt */; };
 		80B6DF9D219EF72E003EA487 /* MIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B6DF9C219EF72E003EA487 /* MIDI.swift */; };
-		80B6DF9F219EFAF0003EA487 /* VisualizerWindowController+MIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B6DF9E219EFAF0003EA487 /* VisualizerWindowController+MIDI.swift */; };
+		80B6DF9F219EFAF0003EA487 /* VisualizerViewController+MIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B6DF9E219EFAF0003EA487 /* VisualizerViewController+MIDI.swift */; };
 		80B6DFA5219F06E9003EA487 /* MIKMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80B6DFA3219F06E4003EA487 /* MIKMIDI.framework */; };
 		80B6DFA6219F06E9003EA487 /* MIKMIDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 80B6DFA3219F06E4003EA487 /* MIKMIDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		80B764562072F38D003BD7F8 /* PlaylistEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B764552072F38D003BD7F8 /* PlaylistEmpty.swift */; };
@@ -171,6 +170,9 @@
 		80CAED0322731FB3001DD856 /* OptionStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAED0122731FB3001DD856 /* OptionStep.swift */; };
 		80CAED0422731FB3001DD856 /* OptionStep.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80CAED0222731FB3001DD856 /* OptionStep.xib */; };
 		80CAED0622735E8D001DD856 /* AppDelegate+Welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAED0522735E8D001DD856 /* AppDelegate+Welcome.swift */; };
+		80CAED0822746E6F001DD856 /* VisualizerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAED0722746E6F001DD856 /* VisualizerViewController.swift */; };
+		80CAED0A22746F54001DD856 /* VisualizerViewController+Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAED0922746F54001DD856 /* VisualizerViewController+Audio.swift */; };
+		80CAED10227472E9001DD856 /* VisualizerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80CAED0E227472E9001DD856 /* VisualizerViewController.xib */; };
 		80CB652C20514E050031A6D7 /* Library+Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652B20514E050031A6D7 /* Library+Export.swift */; };
 		80CB652F2052C6CD0031A6D7 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652E2052C6CD0031A6D7 /* Operators.swift */; };
 		80CB65332052C9530031A6D7 /* Cocoa+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB65322052C9530031A6D7 /* Cocoa+TT.swift */; };
@@ -275,8 +277,7 @@
 		802F01D02177F00B00E0EAB6 /* DragHighlightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragHighlightView.swift; sourceTree = "<group>"; };
 		802F9EF92170A4C000D497AE /* bloom.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = bloom.fs; sourceTree = "<group>"; };
 		802F9EFE2170A8DB00D497AE /* VisualizerView+Shaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VisualizerView+Shaders.swift"; sourceTree = "<group>"; };
-		8030CA822164E33200229398 /* VisualizerWindowController+Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VisualizerWindowController+Audio.swift"; sourceTree = "<group>"; };
-		8030CA842164E3F100229398 /* VisualizerWindowController+Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VisualizerWindowController+Video.swift"; sourceTree = "<group>"; };
+		8030CA842164E3F100229398 /* VisualizerViewController+Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VisualizerViewController+Video.swift"; sourceTree = "<group>"; };
 		8030E00020FC8F0C006B4AE8 /* ActionTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTableView.swift; sourceTree = "<group>"; };
 		8030E00620FC9749006B4AE8 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		8030E00820FC9A91006B4AE8 /* SwiftPriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPriorityQueue.swift; sourceTree = "<group>"; };
@@ -423,7 +424,7 @@
 		80B68BA82101255D00A32E3D /* TrackController+Rules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackController+Rules.swift"; sourceTree = "<group>"; };
 		80B6DF96219EF473003EA487 /* LICENSE-MIKMIDI.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "LICENSE-MIKMIDI.txt"; sourceTree = "<group>"; };
 		80B6DF9C219EF72E003EA487 /* MIDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDI.swift; sourceTree = "<group>"; };
-		80B6DF9E219EFAF0003EA487 /* VisualizerWindowController+MIDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VisualizerWindowController+MIDI.swift"; sourceTree = "<group>"; };
+		80B6DF9E219EFAF0003EA487 /* VisualizerViewController+MIDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VisualizerViewController+MIDI.swift"; sourceTree = "<group>"; };
 		80B6DFA3219F06E4003EA487 /* MIKMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MIKMIDI.framework; path = Carthage/Build/Mac/MIKMIDI.framework; sourceTree = SOURCE_ROOT; };
 		80B764552072F38D003BD7F8 /* PlaylistEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistEmpty.swift; sourceTree = "<group>"; };
 		80BF21C2212AD9D500B9F0AB /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
@@ -454,6 +455,9 @@
 		80CAED0122731FB3001DD856 /* OptionStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionStep.swift; sourceTree = "<group>"; };
 		80CAED0222731FB3001DD856 /* OptionStep.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OptionStep.xib; sourceTree = "<group>"; };
 		80CAED0522735E8D001DD856 /* AppDelegate+Welcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Welcome.swift"; sourceTree = "<group>"; };
+		80CAED0722746E6F001DD856 /* VisualizerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerViewController.swift; sourceTree = "<group>"; };
+		80CAED0922746F54001DD856 /* VisualizerViewController+Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VisualizerViewController+Audio.swift"; sourceTree = "<group>"; };
+		80CAED0E227472E9001DD856 /* VisualizerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VisualizerViewController.xib; sourceTree = "<group>"; };
 		80CB652B20514E050031A6D7 /* Library+Export.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Export.swift"; sourceTree = "<group>"; };
 		80CB652E2052C6CD0031A6D7 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		80CB65322052C9530031A6D7 /* Cocoa+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocoa+TT.swift"; sourceTree = "<group>"; };
@@ -811,12 +815,14 @@
 			isa = PBXGroup;
 			children = (
 				80C1F15E214286A40032E554 /* VisualizerWindowController.swift */,
-				8030CA822164E33200229398 /* VisualizerWindowController+Audio.swift */,
-				8030CA842164E3F100229398 /* VisualizerWindowController+Video.swift */,
-				80B6DF9E219EFAF0003EA487 /* VisualizerWindowController+MIDI.swift */,
 				80C1F15F214286A40032E554 /* VisualizerWindowController.xib */,
-				80C1F16E2142E7E80032E554 /* VisualizerView.swift */,
 				80DADAE321D2BA1300FAF6D3 /* VisualizerWindow.swift */,
+				80CAED0722746E6F001DD856 /* VisualizerViewController.swift */,
+				80CAED0E227472E9001DD856 /* VisualizerViewController.xib */,
+				80CAED0922746F54001DD856 /* VisualizerViewController+Audio.swift */,
+				8030CA842164E3F100229398 /* VisualizerViewController+Video.swift */,
+				80B6DF9E219EFAF0003EA487 /* VisualizerViewController+MIDI.swift */,
+				80C1F16E2142E7E80032E554 /* VisualizerView.swift */,
 				804A15FE217252BC00CBF56F /* Cloud.swift */,
 				804A15FB2172514200CBF56F /* Honey.swift */,
 				807D749921C3D05900D3B610 /* DarkMatter.swift */,
@@ -1172,6 +1178,7 @@
 				8079F6D82106661A00B7A278 /* HideableBar.xib in Resources */,
 				80CAED0422731FB3001DD856 /* OptionStep.xib in Resources */,
 				80C1F16621428FA40032E554 /* default.fs in Resources */,
+				80CAED10227472E9001DD856 /* VisualizerViewController.xib in Resources */,
 				80F2C5812038808000212739 /* Assets.xcassets in Resources */,
 				80C1F16421428EC80032E554 /* visualizer.fs in Resources */,
 				80C1F16A21429AC70032E554 /* visualizer.vs in Resources */,
@@ -1337,7 +1344,7 @@
 				806AC1432041EF1900857B1B /* SPAnalyzer.mm in Sources */,
 				8030E01720FE2C3B006B4AE8 /* Alerts.swift in Sources */,
 				8091B9FF20C6B7E50019CE23 /* Hash.swift in Sources */,
-				8030CA852164E3F100229398 /* VisualizerWindowController+Video.swift in Sources */,
+				8030CA852164E3F100229398 /* VisualizerViewController+Video.swift in Sources */,
 				80A7CABD216252340075C499 /* Track+Live.swift in Sources */,
 				80C1F16D2142AA010032E554 /* RFOpenGLView.m in Sources */,
 				80CAED0322731FB3001DD856 /* OptionStep.swift in Sources */,
@@ -1374,7 +1381,7 @@
 				802F9EFF2170A8DB00D497AE /* VisualizerView+Shaders.swift in Sources */,
 				8030E00920FC9A91006B4AE8 /* SwiftPriorityQueue.swift in Sources */,
 				8071FA75220EF627000B8868 /* Defaults.swift in Sources */,
-				80B6DF9F219EFAF0003EA487 /* VisualizerWindowController+MIDI.swift in Sources */,
+				80B6DF9F219EFAF0003EA487 /* VisualizerViewController+MIDI.swift in Sources */,
 				804A15FF217252BC00CBF56F /* Cloud.swift in Sources */,
 				80F854FF2069180A009A8FBE /* TrackController+RightClick.swift in Sources */,
 				808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */,
@@ -1385,9 +1392,9 @@
 				8079F6EC211B87A700B7A278 /* SpinningButton.swift in Sources */,
 				802F01CE2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift in Sources */,
 				8066118A2125B9BF00C3948E /* TagEditor+Tags.swift in Sources */,
-				8030CA832164E33200229398 /* VisualizerWindowController+Audio.swift in Sources */,
 				806C5B2620423AC000C34F49 /* SPInterpreter.swift in Sources */,
 				80B764562072F38D003BD7F8 /* PlaylistEmpty.swift in Sources */,
+				80CAED0A22746F54001DD856 /* VisualizerViewController+Audio.swift in Sources */,
 				80A4098C216D665A006AF67B /* RFOpenGLView+Shader.swift in Sources */,
 				80E2C9F9204B40A000298E81 /* PlaylistManual.swift in Sources */,
 				808161D2204059FE00AEA64F /* TrackController.swift in Sources */,
@@ -1416,6 +1423,7 @@
 				80F77BF5203D8B35001E397F /* Key.swift in Sources */,
 				808BAAE8220DAD0A0017557C /* FilesPreferences.swift in Sources */,
 				807D749A21C3D05900D3B610 /* DarkMatter.swift in Sources */,
+				80CAED0822746E6F001DD856 /* VisualizerViewController.swift in Sources */,
 				80F2C57A2038808000212739 /* AppDelegate.swift in Sources */,
 				807F6A37210202A8002048B1 /* Library+Sanity.swift in Sources */,
 				8071F63221AC250A0005685B /* TrackController+Updates.swift in Sources */,

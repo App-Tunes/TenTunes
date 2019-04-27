@@ -1,15 +1,23 @@
 //
-//  VisualizerWindowController+Audio.swift
+//  VisualizerViewController+Audio.swift
 //  TenTunes
 //
-//  Created by Lukas Tenbrink on 03.10.18.
-//  Copyright © 2018 ivorius. All rights reserved.
+//  Created by Lukas Tenbrink on 27.04.19.
+//  Copyright © 2019 ivorius. All rights reserved.
 //
 
 import Cocoa
 import AudioKit
 
-extension VisualizerWindowController {
+extension Visualizer {
+    enum AudioCapture {
+        case direct
+        case input(device: AKDevice)
+        //        case output(device: AKDevice)
+    }
+}
+
+extension VisualizerViewController {
     @objc class AudioConnection : NSObject {
         let fft: FFTTap.AVNode
         let pause: (() -> VisualizerWindow.PauseResult)?
@@ -20,65 +28,59 @@ extension VisualizerWindowController {
         }
     }
     
-    enum AudioCapture {
-        case direct
-        case input(device: AKDevice)
-//        case output(device: AKDevice)
+    @IBAction func selectedAudioSource(_ sender: Any) {
+        guard let source = _audioSourceSelector.lastItem?.representedObject as? Visualizer.AudioCapture else {
+            return // Eh?
+        }
+        
+        audioSource = source
     }
     
-    @IBAction func selectedAudioSource(_ sender: Any) {
-        updateFFT()
-    }
-
     func updateAudioSources() {
         _audioSourceSelector.removeAllItems()
         
         _audioSourceSelector.addItem(withTitle: "Ten Tunes")
-        _audioSourceSelector.lastItem!.representedObject = AudioCapture.direct
+        _audioSourceSelector.lastItem!.representedObject = Visualizer.AudioCapture.direct
         
         _audioSourceSelector.menu!.addItem(NSMenuItem.separator())
         
         for device in AudioKit.inputDevices ?? [] {
             _audioSourceSelector.addItem(withTitle: device.name)
-            _audioSourceSelector.lastItem!.representedObject = AudioCapture.input(device: device)
-        }
-
-//        _audioSourceSelector.menu!.addItem(NSMenuItem.separator())
-//
-//        for device in AudioKit.outputDevices ?? [] {
-//            _audioSourceSelector.addItem(withTitle: device.name)
-//            _audioSourceSelector.lastItem!.representedObject = AudioCapture.output(device: device)
-//        }
-    }
-    
-    func updateFFT() {
-        guard let captureMethod = _audioSourceSelector.selectedItem?.representedObject as? AudioCapture else {
-            return // Eh?
+            _audioSourceSelector.lastItem!.representedObject = Visualizer.AudioCapture.input(device: device)
         }
         
-        let visible = window?.occlusionState.contains(.visible) ?? false
+        //        _audioSourceSelector.menu!.addItem(NSMenuItem.separator())
+        //
+        //        for device in AudioKit.outputDevices ?? [] {
+        //            _audioSourceSelector.addItem(withTitle: device.name)
+        //            _audioSourceSelector.lastItem!.representedObject = AudioCapture.output(device: device)
+        //        }
+    }
+
+    func updateFFT() {
+        let visible = view.window?.occlusionState.contains(.visible) ?? false
         
         connection?.fft.stop()
         connection = nil
-
+        
         guard visible || syphon != nil else {
             return
         }
         
         do {
-            switch captureMethod {
+            switch audioSource {
             case .direct:
                 let player = ViewController.shared.player
                 connection = .init(fft: try! FFTTap.AVNode(player.mixer.avAudioNode),
-                    pause: {
-                        player.togglePlay()
-                        return player.isPlaying ? .played : .paused
-                    }
+                                   pause: {
+                                    player.togglePlay()
+                                    return player.isPlaying ? .played : .paused
+                }
                 )
             case .input(let device):
                 connection = .init(fft: try FFTTap.AVAudioDevice(deviceID: device.deviceID))
-//        case .output(let device):
-//            break
+                //        case .output(let device):
+                //            break
             }
         }
         catch {

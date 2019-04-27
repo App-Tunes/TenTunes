@@ -57,7 +57,7 @@
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CoD-DV-e15">
-                    <rect key="frame" x="20" y="82" width="141" height="17"/>
+                    <rect key="frame" x="18" y="82" width="141" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Automatically Export..." id="pdQ-BQ-nam">
                         <font key="font" metaFont="system"/>
@@ -66,7 +66,7 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k1m-6E-kL9">
-                    <rect key="frame" x="42" y="58" width="140" height="18"/>
+                    <rect key="frame" x="38" y="58" width="140" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="... as iTunes Library" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="TPF-IZ-hnZ">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -81,7 +81,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IeI-ia-qUj">
-                    <rect key="frame" x="42" y="38" width="85" height="18"/>
+                    <rect key="frame" x="38" y="38" width="85" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="... as .m3u" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="VBy-VK-662">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -96,7 +96,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="24g-4Z-g9a">
-                    <rect key="frame" x="42" y="18" width="149" height="18"/>
+                    <rect key="frame" x="38" y="18" width="149" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="... as filesystem Alias" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="9kS-zc-tzn">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>

@@ -18,13 +18,6 @@ class VisualizerWindowController: NSWindowController {
     }
 }
 
-extension VisualizerWindowController : NSWindowDelegate {
-    func windowDidChangeOcclusionState(_ notification: Notification) {
-        // TODO Replace
-        visualizerController?.windowDidChangeOcclusionState(notification)
-    }
-}
-
 // TODO Move to visualizer view
 extension VisualizerWindowController : VisualizerWindowDelegate {
     func togglePlay() -> VisualizerWindow.PauseResult? {

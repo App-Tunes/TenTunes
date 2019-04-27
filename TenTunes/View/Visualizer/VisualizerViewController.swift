@@ -113,10 +113,12 @@ class VisualizerViewController: NSViewController {
         _windowWidth.stringValue = String(Int(newSize.width))
         _windowHeight.stringValue = String(Int(newSize.height))
     }
-}
-
-extension VisualizerViewController : NSWindowDelegate {
-    func windowDidChangeOcclusionState(_ notification: Notification) {
+    
+    override func viewDidAppear() {
+        updateFFT()
+    }
+    
+    override func viewDidDisappear() {
         updateFFT()
     }
 }

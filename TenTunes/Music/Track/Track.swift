@@ -108,6 +108,10 @@ public class Track: NSManagedObject {
         return album.map { Album(title: $0, by: (self.albumArtist ?=> Artist.init) ?? self.authors.first) }
     }
     
+    var rGenre: Genre? {
+        return genre.map(Genre.init)
+    }
+    
     @objc var rDuration: String {
         guard let duration = duration else { return "" }
         return Int(CMTimeGetSeconds(duration)).timeString

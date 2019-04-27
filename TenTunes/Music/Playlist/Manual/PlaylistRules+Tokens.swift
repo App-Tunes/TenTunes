@@ -175,10 +175,10 @@ extension SmartPlaylistRules.Token {
     }
     
     @objc(TenTunes_SmartPlaylistRules_Token_Genre)
-    class Genre : SmartPlaylistRules.Token {
-        var genre: String
+    class HasGenre : SmartPlaylistRules.Token {
+        var genre: Genre
         
-        init(genre: String) {
+        init(genre: Genre) {
             self.genre = genre
             super.init()
         }
@@ -187,7 +187,7 @@ extension SmartPlaylistRules.Token {
             guard let genre = aDecoder.decodeObject(forKey: "genre") as? String else {
                 return nil
             }
-            self.genre = genre
+            self.genre = Genre(name: genre)
             super.init(coder: aDecoder)
         }
         
@@ -197,8 +197,8 @@ extension SmartPlaylistRules.Token {
         }
         
         override func positiveFilter(in context: NSManagedObjectContext?, rguard: RecursionGuard<Playlist>) -> (Track) -> Bool {
-            let lowerGenre = self.genre.lowercased()
-            return { $0.genre?.lowercased() == lowerGenre }
+            let genre = self.genre
+            return { $0.rGenre == genre }
         }
         
         override var icons: String {
@@ -206,7 +206,7 @@ extension SmartPlaylistRules.Token {
         }
         
         override func representation(in context: NSManagedObjectContext? = nil) -> String {
-            return genre
+            return genre.description
         }
     }
     

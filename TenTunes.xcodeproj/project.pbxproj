@@ -178,6 +178,7 @@
 		80CAED172274AF6A001DD856 /* CategoryController+Outline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAED162274AF6A001DD856 /* CategoryController+Outline.swift */; };
 		80CAED192274B68A001DD856 /* CategoryController+Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAED182274B68A001DD856 /* CategoryController+Categories.swift */; };
 		80CAED1B2274D062001DD856 /* StylerMyler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAED1A2274D062001DD856 /* StylerMyler.swift */; };
+		80CAED1D2274DD4C001DD856 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAED1C2274DD4C001DD856 /* Genre.swift */; };
 		80CB652C20514E050031A6D7 /* Library+Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652B20514E050031A6D7 /* Library+Export.swift */; };
 		80CB652F2052C6CD0031A6D7 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652E2052C6CD0031A6D7 /* Operators.swift */; };
 		80CB65332052C9530031A6D7 /* Cocoa+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB65322052C9530031A6D7 /* Cocoa+TT.swift */; };
@@ -467,6 +468,7 @@
 		80CAED162274AF6A001DD856 /* CategoryController+Outline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryController+Outline.swift"; sourceTree = "<group>"; };
 		80CAED182274B68A001DD856 /* CategoryController+Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryController+Categories.swift"; sourceTree = "<group>"; };
 		80CAED1A2274D062001DD856 /* StylerMyler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StylerMyler.swift; sourceTree = "<group>"; };
+		80CAED1C2274DD4C001DD856 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		80CB652B20514E050031A6D7 /* Library+Export.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Export.swift"; sourceTree = "<group>"; };
 		80CB652E2052C6CD0031A6D7 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		80CB65322052C9530031A6D7 /* Cocoa+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocoa+TT.swift"; sourceTree = "<group>"; };
@@ -666,6 +668,7 @@
 				808161CE2040520900AEA64F /* AVFoundationImporter.swift */,
 				80C8559D210512B400177035 /* Album.swift */,
 				8074044821367A1F007E0B4C /* Artist.swift */,
+				80CAED1C2274DD4C001DD856 /* Genre.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -1373,6 +1376,7 @@
 				808BAADE220DA7C60017557C /* BehaviorPreferences.swift in Sources */,
 				8071F63721AEBA700005685B /* HumanDates.swift in Sources */,
 				80CC986A21A880D20030F04B /* NSTableView+Header.swift in Sources */,
+				80CAED1D2274DD4C001DD856 /* Genre.swift in Sources */,
 				8093467120A62319001D15CD /* TrackController+Pasteboard.swift in Sources */,
 				807A82E02179D76F00236A13 /* SyphonableOpenGLView.swift in Sources */,
 				80C1F16F2142E7E80032E554 /* VisualizerView.swift in Sources */,

@@ -164,8 +164,6 @@ extension PlaylistController.Item {
     }
     
     class GenresItem: PlaylistController.Item {
-        override var enabled: Bool { return false }
-        
         override var title: String { return "Genres" }
         
         override var icon: NSImage { return NSImage(named: .genreName)! }

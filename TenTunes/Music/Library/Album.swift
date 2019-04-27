@@ -100,7 +100,7 @@ extension Album : Hashable {
     }
     
     static func == (lhs: Album, rhs: Album) -> Bool {
-        return lhs.title.lowercased() == rhs.title.lowercased() &&
+        return lhs.title.caseInsensitiveCompare(rhs.title) == .orderedSame &&
             lhs.author == rhs.author
     }
 }

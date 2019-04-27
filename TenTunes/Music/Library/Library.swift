@@ -135,10 +135,10 @@ class Library : NSPersistentContainer {
         return _allArtists!
     }
     
-    var _allGenres: Set<String>?
-    var allGenres: Set<String> {
+    var _allGenres: Set<Genre>?
+    var allGenres: Set<Genre> {
         if _allGenres == nil {
-            _allGenres = Set(allTracks().compactMap { $0.genre })
+            _allGenres = Set(allTracks().compactMap { $0.rGenre })
         }
         return _allGenres!
     }

@@ -60,6 +60,6 @@ extension Artist : Hashable {
     }
     
     static func == (lhs: Artist, rhs: Artist) -> Bool {
-        return lhs.name.lowercased() == rhs.name.lowercased()
+        return lhs.name.caseInsensitiveCompare(rhs.name) == .orderedSame
     }
 }

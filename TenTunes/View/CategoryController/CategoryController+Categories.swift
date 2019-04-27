@@ -27,15 +27,20 @@ extension CategoryController.Item {
     }
 
     class GenreItem : CategoryController.Category {
-        let genre: String
+        let genre: Genre
         
-        init(_ genre: String) {
+        init(_ genre: Genre) {
             self.genre = genre
         }
         
-        override var title: String { return genre }
+        override var title: String { return genre.name }
+        override var subtitle: String {
+            return AppDelegate.defaults.describe(trackCount: tracks.count)
+        }
 
-        override var tracks: [Track] { fatalError() }
+        override var icon: NSImage { return NSImage(named: .genreName)! }
+        
+        override var tracks: [Track] { return genre.tracks }
     }
 
     class ArtistItem : CategoryController.Category {

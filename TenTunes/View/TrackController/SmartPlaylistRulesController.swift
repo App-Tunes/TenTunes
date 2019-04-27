@@ -113,10 +113,10 @@ class SmartPlaylistRulesController : NSViewController, TTTokenFieldDelegate {
         }
     }
     
-    func genreResults(search: String) -> [SmartPlaylistRules.Token.Genre] {
-        let found = Library.shared.allGenres.filter({ $0.range(of: search, options: [.caseInsensitive, .diacriticInsensitive]) != nil })
+    func genreResults(search: String) -> [SmartPlaylistRules.Token.HasGenre] {
+        let found = Library.shared.allGenres.filter({ $0.name.range(of: search, options: [.caseInsensitive, .diacriticInsensitive]) != nil })
         
-        return SmartPlaylistRulesController.sorted(tokens: found.map { SmartPlaylistRules.Token.Genre(genre: $0) })
+        return SmartPlaylistRulesController.sorted(tokens: found.map { SmartPlaylistRules.Token.HasGenre(genre: $0) })
     }
     
     func albumResults(search: String) -> [SmartPlaylistRules.Token.InAlbum] {

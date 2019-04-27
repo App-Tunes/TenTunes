@@ -63,6 +63,10 @@ class TenTunesTest: XCTestCase {
     }
     
     override func setUp() {
+        if !AppDelegate.isTest {
+            fatalError("Not in a test environment!")
+        }
+
         if library.directory.deletingLastPathComponent() != FileManager.default.temporaryDirectory {
             fatalError("Library is not temp directory")
         }
@@ -71,10 +75,6 @@ class TenTunesTest: XCTestCase {
             fatalError("Media Directory is not temp directory")
         }
         
-        if !AppDelegate.isTest {
-            fatalError("Mot in a test environment!")
-        }
-
         if AppDelegate.defaults.bool(forKey: "WelcomeWindow") {
             fatalError("Welcome Window consumed! Most likely wrong user defaults!")
         }

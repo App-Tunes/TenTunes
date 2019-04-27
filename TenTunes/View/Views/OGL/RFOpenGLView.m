@@ -114,26 +114,29 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
     GLint swapInt = 1;
     [[self openGLContext] setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];
     
-    // Upload vertices
-    GLfloat vertexData[]= {
-        -1, -1, 0, 1,
-        -1,  1, 0, 1,
-         1,  1, 0, 1,
-         1, -1, 0, 1
-    };
-    
     glGenVertexArrays(1, &vertexArrayObject);
     glBindVertexArray(vertexArrayObject);
     
     glGenBuffers(1, &vertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, 4*8*sizeof(GLfloat), vertexData, GL_STATIC_DRAW);
+    [self uploadVertices];
     
     [self createDisplayLink];
 
     /////
     
     if ((error = glGetError()) != 0) { NSLog(@"Setup GL Error: %d", error); }
+}
+
+- (void)uploadVertices {
+    GLfloat vertexData[]= {
+        -1, -1, 0, 1,
+        -1,  1, 0, 1,
+        1,  1, 0, 1,
+        1, -1, 0, 1
+    };
+
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, 4*8*sizeof(GLfloat), vertexData, GL_STATIC_DRAW);
 }
 
 - (void)createDisplayLink {
@@ -175,7 +178,7 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
         CGLLockContext([[self openGLContext] CGLContextObj]);
         
         [[self openGLContext] update];
-        
+
         CGLUnlockContext([[self openGLContext] CGLContextObj]);
         [self unlockFocus];
     }

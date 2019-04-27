@@ -300,22 +300,33 @@ class ViewController: NSViewController {
 }
 
 extension ViewController: PlaylistControllerDelegate {
-    func playlistController(_ controller: PlaylistController, selectionDidChange playlists: [AnyPlaylist]) {
+    @discardableResult
+    func present(items: [PlaylistController.Item]) -> Bool {
+        let playlists = items.compactMap { $0.asAnyPlaylist }
+        
         guard !playlists.isEmpty else {
-            return
+            return false
         }
         
         if !AppDelegate.defaults[.keepFilterBetweenPlaylists], trackController.filterBar.isOpen {
             trackController.filterBar.close()
         }
-        
+
         _trackGuardView.present(elements: playlists)
+        
+        return true
     }
     
-    func playlistController(_ controller: PlaylistController, play playlist: AnyPlaylist) {
-        _trackGuardView.present(elements: [playlist])
+    func playlistController(_ controller: PlaylistController, selectionDidChange items: [PlaylistController.Item]) {
+        present(items: items)
+    }
+    
+    func playlistController(_ controller: PlaylistController, play item: PlaylistController.Item) {
+        guard let playlist = item.asAnyPlaylist as? Playlist else {
+            return
+        }
         
-        if (self.trackController.history.playlist as? Playlist) == (playlist as? Playlist) {
+        if (self.trackController.history.playlist as? Playlist) == playlist {
             // Use the existing history because of possible sort etc.
             self.player.play(at: nil, in: self.trackController.history)
         }

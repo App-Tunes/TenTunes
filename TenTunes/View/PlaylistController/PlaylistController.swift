@@ -9,8 +9,8 @@
 import Cocoa
 
 protocol PlaylistControllerDelegate : class {
-    func playlistController(_ controller: PlaylistController, selectionDidChange playlists: [AnyPlaylist])
-    func playlistController(_ controller: PlaylistController, play playlist: AnyPlaylist)
+    func playlistController(_ controller: PlaylistController, selectionDidChange items: [PlaylistController.Item])
+    func playlistController(_ controller: PlaylistController, play item: PlaylistController.Item)
 }
 
 @objc class PlaylistController: NSViewController {

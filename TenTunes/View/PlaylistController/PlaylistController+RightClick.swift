@@ -50,11 +50,8 @@ extension PlaylistController: NSMenuDelegate, NSMenuItemValidation {
             return
         }
         
-        guard let playlist = (_outlineView.item(atRow: clicked) as! Item).asPlaylist else {
-            return
-        }
-        
-        delegate?.playlistController(self, play: playlist)
+        let item = _outlineView.item(atRow: clicked) as! Item
+        delegate?.playlistController(self, play: item)
     }
     
     @IBAction func duplicatePlaylist(_ sender: Any) {

@@ -94,10 +94,7 @@ extension PlaylistController {
             return
         }
         
-        if let item = item as? Item.PlaylistItem {
-            // TODO Generify
-            delegate?.playlistController(self, play: item.playlist)
-        }
+        delegate?.playlistController(self, play: item)
     }
     
     func playlistInsertionPosition(row: Int?, allowInside: Bool = true) -> (PlaylistFolder, Int?) {

@@ -70,6 +70,10 @@ class TenTunesTest: XCTestCase {
         if library.mediaLocation.directory.deletingLastPathComponent().deletingLastPathComponent() != FileManager.default.temporaryDirectory {
             fatalError("Media Directory is not temp directory")
         }
+        
+        if !AppDelegate.isTest {
+            fatalError("Mot in a test environment!")
+        }
 
         if AppDelegate.defaults.bool(forKey: "WelcomeWindow") {
             fatalError("Welcome Window consumed! Most likely wrong user defaults!")

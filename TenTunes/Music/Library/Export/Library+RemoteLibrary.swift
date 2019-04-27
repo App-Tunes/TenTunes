@@ -70,6 +70,10 @@ extension Library.Export {
             self.dst = dst
             self.context = context
             self.pather = pather
+            
+            // Handle master specially since it has no parent
+            // Note: src[] could return in wrong context but it's not queried anyway
+            playlists[src[PlaylistRole.master]] = dst[PlaylistRole.master, in: context]
         }
         
         @discardableResult
@@ -104,8 +108,9 @@ extension Library.Export {
         func convert(_ playlist: Playlist) -> Playlist? {
             var otherPlaylist: Playlist? = nil
             
-            if playlist == self.src[PlaylistRole.tags] {
-                otherPlaylist = self.dst[PlaylistRole.tags]
+            if let role = src.role(of: playlist) {
+                print(role.index)
+                otherPlaylist = (self.dst.playlist(byRole: role, in: context) as! Playlist)
             }
             else if let playlist = playlist as? PlaylistManual {
                 let newPlaylist = PlaylistManual(context: context)
@@ -148,10 +153,10 @@ extension Library.Export {
             newPlaylist.creationDate = playlist.creationDate
             newPlaylist.iTunesID = playlist.iTunesID
             
-            let parent = (playlists[playlist.parent!] as? PlaylistFolder)
-                ?? dst[PlaylistRole.master, in: context]
+            // Mapped parent must be a folder
+            let parent = playlists[playlist.parent!] as! PlaylistFolder
             parent.addToChildren(newPlaylist)
-            
+
             return newPlaylist
         }
     }

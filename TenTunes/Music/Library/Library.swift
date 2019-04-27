@@ -108,7 +108,7 @@ class Library : NSPersistentContainer {
     
     var _saveDefer = [() -> Void]()
     var _roleDict = [Int: AnyObject]()
-    var _roleDictReverse = [UUID: AnyObject]()
+    var _roleDictReverse = [UUID: AnyRole]()
 
     var dynamicAdaptNeeded = true
     var adaptSemaphore = DispatchSemaphore(value: 1)
@@ -166,10 +166,14 @@ class Library : NSPersistentContainer {
     }
     
     subscript<Type>(_ role: LibraryRole<Type>, in context: NSManagedObjectContext?) -> Type {
-        return (_roleDict[role.index] as! AnyPlaylist).convert(to: context ?? viewContext)! as! Type
+        return self.playlist(byRole: role, in: context) as! Type
     }
     
-    func role<Type : AnyPlaylist>(of: Type) -> AnyObject? {
+    func playlist(byRole role: AnyRole, in context: NSManagedObjectContext? = nil) -> AnyPlaylist {
+        return (_roleDict[role.index] as! AnyPlaylist).convert(to: context ?? viewContext)!
+    }
+    
+    func role<Type : AnyPlaylist>(of: Type) -> AnyRole? {
         return _roleDictReverse[of.persistentID]
     }
     
@@ -333,7 +337,10 @@ extension Library {
     }
 }
 
-class LibraryRole<Type> {
+class LibraryRole<Type> : AnyRole {
+}
+
+class AnyRole {
     let index: Int
     
     init(_ index: Int) {

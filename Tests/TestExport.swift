@@ -13,7 +13,7 @@ import XCTest
 class TestExport: TenTunesTest {
     override func setUp() {
         super.setUp()
-        create(tracks: 3, groups: 2, tags: 2)
+        create(tracks: 3, groups: 3, tags: 2)
     }
     
     func testLibrary() {
@@ -23,6 +23,7 @@ class TestExport: TenTunesTest {
         
         groups[0].name = "Group0"
         groups[1].name = "Group1"
+        groups[2].name = "Group2"
 
         tags[0].name = "Tag0"
         tags[1].name = "Tag1"
@@ -33,9 +34,12 @@ class TestExport: TenTunesTest {
         groups[0].addToChildren(manual)
         
         let exportURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("Copy")
-        library.export(context).remoteLibrary([groups[1], manual], to: exportURL, pather: library.mediaLocation.pather())
+        guard let other = library.export(context).remoteLibrary([groups[1], manual, tags[0]], to: exportURL, pather: library.mediaLocation.pather()) else {
+            XCTFail("Failed remote library creation")
+            return
+        }
         
-        let other = Library(name: "TenTunes", at: exportURL, create: false)!
+        // TODO Also try saving and loading
         
         other.viewContext.performAndWait {
             let otherTracks = other.allTracks()
@@ -45,14 +49,19 @@ class TestExport: TenTunesTest {
             XCTAssert(otherTracks.contains { $0.title == "Track1" })
             XCTAssert(otherTracks.contains { $0.title == "Track2" })
             
+            let otherRootPlaylists = other[PlaylistRole.playlists].childrenList
+            XCTAssertEqual(otherRootPlaylists.count, 2)
+            XCTAssert(otherRootPlaylists.contains { $0.name == "Group0" })
+            XCTAssert(otherRootPlaylists.contains { $0.name == "Group1" })
+
             let otherPlaylists = other.allPlaylists()
-            XCTAssert(otherPlaylists.contains { $0.name == "Group0" })
-            XCTAssert(otherPlaylists.contains { $0.name == "Group1" })
+            XCTAssertEqual(otherPlaylists.of(type: PlaylistManual.self).count, 2)
             XCTAssert(otherPlaylists.contains { $0.name == "Manual" })
-            
+            XCTAssert(otherPlaylists.contains { $0.name == "Tag0" })
+
             let otherTags = other.allTags()
+            XCTAssertEqual(otherTags.count, 1)
             XCTAssert(otherTags.contains { $0.name == "Tag0" })
-            XCTAssert(otherTags.contains { $0.name == "Tag1" })
         }
         
         // Cleanup

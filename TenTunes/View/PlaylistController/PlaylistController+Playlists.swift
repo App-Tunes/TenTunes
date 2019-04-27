@@ -56,9 +56,13 @@ extension PlaylistController.Item {
             return PlaylistItem.persistentID(for: playlist)
         }
         
-        override func load(id: String, cache: PlaylistController.Cache) -> Child? {
-            return Library.shared.import().playlist(id: playlist)
+        class func load(id: String, cache: PlaylistController.Cache) -> Child? {
+            return Library.shared.import().playlist(id: id)
                 .map(cache.playlistItem)
+        }
+        
+        override func load(id: String, cache: PlaylistController.Cache) -> Child? {
+            return load(id: id, cache: cache)
         }
         
         override func accepts(item: Child) -> Bool {

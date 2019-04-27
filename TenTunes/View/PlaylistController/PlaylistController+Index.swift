@@ -105,9 +105,8 @@ extension PlaylistController.Item {
                 return match
             }
             
-            return items.compactMap {
-                ($0 as? PlaylistController.Folder)?.load(id: id, cache: cache)
-            }.first
+            // TODO Generify?
+            return PlaylistItem.load(id: id, cache: cache)
         }
         
         override func accepts(item: Child) -> Bool {

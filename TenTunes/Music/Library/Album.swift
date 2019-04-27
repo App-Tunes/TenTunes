@@ -49,8 +49,12 @@ class Album {
         set { tracks.forEach { $0.artworkData = newValue } }
     }
     
+    static func artworkPreview(_ tracks: [Track]) -> NSImage {
+        return tracks.compactMap { $0.artworkPreview }.first ?? Album.missingArtwork
+    }
+    
     var artworkPreview: NSImage? {
-        get { return tracks.compactMap { $0.artworkPreview }.first ?? Album.missingArtwork }
+        get { return Album.artworkPreview(tracks) }
     }
     
     var year: Int16 {

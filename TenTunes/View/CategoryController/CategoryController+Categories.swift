@@ -17,7 +17,7 @@ extension CategoryController.Item {
         }
         
         lazy var _tracks = album.tracks
-        lazy var _artwork = Album.artwork(_tracks)
+        lazy var _artwork = Album.artworkPreview(_tracks)
         
         override var title: String { return album.title }
         override var subtitle: String { return Artist.describe(album.author) }

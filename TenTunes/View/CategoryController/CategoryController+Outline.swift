@@ -15,6 +15,30 @@ extension CategoryController {
     }
 }
 
+extension CategoryController {
+    func context(forItem item: TrackItem) -> TrackActions.Context {
+        let parent = _outlineView.parent(forItem: item) as! Category
+        // TODO Add everything above track
+        // Drop everything before track
+        let tracks = Array(parent.tracks.drop { $0 != item.track })
+        return .none(tracks: tracks)
+    }
+    
+    @IBAction
+    func doubleClick(_ sender: AnyObject?) {
+        guard _outlineView.clickedRow >= 0, let item = _outlineView.item(atRow: _outlineView.clickedRow) as? Item else {
+            return
+        }
+        
+        if let item = item as? Category {
+            _outlineView.toggleItemExpanded(item)
+        }
+        else if let item = item as? TrackItem {
+            TrackActions.create(context(forItem: item))?.menuPlay(self)
+        }
+    }
+}
+
 extension CategoryController: NSOutlineViewDataSource {
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
         guard let item = item as! Item? else {
@@ -88,7 +112,9 @@ extension CategoryController : NSMenuDelegate {
 
     func menuNeedsUpdate(_ menu: NSMenu) {
         if let items = menuItems as? [TrackItem] {
-            trackActions = TrackActions.create(.none(tracks: items.map { $0.track }))
+            let context: TrackActions.Context = (items.onlyElement ?=> self.context)
+                ?? .none(tracks: items.map { $0.track })
+            trackActions = TrackActions.create(context)
             trackActions?.hijack(menu: menu)
             return
         }

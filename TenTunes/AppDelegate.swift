@@ -226,6 +226,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
         
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        guard ViewController.shared != nil else {
+            // Not set up yet
+            return true
+        }
+        
         if !flag {
             ViewController.shared.view.window?.makeKeyAndOrderFront(self)
         }

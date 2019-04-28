@@ -59,10 +59,6 @@ class TrackController: NSViewController {
     var trackEditor : TrackEditor!
     @IBOutlet var trackEditorGuard : MultiplicityGuardView!
 
-    var playTrack: ((Int, Double?) -> Swift.Void)?
-    var playTrackNext: ((Int) -> Swift.Void)?
-    var playTrackLater: ((Int) -> Swift.Void)?
-
     var history: PlayHistory = PlayHistory(playlist: PlaylistEmpty()) {
         didSet {
             _tableView?.animateDifference(from: oldValue.tracks, to: history.tracks)
@@ -74,16 +70,13 @@ class TrackController: NSViewController {
     @IBOutlet var _emptyIndicator: NSImageView!
     
     var mode: Mode = .tracksList
-    
-    @IBOutlet var _moveToMediaDirectory: NSMenuItem!
-    @IBOutlet var _analyzeSubmenu: NSMenuItem!
-    @IBOutlet var _showInPlaylistSubmenu: NSMenuItem!
-    @IBOutlet var _addToPlaylistSubmenu: NSMenuItem!
-    
+        
     @IBOutlet var _trackCounter: NSTextField!
     
     var observeHiddenToken: NSKeyValueObservation?
     var observeTrackWord: [DefaultsObservation] = []
+    
+    var trackActions: TrackActions?
 
     enum Mode {
         case tracksList, queue, title
@@ -109,7 +102,8 @@ class TrackController: NSViewController {
             }
         }
 
-        trackEditor = TrackEditor()
+        trackEditor = TrackEditor(nibName: .init("TrackEditor"), bundle: nil)
+        trackEditor.loadView()
         
         trackEditorGuard.delegate = self
         trackEditorGuard.contentView = trackEditor.view
@@ -175,18 +169,6 @@ class TrackController: NSViewController {
         
         self._loadingIndicator.isHidden = true
         observeHiddenToken = nil // We don't want loading animations round here
-        
-        playTrackNext = { [unowned self] in
-            let tracksBefore = self.history.tracks
-            self.history.enqueue(tracks: [self.history.track(at: $0)!], at: .start)
-            self._tableView.animateDifference(from: tracksBefore, to: self.history.tracks)
-        }
-        
-        playTrackLater = { [unowned self] in
-            let tracksBefore = self.history.tracks
-            self.history.enqueue(tracks: [self.history.track(at: $0)!], at: .end)
-            self._tableView.animateDifference(from: tracksBefore, to: self.history.tracks)
-        }
         
         for column in _tableView.tableColumns {
             switch column.identifier {

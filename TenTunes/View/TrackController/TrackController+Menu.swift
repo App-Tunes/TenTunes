@@ -9,7 +9,6 @@
 import Foundation
 
 extension TrackController: NSUserInterfaceValidations {
-    
     func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
         guard let action = item.action else {
             return false

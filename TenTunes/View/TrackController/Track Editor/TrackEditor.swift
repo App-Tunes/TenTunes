@@ -59,7 +59,7 @@ class TrackEditor: NSViewController {
         attributeEdited(\Track.album)
     }
     
-    override func viewDidLoad() {
+    override func awakeFromNib() {
         tagEditor = TagEditor(delegate: self)
         
         _editorOutline.target = self
@@ -67,12 +67,10 @@ class TrackEditor: NSViewController {
         _editorOutline.autosaveName = .init("trackEditor")
         _editorOutline.autosaveExpandedItems = true
         _editorOutline.setDraggingSourceOperationMask(.every, forLocal: false) // ESSENTIAL
-
+        
         if AppDelegate.defaults.consume(toggle: "initialTrackEditorExpansion") {
             _editorOutline.expandItem(nil, expandChildren: true)
         }
-                
-        tagEditor.viewDidLoad()
     }
 
     func show(tracks: [Track]) {

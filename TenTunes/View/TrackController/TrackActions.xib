@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="TrackActions" customModule="TenTunes" customModuleProvider="target">
+            <connections>
+                <outlet property="_addToPlaylistSubmenu" destination="l3K-sC-1Ro" id="2zz-eG-bdw"/>
+                <outlet property="_analyzeSubmenu" destination="3UU-e9-hAd" id="qI9-ns-kbX"/>
+                <outlet property="_menu" destination="2uI-5B-gEP" id="CyR-zq-tmr"/>
+                <outlet property="_moveToMediaDirectory" destination="v9v-T2-KeR" id="n5K-af-0pp"/>
+                <outlet property="_showInPlaylistSubmenu" destination="dEx-Tn-DEC" id="1eA-sQ-3qa"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+        </customView>
+        <menu title="Track" id="2uI-5B-gEP" userLabel="Track">
+            <items>
+                <menuItem title="Play" id="7J7-7w-a8c">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="menuPlay:" target="-2" id="nrc-fk-3vd"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Play Next" id="1jH-E3-OP9">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="menuPlayNext:" target="-2" id="TtQ-kb-6w2"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Play Later" id="dwC-Sz-Qfn">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="menuPlayLater:" target="-2" id="tkj-H6-HH6"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="bOE-Mr-fz2"/>
+                <menuItem title="Show Info" id="w10-BA-8YI">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="menuShowInfo:" target="-2" id="5DD-cr-x9U"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="oVa-0D-Kks"/>
+                <menuItem title="Show in Finder" id="zQv-7L-PaQ">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="menuShowInFinder:" target="-2" id="WAR-N8-yIj"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Move to Media Directory" id="v9v-T2-KeR">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Move to Media Directory" id="wwY-tk-Wav">
+                        <items>
+                            <menuItem title="By Moving" id="7Ea-Bk-8vm">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="manageByMoving:" target="-2" id="c8R-Pd-tsC"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="By Copying" id="ziT-yv-4kn">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="manageByCopying:" target="-2" id="0bs-Su-TfW"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="t8q-wU-H2j"/>
+                <menuItem title="Add to Playlist" id="l3K-sC-1Ro">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Add to Playlist" id="zkH-4P-rcU">
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="CLI-Hj-v9I"/>
+                        </connections>
+                    </menu>
+                </menuItem>
+                <menuItem title="Show in Playlist" id="dEx-Tn-DEC">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Show in Playlist" id="k2G-Ub-lVf">
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="lC9-pG-J78"/>
+                        </connections>
+                    </menu>
+                </menuItem>
+                <menuItem title="Show Author" id="N1d-gc-1Hx">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="menuShowAuthor:" target="-2" id="k7K-ag-Vc3"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Show Album" id="oLd-6l-R6B">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="menuShowAlbum:" target="-2" id="Wvf-cf-69P"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="EXC-Uj-zk4"/>
+                <menuItem title="Analyze" id="zIa-mG-u8H">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="menuAnalyze:" target="-2" id="rkP-OL-Afm"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Analyze" id="3UU-e9-hAd">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Analyze" id="D80-AG-xb8">
+                        <items>
+                            <menuItem title="All" id="JqK-EV-vQa">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="menuAnalyze:" target="-2" id="juQ-S3-Gem"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Only where Missing" id="EV2-uX-Hs5">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="menuAnalyzeWhereMissing:" target="-2" id="Nji-7N-92g"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Analyze BPM &amp; Key" id="Ayq-lH-rmd">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="menuAnalyzeMetadata:" target="-2" id="xX9-an-si5"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Re-Fetch Metadata" id="bEK-vX-n7g">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="menuRefetchMetadata:" target="-2" id="lFc-b0-vkG"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="QwM-v6-LaP"/>
+                <menuItem title="Remove from Queue" id="eJu-LX-lmi">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="removeFromQueue:" target="-2" id="Iya-d5-Jhg"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Remove from Playlist" id="tWr-RL-aKT">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="removeFromPlaylist:" target="-2" id="Vmz-dD-HnF"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Delete from Library" id="xjg-An-qCL">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="deleteTrack:" target="-2" id="k2P-CX-zrm"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <connections>
+                <outlet property="delegate" destination="-2" id="rgz-3c-ZHl"/>
+            </connections>
+            <point key="canvasLocation" x="644" y="134"/>
+        </menu>
+    </objects>
+</document>

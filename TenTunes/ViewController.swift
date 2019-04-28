@@ -116,24 +116,6 @@ class ViewController: NSViewController {
         
         _trackGuardView.present(elements: [playlistController.masterItem!])
         
-        trackController.playTrack = { [unowned self] in
-            self.player.play(at: $0, in: self.trackController.history) // TODO Support for multiple
-            if let position = $1 {
-                self.player.setPosition(position)
-            }
-        }
-        trackController.playTrackNext = { [unowned self] in
-            // TODO Support for multiple
-            let next = [self.trackController.history.track(at: $0)!]
-            self.player.enqueue(tracks: next, at: .start)
-        }
-        
-        trackController.playTrackLater = { [unowned self] in
-            // TODO Support for multiple
-            let next = [self.trackController.history.track(at: $0)!]
-            self.player.enqueue(tracks: next, at: .end)
-        }
-        
         _queueButton.wantsLayer = true
         _queueButton.layer!.borderWidth = 0.8
         _queueButton.layer!.borderColor = NSColor(white: 0.8, alpha: 0.1).cgColor
@@ -145,14 +127,6 @@ class ViewController: NSViewController {
         queuePopover.contentViewController = queueController
         queuePopover.animates = true
         queuePopover.behavior = .transient
-        queueController.playTrack = { [unowned self] in
-            if self.player.history === self.queueController.history {
-                self.player.play(moved: $0 - self.queueController.history.playingIndex)
-                if let position = $1 {
-                    self.player.setPosition(position)
-                }
-            }
-        }
         
         taskPopover = NSPopover()
         taskPopover.contentViewController = taskViewController

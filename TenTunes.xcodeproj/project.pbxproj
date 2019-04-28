@@ -179,6 +179,8 @@
 		80CAED192274B68A001DD856 /* CategoryController+Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAED182274B68A001DD856 /* CategoryController+Categories.swift */; };
 		80CAED1B2274D062001DD856 /* StylerMyler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAED1A2274D062001DD856 /* StylerMyler.swift */; };
 		80CAED1D2274DD4C001DD856 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAED1C2274DD4C001DD856 /* Genre.swift */; };
+		80CAED202274E996001DD856 /* TrackActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CAED1E2274E996001DD856 /* TrackActions.swift */; };
+		80CAED212274E996001DD856 /* TrackActions.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80CAED1F2274E996001DD856 /* TrackActions.xib */; };
 		80CB652C20514E050031A6D7 /* Library+Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652B20514E050031A6D7 /* Library+Export.swift */; };
 		80CB652F2052C6CD0031A6D7 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB652E2052C6CD0031A6D7 /* Operators.swift */; };
 		80CB65332052C9530031A6D7 /* Cocoa+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB65322052C9530031A6D7 /* Cocoa+TT.swift */; };
@@ -469,6 +471,8 @@
 		80CAED182274B68A001DD856 /* CategoryController+Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryController+Categories.swift"; sourceTree = "<group>"; };
 		80CAED1A2274D062001DD856 /* StylerMyler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StylerMyler.swift; sourceTree = "<group>"; };
 		80CAED1C2274DD4C001DD856 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
+		80CAED1E2274E996001DD856 /* TrackActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackActions.swift; sourceTree = "<group>"; };
+		80CAED1F2274E996001DD856 /* TrackActions.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackActions.xib; sourceTree = "<group>"; };
 		80CB652B20514E050031A6D7 /* Library+Export.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Export.swift"; sourceTree = "<group>"; };
 		80CB652E2052C6CD0031A6D7 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		80CB65322052C9530031A6D7 /* Cocoa+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocoa+TT.swift"; sourceTree = "<group>"; };
@@ -1040,6 +1044,8 @@
 				8071F63121AC250A0005685B /* TrackController+Updates.swift */,
 				80074CF7204583CF0055B87E /* TrackController.xib */,
 				80E7E6B521B6004E00B1A31D /* PlayImageView.swift */,
+				80CAED1E2274E996001DD856 /* TrackActions.swift */,
+				80CAED1F2274E996001DD856 /* TrackActions.xib */,
 				807D7B5F21A7FD340021C73B /* Track Editor */,
 				8079F6D12106551100B7A278 /* SmartPlaylistRulesController.swift */,
 				8079F6D22106551100B7A278 /* SmartPlaylistRulesController.xib */,
@@ -1196,6 +1202,7 @@
 				809CEABC2163EFCD008D6AC0 /* superpowered_splash.svg in Resources */,
 				8079F6D42106551100B7A278 /* SmartPlaylistRulesController.xib in Resources */,
 				80F8F6F42053EA2C004A07D6 /* TrackEditor.xib in Resources */,
+				80CAED212274E996001DD856 /* TrackActions.xib in Resources */,
 				807092EC20C69D8F00DFED53 /* ExportPlaylistsController.xib in Resources */,
 				807D749D21C4074B00D3B610 /* subtract.fs in Resources */,
 				8079F6D82106661A00B7A278 /* HideableBar.xib in Resources */,
@@ -1409,6 +1416,7 @@
 				8071FA75220EF627000B8868 /* Defaults.swift in Sources */,
 				80B6DF9F219EFAF0003EA487 /* VisualizerViewController+MIDI.swift in Sources */,
 				804A15FF217252BC00CBF56F /* Cloud.swift in Sources */,
+				80CAED202274E996001DD856 /* TrackActions.swift in Sources */,
 				80F854FF2069180A009A8FBE /* TrackController+RightClick.swift in Sources */,
 				808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */,
 				80CAED132274ACB6001DD856 /* CategoryController.swift in Sources */,

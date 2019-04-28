@@ -105,22 +105,20 @@ extension TrackController {
 
     }
     
-    func playCurrentTrack() {
-        if selectedTrack != nil {
-            playTrack?(self._tableView.selectedRow, nil)
+    func play(atRow row: Int) {
+        guard history.track(at: row) != nil else {
+            return
         }
+
+        ViewController.shared.player.play(at: row, in: history)
     }
     
     @IBAction func enterAction(_ sender: Any) {
-        playCurrentTrack()
+        play(atRow: self._tableView.selectedRow)
     }
     
     @IBAction func doubleClick(_ sender: Any) {
-        let row = _tableView.clickedRow
-        
-        if history.track(at: row) != nil {
-            playTrack?(row, nil)
-        }
+        play(atRow: _tableView.clickedRow)
     }
     
     func reload(track: Track) {
@@ -133,7 +131,8 @@ extension TrackController {
     @IBAction func waveformViewClicked(_ sender: Any?) {
         if let view = sender as? WaveformView {
             if let row = view.superview ?=> _tableView.row, history.track(at: row) != nil {
-                playTrack?(row, view.location)
+                play(atRow: row)
+                view.location ?=> ViewController.shared.player.setPosition
             }
             
             view.location = nil
@@ -170,7 +169,7 @@ extension TrackController {
             return
         }
         
-        playTrack?(row, nil)
+        play(atRow: row)
     }
 
     func select(tracks: [Track]) {

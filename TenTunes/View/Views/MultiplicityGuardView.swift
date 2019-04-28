@@ -136,13 +136,6 @@ class MultiplicityGuardView: NSView {
     }
     
     func present(elements: [Element]) {
-        guard !isHidden else {
-            deferredElements = elements
-            showError(text: "View Hidden")
-            return
-        }
-        deferredElements = nil
-        
         if elements.count == 0 {
             showError(text: errorSelectionEmpty)
         }
@@ -155,6 +148,13 @@ class MultiplicityGuardView: NSView {
     }
     
     func show(elements: [Element]) {
+        guard !isHidden else {
+            deferredElements = elements
+            showError(text: "View Hidden")
+            return
+        }
+        deferredElements = nil
+
         switch delegate?.multiplicityGuard(self, show: elements) {
         case .error(let text)?:
             showError(text: text)

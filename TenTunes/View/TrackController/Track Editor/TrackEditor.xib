@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -379,6 +379,7 @@
                                             <action trigger="doubleAction" selector="outlineViewDoubleAction:" target="-2" id="zWq-9F-E0c"/>
                                             <outlet property="dataSource" destination="-2" id="G0U-Pz-e8e"/>
                                             <outlet property="delegate" destination="-2" id="e8V-ZG-36k"/>
+                                            <outlet property="menu" destination="H4p-hX-Y5i" id="e9r-z8-uzi"/>
                                         </connections>
                                     </outlineView>
                                 </subviews>
@@ -413,12 +414,18 @@
             </constraints>
             <point key="canvasLocation" x="148" y="479"/>
         </customView>
+        <menu id="H4p-hX-Y5i">
+            <connections>
+                <outlet property="delegate" destination="-2" id="ApZ-5Y-lVk"/>
+            </connections>
+            <point key="canvasLocation" x="428" y="331"/>
+        </menu>
     </objects>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
         <image name="album" width="198" height="200"/>
         <image name="artist" width="178" height="200"/>
-        <image name="music_missing" width="250" height="250"/>
+        <image name="music_missing" width="500" height="500"/>
         <image name="name" width="206" height="154"/>
         <image name="tag" width="204" height="200"/>
     </resources>

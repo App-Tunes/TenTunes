@@ -30,6 +30,8 @@ class TagEditor: NSObject {
     var masterItem: AnyObject { return delegate!.tagEditorMasterItem }
     var context: NSManagedObjectContext { return delegate!.tagEditorContext }
 
+    var trackActions: TrackActions?
+
     func viewDidLoad() {
         NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: .NSManagedObjectContextObjectsDidChange, object: Library.shared.viewContext)
     }
@@ -164,6 +166,25 @@ extension TagEditor: NSOutlineViewDataSource {
             return Library.shared.export().pasteboardItem(representing: playlist)
         default:
             return nil
+        }
+    }
+}
+
+extension TagEditor: NSMenuDelegate {
+    var menuItems: [ViewableTag]? {
+        return outlineView.clickedRows.compactMap { outlineView.item(atRow: $0) }
+            as? [ViewableTag]
+    }
+    
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        guard let items = menuItems else {
+            return
+        }
+        
+        if let tracks = items.caseAs(ViewableTag.related) {
+            trackActions = TrackActions.create(.none(tracks: tracks))
+            trackActions?.hijack(menu: menu)
+            return
         }
     }
 }

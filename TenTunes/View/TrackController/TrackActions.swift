@@ -260,7 +260,7 @@ class TrackActions: MenuHijacker, NSMenuItemValidation {
             return
         }
         
-        if viewController._trackGuardView.contentView != viewController.trackController {
+        if viewController._trackGuardView.contentView != viewController.trackController.view {
             // Show the track controller first
             viewController.playlistController.select(.master)
         }

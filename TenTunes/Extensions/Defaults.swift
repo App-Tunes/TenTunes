@@ -15,7 +15,7 @@ extension UserDefaults {
     }
     
     func canToggle(_ toggle: String) -> Bool {
-        return bool(forKey: toggle)
+        return !bool(forKey: toggle)
     }
     
     @discardableResult

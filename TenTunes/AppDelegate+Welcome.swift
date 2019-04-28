@@ -96,7 +96,7 @@ extension AppDelegate {
         let force: Bool? = AppDelegate.isTest ? false : nil
         #endif
         
-        let isFirstLaunch = AppDelegate.defaults.consume(toggle: "WelcomeWindow")
+        let isFirstLaunch = AppDelegate.defaults.canToggle("WelcomeWindow")
         if force ?? isFirstLaunch {
             if workflow.isEmpty {
                 workflow.addSteps([
@@ -118,7 +118,10 @@ extension AppDelegate {
                             #endif
                             return true
                         },
-                    ]))
+                    ])),
+                    .task {
+                        AppDelegate.defaults.consume(toggle: "WelcomeWindow")
+                    }
                 ])
             }
         }

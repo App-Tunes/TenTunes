@@ -14,6 +14,11 @@ extension UserDefaults {
         return defaults
     }
     
+    func canToggle(_ toggle: String) -> Bool {
+        return bool(forKey: toggle)
+    }
+    
+    @discardableResult
     func consume(toggle: String) -> Bool {
         let consumed = bool(forKey: toggle)
         if !consumed { set(true, forKey: toggle) }

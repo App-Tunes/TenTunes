@@ -36,7 +36,7 @@ class MenuHijacker: NSViewController, NSMenuDelegate {
         baseMenu.removeAllItems() // Free items for use
         selfBackup?.apply(to: menu)
         
-        (self as NSMenuDelegate).menuNeedsUpdate?(menu)
+        menuNeedsUpdate(menu)
     }
 
     func menuDidClose(_ menu: NSMenu) {
@@ -53,80 +53,14 @@ class MenuHijacker: NSViewController, NSMenuDelegate {
         }
     }
     
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+    }
+    
     var baseMenu: NSMenu { fatalError() }
 }
 
-extension TrackActions {
-    func menuNeedsUpdate(_ menu: NSMenu) {
-        let tracks = context.tracks
-        
-        guard menu !== _showInPlaylistSubmenu.submenu else {
-            menu.removeAllItems()
-            for playlist in Library.shared.playlists(containing: tracks.first!) {
-                let item = NSMenuItem(title: playlist.name, action: #selector(menuShowInPlaylist), keyEquivalent: "")
-                item.target = self
-                item.representedObject = playlist
-                menu.addItem(item)
-            }
-            
-            return
-        }
-        
-        guard menu !== _addToPlaylistSubmenu.submenu else {
-            menu.removeAllItems()
-            for playlist in Library.shared.allPlaylists().of(type: PlaylistManual.self)
-                .filter({ !Library.shared.isTag(playlist: $0) })
-                .filter({ playlist in tracks.anySatisfy { !playlist.tracksList.contains($0) } }) {
-                    
-                    let item = NSMenuItem(title: playlist.name, action: #selector(menuAddToPlaylist), keyEquivalent: "")
-                    item.target = self
-                    item.representedObject = playlist
-                    menu.addItem(item)
-            }
-            
-            return
-        }
-        
-        if tracks.count < 1 {
-            menu.cancelTrackingWithoutAnimation()
-        }
-        
-        menu.item(withAction: #selector(menuShowInfo))?.title = trackEditorWantsUpdate ? "Show Info" : "Hide Info"
-        
-        _showInPlaylistSubmenu.isVisible = tracks.count == 1
-        if _showInPlaylistSubmenu.isVisible {
-            _showInPlaylistSubmenu.isEnabled = !Library.shared.playlists(containing: tracks.first!).isEmpty
-        }
-        
-        menu.item(withAction: #selector(menuShowAuthor(_:)))?.isVisible = tracks.count == 1 && tracks.first!.author != nil
-        menu.item(withAction: #selector(menuShowAlbum(_:)))?.isVisible = tracks.count == 1 && tracks.first!.album != nil
-        
-        _moveToMediaDirectory.isHidden = tracks.noneSatisfy { !$0.usesMediaDirectory && $0.liveURL != nil }
-        
-        let someNeedAnalysis = tracks.anySatisfy { $0.liveURL != nil }
-        _analyzeSubmenu.isVisible = someNeedAnalysis && tracks.anySatisfy { $0.analysisData != nil } && tracks.anySatisfy { $0.analysisData == nil }
-        menu.item(withAction: #selector(menuAnalyze))?.isVisible = someNeedAnalysis && _analyzeSubmenu.isHidden
-        menu.item(withAction: #selector(menuAnalyzeMetadata))?.isVisible = someNeedAnalysis
-        
-        menu.item(withAction: #selector(removeFromPlaylist(_:)))?.isVisible = (context.playlist ?=> Library.shared.isPlaylist) ?? false
-        menu.item(withAction: #selector(removeFromQueue(_:)))?.isVisible = tracks.anySatisfy(player.history.tracks.contains)
-    }
-    
-    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        // Right Click Menu
-        if menuItem.action == #selector(removeFromPlaylist(_:)) {
-            return (context.playlist as? ModifiablePlaylist)?.supports(action: .delete) ?? false
-        }
-        
-        if menuItem.action == #selector(menuShowInFinder) {
-            return context.tracks.onlyElement?.liveURL != nil
-        }
-        
-        return true
-    }
-}
-
-class TrackActions: MenuHijacker {
+class TrackActions: MenuHijacker, NSMenuItemValidation {
     enum Context {
         case playlist(at: [Int], in: PlayHistory)
         case none(tracks: [Track])
@@ -202,6 +136,74 @@ class TrackActions: MenuHijacker {
         actions.loadView()
         actions.context = context
         return actions
+    }
+    
+    override func menuNeedsUpdate(_ menu: NSMenu) {
+        let tracks = context.tracks
+        
+        guard menu !== _showInPlaylistSubmenu.submenu else {
+            menu.removeAllItems()
+            for playlist in Library.shared.playlists(containing: tracks.first!) {
+                let item = NSMenuItem(title: playlist.name, action: #selector(menuShowInPlaylist), keyEquivalent: "")
+                item.target = self
+                item.representedObject = playlist
+                menu.addItem(item)
+            }
+            
+            return
+        }
+        
+        guard menu !== _addToPlaylistSubmenu.submenu else {
+            menu.removeAllItems()
+            for playlist in Library.shared.allPlaylists().of(type: PlaylistManual.self)
+                .filter({ !Library.shared.isTag(playlist: $0) })
+                .filter({ playlist in tracks.anySatisfy { !playlist.tracksList.contains($0) } }) {
+                    
+                    let item = NSMenuItem(title: playlist.name, action: #selector(menuAddToPlaylist), keyEquivalent: "")
+                    item.target = self
+                    item.representedObject = playlist
+                    menu.addItem(item)
+            }
+            
+            return
+        }
+        
+        if tracks.count < 1 {
+            menu.cancelTrackingWithoutAnimation()
+        }
+        
+        menu.item(withAction: #selector(menuShowInfo))?.title = trackEditorWantsUpdate ? "Show Info" : "Hide Info"
+        
+        _showInPlaylistSubmenu.isVisible = tracks.count == 1
+        if _showInPlaylistSubmenu.isVisible {
+            _showInPlaylistSubmenu.isEnabled = !Library.shared.playlists(containing: tracks.first!).isEmpty
+        }
+        
+        menu.item(withAction: #selector(menuShowAuthor(_:)))?.isVisible = tracks.count == 1 && tracks.first!.author != nil
+        menu.item(withAction: #selector(menuShowAlbum(_:)))?.isVisible = tracks.count == 1 && tracks.first!.album != nil
+        
+        _moveToMediaDirectory.isHidden = tracks.noneSatisfy { !$0.usesMediaDirectory && $0.liveURL != nil }
+        
+        let someNeedAnalysis = tracks.anySatisfy { $0.liveURL != nil }
+        _analyzeSubmenu.isVisible = someNeedAnalysis && tracks.anySatisfy { $0.analysisData != nil } && tracks.anySatisfy { $0.analysisData == nil }
+        menu.item(withAction: #selector(menuAnalyze))?.isVisible = someNeedAnalysis && _analyzeSubmenu.isHidden
+        menu.item(withAction: #selector(menuAnalyzeMetadata))?.isVisible = someNeedAnalysis
+        
+        menu.item(withAction: #selector(removeFromPlaylist(_:)))?.isVisible = (context.playlist ?=> Library.shared.isPlaylist) ?? false
+        menu.item(withAction: #selector(removeFromQueue(_:)))?.isVisible = tracks.anySatisfy(player.history.tracks.contains)
+    }
+    
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        // Right Click Menu
+        if menuItem.action == #selector(removeFromPlaylist(_:)) {
+            return (context.playlist as? ModifiablePlaylist)?.supports(action: .delete) ?? false
+        }
+        
+        if menuItem.action == #selector(menuShowInFinder) {
+            return context.tracks.onlyElement?.liveURL != nil
+        }
+        
+        return true
     }
     
     @IBAction func doubleClick(_ sender: Any) {

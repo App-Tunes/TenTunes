@@ -110,7 +110,7 @@ extension TrackController {
             return
         }
 
-        ViewController.shared.player.play(at: row, in: history)
+        TrackActions.create(.playlist(at: [row], in: history)).menuPlay(self)
     }
     
     @IBAction func enterAction(_ sender: Any) {

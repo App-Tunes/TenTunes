@@ -127,6 +127,11 @@ extension Library.Export {
         }
         catch {
             DispatchQueue.main.async {
+                if error.localizedDescription.contains("The data couldn’t be written because of an error in the destination for the data.") {
+                    // TODO Instead handle properly
+                    return
+                }
+                
                 print(error)
                 NSAlert(error: error).runModal()
             }

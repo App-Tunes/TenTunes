@@ -664,20 +664,6 @@
             <point key="canvasLocation" x="403.5" y="610.5"/>
         </splitView>
         <menu id="8pv-3N-TDF">
-            <items>
-                <menuItem title="Item 1" id="Gdn-cz-b25">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="enterAction:" target="-2" id="Ko8-SJ-oZ1"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Item 2" id="hz4-Ox-vgo">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="Item 3" id="g3w-vk-kVk">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-            </items>
             <connections>
                 <outlet property="delegate" destination="-2" id="EUn-BK-mAc"/>
             </connections>

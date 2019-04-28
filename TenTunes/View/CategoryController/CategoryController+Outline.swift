@@ -77,7 +77,7 @@ extension CategoryController: NSOutlineViewDelegate {
             return
         }
         
-        TrackActions.create(.none(tracks: item.tracks)).menuPlay(self)
+        TrackActions.create(.none(tracks: item.tracks))?.menuPlay(self)
     }
 }
 
@@ -89,7 +89,7 @@ extension CategoryController : NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
         if let items = menuItems as? [TrackItem] {
             trackActions = TrackActions.create(.none(tracks: items.map { $0.track }))
-            trackActions!.hijack(menu: menu)
+            trackActions?.hijack(menu: menu)
             return
         }
         

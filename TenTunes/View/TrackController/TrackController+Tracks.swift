@@ -106,11 +106,7 @@ extension TrackController {
     }
     
     func play(atRow row: Int) {
-        guard history.track(at: row) != nil else {
-            return
-        }
-
-        TrackActions.create(.playlist(at: [row], in: history)).menuPlay(self)
+        TrackActions.create(.playlist(at: [row], in: history))?.menuPlay(self)
     }
     
     @IBAction func enterAction(_ sender: Any) {

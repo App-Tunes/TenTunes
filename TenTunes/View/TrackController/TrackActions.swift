@@ -131,7 +131,11 @@ class TrackActions: MenuHijacker, NSMenuItemValidation {
         return viewController.tasker
     }
 
-    static func create(_ context: Context) -> TrackActions {
+    static func create(_ context: Context) -> TrackActions? {
+        guard context.tracks.count > 0 else {
+            return nil
+        }
+        
         let actions = TrackActions(nibName: .init("TrackActions"), bundle: nil)
         actions.loadView()
         actions.context = context

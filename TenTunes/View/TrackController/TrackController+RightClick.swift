@@ -11,7 +11,7 @@ import Foundation
 extension TrackController: NSMenuDelegate, NSMenuItemValidation {
     func menuNeedsUpdate(_ menu: NSMenu) {
         trackActions = TrackActions.create(.playlist(at: _tableView.clickedRows, in: history))
-        trackActions!.hijack(menu: menu)
+        trackActions?.hijack(menu: menu)
     }
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {

@@ -97,16 +97,17 @@ extension CategoryController : NSMenuDelegate {
             menu.cancelTrackingWithoutAnimation()
             return
         }
-        
+
         menu.removeAllItems()
-        item.addMenuItems(to: menu)
-        
+
         if let item = item as? Category {
             let playAllItem = NSMenuItem(title: "Play All", action: #selector(playAll(_:)), target: self)
             playAllItem.representedObject = item
             menu.addItem(playAllItem)
         }
-        
+
+        item.addMenuItems(to: menu)
+
         if menu.items.isEmpty {
             menu.cancelTrackingWithoutAnimation()
         }

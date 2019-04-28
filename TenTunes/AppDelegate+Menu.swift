@@ -8,7 +8,12 @@
 
 import Cocoa
 
-extension AppDelegate {
+extension AppDelegate: NSMenuItemValidation {
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        // If not, we aren't ready
+        return ViewController.shared != nil
+    }
+    
     @IBAction func revealExports(_ sender: Any) {
         NSWorkspace.shared.activateFileViewerSelecting([Library.shared.export().url(title: nil)])
     }

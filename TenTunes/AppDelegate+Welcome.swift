@@ -110,9 +110,12 @@ extension AppDelegate {
                     )),
                     .interaction(OptionsStep.create(text: "What best describes you is...", options: [
                         .create(text: "Music Listener", image: NSImage(named: .musicName)!) {
+                            AppDelegate.defaults[.initialUsecaseAnswer] = .casual
+                            // Do nothing - just use default settings.
                             return true
                         },
                         .create(text: "DJ", image: NSImage(named: .albumName)!) {
+                            AppDelegate.defaults[.initialUsecaseAnswer] = .casual
                             #if !DEBUG_WELCOME
                             AppDelegate.switchToDJ()
                             #endif

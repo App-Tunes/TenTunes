@@ -17,10 +17,19 @@ extension Defaults.Keys {
         "dateAddedColumn" : true,
         "keyColumn" : true,
         "bpmColumn" : true
-        ])
+    ])
     
+    enum UsecaseAnswer: String, Codable {
+        case casual = "casual"
+        case dj = "dj"
+    }
+    static let initialUsecaseAnswer = Key<UsecaseAnswer>("initialUsecaseAnswer", default: .casual)
+
     static func eagerLoad() {
         // Meh, but static vars are lazily loaded......
+        
+        // We eager-load so the default values are
+        // applied and used in-gui
         let array: [Defaults.Keys] = [
             .trackColumnsHidden,
             

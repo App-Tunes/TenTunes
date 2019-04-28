@@ -129,11 +129,14 @@ extension TrackActions {
 class TrackActions: MenuHijacker {
     enum Context {
         case playlist(at: [Int], in: PlayHistory)
+        case none(tracks: [Track])
 
         var historyIndex: ([Int], PlayHistory)? {
             switch self {
             case .playlist(let indices, let history):
                 return (indices, history)
+            default:
+                return nil
             }
         }
         
@@ -142,7 +145,12 @@ class TrackActions: MenuHijacker {
                 return idx.compactMap(history.track)
             }
             
-            fatalError()
+            switch self {
+            case .none(let tracks):
+                return tracks
+            default:
+                fatalError()
+            }
         }
         
         var playlist: AnyPlaylist? {

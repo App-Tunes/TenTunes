@@ -70,6 +70,15 @@ extension CategoryController: NSOutlineViewDelegate {
     func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
         return SubtleTableRowView()
     }
+    
+    @IBAction
+    func playAll(_ sender: AnyObject?) {
+        guard let item = sender?.representedObject as? Category else {
+            return
+        }
+        
+        TrackActions.create(.none(tracks: item.tracks)).menuPlay(self)
+    }
 }
 
 extension CategoryController : NSMenuDelegate {
@@ -78,6 +87,12 @@ extension CategoryController : NSMenuDelegate {
     }
 
     func menuNeedsUpdate(_ menu: NSMenu) {
+        if let items = menuItems as? [TrackItem] {
+            trackActions = TrackActions.create(.none(tracks: items.map { $0.track }))
+            trackActions!.hijack(menu: menu)
+            return
+        }
+        
         guard let item = menuItems.onlyElement else {
             menu.cancelTrackingWithoutAnimation()
             return
@@ -85,6 +100,12 @@ extension CategoryController : NSMenuDelegate {
         
         menu.removeAllItems()
         item.addMenuItems(to: menu)
+        
+        if let item = item as? Category {
+            let playAllItem = NSMenuItem(title: "Play All", action: #selector(playAll(_:)), target: self)
+            playAllItem.representedObject = item
+            menu.addItem(playAllItem)
+        }
         
         if menu.items.isEmpty {
             menu.cancelTrackingWithoutAnimation()

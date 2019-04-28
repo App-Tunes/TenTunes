@@ -53,6 +53,8 @@ extension CategoryController {
 class CategoryController: NSViewController {
     @IBOutlet var _outlineView: NSOutlineView!
     
+    var trackActions: TrackActions?
+
     let cache = Cache()
     
     var categories: [Category] = [] {

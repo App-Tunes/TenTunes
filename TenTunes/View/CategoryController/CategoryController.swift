@@ -61,14 +61,12 @@ class CategoryController: NSViewController {
         didSet { _outlineView.reloadData() }
     }
     
-    override func awakeFromNib() {
+    override func viewDidAppear() {
+        _outlineView.backgroundColor = NSColor.clear
+        
         _outlineView.enclosingScrollView?.backgroundColor = view.byAppearance([
             nil: NSColor(white: 0.73, alpha: 1.0),
             .vibrantDark: NSColor(white: 0.09, alpha: 1.0),
         ])
-    }
-    
-    override func viewDidAppear() {
-        _outlineView.backgroundColor = NSColor.clear
     }
 }

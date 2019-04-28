@@ -103,6 +103,10 @@ extension Int {
     var bitComponents : [Int] {
         return (0 ..< Int.bitWidth).map { 1 << $0 } .filter { self & $0 != 0 }
     }
+    
+    var positive: Int? {
+        return self >= 0 ? self : nil
+    }
 }
 
 extension NSAttributedString {

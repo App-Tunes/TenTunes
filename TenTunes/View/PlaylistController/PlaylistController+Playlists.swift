@@ -79,14 +79,23 @@ extension PlaylistController {
     }
 
     @IBAction func didClick(_ sender: Any) {
-    }
-    
-    @IBAction func didDoubleClick(_ sender: Any) {
-        let clicked = _outlineView.clickedRow
-        guard clicked >= 0 else {
+        guard let clicked = _outlineView.clickedRow.positive else {
             return
         }
         
+        let item = _outlineView.item(atRow: clicked) as! Item
+        guard item.parent == masterItem else {
+            return
+        }
+        
+        _outlineView.toggleItemExpanded(item)
+    }
+    
+    @IBAction func didDoubleClick(_ sender: Any) {
+        guard let clicked = _outlineView.clickedRow.positive else {
+            return
+        }
+
         let item = _outlineView.item(atRow: clicked) as! Item
         
         guard !outlineView(_outlineView, isItemExpandable: item) else {
@@ -134,7 +143,7 @@ extension PlaylistController {
             return
         }
         
-        guard let idx = _outlineView.orow(forItem: item) else {
+        guard let idx = _outlineView.row(forItem: item).positive else {
             fatalError("Playlist does not exist in view even though it must!")
         }
         

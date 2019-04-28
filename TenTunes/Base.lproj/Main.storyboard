@@ -240,7 +240,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="PGC-nN-qCM"/>
-                                        <menuItem title="Show Info" keyEquivalent="i" id="PEO-hu-QSR">
+                                        <menuItem title="Edit Info" keyEquivalent="i" id="PEO-hu-QSR">
                                             <connections>
                                                 <action selector="showInfo:" target="Ady-hI-5gd" id="4Ik-1f-YcQ"/>
                                             </connections>

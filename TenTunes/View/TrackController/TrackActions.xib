@@ -43,7 +43,7 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="bOE-Mr-fz2"/>
-                <menuItem title="Show Info" id="w10-BA-8YI">
+                <menuItem title="Edit Info" id="w10-BA-8YI">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="menuShowInfo:" target="-2" id="5DD-cr-x9U"/>

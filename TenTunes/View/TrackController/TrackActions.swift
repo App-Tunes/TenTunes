@@ -176,7 +176,7 @@ class TrackActions: MenuHijacker, NSMenuItemValidation {
             menu.cancelTrackingWithoutAnimation()
         }
         
-        menu.item(withAction: #selector(menuShowInfo))?.title = trackEditorWantsUpdate ? "Show Info" : "Hide Info"
+        menu.item(withAction: #selector(menuShowInfo))?.title = trackEditorWantsUpdate ? "Edit Info" : "Hide Info"
         
         _showInPlaylistSubmenu.isVisible = tracks.count == 1
         if _showInPlaylistSubmenu.isVisible {

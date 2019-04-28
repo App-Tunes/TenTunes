@@ -144,7 +144,9 @@ extension PlaylistController {
         }
         
         guard let idx = _outlineView.row(forItem: item).positive else {
-            fatalError("Playlist does not exist in view even though it must!")
+            print("Playlist does not exist in view even though it must!")
+            NSAlert.informational(title: "Error", text: "Could not select new playlist! Please report this to the author.")
+            return
         }
         
         _outlineView.edit(row: idx, with: nil, select: true)

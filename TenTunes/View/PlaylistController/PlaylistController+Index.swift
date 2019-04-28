@@ -67,7 +67,7 @@ extension PlaylistController {
         // TODO
         func accepts(item: Child) -> Bool { fatalError() }
         // TODO
-        func add(item: Child, at: Int) { fatalError() }
+        func add(items: [Child], at: Int = 0) { fatalError() }
     }
     
     class Placeholder : Item {
@@ -83,15 +83,17 @@ extension PlaylistController {
 
 extension PlaylistController.Item {
     class Preloaded: PlaylistController.Folder {
-        var items = [PlaylistController.Item]()
+        var items: [PlaylistController.Item] = [] {
+            didSet {
+                for item in items {
+                    item.parent = self
+                }
+            }
+        }
         
-        init(items: [PlaylistController.Item]) {
+        init(items: [PlaylistController.Item] = []) {
             self.items = items
             super.init()
-            
-            for item in items {
-                item.parent = self
-            }
         }
         
         override var isEmpty: Bool { return items.isEmpty }
@@ -113,21 +115,20 @@ extension PlaylistController.Item {
             return items.contains(item)
         }
         
-        override func add(item: Child, at: Int) {
-            items.rearrange(elements: [item], to: at)
+        override func add(items: [Child], at: Int? = nil) {
+            self.items.append(contentsOf: items)
+            if let index = at {
+                self.items.rearrange(elements: items, to: index)
+            }
         }
     }
     
     class MasterItem: Preloaded {
         var playlist: AnyPlaylist
         
-        init(items: [PlaylistController.Item], playlist: AnyPlaylist) {
+        init(playlist: AnyPlaylist, items: [PlaylistController.Item] = []) {
             self.playlist = playlist
             super.init(items: items)
-            
-            for item in items {
-                item.parent = self
-            }
         }
         
         override var title: String { return "Library" }
@@ -139,9 +140,26 @@ extension PlaylistController.Item {
         override var asAnyPlaylist: AnyPlaylist? { return playlist }
     }
     
+    class MasterAlias: PlaylistController.Item {
+        weak var original: MasterItem?
+        
+        init(_ original: MasterItem) {
+            self.original = original
+        }
+        
+        override var title: String { return original?.title ?? "" }
+        
+        override var icon: NSImage { return original?.icon ?? NSImage(named: .homeName)! }
+        
+        override var persistentID: String { return (original?.persistentID ?? "") + ".alias" }
+        
+        override var isValid: Bool { return original != nil }
+    }
+    
     class IndexItem: Preloaded {
-        init() {
+        init(master: MasterItem) {
             super.init(items: [
+                MasterAlias(master),
                 ArtistsItem(),
                 GenresItem(),
                 AlbumsItem(),

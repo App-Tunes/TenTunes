@@ -17,13 +17,15 @@ extension PlaylistController {
     }
     
     @IBAction func historyMoved(notification: NSNotification) {
-        delegate?.playlistController(self, selectionDidChange: history.current.items(master: masterItem!))
+        let selection = history.current
+        
+        delegate?.playlistController(self, selectionDidChange: selection.items(master: masterItem!))
         
         _back.isEnabled = history.canGoBack
         _forwards.isEnabled = history.canGoForwards
         
         if #available(OSX 10.14, *) {
-            _home.contentTintColor = history.current == .master ? .selectedMenuItemTextColor : nil
+            _home.contentTintColor = selection == .master ? .selectedMenuItemTextColor : nil
         }
     }
     

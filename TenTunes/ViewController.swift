@@ -107,11 +107,13 @@ class ViewController: NSViewController {
         player.history = queueController.history // Empty but != nil
         
         playlistController.delegate = self
-        playlistController.masterItem = PlaylistController.Item.MasterItem(items: [
-            PlaylistController.Item.IndexItem(),
+        let masterItem = PlaylistController.Item.MasterItem(playlist: Library.shared[PlaylistRole.library])
+        masterItem.add(items: [
+            PlaylistController.Item.IndexItem(master: masterItem),
             playlistController.cache.categoryPlaylistItem(Library.shared[PlaylistRole.tags]),
             playlistController.cache.categoryPlaylistItem(Library.shared[PlaylistRole.playlists]),
-            ], playlist: Library.shared[PlaylistRole.library])
+        ])
+        playlistController.masterItem = masterItem
         playlistController.defaultPlaylist = Library.shared[PlaylistRole.playlists]
         
         _trackGuardView.present(elements: [playlistController.masterItem!])

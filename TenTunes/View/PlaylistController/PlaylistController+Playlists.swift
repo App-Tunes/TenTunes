@@ -153,7 +153,10 @@ extension PlaylistController {
     func select(_ selection: SelectionMoment) {
         switch selection {
         case .master:
-            _outlineView.deselectAll(self)
+            let aliasIndices = (0 ..< _outlineView.numberOfRows)
+                .filter { _outlineView.item(atRow: $0) is Item.MasterAlias }
+            _outlineView.selectRowIndexes(IndexSet(aliasIndices), byExtendingSelection: false)
+            
             didSelect(.master)
         case .items(let items):
             // Expand so all items are in view
@@ -294,11 +297,21 @@ extension PlaylistController : NSOutlineViewDelegate {
     }
 
     func outlineViewSelectionDidChange(_ notification: Notification) {
-        guard !_outlineView.selectedRowIndexes.isEmpty else {
+        let rows = _outlineView.selectedRowIndexes.map { self._outlineView.item(atRow: $0) as! Item }
+        
+        guard !rows.isEmpty else {
             return
         }
         
-        didSelect(.items(_outlineView.selectedRowIndexes.map { self._outlineView.item(atRow: $0) as! Item }))
+        if rows.onlyElement is Item.MasterAlias {
+            if history.current != .master {
+                select(.master)
+            }
+            
+            return
+        }
+        
+        didSelect(.items(rows))
     }
     
     func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {

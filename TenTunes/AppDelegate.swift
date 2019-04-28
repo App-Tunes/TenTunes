@@ -144,8 +144,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         WindowWarden.shared.remember(window: libraryWindowController.window!, key: ("0", .command))
         WindowWarden.shared.remember(window: visualizerController.window!, key: ("t", .command), toggleable: true)
         
-        self.import(urls: launchURLs)
-        launchURLs = []
+        if !launchURLs.isEmpty {
+            self.import(urls: launchURLs)
+            launchURLs = []
+        }
         
         // Initially check on every launch
         Library.shared.checkSanity()

@@ -219,7 +219,7 @@ class TrackActions: MenuHijacker, NSMenuItemValidation {
             // No history in context, let's just play directory
             let history = PlayHistory(playlist: PlaylistEmpty())
             history.enqueue(tracks: context.tracks, at: .start)
-            player.play(at: 0, in: history)
+            player.play(at: nil, in: history)
             return
         }
 

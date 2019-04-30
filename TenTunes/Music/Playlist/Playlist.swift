@@ -14,6 +14,10 @@ import CoreData
 public class Playlist: NSManagedObject, AnyPlaylist {
     
     static let pasteboardType = NSPasteboard.PasteboardType(rawValue: "tentunes.playlist")
+    
+    static func describe(count: Int) -> String {
+        return "\(count) \(count != 1 ? "playlists" : "playlist")"
+    }
 
     func convert(to: NSManagedObjectContext) -> Self? {
         return to.convert(self)

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PlaylistActions" customModule="TenTunes" customModuleProvider="target">
+            <connections>
+                <outlet property="_emptyMenu" destination="vXQ-HO-iRc" id="D8Y-zG-rTW"/>
+                <outlet property="_playlistMenu" destination="hlh-Wx-9Ir" id="E29-wd-Ryc"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+        </customView>
+        <menu title="Playlist" id="hlh-Wx-9Ir" userLabel="Playlist" customClass="UnscalingMenu" customModule="TenTunes" customModuleProvider="target">
+            <items>
+                <menuItem title="Play" id="a5N-3U-FEc">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="menuPlay:" target="-2" id="Yya-cu-zj2"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="77g-oK-YKH"/>
+                <menuItem title="New Playlist" id="v5g-DX-P0S">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="createPlaylist:" target="-2" id="egN-Tw-O38"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="New Group" id="2QO-Rt-j14">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="createGroup:" target="-2" id="jal-cf-hto"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="gww-gw-F2y"/>
+                <menuItem title="Untangle Children" id="YH4-Kh-NOK">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="untanglePlaylist:" target="-2" id="htI-4S-bPo"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Sort Children" id="k66-B3-rk2">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="sortPlaylistChildren:" target="-2" id="kKr-O2-XM3"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Duplicate" id="hSJ-hg-zYr">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="duplicatePlaylist:" target="-2" id="FYM-oT-y6g"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="J1z-vk-dID"/>
+                <menuItem title="Delete" id="pRe-CA-tmw">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="deletePlaylist:" target="-2" id="CXX-gh-e6c"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <connections>
+                <outlet property="delegate" destination="-2" id="Nj7-IE-kN3"/>
+            </connections>
+            <point key="canvasLocation" x="295" y="-136"/>
+        </menu>
+        <menu id="vXQ-HO-iRc">
+            <items>
+                <menuItem title="New Playlist" id="Xco-zu-3KG">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="New Group" id="BAN-ep-dms">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+            </items>
+            <connections>
+                <outlet property="delegate" destination="-2" id="pWr-ew-n8c"/>
+            </connections>
+            <point key="canvasLocation" x="-5" y="-111"/>
+        </menu>
+    </objects>
+</document>

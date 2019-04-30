@@ -10,7 +10,6 @@ import Cocoa
 
 protocol PlaylistControllerDelegate : class {
     func playlistController(_ controller: PlaylistController, selectionDidChange items: [PlaylistController.Item])
-    func playlistController(_ controller: PlaylistController, play item: PlaylistController.Item)
 }
 
 @objc class PlaylistController: NSViewController {
@@ -33,15 +32,14 @@ protocol PlaylistControllerDelegate : class {
     
     @IBOutlet var _outlineView: NSOutlineViewContextSensitiveMenu!
     
+    var playlistActions: PlaylistActions?
+    
     @IBOutlet var _home: NSButton!
     @IBOutlet var _back: NSButton!
     @IBOutlet var _forwards: NSButton!
     
     @IBOutlet var _addPlaylist: SMButtonWithMenu!
     @IBOutlet var _addGroup: SMButtonWithMenu!
-    
-    @IBOutlet var _playlistMenu: UnscalingMenu!
-    @IBOutlet var _emptyPlaylistMenu: NSMenu!
     
     var selectedPlaylists: [(Int, Playlist)] {
         return _outlineView.selectedRowIndexes.compactMap {
@@ -78,34 +76,24 @@ protocol PlaylistControllerDelegate : class {
         return raw != nil ? (raw as! Item) : masterItem
     }
     
+    var selectedActions: PlaylistActions? {
+        return PlaylistActions.create(.visible(playlists: selectedPlaylists.map { $0.1 }))
+    }
+    
     @IBAction func createPlaylist(_ sender: Any) {
-        insert(playlist: PlaylistManual(context: Library.shared.viewContext))
-        try! Library.shared.viewContext.save()
+        selectedActions?.createPlaylist(self)
     }
     
     @IBAction func createSmartPlaylist(_ sender: Any) {
-        insert(playlist: PlaylistSmart(context: Library.shared.viewContext))
-        try! Library.shared.viewContext.save()
+        selectedActions?.createSmartPlaylist(self)
     }
     
     @IBAction func createGroup(_ sender: Any) {
-        let selected = selectedPlaylists
-        let group = PlaylistFolder(context: Library.shared.viewContext)
-        
-        insert(playlist: group)
-
-        if selected.count > 1, selected.map({ $0.1.parent }).uniqueElement != nil {
-            for (_, playlist) in selected {
-                group.addToChildren(playlist)
-            }
-        }
-        
-        try! Library.shared.viewContext.save()
+        selectedActions?.createGroup(self)
     }
     
     @IBAction func createCartesianPlaylist(_ sender: Any) {
-        insert(playlist: PlaylistCartesian(context: Library.shared.viewContext))
-        try! Library.shared.viewContext.save()
+        selectedActions?.createCartesianPlaylist(self)
     }
         
     @IBAction func back(_ sender: Any) {

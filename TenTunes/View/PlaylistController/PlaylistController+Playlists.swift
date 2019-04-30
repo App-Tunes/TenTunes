@@ -103,37 +103,12 @@ extension PlaylistController {
             return
         }
         
-        delegate?.playlistController(self, play: item)
+        if let playlist = item.asPlaylist {
+            PlaylistActions.create(.visible(playlists: [playlist]))?.menuPlay(self)
+            return
+        }
     }
-    
-    func playlistInsertionPosition(row: Int?, allowInside: Bool = true) -> (PlaylistFolder, Int?) {
-        guard  let row = row else {
-            return (defaultPlaylist!, nil)
-        }
         
-        let item = _outlineView.item(atRow: row) as! Item
-        
-        if item is Placeholder, let parent = item.parent?.asPlaylist as? PlaylistFolder {
-            return (parent, nil)
-        }
-        
-        guard let playlist = (item as? Item.PlaylistItem)?.playlist else {
-            return (defaultPlaylist!, nil)
-        }
-        
-        if allowInside, let folder = playlist as? PlaylistFolder {
-            // Add inside, as last
-            return (folder, nil)
-        }
-
-        guard let (parent, idx) = Library.shared.position(of: playlist), parent.supports(action: .add) else {
-            return (defaultPlaylist!, nil)
-        }
-        
-        // Add below
-        return (parent, idx + 1)
-    }
-    
     func select(playlist: Playlist, editTitle: Bool = false) {
         let item = cache.playlistItem(playlist)
         
@@ -186,29 +161,6 @@ extension PlaylistController {
         }
         
         history.push(selection)
-    }
-    
-    func insert(playlist: Playlist) {
-        let (parent, idx) = playlistInsertionPosition(row: _outlineView.selectedRowIndexes.last)
-        parent.addPlaylist(playlist, above: idx)
-    }
-    
-    func delete(indices: [Int]?, confirmed: Bool = true) {
-        guard let playlists = indices?.compactMap({ (_outlineView.item(atRow: $0) as! Item).asPlaylist }) else {
-            return
-        }
-        
-        let message = "Are you sure you want to delete \(playlists.count) playlist\(playlists.count > 1 ? "s" : "")?"
-        guard !confirmed || NSAlert.ensure(intent: playlists.allSatisfy { $0.isTrivial }, action: "Delete Playlists", text: message) else {
-            return
-        }
-        
-        guard playlists.allSatisfy({ Library.shared.isPlaylist(playlist: $0) }) else {
-            fatalError("Trying to delete undeletable playlists!")
-        }
-        
-        Library.shared.viewContext.delete(all: playlists)
-        try! Library.shared.viewContext.save()
     }
 }
 

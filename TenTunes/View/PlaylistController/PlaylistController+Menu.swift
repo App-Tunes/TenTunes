@@ -28,6 +28,6 @@ extension PlaylistController: NSUserInterfaceValidations {
     }
     
     @IBAction func delete(_ sender: AnyObject) {
-        delete(indices: Array(_outlineView.selectedRowIndexes))
+        selectedActions?.delete()
     }
 }

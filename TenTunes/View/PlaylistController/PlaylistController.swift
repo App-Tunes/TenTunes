@@ -31,7 +31,7 @@ protocol PlaylistControllerDelegate : class {
     
     weak var delegate: PlaylistControllerDelegate?
     
-    @IBOutlet var _outlineView: NSOutlineView!
+    @IBOutlet var _outlineView: NSOutlineViewContextSensitiveMenu!
     
     @IBOutlet var _home: NSButton!
     @IBOutlet var _back: NSButton!
@@ -40,6 +40,7 @@ protocol PlaylistControllerDelegate : class {
     @IBOutlet var _addPlaylist: SMButtonWithMenu!
     @IBOutlet var _addGroup: SMButtonWithMenu!
     
+    @IBOutlet var _playlistMenu: UnscalingMenu!
     @IBOutlet var _emptyPlaylistMenu: NSMenu!
     
     var selectedPlaylists: [(Int, Playlist)] {

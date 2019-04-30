@@ -15,6 +15,7 @@
                 <outlet property="_forwards" destination="2x8-2J-xWJ" id="ZiZ-Vs-y8A"/>
                 <outlet property="_home" destination="58Y-ON-eOB" id="Yaw-vN-cmS"/>
                 <outlet property="_outlineView" destination="jaf-cH-DJt" id="sJF-Dr-Ogf"/>
+                <outlet property="_playlistMenu" destination="5YT-Yc-AOa" id="2zN-A1-TZ3"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -145,7 +146,6 @@
                                     <action trigger="doubleAction" selector="didDoubleClick:" target="-2" id="XaR-1e-HbA"/>
                                     <outlet property="dataSource" destination="-2" id="ejm-Pp-MDl"/>
                                     <outlet property="delegate" destination="-2" id="InO-rf-nk7"/>
-                                    <outlet property="menu" destination="5YT-Yc-AOa" id="lc1-Pk-tdm"/>
                                 </connections>
                             </outlineView>
                         </subviews>

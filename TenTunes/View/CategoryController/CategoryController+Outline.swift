@@ -105,37 +105,33 @@ extension CategoryController: NSOutlineViewDelegate {
     }
 }
 
-extension CategoryController : NSMenuDelegate {
-    var menuItems: [Item] {
-        return _outlineView.clickedRows.compactMap { _outlineView.item(atRow: $0) as? Item }
-    }
-
-    func menuNeedsUpdate(_ menu: NSMenu) {
-        if let items = menuItems as? [TrackItem] {
-            let context: TrackActions.Context = (items.onlyElement ?=> self.context)
-                ?? .none(tracks: items.map { $0.track })
+extension CategoryController : NSOutlineViewContextSensitiveMenuDelegate {
+    func currentMenu(forOutlineView outlineView: NSOutlineViewContextSensitiveMenu) -> NSMenu? {
+        let items = outlineView.contextualClickedRows.map(outlineView.item) as! [Item]
+        
+        if let trackItems = items as? [TrackItem] {
+            let context: TrackActions.Context = (trackItems.onlyElement ?=> self.context)
+                ?? .none(tracks: trackItems.map { $0.track })
             trackActions = TrackActions.create(context)
-            trackActions?.hijack(menu: menu)
-            return
+            return trackActions?._menu
         }
         
-        guard let item = menuItems.onlyElement else {
-            menu.cancelTrackingWithoutAnimation()
-            return
+        guard let item = items.onlyElement else {
+            return nil
         }
-
+        
+        let menu = _outlineView.menu!
+        
         menu.removeAllItems()
-
+        
         if let item = item as? Category {
             let playAllItem = NSMenuItem(title: "Play All", action: #selector(playAll(_:)), target: self)
             playAllItem.representedObject = item
             menu.addItem(playAllItem)
         }
-
+        
         item.addMenuItems(to: menu)
-
-        if menu.items.isEmpty {
-            menu.cancelTrackingWithoutAnimation()
-        }
+        
+        return menu
     }
 }

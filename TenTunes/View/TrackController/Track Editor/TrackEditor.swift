@@ -303,9 +303,9 @@ extension TrackEditor: TagEditorDelegate {
     var tagEditorContext: NSManagedObjectContext { return context }
 }
 
-extension TrackEditor: NSMenuDelegate {
-    func menuNeedsUpdate(_ menu: NSMenu) {
-        tagEditor.menuNeedsUpdate(menu)
+extension TrackEditor: NSOutlineViewContextSensitiveMenuDelegate {
+    func currentMenu(forOutlineView outlineView: NSOutlineViewContextSensitiveMenu) -> NSMenu? {
+        return tagEditor.currentMenu(forOutlineView: outlineView)
     }
 }
 

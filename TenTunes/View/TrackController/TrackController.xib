@@ -38,7 +38,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1100" height="305"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveName="tracks" rowHeight="30" headerView="sMk-yA-QjA" viewBased="YES" floatsGroupRows="NO" id="4mk-XS-5ci" customClass="ActionTableView" customModule="TenTunes" customModuleProvider="target">
+                                    <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveName="tracks" rowHeight="30" headerView="sMk-yA-QjA" viewBased="YES" floatsGroupRows="NO" id="4mk-XS-5ci" customClass="NSTableViewContextSensitiveMenu" customModule="TenTunes" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="1100" height="259"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <size key="intercellSpacing" width="3" height="2"/>
@@ -472,7 +472,6 @@
                                             <action trigger="doubleAction" selector="doubleClick:" target="-2" id="BSK-Xb-UhV"/>
                                             <outlet property="dataSource" destination="-2" id="yuD-hj-Ezx"/>
                                             <outlet property="delegate" destination="-2" id="Aod-L9-saS"/>
-                                            <outlet property="menu" destination="8pv-3N-TDF" id="CHU-mQ-Csc"/>
                                         </connections>
                                     </tableView>
                                 </subviews>
@@ -663,12 +662,6 @@
             </connections>
             <point key="canvasLocation" x="403.5" y="610.5"/>
         </splitView>
-        <menu id="8pv-3N-TDF">
-            <connections>
-                <outlet property="delegate" destination="-2" id="EUn-BK-mAc"/>
-            </connections>
-            <point key="canvasLocation" x="404" y="363"/>
-        </menu>
     </objects>
     <resources>
         <image name="music" width="205" height="200"/>

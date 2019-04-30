@@ -9,14 +9,22 @@
 import Foundation
 
 extension PlaylistController : NSOutlineViewContextSensitiveMenuDelegate {
-    func outlineView(_ outlineView: NSOutlineView, menuForItem item: Any?) -> NSMenu? {
-        return item == nil ? _emptyPlaylistMenu : nil
+    func currentMenu(forOutlineView outlineView: NSOutlineViewContextSensitiveMenu) -> NSMenu? {
+        guard let row = outlineView.contextualClickedRows.onlyElement else {
+            return nil
+        }
+        
+        if row == -1 {
+            return _emptyPlaylistMenu
+        }
+        
+        return _playlistMenu
     }
 }
 
 extension PlaylistController: NSMenuDelegate, NSMenuItemValidation {
     var menuItems: [Item] {
-        return _outlineView.clickedRows.compactMap { _outlineView.item(atRow: $0) as? Item }
+        return _outlineView.contextualClickedRows.compactMap { _outlineView.item(atRow: $0) as? Item }
     }
     
     var menuPlaylists: [Playlist] {

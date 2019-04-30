@@ -170,22 +170,16 @@ extension TagEditor: NSOutlineViewDataSource {
     }
 }
 
-extension TagEditor: NSMenuDelegate {
-    var menuItems: [ViewableTag]? {
-        return outlineView.clickedRows.compactMap { outlineView.item(atRow: $0) }
-            as? [ViewableTag]
-    }
-    
-    func menuNeedsUpdate(_ menu: NSMenu) {
-        guard let items = menuItems else {
-            return
-        }
+extension TagEditor: NSOutlineViewContextSensitiveMenuDelegate {
+    func currentMenu(forOutlineView outlineView: NSOutlineViewContextSensitiveMenu) -> NSMenu? {
+        let items = outlineView.contextualClickedRows.map(outlineView.item)
         
         if let tracks = items.caseAs(ViewableTag.related) {
             trackActions = TrackActions.create(.none(tracks: tracks))
-            trackActions?.hijack(menu: menu)
-            return
+            return trackActions?._menu
         }
+        
+        return nil
     }
 }
 

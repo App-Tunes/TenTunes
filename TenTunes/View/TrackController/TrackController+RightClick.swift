@@ -8,10 +8,10 @@
 
 import Foundation
 
-extension TrackController: NSMenuDelegate, NSMenuItemValidation {
-    func menuNeedsUpdate(_ menu: NSMenu) {
-        trackActions = TrackActions.create(.playlist(at: _tableView.clickedRows, in: history))
-        trackActions?.hijack(menu: menu)
+extension TrackController: NSTableViewContextSensitiveMenuDelegate, NSMenuItemValidation {
+    func currentMenu(forTableView tableView: NSTableViewContextSensitiveMenu) -> NSMenu? {
+        trackActions = TrackActions.create(.playlist(at: Array(tableView.contextualClickedRows), in: history))
+        return trackActions?._menu
     }
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {

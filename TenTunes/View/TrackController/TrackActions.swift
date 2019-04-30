@@ -8,59 +8,7 @@
 
 import Cocoa
 
-class MenuHijacker: NSViewController, NSMenuDelegate {
-    class MenuState {
-        weak var source: NSMenu?
-        var delegate: NSMenuDelegate?
-        var items: [NSMenuItem]
-        
-        init(from menu: NSMenu) {
-            source = menu
-            delegate = menu.delegate
-            items = menu.items
-        }
-        
-        func apply(to menu: NSMenu) {
-            menu.delegate = delegate
-            menu.items = items
-        }
-    }
-    
-    var backup: MenuState?
-    var selfBackup: MenuState?
-
-    func hijack(menu: NSMenu) {
-        backup = MenuState(from: menu)
-        selfBackup = MenuState(from: baseMenu)
-
-        baseMenu.removeAllItems() // Free items for use
-        selfBackup?.apply(to: menu)
-        
-        menuNeedsUpdate(menu)
-    }
-
-    func menuDidClose(_ menu: NSMenu) {
-        if menu == backup?.source {
-            backup?.apply(to: menu)
-            selfBackup?.apply(to: baseMenu)
-            backup = nil
-            selfBackup = nil
-        }
-        else if backup?.source == nil {
-            // Has deallocated sometime between
-            backup = nil
-            selfBackup = nil
-        }
-    }
-    
-    func menuNeedsUpdate(_ menu: NSMenu) {
-        
-    }
-    
-    var baseMenu: NSMenu { fatalError() }
-}
-
-class TrackActions: MenuHijacker, NSMenuItemValidation {
+class TrackActions: NSViewController, NSMenuDelegate, NSMenuItemValidation {
     enum Context {
         case playlist(at: [Int], in: PlayHistory)
         case none(tracks: [Track])
@@ -103,9 +51,7 @@ class TrackActions: MenuHijacker, NSMenuItemValidation {
     @IBOutlet var _analyzeSubmenu: NSMenuItem!
     @IBOutlet var _showInPlaylistSubmenu: NSMenuItem!
     @IBOutlet var _addToPlaylistSubmenu: NSMenuItem!
-    
-    override var baseMenu: NSMenu { return _menu }
-    
+        
     // TODO Try to make less omniscient?
     var viewController: ViewController {
         return ViewController.shared
@@ -142,7 +88,7 @@ class TrackActions: MenuHijacker, NSMenuItemValidation {
         return actions
     }
     
-    override func menuNeedsUpdate(_ menu: NSMenu) {
+    func menuNeedsUpdate(_ menu: NSMenu) {
         let tracks = context.tracks
         
         guard menu !== _showInPlaylistSubmenu.submenu else {

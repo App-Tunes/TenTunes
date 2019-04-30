@@ -134,6 +134,8 @@
 		80ADCD4A20442E1200AA9A89 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ADCD4920442E1200AA9A89 /* Library.swift */; };
 		80B15824215D657D0015294B /* Cocoa+IBInspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B15823215D657D0015294B /* Cocoa+IBInspectable.swift */; };
 		80B3BE12207514D200B93961 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B3BE11207514D200B93961 /* Player.swift */; };
+		80B4B7CE2276FA4D00AE5F08 /* PlaylistActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B4B7CC2276FA4D00AE5F08 /* PlaylistActions.swift */; };
+		80B4B7CF2276FA4D00AE5F08 /* PlaylistActions.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80B4B7CD2276FA4D00AE5F08 /* PlaylistActions.xib */; };
 		80B68B9E21011CC100A32E3D /* SMButtonWithMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 80B68B9D21011CC100A32E3D /* SMButtonWithMenu.m */; };
 		80B68BA62101204200A32E3D /* PlaylistSmart+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B68BA42101204200A32E3D /* PlaylistSmart+CoreDataProperties.swift */; };
 		80B68BA72101204200A32E3D /* PlaylistSmart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B68BA52101204200A32E3D /* PlaylistSmart.swift */; };
@@ -424,6 +426,8 @@
 		80ADCD4920442E1200AA9A89 /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		80B15823215D657D0015294B /* Cocoa+IBInspectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocoa+IBInspectable.swift"; sourceTree = "<group>"; };
 		80B3BE11207514D200B93961 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		80B4B7CC2276FA4D00AE5F08 /* PlaylistActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistActions.swift; sourceTree = "<group>"; };
+		80B4B7CD2276FA4D00AE5F08 /* PlaylistActions.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistActions.xib; sourceTree = "<group>"; };
 		80B68B9D21011CC100A32E3D /* SMButtonWithMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMButtonWithMenu.m; sourceTree = "<group>"; };
 		80B68B9F21011D0300A32E3D /* SMButtonWithMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMButtonWithMenu.h; sourceTree = "<group>"; };
 		80B68BA42101204200A32E3D /* PlaylistSmart+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PlaylistSmart+CoreDataProperties.swift"; path = "/Users/lukas/XCode Projects/TenTunes/TenTunes/Music/Playlist/Manual/PlaylistSmart+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
@@ -1066,6 +1070,8 @@
 				80F855032069187D009A8FBE /* PlaylistController+Menu.swift */,
 				8071F63421AC299D0005685B /* PlaylistController+Updates.swift */,
 				80074CFB204584980055B87E /* PlaylistController.xib */,
+				80B4B7CC2276FA4D00AE5F08 /* PlaylistActions.swift */,
+				80B4B7CD2276FA4D00AE5F08 /* PlaylistActions.xib */,
 			);
 			path = PlaylistController;
 			sourceTree = "<group>";
@@ -1210,6 +1216,7 @@
 				80C1F16621428FA40032E554 /* default.fs in Resources */,
 				80CAED10227472E9001DD856 /* VisualizerViewController.xib in Resources */,
 				80F2C5812038808000212739 /* Assets.xcassets in Resources */,
+				80B4B7CF2276FA4D00AE5F08 /* PlaylistActions.xib in Resources */,
 				80C1F16421428EC80032E554 /* visualizer.fs in Resources */,
 				80C1F16A21429AC70032E554 /* visualizer.vs in Resources */,
 				80B6DF97219EF473003EA487 /* LICENSE-MIKMIDI.txt in Resources */,
@@ -1429,6 +1436,7 @@
 				8066118A2125B9BF00C3948E /* TagEditor+Tags.swift in Sources */,
 				806C5B2620423AC000C34F49 /* SPInterpreter.swift in Sources */,
 				80B764562072F38D003BD7F8 /* PlaylistEmpty.swift in Sources */,
+				80B4B7CE2276FA4D00AE5F08 /* PlaylistActions.swift in Sources */,
 				80CAED0A22746F54001DD856 /* VisualizerViewController+Audio.swift in Sources */,
 				80A4098C216D665A006AF67B /* RFOpenGLView+Shader.swift in Sources */,
 				80E2C9F9204B40A000298E81 /* PlaylistManual.swift in Sources */,

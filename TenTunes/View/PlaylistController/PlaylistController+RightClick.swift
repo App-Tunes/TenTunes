@@ -24,14 +24,6 @@ extension PlaylistController : NSOutlineViewContextSensitiveMenuDelegate {
 }
 
 extension PlaylistController: NSMenuDelegate, NSMenuItemValidation {
-    var menuItems: [Item] {
-        return _outlineView.contextualClickedRows.compactMap { _outlineView.item(atRow: $0) as? Item }
-    }
-    
-    var menuPlaylists: [Playlist] {
-        return menuItems.compactMap { $0.asPlaylist }
-    }
-    
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         // Probably the main Application menu
         if menuItem.target !== self {

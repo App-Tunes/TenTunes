@@ -51,11 +51,18 @@ class TestEnumerations: XCTestCase {
     }
 
     func testCaseLet() {
-        let array: [Labeled] = [
+        let impure: [Labeled] = [
             .a(aval: "A"), .a(aval: "B"), .b(bval: "D"), .a(aval: "C")
         ]
-        
-        let result: [String] = array.caseLet(Labeled.a)
-        XCTAssertEqual(["A", "B", "C"], result)
+        let pure: [Labeled] = [
+            .a(aval: "A"), .a(aval: "B"), .a(aval: "C")
+        ]
+
+        XCTAssertEqual(["A", "B", "C"], impure.caseLet(Labeled.a))
+        XCTAssertEqual(["A", "B", "C"], pure.caseLet(Labeled.a))
+
+        let impureResult: [String]? = impure.caseAs(Labeled.a)
+        XCTAssertEqual(nil, impureResult)
+        XCTAssertEqual(["A", "B", "C"], pure.caseAs(Labeled.a))
     }
 }

@@ -32,8 +32,11 @@ class MediaLocation {
         }
         
         let dst = realisticLocation(for: track)
+        let relativeDst = dst.relativePath(from: directory)
         
-        guard dst != src else {
+        guard track.path != relativeDst else {
+            // If the path we want to _save_ differs at all
+            // from the current path, save.
             return
         }
         
@@ -47,7 +50,7 @@ class MediaLocation {
         }
         
         check(url: src.deletingLastPathComponent())
-        track.path = dst.relativePath(from: directory)
+        track.path = relativeDst
     }
     
     func delete(track: Track) {

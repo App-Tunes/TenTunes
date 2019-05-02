@@ -84,14 +84,14 @@ class MediaLocation {
         let desired = desiredLocation(for: track)
         let current = track.resolvedURL
         
-        guard !URL.areEqualLocally(desired, current) else {
+        guard !URL.referenceSameFile(desired, current) else {
             return desired
         }
         
         let ext = desired.pathExtension
         var realistic = desired
         
-        for i in 1...10 {
+        for i in 1 ... 10 {
             if !FileManager.default.fileExists(atPath: realistic.path) {
                 if i > 1 {
                     print("Avoiding overwriting existing file: \"\(desired)\" \nusing: \"\(realistic)\" \nprevious path: \"\(String(describing: current))\"")
@@ -100,8 +100,10 @@ class MediaLocation {
                 return realistic
             }
             
-            realistic = desired.deletingPathExtension()
-                .appendingPathExtension(String(i)).appendingPathExtension(ext)
+            realistic = desired
+                .deletingPathExtension()
+                .appendingPathExtension(String(i))
+                .appendingPathExtension(ext)
         }
         
         let finalFile = desired.deletingPathExtension()
@@ -118,7 +120,6 @@ class MediaLocation {
                         .appendingPathComponent(mod(track.album ?? Album.unknown))
                         .appendingPathComponent(mod(track.rTitle))
                         .appendingPathExtension(pathExtension)
-                        .resolvingSymlinksInPath()
     }
     
     func pather(absolute: Bool = false) -> ((Track, URL) -> String?) {

@@ -199,6 +199,10 @@ extension DispatchSemaphore {
 }
 
 extension URL {
+    static func referenceSameFile(_ lhs: URL?, _ rhs: URL?) -> Bool {
+        return URL.areEqualLocally(lhs?.resolvingSymlinksInPath(), rhs?.resolvingSymlinksInPath())
+    }
+    
     static func areEqualLocally(_ lhs: URL?, _ rhs: URL?) -> Bool {
         if lhs == nil && rhs == nil {
             return true

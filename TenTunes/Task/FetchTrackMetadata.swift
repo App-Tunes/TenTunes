@@ -35,7 +35,7 @@ class FetchTrackMetadata: TrackTask {
             else {
                 if self.uncancelable() { return }
                 
-                self.library.mediaLocation.updateLocation(of: self.track)
+                self.library.mediaLocation.updateLocation(of: asyncTrack)
             }
             
             try! mox.save()

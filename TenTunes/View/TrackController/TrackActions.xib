@@ -36,7 +36,7 @@
                         <action selector="menuPlayNext:" target="-2" id="TtQ-kb-6w2"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Play Later" id="dwC-Sz-Qfn">
+                <menuItem title="Add to Queue" id="dwC-Sz-Qfn">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="menuPlayLater:" target="-2" id="tkj-H6-HH6"/>

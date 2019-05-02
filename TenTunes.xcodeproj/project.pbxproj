@@ -11,6 +11,7 @@
 		800134A8213835C0001FB5CE /* TagLibFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 800134A7213835C0001FB5CE /* TagLibFile.mm */; };
 		80074CF9204583CF0055B87E /* TrackController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80074CF7204583CF0055B87E /* TrackController.xib */; };
 		80074CFD204584980055B87E /* PlaylistController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80074CFB204584980055B87E /* PlaylistController.xib */; };
+		800A2FBF227AFD960048DD6D /* TestEnumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800A2FBE227AFD960048DD6D /* TestEnumerations.swift */; };
 		8017685920743898000DD433 /* NSImageViewAspectFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8017685820743898000DD433 /* NSImageViewAspectFill.swift */; };
 		8020C64D221736A500E6FA5C /* AppDelegate+Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020C64C221736A500E6FA5C /* AppDelegate+Files.swift */; };
 		8020C64F2217372200E6FA5C /* AppDelegate+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020C64E2217372200E6FA5C /* AppDelegate+Menu.swift */; };
@@ -274,6 +275,7 @@
 		80074CF7204583CF0055B87E /* TrackController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackController.xib; sourceTree = "<group>"; };
 		80074CFB204584980055B87E /* PlaylistController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistController.xib; sourceTree = "<group>"; };
 		80074CFE2046BB0B0055B87E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		800A2FBE227AFD960048DD6D /* TestEnumerations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEnumerations.swift; sourceTree = "<group>"; };
 		8013720C203F7C9C00CA9036 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = Carthage/Build/Mac/Static/AudioKit.framework; sourceTree = SOURCE_ROOT; };
 		8017685820743898000DD433 /* NSImageViewAspectFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImageViewAspectFill.swift; sourceTree = "<group>"; };
 		8020C64C221736A500E6FA5C /* AppDelegate+Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Files.swift"; sourceTree = "<group>"; };
@@ -396,7 +398,6 @@
 		8085DC6F20C936D6008F4084 /* ActionStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionStub.swift; sourceTree = "<group>"; };
 		8087A405206D933F003F1821 /* Analysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analysis.swift; sourceTree = "<group>"; };
 		8087A493206597DC00CC9569 /* EnterReturningTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterReturningTextField.swift; sourceTree = "<group>"; };
-		808BAAD7220DA71A0017557C /* Preferences.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Preferences.framework; sourceTree = "<group>"; };
 		808BAADC220DA7C60017557C /* BehaviorPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BehaviorPreferences.swift; sourceTree = "<group>"; };
 		808BAADD220DA7C60017557C /* BehaviorPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BehaviorPreferences.xib; sourceTree = "<group>"; };
 		808BAAE0220DA8D80017557C /* ViewPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPreferences.swift; sourceTree = "<group>"; };
@@ -684,6 +685,7 @@
 		8069C06E22085FB900CD3396 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				800A2FBE227AFD960048DD6D /* TestEnumerations.swift */,
 				80905F672208906A00A6A830 /* TenTunesTest.swift */,
 				8069C08B22086E9900CD3396 /* TestInitialState.swift */,
 				808BAAEC220E252B0017557C /* TestMediaLocation.swift */,
@@ -952,7 +954,6 @@
 		80DCA9B6203F645400B1E9B1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				808BAAD7220DA71A0017557C /* Preferences.framework */,
 				80B6DFA3219F06E4003EA487 /* MIKMIDI.framework */,
 				809CEAC02164CF76008D6AC0 /* Syphon.framework */,
 				80074CFE2046BB0B0055B87E /* QuartzCore.framework */,
@@ -1301,6 +1302,7 @@
 				808BAAED220E252B0017557C /* TestMediaLocation.swift in Sources */,
 				8069C08C22086E9900CD3396 /* TestInitialState.swift in Sources */,
 				808BAAEB220DB7290017557C /* TestKeys.swift in Sources */,
+				800A2FBF227AFD960048DD6D /* TestEnumerations.swift in Sources */,
 				80905F682208906A00A6A830 /* TenTunesTest.swift in Sources */,
 				8020C65322177D1500E6FA5C /* TestExport.swift in Sources */,
 				8071FA6F220E666A000B8868 /* TestPlayer.swift in Sources */,

@@ -199,6 +199,18 @@ extension DispatchSemaphore {
 }
 
 extension URL {
+    static func areEqualLocally(_ lhs: URL?, _ rhs: URL?) -> Bool {
+        if lhs == nil && rhs == nil {
+            return true
+        }
+        
+        guard let lhs = lhs, let rhs = rhs, lhs.isFileURL, rhs.isFileURL else {
+            return false
+        }
+        
+        return lhs.absoluteString.caseInsensitiveCompare(rhs.absoluteString) == .orderedSame
+    }
+    
     func relativePath(from directory: URL) -> String? {
         // Ensure that both URLs represent files:
         guard self.isFileURL && directory.isFileURL else {

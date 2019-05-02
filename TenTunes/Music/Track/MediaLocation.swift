@@ -79,8 +79,9 @@ class MediaLocation {
     
     func realisticLocation(for track: Track) -> URL {
         let desired = desiredLocation(for: track)
+        let current = track.resolvedURL
         
-        if desired == track.resolvedURL {
+        guard !URL.areEqualLocally(desired, current) else {
             return desired
         }
         
@@ -90,7 +91,7 @@ class MediaLocation {
         for i in 1...10 {
             if !FileManager.default.fileExists(atPath: realistic.path) {
                 if i > 1 {
-                    print("Avoiding overwriting existing file: \"\(desired)\", using: \"\(realistic)\", previous path:\(String(describing: track.resolvedURL))")
+                    print("Avoiding overwriting existing file: \"\(desired)\" \nusing: \"\(realistic)\" \nprevious path: \"\(String(describing: current))\"")
                 }
                 
                 return realistic

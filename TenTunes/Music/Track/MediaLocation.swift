@@ -90,7 +90,7 @@ class MediaLocation {
         for i in 1...10 {
             if !FileManager.default.fileExists(atPath: realistic.path) {
                 if i > 1 {
-                    print("Avoiding overwriting existing file: \"\(desired)\", using: \"\(realistic)\"")
+                    print("Avoiding overwriting existing file: \"\(desired)\", using: \"\(realistic)\", previous path:\(String(describing: track.resolvedURL))")
                 }
                 
                 return realistic

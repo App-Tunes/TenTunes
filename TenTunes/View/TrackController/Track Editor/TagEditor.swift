@@ -31,6 +31,7 @@ class TagEditor: NSObject {
     var context: NSManagedObjectContext { return delegate!.tagEditorContext }
 
     var trackActions: TrackActions?
+    var playlistActions: PlaylistActions?
 
     func viewDidLoad() {
         NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: .NSManagedObjectContextObjectsDidChange, object: Library.shared.viewContext)
@@ -172,13 +173,19 @@ extension TagEditor: NSOutlineViewDataSource {
 
 extension TagEditor: NSOutlineViewContextSensitiveMenuDelegate {
     func currentMenu(forOutlineView outlineView: NSOutlineViewContextSensitiveMenu) -> NSMenu? {
-        let items = outlineView.contextualClickedRows.map(outlineView.item)
+        guard let items = outlineView.contextualClickedRows.compactMap(outlineView.item) as? [ViewableTag] else {
+            return nil
+        }
         
         if let tracks = items.caseAs(ViewableTag.related) {
             trackActions = TrackActions.create(.none(tracks: tracks))
             return trackActions?._menu
         }
-        
+        else if let playlists = items.caseAs(ViewableTag.tag) {
+            playlistActions = PlaylistActions.create(.invisible(playlists: playlists))
+            return playlistActions?.menu()
+        }
+
         return nil
     }
 }

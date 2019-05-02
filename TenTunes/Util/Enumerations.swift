@@ -47,12 +47,14 @@ class Enumerations {
 }
 
 extension Sequence {
+    // Note: Sequence must be of type [Enum]
     func caseLet<P>(_ builder: @escaping (P) -> Element) -> [P] {
         return compactMap { Enumerations.associatedValue(of: $0, as: builder) }
     }
 }
 
 extension Array {
+    // Note: Sequence must be of type [Enum]
     func caseAs<P>(_ builder: @escaping (P) -> Element) -> [P]? {
         let result = caseLet(builder)
         return result.count == count ? result : nil

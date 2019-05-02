@@ -21,6 +21,15 @@ class PlaylistActions: NSViewController, NSMenuDelegate, NSMenuItemValidation {
                 return playlists
             }
         }
+        
+        var isVisible: Bool {
+            switch self {
+            case .visible(_):
+                return true
+            case .invisible(_):
+                return false
+            }
+        }
     }
     
     var context: Context!
@@ -77,6 +86,16 @@ class PlaylistActions: NSViewController, NSMenuDelegate, NSMenuItemValidation {
         
         guard playlists.count >= 1 else {
             menu.cancelTrackingWithoutAnimation()
+            return
+        }
+        
+        let isVisible = context.isVisible
+        // Set all items to the "default value"
+        for item in menu.items.dropFirst() {
+            item.isVisible = isVisible
+        }
+
+        guard isVisible else {
             return
         }
         

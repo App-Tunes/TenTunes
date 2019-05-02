@@ -12,7 +12,7 @@ protocol NSOutlineViewContextSensitiveMenuDelegate {
     func currentMenu(forOutlineView outlineView: NSOutlineViewContextSensitiveMenu) -> NSMenu?
 }
 
-class NSOutlineViewContextSensitiveMenu : NSOutlineView {
+class NSOutlineViewContextSensitiveMenu : ActionOutlineView {
     // Only because we can't set clickedRows directly
     var _contextualClickedRows : IndexSet = IndexSet()
     var contextualClickedRows: IndexSet {

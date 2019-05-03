@@ -142,7 +142,8 @@ extension AppDelegate {
             dialog.canChooseFiles = true // packages are considered files by finder, library is a package
             dialog.canChooseDirectories = true
             dialog.allowedFileTypes = ["de.ivorius.tentunes.library"]
-            dialog.directoryURL = location
+            dialog.directoryURL = AppDelegate.defaults.url(forKey: "libraryLocation")
+                                    ?? Library.defaultURL()
             
             location = dialog.runModal() == .OK ? dialog.url : nil
         }

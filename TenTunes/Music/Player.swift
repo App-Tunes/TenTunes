@@ -346,7 +346,8 @@ protocol PlayerDelegate : class {
     
     func completionHandler(for player: AKPlayer) -> () -> Void {
         return { [unowned self] in
-            if self.player == player {
+            // If < 0.01, it's probably bugged. No track is that short
+            if self.player == player, player.currentTime > 0.01 {
                 self.play(moved: 1)
             }
         }

@@ -61,12 +61,8 @@ protocol PlayerDelegate : class {
 
         super.init()
 
-        player.completionHandler = { [unowned self] in
-            self.play(moved: 1)
-        }
-        backingPlayer.completionHandler = { [unowned self] in
-            self.play(moved: 1)
-        }
+        player.completionHandler = completionHandler(for: player)
+        backingPlayer.completionHandler = completionHandler(for: backingPlayer)
     }
     
     func start() {
@@ -346,6 +342,14 @@ protocol PlayerDelegate : class {
     
     override class func automaticallyNotifiesObservers(forKey key: String) -> Bool {
         return key != #keyPath(isPlaying)
+    }
+    
+    func completionHandler(for player: AKPlayer) -> () -> Void {
+        return { [unowned self] in
+            if self.player == player {
+                self.play(moved: 1)
+            }
+        }
     }
 
 //    override public class func keyPathsForValuesAffectingValue(forKey key: String) -> Set<String> {

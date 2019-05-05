@@ -226,7 +226,7 @@ protocol PlayerDelegate : class {
                     throw PlayError.error(message: error.localizedDescription)
                 }
                 
-                player.play()
+                player.play(from: 0)
                 playing = track
                 
                 mixer.volume = AppDelegate.defaults[.useNormalizedVolumes]

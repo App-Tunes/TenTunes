@@ -10,8 +10,12 @@ import Cocoa
 import Defaults
 
 class BarsLayer: CALayer {
-    static var defaultValues: [[CGFloat]] {
-        return Array(repeating: Array(repeating: 0.1, count: Analysis.sampleCount), count: 4)
+    static var defaultValues: Analysis.Values {
+        return .placeholder(lows: 0.0, mids: 1.0, highs: 0.0, count: Analysis.sampleCount)
+    }
+    
+    static var failedValues: Analysis.Values {
+        return .placeholder(lows: 1.0, mids: 0.0, highs: 0.0, count: Analysis.sampleCount)
     }
     
     static var currentBarColorLUT: [CGColor] {
@@ -35,7 +39,15 @@ class BarsLayer: CALayer {
             .clamp(Int(value * CGFloat(barColorLUT.count)))]
     }
     
-    var values: [[CGFloat]] = defaultValues {
+    static func values(from analysis: Analysis?) -> Analysis.Values {
+        guard let analysis = analysis else {
+            return defaultValues
+        }
+        
+        return analysis.values ?? failedValues
+    }
+    
+    var values: Analysis.Values = BarsLayer.defaultValues {
         didSet {
             setNeedsDisplay()
         }
@@ -84,8 +96,7 @@ class BarsLayer: CALayer {
 
         let numBars = Int(frame.width / segmentWidth)
         
-        let values = self.values.map { wf in wf.remap(toSize: numBars) }
-        let waveform = values[0], lows = values[1], mids = values[2], highs = values[3]
+        let values = self.values.remapped(toSize: numBars)
 
         let start = frame.minX + (frame.width - CGFloat(numBars) * segmentWidth) / 2
         
@@ -93,10 +104,13 @@ class BarsLayer: CALayer {
         
         for idx in 0 ..< numBars {
             // Frame
-            let h = waveform[idx]
+            let h = values.waveform[idx]
             
             // Color
-            let low = lows[idx] * lows[idx], mid = mids[idx] * mids[idx], high = highs[idx] * highs[idx]
+            let low = values.lows[idx] * values.lows[idx]
+            let mid = values.mids[idx] * values.mids[idx]
+            let high = values.highs[idx] * values.highs[idx]
+            
             let val = low + mid + high
             
             if val > 0, h > 0 {
@@ -114,7 +128,7 @@ class BarsLayer: CALayer {
                     ))
                 }
                 else if display == .rounded {
-                    let next = CGFloat((waveform[safe: idx + 1] ?? h) * frame.height)
+                    let next = CGFloat((values.waveform[safe: idx + 1] ?? h) * frame.height)
                     
                     ctx.move(to: CGPoint(x: barX, y: frame.minY))
                     ctx.addLine(to: CGPoint(x: barX + barWidth + spaceWidth, y: frame.minY))
@@ -354,13 +368,11 @@ class WaveformView: NSControl, CALayerDelegate {
             
             let drawValues = self.analysis?.values ?? BarsLayer.defaultValues
 
-            self.waveformLayer._barsLayer.values = (0..<4).map {
-                if self.analysis?.complete ?? true {
-                    return Interpolation.atan(self.waveformLayer._barsLayer.values[$0], drawValues[$0], step: self.completeTransitionSteps - self.transitionSteps, max: self.completeTransitionSteps)
-                }
-                else {
-                    return Interpolation.linear(self.waveformLayer._barsLayer.values[$0], drawValues[$0], amount: CGFloat(6 * self.updateTime))
-                }
+            if self.analysis?.complete ?? true {
+                self.waveformLayer._barsLayer.values = self.waveformLayer._barsLayer.values.interpolateAtan(to: drawValues, step: self.completeTransitionSteps - self.transitionSteps, max: self.completeTransitionSteps)
+            }
+            else {
+                self.waveformLayer._barsLayer.values = self.waveformLayer._barsLayer.values.interpolateLinear(to: drawValues, by: CGFloat(6 * self.updateTime))
             }
 
             CATransaction.commit()

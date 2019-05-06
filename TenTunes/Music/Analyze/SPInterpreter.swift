@@ -57,9 +57,9 @@ class SPInterpreter {
             let doPreview = AppDelegate.defaults[.previewWaveformAnalysis]
             let waveIndex = min(Int(progress * Float(Analysis.sampleCount)), Analysis.sampleCount)
             let approxWave = floats[0..<currentSamples].remap(toSize: waveIndex)
-            values.insert(Array(0..<Analysis.sampleCount).map {createWave($0) + (doPreview && $0 < waveIndex ? approxWave[$0] : 0.0)}, at: 0)
+            values.insert(Array(0 ..< Analysis.sampleCount).map {createWave($0) + (doPreview && $0 < waveIndex ? approxWave[$0] : 0.0)}, at: 0)
             
-            analysis.values = values
+            analysis.values = .init(fromArray: values)
         }
         
         var lastUpdate: CFTimeInterval = CACurrentMediaTime()
@@ -88,6 +88,12 @@ class SPInterpreter {
         
         setProgress(1.0)
         
+        guard !analyzer.failed else {
+            analysis.values = nil
+            analysis.complete = true
+            return
+        }
+        
         let waveformLength: Int = Int(analyzer.waveformSize)
         
         func waveform(start: UnsafeMutablePointer<UInt8>) -> [CGFloat] {
@@ -108,7 +114,7 @@ class SPInterpreter {
         let highs = waveform(start: analyzer.highWaveform)
         
         // Normalize waveform but only a little bit
-        analysis.values = [wf, lows, mids, highs]
+        analysis.values = .init(waveform: wf, lows: lows, mids: mids, highs: highs)
         analysis.complete = true
         
         // TODO Also use peakDecibel for a cap?

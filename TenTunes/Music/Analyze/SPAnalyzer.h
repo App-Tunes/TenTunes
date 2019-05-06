@@ -13,6 +13,7 @@
 - (void)analyze:(NSURL *)url progressHandler: (void(^)(float, float*, int))progressHandler;
 
 @property float progress;
+@property bool failed;
 
 @property unsigned char *averageWaveform;
 @property unsigned char *lowWaveform;

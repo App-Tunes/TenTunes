@@ -36,10 +36,13 @@
 }
 
 - (void)analyze:(NSURL *)url progressHandler: (void(^)(float, float*, int))progressHandler {
+    _failed = false;
+    
     // Open the input file.
     SuperpoweredDecoder *decoder = new SuperpoweredDecoder();
     const char *openError = decoder->open([url fileSystemRepresentation], false, 0, 0);
     if (openError) {
+        _failed = true;
         NSLog(@"open error: %s", openError);
         delete decoder;
         return;
@@ -57,8 +60,13 @@
     while (true) {
         // Decode one frame. samplesDecoded will be overwritten with the actual decoded number of samples.
         unsigned int samplesDecoded = decoder->samplesPerFrame;
-        if (decoder->decode(intBuffer, &samplesDecoded) == SUPERPOWEREDDECODER_ERROR) break;
-        if (samplesDecoded < 1) break;
+        if (decoder->decode(intBuffer, &samplesDecoded) == SUPERPOWEREDDECODER_ERROR) {
+            _failed = true;
+            break;
+        }
+        
+        if (samplesDecoded < 1)
+            break;
         
         // Convert the decoded PCM samples from 16-bit integer to 32-bit floating point.
         SuperpoweredShortIntToFloat(intBuffer, floatBuffer, samplesDecoded);
@@ -71,12 +79,14 @@
         progressHandler(_progress, floatBuffer, (int)samplesDecoded);
     };
     
-    int keyIndex;
-    
-    // Get the result.
-    analyzer->getresults(&_averageWaveform, &_peakWaveform, &_lowWaveform, &_midWaveform, &_highWaveform, &_notes, &_waveformSize, &_overviewWaveform, &_overviewSize, &_averageDecibel, &_loudpartsAverageDecibel, &_peakDecibel, &_bpm, &_beatgridStartMs, &keyIndex);
-    
-    _initialKey = [NSString stringWithCString:openkeyChordNames[keyIndex] encoding:NSASCIIStringEncoding];
+    if (!_failed) {
+        int keyIndex;
+        
+        // Get the result.
+        analyzer->getresults(&_averageWaveform, &_peakWaveform, &_lowWaveform, &_midWaveform, &_highWaveform, &_notes, &_waveformSize, &_overviewWaveform, &_overviewSize, &_averageDecibel, &_loudpartsAverageDecibel, &_peakDecibel, &_bpm, &_beatgridStartMs, &keyIndex);
+        
+        _initialKey = [NSString stringWithCString:openkeyChordNames[keyIndex] encoding:NSASCIIStringEncoding];
+    }
     
     // Cleanup.
     delete decoder;

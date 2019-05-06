@@ -28,14 +28,18 @@ extension TagEditor : TTTokenFieldDelegate {
             + sharedTags.sorted { $0.name < $1.name }.map { .tag(playlist: $0) }
     }
 
-    func tagResults(search: String, exact: Bool = false) -> [PlaylistManual] {
-        return Library.shared.allTags(in: context).of(type: PlaylistManual.self).filter {
+    func tagResults(search: String, exact: Bool = false, onlyRelevant: Bool = true) -> [PlaylistManual] {
+        var tags = Library.shared.allTags(in: context).of(type: PlaylistManual.self).filter {
             exact
                 ? $0.name.lowercased() == search.lowercased()
                 : $0.name.range(of: search, options: [.diacriticInsensitive, .caseInsensitive]) != nil
             }
-            .filter { !tagTokens.caseLet(ViewableTag.tag).contains($0) }
-            .sorted { (a, b) in a.name.count < b.name.count }
+            
+        if onlyRelevant {
+            tags = tags.filter { !tagTokens.caseLet(ViewableTag.tag).contains($0) }
+        }
+        
+        return tags.sorted { (a, b) in a.name.count < b.name.count }
     }
     
     func trackResults(search: String) -> [Track] {
@@ -132,7 +136,7 @@ extension TagEditor : TTTokenFieldDelegate {
                 return $0
             }
             
-            if let match = tagResults(search: string, exact: true).first {
+            if let match = tagResults(search: string, exact: true, onlyRelevant: false).first {
                 return match
             }
             

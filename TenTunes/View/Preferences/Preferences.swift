@@ -16,7 +16,8 @@ extension Defaults.Keys {
         "yearColumn" : true,
         "dateAddedColumn" : true,
         "keyColumn" : true,
-        "bpmColumn" : true
+        "bpmColumn" : true,
+        "playCountColumn" : true
     ])
     
     enum UsecaseAnswer: String, Codable {

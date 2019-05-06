@@ -25,6 +25,7 @@ extension TrackController {
         static let duration = NSUserInterfaceItemIdentifier(rawValue: "durationCell")
         static let dateAdded = NSUserInterfaceItemIdentifier(rawValue: "dateAddedCell")
         static let year = NSUserInterfaceItemIdentifier(rawValue: "yearCell")
+        static let playCount = NSUserInterfaceItemIdentifier(rawValue: "playCountCell")
     }
     
     enum ColumnIdentifiers {
@@ -39,6 +40,7 @@ extension TrackController {
         static let duration = NSUserInterfaceItemIdentifier(rawValue: "durationColumn")
         static let dateAdded = NSUserInterfaceItemIdentifier(rawValue: "dateAddedColumn")
         static let year = NSUserInterfaceItemIdentifier(rawValue: "yearColumn")
+        static let playCount = NSUserInterfaceItemIdentifier(rawValue: "playCountColumn")
     }
 
     var selectedTrack: Track? {
@@ -285,7 +287,13 @@ extension TrackController: NSTableViewDelegate {
             }
             return view
         }
-        
+        else if tableColumn?.identifier == ColumnIdentifiers.playCount, let view = tableView.makeView(withIdentifier: CellIdentifiers.playCount, owner: nil) as? NSTableCellView {
+            view.textField?.bind(.value, to: track, withKeyPath: \.playCount) {
+                ($0 == 0 ? nil : String($0)) as NSString?
+            }
+            return view
+        }
+
         return nil
     }
     
@@ -378,6 +386,8 @@ extension TrackController: NSTableViewDataSource {
                 desired.sort = { $0.creationDate.timeIntervalSinceReferenceDate < $1.creationDate.timeIntervalSinceReferenceDate }
             case "year":
                 desired.sort = { $0.year < $1.year }
+            case "playCount":
+                desired.sort = { $0.playCount < $1.playCount }
             default:
                 fatalError("Unknown Sort Descriptor Key")
             }

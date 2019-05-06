@@ -53,13 +53,14 @@ class Countdown {
     }
     
     func pause() {
-        timeLeft = (timer?.fireDate).map(Date().timeIntervalSince) ?? 0
+        timeLeft = (timer?.fireDate).map { $0.timeIntervalSinceNow } ?? 0
         timer?.invalidate()
         timer = nil
     }
     
     func resume() {
         timeLeft.map(start)
+        timeLeft = nil
     }
     
     func stop() {

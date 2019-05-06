@@ -235,7 +235,8 @@ extension TrackEditor: NSOutlineViewDataSource {
                 
                 view.valueTextField?.bind(.value, to: tracksController!, withKeyPath: "selection." + data.path._kvcKeyPathString!, options: (data.options ?? [:]).merging([.nullPlaceholder: "..."], uniquingKeysWith: { (a, _) in a }))
                 view.valueTextField?.bind(.toolTip, to: tracksController!, withKeyPath: "selection." + data.path._kvcKeyPathString!, options: data.options)
-                
+                view.valueTextField?.isEditable = true
+
                 editActionStubs.bind(view.valueTextField!) { [unowned self] _ in
                     self.attributeEdited(data.path, skipWrite: data.skipWrite)
                 }

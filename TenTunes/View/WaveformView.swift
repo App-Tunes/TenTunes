@@ -433,6 +433,10 @@ import AVFoundation
 
 extension WaveformView {
     func updateLocation(_ location: Double?, duration: CMTime) {
+        guard location != self.location else {
+            return
+        }
+        
         CATransaction.begin()
         CATransaction.setAnimationDuration(duration.seconds)
         

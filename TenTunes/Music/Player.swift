@@ -32,7 +32,46 @@ protocol PlayerDelegate : class {
     var currentHistory: PlayHistory? { get }
 }
 
+class Countdown {
+    var action: (() -> Void)?
+    private var timer: Timer?
+    private var timeLeft: Double?
+    
+    init(action: (() -> Void)? = nil) {
+        self.action = action
+    }
+    
+    private func start() {
+        
+    }
+    
+    func start(for seconds: TimeInterval) {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: seconds, repeats: false) { [unowned self] _ in
+            self.action?()
+        }
+    }
+    
+    func pause() {
+        timeLeft = (timer?.fireDate).map(Date().timeIntervalSince) ?? 0
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    func resume() {
+        timeLeft.map(start)
+    }
+    
+    func stop() {
+        timeLeft = nil
+        timer?.invalidate()
+        timer = nil
+    }
+}
+
 @objc class Player : NSObject {
+    static let minPlayTimePerListen = 0.5
+    
     var history: PlayHistory = PlayHistory(playlist: PlaylistEmpty())
     @objc dynamic var player: AKPlayer
     @objc dynamic var backingPlayer: AKPlayer
@@ -51,6 +90,8 @@ protocol PlayerDelegate : class {
     var `repeat` = true
     
     var startTime = 0.0
+    
+    var playCountCountdown: Countdown
 
     override init() {
         player = AKPlayer()
@@ -58,9 +99,14 @@ protocol PlayerDelegate : class {
         mixer = AKMixer(player, backingPlayer)
         outputNode = AKBooster(mixer)
         outputNode.gain = 0.7
+        
+        playCountCountdown = Countdown()
 
         super.init()
 
+        playCountCountdown.action = { [unowned self] in
+            self.playing?.playCount += 1
+        }
         player.completionHandler = completionHandler(for: player)
         backingPlayer.completionHandler = completionHandler(for: backingPlayer)
     }
@@ -172,6 +218,7 @@ protocol PlayerDelegate : class {
     func togglePlay() {
         if isPaused {
             sanityCheck()
+            playCountCountdown.resume()
             
             willChangeValue(for: \.isPlaying)
             player.play(from: startTime, to: player.duration)
@@ -192,6 +239,8 @@ protocol PlayerDelegate : class {
     }
 
     func play(track: Track?) throws {
+        playCountCountdown.stop()
+        
         if player.isPlaying {
             player.stop()
         }
@@ -228,6 +277,9 @@ protocol PlayerDelegate : class {
                 
                 player.play(from: 0)
                 playing = track
+                playing?.duration.map {
+                    playCountCountdown.start(for: $0.seconds * Player.minPlayTimePerListen)
+                }
                 
                 mixer.volume = AppDelegate.defaults[.useNormalizedVolumes]
                     ? max(0.5, min(1.5, 1.0 / track.loudness)) : 1.0
@@ -313,6 +365,8 @@ protocol PlayerDelegate : class {
     }
     
     func pause() {
+        playCountCountdown.pause()
+        
         sanityCheck()
 
         willChangeValue(for: \.isPlaying)

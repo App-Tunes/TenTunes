@@ -44,6 +44,7 @@ extension Track {
     @NSManaged public var metadataFetchDate: Date?
     // Note: Might be a relative path from library location
     @NSManaged public var path: String?
+    @NSManaged public var playCount: Int32
     @NSManaged public var relatedTracks: NSSet
     @NSManaged public var remixAuthor: String?
     @NSManaged public var title: String?

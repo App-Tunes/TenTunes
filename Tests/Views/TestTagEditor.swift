@@ -28,6 +28,8 @@ class TestTagEditor: TestTrackController {
         
         trackController.select(tracks: [track])
         trackController.trackEditorGuard.isHidden = false
+        
+        XCTAssertTrue(trackEditor.isViewLoaded)
     }
     
     func testTagUpdates() {

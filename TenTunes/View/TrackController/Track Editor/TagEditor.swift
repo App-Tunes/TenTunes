@@ -20,6 +20,9 @@ class TagEditor: NSObject {
     
     init(delegate: TagEditorDelegate) {
         self.delegate = delegate
+        super.init()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: .NSManagedObjectContextObjectsDidChange, object: context)
     }
     
     var tagTokens : [ViewableTag] = []
@@ -32,10 +35,6 @@ class TagEditor: NSObject {
 
     var trackActions: TrackActions?
     var playlistActions: PlaylistActions?
-
-    func viewDidLoad() {
-        NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: .NSManagedObjectContextObjectsDidChange, object: Library.shared.viewContext)
-    }
     
     @IBAction func managedObjectContextObjectsDidChange(notification: NSNotification) {
         guard let userInfo = notification.userInfo else { return }

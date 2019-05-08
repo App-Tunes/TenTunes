@@ -60,6 +60,7 @@ class TrackEditor: NSViewController {
     }
     
     override func awakeFromNib() {
+        context = Library.shared.viewContext
         tagEditor = TagEditor(delegate: self)
         
         _editorOutline.target = self
@@ -74,9 +75,6 @@ class TrackEditor: NSViewController {
     }
 
     func show(tracks: [Track]) {
-//        context = Library.shared.newConcurrentContext()
-//        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy // User is always right
-        context = Library.shared.viewContext
         let converted = context.compactConvert(tracks)
         
         for track in converted {

@@ -367,12 +367,14 @@ class Countdown {
 
         // Slowly switch states. Kinda hacky but improves listening result
         for _ in 0 ..< 100 {
-            self.player.volume += 1.0 / 100
-            self.backingPlayer.volume -= 1.0 / 100
+            player.volume += 1.0 / 100
+            backingPlayer.volume -= 1.0 / 100
             Thread.sleep(forTimeInterval: 0.001)
         }
         
-        self.backingPlayer.stop()
+        backingPlayer.stop()
+        player.volume = 1
+        backingPlayer.volume = 1
     }
     
     func pause() {

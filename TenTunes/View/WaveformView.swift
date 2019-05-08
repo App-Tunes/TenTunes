@@ -339,7 +339,7 @@ class WaveformView: NSControl, CALayerDelegate {
             timer?.invalidate()
             timer = nil
             
-            transitionSmoothlyToAnalysis()
+            transitionToCompleteAnalysis()
 
             return
         }
@@ -365,7 +365,7 @@ class WaveformView: NSControl, CALayerDelegate {
                 timer.invalidate()
                 self.timer = nil
                 
-                self.transitionSmoothlyToAnalysis()
+                self.transitionToCompleteAnalysis()
                 
                 return
             }
@@ -386,7 +386,7 @@ class WaveformView: NSControl, CALayerDelegate {
         timer?.tolerance = .seconds(timer!.timeInterval / 4)
     }
     
-    private func transitionSmoothlyToAnalysis() {
+    private func transitionToCompleteAnalysis() {
         var drawValues: Analysis.Values?
         
         if let analysis = self.analysis {
@@ -397,9 +397,19 @@ class WaveformView: NSControl, CALayerDelegate {
         }
         
         guard AppDelegate.defaults[.animateWaveformTransitions], visibleRect != NSZeroRect, superview != nil else {
+            // Transition Instantly
+            
+            CATransaction.begin()
+            CATransaction.setDisableActions(true)
+            
             waveformLayer._barsLayer.values = drawValues!
+            
+            CATransaction.commit()
+
             return
         }
+        
+        // Transition Smoothly
         
         CATransaction.begin()
         CATransaction.setAnimationDuration(.seconds(0.2))

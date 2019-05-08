@@ -124,7 +124,10 @@ extension PlaylistController {
             return false
         }
         
-        _outlineView.edit(row: idx, with: nil, select: true)
+        if editTitle {
+            _outlineView.edit(row: idx, with: nil, select: true)
+        }
+
         return true
     }
     

@@ -29,15 +29,6 @@ class TestTrackController: TenTunesTest {
         super.tearDown()
     }
 
-    func selectLibrary() {
-        viewController.playlistController.select(.master)
-    }
-    
-    func select(playlist: Playlist) {
-        viewController.playlistController.select(playlist: playlist)
-        XCTAssertEqual(viewController.trackController.history.playlist as? Playlist, playlist)
-    }
-    
     func runViewUpdate() {
         // Usually set by spawn(task)
         trackController.desired._changed = false
@@ -45,6 +36,20 @@ class TestTrackController: TenTunesTest {
         runSynchronousTask(UpdateCurrentPlaylist(trackController: trackController, desired: trackController.desired))
         
         XCTAssertTrue(trackController.desired.isDone)
+    }
+
+    func selectLibrary() {
+        viewController.playlistController.select(.master)
+        runViewUpdate()
+
+        XCTAssertTrue(viewController.trackController.history.playlist === library[PlaylistRole.library])
+    }
+    
+    func select(playlist: Playlist) {
+        viewController.playlistController.select(playlist: playlist)
+        runViewUpdate()
+        
+        XCTAssertEqual(viewController.trackController.history.playlist as? Playlist, playlist)
     }
     
     func trackTitleAtRow(_ row: Int) -> String {
@@ -74,8 +79,6 @@ class TestTrackController: TenTunesTest {
     func testLibrary() {
         selectLibrary()
         
-        runViewUpdate()
-        
         let numberOfRows = trackController._tableView.numberOfRows
         
         XCTAssertEqual(numberOfRows, tracks.count)
@@ -87,8 +90,6 @@ class TestTrackController: TenTunesTest {
 
     func testTag() {
         select(playlist: tags[0])
-        
-        runViewUpdate()
         
         XCTAssertEqual(screenStatus(ofTrack: tracks[0]), .absent)
         XCTAssertEqual(screenStatus(ofTrack: tracks[1]), .absent)

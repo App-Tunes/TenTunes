@@ -461,7 +461,7 @@ extension WaveformView {
     func observe(for track: Track?, in player: Player) {
         self.track = track
         
-        NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.removeObserver(self, name: ViewController.userInterfaceUpdateNotification, object: nil)
         NotificationCenter.default.addObserver(forName: ViewController.userInterfaceUpdateNotification, object: nil, queue: OperationQueue.main) { [weak self] _ in
             guard let `self` = self else {
                 return // Deallocated in the meantime

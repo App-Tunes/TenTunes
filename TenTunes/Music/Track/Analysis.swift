@@ -69,10 +69,6 @@ class Analysis : NSObject, NSCoding {
         var asArray: [[CGFloat]] {
             return [waveform, lows, mids, highs]
         }
-        
-        func interpolateAtan(to: Values, step: Int, max: Int) -> Values {
-            return Values(fromArray: zip(asArray, to.asArray).map { Interpolation.atan($0.0, $0.1, step: step, max: max) })
-        }
 
         func interpolateLinear(to: Values, by amount: CGFloat) -> Values {
             return Values(fromArray: zip(asArray, to.asArray).map { Interpolation.linear($0.0, $0.1, amount: amount) })

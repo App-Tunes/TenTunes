@@ -221,7 +221,7 @@ extension TrackController: NSTableViewDelegate {
             view.action = #selector(waveformViewClicked)
             
             view.track = track
-            view.setInstantly(analysis: track.analysis)
+            view.analysis = track.analysis
             
             view.observe(for: track, in: ViewController.shared.player)
             

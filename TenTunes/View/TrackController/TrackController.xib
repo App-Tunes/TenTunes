@@ -86,9 +86,6 @@
                                                             <userDefinedRuntimeAttribute type="number" keyPath="updateTime">
                                                                 <real key="value" value="0.10000000000000001"/>
                                                             </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="completeTransitionSteps">
-                                                                <integer key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="waveformViewClicked:" target="-1" id="tSy-aY-owi"/>

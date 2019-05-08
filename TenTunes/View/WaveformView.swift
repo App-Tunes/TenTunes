@@ -49,7 +49,7 @@ class BarsLayer: CALayer {
     
     var values: Analysis.Values = BarsLayer.defaultValues {
         didSet {
-            setNeedsDisplay()
+            layoutSublayers()
         }
     }
     
@@ -57,7 +57,7 @@ class BarsLayer: CALayer {
     var spaceWidth = 2
     
     var defaultsObservers: [DefaultsObservation] = []
-
+    
     override init() {
         super.init()
         startObservers()
@@ -88,21 +88,39 @@ class BarsLayer: CALayer {
         ]
     }
     
-    override func draw(in ctx: CGContext) {
+    private func ensureSublayerCount(_ count: Int) {
+        let diffLayers = count - (sublayers?.count ?? 0)
+        if diffLayers > 0 {
+            sublayers = (sublayers ?? []) + (0 ..< diffLayers).map { _ in
+                CALayer()
+            }
+        }
+        else if diffLayers < 0 {
+            sublayers?.removeLast(diffLayers)
+        }
+    }
+    
+    override func layoutSublayers() {
         let barWidth = CGFloat(self.barWidth)
         let spaceWidth = CGFloat(self.spaceWidth)
-
+        
         let segmentWidth = barWidth + spaceWidth
-
+        
         let numBars = Int(frame.width / segmentWidth)
+        ensureSublayerCount(numBars)
+        
+        guard let bars = sublayers else {
+            // Nothing to draw
+            return
+        }
         
         let values = self.values.remapped(toSize: numBars)
-
+        
         let start = frame.minX + (frame.width - CGFloat(numBars) * segmentWidth) / 2
         
         let display = AppDelegate.defaults[.waveformDisplay]
         
-        for idx in 0 ..< numBars {
+        for (idx, layer) in bars.enumerated() {
             // Frame
             let h = values.waveform[idx]
             
@@ -112,32 +130,31 @@ class BarsLayer: CALayer {
             let high = values.highs[idx] * values.highs[idx]
             
             let val = low + mid + high
-            
-            if val > 0, h > 0 {
-                ctx.setFillColor(BarsLayer.barColor((mid / val / 2 + high / val)))
-                
-                let barX = start + CGFloat(idx) * segmentWidth + 1
-                let barHeight = CGFloat(h * frame.height)
-                
-                if display == .bars {
-                    ctx.fill(CGRect(
-                        x: barX,
-                        y: frame.minY,
-                        width: barWidth,
-                        height: barHeight
-                    ))
-                }
-                else if display == .rounded {
-                    let next = CGFloat((values.waveform[safe: idx + 1] ?? h) * frame.height)
-                    
-                    ctx.move(to: CGPoint(x: barX, y: frame.minY))
-                    ctx.addLine(to: CGPoint(x: barX + barWidth + spaceWidth, y: frame.minY))
-                    ctx.addLine(to: CGPoint(x: barX + barWidth + spaceWidth, y: frame.minY + next))
-                    ctx.addLine(to: CGPoint(x: barX, y: frame.minY + barHeight))
-                    ctx.fillPath()
-                }
+            if val > 0 {
+                // Else the bar has no height; keep the current color
+                layer.backgroundColor = BarsLayer.barColor((mid / val / 2 + high / val))
             }
-            // Else bar doesn't exist
+            
+            let barX = start + CGFloat(idx) * segmentWidth + 1
+            let barHeight = CGFloat(h * frame.height)
+            
+            if display == .bars {
+                layer.frame = CGRect(
+                    x: barX,
+                    y: frame.minY,
+                    width: barWidth,
+                    height: barHeight
+                )
+            }
+            else if display == .rounded {
+                let next = CGFloat((values.waveform[safe: idx + 1] ?? h) * frame.height)
+                // TODO
+//                    ctx.move(to: CGPoint(x: barX, y: frame.minY))
+//                    ctx.addLine(to: CGPoint(x: barX + barWidth + spaceWidth, y: frame.minY))
+//                    ctx.addLine(to: CGPoint(x: barX + barWidth + spaceWidth, y: frame.minY + next))
+//                    ctx.addLine(to: CGPoint(x: barX, y: frame.minY + barHeight))
+//                    ctx.fillPath()
+            }
         }
     }
 }
@@ -257,11 +274,7 @@ class WaveformView: NSControl, CALayerDelegate {
                 return
             }
             
-            transitionSteps = completeTransitionSteps
-            location = nil
-
-            _analysis = analysis
-            updateTimer()
+            transitionToAnalysis(analysis)
         }
         get { return _analysis }
     }
@@ -273,18 +286,17 @@ class WaveformView: NSControl, CALayerDelegate {
     
     var timer: Timer? = nil
     
-    var transitionSteps = 0
-    
     @IBInspectable
     var updateTime : Double = 1.0 / 30.0 {
         didSet {
-            if updateTime != oldValue {
-                updateTimer()
+            guard updateTime != oldValue else {
+                return
             }
+            
+            // To possibly update timer
+            transitionToAnalysis(analysis)
         }
     }
-    @IBInspectable
-    var completeTransitionSteps : Int = 10 // 1/3 Second
 
     var barWidth: Int {
         set(barWidth) { waveformLayer._barsLayer.barWidth = barWidth }
@@ -317,67 +329,85 @@ class WaveformView: NSControl, CALayerDelegate {
         self.addTrackingArea(trackingArea)
     }
     
-    func setInstantly(analysis: Analysis?) {
-        CATransaction.begin()
-        CATransaction.setValue(true, forKey:kCATransactionDisableActions)
-        
+    private func transitionToAnalysis(_ analysis: Analysis?) {
         _analysis = analysis
-        waveformLayer._barsLayer.values = analysis?.values ?? BarsLayer.defaultValues
-        transitionSteps = analysis?.complete ?? true ? 0 : completeTransitionSteps
         
-        updateTimer()
+        let animate = AppDelegate.defaults[.animateWaveformTransitions] && AppDelegate.defaults[.animateWaveformAnalysis]
+        guard animate, !(analysis?.complete ?? true) else {
+            // Transition slowly
+
+            timer?.invalidate()
+            timer = nil
+            
+            transitionSmoothlyToAnalysis()
+
+            return
+        }
+
+        // Need animation
         
-        CATransaction.commit()
-    }
-    
-    func updateTimer() {
         guard timer?.timeInterval != updateTime else {
+            // Just keep the current animation timer
+            
             return
         }
         
         timer?.invalidate()
-
-        guard transitionSteps > 0 else {
-            timer = nil
-            return
+        
+        if visibleRect == NSZeroRect || superview == nil {
+            // Invisible yet, better start fresh
+            waveformLayer._barsLayer.values = BarsLayer.defaultValues
         }
-                
+        
         timer = Timer.scheduledTimer(withTimeInterval: updateTime, repeats: true) { timer in
-            guard self.transitionSteps > 0 else {
-                self.timer?.invalidate()
+            guard let analysis = self.analysis, !analysis.complete else {
+                // Done
+                timer.invalidate()
                 self.timer = nil
+                
+                self.transitionSmoothlyToAnalysis()
+                
                 return
             }
             
-            guard self.visibleRect != NSZeroRect else {
-                return // Not visible, why update?
-            }
-            
-            let isComplete = self.analysis?.complete ?? true
-            if isComplete { self.transitionSteps -= 1 }
-
-            guard AppDelegate.defaults[.animateWaveformTransitions] else {
-                self.waveformLayer._barsLayer.values = (isComplete ? self.analysis?.values : nil) ?? BarsLayer.defaultValues
-
+            guard let drawValues = analysis.values else {
+                // Wait until it has a values object
                 return
             }
-
+            
             // Only update the bars for x steps after transition
             CATransaction.begin()
             CATransaction.setAnimationDuration(self.updateTime)
             
-            let drawValues = self.analysis?.values ?? BarsLayer.defaultValues
-
-            if self.analysis?.complete ?? true {
-                self.waveformLayer._barsLayer.values = self.waveformLayer._barsLayer.values.interpolateAtan(to: drawValues, step: self.completeTransitionSteps - self.transitionSteps, max: self.completeTransitionSteps)
-            }
-            else {
-                self.waveformLayer._barsLayer.values = self.waveformLayer._barsLayer.values.interpolateLinear(to: drawValues, by: CGFloat(6 * self.updateTime))
-            }
+            self.waveformLayer._barsLayer.values = self.waveformLayer._barsLayer.values.interpolateLinear(to: drawValues, by: CGFloat(6 * self.updateTime))
 
             CATransaction.commit()
         }
         timer?.tolerance = .seconds(timer!.timeInterval / 4)
+    }
+    
+    private func transitionSmoothlyToAnalysis() {
+        var drawValues: Analysis.Values?
+        
+        if let analysis = self.analysis {
+            drawValues = analysis.values ?? BarsLayer.failedValues
+        }
+        else {
+            drawValues = BarsLayer.defaultValues
+        }
+        
+        guard AppDelegate.defaults[.animateWaveformTransitions], visibleRect != NSZeroRect, superview != nil else {
+            waveformLayer._barsLayer.values = drawValues!
+            return
+        }
+        
+        CATransaction.begin()
+        CATransaction.setAnimationDuration(.seconds(0.2))
+        CATransaction.setAnimationTimingFunction(.init(name: .easeInEaseOut))
+
+        waveformLayer._barsLayer.values = drawValues!
+        
+        CATransaction.commit()
     }
     
     override func acceptsFirstMouse(for event: NSEvent?) -> Bool {

@@ -35,6 +35,10 @@ class TenTunesTest: XCTestCase {
         return library.viewContext
     }
     
+    var viewController: ViewController {
+        return ViewController.shared
+    }
+
     func create(tracks: Int = 0, groups: Int = 0, tags: Int = 0) {
         self.tracks = (0 ..< tracks).map { idx in
             let track = Track(context: self.context)
@@ -87,6 +91,11 @@ class TenTunesTest: XCTestCase {
     }
 
     override func tearDown() {
+        // Reset playlist controller to initial state
+        viewController.playlistController._outlineView.collapseItem(nil, collapseChildren: true)
+
+        // Delete all creations
+        
         context.delete(all: groups)
         groups = []
         

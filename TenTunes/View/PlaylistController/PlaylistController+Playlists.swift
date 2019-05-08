@@ -145,12 +145,13 @@ extension PlaylistController {
                 }
             }
             
-            // First selection, for most cases this is enough, but there's no better way anyway
             let indices: [IndexSet.Element] = items.compactMap {
-                _outlineView.row(forItem: $0)
+                _outlineView.row(forItem: $0).positive
             }
             
+            // Scroll to first, can't go much better anyway
             if let first = indices.first { _outlineView.scrollRowToVisible(first) }
+            
             // didSelect will be called automatically by delegate method
             _outlineView.selectRowIndexes(IndexSet(indices), byExtendingSelection: false)
         }

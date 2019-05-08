@@ -10,11 +10,7 @@ import XCTest
 
 @testable import TenTunes
 
-class TestTrackController: TenTunesTest {
-    var viewController: ViewController {
-        return ViewController.shared
-    }
-    
+class TestTrackController: TenTunesTest {    
     var trackController: TrackController {
         return viewController.trackController
     }

@@ -35,6 +35,7 @@ class TestTrackController: TenTunesTest {
     
     func select(playlist: Playlist) {
         viewController.playlistController.select(playlist: playlist)
+        XCTAssertEqual(viewController.trackController.history.playlist as? Playlist, playlist)
     }
     
     func runViewUpdate() {

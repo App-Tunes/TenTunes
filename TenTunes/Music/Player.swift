@@ -414,7 +414,7 @@ class Countdown {
     func completionHandler(for player: AKPlayer) -> () -> Void {
         return { [unowned self] in
             // If < 0.01, it's probably bugged. No track is that short
-            if self.player == player, player.currentTime > 0.01 {
+            if self.player == player {
                 self.play(moved: 1)
             }
         }

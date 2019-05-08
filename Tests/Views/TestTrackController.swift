@@ -25,10 +25,6 @@ class TestTrackController: TenTunesTest {
         create(tracks: 2, groups: 0, tags: 1)
     }
 
-    override func tearDown() {
-        super.tearDown()
-    }
-
     func runViewUpdate() {
         // Usually set by spawn(task)
         trackController.desired._changed = false
@@ -42,11 +38,11 @@ class TestTrackController: TenTunesTest {
         viewController.playlistController.select(.master)
         runViewUpdate()
 
-        XCTAssertTrue(trackController.history.playlist === library[PlaylistRole.library])
+        XCTAssertEqual(trackController.history.playlist.persistentID, library[PlaylistRole.library].persistentID)
     }
     
     func select(playlist: Playlist) {
-        viewController.playlistController.select(playlist: playlist)
+        XCTAssertTrue(viewController.playlistController.select(playlist: playlist))
         runViewUpdate()
         
         XCTAssertEqual(trackController.history.playlist as? Playlist, playlist)

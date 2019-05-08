@@ -108,23 +108,24 @@ extension PlaylistController {
             return
         }
     }
-        
-    func select(playlist: Playlist, editTitle: Bool = false) {
+    
+    @discardableResult
+    func select(playlist: Playlist, editTitle: Bool = false) -> Bool {
         let item = cache.playlistItem(playlist)
         
         select(.items([item]))
         
-        guard editTitle else {
-            return
-        }
-        
         guard let idx = _outlineView.row(forItem: item).positive else {
-            print("Playlist does not exist in view even though it must!")
-            NSAlert.informational(title: "Error", text: "Could not select new playlist! Please report this to the author.")
-            return
+            if editTitle {
+                print("Playlist does not exist in view even though it must!")
+                NSAlert.informational(title: "Error", text: "Could not select new playlist! Please report this to the author.")
+            }
+            
+            return false
         }
         
         _outlineView.edit(row: idx, with: nil, select: true)
+        return true
     }
     
     func select(_ selection: SelectionMoment) {

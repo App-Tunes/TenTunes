@@ -146,6 +146,7 @@ class BarsLayer: CALayer {
                 )
             }
             else if display == .rounded {
+                layer.backgroundColor = nil
                 color.map { layer.fillColor = $0 }
                 
                 let next = CGFloat((values.waveform[safe: idx + 1] ?? h) * frame.height)

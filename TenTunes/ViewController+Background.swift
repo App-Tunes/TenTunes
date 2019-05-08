@@ -16,7 +16,7 @@ extension ViewController {
     }
     
     func startBackgroundTasks() {
-        self.backgroundTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 10.0, repeats: true ) { [unowned self] (timer) in
+        backgroundTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 10.0, repeats: true ) { [unowned self] (timer) in
             if self.view.window?.isVisible ?? false {
                 NotificationCenter.default.post(name: ViewController.userInterfaceUpdateNotification, object: self)
                 
@@ -89,6 +89,7 @@ extension ViewController {
                 self._workerSemaphore.signal()
             }
         }
+        backgroundTimer?.tolerance = backgroundTimer!.timeInterval / 4
         
         // Requests are freaking slow with many tracks so do it rarely
         Timer.scheduledAsyncTickTock(withTimeInterval: 5, do: [{
@@ -125,7 +126,8 @@ extension ViewController {
                         }
                     }
                 }
-            }])
+            }
+        ])
         
         NotificationCenter.default.addObserver(forName: .AVAudioEngineConfigurationChange, object: nil, queue: OperationQueue.main) { [unowned self] _ in
             // Sanity check audio player

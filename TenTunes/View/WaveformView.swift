@@ -377,6 +377,7 @@ class WaveformView: NSControl, CALayerDelegate {
 
             CATransaction.commit()
         }
+        timer?.tolerance = .seconds(timer!.timeInterval / 4)
     }
     
     override func acceptsFirstMouse(for event: NSEvent?) -> Bool {

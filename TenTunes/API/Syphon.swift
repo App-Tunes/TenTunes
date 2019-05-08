@@ -57,6 +57,7 @@ class Syphon {
                 view.needsDisplay = true
             }
         }
+        timer.tolerance = timer.timeInterval / 4
         
         return LiveSyphonServer(server: server, timer: timer)
     }

@@ -604,6 +604,26 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		803455002283309B00202131 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				800A2FBE227AFD960048DD6D /* TestEnumerations.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		80345501228330BA00202131 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				8069C08B22086E9900CD3396 /* TestInitialState.swift */,
+				808BAAEC220E252B0017557C /* TestMediaLocation.swift */,
+				808BAAEA220DB7290017557C /* TestKeys.swift */,
+				80905F642208708E00A6A830 /* TestPlaylists.swift */,
+				8020C65222177D1500E6FA5C /* TestExport.swift */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
 		8058FA8D204316F50086FF8A /* Superpowered */ = {
 			isa = PBXGroup;
 			children = (
@@ -697,13 +717,9 @@
 			children = (
 				80905F672208906A00A6A830 /* TenTunesTest.swift */,
 				803454FF22831A3400202131 /* Views */,
-				800A2FBE227AFD960048DD6D /* TestEnumerations.swift */,
-				8069C08B22086E9900CD3396 /* TestInitialState.swift */,
-				808BAAEC220E252B0017557C /* TestMediaLocation.swift */,
-				808BAAEA220DB7290017557C /* TestKeys.swift */,
-				80905F642208708E00A6A830 /* TestPlaylists.swift */,
+				803455002283309B00202131 /* Util */,
+				80345501228330BA00202131 /* Library */,
 				8071FA6E220E666A000B8868 /* TestPlayer.swift */,
-				8020C65222177D1500E6FA5C /* TestExport.swift */,
 				8069C07122085FB900CD3396 /* Info.plist */,
 			);
 			path = Tests;

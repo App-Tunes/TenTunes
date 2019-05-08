@@ -497,6 +497,7 @@ extension WaveformView {
         
         CATransaction.begin()
         CATransaction.setAnimationDuration(duration.seconds)
+        CATransaction.setAnimationTimingFunction(.init(name: .linear))
         
         self.location = location
 

@@ -263,7 +263,9 @@ class Countdown {
                         playing = nil
                         throw PlayError.error(message: "File duration is too long! The file is probably bugged.") // Likely bugged file and we'd crash otherwise
                     }
-
+                    
+                    player.stop()
+                    
                     player.load(audioFile: akfile)
                     backingPlayer.load(audioFile: akfile)
                 } catch let error {
@@ -275,6 +277,10 @@ class Countdown {
                     
                     throw PlayError.error(message: error.localizedDescription)
                 }
+                
+                // Apparently players are currently sometimes unusable after load
+                // for a second or so
+                swapPlayers()
                 
                 player.play(from: 0)
                 playing = track
@@ -332,6 +338,12 @@ class Countdown {
         }
     }
     
+    func swapPlayers() {
+        let _player = self.player
+        self.player = self.backingPlayer
+        self.backingPlayer = _player
+    }
+    
     func setPosition(_ position: Double) {
         guard abs(position - player.currentTime) > 0.04 else {
             return // Baaasically the same, so skip doing extra work
@@ -351,9 +363,7 @@ class Countdown {
         backingPlayer.volume = 0
         backingPlayer.play()
         
-        let _player = self.player
-        self.player = self.backingPlayer
-        self.backingPlayer = _player
+        swapPlayers()
 
         // Slowly switch states. Kinda hacky but improves listening result
         for _ in 0 ..< 100 {

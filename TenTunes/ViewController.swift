@@ -405,6 +405,11 @@ extension ViewController: PlayerDelegate {
             return
         }
         
+        if track.analysis == nil {
+            track.readAnalysis()
+        }
+        _waveformView.analysis = track.analysis
+
         if playingTrackController.history.track(at: 0) != track {
             playingTrackController.history.insert(tracks: [track], before: 0)
             playingTrackController._tableView.insertRows(at: IndexSet(integer: 0), withAnimation: .slideDown)
@@ -415,8 +420,6 @@ extension ViewController: PlayerDelegate {
                 playingTrackController._tableView.removeRows(at: IndexSet(integer: 1), withAnimation: .effectFade)
             }
         }
-        
-        _waveformView.analysis = track.analysis
         
         if let speed = track.speed {
             // Always jump 16 beats

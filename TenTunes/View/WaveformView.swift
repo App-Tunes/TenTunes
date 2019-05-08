@@ -152,7 +152,7 @@ class BarsLayer: CALayer {
                 let next = CGFloat((values.waveform[safe: idx + 1] ?? h) * frame.height)
                 
                 let path = CGMutablePath()
-                // TODO
+                // TODO Animate
                 path.move(to: CGPoint(x: barX, y: frame.minY))
                 path.addLine(to: CGPoint(x: barX + barWidth + spaceWidth, y: frame.minY))
                 path.addLine(to: CGPoint(x: barX + barWidth + spaceWidth, y: frame.minY + next))

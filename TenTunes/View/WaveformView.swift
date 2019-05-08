@@ -383,7 +383,8 @@ class WaveformView: NSControl, CALayerDelegate {
             // Only update the bars for x steps after transition
             CATransaction.begin()
             CATransaction.setAnimationDuration(self.updateTime)
-            
+            CATransaction.setAnimationTimingFunction(.init(name: .linear))
+
             self.waveformLayer._barsLayer.values = self.waveformLayer._barsLayer.values.interpolateLinear(to: drawValues, by: CGFloat(6 * self.updateTime))
 
             CATransaction.commit()

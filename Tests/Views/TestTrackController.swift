@@ -56,14 +56,18 @@ class TestTrackController: TenTunesTest {
         return view.textField!.stringValue
     }
     
-    func isTrackOnScreen(_ track: Track) -> Bool {
+    enum TrackScreenStatus {
+        case visible, missing, absent
+    }
+    
+    func screenStatus(ofTrack track: Track) -> TrackScreenStatus {
         guard let supposedIndex = trackController.history.indexOf(track: track) else {
-            return false
+            // Playlist doesn't even contain it
+            return .absent
         }
         
         // If it should have a row, it SHOULD have a row
-        XCTAssertEqual(trackTitleAtRow(supposedIndex), track.title)
-        return true
+        return trackTitleAtRow(supposedIndex) == track.title ? .visible : .missing
     }
 
     func testLibrary() {
@@ -76,8 +80,8 @@ class TestTrackController: TenTunesTest {
         XCTAssertEqual(numberOfRows, tracks.count)
         XCTAssertEqual(numberOfRows, trackController.history.count)
 
-        XCTAssertTrue(isTrackOnScreen(tracks[0]))
-        XCTAssertTrue(isTrackOnScreen(tracks[1]))
+        XCTAssertEqual(screenStatus(ofTrack: tracks[0]), .visible)
+        XCTAssertEqual(screenStatus(ofTrack: tracks[1]), .visible)
     }
 
     func testTag() {
@@ -85,21 +89,21 @@ class TestTrackController: TenTunesTest {
         
         runViewUpdate()
         
-        XCTAssertFalse(isTrackOnScreen(tracks[0]))
-        XCTAssertFalse(isTrackOnScreen(tracks[1]))
+        XCTAssertEqual(screenStatus(ofTrack: tracks[0]), .absent)
+        XCTAssertEqual(screenStatus(ofTrack: tracks[1]), .absent)
         
         tags[0].addTracks(Array(tracks[0 ... 0]))
 
         runViewUpdate()
 
-        XCTAssertTrue(isTrackOnScreen(tracks[0]))
-        XCTAssertFalse(isTrackOnScreen(tracks[1]))
+        XCTAssertEqual(screenStatus(ofTrack: tracks[0]), .visible)
+        XCTAssertEqual(screenStatus(ofTrack: tracks[1]), .absent)
         
         tags[0].removeTracks(Array(tracks[0 ... 0]))
         
         runViewUpdate()
 
-        XCTAssertFalse(isTrackOnScreen(tracks[0]))
-        XCTAssertFalse(isTrackOnScreen(tracks[1]))
+        XCTAssertEqual(screenStatus(ofTrack: tracks[0]), .absent)
+        XCTAssertEqual(screenStatus(ofTrack: tracks[1]), .absent)
     }
 }

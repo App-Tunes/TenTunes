@@ -9,11 +9,8 @@
 import Cocoa
 
 extension TagEditor : TTTokenFieldDelegate {
-    var viewTags : [Any] {
-        return outlineView.children(ofItem: masterItem).compactMap { item in
-            let view = outlineView.view(atColumn: 0, forItem: item, makeIfNecessary: false) as! NSTableCellView
-            return view.textField!.objectValue as! [Any]
-        }
+    var viewTags : [ViewableTag] {
+        return outlineView.children(ofItem: masterItem) as! [ViewableTag]
     }
         
     static func desiredTagTokens(tracks: [Track]) -> [ViewableTag] {

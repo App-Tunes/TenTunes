@@ -28,6 +28,14 @@ class TestTrackController: TenTunesTest {
     override func tearDown() {
         super.tearDown()
     }
+
+    func selectLibrary() {
+        viewController.playlistController.select(.master)
+    }
+    
+    func select(playlist: Playlist) {
+        viewController.playlistController.select(playlist: playlist)
+    }
     
     func runViewUpdate() {
         // Usually set by spawn(task)
@@ -59,7 +67,7 @@ class TestTrackController: TenTunesTest {
     }
 
     func testLibrary() {
-        viewController.playlistController.select(.master)
+        selectLibrary()
         
         runViewUpdate()
         
@@ -73,7 +81,7 @@ class TestTrackController: TenTunesTest {
     }
 
     func testTag() {
-        viewController.playlistController.select(playlist: tags[0])
+        select(playlist: tags[0])
         
         runViewUpdate()
         
@@ -85,6 +93,13 @@ class TestTrackController: TenTunesTest {
         runViewUpdate()
 
         XCTAssertTrue(isTrackOnScreen(tracks[0]))
+        XCTAssertFalse(isTrackOnScreen(tracks[1]))
+        
+        tags[0].removeTracks(Array(tracks[0 ... 0]))
+        
+        runViewUpdate()
+
+        XCTAssertFalse(isTrackOnScreen(tracks[0]))
         XCTAssertFalse(isTrackOnScreen(tracks[1]))
     }
 }

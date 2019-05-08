@@ -42,14 +42,14 @@ class TestTrackController: TenTunesTest {
         viewController.playlistController.select(.master)
         runViewUpdate()
 
-        XCTAssertTrue(viewController.trackController.history.playlist === library[PlaylistRole.library])
+        XCTAssertTrue(trackController.history.playlist === library[PlaylistRole.library])
     }
     
     func select(playlist: Playlist) {
         viewController.playlistController.select(playlist: playlist)
         runViewUpdate()
         
-        XCTAssertEqual(viewController.trackController.history.playlist as? Playlist, playlist)
+        XCTAssertEqual(trackController.history.playlist as? Playlist, playlist)
     }
     
     func trackTitleAtRow(_ row: Int) -> String {

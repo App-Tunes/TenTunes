@@ -105,5 +105,7 @@ class TenTunesTest: XCTestCase {
     func runSynchronousTask(_ task: Task) {
         task.waitOnExecute = true
         task.execute()
+        
+        XCTAssertTrue(task.completionRun)
     }
 }

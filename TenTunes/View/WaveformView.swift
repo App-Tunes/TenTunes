@@ -138,6 +138,7 @@ class BarsLayer: CALayer {
             if display == .bars {
                 color.map { layer.backgroundColor = $0 }
                 
+                layer.path = nil
                 layer.frame = CGRect(
                     x: barX,
                     y: frame.minY,

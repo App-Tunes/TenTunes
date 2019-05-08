@@ -30,8 +30,12 @@ class TestTrackController: TenTunesTest {
     }
     
     func runViewUpdate() {
+        // Usually set by spawn(task)
+        trackController.desired._changed = false
+        
         runSynchronousTask(UpdateCurrentPlaylist(trackController: trackController, desired: trackController.desired))
-        //XCTAssertFalse(trackController.desired._changed)
+        
+        XCTAssertTrue(trackController.desired.isDone)
     }
     
     func trackTitleAtRow(_ row: Int) -> String {

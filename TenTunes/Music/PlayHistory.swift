@@ -100,7 +100,7 @@ class PlayHistory {
         shuffled!.shuffle()
         
         if let playing = playing {
-            let idx = shuffled!.index(of: playing)!
+            let idx = shuffled!.firstIndex(of: playing)!
             shuffled?.swapAt(0, idx)
             playingIndex = 0
         }

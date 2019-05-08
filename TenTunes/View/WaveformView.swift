@@ -75,7 +75,7 @@ class BarsLayer: CALayer {
     
     func startObservers() {
         let display = { [unowned self] (_ : Any) in
-            self.setNeedsDisplay()
+            self.setNeedsLayout()
         }
         
         defaultsObservers = [
@@ -88,11 +88,11 @@ class BarsLayer: CALayer {
         ]
     }
     
-    private func ensureSublayerCount(_ count: Int) {
+    private func ensureSublayerCount<T: CALayer>(_ count: Int, of kind: T.Type) {
         let diffLayers = count - (sublayers?.count ?? 0)
         if diffLayers > 0 {
             sublayers = (sublayers ?? []) + (0 ..< diffLayers).map { _ in
-                CALayer()
+                kind.init()
             }
         }
         else if diffLayers < 0 {
@@ -107,9 +107,9 @@ class BarsLayer: CALayer {
         let segmentWidth = barWidth + spaceWidth
         
         let numBars = Int(frame.width / segmentWidth)
-        ensureSublayerCount(numBars)
+        ensureSublayerCount(numBars, of: CAShapeLayer.self)
         
-        guard let bars = sublayers else {
+        guard let bars = sublayers as! [CAShapeLayer]? else {
             // Nothing to draw
             return
         }
@@ -130,15 +130,14 @@ class BarsLayer: CALayer {
             let high = values.highs[idx] * values.highs[idx]
             
             let val = low + mid + high
-            if val > 0 {
-                // Else the bar has no height; keep the current color
-                layer.backgroundColor = BarsLayer.barColor((mid / val / 2 + high / val))
-            }
-            
+            let color = val > 0 ? BarsLayer.barColor((mid / val / 2 + high / val)) : nil
+
             let barX = start + CGFloat(idx) * segmentWidth + 1
             let barHeight = CGFloat(h * frame.height)
             
             if display == .bars {
+                color.map { layer.backgroundColor = $0 }
+                
                 layer.frame = CGRect(
                     x: barX,
                     y: frame.minY,
@@ -147,13 +146,18 @@ class BarsLayer: CALayer {
                 )
             }
             else if display == .rounded {
+                color.map { layer.fillColor = $0 }
+                
                 let next = CGFloat((values.waveform[safe: idx + 1] ?? h) * frame.height)
+                
+                let path = CGMutablePath()
                 // TODO
-//                    ctx.move(to: CGPoint(x: barX, y: frame.minY))
-//                    ctx.addLine(to: CGPoint(x: barX + barWidth + spaceWidth, y: frame.minY))
-//                    ctx.addLine(to: CGPoint(x: barX + barWidth + spaceWidth, y: frame.minY + next))
-//                    ctx.addLine(to: CGPoint(x: barX, y: frame.minY + barHeight))
-//                    ctx.fillPath()
+                path.move(to: CGPoint(x: barX, y: frame.minY))
+                path.addLine(to: CGPoint(x: barX + barWidth + spaceWidth, y: frame.minY))
+                path.addLine(to: CGPoint(x: barX + barWidth + spaceWidth, y: frame.minY + next))
+                path.addLine(to: CGPoint(x: barX, y: frame.minY + barHeight))
+                
+                layer.path = path.copy()
             }
         }
     }

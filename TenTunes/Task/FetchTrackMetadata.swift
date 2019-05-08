@@ -20,7 +20,7 @@ class FetchTrackMetadata: TrackTask {
     override func execute() {
         super.execute()
 
-        performChildBackgroundTask(for: library) { [unowned self] mox in
+        performChildTask(for: library) { [unowned self] mox in
             mox.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
             
             guard let asyncTrack = mox.convert(self.track) else {

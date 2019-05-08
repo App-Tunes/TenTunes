@@ -9,21 +9,15 @@
 import CoreData
 
 extension NSPersistentContainer {
-    func newConcurrentContext() -> NSManagedObjectContext {
-        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        context.parent = viewContext
-        return context
-    }
-
-    func newChildBackgroundContext() -> NSManagedObjectContext {
-        let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+    func createObjectContext(type: NSManagedObjectContextConcurrencyType) -> NSManagedObjectContext {
+        let context = NSManagedObjectContext(concurrencyType: type)
         context.parent = viewContext
         return context
     }
     
-    func performChildBackgroundTask(_ task: @escaping (NSManagedObjectContext) -> Swift.Void) {
-        let context = newChildBackgroundContext()
-        context.perform {
+    func performChildTask(type: NSManagedObjectContextConcurrencyType, wait: Bool = false, _ task: @escaping (NSManagedObjectContext) -> Swift.Void) {
+        let context = createObjectContext(type: .privateQueueConcurrencyType)
+        (wait ? context.performAndWait : context.perform) {
             task(context)
         }
     }

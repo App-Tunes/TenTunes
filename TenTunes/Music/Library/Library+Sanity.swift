@@ -24,7 +24,7 @@ extension Library {
         override func execute() {
             super.execute()
             
-            performChildBackgroundTask(for: library) { [unowned self] mox in
+            performChildTask(for: library) { [unowned self] mox in
                 self.adapt(in: mox)
                 self.finish()
             }
@@ -57,7 +57,7 @@ extension Library {
         override func execute() {
             super.execute()
             
-            performChildBackgroundTask(for: library) { [unowned self] mox in
+            performChildTask(for: library) { [unowned self] mox in
                 self.check(in: mox)
                 self.finish()
             }

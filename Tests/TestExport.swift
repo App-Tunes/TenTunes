@@ -17,17 +17,6 @@ class TestExport: TenTunesTest {
     }
     
     func testLibrary() {
-        tracks[0].title = "Track0"
-        tracks[1].title = "Track1"
-        tracks[2].title = "Track2"
-        
-        groups[0].name = "Group0"
-        groups[1].name = "Group1"
-        groups[2].name = "Group2"
-
-        tags[0].name = "Tag0"
-        tags[1].name = "Tag1"
-
         let manual = PlaylistManual(context: context)
         manual.name = "Manual"
         manual.addTracks(tracks)
@@ -45,23 +34,23 @@ class TestExport: TenTunesTest {
             let otherTracks = other.allTracks()
             
             XCTAssertEqual(otherTracks.count, 3)
-            XCTAssert(otherTracks.contains { $0.title == "Track0" })
-            XCTAssert(otherTracks.contains { $0.title == "Track1" })
-            XCTAssert(otherTracks.contains { $0.title == "Track2" })
+            XCTAssert(otherTracks.contains { $0.title == "Track 0" })
+            XCTAssert(otherTracks.contains { $0.title == "Track 1" })
+            XCTAssert(otherTracks.contains { $0.title == "Track 2" })
             
             let otherRootPlaylists = other[PlaylistRole.playlists].childrenList
             XCTAssertEqual(otherRootPlaylists.count, 2)
-            XCTAssert(otherRootPlaylists.contains { $0.name == "Group0" })
-            XCTAssert(otherRootPlaylists.contains { $0.name == "Group1" })
+            XCTAssert(otherRootPlaylists.contains { $0.name == "Group 0" })
+            XCTAssert(otherRootPlaylists.contains { $0.name == "Group 1" })
 
             let otherPlaylists = other.allPlaylists()
             XCTAssertEqual(otherPlaylists.of(type: PlaylistManual.self).count, 2)
             XCTAssert(otherPlaylists.contains { $0.name == "Manual" })
-            XCTAssert(otherPlaylists.contains { $0.name == "Tag0" })
+            XCTAssert(otherPlaylists.contains { $0.name == "Tag 0" })
 
             let otherTags = other.allTags()
             XCTAssertEqual(otherTags.count, 1)
-            XCTAssert(otherTags.contains { $0.name == "Tag0" })
+            XCTAssert(otherTags.contains { $0.name == "Tag 0" })
         }
         
         // Cleanup

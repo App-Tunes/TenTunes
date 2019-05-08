@@ -36,26 +36,32 @@ class TenTunesTest: XCTestCase {
     }
     
     func create(tracks: Int = 0, groups: Int = 0, tags: Int = 0) {
-        self.tracks = (0 ..< tracks).map { _ in
+        self.tracks = (0 ..< tracks).map { idx in
             let track = Track(context: self.context)
+            track.title = String(format: "Track %d", idx)
             
             let file = String(format: "%@/%@.mp3", NSTemporaryDirectory(), UUID().uuidString)
-            
             try! "sproing".write(toFile: file, atomically: true, encoding: .utf8)
             track.path = file
             
             return track
         }
 
-        self.groups = (0 ..< groups).map { _ in
+        self.groups = (0 ..< groups).map { idx in
             let group = PlaylistFolder(context: self.context)
+            group.name = String(format: "Group %d", idx)
+
             self.library[PlaylistRole.playlists].addToChildren(group)
+            
             return group
         }
         
-        self.tags = ((0 ..< tags).map { _ in
+        self.tags = ((0 ..< tags).map { idx in
             let tag = PlaylistManual(context: self.context)
+            tag.name = String(format: "Tag %d", idx)
+            
             self.library[PlaylistRole.tags].addToChildren(tag)
+            
             return tag
         })
         
@@ -94,5 +100,10 @@ class TenTunesTest: XCTestCase {
         tags = []
         
         try! context.save()
+    }
+    
+    func runSynchronousTask(_ task: Task) {
+        task.waitOnExecute = true
+        task.execute()
     }
 }

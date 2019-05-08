@@ -510,3 +510,17 @@ extension DateFormatter {
         self.dateFormat = format
     }
 }
+
+extension DispatchQueue {
+    func perform(wait: Bool, block: @escaping () -> Void) {
+        if Thread.isMainThread, self == DispatchQueue.main {
+            block()
+        }
+        else if wait {
+            sync(execute: block)
+        }
+        else {
+            async(execute: block)
+        }
+    }
+}

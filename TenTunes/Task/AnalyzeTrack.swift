@@ -50,7 +50,7 @@ class TrackTask: Task {
         super.finish()
         
         if savesLibraryOnCompletion && state == .completed {
-            DispatchQueue.main.async {
+            self.performMain {
                 try! self.library.viewContext.save()
             }
         }
@@ -96,7 +96,7 @@ class AnalyzeTrack: TrackTask {
         
         ViewController.shared.trackController.reload(track: track) // Get the analysis inside the cell
         
-        performChildBackgroundTask(for: library) { [unowned self] mox in
+        performChildTask(for: library) { [unowned self] mox in
             mox.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
             
             guard let asyncTrack = mox.convert(self.track) else {

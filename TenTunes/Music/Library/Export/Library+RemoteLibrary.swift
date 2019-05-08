@@ -29,7 +29,7 @@ extension Library.Export {
             ($0 as? PlaylistFolder)?.childrenList
         }.filter(implicityIncludedPlaylists.contains)
         
-        let otherContext = other.newChildBackgroundContext()
+        let otherContext = other.createObjectContext(type: .privateQueueConcurrencyType)
         otherContext.performAndWait {
             let remote = RemoteLibrary(src: library, dst: other, context: otherContext, pather: pather)
 
@@ -52,6 +52,7 @@ extension Library.Export {
             print(error)
         }
         
+        // Note: due to the export being done in parallel, "other" will be unfinished yet
         return other
     }
     

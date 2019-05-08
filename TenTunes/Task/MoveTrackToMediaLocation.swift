@@ -23,7 +23,7 @@ class MoveTrackToMediaLocation: TrackTask {
     override func execute() {
         super.execute()
 
-        performChildBackgroundTask(for: library) { [unowned self] mox in
+        performChildTask(for: library) { [unowned self] mox in
             guard let track = mox.convert(self.track) else {
                 self.finish()
                 return

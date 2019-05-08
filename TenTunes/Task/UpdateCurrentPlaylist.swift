@@ -57,7 +57,7 @@ class UpdateCurrentPlaylist: Task {
         
         let filterTokens = trackController.filterBar.isOpen ? trackController.filterController.tokens : nil
         
-        performChildBackgroundTask(for: Library.shared) { [unowned self] mox in
+        performChildTask(for: Library.shared) { [unowned self] mox in
             let history = desired.playlist?.convert(to: mox) ?=> PlayHistory.init
 
             if self.checkCanceled() { return }
@@ -72,7 +72,7 @@ class UpdateCurrentPlaylist: Task {
             
             if self.uncancelable() { return }
             
-            DispatchQueue.main.async {
+            self.performMain {
                 history?.convert(to: Library.shared.viewContext)
                 self.trackController.history = history ?? PlayHistory(playlist: Library.shared[PlaylistRole.library])
                 desired.isDone = !desired._changed

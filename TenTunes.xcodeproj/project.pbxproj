@@ -39,6 +39,7 @@
 		8030E01B20FE7AAC006B4AE8 /* MoveTrackToMediaLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030E01A20FE7AAC006B4AE8 /* MoveTrackToMediaLocation.swift */; };
 		8033292B22718FBB00408017 /* CacheRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8033292A22718FBB00408017 /* CacheRegistry.swift */; };
 		8033292E2271B0E000408017 /* PlaylistController+Index.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8033292D2271B0E000408017 /* PlaylistController+Index.swift */; };
+		803454FE22831A2600202131 /* TestTrackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803454FD22831A2600202131 /* TestTrackController.swift */; };
 		803717292043629800DB9EAA /* ViewController+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803717282043629700DB9EAA /* ViewController+Background.swift */; };
 		803E972F20C7EF2C00D46565 /* LazyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803E972E20C7EF2C00D46565 /* LazyMap.swift */; };
 		8046CDA3204EF1ED00E732E7 /* TitleSubtitleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */; };
@@ -302,6 +303,7 @@
 		8030E01A20FE7AAC006B4AE8 /* MoveTrackToMediaLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveTrackToMediaLocation.swift; sourceTree = "<group>"; };
 		8033292A22718FBB00408017 /* CacheRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheRegistry.swift; sourceTree = "<group>"; };
 		8033292D2271B0E000408017 /* PlaylistController+Index.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistController+Index.swift"; sourceTree = "<group>"; };
+		803454FD22831A2600202131 /* TestTrackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTrackController.swift; sourceTree = "<group>"; };
 		803717282043629700DB9EAA /* ViewController+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Background.swift"; sourceTree = "<group>"; };
 		803E972E20C7EF2C00D46565 /* LazyMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyMap.swift; sourceTree = "<group>"; };
 		8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSubtitleCellView.swift; sourceTree = "<group>"; };
@@ -594,6 +596,14 @@
 			path = Task;
 			sourceTree = "<group>";
 		};
+		803454FF22831A3400202131 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				803454FD22831A2600202131 /* TestTrackController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		8058FA8D204316F50086FF8A /* Superpowered */ = {
 			isa = PBXGroup;
 			children = (
@@ -685,8 +695,9 @@
 		8069C06E22085FB900CD3396 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				800A2FBE227AFD960048DD6D /* TestEnumerations.swift */,
 				80905F672208906A00A6A830 /* TenTunesTest.swift */,
+				803454FF22831A3400202131 /* Views */,
+				800A2FBE227AFD960048DD6D /* TestEnumerations.swift */,
 				8069C08B22086E9900CD3396 /* TestInitialState.swift */,
 				808BAAEC220E252B0017557C /* TestMediaLocation.swift */,
 				808BAAEA220DB7290017557C /* TestKeys.swift */,
@@ -1303,6 +1314,7 @@
 				8069C08C22086E9900CD3396 /* TestInitialState.swift in Sources */,
 				808BAAEB220DB7290017557C /* TestKeys.swift in Sources */,
 				800A2FBF227AFD960048DD6D /* TestEnumerations.swift in Sources */,
+				803454FE22831A2600202131 /* TestTrackController.swift in Sources */,
 				80905F682208906A00A6A830 /* TenTunesTest.swift in Sources */,
 				8020C65322177D1500E6FA5C /* TestExport.swift in Sources */,
 				8071FA6F220E666A000B8868 /* TestPlayer.swift in Sources */,

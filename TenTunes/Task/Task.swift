@@ -85,6 +85,9 @@ class Task {
         self.priority = priority
     }
     
+    var waitOnExecute = false
+    var concurrency: NSManagedObjectContextConcurrencyType = .privateQueueConcurrencyType
+
     // Priority <= 0 = Immediately spawn a new worker thread for this
     var priority: Float = 1
     
@@ -100,7 +103,7 @@ class Task {
         }
     }
     
-    func performChildBackgroundTask(for library: Library, block: @escaping (NSManagedObjectContext) -> Void) {
+    func performChildTask(for library: Library, block: @escaping (NSManagedObjectContext) -> Void) {
         manageSemaphore.wait()
         
         guard state != .cancelled else {
@@ -110,10 +113,14 @@ class Task {
             return
         }
         
-        library.performChildBackgroundTask { context in
+        library.performChildTask(type: concurrency, wait: waitOnExecute) { context in
             self.manageSemaphore.signal()
             block(context)
         }
+    }
+    
+    func performMain(block: @escaping () -> Void) {
+        DispatchQueue.main.perform(wait: waitOnExecute, block: block)
     }
     
     func checkCanceled() -> Bool {

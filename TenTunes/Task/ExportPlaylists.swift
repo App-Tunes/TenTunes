@@ -27,7 +27,7 @@ class ExportPlaylists: Task {
         super.execute()
 
         let library = Library.shared
-        performChildBackgroundTask(for: library) { [unowned self] mox in
+        performChildTask(for: library) { [unowned self] mox in
             let playlists = mox.compactConvert(self.playlists)
             
             let pather = self.tracksURL == library.mediaLocation.directory

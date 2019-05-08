@@ -332,8 +332,7 @@ class WaveformView: NSControl, CALayerDelegate {
     private func transitionToAnalysis(_ analysis: Analysis?) {
         _analysis = analysis
         
-        let animate = AppDelegate.defaults[.animateWaveformTransitions] && AppDelegate.defaults[.animateWaveformAnalysis]
-        guard animate, !(analysis?.complete ?? true) else {
+        guard !(analysis?.complete ?? true) else {
             // Transition slowly
 
             timer?.invalidate()
@@ -344,7 +343,7 @@ class WaveformView: NSControl, CALayerDelegate {
             return
         }
 
-        // Need animation
+        // Transition while analysing
         
         guard timer?.timeInterval != updateTime else {
             // Just keep the current animation timer

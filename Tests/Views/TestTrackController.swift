@@ -10,38 +10,11 @@ import XCTest
 
 @testable import TenTunes
 
-class TestTrackController: TenTunesTest {    
-    var trackController: TrackController {
-        return viewController.trackController
-    }
-    
+class TestTrackController: ViewTest {        
     override func setUp() {
         super.setUp()
         
         create(tracks: 2, groups: 0, tags: 1)
-    }
-
-    func runViewUpdate() {
-        // Usually set by spawn(task)
-        trackController.desired._changed = false
-        
-        runSynchronousTask(UpdateCurrentPlaylist(trackController: trackController, desired: trackController.desired))
-        
-        XCTAssertTrue(trackController.desired.isDone)
-    }
-
-    func selectLibrary() {
-        viewController.playlistController.select(.master)
-        runViewUpdate()
-
-        XCTAssertEqual(trackController.history.playlist.persistentID, library[PlaylistRole.library].persistentID)
-    }
-    
-    func select(playlist: Playlist) {
-        XCTAssertTrue(viewController.playlistController.select(playlist: playlist))
-        runViewUpdate()
-        
-        XCTAssertEqual(trackController.history.playlist as? Playlist, playlist)
     }
     
     func trackTitleAtRow(_ row: Int) -> String {
@@ -87,17 +60,47 @@ class TestTrackController: TenTunesTest {
         XCTAssertEqual(screenStatus(ofTrack: tracks[1]), .absent)
         
         tags[0].addTracks(Array(tracks[0 ... 0]))
-
+        
         runViewUpdate()
-
+        
         XCTAssertEqual(screenStatus(ofTrack: tracks[0]), .visible)
         XCTAssertEqual(screenStatus(ofTrack: tracks[1]), .absent)
         
         tags[0].removeTracks(Array(tracks[0 ... 0]))
         
         runViewUpdate()
-
+        
         XCTAssertEqual(screenStatus(ofTrack: tracks[0]), .absent)
         XCTAssertEqual(screenStatus(ofTrack: tracks[1]), .absent)
+    }
+
+    func testFilter() {
+        selectLibrary()
+        
+        XCTAssertEqual(trackController._tableView.numberOfRows, tracks.count)
+
+        trackController.filterBar.open()
+        runViewUpdate()
+
+        XCTAssertEqual(trackController._tableView.numberOfRows, tracks.count)
+        
+        trackController.show(tokens: [
+            .Search(string: "Track 1")
+        ])
+        runViewUpdate()
+        XCTAssertEqual(screenStatus(ofTrack: tracks[0]), .absent)
+        XCTAssertEqual(screenStatus(ofTrack: tracks[1]), .visible)
+
+        trackController.show(tokens: [
+            .Search(string: "Track 0")
+        ])
+        runViewUpdate()
+        XCTAssertEqual(screenStatus(ofTrack: tracks[0]), .visible)
+        XCTAssertEqual(screenStatus(ofTrack: tracks[1]), .absent)
+        
+        trackController.filterBar.close()
+        runViewUpdate()
+
+        XCTAssertEqual(trackController._tableView.numberOfRows, tracks.count)
     }
 }

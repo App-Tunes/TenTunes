@@ -135,6 +135,7 @@
 		80A40993216FA216006AF67B /* RFOpenGLView+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A40992216FA216006AF67B /* RFOpenGLView+Swift.swift */; };
 		80A7CABD216252340075C499 /* Track+Live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7CABC216252340075C499 /* Track+Live.swift */; };
 		80ADCD4A20442E1200AA9A89 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ADCD4920442E1200AA9A89 /* Library.swift */; };
+		80AEC60722846C8C00CDA2C7 /* ViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AEC60622846C8C00CDA2C7 /* ViewTest.swift */; };
 		80B15824215D657D0015294B /* Cocoa+IBInspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B15823215D657D0015294B /* Cocoa+IBInspectable.swift */; };
 		80B3BE12207514D200B93961 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B3BE11207514D200B93961 /* Player.swift */; };
 		80B4B7CE2276FA4D00AE5F08 /* PlaylistActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B4B7CC2276FA4D00AE5F08 /* PlaylistActions.swift */; };
@@ -429,6 +430,7 @@
 		80A40992216FA216006AF67B /* RFOpenGLView+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RFOpenGLView+Swift.swift"; sourceTree = "<group>"; };
 		80A7CABC216252340075C499 /* Track+Live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Track+Live.swift"; sourceTree = "<group>"; };
 		80ADCD4920442E1200AA9A89 /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
+		80AEC60622846C8C00CDA2C7 /* ViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTest.swift; sourceTree = "<group>"; };
 		80B15823215D657D0015294B /* Cocoa+IBInspectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocoa+IBInspectable.swift"; sourceTree = "<group>"; };
 		80B3BE11207514D200B93961 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		80B4B7CC2276FA4D00AE5F08 /* PlaylistActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistActions.swift; sourceTree = "<group>"; };
@@ -601,6 +603,7 @@
 		803454FF22831A3400202131 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				80AEC60622846C8C00CDA2C7 /* ViewTest.swift */,
 				803454FD22831A2600202131 /* TestTrackController.swift */,
 				803455042283327400202131 /* TestTagEditor.swift */,
 			);
@@ -1339,6 +1342,7 @@
 				8071FA6F220E666A000B8868 /* TestPlayer.swift in Sources */,
 				80905F652208708E00A6A830 /* TestPlaylists.swift in Sources */,
 				803455052283327400202131 /* TestTagEditor.swift in Sources */,
+				80AEC60722846C8C00CDA2C7 /* ViewTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

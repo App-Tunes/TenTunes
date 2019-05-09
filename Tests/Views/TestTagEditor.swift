@@ -10,7 +10,13 @@ import XCTest
 
 @testable import TenTunes
 
-class TestTagEditor: TestTrackController {
+class TestTagEditor: ViewTest {
+    override func setUp() {
+        super.setUp()
+        
+        create(tracks: 2, groups: 0, tags: 1)
+    }
+
     var trackEditor: TrackEditor {
         return trackController.trackEditor
     }
@@ -22,7 +28,7 @@ class TestTagEditor: TestTrackController {
     var shownTags: [Playlist] {
         return tagEditor.viewTags.caseLet(TagEditor.ViewableTag.tag)
     }
-    
+
     func select(track: Track) {
         selectLibrary()
         

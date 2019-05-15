@@ -402,7 +402,7 @@ class WaveformView: NSControl, CALayerDelegate {
             drawValues = BarsLayer.defaultValues
         }
         
-        guard AppDelegate.defaults[.animateWaveformTransitions], visibleRect != NSZeroRect, superview != nil else {
+        guard AppDelegate.defaults[.waveformAnimation] >= .transitions, visibleRect != NSZeroRect, superview != nil else {
             // Transition Instantly
             
             CATransaction.begin()

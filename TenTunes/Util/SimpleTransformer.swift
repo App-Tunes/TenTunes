@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Defaults
 
 extension ValueTransformer {
     class func register(_ name: String, _ with: ValueTransformer) {

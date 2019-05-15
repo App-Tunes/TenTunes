@@ -8,6 +8,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ViewPreferences" customModule="TenTunes" customModuleProvider="target">
             <connections>
+                <outlet property="_animateAnalysis" destination="Yqm-C1-XFU" id="YgM-RJ-zpZ"/>
+                <outlet property="_animateTransitions" destination="vty-25-oRc" id="9UU-0M-xm7"/>
+                <outlet property="_previewAnalysis" destination="nV1-Cy-9dV" id="0de-q7-SIU"/>
                 <outlet property="initialKeyDisplay" destination="5ez-iV-eHe" id="nOV-8M-dKz"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
                 <outlet property="waveformDisplay" destination="5cV-pF-b2s" id="Ri0-we-Xh5"/>
@@ -144,9 +147,6 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <connections>
-                        <binding destination="WEV-xm-GWi" name="value" keyPath="values.animateWaveformTransitions" id="uwV-v3-VKE"/>
-                    </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yqm-C1-XFU">
                     <rect key="frame" x="58" y="112" width="124" height="18"/>
@@ -156,7 +156,6 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <binding destination="WEV-xm-GWi" name="value" keyPath="values.animateWaveformAnalysis" id="HqM-6Z-Vp6"/>
                         <binding destination="WEV-xm-GWi" name="enabled" keyPath="values.animateWaveformTransitions" id="5Xb-3h-vG9"/>
                     </connections>
                 </button>
@@ -169,7 +168,6 @@
                     </buttonCell>
                     <connections>
                         <binding destination="WEV-xm-GWi" name="enabled" keyPath="values.animateWaveformAnalysis" id="Uae-nJ-uWc"/>
-                        <binding destination="WEV-xm-GWi" name="value" keyPath="values.previewWaveformAnalysis" id="ReF-L9-m5O"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="edN-hc-iVY">

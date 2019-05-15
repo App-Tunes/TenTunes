@@ -194,7 +194,6 @@
                                                 </view>
                                                 <color key="borderColor" red="0.33667116120000001" green="0.33667116120000001" blue="0.33667116120000001" alpha="0.15105950339999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="fillColor" red="0.16098905459999999" green="0.16098905459999999" blue="0.16098905459999999" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <font key="titleFont" metaFont="smallSystem"/>
                                             </box>
                                             <box boxType="custom" cornerRadius="6" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="yki-Tj-fZ1">
                                                 <rect key="frame" x="-5" y="50" width="182" height="47"/>
@@ -268,7 +267,6 @@ IA
                                                 </view>
                                                 <color key="borderColor" red="0.33667116120000001" green="0.33667116120000001" blue="0.33667116120000001" alpha="0.15105950339999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="fillColor" red="0.16098905459999999" green="0.16098905459999999" blue="0.16098905459999999" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <font key="titleFont" metaFont="smallSystem"/>
                                             </box>
                                             <box ambiguous="YES" boxType="custom" cornerRadius="6" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="YW0-i6-Krb">
                                                 <rect key="frame" x="426" y="49" width="420" height="48"/>
@@ -299,7 +297,6 @@ IA
                                                 </constraints>
                                                 <color key="borderColor" red="0.33667116116751272" green="0.33667116116751272" blue="0.33667116116751272" alpha="0.15105950342465754" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="fillColor" red="0.16098905456852797" green="0.16098905456852797" blue="0.16098905456852797" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <font key="titleFont" metaFont="smallSystem"/>
                                             </box>
                                             <button toolTip="Play Queue" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mT7-oZ-jSc">
                                                 <rect key="frame" x="848" y="49" width="18" height="48"/>

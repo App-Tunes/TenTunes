@@ -60,9 +60,22 @@ extension Defaults.Keys {
     }
 
     static let initialKeyDisplay = Key<InitialKeyDisplay>("initialKeyDisplay", default: .idealFile)
-    static let animateWaveformTransitions = Key<Bool>("animateWaveformTransitions", default: true)
-    static let animateWaveformAnalysis = Key<Bool>("animateWaveformAnalysis", default: true)
-    static let previewWaveformAnalysis = Key<Bool>("previewWaveformAnalysis", default: true)
+    
+    enum WaveformAnimation: String, HierarchyEnum, Codable, Comparable {
+        static func < (lhs: Defaults.Keys.WaveformAnimation, rhs: Defaults.Keys.WaveformAnimation) -> Bool {
+            return lhs.ordinal < rhs.ordinal
+        }
+        
+        case none = "none"
+        case transitions = "transitions"
+        case analysis = "analysis"
+        case withPreview = "withPreview"
+        
+        static var hierarchy: [Defaults.Keys.WaveformAnimation] {
+            return [.none, .transitions, .analysis, .withPreview]
+        }
+    }
+    static let waveformAnimation = Key<WaveformAnimation>("waveformAnimation", default: .withPreview)
 
     enum WaveformDisplay: String, Codable {
         case bars = "bars", rounded = "hill"
@@ -97,12 +110,21 @@ class ViewPreferences: NSViewController, Preferenceable {
     @IBOutlet var initialKeyDisplay: NSPopUpButton!
     @IBOutlet var waveformDisplay: NSPopUpButton!
 
+    @IBOutlet var _animateTransitions: NSButton!
+    @IBOutlet var _animateAnalysis: NSButton!
+    @IBOutlet var _previewAnalysis: NSButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let customDisplays = Defaults.Keys.InitialKeyWrite.values.map(Defaults.Keys.InitialKeyDisplay.custom)
         PopupEnum<Defaults.Keys.InitialKeyDisplay>.bind(initialKeyDisplay, toUserDefaultsKey: .initialKeyDisplay, with: [.idealFile, .file] + customDisplays, title: { $0.title })
         PopupEnum<Defaults.Keys.WaveformDisplay>.bind(waveformDisplay, toUserDefaultsKey: .waveformDisplay, with: [.bars, .rounded], title: { $0.title })
+        
+        let waveformAnimations = EnumCheckboxes(key: .waveformAnimation, encode: { $0.rawValue }, decode: { Defaults.Keys.WaveformAnimation(rawValue: $0) })
+        waveformAnimations.bind(_animateTransitions, as: .transitions)
+        waveformAnimations.bind(_animateAnalysis, as: .analysis)
+        waveformAnimations.bind(_previewAnalysis, as: .withPreview)
     }
     
 }

@@ -193,6 +193,8 @@
 		80CB65352052C9CC0031A6D7 /* CoreData+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CB65342052C9CC0031A6D7 /* CoreData+TT.swift */; };
 		80CC986A21A880D20030F04B /* NSTableView+Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC986921A880D20030F04B /* NSTableView+Header.swift */; };
 		80CED03C20C88055001E710F /* AVFoundation+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CED03B20C88055001E710F /* AVFoundation+TT.swift */; };
+		80D5648E22897927002CB8EF /* Defaults+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D5648D22897926002CB8EF /* Defaults+TT.swift */; };
+		80D5649122898683002CB8EF /* HierarchyEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D5649022898683002CB8EF /* HierarchyEnum.swift */; };
 		80D9448C21662E0100C135CA /* ResonanceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D9448B21662E0100C135CA /* ResonanceProvider.swift */; };
 		80E02C63217FB8B000251D24 /* Document-TTL.icns in Resources */ = {isa = PBXBuildFile; fileRef = 80E02C62217FB8AF00251D24 /* Document-TTL.icns */; };
 		80E02C65217FC4F200251D24 /* PlaylistPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E02C64217FC4F200251D24 /* PlaylistPromise.swift */; };
@@ -490,6 +492,8 @@
 		80CB65342052C9CC0031A6D7 /* CoreData+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreData+TT.swift"; sourceTree = "<group>"; };
 		80CC986921A880D20030F04B /* NSTableView+Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTableView+Header.swift"; sourceTree = "<group>"; };
 		80CED03B20C88055001E710F /* AVFoundation+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVFoundation+TT.swift"; sourceTree = "<group>"; };
+		80D5648D22897926002CB8EF /* Defaults+TT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Defaults+TT.swift"; sourceTree = "<group>"; };
+		80D5649022898683002CB8EF /* HierarchyEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HierarchyEnum.swift; sourceTree = "<group>"; };
 		80D8A0FC212460BE003E1F11 /* Library.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Library.storyboard; path = "/Users/lukas/XCode Projects/TenTunes/TenTunes/Library.storyboard"; sourceTree = "<absolute>"; };
 		80D9448B21662E0100C135CA /* ResonanceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResonanceProvider.swift; sourceTree = "<group>"; };
 		80DCA9B0203F636900B1E9B1 /* TenTunes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TenTunes-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -750,6 +754,7 @@
 				807E4B46206428260051C028 /* ScrollableSlider.swift */,
 				804DCC73215D01D30021A753 /* GraySliderCell.swift */,
 				80F9703220962EA200A989D8 /* PopupEnum.swift */,
+				80D5649022898683002CB8EF /* HierarchyEnum.swift */,
 				80B68B9F21011D0300A32E3D /* SMButtonWithMenu.h */,
 				80B68B9D21011CC100A32E3D /* SMButtonWithMenu.m */,
 				8026241520FF445F009D7988 /* TTTokenField.swift */,
@@ -923,6 +928,7 @@
 				80B15823215D657D0015294B /* Cocoa+IBInspectable.swift */,
 				80CB65342052C9CC0031A6D7 /* CoreData+TT.swift */,
 				80CED03B20C88055001E710F /* AVFoundation+TT.swift */,
+				80D5648D22897926002CB8EF /* Defaults+TT.swift */,
 				8071F63621AEBA700005685B /* HumanDates.swift */,
 				8071FA74220EF627000B8868 /* Defaults.swift */,
 				806C31C7226A3B4800D545BC /* NSImage+Hacks.swift */,
@@ -1429,6 +1435,7 @@
 				8071F63721AEBA700005685B /* HumanDates.swift in Sources */,
 				80CC986A21A880D20030F04B /* NSTableView+Header.swift in Sources */,
 				80CAED1D2274DD4C001DD856 /* Genre.swift in Sources */,
+				80D5648E22897927002CB8EF /* Defaults+TT.swift in Sources */,
 				8093467120A62319001D15CD /* TrackController+Pasteboard.swift in Sources */,
 				807A82E02179D76F00236A13 /* SyphonableOpenGLView.swift in Sources */,
 				80C1F16F2142E7E80032E554 /* VisualizerView.swift in Sources */,
@@ -1468,6 +1475,7 @@
 				8071F63521AC299D0005685B /* PlaylistController+Updates.swift in Sources */,
 				808BAAE2220DA8D80017557C /* ViewPreferences.swift in Sources */,
 				80CAECF122730C5D001DD856 /* WorkflowWindowController.swift in Sources */,
+				80D5649122898683002CB8EF /* HierarchyEnum.swift in Sources */,
 				808BAAE5220DA99A0017557C /* Preferences.swift in Sources */,
 				8079F6EC211B87A700B7A278 /* SpinningButton.swift in Sources */,
 				802F01CE2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift in Sources */,

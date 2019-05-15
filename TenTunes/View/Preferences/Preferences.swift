@@ -46,9 +46,7 @@ extension Defaults.Keys {
             
             .titleBarStylization,
             .initialKeyDisplay,
-            .animateWaveformTransitions,
-            .animateWaveformAnalysis,
-            .previewWaveformAnalysis,
+            .waveformAnimation,
             .waveformDisplay,
             .trackCombinedTitleSource,
             .trackSmallRows,

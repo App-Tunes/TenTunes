@@ -61,11 +61,7 @@ extension Defaults.Keys {
 
     static let initialKeyDisplay = Key<InitialKeyDisplay>("initialKeyDisplay", default: .idealFile)
     
-    enum WaveformAnimation: String, HierarchyEnum, Codable, Comparable {
-        static func < (lhs: Defaults.Keys.WaveformAnimation, rhs: Defaults.Keys.WaveformAnimation) -> Bool {
-            return lhs.ordinal < rhs.ordinal
-        }
-        
+    enum WaveformAnimation: String, HierarchyEnum, Codable {
         case none = "none"
         case transitions = "transitions"
         case analysis = "analysis"

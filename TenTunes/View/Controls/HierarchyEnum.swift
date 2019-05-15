@@ -10,13 +10,17 @@ import Cocoa
 
 import Defaults
 
-protocol HierarchyEnum: Equatable {
-    static var hierarchy: [Self] { get }
+protocol HierarchyEnum: Comparable {
+    static var hierarchy: [Self] { get }    
 }
 
 extension HierarchyEnum {
     var ordinal: Int {
         return type(of: self).hierarchy.firstIndex(of: self) ?? -1
+    }
+    
+    static func < (lhs: Self, rhs: Self) -> Bool {
+        return lhs.ordinal < rhs.ordinal
     }
 }
 
@@ -31,7 +35,7 @@ class EnumCheckboxes<E: HierarchyEnum & Codable> {
         let prev = E.hierarchy[(E.hierarchy.firstIndex(of: value) ?? 1) - 1]
 
         button.bind(.value, to: AppDelegate.defaults, withKey: key,
-                    transform: { NSNumber(value: value.ordinal <= $0.ordinal) },
+                    transform: { NSNumber(value: value <= $0) },
                     back: { ($0 as? NSNumber)?.boolValue == true ? value : prev }
         )
 

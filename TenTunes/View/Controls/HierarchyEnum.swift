@@ -22,48 +22,21 @@ extension HierarchyEnum {
 
 class EnumCheckboxes<E: HierarchyEnum & Codable> {
     let key: Defaults.Key<E>
-    let rawKey: Defaults.Key<String>
-
-    let encode: (E) -> String
-    let decode: (String) -> E
 
     init(key: Defaults.Key<E>) {
         self.key = key
-        
-        // From Defaults source
-        self.encode = { value in
-            guard let data = try? JSONEncoder().encode([value]) else {
-                fatalError("Cannot convert \(value)")
-            }
-            return String(String(data: data, encoding: .utf8)!.dropFirst().dropLast())
-        }
-        self.decode = { text in
-            guard
-                let data = "[\(text)]".data(using: .utf8),
-                let decoded = try? JSONDecoder().decode([E].self, from: data)
-            else {
-                return key.defaultValue
-            }
-            
-            return decoded.first ?? key.defaultValue
-        }
-        
-        rawKey = Defaults.Key<String>(key.name, default: encode(key.defaultValue))
     }
     
     func bind(_ button: NSButton, as value: E) {
-        let encode = self.encode
-        let decode = self.decode
-        
         let prev = E.hierarchy[(E.hierarchy.firstIndex(of: value) ?? 1) - 1]
 
-        button.bind(.value, to: AppDelegate.defaults, withKeyPath: rawKey,
-                    transform: { NSNumber(value: value.ordinal <= decode($0).ordinal) },
-                    back: { encode(($0 as? NSNumber)?.boolValue == true ? value : prev) }
+        button.bind(.value, to: AppDelegate.defaults, withKey: key,
+                    transform: { NSNumber(value: value.ordinal <= $0.ordinal) },
+                    back: { ($0 as? NSNumber)?.boolValue == true ? value : prev }
         )
 
-        button.bind(.enabled, to: AppDelegate.defaults, withKeyPath: rawKey,
-                    transform: { NSNumber(value: value.ordinal - 1 <= decode($0).ordinal) }
+        button.bind(.enabled, to: AppDelegate.defaults, withKey: key,
+                    transform: { NSNumber(value: value.ordinal - 1 <= $0.ordinal) }
         )
     }
 }

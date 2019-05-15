@@ -27,10 +27,27 @@ class EnumCheckboxes<E: HierarchyEnum & Codable> {
     let encode: (E) -> String
     let decode: (String) -> E
 
-    init(key: Defaults.Key<E>, encode: @escaping (E) -> String, decode: @escaping (String) -> E?) {
+    init(key: Defaults.Key<E>) {
         self.key = key
-        self.encode = encode
-        self.decode = { decode($0) ?? key.defaultValue }
+        
+        // From Defaults source
+        self.encode = { value in
+            guard let data = try? JSONEncoder().encode([value]) else {
+                fatalError("Cannot convert \(value)")
+            }
+            return String(String(data: data, encoding: .utf8)!.dropFirst().dropLast())
+        }
+        self.decode = { text in
+            guard
+                let data = "[\(text)]".data(using: .utf8),
+                let decoded = try? JSONDecoder().decode([E].self, from: data)
+            else {
+                return key.defaultValue
+            }
+            
+            return decoded.first ?? key.defaultValue
+        }
+        
         rawKey = Defaults.Key<String>(key.name, default: encode(key.defaultValue))
     }
     

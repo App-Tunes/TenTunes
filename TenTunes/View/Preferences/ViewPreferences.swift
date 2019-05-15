@@ -121,7 +121,7 @@ class ViewPreferences: NSViewController, Preferenceable {
         PopupEnum<Defaults.Keys.InitialKeyDisplay>.bind(initialKeyDisplay, toUserDefaultsKey: .initialKeyDisplay, with: [.idealFile, .file] + customDisplays, title: { $0.title })
         PopupEnum<Defaults.Keys.WaveformDisplay>.bind(waveformDisplay, toUserDefaultsKey: .waveformDisplay, with: [.bars, .rounded], title: { $0.title })
         
-        let waveformAnimations = EnumCheckboxes(key: .waveformAnimation, encode: { $0.rawValue }, decode: { Defaults.Keys.WaveformAnimation(rawValue: $0) })
+        let waveformAnimations = EnumCheckboxes(key: .waveformAnimation)
         waveformAnimations.bind(_animateTransitions, as: .transitions)
         waveformAnimations.bind(_animateAnalysis, as: .analysis)
         waveformAnimations.bind(_previewAnalysis, as: .withPreview)

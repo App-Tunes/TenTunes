@@ -152,6 +152,8 @@ class BarsLayer: CALayer {
                 
                 let next = CGFloat((values.waveform[safe: idx + 1] ?? h) * frame.height)
                 
+                layer.frame = NSZeroRect
+
                 let path = CGMutablePath()
                 // TODO Animate
                 path.move(to: CGPoint(x: barX, y: frame.minY))

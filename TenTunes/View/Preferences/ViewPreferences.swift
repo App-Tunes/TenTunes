@@ -12,7 +12,7 @@ import Preferences
 import Defaults
 
 extension Defaults.Keys {
-    static let titleBarStylization = Key<Double>("titleBarStylization", default: 0.5)
+    static let titleBarStylization = Key<Double>("titleBarStylization", default: 0.75)
     
     enum InitialKeyDisplay: Codable, Equatable {
         case custom(type: InitialKeyWrite)

@@ -129,6 +129,12 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Import" id="wQL-Id-OrI">
                                                 <items>
+                                                    <menuItem title="Playlist..." id="vIx-QO-ZOg">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="importPlaylist:" target="Voe-Tx-rLC" id="HUV-zp-hbl"/>
+                                                        </connections>
+                                                    </menuItem>
                                                     <menuItem title="From iTunes..." id="YKS-7l-PFL">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>

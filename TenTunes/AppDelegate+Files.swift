@@ -28,6 +28,14 @@ extension AppDelegate {
         }
     }
 
+    @IBAction func importPlaylist(_ sender: Any) {
+        let dialog = Library.Import.dialogue(allowedFiles: Library.FileTypes.playlist)
+        
+        if dialog.runModal() == NSApplication.ModalResponse.OK {
+            self.import(urls: dialog.urls)
+        }
+    }
+    
     @IBAction func importFromITunes(_ sender: Any) {
         self.importFromITunes(flat: false)
     }
@@ -92,9 +100,7 @@ extension AppDelegate {
 
     @IBAction func openDocument(_ sender: Any) {
         let dialog = Library.Import.dialogue(allowedFiles: Library.FileTypes.all)
-        
-        // TODO Allow only audiovisual files, and m3u
-        
+                
         if dialog.runModal() == NSApplication.ModalResponse.OK {
             self.import(urls: dialog.urls)
         }

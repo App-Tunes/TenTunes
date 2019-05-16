@@ -103,9 +103,9 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fze-Ih-JDz">
-                    <rect key="frame" x="38" y="18" width="169" height="18"/>
+                    <rect key="frame" x="38" y="18" width="165" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Updade all album tracks" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="2A8-xK-Gmr">
+                    <buttonCell key="cell" type="check" title="Update all album tracks" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="2A8-xK-Gmr">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>

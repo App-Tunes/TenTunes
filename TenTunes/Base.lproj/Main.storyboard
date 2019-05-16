@@ -141,6 +141,12 @@
                                                             <action selector="importFromITunes:" target="Voe-Tx-rLC" id="Ku1-Yj-GbZ"/>
                                                         </connections>
                                                     </menuItem>
+                                                    <menuItem title="From Directory..." id="lKl-k9-3sH">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="importFromDirectory:" target="Voe-Tx-rLC" id="1bd-db-935"/>
+                                                        </connections>
+                                                    </menuItem>
                                                 </items>
                                             </menu>
                                         </menuItem>

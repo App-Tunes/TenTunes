@@ -40,6 +40,10 @@ extension AppDelegate {
         self.importFromITunes(flat: false)
     }
     
+    @IBAction func importFromDirectory(_ sender: Any) {
+        self.importFromDirectory()
+    }
+    
     @discardableResult
     func importFromITunes(flat: Bool) -> Bool {
         let dialog = NSOpenPanel()
@@ -87,7 +91,7 @@ extension AppDelegate {
         guard !Library.shared.import(moveAction: .link).allFrom(url: url).isEmpty else {
             let alert: NSAlert = NSAlert()
             alert.messageText = "No Music"
-            alert.informativeText = "Could not locate a single audiovisual file in the directory!"
+            alert.informativeText = "Could not locate a single audio file in the directory!"
             alert.alertStyle = .warning
             alert.addButton(withTitle: "OK")
             alert.runModal()

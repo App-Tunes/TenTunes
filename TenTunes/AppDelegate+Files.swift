@@ -49,6 +49,7 @@ extension AppDelegate {
         let dialog = NSOpenPanel()
         
         dialog.title = "Select an iTunes Library"
+        dialog.titleVisibility = .visible
         dialog.allowsMultipleSelection = false
         dialog.allowedFileTypes = ["xml"]
         dialog.directoryURL = MediaLocation.musicDirectory?.appendingPathComponent("iTunes")
@@ -80,6 +81,7 @@ extension AppDelegate {
         let dialog = NSOpenPanel()
         
         dialog.title = "Select a music folder"
+        dialog.titleVisibility = .visible
         dialog.allowsMultipleSelection = false
         dialog.canChooseFiles = false
         dialog.canChooseDirectories = true

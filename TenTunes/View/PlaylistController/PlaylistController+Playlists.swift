@@ -49,7 +49,7 @@ extension PlaylistController.Item {
         }
         
         class func persistentID(for playlist: Playlist) -> String {
-            return Library.shared.export().stringID(of: playlist)
+            return playlist.persistentID.uuidString
         }
         
         override var persistentID: String {
@@ -57,7 +57,8 @@ extension PlaylistController.Item {
         }
         
         class func load(id: String, cache: PlaylistController.Cache) -> Child? {
-            return Library.shared.import().playlist(id: id)
+            return UUID(uuidString: id)
+                .flatMap { Library.shared.playlist(byPersistentID: $0) }
                 .map(cache.playlistItem)
         }
         
@@ -111,12 +112,16 @@ extension PlaylistController {
     
     @discardableResult
     func select(playlist: Playlist, editTitle: Bool = false) -> Bool {
-        let item = cache.playlistItem(playlist)
+        // This is required 1) to end any current editing processes
+        // And 2) to become first responder
+        _outlineView.window?.makeFirstResponder(_outlineView)
         
+        let item = cache.playlistItem(playlist)
+
         guard let idx = select(.items([item])).first else {
             if editTitle {
                 print("Playlist does not exist in view even though it must!")
-                NSAlert.informational(title: "Error", text: "Could not select playlist! Please report this to Ten Tunes' author.")
+                //NSAlert.informational(title: "Error", text: "Could not select playlist! Please report this to Ten Tunes' author.")
             }
             
             return false

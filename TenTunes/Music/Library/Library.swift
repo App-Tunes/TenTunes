@@ -174,6 +174,13 @@ class Library : NSPersistentContainer {
         return (try? context.existingObject(with: byId)) as? Playlist
     }
     
+    func playlist(byPersistentID id: UUID, in context: NSManagedObjectContext? = nil) -> Playlist? {
+        let context = context ?? viewContext
+        let request = NSFetchRequest<Playlist>(entityName: "Playlist")
+        request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
+        return (try! context.fetch(request)).first
+    }
+    
     subscript<Type>(_ role: LibraryRole<Type>) -> Type {
         return self[role, in: nil]
     }

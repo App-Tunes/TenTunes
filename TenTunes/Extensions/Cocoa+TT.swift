@@ -194,6 +194,10 @@ extension NSWindow {
     var isMouseInside: Bool {
         return NSWindow.windowNumber(at: NSEvent.mouseLocation, belowWindowWithWindowNumber: 0) == windowNumber
     }
+    
+    var hasFirstResponder: Bool {
+        return firstResponder != nil && firstResponder != self
+    }
 }
 
 extension NSOutlineView {

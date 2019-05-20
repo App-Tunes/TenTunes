@@ -212,7 +212,7 @@ extension TrackController : HideableBarDelegate {
             ViewController.shared._find.state = state ? .on : .off
         }
         
-        if view.window?.firstResponder == nil {
+        if !(view.window?.hasFirstResponder ?? true) {
             // It was probably the bar, but who cares, it's freeee
             view.window?.makeFirstResponder(_tableView)
         }

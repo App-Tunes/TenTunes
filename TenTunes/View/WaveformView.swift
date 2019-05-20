@@ -96,7 +96,7 @@ class BarsLayer: CALayer {
             }
         }
         else if diffLayers < 0 {
-            sublayers?.removeLast(diffLayers)
+            sublayers?.removeLast(-diffLayers)
         }
     }
     

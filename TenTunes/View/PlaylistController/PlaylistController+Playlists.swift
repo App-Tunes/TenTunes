@@ -113,9 +113,7 @@ extension PlaylistController {
     func select(playlist: Playlist, editTitle: Bool = false) -> Bool {
         let item = cache.playlistItem(playlist)
         
-        select(.items([item]))
-        
-        guard let idx = _outlineView.row(forItem: item).positive else {
+        guard let idx = select(.items([item])).first else {
             if editTitle {
                 print("Playlist does not exist in view even though it must!")
                 NSAlert.informational(title: "Error", text: "Could not select playlist! Please report this to Ten Tunes' author.")
@@ -131,14 +129,18 @@ extension PlaylistController {
         return true
     }
     
-    func select(_ selection: SelectionMoment) {
+    @discardableResult
+    func select(_ selection: SelectionMoment) -> IndexSet {
         switch selection {
         case .master:
-            let aliasIndices = (0 ..< _outlineView.numberOfRows)
+            let aliasIndices = IndexSet(
+                (0 ..< _outlineView.numberOfRows)
                 .filter { _outlineView.item(atRow: $0) is Item.MasterAlias }
+            )
             _outlineView.selectRowIndexes(IndexSet(aliasIndices), byExtendingSelection: false)
             
             didSelect(.master)
+            return aliasIndices
         case .items(let items):
             // Expand so all items are in view
             let paths = items.map { $0.path }
@@ -157,6 +159,8 @@ extension PlaylistController {
             
             // didSelect will be called automatically by delegate method
             _outlineView.selectRowIndexes(IndexSet(indices), byExtendingSelection: false)
+            
+            return IndexSet(indices)
         }
     }
     

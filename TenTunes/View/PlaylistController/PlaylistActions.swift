@@ -98,7 +98,9 @@ class PlaylistActions: NSViewController, NSMenuDelegate, NSMenuItemValidation {
         guard isVisible else {
             return
         }
-        
+
+        menu.item(withAction: #selector(rename(_:)))?.isVisible = playlists.count == 1
+
         menu.item(withAction: #selector(deletePlaylist(_:)))?.isVisible = playlists.map(Library.shared.isPlaylist).allSatisfy { $0 }
         
         menu.item(withAction: #selector(untanglePlaylist(_:)))?.isVisible = (playlists.uniqueElement ?=> self.isUntangleable) ?? false
@@ -121,6 +123,14 @@ class PlaylistActions: NSViewController, NSMenuDelegate, NSMenuItemValidation {
         // TODO If the playlist is already selected (-> track controller has a history)
         // use that history instead since it might have sort
         player.play(at: nil, in: PlayHistory(playlist: playlist))
+    }
+    
+    @IBAction func rename(_ sender: Any) {
+        guard let playlist = context.playlists.onlyElement else {
+            return
+        }
+        
+        viewController.playlistController.select(playlist: playlist, editTitle: true)
     }
     
     @IBAction func duplicatePlaylist(_ sender: Any) {

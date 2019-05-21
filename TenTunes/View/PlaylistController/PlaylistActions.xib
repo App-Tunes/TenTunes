@@ -27,6 +27,12 @@
                         <action selector="menuPlay:" target="-2" id="Yya-cu-zj2"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Rename" id="QPT-dJ-7O4">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="rename:" target="-2" id="wKv-9h-8YC"/>
+                    </connections>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="77g-oK-YKH"/>
                 <menuItem title="New Playlist" id="v5g-DX-P0S">
                     <modifierMask key="keyEquivalentModifierMask"/>

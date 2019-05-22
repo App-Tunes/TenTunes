@@ -130,7 +130,7 @@ extension TrackController {
         if let view = sender as? WaveformView {
             if let row = view.superview ?=> _tableView.row, history.track(at: row) != nil {
                 play(atRow: row)
-                view.location ?=> ViewController.shared.player.setPosition
+                view.location.map { ViewController.shared.player.setPosition($0, smooth: false) }
             }
             
             view.location = nil

@@ -344,7 +344,7 @@ class Countdown {
         self.backingPlayer = _player
     }
     
-    func setPosition(_ position: Double) {
+    func setPosition(_ position: Double, smooth: Bool = true) {
         guard abs(position - player.currentTime) > 0.04 else {
             return // Baaasically the same, so skip doing extra work
         }
@@ -355,6 +355,11 @@ class Countdown {
         }
         
         sanityCheck()
+        
+        guard smooth else {
+            player.jump(to: position)
+            return
+        }
         
         // This code block makes jumping the tiniest bit smoother
         // TODO Maybe determine this heuristically? lol

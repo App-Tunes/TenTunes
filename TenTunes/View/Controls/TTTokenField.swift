@@ -28,7 +28,7 @@ class TTTokenField: NSTokenField {
         if _autocompletePopover == nil {
             _autocompletePopover = NSPopover()
             _autocompletePopover!.contentViewController = AutocompleteViewController()
-            _autocompletePopover!.animates = true
+            _autocompletePopover!.animates = false
             _autocompletePopover!.behavior = .transient
             _autocompletePopover!.appearance = window!.appearance
         }

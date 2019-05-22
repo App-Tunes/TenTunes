@@ -90,21 +90,28 @@ class PlaylistActions: NSViewController, NSMenuDelegate, NSMenuItemValidation {
         }
         
         let isVisible = context.isVisible
+        let areUnautomated = playlists.map { $0.parent }.noneSatisfy { $0?.automatesChildren ?? true }
+        
+        let canEdit = isVisible && areUnautomated
+
         // Set all items to the "default value"
         for item in menu.items.dropFirst() {
-            item.isVisible = isVisible
+            item.isVisible = canEdit
         }
 
-        guard isVisible else {
+        guard canEdit else {
             return
         }
+        
+        let arePlaylists = playlists.allSatisfy(Library.shared.isPlaylist)
+        let areEditable = arePlaylists && ((playlists as? [PlaylistFolder])?.noneSatisfy { $0.automatesChildren } ?? false)
 
         menu.item(withAction: #selector(rename(_:)))?.isVisible = playlists.count == 1
 
-        menu.item(withAction: #selector(deletePlaylist(_:)))?.isVisible = playlists.map(Library.shared.isPlaylist).allSatisfy { $0 }
+        menu.item(withAction: #selector(deletePlaylist(_:)))?.isVisible = arePlaylists
         
         menu.item(withAction: #selector(untanglePlaylist(_:)))?.isVisible = (playlists.uniqueElement ?=> self.isUntangleable) ?? false
-        menu.item(withAction: #selector(sortPlaylistChildren(_:)))?.isVisible = !((playlists.uniqueElement as? PlaylistFolder)?.automatesChildren ?? true)
+        menu.item(withAction: #selector(sortPlaylistChildren(_:)))?.isVisible = areEditable
     }
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {

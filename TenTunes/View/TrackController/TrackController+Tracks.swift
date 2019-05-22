@@ -329,7 +329,14 @@ extension TrackController: NSTableViewDelegate {
     }
     
     @IBAction func showInfo(_ sender: Any?) {
-        (trackEditorGuard.superview as! NSSplitView).toggleSubviewHidden(trackEditorGuard)
+        let split = trackEditorGuard.superview as! NSSplitView
+            
+        split.toggleSubviewHidden(trackEditorGuard)
+        
+        if !trackEditorGuard.isHidden {
+            split.layout()
+            split.adaptSubview(trackEditorGuard, toMinSize: 250, from: .left)
+        }
     }
     
     func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {

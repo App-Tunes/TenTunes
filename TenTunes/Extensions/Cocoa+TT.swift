@@ -437,6 +437,31 @@ extension NSSplitView {
             view.isHidden = true
         }
     }
+    
+    enum SplitSide {
+        case left, right
+    }
+    
+    func position(ofDividerAt index: Int) -> CGFloat {
+        return subviews[index].frame.maxX
+    }
+    
+    func adaptSubview(_ view: NSView, toMinSize minSize: CGFloat, from side: SplitSide) {
+        let adjustment = minSize - view.frame.size.width
+        guard adjustment > 0 else {
+            return
+        }
+        
+        guard let viewIndex = subviews.firstIndex(of: view) else {
+            return
+        }
+        
+        let dividerIndex = side == .left ? viewIndex - 1 : viewIndex
+        let dividerAdjustment = side == .left ? -adjustment : adjustment
+        
+        let current = position(ofDividerAt: dividerIndex)
+        setPosition(current + dividerAdjustment, ofDividerAt: dividerIndex)
+    }
 }
 
 extension CALayer {

@@ -36,6 +36,7 @@ class TenTunesTest: XCTestCase {
     }
     
     func create(tracks: Int = 0, groups: Int = 0, tags: Int = 0) {
+        assert(self.tracks.isEmpty, "Tracks created twice")
         self.tracks = (0 ..< tracks).map { idx in
             let track = Track(context: self.context)
             track.title = String(format: "Track %d", idx)
@@ -47,6 +48,7 @@ class TenTunesTest: XCTestCase {
             return track
         }
 
+        assert(self.groups.isEmpty, "Groups created twice")
         self.groups = (0 ..< groups).map { idx in
             let group = PlaylistFolder(context: self.context)
             group.name = String(format: "Group %d", idx)
@@ -56,6 +58,7 @@ class TenTunesTest: XCTestCase {
             return group
         }
         
+        assert(self.tags.isEmpty, "Tags created twice")
         self.tags = ((0 ..< tags).map { idx in
             let tag = PlaylistManual(context: self.context)
             tag.name = String(format: "Tag %d", idx)

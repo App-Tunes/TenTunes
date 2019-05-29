@@ -146,7 +146,11 @@ class ViewController: NSViewController {
             self._coverImage.alphaValue = CGFloat(change.newValue)
         }
         
-        mediaKeyTap = MediaKeyTap(delegate: self)
+        mediaKeyTap = MediaKeyTap(delegate: self, for: [
+            .playPause,
+            .previous, .rewind,
+            .next, .fastForward
+        ])
         mediaKeyTap?.start()
         
         taskers.append(AnalyzeCurrentTrack())

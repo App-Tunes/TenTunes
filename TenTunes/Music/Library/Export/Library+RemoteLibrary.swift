@@ -157,7 +157,7 @@ extension Library.Export {
             // Mapped parent must be a folder
             guard let parent = playlists[playlist.parent!] as! PlaylistFolder? else {
                 print("Exported playlist without parent! (\(playlist.name))")
-                return
+                return newPlaylist
             }
             
             parent.addToChildren(newPlaylist)

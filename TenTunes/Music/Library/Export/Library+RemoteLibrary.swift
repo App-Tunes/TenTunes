@@ -155,7 +155,11 @@ extension Library.Export {
             newPlaylist.iTunesID = playlist.iTunesID
             
             // Mapped parent must be a folder
-            let parent = playlists[playlist.parent!] as! PlaylistFolder
+            guard let parent = playlists[playlist.parent!] as! PlaylistFolder? else {
+                print("Exported playlist without parent! (\(playlist.name))")
+                return
+            }
+            
             parent.addToChildren(newPlaylist)
 
             return newPlaylist

@@ -281,7 +281,6 @@
 		80074CFB204584980055B87E /* PlaylistController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistController.xib; sourceTree = "<group>"; };
 		80074CFE2046BB0B0055B87E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		800A2FBE227AFD960048DD6D /* TestEnumerations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEnumerations.swift; sourceTree = "<group>"; };
-		8013720C203F7C9C00CA9036 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = Carthage/Build/Mac/Static/AudioKit.framework; sourceTree = SOURCE_ROOT; };
 		8017685820743898000DD433 /* NSImageViewAspectFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImageViewAspectFill.swift; sourceTree = "<group>"; };
 		8020C64C221736A500E6FA5C /* AppDelegate+Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Files.swift"; sourceTree = "<group>"; };
 		8020C64E2217372200E6FA5C /* AppDelegate+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Menu.swift"; sourceTree = "<group>"; };
@@ -1004,7 +1003,6 @@
 				806AC13B2041EDE500857B1B /* CoreMedia.framework */,
 				806AC1392041EDD900857B1B /* AVFoundation.framework */,
 				806AC1372041EC8400857B1B /* libSuperpoweredAudioOSX.a */,
-				8013720C203F7C9C00CA9036 /* AudioKit.framework */,
 				80C0C29F203F6DCA00FA6083 /* taglib.xcodeproj */,
 				F519690AE56FC5800E060F88 /* Pods_TenTunes.framework */,
 			);

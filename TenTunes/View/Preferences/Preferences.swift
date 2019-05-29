@@ -9,6 +9,8 @@
 import Cocoa
 import Defaults
 
+import Preferences
+
 extension Defaults.Keys {
     static let trackColumnsHidden = Key<[String: Bool]>("trackColumnsHidden", default: [
         "albumColumn" : true,
@@ -59,4 +61,10 @@ extension Defaults.Keys {
         
         _ = array
     }
+}
+
+extension PreferencePane.Identifier {
+    static let behavior = Identifier("behavior")
+    static let view = Identifier("view")
+    static let files = Identifier("files")
 }

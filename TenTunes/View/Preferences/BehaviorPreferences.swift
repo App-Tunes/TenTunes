@@ -36,8 +36,9 @@ extension Defaults.Keys {
     static let trackWordPlural = Key<String>("trackWordPlural", default: "songs")
 }
 
-class BehaviorPreferences: NSViewController, Preferenceable {
-    var toolbarItemTitle: String = "Behavior"
+class BehaviorPreferences: NSViewController, PreferencePane {
+    var preferencePaneIdentifier = PreferencePane.Identifier.behavior
+    var preferencePaneTitle = "Behavior"
     var toolbarItemIcon: NSImage = NSImage(named: NSImage.Name.advancedName)!
 
     @IBOutlet var fileLocationOnAdd: NSPopUpButton!

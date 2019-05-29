@@ -360,7 +360,7 @@ extension ViewController : MultiplicityGuardDelegate {
 }
 
 extension ViewController: MediaKeyTapDelegate {
-    func handle(mediaKey: MediaKey, event: KeyEvent) {
+    func handle(mediaKey: MediaKey, event: KeyEvent?) {
         switch mediaKey {
         case .playPause:
             _play.performClick(self)
@@ -368,6 +368,8 @@ extension ViewController: MediaKeyTapDelegate {
             _previous.performClick(self)
         case .next, .fastForward:
             _next.performClick(self)
+        default:
+            break
         }
     }
 }

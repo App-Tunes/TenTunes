@@ -99,8 +99,9 @@ extension UserDefaults {
     }
 }
 
-class ViewPreferences: NSViewController, Preferenceable {
-    var toolbarItemTitle: String = "View"
+class ViewPreferences: NSViewController, PreferencePane {
+    var preferencePaneIdentifier = PreferencePane.Identifier.view
+    var preferencePaneTitle = "View"
     var toolbarItemIcon: NSImage = NSImage(named: NSImage.Name.colorPanelName)!
     
     @IBOutlet var initialKeyDisplay: NSPopUpButton!

@@ -63,8 +63,6 @@
 		806BC9C5226F727F00F9B609 /* Defaults.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 806BC9C3226F727F00F9B609 /* Defaults.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		806BC9C7226F72B800F9B609 /* Preferences.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806BC9C6226F72B800F9B609 /* Preferences.framework */; };
 		806BC9C8226F72B800F9B609 /* Preferences.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 806BC9C6226F72B800F9B609 /* Preferences.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		806C31C5226A323000D545BC /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720C203F7C9C00CA9036 /* AudioKit.framework */; };
-		806C31C6226A323000D545BC /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8013720C203F7C9C00CA9036 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		806C31C8226A3B4800D545BC /* NSImage+Hacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806C31C7226A3B4800D545BC /* NSImage+Hacks.swift */; };
 		806C5B2620423AC000C34F49 /* SPInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806C5B2520423AC000C34F49 /* SPInterpreter.swift */; };
 		806EFC22204B63620079DBAA /* PlaylistLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806EFC21204B63620079DBAA /* PlaylistLibrary.swift */; };
@@ -216,6 +214,8 @@
 		80E937592039C2850014C835 /* Keycodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E937582039C2850014C835 /* Keycodes.swift */; };
 		80E939F1215AFAA4005112EF /* MultiplicityGuardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E939F0215AFAA4005112EF /* MultiplicityGuardView.swift */; };
 		80E939F7215BE604005112EF /* PlaylistMultiple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E939F6215BE604005112EF /* PlaylistMultiple.swift */; };
+		80EDBA1F229EB1D300E215BF /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EDBA1A229EB1C100E215BF /* AudioKit.framework */; };
+		80EDBA20229EB1D300E215BF /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 80EDBA1A229EB1C100E215BF /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		80F11E5920CA732E00331D12 /* Library+Symlink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F11E5820CA732E00331D12 /* Library+Symlink.swift */; };
 		80F2C57A2038808000212739 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C5792038808000212739 /* AppDelegate.swift */; };
 		80F2C57C2038808000212739 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C57B2038808000212739 /* ViewController.swift */; };
@@ -261,7 +261,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				806C31C6226A323000D545BC /* AudioKit.framework in Embed Frameworks */,
+				80EDBA20229EB1D300E215BF /* AudioKit.framework in Embed Frameworks */,
 				806BC9C8226F72B800F9B609 /* Preferences.framework in Embed Frameworks */,
 				80B6DFA6219F06E9003EA487 /* MIKMIDI.framework in Embed Frameworks */,
 				806BC9C5226F727F00F9B609 /* Defaults.framework in Embed Frameworks */,
@@ -517,6 +517,7 @@
 		80E937582039C2850014C835 /* Keycodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keycodes.swift; sourceTree = "<group>"; };
 		80E939F0215AFAA4005112EF /* MultiplicityGuardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplicityGuardView.swift; sourceTree = "<group>"; };
 		80E939F6215BE604005112EF /* PlaylistMultiple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistMultiple.swift; sourceTree = "<group>"; };
+		80EDBA1A229EB1C100E215BF /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = Carthage/Build/Mac/AudioKit.framework; sourceTree = SOURCE_ROOT; };
 		80F11E5820CA732E00331D12 /* Library+Symlink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Symlink.swift"; sourceTree = "<group>"; };
 		80F2C5762038808000212739 /* Ten Tunes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ten Tunes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		80F2C5792038808000212739 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -555,10 +556,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80EDBA1F229EB1D300E215BF /* AudioKit.framework in Frameworks */,
 				8030CA812164DDE300229398 /* Syphon.framework in Frameworks */,
 				808067BF226A6DD1009942F5 /* MediaKeyTap.framework in Frameworks */,
 				8058FA8F204317080086FF8A /* libSuperpoweredAudioOSX.a in Frameworks */,
-				806C31C5226A323000D545BC /* AudioKit.framework in Frameworks */,
 				806AC1482041F73300857B1B /* libtaglib.a in Frameworks */,
 				80B6DFA5219F06E9003EA487 /* MIKMIDI.framework in Frameworks */,
 				806BC9C4226F727F00F9B609 /* Defaults.framework in Frameworks */,
@@ -993,6 +994,7 @@
 		80DCA9B6203F645400B1E9B1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				80EDBA1A229EB1C100E215BF /* AudioKit.framework */,
 				80B6DFA3219F06E4003EA487 /* MIKMIDI.framework */,
 				809CEAC02164CF76008D6AC0 /* Syphon.framework */,
 				80074CFE2046BB0B0055B87E /* QuartzCore.framework */,

@@ -130,11 +130,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let libraryStoryboard = NSStoryboard(name: .init("Library"), bundle: nil)
         libraryWindowController = (libraryStoryboard.instantiateInitialController() as! NSWindowController)
         
-        preferencesController = PreferencesWindowController(viewControllers: [
+        preferencesController = PreferencesWindowController(preferencePanes: [
             BehaviorPreferences(),
             ViewPreferences(),
             FilesPreferences(),
-            ])
+        ])
         
         exportPlaylistsController = ExportPlaylistsController(windowNibName: .init("ExportPlaylistsController"))
         

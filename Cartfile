@@ -1,6 +1,6 @@
 github "audiokit/AudioKit"
 #github "nhurden/MediaKeyTap"
-git "https://github.com/reitermarkus/MediaKeyTap.git"
+git "https://github.com/Ivorforce/MediaKeyTap_.git"
 github "mixedinkey-opensource/MIKMIDI"
 github "sindresorhus/Preferences"
 github "sindresorhus/Defaults"

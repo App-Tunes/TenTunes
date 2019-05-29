@@ -36,8 +36,9 @@ extension Defaults.Keys {
     static let initialKeyWrite = Key<InitialKeyWrite>("initialKeyWrite", default: .english)
 }
 
-class FilesPreferences: NSViewController, Preferenceable {
-    var toolbarItemTitle: String = "Files"
+class FilesPreferences: NSViewController, PreferencePane {
+    var preferencePaneIdentifier = PreferencePane.Identifier.files
+    var preferencePaneTitle = "Files"
     var toolbarItemIcon: NSImage = NSImage(named: NSImage.Name.folderSmartName)!
     
     @IBOutlet var initialKeyWrite: NSPopUpButton!

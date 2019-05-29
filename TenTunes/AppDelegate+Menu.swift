@@ -31,7 +31,7 @@ extension AppDelegate: NSMenuItemValidation {
         if !(preferencesController.window?.isVisible ?? false) {
             preferencesController.window?.center()
         }
-        preferencesController.showWindow(self)
+        preferencesController.show()
     }
     
     @IBAction

@@ -39,7 +39,11 @@ extension Defaults.Keys {
 class BehaviorPreferences: NSViewController, PreferencePane {
     var preferencePaneIdentifier = PreferencePane.Identifier.behavior
     var preferencePaneTitle = "Behavior"
-    var toolbarItemIcon: NSImage = NSImage(named: NSImage.Name.advancedName)!
+    var toolbarItemIcon = NSImage(named: NSImage.Name.advancedName)!
+
+    override var nibName: NSNib.Name? {
+        return "BehaviorPreferences"
+    }
 
     @IBOutlet var fileLocationOnAdd: NSPopUpButton!
 

@@ -39,8 +39,12 @@ extension Defaults.Keys {
 class FilesPreferences: NSViewController, PreferencePane {
     var preferencePaneIdentifier = PreferencePane.Identifier.files
     var preferencePaneTitle = "Files"
-    var toolbarItemIcon: NSImage = NSImage(named: NSImage.Name.folderSmartName)!
+    var toolbarItemIcon = NSImage(named: NSImage.Name.folderSmartName)!
     
+    override var nibName: NSNib.Name? {
+        return "FilesPreferences"
+    }
+
     @IBOutlet var initialKeyWrite: NSPopUpButton!
 
     override func viewDidLoad() {

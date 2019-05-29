@@ -102,8 +102,12 @@ extension UserDefaults {
 class ViewPreferences: NSViewController, PreferencePane {
     var preferencePaneIdentifier = PreferencePane.Identifier.view
     var preferencePaneTitle = "View"
-    var toolbarItemIcon: NSImage = NSImage(named: NSImage.Name.colorPanelName)!
+    var toolbarItemIcon = NSImage(named: NSImage.Name.colorPanelName)!
     
+    override var nibName: NSNib.Name? {
+        return "ViewPreferences"
+    }
+
     @IBOutlet var initialKeyDisplay: NSPopUpButton!
     @IBOutlet var waveformDisplay: NSPopUpButton!
 

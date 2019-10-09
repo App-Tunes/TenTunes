@@ -48,7 +48,7 @@ public class Track: NSManagedObject {
     
     var analysisData: NSData? {
         get { return visuals?.analysis }
-        set { forcedVisuals.analysis = analysisData }
+        set { forcedVisuals.analysis = newValue }
     }
 
     @discardableResult

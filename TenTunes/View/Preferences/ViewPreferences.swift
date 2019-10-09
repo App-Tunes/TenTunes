@@ -12,7 +12,7 @@ import Preferences
 import Defaults
 
 extension Defaults.Keys {
-    static let titleBarStylization = Key<Double>("titleBarStylization", default: 0.75)
+    static let titleBarStylization = Key<Double>("titleBarStylization", default: 0.75, suite: AppDelegate.defaults)
     
     enum InitialKeyDisplay: Codable, Equatable {
         case custom(type: InitialKeyWrite)
@@ -59,7 +59,7 @@ extension Defaults.Keys {
         }
     }
 
-    static let initialKeyDisplay = Key<InitialKeyDisplay>("initialKeyDisplay", default: .idealFile)
+    static let initialKeyDisplay = Key<InitialKeyDisplay>("initialKeyDisplay", default: .idealFile, suite: AppDelegate.defaults)
     
     enum WaveformAnimation: String, HierarchyEnum, Codable {
         case none = "none"
@@ -71,7 +71,7 @@ extension Defaults.Keys {
             return [.none, .transitions, .analysis, .withPreview]
         }
     }
-    static let waveformAnimation = Key<WaveformAnimation>("waveformAnimation", default: .withPreview)
+    static let waveformAnimation = Key<WaveformAnimation>("waveformAnimation", default: .withPreview, suite: AppDelegate.defaults)
 
     enum WaveformDisplay: String, Codable {
         case bars = "bars", rounded = "hill"
@@ -84,11 +84,11 @@ extension Defaults.Keys {
         }
     }
 
-    static let waveformDisplay = Key<WaveformDisplay>("waveformDisplay", default: .bars)
-    static let trackCombinedTitleSource = Key<Bool>("trackCombinedTitleSource", default: true)
-    static let trackSmallRows = Key<Bool>("trackSmallRows", default: true)
+    static let waveformDisplay = Key<WaveformDisplay>("waveformDisplay", default: .bars, suite: AppDelegate.defaults)
+    static let trackCombinedTitleSource = Key<Bool>("trackCombinedTitleSource", default: true, suite: AppDelegate.defaults)
+    static let trackSmallRows = Key<Bool>("trackSmallRows", default: true, suite: AppDelegate.defaults)
 
-    static let waveformColorRotation = Key<Double>("waveformColorRotation", default: 0.0)
+    static let waveformColorRotation = Key<Double>("waveformColorRotation", default: 0.0, suite: AppDelegate.defaults)
 }
 
 extension UserDefaults {

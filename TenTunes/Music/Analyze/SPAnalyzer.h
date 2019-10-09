@@ -20,13 +20,8 @@
 @property unsigned char *midWaveform;
 @property unsigned char *highWaveform;
 
-@property unsigned char *peakWaveform;
-@property unsigned char *notes;
-@property char *overviewWaveform;
-
 @property int waveformSize;
 
-@property int overviewSize;
 @property NSString *initialKey;
 
 @property float loudpartsAverageDecibel;
@@ -34,7 +29,6 @@
 @property float averageDecibel;
 
 @property float bpm;
-@property float beatgridStartMs;
 
 @end
 

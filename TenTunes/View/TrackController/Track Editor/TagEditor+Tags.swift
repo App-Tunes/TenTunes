@@ -90,8 +90,10 @@ extension TagEditor : TTTokenFieldDelegate {
         tagTokens.append(contentsOf: addTags)
         
         if case .many(var omitted) = tagTokens[0] {
-            omitted.remove(contentsOf: Set(newSharedRelations.caseLet(ViewableTag.tag)))
-            omitted.remove(contentsOf: Set(newSharedRelations.caseLet(ViewableTag.related)))
+            let a: [PlaylistManual] = newSharedRelations.caseLet(ViewableTag.tag)
+            omitted.remove(contentsOf: Set(a))
+            let b: [Track] = newSharedRelations.caseLet(ViewableTag.related)
+            omitted.remove(contentsOf: Set(b))
 
             if omitted.isEmpty {
                 tagTokens.remove(at: 0)

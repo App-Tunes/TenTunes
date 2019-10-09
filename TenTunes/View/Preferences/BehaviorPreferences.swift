@@ -11,7 +11,7 @@ import Preferences
 import Defaults
 
 extension Defaults.Keys {
-    static let analyzeNewTracks = Key<Bool>("autoAnalyzeTracksOnAdd", default: true)
+    static let analyzeNewTracks = Key<Bool>("autoAnalyzeTracksOnAdd", default: true, suite: AppDelegate.defaults)
     
     enum FileLocationOnAdd: String, Codable {
         case link = "link", copy = "copy", move = "move"
@@ -25,15 +25,15 @@ extension Defaults.Keys {
         }
     }
 
-    static let fileLocationOnAdd = Key<FileLocationOnAdd>("fileLocationOnAdd", default: .copy)
-    static let playOpenedFiles = Key<Bool>("autoPlayTracksOnOpen", default: true)
-    static let editingTrackUpdatesAlbum = Key<Bool>("updatingTrackUpdatesAlbum", default: true)
-    static let quantizedJump = Key<Bool>("quantizedJump", default: false)
-    static let keepFilterBetweenPlaylists = Key<Bool>("keepFilterBetweenPlaylists", default: false)
-    static let useNormalizedVolumes = Key<Bool>("useNormalizedVolumes", default: true)
+    static let fileLocationOnAdd = Key<FileLocationOnAdd>("fileLocationOnAdd", default: .copy, suite: AppDelegate.defaults)
+    static let playOpenedFiles = Key<Bool>("autoPlayTracksOnOpen", default: true, suite: AppDelegate.defaults)
+    static let editingTrackUpdatesAlbum = Key<Bool>("updatingTrackUpdatesAlbum", default: true, suite: AppDelegate.defaults)
+    static let quantizedJump = Key<Bool>("quantizedJump", default: false, suite: AppDelegate.defaults)
+    static let keepFilterBetweenPlaylists = Key<Bool>("keepFilterBetweenPlaylists", default: false, suite: AppDelegate.defaults)
+    static let useNormalizedVolumes = Key<Bool>("useNormalizedVolumes", default: true, suite: AppDelegate.defaults)
 
-    static let trackWordSingular = Key<String>("trackWordSingular", default: "song")
-    static let trackWordPlural = Key<String>("trackWordPlural", default: "songs")
+    static let trackWordSingular = Key<String>("trackWordSingular", default: "song", suite: AppDelegate.defaults)
+    static let trackWordPlural = Key<String>("trackWordPlural", default: "songs", suite: AppDelegate.defaults)
 }
 
 class BehaviorPreferences: NSViewController, PreferencePane {

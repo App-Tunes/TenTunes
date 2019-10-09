@@ -10,10 +10,6 @@ import Cocoa
 import Defaults
 
 extension UserDefaults {
-    static var swifty: Defaults {
-        return defaults
-    }
-    
     func canToggle(_ toggle: String) -> Bool {
         return !bool(forKey: toggle)
     }

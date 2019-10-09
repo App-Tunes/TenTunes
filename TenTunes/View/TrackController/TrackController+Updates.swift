@@ -16,7 +16,7 @@ extension TrackController {
         notificationCenter.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: .NSManagedObjectContextObjectsDidChange, object: Library.shared.viewContext)
         
         observeTrackWord = [Defaults.Keys.trackWordSingular, Defaults.Keys.trackWordPlural].map {
-            UserDefaults.swifty.observe($0) { _ in
+            Defaults.observe($0) { _ in
                 self._trackCounter.stringValue = AppDelegate.defaults.describe(trackCount: self.history.count)
             }
         }

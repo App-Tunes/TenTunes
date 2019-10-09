@@ -20,13 +20,13 @@ extension Defaults.Keys {
         "keyColumn" : true,
         "bpmColumn" : true,
         "playCountColumn" : true
-    ])
+    ], suite: AppDelegate.defaults)
     
     enum UsecaseAnswer: String, Codable {
         case casual = "casual"
         case dj = "dj"
     }
-    static let initialUsecaseAnswer = Key<UsecaseAnswer>("initialUsecaseAnswer", default: .casual)
+    static let initialUsecaseAnswer = Key<UsecaseAnswer>("initialUsecaseAnswer", default: .casual, suite: AppDelegate.defaults)
 
     static func eagerLoad() {
         // Meh, but static vars are lazily loaded......

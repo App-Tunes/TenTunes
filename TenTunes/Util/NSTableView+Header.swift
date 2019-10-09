@@ -35,7 +35,7 @@ extension NSTableView {
             tableView.headerView!.menu = NSMenu()
             tableView.headerView!.menu!.delegate = self
             
-            observerToken = UserDefaults.swifty.observe(defaultsKey, options: [.initial, .new]) { _ in
+            observerToken = Defaults.observe(defaultsKey, options: [.initial, .new]) { _ in
                 self.updateMenu()
             }
         }

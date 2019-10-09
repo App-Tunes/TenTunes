@@ -30,62 +30,78 @@
     if (_lowWaveform) free(_lowWaveform);
     if (_midWaveform) free(_midWaveform);
     if (_highWaveform) free(_highWaveform);
-    if (_peakWaveform) free(_peakWaveform);
-    if (_notes) free(_notes);
-    if (_overviewWaveform) free(_overviewWaveform);
 }
 
 - (void)analyze:(NSURL *)url progressHandler: (void(^)(float, float*, int))progressHandler {
     _failed = false;
     
     // Open the input file.
-    SuperpoweredDecoder *decoder = new SuperpoweredDecoder();
-    const char *openError = decoder->open([url fileSystemRepresentation], false, 0, 0);
+    auto *decoder = new Superpowered::Decoder();
+    auto openError = decoder->open([url fileSystemRepresentation]);
     if (openError) {
         _failed = true;
-        NSLog(@"open error: %s", openError);
+        NSLog(@"open error: %d", openError);
         delete decoder;
         return;
     };
     
     // Create the analyzer.
-    SuperpoweredOfflineAnalyzer *analyzer = new SuperpoweredOfflineAnalyzer(decoder->samplerate, 0, decoder->durationSeconds);
+    auto *analyzer = new Superpowered::Analyzer(decoder->getSamplerate(), decoder->getDurationSeconds());
     
-    // Create a buffer for the 16-bit integer samples coming from the decoder.
-    short int *intBuffer = (short int *)malloc(decoder->samplesPerFrame * 2 * sizeof(short int) + 32768);
-    // Create a buffer for the 32-bit floating point samples required by the effect.
-    float *floatBuffer = (float *)malloc(decoder->samplesPerFrame * 2 * sizeof(float) + 32768);
-    
+    // Create a buffer for the 16-bit integer audio output of the decoder.
+    short int *intBuffer = (short int *)malloc(decoder->getFramesPerChunk() * 2 * sizeof(short int) + 16384);
+    // Create a buffer for the 32-bit floating point audio required by the effect.
+    float *floatBuffer = (float *)malloc(decoder->getFramesPerChunk() * 2 * sizeof(float) + 16384);
+
     // Processing.
     while (true) {
         // Decode one frame. samplesDecoded will be overwritten with the actual decoded number of samples.
-        unsigned int samplesDecoded = decoder->samplesPerFrame;
-        if (decoder->decode(intBuffer, &samplesDecoded) == SUPERPOWEREDDECODER_ERROR) {
+        auto framesDecoded = decoder->decodeAudio(intBuffer, decoder->getFramesPerChunk());
+        if (framesDecoded < 1) {
             _failed = true;
             break;
         }
         
-        if (samplesDecoded < 1)
-            break;
-        
         // Convert the decoded PCM samples from 16-bit integer to 32-bit floating point.
-        SuperpoweredShortIntToFloat(intBuffer, floatBuffer, samplesDecoded);
-        
+        Superpowered::ShortIntToFloat(intBuffer, floatBuffer, framesDecoded);
+
         // Submit samples to the analyzer.
-        analyzer->process(floatBuffer, samplesDecoded);
-        
+        analyzer->process(floatBuffer, framesDecoded);
+
         // Update the progress indicator.
-        _progress = (double)decoder->samplePosition / (double)decoder->durationSamples;
-        progressHandler(_progress, floatBuffer, (int)samplesDecoded);
+        _progress = (double)decoder->getPositionFrames() / (double)decoder->getDurationFrames();
+        progressHandler(_progress, floatBuffer, (int)framesDecoded);
     };
     
     if (!_failed) {
         int keyIndex;
         
         // Get the result.
-        analyzer->getresults(&_averageWaveform, &_peakWaveform, &_lowWaveform, &_midWaveform, &_highWaveform, &_notes, &_waveformSize, &_overviewWaveform, &_overviewSize, &_averageDecibel, &_loudpartsAverageDecibel, &_peakDecibel, &_bpm, &_beatgridStartMs, &keyIndex);
+        analyzer->makeResults(
+                              60, 200, // Min-max BPM
+                              0, 0, // Known and hint for BPM
+                              false, // Make beatgrid start
+                              false, // Beatgrid start hint
+                              false, // Make overview waveform
+                              true, // Low / Mid / High Waveforms
+                              true // Key Index
+                              );
         
-        _initialKey = [NSString stringWithCString:openkeyChordNames[keyIndex] encoding:NSASCIIStringEncoding];
+        _lowWaveform = analyzer->lowWaveform;
+        _lowWaveform = analyzer->lowWaveform;
+        _midWaveform = analyzer->midWaveform;
+        _highWaveform = analyzer->highWaveform;
+        _averageWaveform = analyzer->averageWaveform;
+        _waveformSize = analyzer->waveformSize;
+
+        _loudpartsAverageDecibel = analyzer->loudpartsAverageDb;
+        _averageDecibel = analyzer->averageDb;
+        _peakDecibel = analyzer->peakDb;
+
+        keyIndex = analyzer->keyIndex;
+        _bpm = analyzer->bpm;
+
+        _initialKey = [NSString stringWithCString:Superpowered::openkeyChordNames[keyIndex] encoding:NSASCIIStringEncoding];
     }
     
     // Cleanup.

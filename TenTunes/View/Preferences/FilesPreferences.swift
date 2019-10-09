@@ -12,11 +12,11 @@ import Preferences
 import Defaults
 
 extension Defaults.Keys {
-    static let forceSimpleFilePaths = Key<Bool>("forceSimpleFilePaths", default: true)
+    static let forceSimpleFilePaths = Key<Bool>("forceSimpleFilePaths", default: true, suite: AppDelegate.defaults)
 
-    static let skipExportITunes = Key<Bool>("skipExportITunes", default: false)
-    static let skipExportM3U = Key<Bool>("skipExportM3U", default: false)
-    static let skipExportAlias = Key<Bool>("skipExportAlias", default: false)
+    static let skipExportITunes = Key<Bool>("skipExportITunes", default: false, suite: AppDelegate.defaults)
+    static let skipExportM3U = Key<Bool>("skipExportM3U", default: false, suite: AppDelegate.defaults)
+    static let skipExportAlias = Key<Bool>("skipExportAlias", default: false, suite: AppDelegate.defaults)
 
     enum InitialKeyWrite: String, Codable {
         case openKey = "openKey", camelot = "camelot", english = "english", german = "german"
@@ -33,7 +33,7 @@ extension Defaults.Keys {
         }
     }
 
-    static let initialKeyWrite = Key<InitialKeyWrite>("initialKeyWrite", default: .english)
+    static let initialKeyWrite = Key<InitialKeyWrite>("initialKeyWrite", default: .english, suite: AppDelegate.defaults)
 }
 
 class FilesPreferences: NSViewController, PreferencePane {

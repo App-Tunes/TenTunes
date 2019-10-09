@@ -142,7 +142,7 @@ class ViewController: NSViewController {
             return self.keyDown(with: $0)
         }
         
-        coverImageObserver = UserDefaults.swifty.observe(.titleBarStylization, options: [.initial, .new]) { change in
+        coverImageObserver = Defaults.observe(.titleBarStylization, options: [.initial, .new]) { change in
             self._coverImage.alphaValue = CGFloat(change.newValue)
         }
         
@@ -364,7 +364,7 @@ extension ViewController : MultiplicityGuardDelegate {
 }
 
 extension ViewController: MediaKeyTapDelegate {
-    func handle(mediaKey: MediaKey, event: KeyEvent?) {
+    func handle(mediaKey: MediaKey, event: KeyEvent?, modifiers: NSEvent.ModifierFlags?) {
         switch mediaKey {
         case .playPause:
             _play.performClick(self)

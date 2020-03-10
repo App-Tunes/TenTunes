@@ -9,10 +9,7 @@
 #import "TagLibFile.h"
 
 #pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdocumentation-deprecated-sync"
-#pragma GCC diagnostic ignored "-Wdocumentation"
-#pragma GCC diagnostic ignored "-Wmacro-redefined"
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#pragma GCC diagnostic ignored "-Wall"
 
 #import <fileref.h>
 #import <tag.h>
@@ -25,19 +22,19 @@
 #import <flacfile.h>
 #import <trueaudiofile.h>
 
-#include <id3v2tag.h>
-#include <id3v2frame.h>
-#include <id3v2header.h>
-#include <attachedpictureframe.h>
-#include <textidentificationframe.h>
-#include <commentsframe.h>
-#include <mp4tag.h>
+#import <id3v2tag.h>
+#import <id3v2frame.h>
+#import <id3v2header.h>
+#import <attachedpictureframe.h>
+#import <textidentificationframe.h>
+#import <commentsframe.h>
+#import <mp4tag.h>
 //#include <tmap.h>
 
 
-#include <id3v1tag.h>
+#import <id3v1tag.h>
 
-#include <iostream>
+#import <iostream>
 
 #import <AVFoundation/AVFoundation.h>
 

@@ -37,7 +37,7 @@ extension Defaults.Keys {
 }
 
 class FilesPreferences: NSViewController, PreferencePane {
-    var preferencePaneIdentifier = PreferencePane.Identifier.files
+    var preferencePaneIdentifier = Preferences.PaneIdentifier.files
     var preferencePaneTitle = "Files"
     var toolbarItemIcon = NSImage(named: NSImage.Name.folderSmartName)!
     

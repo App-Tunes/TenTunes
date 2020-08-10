@@ -142,7 +142,7 @@ class ViewController: NSViewController {
             return self.keyDown(with: $0)
         }
         
-        coverImageObserver = Defaults.observe(.titleBarStylization, options: [.initial, .new]) { change in
+        coverImageObserver = Defaults.observe(.titleBarStylization, options: []) { change in
             self._coverImage.alphaValue = CGFloat(change.newValue)
         }
         

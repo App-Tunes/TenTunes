@@ -79,8 +79,8 @@ class BarsLayer: CALayer {
         }
         
         defaultsObservers = [
-            Defaults.observe(.waveformDisplay, options: [.new]) { display($0) },
-            Defaults.observe(.waveformColorRotation, options: [.new]) {
+            Defaults.observe(.waveformDisplay, options: []) { display($0) },
+            Defaults.observe(.waveformColorRotation, options: []) {
                 // Will be called for each view, but eh
                 BarsLayer.barColorLUT = BarsLayer.currentBarColorLUT
                 display($0)

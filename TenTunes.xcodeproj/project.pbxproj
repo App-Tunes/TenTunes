@@ -11,6 +11,8 @@
 		80074CF9204583CF0055B87E /* TrackController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80074CF7204583CF0055B87E /* TrackController.xib */; };
 		80074CFD204584980055B87E /* PlaylistController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80074CFB204584980055B87E /* PlaylistController.xib */; };
 		800A2FBF227AFD960048DD6D /* TestEnumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800A2FBE227AFD960048DD6D /* TestEnumerations.swift */; };
+		800E6F1724E1C386005F7038 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 800E6F1624E1C386005F7038 /* AudioKit.framework */; };
+		800E6F1924E1C641005F7038 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 800E6F1824E1C641005F7038 /* .gitignore */; };
 		8017685920743898000DD433 /* NSImageViewAspectFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8017685820743898000DD433 /* NSImageViewAspectFill.swift */; };
 		8020C64D221736A500E6FA5C /* AppDelegate+Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020C64C221736A500E6FA5C /* AppDelegate+Files.swift */; };
 		8020C64F2217372200E6FA5C /* AppDelegate+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020C64E2217372200E6FA5C /* AppDelegate+Menu.swift */; };
@@ -212,8 +214,6 @@
 		80E937592039C2850014C835 /* Keycodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E937582039C2850014C835 /* Keycodes.swift */; };
 		80E939F1215AFAA4005112EF /* MultiplicityGuardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E939F0215AFAA4005112EF /* MultiplicityGuardView.swift */; };
 		80E939F7215BE604005112EF /* PlaylistMultiple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E939F6215BE604005112EF /* PlaylistMultiple.swift */; };
-		80EDBA1F229EB1D300E215BF /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EDBA1A229EB1C100E215BF /* AudioKit.framework */; };
-		80EDBA20229EB1D300E215BF /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 80EDBA1A229EB1C100E215BF /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		80F11E5920CA732E00331D12 /* Library+Symlink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F11E5820CA732E00331D12 /* Library+Symlink.swift */; };
 		80F2C57A2038808000212739 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C5792038808000212739 /* AppDelegate.swift */; };
 		80F2C57C2038808000212739 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C57B2038808000212739 /* ViewController.swift */; };
@@ -284,7 +284,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				80EDBA20229EB1D300E215BF /* AudioKit.framework in Embed Frameworks */,
 				806BC9C8226F72B800F9B609 /* Preferences.framework in Embed Frameworks */,
 				80B6DFA6219F06E9003EA487 /* MIKMIDI.framework in Embed Frameworks */,
 				806BC9C5226F727F00F9B609 /* Defaults.framework in Embed Frameworks */,
@@ -303,6 +302,8 @@
 		80074CFB204584980055B87E /* PlaylistController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistController.xib; sourceTree = "<group>"; };
 		80074CFE2046BB0B0055B87E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		800A2FBE227AFD960048DD6D /* TestEnumerations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEnumerations.swift; sourceTree = "<group>"; };
+		800E6F1624E1C386005F7038 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKit.framework; sourceTree = "<group>"; };
+		800E6F1824E1C641005F7038 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		8017685820743898000DD433 /* NSImageViewAspectFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImageViewAspectFill.swift; sourceTree = "<group>"; };
 		8020C64C221736A500E6FA5C /* AppDelegate+Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Files.swift"; sourceTree = "<group>"; };
 		8020C64E2217372200E6FA5C /* AppDelegate+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Menu.swift"; sourceTree = "<group>"; };
@@ -468,6 +469,7 @@
 		80B6DF9E219EFAF0003EA487 /* VisualizerViewController+MIDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VisualizerViewController+MIDI.swift"; sourceTree = "<group>"; };
 		80B6DFA3219F06E4003EA487 /* MIKMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MIKMIDI.framework; path = Carthage/Build/Mac/MIKMIDI.framework; sourceTree = SOURCE_ROOT; };
 		80B764552072F38D003BD7F8 /* PlaylistEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistEmpty.swift; sourceTree = "<group>"; };
+		80B7E7252417FE340098E473 /* Ten Tunes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Ten Tunes.entitlements"; sourceTree = "<group>"; };
 		80BF21C2212AD9D500B9F0AB /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		80C1F142213B1DE80032E554 /* Foundation+Collections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Foundation+Collections.swift"; sourceTree = "<group>"; };
 		80C1F14C213C77440032E554 /* TrackVisuals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackVisuals.swift; sourceTree = "<group>"; };
@@ -537,7 +539,6 @@
 		80E937582039C2850014C835 /* Keycodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keycodes.swift; sourceTree = "<group>"; };
 		80E939F0215AFAA4005112EF /* MultiplicityGuardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplicityGuardView.swift; sourceTree = "<group>"; };
 		80E939F6215BE604005112EF /* PlaylistMultiple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistMultiple.swift; sourceTree = "<group>"; };
-		80EDBA1A229EB1C100E215BF /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = Carthage/Build/Mac/AudioKit.framework; sourceTree = SOURCE_ROOT; };
 		80F11E5820CA732E00331D12 /* Library+Symlink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Symlink.swift"; sourceTree = "<group>"; };
 		80F2C5762038808000212739 /* Ten Tunes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ten Tunes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		80F2C5792038808000212739 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -813,7 +814,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				80FBDC3A234F5B0400CBF3E5 /* libtaglib.a in Frameworks */,
-				80EDBA1F229EB1D300E215BF /* AudioKit.framework in Frameworks */,
 				8030CA812164DDE300229398 /* Syphon.framework in Frameworks */,
 				808067BF226A6DD1009942F5 /* MediaKeyTap.framework in Frameworks */,
 				8058FA8F204317080086FF8A /* libSuperpoweredAudioOSX.a in Frameworks */,
@@ -821,6 +821,7 @@
 				806BC9C4226F727F00F9B609 /* Defaults.framework in Frameworks */,
 				806AC13E2041EDEE00857B1B /* AudioToolbox.framework in Frameworks */,
 				806BC9C7226F72B800F9B609 /* Preferences.framework in Frameworks */,
+				800E6F1724E1C386005F7038 /* AudioKit.framework in Frameworks */,
 				806AC13A2041EDD900857B1B /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1241,7 +1242,7 @@
 		80DCA9B6203F645400B1E9B1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				80EDBA1A229EB1C100E215BF /* AudioKit.framework */,
+				800E6F1624E1C386005F7038 /* AudioKit.framework */,
 				80B6DFA3219F06E4003EA487 /* MIKMIDI.framework */,
 				809CEAC02164CF76008D6AC0 /* Syphon.framework */,
 				80074CFE2046BB0B0055B87E /* QuartzCore.framework */,
@@ -1252,6 +1253,7 @@
 				806AC1392041EDD900857B1B /* AVFoundation.framework */,
 				806AC1372041EC8400857B1B /* libSuperpoweredAudioOSX.a */,
 				80FBDAAD234F545800CBF3E5 /* TagLib */,
+				800E6F1824E1C641005F7038 /* .gitignore */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
@@ -1296,6 +1298,7 @@
 		80F2C5782038808000212739 /* TenTunes */ = {
 			isa = PBXGroup;
 			children = (
+				80B7E7252417FE340098E473 /* Ten Tunes.entitlements */,
 				805901BE20404CB900B97D84 /* View */,
 				805901C020404CDF00B97D84 /* Music */,
 				8030E00320FC970E006B4AE8 /* Task */,
@@ -1961,6 +1964,7 @@
 				80CAED0422731FB3001DD856 /* OptionStep.xib in Resources */,
 				80C1F16621428FA40032E554 /* default.fs in Resources */,
 				80CAED10227472E9001DD856 /* VisualizerViewController.xib in Resources */,
+				800E6F1924E1C641005F7038 /* .gitignore in Resources */,
 				80FBDBFE234F545800CBF3E5 /* cmake_clean_target.cmake in Resources */,
 				80FBDBD8234F545800CBF3E5 /* id3v2.2.0.txt in Resources */,
 				80F2C5812038808000212739 /* Assets.xcassets in Resources */,
@@ -2377,6 +2381,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "TenTunes/Ten Tunes.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -2414,6 +2419,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "TenTunes/Ten Tunes.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;

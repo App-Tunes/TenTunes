@@ -63,8 +63,8 @@ extension Defaults.Keys {
     }
 }
 
-extension PreferencePane.Identifier {
-    static let behavior = Identifier("behavior")
-    static let view = Identifier("view")
-    static let files = Identifier("files")
+extension Preferences.PaneIdentifier {
+    static let behavior = Self("behavior")
+    static let view = Self("view")
+    static let files = Self("files")
 }

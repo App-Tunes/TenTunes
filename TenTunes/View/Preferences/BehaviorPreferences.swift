@@ -37,7 +37,7 @@ extension Defaults.Keys {
 }
 
 class BehaviorPreferences: NSViewController, PreferencePane {
-    var preferencePaneIdentifier = PreferencePane.Identifier.behavior
+    var preferencePaneIdentifier = Preferences.PaneIdentifier.behavior
     var preferencePaneTitle = "Behavior"
     var toolbarItemIcon = NSImage(named: NSImage.Name.advancedName)!
 

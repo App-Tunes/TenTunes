@@ -100,7 +100,7 @@ extension UserDefaults {
 }
 
 class ViewPreferences: NSViewController, PreferencePane {
-    var preferencePaneIdentifier = PreferencePane.Identifier.view
+    var preferencePaneIdentifier = Preferences.PaneIdentifier.view
     var preferencePaneTitle = "View"
     var toolbarItemIcon = NSImage(named: NSImage.Name.colorPanelName)!
     

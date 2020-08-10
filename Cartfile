@@ -1,4 +1,4 @@
-github "audiokit/AudioKit"
+#github "audiokit/AudioKit"
 #github "nhurden/MediaKeyTap"
 git "https://github.com/the0neyouseek/MediaKeyTap.git"
 github "mixedinkey-opensource/MIKMIDI"

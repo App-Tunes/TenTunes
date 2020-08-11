@@ -3,6 +3,7 @@
 //
 
 #import "TagLibFile.h"
+#import "TTAudioKitAnalyzer.h"
 #import "SPAnalyzer.h"
 #import "RFOpenGLView.h"
 #import "SMButtonWithMenu.h"

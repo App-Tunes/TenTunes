@@ -14,7 +14,7 @@ func simulateWave(_ pos: Float, _ size: Float, _ speed: Float, progress: Float, 
     return (sin(pos * size + time * speed) + 1.0) * (pos > progress ? 0.3 : 0.05) + (pos > progress ? 0.1 : 0.35)
 }
 
-class SPInterpreter {
+class AnalysisInterpreter {
     struct Flags: OptionSet {
         let rawValue: Int
         
@@ -24,7 +24,7 @@ class SPInterpreter {
     
     static func analyze(file: AVAudioFile, track: Track, flags: Flags = []) {
         let analysis = track.analysis!
-        let analyzer = SPAnalyzer()
+        let analyzer = TTAudioKitAnalyzer()
         
         let previewSamplesTotal = 20000
         var currentSamples = 0

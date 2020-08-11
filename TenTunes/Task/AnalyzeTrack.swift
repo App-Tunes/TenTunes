@@ -59,9 +59,9 @@ class TrackTask: Task {
 
 class AnalyzeTrack: TrackTask {
     var read: Bool
-    var analyzeFlags: SPInterpreter.Flags
+    var analyzeFlags: AnalysisInterpreter.Flags
     
-    init(track: Track, read: Bool, analyzeFlags: SPInterpreter.Flags = [], priority: Float = 20) {
+    init(track: Track, read: Bool, analyzeFlags: AnalysisInterpreter.Flags = [], priority: Float = 20) {
         self.read = read
         self.analyzeFlags = analyzeFlags
         super.init(track: track, priority: priority)
@@ -110,15 +110,15 @@ class AnalyzeTrack: TrackTask {
             if !read || !asyncTrack.readAnalysis() {
                 // TODO Merge with metadata fetch etc
                 let audioFile = try! AKAudioFile(forReading: url)
-                SPInterpreter.analyze(file: audioFile, track: asyncTrack, flags: self.analyzeFlags)
+                AnalysisInterpreter.analyze(file: audioFile, track: asyncTrack, flags: self.analyzeFlags)
                 
                 asyncTrack.writeAnalysis()
 
                 try! asyncTrack.writeMetadata(values: self.analyzeFlags.components.compactMap {
                     switch $0 {
-                    case SPInterpreter.Flags.key:
+                    case AnalysisInterpreter.Flags.key:
                         return \Track.keyString
-                    case SPInterpreter.Flags.speed:
+                    case AnalysisInterpreter.Flags.speed:
                         return \Track.bpmString
                     default:
                         return nil

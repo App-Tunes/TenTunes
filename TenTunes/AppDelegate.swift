@@ -152,9 +152,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Initially check on every launch
         Library.shared.checkSanity()
         
-        #if !DEBUG
-        SuperpoweredSplash.show(in: (libraryWindowController.contentViewController as! ViewController)._trackGuardView.superview!.superview!)
-        #endif
+//        #if !DEBUG
+//        SuperpoweredSplash.show(in: (libraryWindowController.contentViewController as! ViewController)._trackGuardView.superview!.superview!)
+//        #endif
         
         libraryWindowController.window!.makeKeyAndOrderFront(self)
     }

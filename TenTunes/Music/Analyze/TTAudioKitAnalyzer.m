@@ -114,6 +114,35 @@
         _progress = (double)chunk / (double)_waveformSize;
         progressHandler(_progress, buffer.floatChannelData[0], chunkSize);
     }
+    
+    // Find loudparts threshold
+    
+    unsigned char threshold = 128;
+    int minCount = _waveformSize / 40;
+    int maxCount = _waveformSize / 30;
+    int includedCount = 0;
+    for (int try = 6; try > 1; try--) {
+        includedCount = 0;
+        for (int chunk = 0; chunk < _waveformSize; chunk++) {
+            if (_averageWaveform[chunk] > threshold)
+                includedCount ++;
+        }
+        
+        int add = pow(2, try);
+        if (includedCount < minCount)
+            threshold -= add;
+        else if (includedCount > maxCount)
+            threshold += add;
+        else
+            break;
+    }
+    
+    _loudpartsAverageDecibel = 0.0f;
+    for (int chunk = 0; chunk < _waveformSize; chunk++) {
+        if (_averageWaveform[chunk] > threshold)
+            _loudpartsAverageDecibel += _averageWaveform[chunk];
+    }
+    _loudpartsAverageDecibel /= includedCount;
 
     vDSP_destroy_fftsetup(setup);
 }

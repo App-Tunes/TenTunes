@@ -9,8 +9,8 @@
 import Cocoa
 
 extension Timer {
-    static func scheduledAsyncBlock(withTimeInterval interval: TimeInterval, repeats: Bool, block: @escaping () -> Swift.Void) {
-        DispatchQueue.global(qos: .userInitiated).async {
+    static func scheduledAsyncBlock(withTimeInterval interval: TimeInterval, qos:  DispatchQoS.QoSClass = .default, repeats: Bool, block: @escaping () -> Swift.Void) {
+        DispatchQueue.global(qos: qos).async {
             repeat {
                 Thread.sleep(forTimeInterval: interval)
                 block()
@@ -21,9 +21,9 @@ extension Timer {
     
     // Schedules many blocks that run after another
     // The time interval is for a whole cycle
-    static func scheduledAsyncTickTock(withTimeInterval interval: TimeInterval, do blocks: [() -> Swift.Void]) {
+    static func scheduledAsyncTickTock(withTimeInterval interval: TimeInterval, qos:  DispatchQoS.QoSClass = .default, do blocks: [() -> Swift.Void]) {
         let singleInterval = interval / Double(blocks.count)
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: qos).async {
             var idx = 0
             while true {
                 Thread.sleep(forTimeInterval: singleInterval)

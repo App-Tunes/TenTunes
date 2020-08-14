@@ -34,6 +34,7 @@ protocol PlayerDelegate : class {
 
 class Countdown {
     var action: (() -> Void)?
+    
     private var timer: Timer?
     private var timeLeft: Double?
     
@@ -46,6 +47,8 @@ class Countdown {
     }
     
     func start(for seconds: TimeInterval) {
+        timeLeft = nil
+        
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: seconds, repeats: false) { [unowned self] _ in
             self.action?()
@@ -53,14 +56,15 @@ class Countdown {
     }
     
     func pause() {
-        timeLeft = (timer?.fireDate).map { $0.timeIntervalSinceNow } ?? 0
+        timeLeft = (timer?.fireDate).map { $0.timeIntervalSinceNow } ?? nil
+        if (timeLeft ?? 0) <= 0 { timeLeft = nil }
+        
         timer?.invalidate()
         timer = nil
     }
     
     func resume() {
         timeLeft.map(start)
-        timeLeft = nil
     }
     
     func stop() {

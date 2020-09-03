@@ -26,6 +26,8 @@
         return;
     }
     
+    double sampleRate = [file sampleRate];
+
     AVAudioPCMBuffer *buffer = [[AVAudioPCMBuffer alloc] initWithPCMFormat: file.processingFormat frameCapacity: (unsigned int) file.length];
     [file readIntoBuffer:buffer error:&error];
     if (error) {
@@ -47,27 +49,31 @@
     float outImaginary[outCount];
     COMPLEX_SPLIT output = { .realp = outReal, .imagp = outImaginary };
     
+    int (^freqIdx)(double freq) = ^(double freq) {
+        return (int) (freq / (sampleRate / outCount / 2.0));
+    };
+
     float *avg = malloc(sizeof(float) * _waveformSize);
     memset(avg, 0, sizeof(float) * _waveformSize);
     float avgM = 255 * 100.0f / outCount / [file channelCount] / chunkSize;
 
     float *lows = malloc(sizeof(float) * _waveformSize);
     memset(lows, 0, sizeof(float) * _waveformSize);
-    int lowS = outCount * 4 / 5;
-    int lowC = outCount / 5;
-    float lowM = 255 * 50.0f / lowC / [file channelCount] / chunkSize;
+    int lowS = freqIdx(20);
+    int lowE = freqIdx(200);
+    float lowM = 255 * 50.0f / (lowE - lowS) / [file channelCount] / chunkSize;
     
     float *mids = malloc(sizeof(float) * _waveformSize);
     memset(mids, 0, sizeof(float) * _waveformSize);
-    int midS = outCount / 3;
-    int midC = outCount / 3;
-    float midM = 255 * 100.0f / midC / [file channelCount] / chunkSize;
+    int midS = freqIdx(200);
+    int midE = freqIdx(4000);
+    float midM = 255 * 100.0f / (midE - midS) * 1.5 / [file channelCount] / chunkSize;
 
     float *highs = malloc(sizeof(float) * _waveformSize);
     memset(highs, 0, sizeof(float) * _waveformSize);
-    int highS = outCount / 10;
-    int highC = outCount / 4;
-    float highM = 255 * 200.0f / highC / [file channelCount] / chunkSize;
+    int highS = freqIdx(4000);
+    int highE = freqIdx(20000);
+    float highM = 255 * 200.0f / (highE - highS) * 6 / [file channelCount] / chunkSize;
 
     _averageWaveform = malloc(sizeof(char) * _waveformSize);
     _lowWaveform = malloc(sizeof(char) * _waveformSize);
@@ -96,13 +102,13 @@
             for (int i = 0; i < outCount; i++)
                 avg[chunk] += output.realp[i];
             
-            for (int i = lowS; i < lowS + lowC; i++)
+            for (int i = lowS; i < lowE; i++)
                 lows[chunk] += output.realp[i];
             
-            for (int i = midS; i < midS + midC; i++)
+            for (int i = midS; i < midE; i++)
                 mids[chunk] += output.realp[i];
             
-            for (int i = highS; i < highS + highC; i++)
+            for (int i = highS; i < highE; i++)
                 highs[chunk] += output.realp[i];
         }
         

@@ -89,8 +89,8 @@ class Album {
     }
     
     var publisher: String? {
-        get { return tracks.compactMap { $0.publisher }.first }
-        set { tracks.forEach { $0.publisher = newValue } }
+        get { return tracks.compactMap { $0.trackPublisher }.first }
+        set { tracks.forEach { $0.trackPublisher = newValue } }
     }
     
     var albumNumberOfCDs: Int {

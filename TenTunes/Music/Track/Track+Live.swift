@@ -55,7 +55,7 @@ extension Track {
         }
     }
     
-    @objc dynamic var publisher: String? {
+    @objc dynamic var trackPublisher: String? {
         get {
             return tagLibFile?.publisher
         }

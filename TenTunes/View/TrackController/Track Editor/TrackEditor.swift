@@ -32,7 +32,7 @@ class TrackEditor: NSViewController {
         GroupData(title: "Album", icon: #imageLiteral(resourceName: "album"), data: [
             EditData(title: "Album Author", path: \Track.albumArtist, options: nil),
             EditData(title: "Year", path: \Track.year, options: [.valueTransformerName: "IntStringNullable"]),
-            EditData(title: "Publisher", path: \Track.publisher as PartialKeyPath<Track>, options: nil, skipWrite: true), // Live value
+            EditData(title: "Publisher", path: \Track.trackPublisher as PartialKeyPath<Track>, options: nil, skipWrite: true), // Live value
             EditData(title: "Track No.", path: \Track.trackNumber, options: [.valueTransformerName: "IntStringNullable"]),
             EditData(title: "CD No.", path: \Track.albumNumberOfCD, options: [.valueTransformerName: "IntStringNullable"], skipWrite: true), // Live Value
             EditData(title: "CD Count", path: \Track.albumNumberOfCDs, options: [.valueTransformerName: "IntStringNullable"], skipWrite: true), // Live Value
@@ -165,8 +165,8 @@ class TrackEditor: NSViewController {
                 case \Track.year:
                     album.year = track.year
                     try! album.writeMetadata(values: [\Track.year])
-                case \Track.publisher:
-                    album.publisher = track.publisher // Live Var
+                case \Track.trackPublisher:
+                    album.publisher = track.trackPublisher // Live Var
                 case \Track.albumNumberOfCDs:
                     album.albumNumberOfCDs = track.albumNumberOfCDs // Live Var
                 default:

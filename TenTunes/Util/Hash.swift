@@ -29,7 +29,7 @@ class Hash {
         var context = CC_MD5_CTX()
         CC_MD5_Init(&context)
         
-        _ =  data.withUnsafeBytes {
+        data.withUnsafeBytes {
             _ = CC_MD5_Update(&context, $0, numericCast(data.count))
         }
         

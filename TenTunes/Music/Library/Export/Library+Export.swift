@@ -161,7 +161,7 @@ extension Library {
         
         static func iterate<Type: Playlist>(playlists: [Type], changed: Set<NSManagedObjectID>?, in directory: URL, block: (URL, Type) -> Swift.Void) {
             // TODO Clean up old playlists
-            for playlist in playlists where changed == nil || changed!.contains(playlist.objectID) || playlist.tracksList.anySatisfy { changed!.contains($0.objectID) } {
+            for playlist in playlists where changed == nil || changed!.contains(playlist.objectID) || playlist.tracksList.anySatisfy({ changed!.contains($0.objectID) }) {
                 guard playlist.fireFault() else {
                     continue
                 }

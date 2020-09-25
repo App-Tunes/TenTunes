@@ -47,7 +47,7 @@ class FFTTap {
                              delegate: self)
             node.installTap(onBus: 0,
                             bufferSize: bufferSize,
-                            format: AudioKit.format) { [weak self] (buffer, _) -> Void in
+                            format: AKManager.format) { [weak self] (buffer, _) -> Void in
                                 guard let strongSelf = self else {
                                     AKLog("Unable to create strong reference to self")
                                     return

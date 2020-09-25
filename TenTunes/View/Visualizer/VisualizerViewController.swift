@@ -74,7 +74,7 @@ class VisualizerViewController: NSViewController {
             VideoMode.honey, VideoMode.darkMatter
         ], title: { v in v.rawValue })
         
-        AudioKit.addObserver(self, forKeyPath: #keyPath(AudioKit.inputDevices), options: [.new, .initial], context: nil)
+        AKManager.addObserver(self, forKeyPath: #keyPath(AKManager.inputDevices), options: [.new, .initial], context: nil)
         MIKMIDIDeviceManager.shared.addObserver(self, forKeyPath: #keyPath(MIKMIDIDeviceManager.virtualSources), options: [.new, .initial], context: nil)
         
 //        let urlRef = Bundle.main.url(forResource: "example_dog", withExtension: "jpg")! as CFURL
@@ -84,7 +84,7 @@ class VisualizerViewController: NSViewController {
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == #keyPath(AudioKit.inputDevices) {
+        if keyPath == #keyPath(AKManager.inputDevices) {
             updateAudioSources()
         }
         else if keyPath == #keyPath(ResonanceProvider.resonance) {

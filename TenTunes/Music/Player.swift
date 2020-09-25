@@ -117,7 +117,7 @@ class Countdown {
     }
     
     func start() {
-        AudioKit.output = outputNode
+        AKManager.output = outputNode
     }
     
     @objc dynamic var isPlaying : Bool {
@@ -198,8 +198,8 @@ class Countdown {
     }
     
     func sanityCheck() {
-        if !AudioKit.engine.isRunning {
-            if (try? AudioKit.start()) == nil {
+        if !AKManager.engine.isRunning {
+            if (try? AKManager.start()) == nil {
                 print("Failed to start audio engine!")
             }
         }
@@ -270,8 +270,8 @@ class Countdown {
                     
                     player.stop()
                     
-                    player.load(audioFile: akfile)
-                    backingPlayer.load(audioFile: akfile)
+                    try player.load(audioFile: akfile)
+                    try backingPlayer.load(audioFile: akfile)
                 } catch let error {
                     if error is PlayError { throw error }
                     

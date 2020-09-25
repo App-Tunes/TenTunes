@@ -44,14 +44,14 @@ extension VisualizerViewController {
         
         _audioSourceSelector.menu!.addItem(NSMenuItem.separator())
         
-        for device in AudioKit.inputDevices ?? [] {
+        for device in AKManager.inputDevices ?? [] {
             _audioSourceSelector.addItem(withTitle: device.name)
             _audioSourceSelector.lastItem!.representedObject = Visualizer.AudioCapture.input(device: device)
         }
         
         //        _audioSourceSelector.menu!.addItem(NSMenuItem.separator())
         //
-        //        for device in AudioKit.outputDevices ?? [] {
+        //        for device in AKManager.outputDevices ?? [] {
         //            _audioSourceSelector.addItem(withTitle: device.name)
         //            _audioSourceSelector.lastItem!.representedObject = AudioCapture.output(device: device)
         //        }

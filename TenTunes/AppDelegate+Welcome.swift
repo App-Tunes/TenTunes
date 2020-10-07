@@ -51,7 +51,7 @@ extension AppDelegate {
         
         if persistentContainer == nil {
             let existingLibraryURL = AppDelegate.defaults.url(forKey: "libraryLocation")
-            let existingAction: [OptionStep] = existingLibraryURL.map { library in .create(text: "Use previous", image: NSImage(named: .homeName)!) { [unowned self] in
+            let existingAction: [OptionStep] = existingLibraryURL.map { library in .create(text: "Use Previous", image: NSImage(named: .homeName)!) { [unowned self] in
                 return tryLibrary(at: library, create: false)
             } }.singletonList
 

@@ -35,6 +35,21 @@ extension AppDelegate: NSMenuItemValidation {
     }
     
     @IBAction
+    func switchLibrary(sender: Any?) {
+        let task = Process()
+
+        task.launchPath = "/bin/sh"
+        task.arguments = [
+            "-c",
+            "sleep 0.2; open \"\(Bundle.main.bundlePath)\" --args --no-reopen"
+        ]
+        terminateProcess = task
+        
+        NSApplication.shared.terminate(nil)
+        // If terminate later, relaunch process is ready still
+    }
+    
+    @IBAction
     func refreshMetadata(sender: Any?) {
         for track in Library.shared.allTracks() {
             track.metadataFetchDate = nil

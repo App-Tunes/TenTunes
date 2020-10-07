@@ -31,8 +31,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     var launchURLs: [URL] = []
     
+    var terminateProcess: Process?
+    
     class var isTest : Bool {
         return (ProcessInfo.processInfo.environment["IS_TT_TEST"] as NSString?)?.boolValue ?? false
+    }
+    
+    class var isNoReopen : Bool {
+        return ProcessInfo.processInfo.arguments.contains("--no-reopen")
     }
     
     func setupBackwardsCompatibility() {
@@ -92,12 +98,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Try to get a library going
         var libraryURL: URL? = popLaunchTTL()
         
-        if AppDelegate.isTest {
+        if Self.isTest {
             // TODO Do SQL in-memory
             // If test, use test library
             libraryURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
         }
-        else if !NSEvent.modifierFlags.contains(.option) {
+        else if !(NSEvent.modifierFlags.contains(.option) || Self.isNoReopen) {
             // If alt is held, don't use stored one
             libraryURL = AppDelegate.defaults.url(forKey: "libraryLocation")
                 ?? Library.defaultURL()
@@ -107,7 +113,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             tryLibrary(at: libraryURL, create: nil)
         }
         
-        guard !AppDelegate.isTest else {
+        guard !Self.isTest else {
             commenceAfterWelcome()
             return
         }
@@ -223,6 +229,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         // If we got here, it is time to quit.
         return .terminateNow
+    }
+    
+    func applicationWillTerminate(_ notification: Notification) {
+        terminateProcess?.launch()
     }
         
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {

@@ -77,6 +77,12 @@ extension Sequence {
     }
 }
 
+extension Optional {
+    var singletonList: [Wrapped] {
+        self.map { [$0] } ?? []
+    }
+}
+
 extension Optional where Wrapped : Comparable {
     // Simply puts the nils at the end
     static func compare(_ lhs: Wrapped?, _ rhs: Wrapped?) -> Bool {

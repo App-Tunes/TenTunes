@@ -216,7 +216,11 @@ enum Note {
     }
     
     @objc dynamic var attributes: [NSAttributedString.Key : Any]? {
-        let color = NSColor(hue: CGFloat(openKey - 1) / CGFloat(12), saturation: CGFloat(0.6), brightness: CGFloat(1.0), alpha: CGFloat(1.0))
+        let color = NSColor(
+            hue: (CGFloat(openKey - 1) / CGFloat(12) + 0.25).truncatingRemainder(dividingBy: 1),
+            saturation: CGFloat(0.6),
+            brightness: CGFloat(1.0), alpha: CGFloat(1.0)
+        )
 
         return [.foregroundColor: color]
     }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="kJo-kH-Lbg">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="kJo-kH-Lbg">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,19 +17,19 @@
                             <splitView arrangesAllSubviews="NO" autosaveName="titlePlayerSplit" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="Yju-o7-Cq9">
                                 <rect key="frame" x="0.0" y="0.0" width="1048" height="551"/>
                                 <subviews>
-                                    <customView misplaced="YES" id="CJ8-Em-XgG">
+                                    <customView id="CJ8-Em-XgG">
                                         <rect key="frame" x="0.0" y="0.0" width="1048" height="92"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="r0f-nZ-gb3">
-                                                <rect key="frame" x="0.0" y="0.0" width="1048" height="95"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1048" height="92"/>
                                                 <subviews>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="100" verticalCompressionResistancePriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="w8H-st-uUl">
-                                                        <rect key="frame" x="0.0" y="0.0" width="1048" height="95"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="1048" height="92"/>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="tuS-iy-Wnr"/>
                                                     </imageView>
                                                     <visualEffectView wantsLayer="YES" blendingMode="withinWindow" material="underWindowBackground" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="ffx-Mi-FNH">
-                                                        <rect key="frame" x="0.0" y="0.0" width="1048" height="95"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="1048" height="92"/>
                                                     </visualEffectView>
                                                 </subviews>
                                                 <constraints>
@@ -44,10 +44,10 @@
                                                 </constraints>
                                             </customView>
                                             <customView verticalHuggingPriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="TnY-8S-uno" customClass="WaveformView" customModule="TenTunes" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="1048" height="48"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1048" height="45"/>
                                                 <subviews>
                                                     <textField toolTip="Duration Left" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Bx-lC-97p">
-                                                        <rect key="frame" x="970" y="24" width="70" height="22"/>
+                                                        <rect key="frame" x="970" y="21" width="70" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="ybL-NU-qiE"/>
                                                         </constraints>
@@ -63,7 +63,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
                                                     <textField toolTip="Duration Played" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1Xa-l4-VRg">
-                                                        <rect key="frame" x="8" y="24" width="70" height="22"/>
+                                                        <rect key="frame" x="8" y="21" width="70" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="DqK-c4-H9k"/>
                                                         </constraints>
@@ -93,9 +93,9 @@
                                                 </connections>
                                             </customView>
                                             <box boxType="custom" cornerRadius="6" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="dNV-j7-c8A">
-                                                <rect key="frame" x="807" y="52" width="246" height="48"/>
+                                                <rect key="frame" x="764" y="49" width="289" height="48"/>
                                                 <view key="contentView" id="kR0-b6-yaW" customClass="DarkBoxView" customModule="TenTunes" customModuleProvider="target">
-                                                    <rect key="frame" x="1" y="1" width="244" height="46"/>
+                                                    <rect key="frame" x="1" y="1" width="287" height="46"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <slider toolTip="Volume" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="weN-hW-VXM" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
@@ -113,7 +113,7 @@
                                                             </connections>
                                                         </slider>
                                                         <button toolTip="Tasks" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ETj-HU-NV5" customClass="SpinningButton" customModule="TenTunes" customModuleProvider="target">
-                                                            <rect key="frame" x="205" y="14" width="19" height="19"/>
+                                                            <rect key="frame" x="248" y="14" width="19" height="19"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="ETj-HU-NV5" secondAttribute="height" multiplier="1:1" id="qGX-a4-Xxa"/>
                                                             </constraints>
@@ -127,7 +127,7 @@
                                                             </connections>
                                                         </button>
                                                         <button toolTip="Shuffle" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Y2-7h-2Y4">
-                                                            <rect key="frame" x="112" y="14" width="19" height="19"/>
+                                                            <rect key="frame" x="155" y="14" width="19" height="19"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="7Y2-7h-2Y4" secondAttribute="height" multiplier="1:1" id="jRx-Wh-ukj"/>
                                                             </constraints>
@@ -141,7 +141,7 @@
                                                             </connections>
                                                         </button>
                                                         <button toolTip="Repeat (Play Forever)" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YPk-ZN-PTb" customClass="SpinningButton" customModule="TenTunes" customModuleProvider="target">
-                                                            <rect key="frame" x="143" y="14" width="19" height="19"/>
+                                                            <rect key="frame" x="186" y="14" width="19" height="19"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="19" id="FUj-LY-fxI"/>
                                                                 <constraint firstAttribute="width" secondItem="YPk-ZN-PTb" secondAttribute="height" multiplier="1:1" id="GZA-kk-d2R"/>
@@ -156,7 +156,7 @@
                                                             </connections>
                                                         </button>
                                                         <button toolTip="Find Everywhere" translatesAutoresizingMaskIntoConstraints="NO" id="a35-bI-I59">
-                                                            <rect key="frame" x="174" y="14" width="19" height="19"/>
+                                                            <rect key="frame" x="217" y="14" width="19" height="19"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="a35-bI-I59" secondAttribute="height" multiplier="1:1" id="XNQ-y3-hdG"/>
                                                             </constraints>
@@ -169,20 +169,39 @@
                                                                 <action selector="findButtonClicked:" target="XfG-lQ-9wD" id="HVc-Yd-mk9"/>
                                                             </connections>
                                                         </button>
+                                                        <button toolTip="Shuffle" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h8o-eu-SjM">
+                                                            <rect key="frame" x="108" y="10" width="27" height="27"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="h8o-eu-SjM" secondAttribute="height" multiplier="1:1" id="CNS-3l-x4A"/>
+                                                                <constraint firstAttribute="height" constant="27" id="GMN-4H-bwF"/>
+                                                                <constraint firstAttribute="width" constant="27" id="vc8-Gc-yyK"/>
+                                                            </constraints>
+                                                            <buttonCell key="cell" type="bevel" title="􀑢" bezelStyle="regularSquare" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="bl2-uB-tqK">
+                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="system" size="20"/>
+                                                            </buttonCell>
+                                                            <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <connections>
+                                                                <action selector="selectOutputDevice:" target="XfG-lQ-9wD" id="TcN-6V-xc0"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="7Y2-7h-2Y4" firstAttribute="centerY" secondItem="YPk-ZN-PTb" secondAttribute="centerY" id="5Wg-TH-NOh"/>
                                                         <constraint firstItem="ETj-HU-NV5" firstAttribute="height" secondItem="YPk-ZN-PTb" secondAttribute="height" id="7rH-ob-EX5"/>
                                                         <constraint firstItem="a35-bI-I59" firstAttribute="centerY" secondItem="YPk-ZN-PTb" secondAttribute="centerY" id="9Hj-Ze-gwR"/>
+                                                        <constraint firstItem="7Y2-7h-2Y4" firstAttribute="centerY" secondItem="h8o-eu-SjM" secondAttribute="centerY" id="Dnv-lM-8uA"/>
                                                         <constraint firstItem="ETj-HU-NV5" firstAttribute="centerY" secondItem="YPk-ZN-PTb" secondAttribute="centerY" id="Ekf-jd-jSR"/>
                                                         <constraint firstItem="YPk-ZN-PTb" firstAttribute="leading" secondItem="7Y2-7h-2Y4" secondAttribute="trailing" constant="12" id="IeH-Xq-KLJ"/>
                                                         <constraint firstAttribute="trailing" secondItem="ETj-HU-NV5" secondAttribute="trailing" constant="20" id="PnR-Zt-5BC"/>
                                                         <constraint firstItem="weN-hW-VXM" firstAttribute="centerY" secondItem="YPk-ZN-PTb" secondAttribute="centerY" id="TAx-t5-qBt"/>
                                                         <constraint firstItem="weN-hW-VXM" firstAttribute="leading" secondItem="kR0-b6-yaW" secondAttribute="leading" constant="20" id="VvQ-8W-u69"/>
+                                                        <constraint firstItem="h8o-eu-SjM" firstAttribute="width" secondItem="h8o-eu-SjM" secondAttribute="height" multiplier="1:1" id="YLW-Ok-znh"/>
+                                                        <constraint firstItem="7Y2-7h-2Y4" firstAttribute="leading" secondItem="h8o-eu-SjM" secondAttribute="trailing" constant="20" id="Zh9-yi-6Fd"/>
                                                         <constraint firstItem="ETj-HU-NV5" firstAttribute="leading" secondItem="a35-bI-I59" secondAttribute="trailing" constant="12" id="dWf-PM-w4E"/>
-                                                        <constraint firstItem="7Y2-7h-2Y4" firstAttribute="leading" secondItem="weN-hW-VXM" secondAttribute="trailing" constant="12" id="gN0-G7-9Te"/>
                                                         <constraint firstItem="7Y2-7h-2Y4" firstAttribute="height" secondItem="YPk-ZN-PTb" secondAttribute="height" id="jGc-nP-fbp"/>
                                                         <constraint firstItem="YPk-ZN-PTb" firstAttribute="top" secondItem="kR0-b6-yaW" secondAttribute="top" constant="13" id="jWO-gy-dgA"/>
+                                                        <constraint firstItem="h8o-eu-SjM" firstAttribute="leading" secondItem="weN-hW-VXM" secondAttribute="trailing" constant="8" symbolic="YES" id="mDA-FA-Ybz"/>
                                                         <constraint firstItem="a35-bI-I59" firstAttribute="height" secondItem="YPk-ZN-PTb" secondAttribute="height" id="rkZ-Ob-lXP"/>
                                                         <constraint firstItem="a35-bI-I59" firstAttribute="leading" secondItem="YPk-ZN-PTb" secondAttribute="trailing" constant="12" id="scZ-Vm-zeI"/>
                                                     </constraints>
@@ -196,7 +215,7 @@
                                                 <color key="fillColor" red="0.16098905459999999" green="0.16098905459999999" blue="0.16098905459999999" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                             </box>
                                             <box boxType="custom" cornerRadius="6" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="yki-Tj-fZ1">
-                                                <rect key="frame" x="-5" y="53" width="182" height="47"/>
+                                                <rect key="frame" x="-5" y="50" width="182" height="47"/>
                                                 <view key="contentView" id="r5D-F9-BXS" customClass="DarkBoxView" customModule="TenTunes" customModuleProvider="target">
                                                     <rect key="frame" x="1" y="1" width="180" height="45"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -269,13 +288,13 @@ IA
                                                 <color key="fillColor" red="0.16098905459999999" green="0.16098905459999999" blue="0.16098905459999999" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                             </box>
                                             <box boxType="custom" cornerRadius="6" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="YW0-i6-Krb">
-                                                <rect key="frame" x="227" y="52" width="552" height="48"/>
+                                                <rect key="frame" x="227" y="49" width="509" height="48"/>
                                                 <view key="contentView" id="0rl-CM-lXG" customClass="DarkBoxView" customModule="TenTunes" customModuleProvider="target">
-                                                    <rect key="frame" x="1" y="1" width="550" height="46"/>
+                                                    <rect key="frame" x="1" y="1" width="507" height="46"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="VMd-f1-c9v">
-                                                            <rect key="frame" x="4" y="4" width="542" height="33"/>
+                                                            <rect key="frame" x="4" y="4" width="499" height="33"/>
                                                         </customView>
                                                     </subviews>
                                                     <constraints>
@@ -299,7 +318,7 @@ IA
                                                 <color key="fillColor" red="0.16098905456852797" green="0.16098905456852797" blue="0.16098905456852797" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                             </box>
                                             <button toolTip="Play Queue" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mT7-oZ-jSc">
-                                                <rect key="frame" x="781" y="52" width="18" height="48"/>
+                                                <rect key="frame" x="738" y="49" width="18" height="48"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="18" id="fcP-xp-0H7"/>
                                                 </constraints>
@@ -338,20 +357,20 @@ IA
                                             <constraint firstItem="TnY-8S-uno" firstAttribute="leading" secondItem="CJ8-Em-XgG" secondAttribute="leading" id="zi4-6q-OKg"/>
                                         </constraints>
                                     </customView>
-                                    <customView misplaced="YES" id="37Z-zA-dd9">
+                                    <customView id="37Z-zA-dd9">
                                         <rect key="frame" x="0.0" y="93" width="1048" height="458"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <splitView autosaveName="trackPlaylistSplit" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A22-NE-xw5">
-                                                <rect key="frame" x="0.0" y="0.0" width="1048" height="455"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1048" height="458"/>
                                                 <subviews>
                                                     <customView fixedFrame="YES" id="rPD-z5-E1p">
-                                                        <rect key="frame" x="0.0" y="0.0" width="144" height="455"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="144" height="458"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     </customView>
                                                     <customView fixedFrame="YES" id="wx1-Jg-18R" customClass="MultiplicityGuardView" customModule="TenTunes" customModuleProvider="target">
-                                                        <rect key="frame" x="153" y="0.0" width="895" height="455"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <rect key="frame" x="153" y="0.0" width="895" height="458"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="warnSelectionBig" value="Many Playlists Selected"/>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="confirmShowView" value="Show them all"/>

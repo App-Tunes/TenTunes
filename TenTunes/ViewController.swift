@@ -8,6 +8,7 @@
 
 import Cocoa
 import Foundation
+import SwiftUI
 
 import MediaKeyTap
 import AVFoundation
@@ -53,6 +54,8 @@ class ViewController: NSViewController {
     @IBOutlet var _queueButton: NSButton!
     var queuePopover: NSPopover!
     var taskPopover: NSPopover!
+
+    var selectOutputDevicePopover: NSPopover!
 
     var backgroundTimer: Timer!
     
@@ -135,6 +138,14 @@ class ViewController: NSViewController {
         taskPopover.animates = true
         taskPopover.behavior = .transient
         
+        selectOutputDevicePopover = NSPopover()
+        selectOutputDevicePopover.contentViewController = NSViewController()
+        if #available(OSX 10.15, *) {
+            selectOutputDevicePopover.contentViewController!.view = NSHostingView(rootView: OutputDeviceSelector())
+        }
+        selectOutputDevicePopover.animates = true
+        selectOutputDevicePopover.behavior = .transient
+        
         _waveformView.postsFrameChangedNotifications = true
         NotificationCenter.default.addObserver(self, selector: #selector(updateTimesHidden), name: NSView.frameDidChangeNotification, object: _waveformView)
         
@@ -212,6 +223,14 @@ class ViewController: NSViewController {
         if let position = self._waveformView.location {
             self.player.setPosition(position)
         }
+    }
+    
+    @IBAction func selectOutputDevice(_ sender: Any) {
+        let view = sender as! NSView
+        
+        selectOutputDevicePopover.appearance = view.window!.appearance
+        
+        selectOutputDevicePopover.show(relativeTo: view.bounds, of: view, preferredEdge: .maxY)
     }
     
     @IBAction func toggleShuffle(_ sender: Any) {

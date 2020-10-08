@@ -10,7 +10,7 @@ import Cocoa
 
 extension Track {
     var tagLibFile: TagLibFile? {
-        return liveURL ?=> TagLibFile.init
+        return liveURL.flatMap(TagLibFile.init)
     }
     
     var liveFileAttributes: [FileAttributeKey: Any]? {

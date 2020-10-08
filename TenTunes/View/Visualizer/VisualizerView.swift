@@ -189,7 +189,7 @@ class VisualizerView: SyphonableOpenGLView {
     override func updateTrackingAreas() {
         super.updateTrackingAreas()
         
-        trackingArea ?=> removeTrackingArea
+        trackingArea.map(removeTrackingArea)
         trackingArea = NSTrackingArea(rect: bounds, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
         addTrackingArea(trackingArea!)
     }

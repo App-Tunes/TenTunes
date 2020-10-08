@@ -71,7 +71,7 @@ extension CategoryController: NSOutlineViewDelegate {
                 view.subtitleTextField?.stringValue = category.subtitle
 
                 view.imageView?.image = category.icon
-                view.imageView ?=> StylerMyler.makeRoundRect
+                view.imageView.map(StylerMyler.makeRoundRect)
 
                 return view
             }
@@ -110,7 +110,7 @@ extension CategoryController : NSOutlineViewContextSensitiveMenuDelegate {
         let items = outlineView.contextualClickedRows.map(outlineView.item) as! [Item]
         
         if let trackItems = items as? [TrackItem] {
-            let context: TrackActions.Context = (trackItems.onlyElement ?=> self.context)
+            let context: TrackActions.Context = (trackItems.onlyElement.map(self.context))
                 ?? .none(tracks: trackItems.map { $0.track })
             trackActions = TrackActions.create(context)
             return trackActions?._menu

@@ -29,8 +29,8 @@ class PlayImageView: NSButton {
     
     var hoverTrackingArea: NSTrackingArea? {
         didSet {
-            oldValue ?=> removeTrackingArea
-            hoverTrackingArea ?=> addTrackingArea
+            oldValue.map(removeTrackingArea)
+            hoverTrackingArea.map(addTrackingArea)
         }
     }
     

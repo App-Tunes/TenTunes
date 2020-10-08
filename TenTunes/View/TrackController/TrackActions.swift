@@ -139,7 +139,7 @@ class TrackActions: NSViewController, NSMenuDelegate, NSMenuItemValidation {
         menu.item(withAction: #selector(menuAnalyze))?.isVisible = someNeedAnalysis && _analyzeSubmenu.isHidden
         menu.item(withAction: #selector(menuAnalyzeMetadata))?.isVisible = someNeedAnalysis
         
-        menu.item(withAction: #selector(removeFromPlaylist(_:)))?.isVisible = (context.playlist ?=> Library.shared.isPlaylist) ?? false
+        menu.item(withAction: #selector(removeFromPlaylist(_:)))?.isVisible = context.playlist.map(Library.shared.isPlaylist) ?? false
         menu.item(withAction: #selector(removeFromQueue(_:)))?.isVisible = tracks.anySatisfy(player.history.tracks.contains)
     }
     

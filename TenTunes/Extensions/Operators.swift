@@ -8,18 +8,6 @@
 
 import Cocoa
 
-// Operator acting similar to ?. in that it passes the value to a function if it exists.
-infix operator ?=> : NilCoalescingPrecedence
-
-extension Optional {
-    static func ?=> <T>(left: Wrapped?, right: (Wrapped) throws -> T?) rethrows -> T? {
-        if let left = left {
-            return try right(left)
-        }
-        return nil
-    }
-}
-
 func curry<A, B, C>(_ f: @escaping (A, B) -> C) -> (A) -> (B) -> C {
     return { a in { b in f(a, b) } }
 }

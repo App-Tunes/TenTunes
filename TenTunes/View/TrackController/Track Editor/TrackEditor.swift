@@ -246,7 +246,7 @@ extension TrackEditor: NSOutlineViewDataSource {
             if let view = outlineView.makeView(withIdentifier: CellIdentifiers.AttributeCell, owner: nil) as? TrackDataCell {
                 view.textField?.stringValue = data.title
                 
-                view.valueTextField?.stringValue = (tracks.uniqueElement ?=> data.show) ?? ""
+                view.valueTextField?.stringValue = (tracks.uniqueElement.map(data.show)) ?? ""
                 view.valueTextField?.toolTip = view.valueTextField?.stringValue
                 view.valueTextField?.isEditable = false
                 

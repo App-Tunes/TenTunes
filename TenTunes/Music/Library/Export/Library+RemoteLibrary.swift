@@ -79,7 +79,7 @@ extension Library.Export {
         
         @discardableResult
         func convert(_ track: Track) -> Track? {
-            guard let otherTrack = track.resolvedURL ?=> dst.import(context).track else {
+            guard let otherTrack = track.resolvedURL.flatMap(dst.import(context).track) else {
                 return nil
             }
             

@@ -138,7 +138,7 @@ class MediaLocation {
         
     static func pather(for hasher: DynamicAudioHasher) -> ((Track, URL) -> String?) {
         return { (track, dstURL) in
-            guard let url = track.resolvedURL ?=> hasher.find else {
+            guard let url = track.resolvedURL.flatMap(hasher.find) else {
                 return nil
             }
             

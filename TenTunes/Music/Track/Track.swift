@@ -83,12 +83,12 @@ public class Track: NSManagedObject {
     }
     
     @objc dynamic var speed: Speed? {
-        get { return bpmString ?=> Speed.init }
+        get { return bpmString.flatMap(Speed.init) }
         set { bpmString = newValue?.write }
     }
     
     @objc dynamic var key: Key? {
-        get { return keyString ?=> Key.parse }
+        get { return keyString.flatMap(Key.parse) }
         set { keyString = newValue?.write }
     }
     
@@ -97,15 +97,21 @@ public class Track: NSManagedObject {
     }
     
     @objc var rSource: String {
-        return album != nil ? "\(author ?? Artist.unknown) — \(album!)" : (author ?? Artist.unknown)
+        return album != nil
+            ? "\(author ?? Artist.unknown) — \(album!)"
+            : (author ?? Artist.unknown)
     }
         
     var authors: [Artist] {
-        return (((author ?=> Artist.all) ?? []) + ((remixAuthor ?=> Artist.all) ?? [])).dissimilarElements
+        return (
+            ((author.map(Artist.all)) ?? [])
+            + ((remixAuthor.map(Artist.all)) ?? [])
+        ).dissimilarElements
     }
 
     var rAlbum: Album? {
-        return album.map { Album(title: $0, by: (self.albumArtist ?=> Artist.init) ?? self.authors.first) }
+        return album
+            .map { Album(title: $0, by: self.albumArtist.map(Artist.init) ?? self.authors.first) }
     }
     
     var rGenre: Genre? {

@@ -103,7 +103,7 @@ class TenTunesTest: XCTestCase {
         groups = []
         
         for track in tracks {
-            try? (track.path ?=> FileManager.default.removeItem)
+            try? (track.path.map(FileManager.default.removeItem))
         }
         context.delete(all: tracks)
         tracks = []

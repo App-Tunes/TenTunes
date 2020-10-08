@@ -23,7 +23,7 @@ extension Track {
             throw MetadataError.fileNotFound
         }
         
-        guard force || ((metadataFetchDate ?=> modDate.isAfter) ?? true) else {
+        guard force || (metadataFetchDate.map(modDate.isAfter) ?? true) else {
             // Hasn't changed
             return
         }
@@ -109,7 +109,7 @@ extension Track {
         let avDuration = avImporter.duration
         duration = avDuration.seconds.isNormal ? avDuration : duration
         
-        var bitrate = avImporter.bitrate ?=> Float.init
+        var bitrate = avImporter.bitrate.map(Float.init)
         if bitrate == nil || bitrate == 0, let filesize = try? FileManager.default.sizeOfItem(at: url), let duration = self.duration {
             // Guess based on file size and channels
             // According to Wikipedia, all channels count, so no divide by avImporter.channels

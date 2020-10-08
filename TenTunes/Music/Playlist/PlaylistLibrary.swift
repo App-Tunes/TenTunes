@@ -47,7 +47,7 @@ class PlaylistLibrary: AnyPlaylist {
         let converted = type(of: self).init(context: to)
         // Faster than executing a new fetch request
         // If not calculated yet DON'T run it since
-        converted._tracks = _tracks ?=> to.compactConvert
+        converted._tracks = _tracks.map(to.compactConvert)
         return converted
     }
     

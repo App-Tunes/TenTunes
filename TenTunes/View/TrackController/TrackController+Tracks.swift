@@ -128,7 +128,7 @@ extension TrackController {
     
     @IBAction func waveformViewClicked(_ sender: Any?) {
         if let view = sender as? WaveformView {
-            if let row = view.superview ?=> _tableView.row, history.track(at: row) != nil {
+            if let row = view.superview.map(_tableView.row), history.track(at: row) != nil {
                 play(atRow: row)
                 view.location.map { ViewController.shared.player.setPosition($0, smooth: false) }
             }

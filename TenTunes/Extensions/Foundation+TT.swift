@@ -333,6 +333,6 @@ extension FloatingPoint {
 
 extension NSKeyedArchiver {
     static func clone<T : NSCoding>(_ object: T) -> T? {
-        return (archivedData(withRootObject: object) ?=> NSKeyedUnarchiver.unarchiveObject) as? T
+        return NSKeyedUnarchiver.unarchiveObject(with: archivedData(withRootObject: object)) as? T
     }
 }

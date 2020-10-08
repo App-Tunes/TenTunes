@@ -58,16 +58,16 @@ class UpdateCurrentPlaylist: Task {
         let filterTokens = trackController.filterBar.isOpen ? trackController.filterController.tokens : nil
         
         performChildTask(for: Library.shared) { [unowned self] mox in
-            let history = desired.playlist?.convert(to: mox) ?=> PlayHistory.init
+            let history = desired.playlist?.convert(to: mox).map(PlayHistory.init)
 
             if self.checkCanceled() { return }
 
             if let history = history {
-                desired.filter ?=> history.filter
+                desired.filter.map(history.filter)
                 if self.checkCanceled() { return }
                 
-                let activeSort = desired.sort ?? (filterTokens ?=> UpdateCurrentPlaylist.defaultSort)
-                activeSort ?=> history.sort
+                let activeSort = desired.sort ?? (filterTokens.flatMap(UpdateCurrentPlaylist.defaultSort))
+                activeSort.map(history.sort)
             }
             
             if self.uncancelable() { return }

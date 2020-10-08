@@ -111,7 +111,7 @@ extension PlaylistController {
     class Cache : CacheRegistry<Item> {        
         func _playlistItem(_ playlist: Playlist, placeholderChild: Bool) -> Item.PlaylistItem {
             return get(Item.PlaylistItem.persistentID(for: playlist)) { _ in
-                Item.PlaylistItem(playlist, parent: playlist.parent ?=> playlistItem, placeholderChild: placeholderChild)
+                Item.PlaylistItem(playlist, parent: playlist.parent.map(playlistItem), placeholderChild: placeholderChild)
                 } as! PlaylistController.Item.PlaylistItem
         }
         

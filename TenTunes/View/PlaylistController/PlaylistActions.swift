@@ -110,7 +110,7 @@ class PlaylistActions: NSViewController, NSMenuDelegate, NSMenuItemValidation {
 
         menu.item(withAction: #selector(deletePlaylist(_:)))?.isVisible = arePlaylists
         
-        menu.item(withAction: #selector(untanglePlaylist(_:)))?.isVisible = (playlists.uniqueElement ?=> self.isUntangleable) ?? false
+        menu.item(withAction: #selector(untanglePlaylist(_:)))?.isVisible = playlists.uniqueElement.map(self.isUntangleable) ?? false
         menu.item(withAction: #selector(sortPlaylistChildren(_:)))?.isVisible = areEditable
     }
     

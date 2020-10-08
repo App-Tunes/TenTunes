@@ -73,7 +73,7 @@ extension PlaylistController {
             _outlineView.reloadItems(
                 playlistUpdates
                     .map { $0 == library[PlaylistRole.master] ? nil : $0 }
-                    .map { $0 ?=> cache.playlistItem },
+                    .map { $0.map(cache.playlistItem) },
                 reloadChildren: true
             )
             

@@ -74,7 +74,7 @@ extension Library {
         }
         
         func objectID(from idString: String) -> NSManagedObjectID? {
-            return URL(string: idString) ?=> library.persistentStoreCoordinator.managedObjectID
+            return URL(string: idString).flatMap(library.persistentStoreCoordinator.managedObjectID)
         }
     }
     

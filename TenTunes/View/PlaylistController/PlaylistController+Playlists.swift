@@ -250,7 +250,7 @@ extension PlaylistController : NSOutlineViewDelegate {
                     view.textField?.delegate = self
                     view.textField?.target = self
                     view.textField?.action = #selector(editPlaylistTitle)
-                    view.textField?.isEditable = (item.asAnyPlaylist ?=> Library.shared.isPlaylist) ?? false
+                    view.textField?.isEditable = (item.asAnyPlaylist.map(Library.shared.isPlaylist)) ?? false
                 }
                 
                 return view

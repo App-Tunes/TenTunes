@@ -106,7 +106,7 @@ extension CartesianRules.Token {
         }
         
         required init?(coder aDecoder: NSCoder) {
-            playlistID = (aDecoder.decodeObject(forKey: "playlistID") as? URL) ?=> Library.shared.persistentStoreCoordinator.managedObjectID
+            playlistID = (aDecoder.decodeObject(forKey: "playlistID") as? URL).flatMap(Library.shared.persistentStoreCoordinator.managedObjectID)
             super.init(coder: aDecoder)
         }
         

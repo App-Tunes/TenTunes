@@ -48,7 +48,7 @@ extension NSImage {
             return bitmap
         }
         
-        return tiffRepresentation ?=> NSBitmapImageRep.init
+        return tiffRepresentation.flatMap(NSBitmapImageRep.init)
     }
     
     var jpgRepresentation : Data? {

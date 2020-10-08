@@ -270,7 +270,9 @@ class WaveformView: NSControl, CALayerDelegate {
     var locationRatio: Double? {
         set {
             waveformLayer.location = newValue
-            waveformLayer.mouseLocation = waveformLayer.mouseLocation != nil ? (window?.mouseLocationOutsideOfEventStream ?=> relativeX) ?=> jumpPosition : nil
+            waveformLayer.mouseLocation = waveformLayer.mouseLocation != nil
+                ? (window?.mouseLocationOutsideOfEventStream).map(relativeX).map(jumpPosition)
+                : nil
         }
         get { return waveformLayer.location }
     }

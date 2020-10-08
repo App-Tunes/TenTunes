@@ -50,7 +50,7 @@ class OptionStep: NSViewController {
         view.layer!.borderColor = NSColor(red: 0.1, green: 0.5, blue: 1, alpha: 0.1).cgColor
         setHovered(false)
 
-        trackingArea ?=> view.removeTrackingArea
+        trackingArea.map(view.removeTrackingArea)
         trackingArea = .init(rect: view.bounds, options: [.mouseEnteredAndExited, .activeAlways], owner: self)
         view.addTrackingArea(trackingArea!)
     }

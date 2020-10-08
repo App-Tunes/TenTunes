@@ -177,7 +177,7 @@ class MultiplicityGuardView: NSView {
     }
     
     @IBAction func showSuggested(_ sender: Any) {
-        deferredElements ?=> show
+        deferredElements.map(show)
         deferredElements = nil
     }
 }

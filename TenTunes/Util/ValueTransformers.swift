@@ -11,7 +11,7 @@ import Cocoa
 class ValueTransformers {
     class func register() {
         SimpleTransformer<AnyObject, Key>.simple("MusicKeyTransformer",
-                                                 there: { $0?.stringValue ?=> Key.parse },
+                                                 there: { $0?.stringValue.flatMap(Key.parse) },
                                                  back: { $0?.write as AnyObject }
         )
         
@@ -26,8 +26,8 @@ class ValueTransformers {
         )
         
         SimpleTransformer<NSNumber, NSString>.simple("IntString",
-                                                     there: { ($0 ?=> String.init) ?=> NSString.init },
-                                                     back: { (($0 ?=> String.init) ?=> Int.init) ?=> NSNumber.init }
+                                                     there: { $0.map(String.init).map(NSString.init) },
+                                                     back: { $0.map(String.init).flatMap(Int.init).map(NSNumber.init) }
         )
         
         SimpleTransformer<NSNumber, NSString>.simple("IntStringNullable",
@@ -35,24 +35,24 @@ class ValueTransformers {
                                                         guard $0?.intValue != 0 else {
                                                             return nil
                                                         }
-                                                        return ($0 ?=> String.init) ?=> NSString.init
+                                                        return $0.map(String.init).map(NSString.init)
         },
                                                      back: {
                                                         guard ($0?.length ?? 1) > 0 else {
                                                             return NSNumber(value: 0)
                                                         }
                                                         
-                                                        return (($0 ?=> String.init) ?=> Int.init) ?=> NSNumber.init
+                                                        return $0.map(String.init).map(Int.init).map(NSNumber.init)
         })
         
         SimpleTransformer<NSNumber, NSString>.simple("FloatString",
-                                                     there: { ($0 ?=> String.init) ?=> NSString.init },
-                                                     back: { (($0 ?=> String.init) ?=> Float.init) ?=> NSNumber.init }
+                                                     there: { $0.map(String.init).map(NSString.init) },
+                                                     back: { $0.map(String.init).flatMap(Float.init).map(NSNumber.init) }
         )
         
         SimpleTransformer<NSNumber, NSString>.simple("SimpleFloatString",
                                                      there: { ($0 as? Float).map { NSString(format: "%.2f", $0) } },
-                                                     back: { ((($0 ?=> String.init) ?=> Float.init) ?? 0) ?=> NSNumber.init }
+                                                     back: { ($0.map(String.init).flatMap(Float.init) ?? 0).map(NSNumber.init) }
         )
         
         DoubleTransformer.double("Pow2Transformer", there: log2, back: curry(pow)(2))

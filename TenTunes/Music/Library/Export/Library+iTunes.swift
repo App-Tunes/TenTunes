@@ -45,7 +45,7 @@ extension Library.Export {
 //                trackDict["Date Modified"] = attributes[FileAttributeKey.modificationDate] as! NSDate
 //            }
             trackDict[ordered: "Total Time"] = track.duration.map { Int($0.seconds * 1000) } ?? 0 // If we don't have a duration it's not playable so to say
-            if let bpm = track.bpmString ?=> Int.init { trackDict[ordered: "BPM"] = bpm } // Needs an int?
+            if let bpm = track.bpmString.map(Int.init) { trackDict[ordered: "BPM"] = bpm } // Needs an int?
 
             if track.year > 0 { trackDict[ordered: "Year"] = track.year }
             trackDict[ordered: "Date Added"] = track.creationDate

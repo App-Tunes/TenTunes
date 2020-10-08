@@ -101,6 +101,15 @@ class AudioDeviceProxy: NSObject, ObservableObject {
                         
         return options.filter { $0.id == currentID }.first
     }
+    
+    var currentVolume: Float {
+        get {
+            return current.flatMap { CoreAudioTT.volume(ofDevice: $0.id) } ?? 0
+        }
+        set {
+            current.map { CoreAudioTT.setVolume(ofDevice: $0.id, newValue) }
+        }
+    }
 }
 
 @available(OSX 10.15, *)
@@ -127,6 +136,13 @@ struct OutputDeviceSelector: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
+            HStack {
+                Text("Output Device").bold()
+                
+                Slider(value: $proxy.currentVolume, in: 0...1)
+            }
+                .padding()
+            
             ForEach(proxy.options, id: \.id) { option in
                 optionView(option)
                     .padding()

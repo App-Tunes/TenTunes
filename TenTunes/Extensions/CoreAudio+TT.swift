@@ -10,6 +10,10 @@ import Foundation
 import AudioKit
 
 class CoreAudioTT {
+    struct OSError: Error {
+        var code: OSStatus
+    }
+    
     static func device(ofUnit unit: AudioUnit) -> UInt32? {
         var deviceID: DeviceID = 0
         var propertySize: UInt32 = UInt32(MemoryLayout.size(ofValue: deviceID))
@@ -28,28 +32,80 @@ class CoreAudioTT {
         return deviceID
     }
     
-    static  var defaultOutputDevice: UInt32? {
-        var deviceID: AudioDeviceID = 0
-        var propertyAddress = AudioObjectPropertyAddress()
-        var propertySize: UInt32
-
-        propertyAddress.mSelector = kAudioHardwarePropertyDefaultSystemOutputDevice
-        propertyAddress.mScope = kAudioObjectPropertyScopeGlobal
-        propertyAddress.mElement = 0
-        propertySize = UInt32(MemoryLayout<AudioDeviceID>.size)
-
-        let error = AudioObjectGetPropertyData(AudioObjectID(kAudioObjectSystemObject),
-                                                     &propertyAddress,
-                                                     0,
-                                                     nil,
-                                                     &propertySize,
-                                                     &deviceID)
-        
-        if error != 0 {
-            print("Could not get default device: \(error)")
-            return nil
+    static func volume(ofDevice device: UInt32) -> Float? {
+        do {
+            return try getObjectProperty(
+                object: device,
+                selector: kAudioDevicePropertyVolumeScalar,
+                scope: kAudioDevicePropertyScopeOutput,
+                example: Float32(),
+                channel: 1
+            )
+            // TODO Since there is no meaningful master (apparently), we just use c1
+        }
+        catch let error {
+            print("Could not get volume: \(error)")
         }
         
-        return deviceID
+        return nil
+    }
+        
+    static func setVolume(ofDevice device: UInt32, _ volume: Float) {
+        do {
+            for c in 1...2 {
+                try setObjectProperty(
+                    object: device,
+                    selector: kAudioDevicePropertyVolumeScalar,
+                    scope: kAudioDevicePropertyScopeOutput,
+                    value: volume,
+                    channel: UInt32(c)
+                )
+            }
+        }
+        catch let error {
+            print("Could not set volume: \(error)")
+        }
+    }
+        
+    static var defaultOutputDevice: UInt32? {
+        do {
+            return try getObjectProperty(
+                object: AudioObjectID(kAudioObjectSystemObject),
+                selector: kAudioHardwarePropertyDefaultSystemOutputDevice,
+                scope: kAudioObjectPropertyScopeGlobal,
+                example: AudioDeviceID()
+            )
+        }
+        catch let error {
+            print("Could not get default device: \(error)")
+        }
+        
+        return nil
+    }
+    
+    static func getObjectProperty<T>(object: AudioObjectID, selector: AudioObjectPropertySelector, scope: AudioObjectPropertyScope, example: T, channel: UInt32 = 0) throws -> T {
+        var propertySize = UInt32(MemoryLayout<T>.size)
+        var property = example // TODO Instead pass type lol
+        var propertyAddress = AudioObjectPropertyAddress(mSelector: selector, mScope: scope, mElement: channel)
+
+        let error = AudioObjectGetPropertyData(object, &propertyAddress, 0, nil, &propertySize, &property)
+
+        guard error == 0 else {
+            throw OSError(code: error)
+        }
+        
+        return property
+    }
+    
+    static func setObjectProperty<T>(object: AudioObjectID, selector: AudioObjectPropertySelector, scope: AudioObjectPropertyScope, value: T, channel: UInt32 = 0) throws {
+        var property = value
+        var propertyAddress = AudioObjectPropertyAddress(mSelector: selector, mScope: scope, mElement: channel)
+        let propertySize = UInt32(MemoryLayout<T>.size)
+
+        let error = AudioObjectSetPropertyData(object, &propertyAddress, 0, nil, propertySize, &property)
+
+        if error != 0 {
+            throw OSError(code: error)
+        }
     }
 }

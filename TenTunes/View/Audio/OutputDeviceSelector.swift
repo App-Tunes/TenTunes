@@ -111,6 +111,7 @@ class AudioDeviceProxy: NSObject, ObservableObject {
             return current.flatMap { CoreAudioTT.volume(ofDevice: $0.id) } ?? 0
         }
         set {
+            objectWillChange.send()
             current.map { CoreAudioTT.setVolume(ofDevice: $0.id, newValue) }
         }
     }
@@ -149,8 +150,17 @@ struct OutputDeviceSelector: View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
                 Text("Output Device").bold()
+                    .padding(.trailing)
                 
                 Slider(value: $proxy.currentVolume, in: 0...1)
+                
+                Text(
+                    proxy.currentVolume == 0 ? "􀊡" :
+                    proxy.currentVolume < 0.3 ? "􀊥" :
+                    proxy.currentVolume < 0.6 ? "􀊧" :
+                    "􀊩"
+                )
+                .frame(width: 25, alignment: .leading)
             }
                 .padding()
             

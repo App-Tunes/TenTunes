@@ -65,6 +65,10 @@ class AudioDeviceProxy: NSObject, ObservableObject {
     }
     
     func link(_ option: Option) throws {
+        guard current != option else {
+            return // No need
+        }
+        
         var linkDevice: AKDevice? = nil
         
         switch option {

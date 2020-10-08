@@ -120,8 +120,9 @@ class AudioDeviceProxy: NSObject, ObservableObject {
 struct OutputDeviceSelector: View {
     
     @ObservedObject var proxy = AudioDeviceProxy()
+    @State private var pressOption: AudioDeviceProxy.Option?
     @State private var hoverOption: AudioDeviceProxy.Option?
-    
+
     func optionView(_ option: AudioDeviceProxy.Option) -> some View {
         HStack {
             Text(option.icon)
@@ -138,6 +139,12 @@ struct OutputDeviceSelector: View {
         }
     }
     
+    func backgroundOpacity(_ option: AudioDeviceProxy.Option) -> Double? {
+        pressOption == option ? 0.4 :
+        hoverOption == option ? 0.2 :
+            nil
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
@@ -150,7 +157,7 @@ struct OutputDeviceSelector: View {
             ForEach(proxy.options, id: \.id) { option in
                 optionView(option)
                     .padding()
-                    .background(hoverOption == option ? Color.gray.opacity(0.2) : nil)
+                    .background(backgroundOpacity(option).map(Color.gray.opacity))
                     .onHover { over in
                         self.hoverOption = over ? option : nil
                     }
@@ -162,6 +169,9 @@ struct OutputDeviceSelector: View {
                             NSAlert.informational(title: "Unable to switch output device", text: error.localizedDescription)
                         }
                     }
+                    .onLongPressGesture(pressing: { isDown in
+                        self.pressOption = isDown ? option : nil
+                    }) {}
             }
         }
     }

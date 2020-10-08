@@ -32,16 +32,17 @@ class CoreAudioTT {
         return deviceID
     }
     
-    static func volume(ofDevice device: UInt32) -> Float? {
+    static func volume(ofDevice device: UInt32, channel: UInt32? = nil) -> Float? {
         do {
-            return try getObjectProperty(
+            let channels = channel.map { $0...$0 } ?? 1...2
+            let volumes = try channels.map { try getObjectProperty(
                 object: device,
                 selector: kAudioDevicePropertyVolumeScalar,
                 scope: kAudioDevicePropertyScopeOutput,
                 example: Float32(),
-                channel: 1
-            )
-            // TODO Since there is no meaningful master (apparently), we just use c1
+                channel: $0
+            )}
+            return volumes.max()
         }
         catch let error {
             print("Could not get volume: \(error)")
@@ -52,13 +53,18 @@ class CoreAudioTT {
         
     static func setVolume(ofDevice device: UInt32, _ volume: Float) {
         do {
-            for c in 1...2 {
+            let channels: ClosedRange<UInt32> = 1...2
+            let volumes = channels.map { Self.volume(ofDevice: device, channel: $0) ?? 0 }
+            let max = volumes.max() ?? 1
+            let ratios = volumes.map { max > 0 ? $0 / max : 1 }
+            
+            for (ratio, channel) in zip(ratios, channels) {
                 try setObjectProperty(
                     object: device,
                     selector: kAudioDevicePropertyVolumeScalar,
                     scope: kAudioDevicePropertyScopeOutput,
-                    value: volume,
-                    channel: UInt32(c)
+                    value: volume * ratio,
+                    channel: channel
                 )
             }
         }

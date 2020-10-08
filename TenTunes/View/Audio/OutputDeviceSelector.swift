@@ -156,8 +156,8 @@ struct OutputDeviceSelector: View {
                 
                 Text(
                     proxy.currentVolume == 0 ? "􀊡" :
-                    proxy.currentVolume < 0.3 ? "􀊥" :
-                    proxy.currentVolume < 0.6 ? "􀊧" :
+                    proxy.currentVolume < 0.33 ? "􀊥" :
+                    proxy.currentVolume < 0.66 ? "􀊧" :
                     "􀊩"
                 )
                 .frame(width: 25, alignment: .leading)

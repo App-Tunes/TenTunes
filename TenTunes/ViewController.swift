@@ -53,6 +53,7 @@ class ViewController: NSViewController {
     
     @IBOutlet var _queueButton: NSButton!
     var queuePopover: NSPopover!
+    var queueConstraint: ForeignConstraint!
     var taskPopover: NSPopover!
 
     var selectOutputDevicePopover: NSPopover!
@@ -257,11 +258,14 @@ class ViewController: NSViewController {
         if !queueController.isViewLoaded {
             queueController.loadView()
             queueController.queueify()
+            
+            queueConstraint = ForeignConstraint(.init(item: queueController.view, attribute: .width, relatedBy: .equal, toItem: target, attribute: .width, multiplier: 1, constant: 0))!
         }
         
         queueController.history = history
         queueController._tableView?.reloadData() // If it didn't change it doesn't reload automatically
         queuePopover.appearance = view.window!.appearance
+        queueConstraint.update()
         
         // TODO Show a divider on top
         queueController._tableView.scrollRowToTop(history.playingIndex)

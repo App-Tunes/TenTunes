@@ -133,6 +133,7 @@
 		80A4098C216D665A006AF67B /* RFOpenGLView+Shader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A4098B216D665A006AF67B /* RFOpenGLView+Shader.swift */; };
 		80A40993216FA216006AF67B /* RFOpenGLView+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A40992216FA216006AF67B /* RFOpenGLView+Swift.swift */; };
 		80A7CABD216252340075C499 /* Track+Live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7CABC216252340075C499 /* Track+Live.swift */; };
+		80AD7BD32539FDCE00618F01 /* ForeignConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AD7BD22539FDCE00618F01 /* ForeignConstraint.swift */; };
 		80ADCD4A20442E1200AA9A89 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ADCD4920442E1200AA9A89 /* Library.swift */; };
 		80AEC60722846C8C00CDA2C7 /* ViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AEC60622846C8C00CDA2C7 /* ViewTest.swift */; };
 		80B15824215D657D0015294B /* Cocoa+IBInspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B15823215D657D0015294B /* Cocoa+IBInspectable.swift */; };
@@ -427,6 +428,7 @@
 		80A4098B216D665A006AF67B /* RFOpenGLView+Shader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RFOpenGLView+Shader.swift"; sourceTree = "<group>"; };
 		80A40992216FA216006AF67B /* RFOpenGLView+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RFOpenGLView+Swift.swift"; sourceTree = "<group>"; };
 		80A7CABC216252340075C499 /* Track+Live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Track+Live.swift"; sourceTree = "<group>"; };
+		80AD7BD22539FDCE00618F01 /* ForeignConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForeignConstraint.swift; sourceTree = "<group>"; };
 		80ADCD4920442E1200AA9A89 /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		80AEC60622846C8C00CDA2C7 /* ViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTest.swift; sourceTree = "<group>"; };
 		80B15823215D657D0015294B /* Cocoa+IBInspectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocoa+IBInspectable.swift"; sourceTree = "<group>"; };
@@ -805,6 +807,7 @@
 		8017685720743887000DD433 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				80AD7BD12539FDB900618F01 /* Util */,
 				8017685820743898000DD433 /* NSImageViewAspectFill.swift */,
 				8030E00020FC8F0C006B4AE8 /* ActionTableView.swift */,
 				80E0884F20FFB3A3001FFE26 /* TTWindow.swift */,
@@ -1024,6 +1027,14 @@
 				80A4098B216D665A006AF67B /* RFOpenGLView+Shader.swift */,
 			);
 			path = OGL;
+			sourceTree = "<group>";
+		};
+		80AD7BD12539FDB900618F01 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				80AD7BD22539FDCE00618F01 /* ForeignConstraint.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 		80B68BA021011F4800A32E3D /* Manual */ = {
@@ -2037,6 +2048,7 @@
 				80E939F7215BE604005112EF /* PlaylistMultiple.swift in Sources */,
 				80B68BA92101255D00A32E3D /* TrackController+Rules.swift in Sources */,
 				807092EB20C69D8F00DFED53 /* ExportPlaylistsController.swift in Sources */,
+				80AD7BD32539FDCE00618F01 /* ForeignConstraint.swift in Sources */,
 				8020C64F2217372200E6FA5C /* AppDelegate+Menu.swift in Sources */,
 				8030E01720FE2C3B006B4AE8 /* Alerts.swift in Sources */,
 				8091B9FF20C6B7E50019CE23 /* Hash.swift in Sources */,

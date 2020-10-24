@@ -252,8 +252,18 @@ class WaveformLayer : CALayer {
     
     func updateLocation(of layer: CALayer, to: Double?) {
         if let location = to {
-            layer.frame.origin.x = CGFloat(location) * self.bounds.width - layer.frame.size.width / 2
-            layer.isHidden = false
+            let newPosition = CGFloat(location) * self.bounds.width - layer.frame.size.width / 2
+            
+            if layer.isHidden {
+                CATransaction.setValue(kCFBooleanTrue, forKey:kCATransactionDisableActions)
+                layer.frame.origin.x = newPosition
+                CATransaction.setValue(kCFBooleanFalse, forKey:kCATransactionDisableActions)
+
+                layer.isHidden = false
+            }
+            else {
+                layer.frame.origin.x = newPosition
+            }
         }
         else {
             layer.isHidden = true
@@ -500,13 +510,16 @@ extension WaveformView {
             return
         }
         
-        CATransaction.begin()
-        CATransaction.setAnimationDuration(duration.seconds)
-        CATransaction.setAnimationTimingFunction(.init(name: .linear))
-        
-        self.location = location
-
-        CATransaction.commit()
+        if duration > .zero {
+            CATransaction.begin()
+            CATransaction.setAnimationDuration(duration.seconds)
+            CATransaction.setAnimationTimingFunction(.init(name: .linear))
+            self.location = location
+            CATransaction.commit()
+        }
+        else {
+            self.location = location
+        }
     }
     
     func observe(for track: Track?, in player: Player) {

@@ -12,7 +12,7 @@ import Defaults
 extension NSTableView {
     class ColumnHiddenManager : NSObject, NSMenuDelegate {
         let tableView: NSTableView
-        let defaultsKey: Defaults.Key<[String: Bool]>
+        var defaultsKey: Defaults.Key<[String: Bool]>
         
         var ignore: [String]
         

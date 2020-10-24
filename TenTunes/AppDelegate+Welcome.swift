@@ -168,5 +168,8 @@ extension AppDelegate {
             "albumColumn": true,
             "authorColumn": true,
         ]
+
+        AppDelegate.defaults[.trackTitleColumnsHidden]["keyColumn"] = false
+        AppDelegate.defaults[.trackTitleColumnsHidden]["bpmColumn"] = false
     }
 }

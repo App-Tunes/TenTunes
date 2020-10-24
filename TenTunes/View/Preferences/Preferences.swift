@@ -22,6 +22,18 @@ extension Defaults.Keys {
         "playCountColumn" : true
     ], suite: AppDelegate.defaults)
     
+    static let trackTitleColumnsHidden = Key<[String: Bool]>("trackTitleColumnsHidden", default: [
+        "albumColumn" : true,
+        "waveformColumn" : true,
+        "genreColumn" : true,
+        "authorColumn" : true,
+        "yearColumn" : true,
+        "dateAddedColumn" : true,
+        "keyColumn" : true,
+        "bpmColumn" : true,
+        "playCountColumn" : true
+    ], suite: AppDelegate.defaults)
+    
     enum UsecaseAnswer: String, Codable {
         case casual = "casual"
         case dj = "dj"

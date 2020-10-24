@@ -161,7 +161,11 @@ class TrackController: NSViewController {
     func queueify() {
         mode = .queue
         
-        _tableView.headerView = nil
+        // TODO Auto-update title when editing queue
+        // TODO Auto-scroll is not far enough up (stops just short) if title is shown
+        tableViewHiddenManager.defaultsKey = .trackTitleColumnsHidden
+        tableViewHiddenManager.start()
+        
         _tableView.enclosingScrollView?.drawsBackground = false
         _tableView.enclosingScrollView?.backgroundColor = NSColor.clear
         _tableView.usesAlternatingRowBackgroundColors = false  // TODO In NSPanels, this is solid while everything else isn't
@@ -170,22 +174,15 @@ class TrackController: NSViewController {
         self._loadingIndicator.isHidden = true
         observeHiddenToken = nil // We don't want loading animations round here
         
-        for column in _tableView.tableColumns {
-            switch column.identifier {
-            case ColumnIdentifiers.artwork, ColumnIdentifiers.title, ColumnIdentifiers.key, ColumnIdentifiers.bpm, ColumnIdentifiers.duration, ColumnIdentifiers.author:
-                continue
-            default:
-                // Unintuitive to use in a queue
-                column.isHidden = true
-                tableViewHiddenManager.ignore.append(column.identifier.rawValue)
-            }
-        }
+        _tableView.sizeToFit()
     }
     
     func titleify() {
         queueify()
         mode = .title
-                
+
+        _tableView.headerView = nil
+
         _playlistInfoBarHeight.constant = 0
         _tableViewHeight.constant = 0
         _tableView.enclosingScrollView?.hasVerticalScroller = false

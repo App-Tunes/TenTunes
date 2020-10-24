@@ -122,7 +122,8 @@ extension NSTableView {
     }
     
     func scrollRowToTop(_ row: Int) {
-        scroll(NSPoint(x: 0, y: CGFloat(row) * (rowHeight + intercellSpacing.height)))
+        let headerPart = headerView?.frame.height ?? 0
+        scroll(NSPoint(x: 0, y: CGFloat(row) * (rowHeight + intercellSpacing.height) - headerPart))
     }
 }
 

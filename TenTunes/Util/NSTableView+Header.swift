@@ -10,58 +10,121 @@ import Cocoa
 import Defaults
 
 extension NSTableView {
-    class ColumnHiddenManager : NSObject, NSMenuDelegate {
-        let tableView: NSTableView
-        var defaultsKey: Defaults.Key<[String: Bool]>
-        
-        var ignore: [String]
-        
-        var observerToken: DefaultsObservation?
-        
-        var titles: [NSUserInterfaceItemIdentifier: String] = [:]
-        
-        var defaults: [String: Bool] {
-            get { return AppDelegate.defaults[defaultsKey] }
-            set { AppDelegate.defaults[defaultsKey] = newValue }
-        }
+    static let columnDidChangeVisibilityNotification = NSNotification.Name("NSTableViewColumnDidChangeVisibilityNotification")
 
-        init(tableView: NSTableView, defaultsKey: Defaults.Key<[String: Bool]>, ignore: [String]) {
-            self.tableView = tableView
-            self.defaultsKey = defaultsKey
-            self.ignore = ignore
+    class ActiveSynchronizer {
+        let tableView: NSTableView
+        
+        var moveObserver: NSObjectProtocol?
+        var resizeObserver: NSObjectProtocol?
+        var visibleObserver: NSObjectProtocol?
+
+        var key: NSTableView.AutosaveName? {
+            tableView.autosaveName
         }
         
-        func start() {
+        init(tableView: NSTableView) {
+            self.tableView = tableView
+        }
+        
+        func attach() {
+            moveObserver = NotificationCenter.default.addObserver(forName: NSTableView.columnDidMoveNotification, object: nil, queue: .main) { [unowned self] notification in
+                let tableView = notification.object as! NSTableView
+
+                guard tableView != self.tableView, tableView.autosaveName == self.tableView.autosaveName else {
+                    return
+                }
+                
+                let oldIndex = notification.userInfo!["NSOldColumn"] as! Int
+                let newIndex = notification.userInfo!["NSNewColumn"] as! Int
+                let column = tableView.tableColumns[newIndex]
+
+                guard self.tableView.column(withIdentifier: column.identifier) == oldIndex else {
+                    return
+                }
+                
+                self.tableView.moveColumn(oldIndex, toColumn: newIndex)
+            }
+
+            resizeObserver = NotificationCenter.default.addObserver(forName: NSTableView.columnDidResizeNotification, object: nil, queue: .main) { [unowned self] notification in
+                let tableView = notification.object as! NSTableView
+                
+                guard tableView != self.tableView, tableView.autosaveName == self.tableView.autosaveName else {
+                    return
+                }
+
+                let column = notification.userInfo!["NSTableColumn"] as! NSTableColumn
+                let selfColumn = self.tableView.tableColumn(withIdentifier: column.identifier)!
+                
+                if selfColumn.width != column.width {
+                    selfColumn.width = column.width
+                }
+            }
+
+            visibleObserver = NotificationCenter.default.addObserver(forName: NSTableView.columnDidChangeVisibilityNotification, object: nil, queue: .main) { [unowned self] notification in
+                let tableView = notification.object as! NSTableView
+                
+                guard tableView != self.tableView, tableView.autosaveName == self.tableView.autosaveName else {
+                    return
+                }
+
+                let column = notification.userInfo!["NSTableColumn"] as! NSTableColumn
+                let selfColumn = self.tableView.tableColumn(withIdentifier: column.identifier)!
+                
+                if selfColumn.isHidden != column.isHidden {
+                    selfColumn.isHidden = column.isHidden
+                }
+            }
+        }
+    }
+    
+    class ColumnHiddenExtension : NSObject, NSMenuDelegate {
+        let tableView: NSTableView
+        var titles: [NSUserInterfaceItemIdentifier: String] = [:]
+        var affix: Set<String>
+        
+        init(tableView: NSTableView, titles: [NSUserInterfaceItemIdentifier: String] = [:], affix: Set<String> = Set()) {
+            self.tableView = tableView
+            self.titles = titles
+            self.affix = affix
+        }
+        
+        func attach() {
             tableView.headerView!.menu = NSMenu()
             tableView.headerView!.menu!.delegate = self
             
-            observerToken = Defaults.observe(defaultsKey, options: [.initial]) { _ in
-                self.updateMenu()
-            }
+            updateMenu()
         }
         
         func updateMenu() {
             // might have been removed in the meantime
-            let menu = tableView.headerView?.menu
+            guard let menu = tableView.headerView?.menu else {
+                return
+            }
             
-            menu?.removeAllItems()
+            menu.removeAllItems()
 
             for column in tableView.tableColumns {
-                guard !ignore.contains(column.identifier.rawValue) else {
+                guard !affix.contains(column.identifier.rawValue) else {
                     continue
                 }
                 
                 let item = NSMenuItem(title: titles[column.identifier] ?? column.headerCell.stringValue, action: #selector(columnItemClicked(_:)), keyEquivalent: "")
                 item.target = self
                 
-                column.isHidden = defaults[column.identifier.rawValue] ?? false
                 item.state = column.isHidden ? .off : .on
                 item.representedObject = column
                 
-                menu?.addItem(item)
+                menu.addItem(item)
             }
         }
         
+        func menuWillOpen(_ menu: NSMenu) {
+            for item in menu.items {
+                item.state = (item.representedObject as! NSTableColumn).isHidden ? .off : .on
+            }
+        }
+
         @IBAction func columnItemClicked(_ sender: Any) {
             let item = sender as! NSMenuItem
             let column = item.representedObject as! NSTableColumn
@@ -70,15 +133,9 @@ extension NSTableView {
             
             column.isHidden = hide
             item.state = hide ? .off : .on
-            
-            defaults[column.identifier.rawValue] = hide
+            NotificationCenter.default.post(name: columnDidChangeVisibilityNotification, object: tableView, userInfo: ["NSTableColumn": column])
+
             tableView.sizeToFit()
-        }
-        
-        func menuWillOpen(_ menu: NSMenu) {
-            for item in menu.items {
-                item.state = (item.representedObject as! NSTableColumn).isHidden ? .off : .on
-            }
         }
     }
 }

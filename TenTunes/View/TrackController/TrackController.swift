@@ -35,11 +35,14 @@ import Defaults
 
 class TrackController: NSViewController {
     static let smallRowHeight: CGFloat = 20
-    
+    static let libraryAutosaveName = "tracks"
+    static let queueAutosaveName = "libraryQueue"
+
     @IBOutlet var _tableView: ActionTableView!
     @IBOutlet var _tableViewHeight: NSLayoutConstraint!
-    var tableViewHiddenManager: NSTableView.ColumnHiddenManager!
-    
+    var tableViewHiddenExtension: NSTableView.ColumnHiddenExtension!
+    var tableViewSynchronizer: NSTableView.ActiveSynchronizer!
+
     @IBOutlet var filterController: SmartPlaylistRulesController!
     @IBOutlet var filterBar: HideableBar!
     @IBOutlet var _filterBarContainer: NSView!
@@ -158,13 +161,20 @@ class TrackController: NSViewController {
         }
     }
         
+    func libraryfy() {
+        _tableView.autosaveName = Self.libraryAutosaveName
+        tableViewHiddenExtension.attach()
+        tableViewSynchronizer.attach()
+    }
+    
     func queueify() {
         mode = .queue
         
         // TODO Auto-update title when editing queue
         // TODO Auto-scroll is not far enough up (stops just short) if title is shown
-        tableViewHiddenManager.defaultsKey = .trackTitleColumnsHidden
-        tableViewHiddenManager.start()
+        _tableView.autosaveName = Self.queueAutosaveName
+        tableViewHiddenExtension.attach()
+        tableViewSynchronizer.attach()
         
         _tableView.enclosingScrollView?.drawsBackground = false
         _tableView.enclosingScrollView?.backgroundColor = NSColor.clear

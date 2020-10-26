@@ -53,13 +53,17 @@ extension TrackController {
         _tableView.registerForDraggedTypes(pasteboardTypes)
         _tableView.setDraggingSourceOperationMask(.every, forLocal: false) // ESSENTIAL
         
-        tableViewHiddenManager = .init(tableView: _tableView, defaultsKey: .trackColumnsHidden, ignore: [ColumnIdentifiers.title.rawValue])
-        tableViewHiddenManager.titles[ColumnIdentifiers.artwork] = "Artwork (⸬)"
-        tableViewHiddenManager.titles[ColumnIdentifiers.waveform] = "Waveform (⏦)"
-        tableViewHiddenManager.titles[ColumnIdentifiers.bpm] = "Beats per Minute (♩=)"
-        tableViewHiddenManager.titles[ColumnIdentifiers.key] = "Initial Key (♫)"
-        tableViewHiddenManager.titles[ColumnIdentifiers.duration] = "Duration (◷)"
-        tableViewHiddenManager.start()
+        tableViewHiddenExtension = .init(tableView: _tableView, titles: [
+            ColumnIdentifiers.artwork: "Artwork (⸬)",
+            ColumnIdentifiers.waveform: "Waveform (⏦)",
+            ColumnIdentifiers.bpm: "Beats per Minute (♩=)",
+            ColumnIdentifiers.key: "Initial Key (♫)",
+            ColumnIdentifiers.duration: "Duration (◷)",
+        ], affix: [ColumnIdentifiers.title.rawValue])
+        tableViewHiddenExtension.attach()
+        
+        tableViewSynchronizer = .init(tableView: _tableView)
+        tableViewSynchronizer.attach()
     }
     
     func reloadGUI() {

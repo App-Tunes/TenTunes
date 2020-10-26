@@ -84,7 +84,9 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {        
         trackController = TrackController(nibName: .init("TrackController"), bundle: nil)
-        
+        trackController.loadView()
+        trackController.libraryfy()
+
         categoryController = CategoryController(nibName: .init("CategoryController"), bundle: nil)
         categoryController.loadView()
         

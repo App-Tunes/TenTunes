@@ -183,8 +183,6 @@ class TrackController: NSViewController {
         
         self._loadingIndicator.isHidden = true
         observeHiddenToken = nil // We don't want loading animations round here
-        
-        _tableView.sizeToFit()
     }
     
     func titleify() {
@@ -199,6 +197,8 @@ class TrackController: NSViewController {
         _tableView.enclosingScrollView?.hasHorizontalScroller = false
         _tableView.enclosingScrollView?.verticalScrollElasticity = .none
         _tableView.enclosingScrollView?.horizontalScrollElasticity = .none
+
+        _tableView.sizeToFit()
     }
     
     func show(tokens: [SmartPlaylistRules.Token]) {

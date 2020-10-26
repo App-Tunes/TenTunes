@@ -267,6 +267,7 @@ class ViewController: NSViewController {
         queueController.history = history
         queueController._tableView?.reloadData() // If it didn't change it doesn't reload automatically
         queuePopover.appearance = view.window!.appearance
+
         queueConstraint.update()
         
         // TODO Show a divider on top

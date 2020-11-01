@@ -35,7 +35,7 @@ extension AppDelegate {
                             return true
                         },
                         .create(text: "DJ", image: NSImage(named: .albumName)!) {
-                            AppDelegate.defaults[.initialUsecaseAnswer] = .casual
+                            AppDelegate.defaults[.initialUsecaseAnswer] = .dj
                             #if !DEBUG_WELCOME
                             AppDelegate.switchToDJ()
                             #endif

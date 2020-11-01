@@ -196,6 +196,7 @@
 		80D5648E22897927002CB8EF /* Defaults+TT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D5648D22897926002CB8EF /* Defaults+TT.swift */; };
 		80D5649122898683002CB8EF /* HierarchyEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D5649022898683002CB8EF /* HierarchyEnum.swift */; };
 		80D9448C21662E0100C135CA /* ResonanceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D9448B21662E0100C135CA /* ResonanceProvider.swift */; };
+		80DF297C254EF65000632675 /* TrackController+Columns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DF297B254EF65000632675 /* TrackController+Columns.swift */; };
 		80E02C63217FB8B000251D24 /* Document-TTL.icns in Resources */ = {isa = PBXBuildFile; fileRef = 80E02C62217FB8AF00251D24 /* Document-TTL.icns */; };
 		80E02C65217FC4F200251D24 /* PlaylistPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E02C64217FC4F200251D24 /* PlaylistPromise.swift */; };
 		80E0885020FFB3A3001FFE26 /* TTWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E0884F20FFB3A3001FFE26 /* TTWindow.swift */; };
@@ -495,6 +496,7 @@
 		80D8A0FC212460BE003E1F11 /* Library.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Library.storyboard; path = "/Users/lukas/XCode Projects/TenTunes/TenTunes/Library.storyboard"; sourceTree = "<absolute>"; };
 		80D9448B21662E0100C135CA /* ResonanceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResonanceProvider.swift; sourceTree = "<group>"; };
 		80DCA9B0203F636900B1E9B1 /* TenTunes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TenTunes-Bridging-Header.h"; sourceTree = "<group>"; };
+		80DF297B254EF65000632675 /* TrackController+Columns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackController+Columns.swift"; sourceTree = "<group>"; };
 		80E02C62217FB8AF00251D24 /* Document-TTL.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "Document-TTL.icns"; sourceTree = "<group>"; };
 		80E02C64217FC4F200251D24 /* PlaylistPromise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistPromise.swift; sourceTree = "<group>"; };
 		80E0884F20FFB3A3001FFE26 /* TTWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTWindow.swift; sourceTree = "<group>"; };
@@ -1286,6 +1288,7 @@
 			isa = PBXGroup;
 			children = (
 				808161D1204059FE00AEA64F /* TrackController.swift */,
+				80DF297B254EF65000632675 /* TrackController+Columns.swift */,
 				80FA291F220506EC008E6A38 /* TrackController+Tracks.swift */,
 				8093467020A62319001D15CD /* TrackController+Pasteboard.swift */,
 				80F854FE2069180A009A8FBE /* TrackController+RightClick.swift */,
@@ -1990,6 +1993,7 @@
 				804FC6DD252F3A1A00ED264E /* OutputDeviceSelector.swift in Sources */,
 				8030E00D20FCA04C006B4AE8 /* UpdateCurrentPlaylist.swift in Sources */,
 				80E6811B20573DC800DA5702 /* SimpleTransformer.swift in Sources */,
+				80DF297C254EF65000632675 /* TrackController+Columns.swift in Sources */,
 				80F2C57C2038808000212739 /* ViewController.swift in Sources */,
 				8030E00720FC9749006B4AE8 /* Task.swift in Sources */,
 				80FA292222050917008E6A38 /* PlaylistController+Playlists.swift in Sources */,

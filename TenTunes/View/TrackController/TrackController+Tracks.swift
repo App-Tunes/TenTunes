@@ -11,38 +11,6 @@ import Cocoa
 import AVFoundation
 
 extension TrackController {
-    enum CellIdentifiers {
-        static let artwork = NSUserInterfaceItemIdentifier(rawValue: "artworkCell")
-        static let staticArtwork = NSUserInterfaceItemIdentifier(rawValue: "staticArtworkCell")
-        static let waveform = NSUserInterfaceItemIdentifier(rawValue: "waveformCell")
-        static let title = NSUserInterfaceItemIdentifier(rawValue: "titleCell")
-        static let combinedTitle = NSUserInterfaceItemIdentifier(rawValue: "combinedTitleCell")
-        static let author = NSUserInterfaceItemIdentifier(rawValue: "authorCell")
-        static let album = NSUserInterfaceItemIdentifier(rawValue: "albumCell")
-        static let genre = NSUserInterfaceItemIdentifier(rawValue: "genreCell")
-        static let bpm = NSUserInterfaceItemIdentifier(rawValue: "bpmCell")
-        static let key = NSUserInterfaceItemIdentifier(rawValue: "keyCell")
-        static let duration = NSUserInterfaceItemIdentifier(rawValue: "durationCell")
-        static let dateAdded = NSUserInterfaceItemIdentifier(rawValue: "dateAddedCell")
-        static let year = NSUserInterfaceItemIdentifier(rawValue: "yearCell")
-        static let playCount = NSUserInterfaceItemIdentifier(rawValue: "playCountCell")
-    }
-    
-    enum ColumnIdentifiers {
-        static let artwork = NSUserInterfaceItemIdentifier(rawValue: "artworkColumn")
-        static let waveform = NSUserInterfaceItemIdentifier(rawValue: "waveformColumn")
-        static let title = NSUserInterfaceItemIdentifier(rawValue: "titleColumn")
-        static let author = NSUserInterfaceItemIdentifier(rawValue: "authorColumn")
-        static let album = NSUserInterfaceItemIdentifier(rawValue: "albumColumn")
-        static let genre = NSUserInterfaceItemIdentifier(rawValue: "genreColumn")
-        static let bpm = NSUserInterfaceItemIdentifier(rawValue: "bpmColumn")
-        static let key = NSUserInterfaceItemIdentifier(rawValue: "keyColumn")
-        static let duration = NSUserInterfaceItemIdentifier(rawValue: "durationColumn")
-        static let dateAdded = NSUserInterfaceItemIdentifier(rawValue: "dateAddedColumn")
-        static let year = NSUserInterfaceItemIdentifier(rawValue: "yearColumn")
-        static let playCount = NSUserInterfaceItemIdentifier(rawValue: "playCountColumn")
-    }
-
     var selectedTrack: Track? {
         let row = self._tableView.selectedRow
         return row >= 0 ? history.track(at: row) : nil

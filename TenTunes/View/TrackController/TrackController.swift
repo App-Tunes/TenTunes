@@ -81,7 +81,7 @@ class TrackController: NSViewController {
     
     var trackActions: TrackActions?
 
-    enum Mode {
+    enum Mode: String {
         case tracksList, queue, title
     }
 
@@ -163,6 +163,8 @@ class TrackController: NSViewController {
         
     func libraryfy() {
         _tableView.autosaveName = Self.libraryAutosaveName
+        readColumnDefaults()
+        
         tableViewHiddenExtension.attach()
         tableViewSynchronizer.attach()
     }
@@ -173,6 +175,8 @@ class TrackController: NSViewController {
         // TODO Auto-update title when editing queue
         // TODO Auto-scroll is not far enough up (stops just short) if title is shown
         _tableView.autosaveName = Self.queueAutosaveName
+        readColumnDefaults()
+
         tableViewHiddenExtension.attach()
         tableViewSynchronizer.attach()
         

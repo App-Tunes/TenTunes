@@ -12,33 +12,14 @@ import Defaults
 import Preferences
 
 extension Defaults.Keys {
-    static let trackColumnsHidden = Key<[String: Bool]>("trackColumnsHidden", default: [
-        "albumColumn" : true,
-        "authorColumn" : true,
-        "yearColumn" : true,
-        "dateAddedColumn" : true,
-        "keyColumn" : true,
-        "bpmColumn" : true,
-        "playCountColumn" : true
-    ], suite: AppDelegate.defaults)
-    
-    static let trackTitleColumnsHidden = Key<[String: Bool]>("trackTitleColumnsHidden", default: [
-        "albumColumn" : true,
-        "waveformColumn" : true,
-        "genreColumn" : true,
-        "authorColumn" : true,
-        "yearColumn" : true,
-        "dateAddedColumn" : true,
-        "keyColumn" : true,
-        "bpmColumn" : true,
-        "playCountColumn" : true
-    ], suite: AppDelegate.defaults)
-    
     enum UsecaseAnswer: String, Codable {
         case casual = "casual"
         case dj = "dj"
     }
     static let initialUsecaseAnswer = Key<UsecaseAnswer>("initialUsecaseAnswer", default: .casual, suite: AppDelegate.defaults)
+    
+    static let libraryColumnsHidden = Key<Set<String>>("libraryColumnsHidden", default: [], suite: AppDelegate.defaults)
+    static let queueColumnsHidden = Key<Set<String>>("queueColumnsHidden", default: [], suite: AppDelegate.defaults)
 
     static func eagerLoad() {
         // Meh, but static vars are lazily loaded......
@@ -46,8 +27,9 @@ extension Defaults.Keys {
         // We eager-load so the default values are
         // applied and used in-gui
         let array: [Defaults.Keys] = [
-            .trackColumnsHidden,
-            
+            .libraryColumnsHidden,
+            .queueColumnsHidden,
+
             .analyzeNewTracks,
             .fileLocationOnAdd,
             .playOpenedFiles,

@@ -164,12 +164,5 @@ extension AppDelegate {
         AppDelegate.defaults[.keepFilterBetweenPlaylists] = true
         AppDelegate.defaults[.quantizedJump] = true
         AppDelegate.defaults[.initialKeyWrite] = .openKey
-        AppDelegate.defaults[.trackColumnsHidden] = [
-            "albumColumn": true,
-            "authorColumn": true,
-        ]
-
-        AppDelegate.defaults[.trackTitleColumnsHidden]["keyColumn"] = false
-        AppDelegate.defaults[.trackTitleColumnsHidden]["bpmColumn"] = false
     }
 }

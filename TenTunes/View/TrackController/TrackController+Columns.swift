@@ -77,19 +77,19 @@ extension TrackController {
     ]
 
     func readColumnDefaults() {
-        guard let columns = (mode == .tracksList ? Self.tracksListColumns : Self.queueColumns)[Defaults[.initialUsecaseAnswer]] else {
+        guard let columns = (mode == .tracksList ? Self.tracksListColumns : Self.queueColumns)[AppDelegate.defaults[.initialUsecaseAnswer]] else {
             print("Failed to read columns to hide")
             return
         }
         
         let key: Defaults.Key = mode == .tracksList ? .libraryColumnsHidden : .queueColumnsHidden
         
-        let unhideable = Defaults[key] + Set(columns.map { $0.rawValue })
+        let unhideable = AppDelegate.defaults[key] + Set(columns.map { $0.rawValue })
         
         for column in _tableView.tableColumns {
             if !unhideable.contains(column.identifier.rawValue) {
                 column.isHidden = true
-                Defaults[key].insert(column.identifier.rawValue)
+                AppDelegate.defaults[key].insert(column.identifier.rawValue)
             }
         }
     }

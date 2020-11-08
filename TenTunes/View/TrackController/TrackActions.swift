@@ -278,6 +278,17 @@ class TrackActions: NSViewController, NSMenuDelegate, NSMenuItemValidation {
         NSWorkspace.shared.activateFileViewerSelecting([url])
     }
     
+    @IBAction func manageTrack(_ sender: Any) {
+        switch AppDelegate.defaults[.fileLocationOnAdd] {
+        case .link:
+            return
+        case .move:
+            manageByMoving(sender)
+        case .copy:
+            manageByCopying(sender)
+        }
+    }
+    
     @IBAction func manageByMoving(_ sender: Any) {
         for track in context.tracks {
             tasker.enqueue(task: MoveTrackToMediaLocation(track: track, copy: false))

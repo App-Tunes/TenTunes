@@ -76,6 +76,9 @@
                             </menuItem>
                         </items>
                     </menu>
+                    <connections>
+                        <action selector="manageTrack:" target="-2" id="Xho-j1-sAM"/>
+                    </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="t8q-wU-H2j"/>
                 <menuItem title="Add to Playlist" id="l3K-sC-1Ro">

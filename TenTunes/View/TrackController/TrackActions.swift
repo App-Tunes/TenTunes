@@ -51,7 +51,9 @@ class TrackActions: NSViewController, NSMenuDelegate, NSMenuItemValidation {
     @IBOutlet var _analyzeSubmenu: NSMenuItem!
     @IBOutlet var _showInPlaylistSubmenu: NSMenuItem!
     @IBOutlet var _addToPlaylistSubmenu: NSMenuItem!
-        
+
+    @IBOutlet var _repairTrack: NSMenuItem!
+
     // TODO Try to make less omniscient?
     var viewController: ViewController {
         return ViewController.shared
@@ -124,9 +126,17 @@ class TrackActions: NSViewController, NSMenuDelegate, NSMenuItemValidation {
         
         menu.item(withAction: #selector(menuShowInfo))?.title = trackEditorWantsUpdate ? "Edit Info" : "Hide Info"
         
-        _showInPlaylistSubmenu.isVisible = tracks.count == 1
-        if _showInPlaylistSubmenu.isVisible {
-            _showInPlaylistSubmenu.isEnabled = !Library.shared.playlists(containing: tracks.first!).isEmpty
+        if tracks.count == 1 {
+            _showInPlaylistSubmenu.isVisible = true
+            if _showInPlaylistSubmenu.isVisible {
+                _showInPlaylistSubmenu.isEnabled = !Library.shared.playlists(containing: tracks.first!).isEmpty
+            }
+            
+            _repairTrack.isVisible = true
+        }
+        else {
+            _showInPlaylistSubmenu.isVisible = false
+            _repairTrack.isVisible = false
         }
         
         menu.item(withAction: #selector(menuShowAuthor(_:)))?.isVisible = tracks.count == 1 && tracks.first!.author != nil
@@ -339,5 +349,63 @@ class TrackActions: NSViewController, NSMenuDelegate, NSMenuItemValidation {
         if NSAlert.confirm(action: "Delete Tracks", text: message) {
             Library.shared.viewContext.delete(all: tracks)
         }
+    }
+
+    @discardableResult
+    static func askReplacement(for track: Track, confirm: Bool = true) -> Bool {
+        let noPathProvided = track.path == nil
+        
+        let action = noPathProvided
+            ? "Invalid File"
+            : "Missing File"
+        let message = noPathProvided
+            ? "There is no file attached to this \(AppDelegate.defaults[.trackWordSingular])."
+            : "The \(AppDelegate.defaults[.trackWordSingular]) could not be played since the file could not be found."
+        
+        let deletableFile: () -> URL? = {
+            if track.usesMediaDirectory, let url = track.liveURL, FileManager.default.fileExists(atPath: url.path) {
+                return url
+            }
+            return nil
+        }
+        
+        if deletableFile() != nil {
+            if !NSAlert.confirm(action: "File Exists", text: "A file exists for this \(AppDelegate.defaults[.trackWordSingular]). When replacing it, the current file will be deleted.") {
+                return false
+            }
+        }
+        
+        guard !confirm || NSAlert.confirm(action: action, text: message, confirmTitle: "Choose file", style: .warning) else {
+            return false
+        }
+
+        let dialogue = Library.Import.dialogue(allowedFiles: .track)
+        dialogue.allowsMultipleSelection = false
+        dialogue.runModal()
+        
+        guard let url = dialogue.url else {
+            return false
+        }
+        
+        if let url = deletableFile() {
+            do {
+                try FileManager.default.removeItem(at: url)
+            }
+            catch let e {
+                NSAlert.warning(title: "Failed to delete File", text: e.localizedDescription)
+            }
+        }
+        track.path = url.absoluteString
+        track.usesMediaDirectory = false
+        
+        return true
+    }
+
+    @IBAction func repairTrack(_ sender: Any) {
+        guard let track = context.tracks.onlyElement else {
+            return
+        }
+        
+        Self.askReplacement(for: track, confirm: false)
     }
 }

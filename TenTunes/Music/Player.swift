@@ -162,17 +162,7 @@ class Countdown {
             try play(track: track)
         }
         catch PlayError.missing {
-            let track = track!
-            let noPathProvided = track.path == nil
-            
-            let action = noPathProvided
-                ? "Invalid File"
-                : "Missing File"
-            let message = noPathProvided
-                ? "There is no file attached to this \(AppDelegate.defaults[.trackWordSingular])."
-                : "The \(AppDelegate.defaults[.trackWordSingular]) could not be played since the file could not be found."
-            
-            if NSAlert.confirm(action: action, text: message, confirmTitle: "Choose file", style: .warning), askReplacement(for: track) {
+            if TrackActions.askReplacement(for: track!) {
                 play(at: at, in: history)
             }
         }
@@ -399,23 +389,7 @@ class Countdown {
         
         didChangeValue(for: \.isPlaying)
     }
-    
-    @discardableResult
-    func askReplacement(for track: Track) -> Bool {
-        let dialogue = Library.Import.dialogue(allowedFiles: .track)
-        dialogue.allowsMultipleSelection = false
-        dialogue.runModal()
         
-        guard let url = dialogue.url else {
-            return false
-        }
-        
-        track.path = url.absoluteString
-        track.usesMediaDirectory = false
-        
-        return true
-    }
-    
     override class func automaticallyNotifiesObservers(forKey key: String) -> Bool {
         return key != #keyPath(isPlaying)
     }

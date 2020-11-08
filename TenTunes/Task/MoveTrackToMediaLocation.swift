@@ -25,17 +25,22 @@ class MoveTrackToMediaLocation: TrackTask {
 
         performChildTask(for: library) { [unowned self] mox in
             guard let track = mox.convert(self.track) else {
-                self.finish()
                 return
             }
-            
-            try! track.fetchMetadata() // Make sure we know title, artist etc.
-            
+                        
             guard !track.usesMediaDirectory else {
                 self.finish()
                 return
             }
             
+            // Make sure we know title, artist etc.
+            guard (try? track.fetchMetadata()) != nil else {
+                // Track might be broken. Don't move to whereever I guess
+                self.finish()
+                NSAlert.warning(title: "Failed to move to Media Directory", text: "Unknown Error")
+                return
+            }
+
             track.usesMediaDirectory = true
             self.library.mediaLocation.updateLocation(of: track, copy: self.copy)
             

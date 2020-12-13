@@ -115,8 +115,9 @@ extension Collection where Iterator.Element == Float {
 }
 
 extension Collection where Iterator.Element : FloatingPoint {
-    func normalized(min: Element, max: Element) -> [Element] {
-        return map { ($0 - min) / (max - min) }
+    func normalized(min: Element, max: Element, clamp: Bool = false) -> [Element] {
+        let converted =  map { ($0 - min) / (max - min) }
+        return clamp ? converted.map { Swift.max(0, Swift.min(1, $0)) } : converted
     }
 }
 

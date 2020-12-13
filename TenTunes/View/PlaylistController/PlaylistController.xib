@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,26 +19,25 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="178" height="480"/>
+        <customView misplaced="YES" id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="198" height="296"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <scrollView horizontalHuggingPriority="750" horizontalCompressionResistancePriority="25" verticalCompressionResistancePriority="300" borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="IaV-BJ-2N9">
-                    <rect key="frame" x="0.0" y="-5" width="178" height="490"/>
+                <scrollView horizontalHuggingPriority="750" horizontalCompressionResistancePriority="25" verticalCompressionResistancePriority="300" misplaced="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="IaV-BJ-2N9">
+                    <rect key="frame" x="0.0" y="-97" width="198" height="367"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="lbM-WH-AFJ">
-                        <rect key="frame" x="0.0" y="0.0" width="178" height="490"/>
+                        <rect key="frame" x="0.0" y="0.0" width="198" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" autosaveName="" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autosaveExpandedItems="YES" outlineTableColumn="y9Z-8l-kxU" id="jaf-cH-DJt" customClass="NSOutlineViewContextSensitiveMenu" customModule="TenTunes" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="178" height="427"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" tableStyle="plain" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" autosaveName="" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autosaveExpandedItems="YES" outlineTableColumn="y9Z-8l-kxU" id="jaf-cH-DJt" customClass="NSOutlineViewContextSensitiveMenu" customModule="TenTunes" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="198" height="304"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="2" height="3"/>
                                 <color key="backgroundColor" red="0.1489986479" green="0.1490316391" blue="0.14899659160000001" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn width="176" minWidth="80" maxWidth="10000" id="y9Z-8l-kxU">
+                                    <tableColumn width="196" minWidth="80" maxWidth="10000" id="y9Z-8l-kxU">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -50,7 +49,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="nameCell" id="asv-Nf-2xS">
-                                                <rect key="frame" x="1" y="1" width="176" height="17"/>
+                                                <rect key="frame" x="1" y="1" width="196" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I85-vY-J6p">
@@ -59,7 +58,7 @@
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="playlist" id="pJx-EJ-XRV"/>
                                                     </imageView>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fv7-FW-mKj" customClass="EnterReturningTextField" customModule="TenTunes" customModuleProvider="target">
-                                                        <rect key="frame" x="27" y="0.0" width="151" height="17"/>
+                                                        <rect key="frame" x="27" y="0.0" width="171" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" usesSingleLineMode="YES" id="C8d-Y8-Trs">
                                                             <font key="font" metaFont="system"/>
@@ -78,7 +77,7 @@
                                                 </connections>
                                             </tableCellView>
                                             <tableCellView identifier="categoryCell" id="8ll-LH-Qot">
-                                                <rect key="frame" x="1" y="21" width="176" height="23"/>
+                                                <rect key="frame" x="1" y="21" width="196" height="23"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="Mjd-CS-Uxv">
@@ -90,7 +89,7 @@
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="playlist" id="0n3-1x-Lvj"/>
                                                     </imageView>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6TD-kd-f0T" customClass="EnterReturningTextField" customModule="TenTunes" customModuleProvider="target">
-                                                        <rect key="frame" x="30" y="1" width="146" height="17"/>
+                                                        <rect key="frame" x="30" y="2" width="166" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" usesSingleLineMode="YES" id="7hk-gd-xsE">
                                                             <font key="font" metaFont="systemSemibold" size="13"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -115,11 +114,11 @@
                                                 </connections>
                                             </tableCellView>
                                             <tableCellView identifier="placeholderCell" id="SaM-kL-Tw9">
-                                                <rect key="frame" x="1" y="47" width="176" height="17"/>
+                                                <rect key="frame" x="1" y="47" width="196" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Mp6-mu-lW6">
-                                                        <rect key="frame" x="8" y="0.0" width="170" height="17"/>
+                                                        <rect key="frame" x="8" y="1" width="190" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="There is nothing here yet!" id="h1f-Cc-pSD">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -163,21 +162,13 @@
                     </scroller>
                 </scrollView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="Ry6-zg-Muz">
-                    <rect key="frame" x="0.0" y="455" width="178" height="25"/>
+                    <rect key="frame" x="0.0" y="269" width="198" height="27"/>
                     <subviews>
                         <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="underWindowBackground" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="i6r-7N-Sw5">
-                            <rect key="frame" x="0.0" y="0.0" width="178" height="25"/>
+                            <rect key="frame" x="0.0" y="0.0" width="198" height="27"/>
                         </visualEffectView>
-                        <box boxType="custom" borderType="line" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="zCQ-Gg-KM7">
-                            <rect key="frame" x="-1" y="0.0" width="180" height="25"/>
-                            <view key="contentView" id="KBy-2Y-t7a">
-                                <rect key="frame" x="1" y="1" width="178" height="23"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </view>
-                            <color key="borderColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
-                        </box>
                         <button toolTip="Previous Playlist" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8Z0-Gt-dbf">
-                            <rect key="frame" x="80" y="3" width="19" height="19"/>
+                            <rect key="frame" x="89" y="0.5" width="21.5" height="26"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="8Z0-Gt-dbf" secondAttribute="height" multiplier="1:1" id="A68-Nx-MH3"/>
                             </constraints>
@@ -190,7 +181,7 @@
                             </connections>
                         </button>
                         <button toolTip="Library" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="58Y-ON-eOB">
-                            <rect key="frame" x="31" y="3" width="19" height="19"/>
+                            <rect key="frame" x="38" y="3" width="21" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="58Y-ON-eOB" secondAttribute="height" multiplier="1:1" id="aOu-Qx-Mt4"/>
                             </constraints>
@@ -204,7 +195,7 @@
                             </connections>
                         </button>
                         <button toolTip="Next Playlist" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2x8-2J-xWJ">
-                            <rect key="frame" x="129" y="3" width="19" height="19"/>
+                            <rect key="frame" x="140" y="0.5" width="21.5" height="26"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="2x8-2J-xWJ" secondAttribute="height" multiplier="1:1" id="mnd-Sa-TuN"/>
                             </constraints>
@@ -216,45 +207,53 @@
                                 <action selector="forwards:" target="-2" id="PHL-qw-7PI"/>
                             </connections>
                         </button>
+                        <box boxType="custom" borderType="line" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="zCQ-Gg-KM7">
+                            <rect key="frame" x="-1" y="0.0" width="200" height="28"/>
+                            <view key="contentView" id="KBy-2Y-t7a">
+                                <rect key="frame" x="1" y="1" width="198" height="26"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <color key="borderColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        </box>
                     </subviews>
                     <constraints>
                         <constraint firstItem="i6r-7N-Sw5" firstAttribute="leading" secondItem="Ry6-zg-Muz" secondAttribute="leading" id="1eS-IQ-YKb"/>
-                        <constraint firstAttribute="height" constant="25" id="355-FS-4Sk"/>
+                        <constraint firstAttribute="height" constant="27" id="355-FS-4Sk"/>
                         <constraint firstItem="58Y-ON-eOB" firstAttribute="bottom" secondItem="8Z0-Gt-dbf" secondAttribute="bottom" id="3DG-ru-NUB"/>
                         <constraint firstItem="58Y-ON-eOB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ry6-zg-Muz" secondAttribute="leading" constant="30" id="7Ti-1T-pvO"/>
                         <constraint firstItem="2x8-2J-xWJ" firstAttribute="top" secondItem="8Z0-Gt-dbf" secondAttribute="top" id="7Xw-7I-H3d"/>
                         <constraint firstItem="58Y-ON-eOB" firstAttribute="top" secondItem="8Z0-Gt-dbf" secondAttribute="top" id="9Sh-KS-yE7"/>
                         <constraint firstItem="8Z0-Gt-dbf" firstAttribute="leading" secondItem="58Y-ON-eOB" secondAttribute="trailing" constant="30" id="H7d-O7-IeD"/>
+                        <constraint firstAttribute="bottom" secondItem="zCQ-Gg-KM7" secondAttribute="bottom" id="Kbk-JT-cKK"/>
                         <constraint firstAttribute="bottom" secondItem="8Z0-Gt-dbf" secondAttribute="bottom" constant="3" id="Mms-sj-lfo"/>
-                        <constraint firstItem="zCQ-Gg-KM7" firstAttribute="leading" secondItem="Ry6-zg-Muz" secondAttribute="leading" constant="-1" id="QQS-4h-yZO"/>
                         <constraint firstItem="2x8-2J-xWJ" firstAttribute="bottom" secondItem="8Z0-Gt-dbf" secondAttribute="bottom" id="Rjx-PM-t9q"/>
                         <constraint firstAttribute="bottom" secondItem="i6r-7N-Sw5" secondAttribute="bottom" id="bHr-lC-bRr"/>
-                        <constraint firstAttribute="trailing" secondItem="zCQ-Gg-KM7" secondAttribute="trailing" constant="-1" id="bMH-gp-ZMD"/>
                         <constraint firstItem="i6r-7N-Sw5" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" id="fbH-BK-Hcw"/>
-                        <constraint firstItem="zCQ-Gg-KM7" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" id="l0s-kf-W0v"/>
+                        <constraint firstItem="zCQ-Gg-KM7" firstAttribute="leading" secondItem="Ry6-zg-Muz" secondAttribute="leading" constant="-1" id="ftQ-gH-fxR"/>
+                        <constraint firstAttribute="trailing" secondItem="zCQ-Gg-KM7" secondAttribute="trailing" constant="-1" id="goq-bT-uU4"/>
                         <constraint firstItem="8Z0-Gt-dbf" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" constant="3" id="n8w-KQ-BOl"/>
                         <constraint firstAttribute="trailing" secondItem="i6r-7N-Sw5" secondAttribute="trailing" id="pES-tq-xzz"/>
                         <constraint firstItem="8Z0-Gt-dbf" firstAttribute="centerX" secondItem="Ry6-zg-Muz" secondAttribute="centerX" priority="50" id="vUY-63-FyJ"/>
                         <constraint firstItem="2x8-2J-xWJ" firstAttribute="leading" secondItem="8Z0-Gt-dbf" secondAttribute="trailing" constant="30" id="wVo-1e-b95"/>
-                        <constraint firstAttribute="bottom" secondItem="zCQ-Gg-KM7" secondAttribute="bottom" id="yqd-ol-iwT"/>
+                        <constraint firstItem="zCQ-Gg-KM7" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="top" constant="-1" id="zrt-bA-yTv"/>
                     </constraints>
                 </customView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="FlW-e5-GJv">
-                    <rect key="frame" x="0.0" y="0.0" width="178" height="25"/>
+                    <rect key="frame" x="0.0" y="0.0" width="198" height="25"/>
                     <subviews>
                         <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="underWindowBackground" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="RbJ-nq-hLm">
-                            <rect key="frame" x="0.0" y="0.0" width="178" height="25"/>
+                            <rect key="frame" x="0.0" y="0.0" width="198" height="25"/>
                         </visualEffectView>
                         <box boxType="custom" borderType="line" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="5QY-Ki-vza">
-                            <rect key="frame" x="-1" y="-1" width="180" height="26"/>
+                            <rect key="frame" x="-1" y="-1" width="200" height="26"/>
                             <view key="contentView" id="4Mj-HS-Pg0">
-                                <rect key="frame" x="1" y="1" width="178" height="24"/>
+                                <rect key="frame" x="1" y="1" width="198" height="24"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                             <color key="borderColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
                         </box>
                         <button toolTip="Create Group (Hold Left Mouse for Options)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s5V-cO-NDS" customClass="SMButtonWithMenu">
-                            <rect key="frame" x="110" y="5" width="22" height="15"/>
+                            <rect key="frame" x="120" y="5" width="22" height="15"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="s5V-cO-NDS" secondAttribute="height" multiplier="1.5:1" id="iLc-oV-qb8"/>
                             </constraints>
@@ -268,13 +267,13 @@
                             </connections>
                         </button>
                         <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z3C-14-8qk">
-                            <rect key="frame" x="89" y="0.0" width="1" height="20"/>
+                            <rect key="frame" x="99" y="0.0" width="1" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="1" id="Zuv-FG-A5V"/>
                             </constraints>
                         </customView>
                         <button toolTip="Create Playlist (Hold Left Mouse for Options)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XDO-KJ-zFo" customClass="SMButtonWithMenu">
-                            <rect key="frame" x="46" y="5" width="23" height="15"/>
+                            <rect key="frame" x="56" y="5" width="23" height="15"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="XDO-KJ-zFo" secondAttribute="height" multiplier="1.5:1" id="IgZ-ie-N6E"/>
                             </constraints>
@@ -321,7 +320,7 @@
                 <constraint firstAttribute="trailing" secondItem="FlW-e5-GJv" secondAttribute="trailing" id="mxI-iL-pzn"/>
                 <constraint firstItem="IaV-BJ-2N9" firstAttribute="top" secondItem="Ry6-zg-Muz" secondAttribute="bottom" constant="-30" id="ocP-mR-FOd"/>
             </constraints>
-            <point key="canvasLocation" x="-12" y="64"/>
+            <point key="canvasLocation" x="-12" y="63.5"/>
         </customView>
         <menu id="FBg-C1-FYI" customClass="UnscalingMenu" customModule="TenTunes" customModuleProvider="target">
             <items>
@@ -360,8 +359,8 @@
         <userDefaultsController representsSharedInstance="YES" id="0Zo-eS-kIn"/>
     </objects>
     <resources>
-        <image name="NSGoBackTemplate" width="9" height="12"/>
-        <image name="NSGoForwardTemplate" width="9" height="12"/>
+        <image name="NSGoBackTemplate" width="10" height="14"/>
+        <image name="NSGoForwardTemplate" width="10" height="14"/>
         <image name="folder" width="204" height="153"/>
         <image name="home" width="230" height="179"/>
         <image name="playlist" width="205" height="167"/>

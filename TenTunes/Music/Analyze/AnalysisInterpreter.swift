@@ -106,16 +106,16 @@ class AnalysisInterpreter {
         var wf = waveform(start: analyzer.averageWaveform)
         setProgress(1.03)
         wf = wf.normalized(min: 0.0, max: wf.max()!, clamp: true)
-        wf = wf.map { $0 * $0 }  // Make it exponential-ish (lol)
+        wf = wf.map { pow($0, 1.5) }  // Make it exponential-ish (lol)
         setProgress(1.06)
         var lows = waveform(start: analyzer.lowWaveform)
-        lows = lows.map { $0 * $0 }
+        lows = lows.map { pow($0, 1.5) }
         setProgress(1.09)
         var mids = waveform(start: analyzer.midWaveform)
-        mids = mids.map { $0 * $0 }
+        mids = mids.map { pow($0, 1.5) }
         setProgress(1.12)
         var highs = waveform(start: analyzer.highWaveform)
-        highs = highs.map {$0 * $0 }
+        highs = highs.map {pow($0, 1.5) }
         
         // Normalize waveform but only a little bit
         analysis.values = .init(waveform: wf, lows: lows, mids: mids, highs: highs)

@@ -58,6 +58,8 @@
     float *avg = malloc(sizeof(float) * _waveformSize);
     memset(avg, 0, sizeof(float) * _waveformSize);
     float avgM = 255 * 100.0f / outCount / [file channelCount] / chunkSize;
+    int avgS = freqIdx(20);
+    int avgE = freqIdx(20000);
 
     float *lows = malloc(sizeof(float) * _waveformSize);
     memset(lows, 0, sizeof(float) * _waveformSize);
@@ -101,7 +103,7 @@
 //            float fftNormFactor = 1.0 / chunkSize;
 //            vDSP_vsmul(output.realp, 1, &fftNormFactor, output.realp, 1, outCount);
             
-            for (int i = 0; i < outCount; i++)
+            for (int i = avgS; i < avgE; i++)
                 avg[chunk] += output.realp[i];
             
             for (int i = lowS; i < lowE; i++)

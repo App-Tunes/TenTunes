@@ -7,13 +7,14 @@
 //
 
 #import "TTAudioKitAnalyzer.h"
-#import <AudioKit/AudioKit.h>
+#import <AVFoundation/AVFoundation.h>
+#import <Accelerate/Accelerate.h>
 
 @implementation TTAudioKitAnalyzer
 
 - (void)analyze:(NSURL *)url progressHandler:(void (^)(float, float * _Nonnull, int))progressHandler {
     NSError *error;
-    AKAudioFile *file = [[AKAudioFile alloc] initForReading:url error:&error];
+    AVAudioFile *file = [[AVAudioFile alloc] initForReading:url error:&error];
     
     if (error) {
         _failed = true;
@@ -26,8 +27,6 @@
         return;
     }
     
-    double sampleRate = [file sampleRate];
-
     AVAudioPCMBuffer *buffer = [[AVAudioPCMBuffer alloc] initWithPCMFormat: file.processingFormat frameCapacity: (unsigned int) file.length];
     [file readIntoBuffer:buffer error:&error];
     if (error) {
@@ -36,10 +35,13 @@
         return;
     };
 
+    double sampleRate = buffer.format.sampleRate;
+    int channelCount = buffer.format.channelCount;
+
     AVAudioFrameCount frameLength = buffer.frameLength;
     // 5 chunks per second, or min 100 chunks
     unsigned int chunksBBySampleRate = (int) log2(sampleRate / 5);
-    unsigned int chunksBByFileLength = (int) log2(file.length / 100);
+    unsigned int chunksBByFileLength = (int) log2(frameLength / 100);
     unsigned int chunkBase = MIN(chunksBBySampleRate, chunksBByFileLength);
     unsigned int chunkSize = pow(2, chunkBase);
     _waveformSize = frameLength / chunkSize;
@@ -57,7 +59,7 @@
 
     float *avg = malloc(sizeof(float) * _waveformSize);
     memset(avg, 0, sizeof(float) * _waveformSize);
-    float avgM = 255 * 100.0f / outCount / [file channelCount] / chunkSize;
+    float avgM = 255 * 100.0f / outCount / channelCount / chunkSize;
     int avgS = freqIdx(20);
     int avgE = freqIdx(20000);
 
@@ -65,19 +67,19 @@
     memset(lows, 0, sizeof(float) * _waveformSize);
     int lowS = freqIdx(20);
     int lowE = freqIdx(200);
-    float lowM = 255 * 50.0f / (lowE - lowS) / [file channelCount] / chunkSize;
+    float lowM = 255 * 50.0f / (lowE - lowS) / channelCount / chunkSize;
     
     float *mids = malloc(sizeof(float) * _waveformSize);
     memset(mids, 0, sizeof(float) * _waveformSize);
     int midS = freqIdx(200);
     int midE = freqIdx(4000);
-    float midM = 255 * 100.0f / (midE - midS) * 1.5 / [file channelCount] / chunkSize;
+    float midM = 255 * 100.0f / (midE - midS) * 1.5 / channelCount / chunkSize;
 
     float *highs = malloc(sizeof(float) * _waveformSize);
     memset(highs, 0, sizeof(float) * _waveformSize);
     int highS = freqIdx(4000);
     int highE = freqIdx(20000);
-    float highM = 255 * 200.0f / (highE - highS) * 6 / [file channelCount] / chunkSize;
+    float highM = 255 * 200.0f / (highE - highS) * 6 / channelCount / chunkSize;
 
     _averageWaveform = malloc(sizeof(char) * _waveformSize);
     _lowWaveform = malloc(sizeof(char) * _waveformSize);
@@ -85,7 +87,7 @@
     _highWaveform = malloc(sizeof(char) * _waveformSize);
 
     for (int chunk = 0; chunk < _waveformSize; chunk++) {
-        for (int c = 0; c < [file channelCount]; c++) {
+        for (int c = 0; c < channelCount; c++) {
             float *floats = buffer.floatChannelData[c];
 
             float *data = floats + chunk * chunkSize;

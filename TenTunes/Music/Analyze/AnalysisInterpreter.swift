@@ -98,7 +98,7 @@ class AnalysisInterpreter {
         
         func waveform(start: UnsafeMutablePointer<UInt8>) -> [CGFloat] {
             let raw = Array(UnsafeBufferPointer(start: start, count: waveformLength)).toUInt.toCGFloat
-            return raw.remap(toSize: Analysis.sampleCount).normalized(min: 0.0, max: 255.0)
+            return raw.rms(toSize: Analysis.sampleCount).normalized(min: 0.0, max: 255.0)
         }
         
         // This may take a while too

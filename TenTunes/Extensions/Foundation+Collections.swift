@@ -391,9 +391,24 @@ extension Array where Iterator.Element: FloatingPoint {
                     : defaultValue
             }
             
-            return trackRange.count > 0
-                ? self[trackRange].reduce(0, +) / Element(trackRange.count)
-                : defaultValue
+            return self[trackRange].reduce(0, +) / Element(trackRange.count)
+        }
+    }
+
+    func rms(toSize: Int, default defaultValue: Element = 0) -> [Element] {
+        if toSize < count {
+            return remap(toSize: toSize)
+        }
+        
+        let squared = map { $0 * $0 }
+        
+        return Array<Int>(0 ..< toSize).map { idx in
+            let count = Int(self.count)
+            let trackPosStart = Double(idx) / Double(toSize)
+            let trackPosEnd = Double(idx + 1) / Double(toSize)
+            let trackRange = Int(trackPosStart * Double(count))..<Int(trackPosEnd * Double(count))
+            
+            return sqrt(squared[trackRange].reduce(0, +) / Element(trackRange.count))
         }
     }
 }

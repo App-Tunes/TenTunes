@@ -37,11 +37,13 @@
     };
 
     AVAudioFrameCount frameLength = buffer.frameLength;
-    unsigned int chunkBase = 11;
+    // 5 chunks per second, or min 100 chunks
+    unsigned int chunksBBySampleRate = (int) log2(sampleRate / 5);
+    unsigned int chunksBByFileLength = (int) log2(file.length / 100);
+    unsigned int chunkBase = MIN(chunksBBySampleRate, chunksBByFileLength);
     unsigned int chunkSize = pow(2, chunkBase);
     _waveformSize = frameLength / chunkSize;
 
-    /* supports up to 2048 (2**11) points  */
     FFTSetup setup = vDSP_create_fftsetup(chunkBase, kFFTRadix2);
     int outCount = chunkSize;
 

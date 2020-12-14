@@ -166,7 +166,8 @@ struct OutputDeviceSelector: View {
             
             ForEach(proxy.options, id: \.id) { option in
                 optionView(option)
-                    .padding()
+                    .padding(.horizontal)
+                    .padding(.vertical, 10)
                     .background(backgroundOpacity(option).map(Color.gray.opacity))
                     .onHover { over in
                         self.hoverOption = over ? option : nil

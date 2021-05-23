@@ -16,7 +16,7 @@ extension NSPersistentContainer {
     }
     
     func performChildTask(type: NSManagedObjectContextConcurrencyType, wait: Bool = false, _ task: @escaping (NSManagedObjectContext) -> Swift.Void) {
-        let context = createObjectContext(type: .privateQueueConcurrencyType)
+        let context = createObjectContext(type: type)
         (wait ? context.performAndWait : context.perform) {
             task(context)
         }

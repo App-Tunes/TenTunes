@@ -63,7 +63,7 @@ extension Track {
             
             comments = tagLibFile.comments as NSString?
             
-            duration = CMTime(seconds: Double(tagLibFile.durationInMilliseconds) / 1000.0, preferredTimescale: 1000)
+//            duration = CMTime(seconds: Double(tagLibFile.durationInMilliseconds) / 1000.0, preferredTimescale: 1000)
         }
         else {
             print("Failed to load TagLibFile for \(url)")

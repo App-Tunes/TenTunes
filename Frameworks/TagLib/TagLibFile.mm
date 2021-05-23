@@ -8,37 +8,38 @@
 
 #import "TagLibFile.h"
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wall"
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wall"
+#pragma clang diagnostic ignored "-Weverything"
 
-#import <fileref.h>
-#import <tag.h>
-#import <tpropertymap.h>
+#import "fileref.h"
+#import "tag.h"
+#import "tpropertymap.h"
 
-#import <rifffile.h>
-#import <aifffile.h>
-#import <wavfile.h>
-#import <mpegfile.h>
-#import <flacfile.h>
-#import <trueaudiofile.h>
+#import "rifffile.h"
+#import "aifffile.h"
+#import "wavfile.h"
+#import "mpegfile.h"
+#import "flacfile.h"
+#import "trueaudiofile.h"
 
-#import <id3v2tag.h>
-#import <id3v2frame.h>
-#import <id3v2header.h>
-#import <attachedpictureframe.h>
-#import <textidentificationframe.h>
-#import <commentsframe.h>
-#import <mp4tag.h>
-//#include <tmap.h>
+#import "id3v2tag.h"
+#import "id3v2frame.h"
+#import "id3v2header.h"
+#import "attachedpictureframe.h"
+#import "textidentificationframe.h"
+#import "commentsframe.h"
+#import "mp4tag.h"
+//#include "tmap.h"
 
 
-#import <id3v1tag.h>
+#import "id3v1tag.h"
 
-#import <iostream>
+#import "iostream"
 
-#import <AVFoundation/AVFoundation.h>
+#import "AVFoundation/AVFoundation.h"
 
-#pragma GCC diagnostic pop
+#pragma clang diagnostic pop
 
 inline NSString *TagLibStringToNS(const TagLib::String &tagString) {
     if (tagString == TagLib::ByteVector::null)
@@ -259,10 +260,6 @@ inline const TagLib::String TagLibStringFromNS(NSString *string) {
     return [self getID3v2Text:AVMetadataID3MetadataKeyPartOfASet];
 }
 
-- (unsigned int) timeInMilliseconds {
-    return _fileRef.file()->audioProperties()->lengthInMilliseconds();
-}
-
 // ID3v1 is auto-supported with taglib's default setters and getters
 #pragma mark ID3v2
     
@@ -275,6 +272,7 @@ inline const TagLib::String TagLibStringFromNS(NSString *string) {
     }
     else if (TagLib::RIFF::AIFF::File *file = dynamic_cast<TagLib::RIFF::AIFF::File *>(_fileRef.file())) {
         if (file->hasID3v2Tag()) {
+			return file->File::tag();
             return file->tag();
         }
     }
@@ -325,15 +323,23 @@ inline const TagLib::String TagLibStringFromNS(NSString *string) {
 }
 
 + (NSString *)getID3TextIn:(TagLib::ID3v2::Tag *)tag forKey:(NSString *)key {
+	auto key_str = key.UTF8String;
+	
     TagLib::ID3v2::FrameList::ConstIterator it = tag->frameList().begin();
     for(; it != tag->frameList().end(); it++) {
-        if(auto text_frame = dynamic_cast<TagLib::ID3v2::TextIdentificationFrame *>(*it)) {
-            auto frame_id = text_frame->frameID();
-            
-            if (frame_id == key.UTF8String) {
-                return TagLibStringToNS(text_frame->toString());
-            }
-        }
+		auto frame = dynamic_cast<TagLib::ID3v2::Frame *>(*it);
+		auto frame_id = frame->frameID();
+
+		if (frame_id != key_str) {
+			continue;
+		}
+
+		if (auto text_frame = dynamic_cast<TagLib::ID3v2::TextIdentificationFrame *>(frame)) {
+			return TagLibStringToNS(text_frame->toString());
+		}
+		else {
+			NSLog(@"Failed to textify frame for key: %@", key);
+		}
     }
     
     return nil;

@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "TunesUI",
+        "repositoryURL": "https://github.com/App-Tunes/TunesUI",
+        "state": {
+          "branch": "main",
+          "revision": "0e64ff273676e0d9e201787bac0283bc857b85d7",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

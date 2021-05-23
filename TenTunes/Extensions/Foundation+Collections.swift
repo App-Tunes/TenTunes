@@ -386,9 +386,7 @@ extension Array where Iterator.Element: FloatingPoint {
             
             if trackRange.count == 0 {
                 // TODO Needs lerp
-                return count > 0
-                    ? self[trackRange.lowerBound]
-                    : defaultValue
+                return self[trackRange.lowerBound]
             }
             
             return self[trackRange].reduce(0, +) / Element(trackRange.count)
@@ -396,7 +394,7 @@ extension Array where Iterator.Element: FloatingPoint {
     }
 
     func rms(toSize: Int, default defaultValue: Element = 0) -> [Element] {
-        if toSize < count {
+        if toSize <= count {
             return remap(toSize: toSize)
         }
         

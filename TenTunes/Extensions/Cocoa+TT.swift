@@ -415,20 +415,6 @@ extension NSView {
     }
 }
 
-extension NSImageView {
-    func transitionWithImage(image: NSImage?, duration: Double = 0.2) {
-        let transition = CATransition()
-        transition.duration = duration
-        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-        transition.type = .fade
-        
-        wantsLayer = true
-        layer?.add(transition, forKey: kCATransition)
-        
-        self.image = image
-    }
-}
-
 extension NSSplitView {
     func toggleSubviewHidden(_ view: NSView) {
         if isSubviewCollapsed(view) {

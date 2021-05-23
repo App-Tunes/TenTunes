@@ -13,6 +13,7 @@ import SwiftUI
 import MediaKeyTap
 import AVFoundation
 import Defaults
+import TunesUI
 
 func synced(_ lock: Any, closure: () -> ()) {
     objc_sync_enter(lock)

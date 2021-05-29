@@ -216,6 +216,8 @@
 		80E6811B20573DC800DA5702 /* SimpleTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E6811A20573DC800DA5702 /* SimpleTransformer.swift */; };
 		80E6811D2057479B00DA5702 /* ValueTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E6811C2057479B00DA5702 /* ValueTransformers.swift */; };
 		80E7E6B621B6004E00B1A31D /* PlayImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E7E6B521B6004E00B1A31D /* PlayImageView.swift */; };
+		80E8B55D26624E98003AA639 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 80E8B55C26624E98003AA639 /* Defaults */; };
+		80E8B56026624F21003AA639 /* Preferences in Frameworks */ = {isa = PBXBuildFile; productRef = 80E8B55F26624F21003AA639 /* Preferences */; };
 		80E937592039C2850014C835 /* Keycodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E937582039C2850014C835 /* Keycodes.swift */; };
 		80E939F1215AFAA4005112EF /* MultiplicityGuardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E939F0215AFAA4005112EF /* MultiplicityGuardView.swift */; };
 		80E939F7215BE604005112EF /* PlaylistMultiple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E939F6215BE604005112EF /* PlaylistMultiple.swift */; };
@@ -539,9 +541,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80E8B55D26624E98003AA639 /* Defaults in Frameworks */,
 				80FBDC3A234F5B0400CBF3E5 /* libtaglib.a in Frameworks */,
 				8030CA812164DDE300229398 /* Syphon.framework in Frameworks */,
 				808067BF226A6DD1009942F5 /* MediaKeyTap.framework in Frameworks */,
+				80E8B56026624F21003AA639 /* Preferences in Frameworks */,
 				80B6DFA5219F06E9003EA487 /* MIKMIDI.framework in Frameworks */,
 				80AF0868265AF8EC0039458A /* TunesUI in Frameworks */,
 				806BC9C4226F727F00F9B609 /* Defaults.framework in Frameworks */,
@@ -1128,6 +1132,8 @@
 			name = TenTunes;
 			packageProductDependencies = (
 				80AF0867265AF8EC0039458A /* TunesUI */,
+				80E8B55C26624E98003AA639 /* Defaults */,
+				80E8B55F26624F21003AA639 /* Preferences */,
 			);
 			productName = TenTunes;
 			productReference = 80F2C5762038808000212739 /* Ten Tunes.app */;
@@ -1171,6 +1177,8 @@
 			mainGroup = 80F2C56D2038808000212739;
 			packageReferences = (
 				80AF0866265AF8EC0039458A /* XCRemoteSwiftPackageReference "TunesUI" */,
+				80E8B55B26624E98003AA639 /* XCRemoteSwiftPackageReference "Defaults" */,
+				80E8B55E26624F21003AA639 /* XCRemoteSwiftPackageReference "Preferences" */,
 			);
 			productRefGroup = 80F2C5772038808000212739 /* Products */;
 			projectDirPath = "";
@@ -1761,6 +1769,22 @@
 				kind = branch;
 			};
 		};
+		80E8B55B26624E98003AA639 /* XCRemoteSwiftPackageReference "Defaults" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Defaults";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.2.2;
+			};
+		};
+		80E8B55E26624F21003AA639 /* XCRemoteSwiftPackageReference "Preferences" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Preferences";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1768,6 +1792,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 80AF0866265AF8EC0039458A /* XCRemoteSwiftPackageReference "TunesUI" */;
 			productName = TunesUI;
+		};
+		80E8B55C26624E98003AA639 /* Defaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80E8B55B26624E98003AA639 /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = Defaults;
+		};
+		80E8B55F26624F21003AA639 /* Preferences */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80E8B55E26624F21003AA639 /* XCRemoteSwiftPackageReference "Preferences" */;
+			productName = Preferences;
 		};
 /* End XCSwiftPackageProductDependency section */
 

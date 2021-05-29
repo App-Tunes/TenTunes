@@ -2,11 +2,29 @@
   "object": {
     "pins": [
       {
+        "package": "Defaults",
+        "repositoryURL": "https://github.com/sindresorhus/Defaults",
+        "state": {
+          "branch": null,
+          "revision": "229dea452fee8d2205f56a12e5c21dfec00948f2",
+          "version": "4.2.2"
+        }
+      },
+      {
+        "package": "Preferences",
+        "repositoryURL": "https://github.com/sindresorhus/Preferences",
+        "state": {
+          "branch": null,
+          "revision": "4dbcbdcc35d8d28e59fb63065d7c1a1b02289e51",
+          "version": "2.3.0"
+        }
+      },
+      {
         "package": "TunesUI",
         "repositoryURL": "https://github.com/App-Tunes/TunesUI",
         "state": {
           "branch": "main",
-          "revision": "0e64ff273676e0d9e201787bac0283bc857b85d7",
+          "revision": "bdefd989accac4e69064638f564a21d3492e165b",
           "version": null
         }
       }

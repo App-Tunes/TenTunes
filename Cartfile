@@ -2,5 +2,3 @@
 #github "nhurden/MediaKeyTap"
 git "https://github.com/the0neyouseek/MediaKeyTap.git"
 github "mixedinkey-opensource/MIKMIDI"
-github "sindresorhus/Preferences"
-github "sindresorhus/Defaults"

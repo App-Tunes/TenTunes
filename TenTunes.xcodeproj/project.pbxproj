@@ -218,6 +218,7 @@
 		80E7E6B621B6004E00B1A31D /* PlayImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E7E6B521B6004E00B1A31D /* PlayImageView.swift */; };
 		80E8B55D26624E98003AA639 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 80E8B55C26624E98003AA639 /* Defaults */; };
 		80E8B56026624F21003AA639 /* Preferences in Frameworks */ = {isa = PBXBuildFile; productRef = 80E8B55F26624F21003AA639 /* Preferences */; };
+		80E8B563266250A6003AA639 /* MediaKeyTap in Frameworks */ = {isa = PBXBuildFile; productRef = 80E8B562266250A6003AA639 /* MediaKeyTap */; };
 		80E937592039C2850014C835 /* Keycodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E937582039C2850014C835 /* Keycodes.swift */; };
 		80E939F1215AFAA4005112EF /* MultiplicityGuardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E939F0215AFAA4005112EF /* MultiplicityGuardView.swift */; };
 		80E939F7215BE604005112EF /* PlaylistMultiple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E939F6215BE604005112EF /* PlaylistMultiple.swift */; };
@@ -550,6 +551,7 @@
 				80AF0868265AF8EC0039458A /* TunesUI in Frameworks */,
 				806BC9C4226F727F00F9B609 /* Defaults.framework in Frameworks */,
 				806AC13E2041EDEE00857B1B /* AudioToolbox.framework in Frameworks */,
+				80E8B563266250A6003AA639 /* MediaKeyTap in Frameworks */,
 				806BC9C7226F72B800F9B609 /* Preferences.framework in Frameworks */,
 				800E6F1724E1C386005F7038 /* AudioKit.framework in Frameworks */,
 				80AF0870265AFE5C0039458A /* tag.framework in Frameworks */,
@@ -1134,6 +1136,7 @@
 				80AF0867265AF8EC0039458A /* TunesUI */,
 				80E8B55C26624E98003AA639 /* Defaults */,
 				80E8B55F26624F21003AA639 /* Preferences */,
+				80E8B562266250A6003AA639 /* MediaKeyTap */,
 			);
 			productName = TenTunes;
 			productReference = 80F2C5762038808000212739 /* Ten Tunes.app */;
@@ -1179,6 +1182,7 @@
 				80AF0866265AF8EC0039458A /* XCRemoteSwiftPackageReference "TunesUI" */,
 				80E8B55B26624E98003AA639 /* XCRemoteSwiftPackageReference "Defaults" */,
 				80E8B55E26624F21003AA639 /* XCRemoteSwiftPackageReference "Preferences" */,
+				80E8B561266250A6003AA639 /* XCRemoteSwiftPackageReference "MediaKeyTap" */,
 			);
 			productRefGroup = 80F2C5772038808000212739 /* Products */;
 			projectDirPath = "";
@@ -1785,6 +1789,14 @@
 				minimumVersion = 2.3.0;
 			};
 		};
+		80E8B561266250A6003AA639 /* XCRemoteSwiftPackageReference "MediaKeyTap" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MonitorControl/MediaKeyTap";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1802,6 +1814,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 80E8B55E26624F21003AA639 /* XCRemoteSwiftPackageReference "Preferences" */;
 			productName = Preferences;
+		};
+		80E8B562266250A6003AA639 /* MediaKeyTap */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80E8B561266250A6003AA639 /* XCRemoteSwiftPackageReference "MediaKeyTap" */;
+			productName = MediaKeyTap;
 		};
 /* End XCSwiftPackageProductDependency section */
 

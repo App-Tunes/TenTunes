@@ -88,12 +88,8 @@ class AnalyzeTrack: TrackTask {
             return
         }
         
-        track.analysis = Analysis()
-        
-        if ViewController.shared.player.playing == track {
-            ViewController.shared._waveformView.analysis = track.analysis
-        }
-        
+		track.analysis = Analysis()
+                
         ViewController.shared.trackController.reload(track: track) // Get the analysis inside the cell
         
         performChildTask(for: library) { [unowned self] mox in
@@ -124,6 +120,10 @@ class AnalyzeTrack: TrackTask {
                         return nil
                     }
                 })
+				
+				if ViewController.shared.player.playing == track {
+					ViewController.shared._waveformView.waveformView.waveform = .from(asyncTrack.analysis?.values)
+				}
             }
             try! mox.save()
             

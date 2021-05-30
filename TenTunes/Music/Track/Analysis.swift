@@ -73,10 +73,6 @@ class Analysis : NSObject, NSCoding {
         func interpolateLinear(to: Values, by amount: CGFloat) -> Values {
             return Values(fromArray: zip(asArray, to.asArray).map { Interpolation.linear($0.0, $0.1, amount: amount) })
         }
-        
-        func remapped(toSize size: Int) -> Values {
-            return Values(fromArray: asArray.map { $0.remap(toSize: size) })
-        }
     }
     
     static let sampleCount: Int = 500

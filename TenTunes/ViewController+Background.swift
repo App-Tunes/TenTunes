@@ -138,7 +138,5 @@ extension ViewController {
                 self.player.restartPlay()
             }
         }
-        
-        _waveformView.observe(for: nil, in: player)
     }
 }

@@ -9,6 +9,7 @@
 import Cocoa
 
 import AVFoundation
+import TunesUI
 
 extension TrackController {
     var selectedTrack: Track? {
@@ -98,17 +99,6 @@ extension TrackController {
         }
     }
     
-    @IBAction func waveformViewClicked(_ sender: Any?) {
-        if let view = sender as? WaveformView {
-            if let row = view.superview.map(_tableView.row), history.track(at: row) != nil {
-                play(atRow: row)
-                view.location.map { ViewController.shared.player.setPosition($0, smooth: false) }
-            }
-            
-            view.location = nil
-        }
-    }
-    
     func remove(indices: [Int]?) {
         guard let indices = indices else {
             return
@@ -182,20 +172,52 @@ extension TrackController: NSTableViewDelegate {
             
             return view
         }
-        else if tableColumn?.identifier == ColumnIdentifiers.waveform, let view = tableView.makeView(withIdentifier: CellIdentifiers.waveform, owner: nil) as? WaveformView {
-            // TODO When an analysis saves this is reloaded (and thus set instantly) rather than letting it animate further
+        else if tableColumn?.identifier == ColumnIdentifiers.waveform, let view = tableView.makeView(withIdentifier: CellIdentifiers.waveform, owner: nil) as? WaveformPositionCocoa {
             if track.analysis == nil {
                 track.readAnalysis()
             }
             
-            // Doesn't work from interface builder
-            view.target = self
-            view.action = #selector(waveformViewClicked)
-            
-            view.track = track
-            view.analysis = track.analysis
-            
-            view.observe(for: track, in: ViewController.shared.player)
+			if view.waveformView.resample == nil {
+				// New instance
+				view.waveformView.resample = Resample.nearest(_:toSize:)
+				view.waveformView.colorLUT = Gradients.pitchCG
+				
+				view.positionControl.useJumpInterval = {
+					!NSEvent.modifierFlags.contains(.option)
+				}
+			}
+
+			view.waveformView.reset(suppressAnimationsUntil: Date() + 0.5)
+			view.waveformView.waveform = .from(track.analysis?.values)
+
+			let player = ViewController.shared.player
+			view.positionControl.action = { [weak self] in
+				self?.play(atRow: row)
+				
+				switch $0 {
+				case .absolute(let position):
+					player.setPosition(Double(position), smooth: false)
+				case .relative(let movement):
+					player.movePosition(Double(movement), smooth: false)
+				}
+			}
+			
+			if let duration = track.duration {
+				view.positionControl.locationProvider = {
+					player.playing == track ? player.currentTime.map { CGFloat($0) } : nil
+				}
+				view.positionControl.timer.fps = 10  // TODO only when active
+				view.positionControl.range = 0...CGFloat(duration.seconds)
+				
+				view.positionControl.jumpInterval = track.speed.map {
+					CGFloat($0.secondsPerBeat * 16)
+				} ?? nil
+			}
+			else {
+				view.positionControl.locationProvider = { nil }
+				view.positionControl.timer.fps = 0
+				view.positionControl.range = 0...1
+			}
             
             return view
         }

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -77,17 +76,9 @@
                                                 <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="none" ascending="NO"/>
                                                 <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                                 <prototypeCellViews>
-                                                    <customView identifier="waveformCell" id="po2-en-Xal" customClass="WaveformView" customModule="TenTunes" customModuleProvider="target">
+                                                    <customView identifier="waveformCell" id="po2-en-Xal" customClass="WaveformPositionCocoa" customModule="TunesUI">
                                                         <rect key="frame" x="34" y="1" width="100" height="25"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="updateTime">
-                                                                <real key="value" value="0.10000000000000001"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="waveformViewClicked:" target="-1" id="tSy-aY-owi"/>
-                                                        </connections>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     </customView>
                                                 </prototypeCellViews>
                                             </tableColumn>
@@ -518,10 +509,10 @@
                             </tableHeaderView>
                         </scrollView>
                         <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" doubleValue="2" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Q4S-45-Dyj">
-                            <rect key="frame" x="561" y="73" width="32" height="32"/>
+                            <rect key="frame" x="565" y="119" width="32" height="32"/>
                         </progressIndicator>
                         <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="w8y-Qk-NUZ">
-                            <rect key="frame" x="562" y="74" width="30" height="30"/>
+                            <rect key="frame" x="566" y="120" width="30" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="w8y-Qk-NUZ" secondAttribute="height" multiplier="1:1" id="5uV-UM-YkS"/>
                                 <constraint firstAttribute="width" relation="lessThanOrEqual" constant="30" id="nMf-FF-25h"/>
@@ -534,15 +525,15 @@
                             </userDefinedRuntimeAttributes>
                         </imageView>
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="no2-Pk-ubw">
-                            <rect key="frame" x="0.0" y="-46" width="1153" height="25"/>
+                            <rect key="frame" x="0.0" y="0.0" width="1161" height="25"/>
                             <subviews>
                                 <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="underWindowBackground" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="RrY-WV-3rf">
-                                    <rect key="frame" x="0.0" y="0.0" width="1153" height="25"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1161" height="25"/>
                                 </visualEffectView>
                                 <box autoresizesSubviews="NO" boxType="custom" borderType="line" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Lmv-fl-fCt">
-                                    <rect key="frame" x="-1" y="-1" width="1155" height="26"/>
+                                    <rect key="frame" x="-1" y="-1" width="1163" height="26"/>
                                     <view key="contentView" id="Iy5-UE-8Jl">
-                                        <rect key="frame" x="1" y="1" width="1153" height="24"/>
+                                        <rect key="frame" x="1" y="1" width="1161" height="24"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </view>
                                     <color key="borderColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -564,7 +555,7 @@
                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="playlist" id="3rp-k8-iYe"/>
                                 </imageView>
                                 <button hidden="YES" toolTip="The rules that define the contents of this playlist" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RVc-tT-TEm">
-                                    <rect key="frame" x="1085" y="3" width="48" height="19"/>
+                                    <rect key="frame" x="1093" y="3" width="48" height="19"/>
                                     <buttonCell key="cell" type="recessed" title="Rules" bezelStyle="recessed" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zkM-Rz-wEu">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                         <font key="font" metaFont="systemBold" size="12"/>
@@ -574,7 +565,7 @@
                                     </connections>
                                 </button>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Xki-oe-dMl">
-                                    <rect key="frame" x="575" y="5" width="4" height="16"/>
+                                    <rect key="frame" x="579" y="5" width="4" height="16"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="XrJ-Fh-vG6">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -605,10 +596,10 @@
                             </constraints>
                         </customView>
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="utN-ND-KA3">
-                            <rect key="frame" x="0.0" y="196" width="1153" height="28"/>
+                            <rect key="frame" x="0.0" y="242" width="1161" height="28"/>
                             <subviews>
                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="5dq-V7-Pxb">
-                                    <rect key="frame" x="0.0" y="0.0" width="1153" height="28"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1161" height="28"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="28" placeholder="YES" id="JCI-nb-5Nt"/>
                                     </constraints>
@@ -622,10 +613,10 @@
                             </constraints>
                         </customView>
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="49r-TX-xMK">
-                            <rect key="frame" x="0.0" y="-21" width="1153" height="28"/>
+                            <rect key="frame" x="0.0" y="25" width="1161" height="28"/>
                             <subviews>
                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="ZeZ-1Q-VgQ">
-                                    <rect key="frame" x="0.0" y="0.0" width="1153" height="28"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1161" height="28"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="28" placeholder="YES" id="ypl-AS-NeQ"/>
                                     </constraints>

@@ -376,6 +376,10 @@ class Countdown {
         backingPlayer.volume = 1
     }
     
+	func movePosition(_ movement: Double, smooth: Bool = true) {
+		self.setPosition(player.currentTime + movement, smooth: smooth)
+	}
+	
     func pause() {
         playCountCountdown.pause()
         

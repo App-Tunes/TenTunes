@@ -31,36 +31,7 @@ class AnalysisInterpreter {
         // Pre-init for performance
         var floats: [CGFloat] = Array(repeating: CGFloat(0), count: previewSamplesTotal)
 
-        let setProgress: (Float) -> Swift.Void = { (progress) in
-            guard AppDelegate.defaults[.waveformAnimation] >= .analysis else {
-                analysis.values = BarsLayer.defaultValues
-                return
-            }
-            
-            let time = Float(CACurrentMediaTime().truncatingRemainder(dividingBy: 1000)) // Allow for accuracy
-            
-            var values: [[CGFloat]] = Array(0..<Int(3)).map { (idx) in
-                return Array(0..<Analysis.sampleCount).map { sample in
-                    let pos = Float(sample) / Float(Analysis.sampleCount)
-                    return CGFloat(simulateWave(pos, Float(idx * 10), -8.0 + Float(idx), progress: progress, time: time))
-                }
-            }
-            
-            let createWave: (Int) -> CGFloat = { (sample) in
-                // Move the wave out of screen at the end and start
-                let pos = Float(sample) / Float(Analysis.sampleCount) * 0.97 + 0.015
-                let distance = abs(progress - pos)
-                let water = simulateWave(pos, 100.0, 5.0, progress: progress, time: time)
-                return CGFloat(max(0.7 - distance * 20.0, 0.0) + water * 0.3)
-            }
-            
-            let doPreview = AppDelegate.defaults[.waveformAnimation] >= .withPreview
-            let waveIndex = min(Int(progress * Float(Analysis.sampleCount)), Analysis.sampleCount)
-            let approxWave = floats[0..<currentSamples].remap(toSize: waveIndex)
-            values.insert(Array(0 ..< Analysis.sampleCount).map {createWave($0) + (doPreview && $0 < waveIndex ? approxWave[$0] : 0.0)}, at: 0)
-            
-            analysis.values = .init(fromArray: values)
-        }
+        let setProgress: (Float) -> Swift.Void = { (progress) in }
         
         var lastUpdate: CFTimeInterval = CACurrentMediaTime()
         

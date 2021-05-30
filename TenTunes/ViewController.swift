@@ -36,8 +36,8 @@ class ViewController: NSViewController {
     @IBOutlet var _previous: NSButton!
     @IBOutlet var _next: NSButton!
     
-    @IBOutlet var _waveformView: WaveformView!
-    
+	@IBOutlet var _waveformView: WaveformPositionCocoa!
+
     @IBOutlet var _shuffle: NSButton!
     @IBOutlet var _repeat: SpinningButton!
     @IBOutlet var _find: NSButton!
@@ -152,7 +152,21 @@ class ViewController: NSViewController {
         
         _waveformView.postsFrameChangedNotifications = true
         NotificationCenter.default.addObserver(self, selector: #selector(updateTimesHidden), name: NSView.frameDidChangeNotification, object: _waveformView)
-        
+		let gradientView = DarkGradientView.make()
+		_waveformView.addSubview(gradientView, positioned: .below, relativeTo: _waveformView.waveformView)
+		_waveformView.addConstraints(NSLayoutConstraint.copyLayout(from: _waveformView, for: gradientView))
+
+		_waveformView.waveformView.colorLUT = Gradients.pitchCG
+		_waveformView.waveformView.resample = Resample.nearest(_:toSize:)
+
+		_waveformView.positionControl.locationProvider = { [weak self] in
+			self?.player.currentTime.map { CGFloat($0) }
+		}
+		_waveformView.positionControl.timer.fps = 10
+		_waveformView.positionControl.useJumpInterval = {
+			!NSEvent.modifierFlags.contains(.option)
+		}
+
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             return self.keyDown(with: $0)
         }
@@ -221,12 +235,6 @@ class ViewController: NSViewController {
     
     @IBAction func previousTrack(_ sender: Any) {
         player.play(moved: -1)
-    }
-        
-    @IBAction func waveformViewClicked(_ sender: Any) {
-        if let position = self._waveformView.location {
-            self.player.setPosition(position)
-        }
     }
     
     @IBAction func selectOutputDevice(_ sender: Any) {
@@ -426,22 +434,44 @@ extension ViewController: PlayerDelegate {
         
         _queueButton.isEnabled = player.history.count > 0
         
-        _waveformView.track = player.playing
         playingTrackController._emptyIndicator.isHidden = player.playing != nil
-
+		
         guard let track = player.playing else {
             playingTrackController.history = PlayHistory(playlist: PlaylistEmpty())
-            
-            _waveformView.analysis = nil
-            _waveformView.jumpSegment = 0
-            
+			
+			_waveformView.waveformView.waveform = .empty
+			_waveformView.positionControl.action = nil
+
             return
         }
         
+		_waveformView.waveformView.waveform = .from(track.analysis?.values)
+		if let duration = track.duration {
+			_waveformView.positionControl.range = 0...CGFloat(duration.seconds)
+			_waveformView.positionControl.action = {
+				switch $0 {
+				case .absolute(let position):
+					player.setPosition(Double(position))
+				case .relative(let movement):
+					player.movePosition(Double(movement))
+				}
+			}
+		}
+		else {
+			_waveformView.positionControl.action = nil
+		}
+
+		if let speed = track.speed {
+			// Always jump 16 beats
+			_waveformView.positionControl.jumpInterval = CGFloat(speed.secondsPerBeat * 16)
+		}
+		else {
+			_waveformView.positionControl.jumpInterval = nil
+		}
+
         if track.analysis == nil {
             track.readAnalysis()
         }
-        _waveformView.analysis = track.analysis
 
         if playingTrackController.history.track(at: 0) != track {
             playingTrackController.history.insert(tracks: [track], before: 0)
@@ -452,14 +482,6 @@ extension ViewController: PlayerDelegate {
                 playingTrackController.history.remove(indices: [1])
                 playingTrackController._tableView.removeRows(at: IndexSet(integer: 1), withAnimation: .effectFade)
             }
-        }
-        
-        if let speed = track.speed {
-            // Always jump 16 beats
-            _waveformView.jumpSegment = (speed.secondsPerBeat * 16) / player.player.duration
-        }
-        else {
-            _waveformView.jumpSegment = 0
         }
     }
     

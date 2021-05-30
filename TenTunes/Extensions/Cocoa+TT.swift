@@ -485,24 +485,6 @@ extension OSStatus {
     }
 }
 
-extension NSLayoutConstraint {
-    static func copyLayout(from container: NSView, for view: NSView) -> [NSLayoutConstraint] {
-        return [
-            NSLayoutConstraint(item: view, attribute: .leading, relatedBy: .equal, toItem: container, attribute: .leading, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: view, attribute: .trailing, relatedBy: .equal, toItem: container, attribute: .trailing, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: container, attribute: .top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: container, attribute: .bottom, multiplier: 1, constant: 0),
-        ]
-    }
-    
-    static func center(in container: NSView, for view: NSView) -> [NSLayoutConstraint] {
-        return [
-            NSLayoutConstraint(item: view, attribute: .centerX, relatedBy: .equal, toItem: container, attribute: .centerX, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: view, attribute: .centerY, relatedBy: .equal, toItem: container, attribute: .centerY, multiplier: 1, constant: 0),
-        ]
-    }
-}
-
 extension NSObject {
     open func bind<Object, Source>(_ binding: NSBindingName, to observable: Object, withKeyPath keyPath: KeyPath<Object, Source>, options: [NSBindingOption: Any] = [:], transform: ((Source) -> AnyObject?)? = nil) {
         var options = options

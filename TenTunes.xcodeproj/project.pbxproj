@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		80074CF9204583CF0055B87E /* TrackController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80074CF7204583CF0055B87E /* TrackController.xib */; };
 		80074CFD204584980055B87E /* PlaylistController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80074CFB204584980055B87E /* PlaylistController.xib */; };
+		8007F1F82663F96F00047359 /* DarkGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8007F1F72663F96F00047359 /* DarkGradientView.swift */; };
 		800A2FBF227AFD960048DD6D /* TestEnumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800A2FBE227AFD960048DD6D /* TestEnumerations.swift */; };
 		800E6F1724E1C386005F7038 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 800E6F1624E1C386005F7038 /* AudioKit.framework */; };
 		800E6F1924E1C641005F7038 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 800E6F1824E1C641005F7038 /* .gitignore */; };
@@ -213,6 +214,7 @@
 		80E8B55D26624E98003AA639 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 80E8B55C26624E98003AA639 /* Defaults */; };
 		80E8B56026624F21003AA639 /* Preferences in Frameworks */ = {isa = PBXBuildFile; productRef = 80E8B55F26624F21003AA639 /* Preferences */; };
 		80E8B563266250A6003AA639 /* MediaKeyTap in Frameworks */ = {isa = PBXBuildFile; productRef = 80E8B562266250A6003AA639 /* MediaKeyTap */; };
+		80E8B56526625299003AA639 /* WaveformView+LMH.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E8B56426625299003AA639 /* WaveformView+LMH.swift */; };
 		80E937592039C2850014C835 /* Keycodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E937582039C2850014C835 /* Keycodes.swift */; };
 		80E939F1215AFAA4005112EF /* MultiplicityGuardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E939F0215AFAA4005112EF /* MultiplicityGuardView.swift */; };
 		80E939F7215BE604005112EF /* PlaylistMultiple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E939F6215BE604005112EF /* PlaylistMultiple.swift */; };
@@ -222,7 +224,6 @@
 		80F2C57F2038808000212739 /* TenTunes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C57D2038808000212739 /* TenTunes.xcdatamodeld */; };
 		80F2C5812038808000212739 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80F2C5802038808000212739 /* Assets.xcassets */; };
 		80F2C5842038808000212739 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80F2C5822038808000212739 /* Main.storyboard */; };
-		80F2C58F20389B9B00212739 /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C58E20389B9B00212739 /* WaveformView.swift */; };
 		80F77BF5203D8B35001E397F /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F77BF4203D8B35001E397F /* Key.swift */; };
 		80F854FF2069180A009A8FBE /* TrackController+RightClick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F854FE2069180A009A8FBE /* TrackController+RightClick.swift */; };
 		80F855012069183E009A8FBE /* TrackController+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F855002069183E009A8FBE /* TrackController+Menu.swift */; };
@@ -282,6 +283,7 @@
 		80074CF7204583CF0055B87E /* TrackController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackController.xib; sourceTree = "<group>"; };
 		80074CFB204584980055B87E /* PlaylistController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistController.xib; sourceTree = "<group>"; };
 		80074CFE2046BB0B0055B87E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		8007F1F72663F96F00047359 /* DarkGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkGradientView.swift; sourceTree = "<group>"; };
 		800A2FBE227AFD960048DD6D /* TestEnumerations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEnumerations.swift; sourceTree = "<group>"; };
 		800E6F1624E1C386005F7038 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKit.framework; sourceTree = "<group>"; };
 		800E6F1824E1C641005F7038 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -490,6 +492,7 @@
 		80E6811A20573DC800DA5702 /* SimpleTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTransformer.swift; sourceTree = "<group>"; };
 		80E6811C2057479B00DA5702 /* ValueTransformers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueTransformers.swift; sourceTree = "<group>"; };
 		80E7E6B521B6004E00B1A31D /* PlayImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayImageView.swift; sourceTree = "<group>"; };
+		80E8B56426625299003AA639 /* WaveformView+LMH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WaveformView+LMH.swift"; sourceTree = "<group>"; };
 		80E937582039C2850014C835 /* Keycodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keycodes.swift; sourceTree = "<group>"; };
 		80E939F0215AFAA4005112EF /* MultiplicityGuardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplicityGuardView.swift; sourceTree = "<group>"; };
 		80E939F6215BE604005112EF /* PlaylistMultiple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistMultiple.swift; sourceTree = "<group>"; };
@@ -502,7 +505,6 @@
 		80F2C5832038808000212739 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		80F2C5852038808000212739 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		80F2C5862038808000212739 /* TenTunes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TenTunes.entitlements; sourceTree = "<group>"; };
-		80F2C58E20389B9B00212739 /* WaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
 		80F77BF4203D8B35001E397F /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		80F854FE2069180A009A8FBE /* TrackController+RightClick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackController+RightClick.swift"; sourceTree = "<group>"; };
 		80F855002069183E009A8FBE /* TrackController+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackController+Menu.swift"; sourceTree = "<group>"; };
@@ -563,6 +565,7 @@
 				806FC30B2190DA36004B9770 /* DarkBoxView.swift */,
 				80987D5D21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift */,
 				80CAECF422730D3E001DD856 /* Workflow */,
+				8007F1F72663F96F00047359 /* DarkGradientView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -629,7 +632,6 @@
 				804FC6DB252F39FA00ED264E /* Audio */,
 				80C1F1702142E9E60032E554 /* Visualizer */,
 				808BAADB220DA73C0017557C /* Preferences */,
-				80F2C58E20389B9B00212739 /* WaveformView.swift */,
 				8058FABF2043409F0086FF8A /* SubtleTableRowView.swift */,
 				8046CDA2204EF1ED00E732E7 /* TitleSubtitleCellView.swift */,
 				80E937582039C2850014C835 /* Keycodes.swift */,
@@ -1024,6 +1026,7 @@
 		80F854FC206917D6009A8FBE /* TrackController */ = {
 			isa = PBXGroup;
 			children = (
+				80E8B56426625299003AA639 /* WaveformView+LMH.swift */,
 				808161D1204059FE00AEA64F /* TrackController.swift */,
 				80DF297B254EF65000632675 /* TrackController+Columns.swift */,
 				80FA291F220506EC008E6A38 /* TrackController+Tracks.swift */,
@@ -1367,6 +1370,7 @@
 				80CB652F2052C6CD0031A6D7 /* Operators.swift in Sources */,
 				809CEABF2163F345008D6AC0 /* SuperpoweredSplash.swift in Sources */,
 				8074044C2136CE68007E0B4C /* Interpolation.swift in Sources */,
+				80E8B56526625299003AA639 /* WaveformView+LMH.swift in Sources */,
 				80E2C9F7204B40A000298E81 /* Playlist.swift in Sources */,
 				8030E01B20FE7AAC006B4AE8 /* MoveTrackToMediaLocation.swift in Sources */,
 				8020C64D221736A500E6FA5C /* AppDelegate+Files.swift in Sources */,
@@ -1374,7 +1378,6 @@
 				80B15824215D657D0015294B /* Cocoa+IBInspectable.swift in Sources */,
 				8079F6E8211B015B00B7A278 /* RecursionGuard.swift in Sources */,
 				80C8559E210512B400177035 /* Album.swift in Sources */,
-				80F2C58F20389B9B00212739 /* WaveformView.swift in Sources */,
 				802F9EFF2170A8DB00D497AE /* VisualizerView+Shaders.swift in Sources */,
 				8030E00920FC9A91006B4AE8 /* SwiftPriorityQueue.swift in Sources */,
 				8071FA75220EF627000B8868 /* Defaults.swift in Sources */,
@@ -1382,6 +1385,7 @@
 				804A15FF217252BC00CBF56F /* Cloud.swift in Sources */,
 				80CAED202274E996001DD856 /* TrackActions.swift in Sources */,
 				80F854FF2069180A009A8FBE /* TrackController+RightClick.swift in Sources */,
+				8007F1F82663F96F00047359 /* DarkGradientView.swift in Sources */,
 				808161CF2040520900AEA64F /* AVFoundationImporter.swift in Sources */,
 				80CAED132274ACB6001DD856 /* CategoryController.swift in Sources */,
 				8071F63521AC299D0005685B /* PlaylistController+Updates.swift in Sources */,

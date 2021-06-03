@@ -95,6 +95,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSUserNotificationCenter.default.delegate = self
         
+		Essentia.initAlgorithms()
+
         // Try to get a library going
         var libraryURL: URL? = popLaunchTTL()
         

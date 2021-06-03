@@ -157,7 +157,7 @@ class ViewController: NSViewController {
 		_waveformView.addConstraints(NSLayoutConstraint.copyLayout(from: _waveformView, for: gradientView))
 
 		_waveformView.waveformView.colorLUT = Gradients.pitchCG
-		_waveformView.waveformView.resample = Resample.nearest(_:toSize:)
+		_waveformView.waveformView.resample = ResampleToSize.bestOrZero
 
 		_waveformView.positionControl.locationProvider = { [weak self] in
 			self?.player.currentTime.map { CGFloat($0) }

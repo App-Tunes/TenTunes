@@ -2,7 +2,6 @@
 //  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
-#import "TTAudioKitAnalyzer.h"
 #import "RFOpenGLView.h"
 #import "SMButtonWithMenu.h"
 
@@ -10,5 +9,8 @@
 
 #import <Syphon/Syphon.h>
 
-#import "TagLibFile.h"
-#import "ResampleToSize.h"
+#import <TagLibFile.h>
+#import <Essentia.h>
+#import <EssentiaFile.h>
+#import <EssentiaAnalysis.h>
+#import <ResampleToSize.h>

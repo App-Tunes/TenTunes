@@ -14,16 +14,22 @@ extension Waveform {
 			return .empty
 		}
 		
-		let pitch: [CGFloat] = (0 ..< values.waveform.count).map {
-			// Color
-			let low = values.lows[$0] * values.lows[$0]
-			let mid = values.mids[$0] * values.mids[$0]
-			let high = values.highs[$0] * values.highs[$0]
-			
-			let val = low + mid + high
-			return mid / val / 2 + high / val
-		}
+		return Waveform(
+			loudness: values.loudness,
+			pitch: values.pitch
+		)
+	}
+	
+	static func from(_ waveform: EssentiaWaveform) -> Waveform {
+		let wmax = waveform.integratedLoudness + 6
+		let wmin = waveform.integratedLoudness - waveform.loudnessRange - 6
+		let range = wmax - wmin
 
-		return Waveform(loudness: values.waveform.map(Float.init), pitch: pitch.map(Float.init))
+		return Waveform.init(
+			loudness: Array(UnsafeBufferPointer(start: waveform.loudness, count: Int(waveform.count)))
+				.map { max(0, min(1, ($0 - wmin) / range)) }, // In LUFS. 23 is recommended standard. We'll use -40 as absolute 0.
+			pitch: Array(UnsafeBufferPointer(start: waveform.pitch, count: Int(waveform.count)))
+				.map { max(0, min(1, (log(max(10, $0) / 3000) + 2) / 2)) }  // in frequency space: log(40 / 3000) ~ -2
+		)
 	}
 }

@@ -179,7 +179,7 @@ extension TrackController: NSTableViewDelegate {
             
 			if view.waveformView.resample == nil {
 				// New instance
-				view.waveformView.resample = Resample.nearest(_:toSize:)
+				view.waveformView.resample = ResampleToSize.bestOrZero
 				view.waveformView.colorLUT = Gradients.pitchCG
 				
 				view.positionControl.useJumpInterval = {

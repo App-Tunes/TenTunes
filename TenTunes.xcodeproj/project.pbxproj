@@ -13,7 +13,6 @@
 		800A2FBF227AFD960048DD6D /* TestEnumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800A2FBE227AFD960048DD6D /* TestEnumerations.swift */; };
 		800E6F1724E1C386005F7038 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 800E6F1624E1C386005F7038 /* AudioKit.framework */; };
 		800E6F1924E1C641005F7038 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 800E6F1824E1C641005F7038 /* .gitignore */; };
-		800E6F1C24E1C967005F7038 /* TTAudioKitAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = 800E6F1B24E1C967005F7038 /* TTAudioKitAnalyzer.m */; };
 		8017685920743898000DD433 /* NSImageViewAspectFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8017685820743898000DD433 /* NSImageViewAspectFill.swift */; };
 		8020C64D221736A500E6FA5C /* AppDelegate+Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020C64C221736A500E6FA5C /* AppDelegate+Files.swift */; };
 		8020C64F2217372200E6FA5C /* AppDelegate+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020C64E2217372200E6FA5C /* AppDelegate+Menu.swift */; };
@@ -147,6 +146,7 @@
 		80BD6D172668E4D100B4735A /* tag.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80AF086B265AFE100039458A /* tag.framework */; };
 		80BD6D182668E4D100B4735A /* tag.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 80AF086B265AFE100039458A /* tag.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		80BD6D192668E61300B4735A /* libTunesAnalysis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80BD6D142668E4B900B4735A /* libTunesAnalysis.a */; };
+		80BD6D1C2668EFD000B4735A /* ResampleToSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BD6D1B2668EFD000B4735A /* ResampleToSize.swift */; };
 		80BF21C3212AD9D500B9F0AB /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BF21C2212AD9D500B9F0AB /* History.swift */; };
 		80C1F143213B1DE80032E554 /* Foundation+Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C1F142213B1DE80032E554 /* Foundation+Collections.swift */; };
 		80C1F14E213C77440032E554 /* TrackVisuals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C1F14C213C77440032E554 /* TrackVisuals.swift */; };
@@ -286,8 +286,6 @@
 		800A2FBE227AFD960048DD6D /* TestEnumerations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEnumerations.swift; sourceTree = "<group>"; };
 		800E6F1624E1C386005F7038 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKit.framework; sourceTree = "<group>"; };
 		800E6F1824E1C641005F7038 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		800E6F1A24E1C967005F7038 /* TTAudioKitAnalyzer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTAudioKitAnalyzer.h; sourceTree = "<group>"; };
-		800E6F1B24E1C967005F7038 /* TTAudioKitAnalyzer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTAudioKitAnalyzer.m; sourceTree = "<group>"; };
 		8017685820743898000DD433 /* NSImageViewAspectFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImageViewAspectFill.swift; sourceTree = "<group>"; };
 		8020C64C221736A500E6FA5C /* AppDelegate+Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Files.swift"; sourceTree = "<group>"; };
 		8020C64E2217372200E6FA5C /* AppDelegate+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Menu.swift"; sourceTree = "<group>"; };
@@ -421,6 +419,7 @@
 		80B764552072F38D003BD7F8 /* PlaylistEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistEmpty.swift; sourceTree = "<group>"; };
 		80B7E7252417FE340098E473 /* Ten Tunes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Ten Tunes.entitlements"; sourceTree = "<group>"; };
 		80BD637B2668E4AE00B4735A /* TunesAnalysis.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = TunesAnalysis.xcodeproj; sourceTree = "<group>"; };
+		80BD6D1B2668EFD000B4735A /* ResampleToSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResampleToSize.swift; sourceTree = "<group>"; };
 		80BF21C2212AD9D500B9F0AB /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		80C1F142213B1DE80032E554 /* Foundation+Collections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Foundation+Collections.swift"; sourceTree = "<group>"; };
 		80C1F14C213C77440032E554 /* TrackVisuals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackVisuals.swift; sourceTree = "<group>"; };
@@ -893,6 +892,7 @@
 				8071F63621AEBA700005685B /* HumanDates.swift */,
 				8071FA74220EF627000B8868 /* Defaults.swift */,
 				806C31C7226A3B4800D545BC /* NSImage+Hacks.swift */,
+				80BD6D1B2668EFD000B4735A /* ResampleToSize.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -916,8 +916,6 @@
 		80CB65372052CB100031A6D7 /* Analyze */ = {
 			isa = PBXGroup;
 			children = (
-				800E6F1A24E1C967005F7038 /* TTAudioKitAnalyzer.h */,
-				800E6F1B24E1C967005F7038 /* TTAudioKitAnalyzer.m */,
 				806C5B2520423AC000C34F49 /* AnalysisInterpreter.swift */,
 			);
 			path = Analyze;
@@ -1402,7 +1400,6 @@
 				808161D2204059FE00AEA64F /* TrackController.swift in Sources */,
 				806EFC22204B63620079DBAA /* PlaylistLibrary.swift in Sources */,
 				80C1F1722146E14D0032E554 /* LibraryWindowController.swift in Sources */,
-				800E6F1C24E1C967005F7038 /* TTAudioKitAnalyzer.m in Sources */,
 				80F2C57F2038808000212739 /* TenTunes.xcdatamodeld in Sources */,
 				80CAED192274B68A001DD856 /* CategoryController+Categories.swift in Sources */,
 				80CB65352052C9CC0031A6D7 /* CoreData+TT.swift in Sources */,
@@ -1432,6 +1429,7 @@
 				8071F63221AC250A0005685B /* TrackController+Updates.swift in Sources */,
 				804A15FC2172514200CBF56F /* Honey.swift in Sources */,
 				8026241620FF445F009D7988 /* TTTokenField.swift in Sources */,
+				80BD6D1C2668EFD000B4735A /* ResampleToSize.swift in Sources */,
 				80987D5E21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift in Sources */,
 				8029A5F3221858D600C1F0CC /* DynamicAudioHasher.swift in Sources */,
 				80C1F14F213C77440032E554 /* TrackVisuals+CoreDataProperties.swift in Sources */,

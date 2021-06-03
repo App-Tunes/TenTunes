@@ -121,7 +121,6 @@
 		80987D5E21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80987D5D21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift */; };
 		809CEAB92163E83D008D6AC0 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 809CEAB82163E83D008D6AC0 /* Credits.rtf */; };
 		809CEABC2163EFCD008D6AC0 /* superpowered_splash.svg in Resources */ = {isa = PBXBuildFile; fileRef = 809CEABB2163EFCD008D6AC0 /* superpowered_splash.svg */; };
-		809CEABF2163F345008D6AC0 /* SuperpoweredSplash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809CEABE2163F345008D6AC0 /* SuperpoweredSplash.swift */; };
 		809CEAC92164D336008D6AC0 /* Syphon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809CEAC82164D336008D6AC0 /* Syphon.swift */; };
 		80A4098A216D60BC006AF67B /* RFOpenGLView+Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A40989216D60BB006AF67B /* RFOpenGLView+Texture.swift */; };
 		80A4098C216D665A006AF67B /* RFOpenGLView+Shader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A4098B216D665A006AF67B /* RFOpenGLView+Shader.swift */; };
@@ -332,12 +331,9 @@
 		8069C07122085FB900CD3396 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8069C08B22086E9900CD3396 /* TestInitialState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TestInitialState.swift; path = "/Users/lukas/XCode Projects/TenTunes/Tests/TestInitialState.swift"; sourceTree = "<absolute>"; };
 		806AC1322040D7C700857B1B /* PlayHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayHistory.swift; sourceTree = "<group>"; };
-		806AC1372041EC8400857B1B /* libSuperpoweredAudioOSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSuperpoweredAudioOSX.a; path = ../../../SuperpoweredSDK/Superpowered/libSuperpoweredAudioOSX.a; sourceTree = "<group>"; };
 		806AC1392041EDD900857B1B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		806AC13B2041EDE500857B1B /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		806AC13D2041EDEE00857B1B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		806AC1412041EF1900857B1B /* SPAnalyzer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPAnalyzer.h; sourceTree = "<group>"; };
-		806AC1422041EF1900857B1B /* SPAnalyzer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SPAnalyzer.mm; sourceTree = "<group>"; };
 		806C31C7226A3B4800D545BC /* NSImage+Hacks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Hacks.swift"; sourceTree = "<group>"; };
 		806C5B2520423AC000C34F49 /* AnalysisInterpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisInterpreter.swift; sourceTree = "<group>"; };
 		806EFC21204B63620079DBAA /* PlaylistLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistLibrary.swift; sourceTree = "<group>"; };
@@ -399,7 +395,6 @@
 		80987D5D21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSOutlineViewContextSensitiveMenu.swift; sourceTree = "<group>"; };
 		809CEAB82163E83D008D6AC0 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		809CEABB2163EFCD008D6AC0 /* superpowered_splash.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = superpowered_splash.svg; sourceTree = "<group>"; };
-		809CEABE2163F345008D6AC0 /* SuperpoweredSplash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperpoweredSplash.swift; sourceTree = "<group>"; };
 		809CEAC02164CF76008D6AC0 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Syphon.framework; sourceTree = "<group>"; };
 		809CEAC82164D336008D6AC0 /* Syphon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Syphon.swift; sourceTree = "<group>"; };
 		80A40989216D60BB006AF67B /* RFOpenGLView+Texture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RFOpenGLView+Texture.swift"; sourceTree = "<group>"; };
@@ -560,7 +555,6 @@
 				8079F6EB211B87A700B7A278 /* SpinningButton.swift */,
 				80A40987216D606B006AF67B /* OGL */,
 				80E939F0215AFAA4005112EF /* MultiplicityGuardView.swift */,
-				809CEABE2163F345008D6AC0 /* SuperpoweredSplash.swift */,
 				802F01D02177F00B00E0EAB6 /* DragHighlightView.swift */,
 				806FC30B2190DA36004B9770 /* DarkBoxView.swift */,
 				80987D5D21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift */,
@@ -924,8 +918,6 @@
 			children = (
 				800E6F1A24E1C967005F7038 /* TTAudioKitAnalyzer.h */,
 				800E6F1B24E1C967005F7038 /* TTAudioKitAnalyzer.m */,
-				806AC1412041EF1900857B1B /* SPAnalyzer.h */,
-				806AC1422041EF1900857B1B /* SPAnalyzer.mm */,
 				806C5B2520423AC000C34F49 /* AnalysisInterpreter.swift */,
 			);
 			path = Analyze;
@@ -969,7 +961,6 @@
 				806AC13B2041EDE500857B1B /* CoreMedia.framework */,
 				806AC1392041EDD900857B1B /* AVFoundation.framework */,
 				80BD5E7C2668E4A600B4735A /* TunesAnalysis */,
-				806AC1372041EC8400857B1B /* libSuperpoweredAudioOSX.a */,
 				800E6F1824E1C641005F7038 /* .gitignore */,
 			);
 			path = Frameworks;
@@ -1375,7 +1366,6 @@
 				80BF21C3212AD9D500B9F0AB /* History.swift in Sources */,
 				8030E01120FCB33C006B4AE8 /* FetchTrackMetadata.swift in Sources */,
 				80CB652F2052C6CD0031A6D7 /* Operators.swift in Sources */,
-				809CEABF2163F345008D6AC0 /* SuperpoweredSplash.swift in Sources */,
 				8074044C2136CE68007E0B4C /* Interpolation.swift in Sources */,
 				80E8B56526625299003AA639 /* WaveformView+LMH.swift in Sources */,
 				80E2C9F7204B40A000298E81 /* Playlist.swift in Sources */,
@@ -1654,16 +1644,13 @@
 					"$(PROJECT_DIR)/Carthage/Build/Mac/Static",
 					"$(PROJECT_DIR)/Frameworks/./TunesAnalysis/taglib/build/taglib",
 				);
-				HEADER_SEARCH_PATHS = (
-					"${SRCROOT}/Frameworks/**",
-					"${SRCROOT}/../../SuperpoweredSDK/Superpowered",
-				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/Frameworks/**";
 				INFOPLIST_FILE = TenTunes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../../SuperpoweredSDK/Superpowered";
+				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 0.9.11;
 				OTHER_LDFLAGS = "-lstdc++";
@@ -1698,16 +1685,13 @@
 					"$(PROJECT_DIR)/Carthage/Build/Mac/Static",
 					"$(PROJECT_DIR)/Frameworks/./TunesAnalysis/taglib/build/taglib",
 				);
-				HEADER_SEARCH_PATHS = (
-					"${SRCROOT}/Frameworks/**",
-					"${SRCROOT}/../../SuperpoweredSDK/Superpowered",
-				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/Frameworks/**";
 				INFOPLIST_FILE = TenTunes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../../SuperpoweredSDK/Superpowered";
+				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 0.9.11;
 				OTHER_LDFLAGS = "-lstdc++";

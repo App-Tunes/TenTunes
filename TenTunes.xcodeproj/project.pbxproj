@@ -11,6 +11,7 @@
 		80074CFD204584980055B87E /* PlaylistController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80074CFB204584980055B87E /* PlaylistController.xib */; };
 		8007F1F82663F96F00047359 /* DarkGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8007F1F72663F96F00047359 /* DarkGradientView.swift */; };
 		80083CFE266CD94F00F8C9DD /* ResampleToSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80083CFD266CD94F00F8C9DD /* ResampleToSize.swift */; };
+		80083D06266D4FAC00F8C9DD /* NSRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80083D05266D4FAC00F8C9DD /* NSRange.swift */; };
 		800A2FBF227AFD960048DD6D /* TestEnumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800A2FBE227AFD960048DD6D /* TestEnumerations.swift */; };
 		800E6F1724E1C386005F7038 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 800E6F1624E1C386005F7038 /* AudioKit.framework */; };
 		800E6F1924E1C641005F7038 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 800E6F1824E1C641005F7038 /* .gitignore */; };
@@ -284,6 +285,7 @@
 		80074CFE2046BB0B0055B87E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8007F1F72663F96F00047359 /* DarkGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkGradientView.swift; sourceTree = "<group>"; };
 		80083CFD266CD94F00F8C9DD /* ResampleToSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResampleToSize.swift; sourceTree = "<group>"; };
+		80083D05266D4FAC00F8C9DD /* NSRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSRange.swift; sourceTree = "<group>"; };
 		800A2FBE227AFD960048DD6D /* TestEnumerations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEnumerations.swift; sourceTree = "<group>"; };
 		800E6F1624E1C386005F7038 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKit.framework; sourceTree = "<group>"; };
 		800E6F1824E1C641005F7038 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -893,6 +895,7 @@
 				8071F63621AEBA700005685B /* HumanDates.swift */,
 				8071FA74220EF627000B8868 /* Defaults.swift */,
 				806C31C7226A3B4800D545BC /* NSImage+Hacks.swift */,
+				80083D05266D4FAC00F8C9DD /* NSRange.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1293,6 +1296,7 @@
 				80CED03C20C88055001E710F /* AVFoundation+TT.swift in Sources */,
 				8079F6D72106661A00B7A278 /* HideableBar.swift in Sources */,
 				80CAECFB22731605001DD856 /* OptionsStep.swift in Sources */,
+				80083D06266D4FAC00F8C9DD /* NSRange.swift in Sources */,
 				8030E00120FC8F0C006B4AE8 /* ActionTableView.swift in Sources */,
 				80E0885020FFB3A3001FFE26 /* TTWindow.swift in Sources */,
 				80F855012069183E009A8FBE /* TrackController+Menu.swift in Sources */,

@@ -22,7 +22,6 @@ func synced(_ lock: Any, closure: () -> ()) {
 }
 
 class ViewController: NSViewController {
-    static let userInterfaceUpdateNotification = NSNotification.Name("TenTunesInterfaceUpdate")
     static let userInterfaceUpdateDuration = CMTime(seconds: 1.0 / 10.0, preferredTimescale: 1000)
 
     static var shared: ViewController!
@@ -435,6 +434,8 @@ extension ViewController: PlayerDelegate {
         _queueButton.isEnabled = player.history.count > 0
         
         playingTrackController._emptyIndicator.isHidden = player.playing != nil
+		
+		trackController.onPlayingTrackChange(player.playing)
 		
         guard let track = player.playing else {
             playingTrackController.history = PlayHistory(playlist: PlaylistEmpty())

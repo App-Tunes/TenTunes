@@ -16,10 +16,8 @@ extension ViewController {
     }
     
     func startBackgroundTasks() {
-        backgroundTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 10.0, repeats: true ) { [unowned self] (timer) in
+        backgroundTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 4.0, repeats: true ) { [unowned self] (timer) in
             if self.view.window?.isVisible ?? false {
-                NotificationCenter.default.post(name: ViewController.userInterfaceUpdateNotification, object: self)
-                
                 // Main Window Visuals
                 self._taskButton.spinning = self.tasker.wantsExposure || self.runningTasks.anySatisfy { !$0.hidden }
                 self._taskButton.isEnabled = self._taskButton.spinning

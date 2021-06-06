@@ -206,7 +206,7 @@ extension TrackController: NSTableViewDelegate {
 				view.positionControl.locationProvider = {
 					player.playing == track ? player.currentTime.map { CGFloat($0) } : nil
 				}
-				view.positionControl.timer.fps = 10  // TODO only when active
+				view.positionControl.timer.fps = track == player.playing ? WaveformView.activeFPS : nil
 				view.positionControl.range = 0...CGFloat(duration.seconds)
 				
 				view.positionControl.jumpInterval = track.speed.map {
@@ -215,7 +215,7 @@ extension TrackController: NSTableViewDelegate {
 			}
 			else {
 				view.positionControl.locationProvider = { nil }
-				view.positionControl.timer.fps = 0
+				view.positionControl.timer.fps = nil
 				view.positionControl.range = 0...1
 			}
             
@@ -406,4 +406,25 @@ extension TrackController: NSTableViewDataSource {
         
         desired._changed = true
     }
+	
+	func onPlayingTrackChange(_ track: Track?) {
+		guard let column = _tableView.column(withIdentifier: ColumnIdentifiers.waveform).positive else {
+			return
+		}
+
+		for row in _tableView.rows(in: _tableView.visibleRect).asRange {
+			guard let view = _tableView.view(atColumn: column, row: row, makeIfNecessary: false) as? WaveformPositionCocoa else {
+				continue
+			}
+			
+			if track != nil && history.track(at: row) == track {
+				view.positionControl.timer.fps = WaveformView.activeFPS
+			}
+			else {
+				// Update position while disabling fps
+				view.positionControl.timer.action?()
+				view.positionControl.timer.fps = nil
+			}
+		}
+	}
 }

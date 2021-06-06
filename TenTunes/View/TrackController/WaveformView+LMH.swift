@@ -33,3 +33,7 @@ extension Waveform {
 		)
 	}
 }
+
+extension WaveformView {
+	static let activeFPS: Double = 10
+}

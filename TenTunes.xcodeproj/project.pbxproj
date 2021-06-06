@@ -1635,6 +1635,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5GU22J823J;
 				ENABLE_HARDENED_RUNTIME = NO;
+				EXCLUDED_ARCHS = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
@@ -1676,6 +1677,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5GU22J823J;
 				ENABLE_HARDENED_RUNTIME = NO;
+				EXCLUDED_ARCHS = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",

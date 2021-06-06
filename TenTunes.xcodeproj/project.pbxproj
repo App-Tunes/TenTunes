@@ -12,6 +12,7 @@
 		8007F1F82663F96F00047359 /* DarkGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8007F1F72663F96F00047359 /* DarkGradientView.swift */; };
 		80083CFE266CD94F00F8C9DD /* ResampleToSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80083CFD266CD94F00F8C9DD /* ResampleToSize.swift */; };
 		80083D06266D4FAC00F8C9DD /* NSRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80083D05266D4FAC00F8C9DD /* NSRange.swift */; };
+		80083D0F266D7F6400F8C9DD /* TunesLogic in Frameworks */ = {isa = PBXBuildFile; productRef = 80083D0E266D7F6400F8C9DD /* TunesLogic */; };
 		800A2FBF227AFD960048DD6D /* TestEnumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800A2FBE227AFD960048DD6D /* TestEnumerations.swift */; };
 		800E6F1724E1C386005F7038 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 800E6F1624E1C386005F7038 /* AudioKit.framework */; };
 		800E6F1924E1C641005F7038 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 800E6F1824E1C641005F7038 /* .gitignore */; };
@@ -110,7 +111,6 @@
 		808BAAE5220DA99A0017557C /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808BAAE4220DA99A0017557C /* Preferences.swift */; };
 		808BAAE8220DAD0A0017557C /* FilesPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808BAAE6220DAD0A0017557C /* FilesPreferences.swift */; };
 		808BAAE9220DAD0A0017557C /* FilesPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 808BAAE7220DAD0A0017557C /* FilesPreferences.xib */; };
-		808BAAEB220DB7290017557C /* TestKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808BAAEA220DB7290017557C /* TestKeys.swift */; };
 		808BAAED220E252B0017557C /* TestMediaLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808BAAEC220E252B0017557C /* TestMediaLocation.swift */; };
 		80905F652208708E00A6A830 /* TestPlaylists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80905F642208708E00A6A830 /* TestPlaylists.swift */; };
 		80905F682208906A00A6A830 /* TenTunesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80905F672208906A00A6A830 /* TenTunesTest.swift */; };
@@ -384,7 +384,6 @@
 		808BAAE4220DA99A0017557C /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		808BAAE6220DAD0A0017557C /* FilesPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesPreferences.swift; sourceTree = "<group>"; };
 		808BAAE7220DAD0A0017557C /* FilesPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilesPreferences.xib; sourceTree = "<group>"; };
-		808BAAEA220DB7290017557C /* TestKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKeys.swift; sourceTree = "<group>"; };
 		808BAAEC220E252B0017557C /* TestMediaLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMediaLocation.swift; sourceTree = "<group>"; };
 		80905F642208708E00A6A830 /* TestPlaylists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPlaylists.swift; sourceTree = "<group>"; };
 		80905F672208906A00A6A830 /* TenTunesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenTunesTest.swift; sourceTree = "<group>"; };
@@ -531,6 +530,7 @@
 				80E8B55D26624E98003AA639 /* Defaults in Frameworks */,
 				8030CA812164DDE300229398 /* Syphon.framework in Frameworks */,
 				80E8B56026624F21003AA639 /* Preferences in Frameworks */,
+				80083D0F266D7F6400F8C9DD /* TunesLogic in Frameworks */,
 				80BD6D172668E4D100B4735A /* tag.framework in Frameworks */,
 				80B6DFA5219F06E9003EA487 /* MIKMIDI.framework in Frameworks */,
 				80AF0868265AF8EC0039458A /* TunesUI in Frameworks */,
@@ -601,7 +601,6 @@
 			children = (
 				8069C08B22086E9900CD3396 /* TestInitialState.swift */,
 				808BAAEC220E252B0017557C /* TestMediaLocation.swift */,
-				808BAAEA220DB7290017557C /* TestKeys.swift */,
 				80905F642208708E00A6A830 /* TestPlaylists.swift */,
 				8020C65222177D1500E6FA5C /* TestExport.swift */,
 			);
@@ -1114,6 +1113,7 @@
 				80E8B55C26624E98003AA639 /* Defaults */,
 				80E8B55F26624F21003AA639 /* Preferences */,
 				80E8B562266250A6003AA639 /* MediaKeyTap */,
+				80083D0E266D7F6400F8C9DD /* TunesLogic */,
 			);
 			productName = TenTunes;
 			productReference = 80F2C5762038808000212739 /* Ten Tunes.app */;
@@ -1160,6 +1160,7 @@
 				80E8B55B26624E98003AA639 /* XCRemoteSwiftPackageReference "Defaults" */,
 				80E8B55E26624F21003AA639 /* XCRemoteSwiftPackageReference "Preferences" */,
 				80E8B561266250A6003AA639 /* XCRemoteSwiftPackageReference "MediaKeyTap" */,
+				80083D0D266D7F6400F8C9DD /* XCRemoteSwiftPackageReference "TunesLogic" */,
 			);
 			productRefGroup = 80F2C5772038808000212739 /* Products */;
 			projectDirPath = "";
@@ -1252,7 +1253,6 @@
 			files = (
 				808BAAED220E252B0017557C /* TestMediaLocation.swift in Sources */,
 				8069C08C22086E9900CD3396 /* TestInitialState.swift in Sources */,
-				808BAAEB220DB7290017557C /* TestKeys.swift in Sources */,
 				800A2FBF227AFD960048DD6D /* TestEnumerations.swift in Sources */,
 				803454FE22831A2600202131 /* TestTrackController.swift in Sources */,
 				80905F682208906A00A6A830 /* TenTunesTest.swift in Sources */,
@@ -1741,6 +1741,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		80083D0D266D7F6400F8C9DD /* XCRemoteSwiftPackageReference "TunesLogic" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/App-Tunes/TunesLogic";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		80AF0866265AF8EC0039458A /* XCRemoteSwiftPackageReference "TunesUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/App-Tunes/TunesUI";
@@ -1776,6 +1784,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		80083D0E266D7F6400F8C9DD /* TunesLogic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80083D0D266D7F6400F8C9DD /* XCRemoteSwiftPackageReference "TunesLogic" */;
+			productName = TunesLogic;
+		};
 		80AF0867265AF8EC0039458A /* TunesUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 80AF0866265AF8EC0039458A /* XCRemoteSwiftPackageReference "TunesUI" */;

@@ -163,10 +163,6 @@ class TrackActions: NSViewController, NSMenuDelegate, NSMenuItemValidation {
             return context.tracks.onlyElement?.liveURL != nil
         }
         
-        if menuItem.action == #selector(menuAnalyzeMetadata(_:)) {
-            return false // Currently not supported
-        }
-        
         return true
     }
     

@@ -19,14 +19,14 @@ class AnalysisInterpreter {
 	/// Unfortunately, essentia seems not to be threadsafe just now
 	static let essentiaWork = DispatchSemaphore(value: 1)
 
-    struct Flags: OptionSet {
-        let rawValue: Int
-        
-        static let speed = Flags(rawValue: 1 << 0)
-        static let key = Flags(rawValue: 1 << 1)
-    }
-    
-    static func analyze(file: AVAudioFile, track: Track, flags: Flags = []) {
+	struct Flags: OptionSet {
+		let rawValue: Int
+		
+		static let speed = Flags(rawValue: 1 << 0)
+		static let key = Flags(rawValue: 1 << 1)
+	}
+
+    static func analyzeWaveform(file: AVAudioFile, track: Track) {
 		essentiaWork.wait()
 		defer { essentiaWork.signal() }
 		
@@ -48,15 +48,30 @@ class AnalysisInterpreter {
 		)
 		analysis.complete = true
 		track.loudness = results.integratedLoudness
-
-		// TODO Speed / Key
-//        if flags.contains(.speed) {
-//            track.speed = Track.Speed(beatsPerMinute: Double(analyzer.bpm))
-//        }
-//
-//        if flags.contains(.key) {
-//            // Set rKey since only the Key class decides how the user wants to write his keys
-//            track.key = Key.parse(analyzer.initialKey)
-//        }
     }
+	
+	static func analyzeMetadata(file: AVAudioFile, track: Track, flags: Flags) {
+		essentiaWork.wait()
+		defer { essentiaWork.signal() }
+		
+		let file = EssentiaFile(url: file.url)
+
+		guard let results = try? file.analyze() else {
+			// TODO Warning?
+			return
+		}
+
+		if flags.contains(.key) {
+			track.key = results.keyAnalysis!.key.flatMap { key in
+				results.keyAnalysis!.scale.flatMap { scale in
+					// TODO Can parse these separately
+					Key.parse("\(key)\(scale)")
+				}
+			}
+		}
+		
+		if flags.contains(.speed) {
+			track.speed = Track.Speed(beatsPerMinute: Double(results.rhythmAnalysis!.bpm))
+		}
+	}
 }

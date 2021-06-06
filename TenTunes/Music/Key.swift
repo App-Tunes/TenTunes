@@ -115,8 +115,10 @@ enum Note {
 
 @objc class Key : NSObject {
     static let suffices = [
-        ("maj", false),
-        ("min", true),
+		("major", false),
+		("minor", true),
+		("maj", false),
+		("min", true),
         ("d", false),
         ("m", true),
     ]

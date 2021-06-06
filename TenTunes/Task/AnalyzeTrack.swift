@@ -88,9 +88,10 @@ class AnalyzeTrack: TrackTask {
             return
         }
         
-		track.analysis = Analysis()
-                
-        ViewController.shared.trackController.reload(track: track) // Get the analysis inside the cell
+		if self.analyzeFlags.isEmpty {
+			track.analysis = Analysis()
+			ViewController.shared.trackController.reload(track: track) // Get the analysis inside the cell
+		}
         
         performChildTask(for: library) { [unowned self] mox in
             mox.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
@@ -106,9 +107,20 @@ class AnalyzeTrack: TrackTask {
             if !read || !asyncTrack.readAnalysis() {
                 // TODO Merge with metadata fetch etc
                 let audioFile = try! AKAudioFile(forReading: url)
-                AnalysisInterpreter.analyze(file: audioFile, track: asyncTrack, flags: self.analyzeFlags)
-                
-                asyncTrack.writeAnalysis()
+				
+				if self.analyzeFlags.isEmpty {
+					// TODO Suboptimal setup, but eh.
+					AnalysisInterpreter.analyzeWaveform(file: audioFile, track: asyncTrack)
+					asyncTrack.writeAnalysis()
+
+					if ViewController.shared.player.playing == track {
+						ViewController.shared._waveformView.waveformView.waveform = .from(asyncTrack.analysis?.values)
+					}
+
+					return
+				}
+				
+				AnalysisInterpreter.analyzeMetadata(file: audioFile, track: asyncTrack, flags: self.analyzeFlags)
 
                 try! asyncTrack.writeMetadata(values: self.analyzeFlags.components.compactMap {
                     switch $0 {
@@ -120,10 +132,6 @@ class AnalyzeTrack: TrackTask {
                         return nil
                     }
                 })
-				
-				if ViewController.shared.player.playing == track {
-					ViewController.shared._waveformView.waveformView.waveform = .from(asyncTrack.analysis?.values)
-				}
             }
             try! mox.save()
             

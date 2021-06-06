@@ -75,8 +75,9 @@ class Countdown {
 }
 
 @objc class Player : NSObject {
-    static let minPlayTimePerListen = 0.5
-    
+	static let normalizedLUFS = -14
+	static let minPlayTimePerListen = 0.5
+
     var history: PlayHistory = PlayHistory(playlist: PlaylistEmpty())
     @objc dynamic var player: AKPlayer
     @objc dynamic var backingPlayer: AKPlayer
@@ -282,8 +283,10 @@ class Countdown {
                     playCountCountdown.start(for: $0.seconds * Player.minPlayTimePerListen)
                 }
                 
+				let requiredLoudnessAdjustmentDB = Self.normalizedLUFS - track.loudness
+				let requiredLoudnessAdjustmentVolume = exp2(requiredLoudnessAdjustmentDB / 10)
                 mixer.volume = AppDelegate.defaults[.useNormalizedVolumes]
-                    ? max(0.5, min(1.5, 1.0 / track.loudness)) : 1.0
+					? min(1.0, requiredLoudnessAdjustmentVolume) : 1.0
                 
                 if !NSApp.isActive {
                     notifyPlay(of: track)

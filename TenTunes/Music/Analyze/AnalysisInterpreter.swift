@@ -16,6 +16,9 @@ func simulateWave(_ pos: Float, _ size: Float, _ speed: Float, progress: Float, 
 }
 
 class AnalysisInterpreter {
+	/// Unfortunately, essentia seems not to be threadsafe just now
+	static let essentiaWork = DispatchSemaphore(value: 1)
+
     struct Flags: OptionSet {
         let rawValue: Int
         
@@ -24,6 +27,9 @@ class AnalysisInterpreter {
     }
     
     static func analyze(file: AVAudioFile, track: Track, flags: Flags = []) {
+		essentiaWork.wait()
+		defer { essentiaWork.signal() }
+		
         let analysis = track.analysis!
         		
 		let file = EssentiaFile(url: file.url)

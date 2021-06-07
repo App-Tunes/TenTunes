@@ -33,7 +33,7 @@
         "repositoryURL": "https://github.com/App-Tunes/TunesLogic",
         "state": {
           "branch": "main",
-          "revision": "22f29c4dc72e8219aee9ac16a35de9cbf44d47e3",
+          "revision": "84b609d21247312ae485a3f62f932027ee4f5d18",
           "version": null
         }
       },
@@ -42,7 +42,7 @@
         "repositoryURL": "https://github.com/App-Tunes/TunesUI",
         "state": {
           "branch": "main",
-          "revision": "daeb34604c40af02c2abc636350446fc7dbc981e",
+          "revision": "c83df76c24f7b99fbb35e933abac8a55797a795d",
           "version": null
         }
       }

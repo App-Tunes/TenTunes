@@ -16,6 +16,8 @@ import Defaults
 		"C", "D♭", "D", "Eb", "E",
 		"F", "G♭", "G", "Ab", "A", "Bb", "B"
 	]
+	
+	public static let internalWriter: MusicalKeyWriter = MusicalKey.Writer(sharps: .sharp(stylized: false), mode: .shortVerbose)
 
 	// TODO If possible, use key directly
     var key: MusicalKey
@@ -43,30 +45,39 @@ import Defaults
 	var isMinor: Bool {
 		key.mode == .minor
 	}
-    
-    var write: String {
-		"\(Self.noteTitles[key.note.pitchClass])\(key.mode.shortTitle)"
-    }
-    
+	
+	var write: String {
+		Self.internalWriter.write(key)
+	}
+	
+	public static func writer(for type: Defaults.Keys.InitialKeyWrite, stylized: Bool) -> MusicalKeyWriter {
+		switch type {
+		case .german:
+			return MusicalKey.GermanWriter(sharps: .flat(stylized: stylized))
+		case .openKey:
+			return CircleOfFifths.openKey
+		case .camelot:
+			return CircleOfFifths.camelot
+		case .english:
+			return MusicalKey.Writer(sharps: .flat(stylized: stylized), mode: .shortOnlyMinor, withSpace: false)
+		}
+	}
+	
+	public static var displayWriter: MusicalKeyWriter {
+		switch AppDelegate.defaults[.initialKeyDisplay] {
+		case .custom(let custom):
+			return Self.writer(for: custom, stylized: true)
+		default:
+			return Self.writer(for: AppDelegate.defaults[.initialKeyWrite], stylized: true)
+		}
+	}
+	
+	public static var fileWriter: MusicalKeyWriter {
+		Self.writer(for: AppDelegate.defaults[.initialKeyWrite], stylized: false)
+	}
+
     override var description: String {
-		let noteTitle = key.note.title
-        
-        var type: Defaults.Keys.InitialKeyWrite
-        switch AppDelegate.defaults[.initialKeyDisplay] {
-        case .custom(let custom): type = custom
-        default: type = AppDelegate.defaults[.initialKeyWrite]
-        }
-        		
-        switch type {
-        case .german:
-            return isMinor ? noteTitle.lowercased() : noteTitle
-        case .openKey:
-			return "\(self.openKey + 1)\(isMinor ? "A" : "B")"
-        case .camelot:
-			return "\(self.camelot + 1)\(isMinor ? "d" : "m")"
-        case .english:
-            return isMinor ? noteTitle + "m" : noteTitle
-        }
+		Self.displayWriter.write(key)
     }
     
     @objc dynamic var attributes: [NSAttributedString.Key : Any]? {

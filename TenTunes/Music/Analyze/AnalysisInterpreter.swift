@@ -62,12 +62,14 @@ class AnalysisInterpreter {
 		}
 
 		if flags.contains(.key) {
-			track.key = results.keyAnalysis!.key.flatMap { key in
+			let key = results.keyAnalysis!.key.flatMap { key in
 				results.keyAnalysis!.scale.flatMap { scale in
 					// TODO Can parse these separately
 					Key.parse("\(key)\(scale)")
 				}
 			}
+			
+			track.keyString = (key?.key).map(Key.fileWriter.write)
 		}
 		
 		if flags.contains(.speed) {

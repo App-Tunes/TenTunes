@@ -116,22 +116,21 @@ class AnalyzeTrack: TrackTask {
 					if ViewController.shared.player.playing == track {
 						ViewController.shared._waveformView.waveformView.waveform = .from(asyncTrack.analysis?.values)
 					}
-
-					return
 				}
-				
-				AnalysisInterpreter.analyzeMetadata(file: audioFile, track: asyncTrack, flags: self.analyzeFlags)
+				else {
+					AnalysisInterpreter.analyzeMetadata(file: audioFile, track: asyncTrack, flags: self.analyzeFlags)
 
-                try! asyncTrack.writeMetadata(values: self.analyzeFlags.components.compactMap {
-                    switch $0 {
-                    case AnalysisInterpreter.Flags.key:
-                        return \Track.keyString
-                    case AnalysisInterpreter.Flags.speed:
-                        return \Track.bpmString
-                    default:
-                        return nil
-                    }
-                })
+					try! asyncTrack.writeMetadata(values: self.analyzeFlags.components.compactMap {
+						switch $0 {
+						case AnalysisInterpreter.Flags.key:
+							return \Track.keyString
+						case AnalysisInterpreter.Flags.speed:
+							return \Track.bpmString
+						default:
+							return nil
+						}
+					})
+				}
             }
             try! mox.save()
             

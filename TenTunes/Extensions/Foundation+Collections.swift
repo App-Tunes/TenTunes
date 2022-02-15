@@ -378,6 +378,10 @@ extension Array where Element: Hashable {
 
 extension Array where Iterator.Element: FloatingPoint {
     func remap(toSize: Int, default defaultValue: Element = 0) -> [Element] {
+		if count == 0 {
+			return Array(repeating: defaultValue, count: toSize)
+		}
+		
         return Array<Int>(0 ..< toSize).map { idx in
             let count = Int(self.count)
             let trackPosStart = Double(idx) / Double(toSize)

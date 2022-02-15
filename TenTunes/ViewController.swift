@@ -446,6 +446,10 @@ extension ViewController: PlayerDelegate {
             return
         }
         
+		if track.analysis == nil {
+			track.readAnalysis()
+		}
+
 		_waveformView.waveformView.waveform = .from(track.analysis?.values)
 		if let duration = track.duration {
 			_waveformView.positionControl.range = 0...CGFloat(duration.seconds)

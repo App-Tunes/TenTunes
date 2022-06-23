@@ -121,7 +121,6 @@
 		8093467520A629A7001D15CD /* Library+Pasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093467420A629A7001D15CD /* Library+Pasteboard.swift */; };
 		80987D5E21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80987D5D21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift */; };
 		809CEAB92163E83D008D6AC0 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 809CEAB82163E83D008D6AC0 /* Credits.rtf */; };
-		809CEABC2163EFCD008D6AC0 /* superpowered_splash.svg in Resources */ = {isa = PBXBuildFile; fileRef = 809CEABB2163EFCD008D6AC0 /* superpowered_splash.svg */; };
 		809CEAC92164D336008D6AC0 /* Syphon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809CEAC82164D336008D6AC0 /* Syphon.swift */; };
 		80A4098A216D60BC006AF67B /* RFOpenGLView+Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A40989216D60BB006AF67B /* RFOpenGLView+Texture.swift */; };
 		80A4098C216D665A006AF67B /* RFOpenGLView+Shader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A4098B216D665A006AF67B /* RFOpenGLView+Shader.swift */; };
@@ -394,7 +393,6 @@
 		8093467420A629A7001D15CD /* Library+Pasteboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Pasteboard.swift"; sourceTree = "<group>"; };
 		80987D5D21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSOutlineViewContextSensitiveMenu.swift; sourceTree = "<group>"; };
 		809CEAB82163E83D008D6AC0 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
-		809CEABB2163EFCD008D6AC0 /* superpowered_splash.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = superpowered_splash.svg; sourceTree = "<group>"; };
 		809CEAC02164CF76008D6AC0 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Syphon.framework; sourceTree = "<group>"; };
 		809CEAC82164D336008D6AC0 /* Syphon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Syphon.swift; sourceTree = "<group>"; };
 		80A40989216D60BB006AF67B /* RFOpenGLView+Texture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RFOpenGLView+Texture.swift"; sourceTree = "<group>"; };
@@ -739,7 +737,6 @@
 			isa = PBXGroup;
 			children = (
 				80E02C62217FB8AF00251D24 /* Document-TTL.icns */,
-				809CEABB2163EFCD008D6AC0 /* superpowered_splash.svg */,
 				80F2C5802038808000212739 /* Assets.xcassets */,
 				80C1F16221428E9F0032E554 /* Shader */,
 				80B6DF96219EF473003EA487 /* LICENSE-MIKMIDI.txt */,
@@ -1211,7 +1208,6 @@
 				80CAECF822730D50001DD856 /* ConfirmStep.xib in Resources */,
 				808BAADF220DA7C60017557C /* BehaviorPreferences.xib in Resources */,
 				80CAECF222730C5D001DD856 /* WorkflowWindowController.xib in Resources */,
-				809CEABC2163EFCD008D6AC0 /* superpowered_splash.svg in Resources */,
 				8079F6D42106551100B7A278 /* SmartPlaylistRulesController.xib in Resources */,
 				80F8F6F42053EA2C004A07D6 /* TrackEditor.xib in Resources */,
 				80CAED212274E996001DD856 /* TrackActions.xib in Resources */,

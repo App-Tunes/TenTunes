@@ -1,52 +1,50 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "Defaults",
-        "repositoryURL": "https://github.com/sindresorhus/Defaults",
-        "state": {
-          "branch": null,
-          "revision": "229dea452fee8d2205f56a12e5c21dfec00948f2",
-          "version": "4.2.2"
-        }
-      },
-      {
-        "package": "MediaKeyTap",
-        "repositoryURL": "https://github.com/MonitorControl/MediaKeyTap",
-        "state": {
-          "branch": "master",
-          "revision": "22293b608bb9e7072960a2002d77ebbbdb3ba859",
-          "version": null
-        }
-      },
-      {
-        "package": "Preferences",
-        "repositoryURL": "https://github.com/sindresorhus/Preferences",
-        "state": {
-          "branch": null,
-          "revision": "4dbcbdcc35d8d28e59fb63065d7c1a1b02289e51",
-          "version": "2.3.0"
-        }
-      },
-      {
-        "package": "TunesLogic",
-        "repositoryURL": "https://github.com/App-Tunes/TunesLogic",
-        "state": {
-          "branch": "main",
-          "revision": "84b609d21247312ae485a3f62f932027ee4f5d18",
-          "version": null
-        }
-      },
-      {
-        "package": "TunesUI",
-        "repositoryURL": "https://github.com/App-Tunes/TunesUI",
-        "state": {
-          "branch": "main",
-          "revision": "c83df76c24f7b99fbb35e933abac8a55797a795d",
-          "version": null
-        }
+  "pins" : [
+    {
+      "identity" : "defaults",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sindresorhus/Defaults",
+      "state" : {
+        "revision" : "229dea452fee8d2205f56a12e5c21dfec00948f2",
+        "version" : "4.2.2"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "mediakeytap",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/MonitorControl/MediaKeyTap",
+      "state" : {
+        "branch" : "master",
+        "revision" : "22293b608bb9e7072960a2002d77ebbbdb3ba859"
+      }
+    },
+    {
+      "identity" : "preferences",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sindresorhus/Preferences",
+      "state" : {
+        "revision" : "2651cd144615009242c994b087508fef99e9275c",
+        "version" : "2.6.0"
+      }
+    },
+    {
+      "identity" : "tuneslogic",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/App-Tunes/TunesLogic",
+      "state" : {
+        "branch" : "main",
+        "revision" : "84b609d21247312ae485a3f62f932027ee4f5d18"
+      }
+    },
+    {
+      "identity" : "tunesui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/App-Tunes/TunesUI",
+      "state" : {
+        "branch" : "main",
+        "revision" : "c83df76c24f7b99fbb35e933abac8a55797a795d"
+      }
+    }
+  ],
+  "version" : 2
 }

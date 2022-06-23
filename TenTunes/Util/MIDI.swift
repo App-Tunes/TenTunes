@@ -34,7 +34,7 @@ class MIDI: NSObject {
                 var numbers = MIDI.numbers
 
                 for case let command as MIKMIDIControlChangeCommand in commands {
-                    numbers[safe: Int(command.controllerNumber)] = Float(command.controllerValue) / 127
+                    numbers[Int(command.controllerNumber)] = Float(command.controllerValue) / 127
                 }
                 
                 MIDI.numbers = numbers

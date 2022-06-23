@@ -11,11 +11,6 @@ import Cocoa
 extension Array {
     subscript (safe index: Index) -> Element? {
         get { return indices.contains(index) ? self[index] : nil }
-        mutating set {
-            if indices.contains(index) {
-                self.remove(at: index)
-            }
-        }
     }
     
     func reduce(_ nextPartialResult: (Element, Element) throws -> Element) rethrows -> Element? {

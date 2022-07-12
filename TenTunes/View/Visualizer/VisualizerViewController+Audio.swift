@@ -71,7 +71,7 @@ extension VisualizerViewController {
             switch audioSource {
             case .direct:
                 let player = ViewController.shared.player
-				guard let node = player.player?.engine.mainMixerNode else {
+				guard let node = player.playingEmitter?.engine.mainMixerNode else {
 					// Can't establish connection
 					return
 				}

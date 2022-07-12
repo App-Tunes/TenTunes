@@ -27,7 +27,7 @@ protocol PlayerDelegate : AnyObject {
 		didSet { _restartDevice() }
 	}
 	
-	@objc dynamic var player: AVAudioEmitter?
+	@objc dynamic var playingEmitter: AVAudioEmitter?
 	@objc dynamic var playing: Track?
 	
 	@objc dynamic var volume: Float = 1 {
@@ -56,7 +56,7 @@ protocol PlayerDelegate : AnyObject {
     }
     
     @objc dynamic var isPlaying : Bool {
-        player?.node.isPlaying ?? false
+        playingEmitter?.node.isPlaying ?? false
     }
     
     var isPaused : Bool {
@@ -64,11 +64,11 @@ protocol PlayerDelegate : AnyObject {
     }
     
     var currentTime: TimeInterval? {
-		player?.node.currentTime
+		playingEmitter?.node.currentTime
     }
     
     var timeUntilNextTrack: Double? {
-		guard let node = player?.node else {
+		guard let node = playingEmitter?.node else {
 			return nil
 		}
 		
@@ -125,7 +125,7 @@ protocol PlayerDelegate : AnyObject {
     }
 	
 	func resumePlay() {
-		guard let player = player else {
+		guard let player = playingEmitter else {
 			// TODO Start new track?
 			return
 		}
@@ -142,7 +142,7 @@ protocol PlayerDelegate : AnyObject {
 	}
 
 	func pause() {
-		guard let player = player, isPlaying else {
+		guard let player = playingEmitter, isPlaying else {
 			return
 		}
 
@@ -165,7 +165,7 @@ protocol PlayerDelegate : AnyObject {
     func play(track: Track?) throws {
         playCountCountdown.stop()
         
-		if let player = player, player.node.isPlaying {
+		if let player = playingEmitter, player.node.isPlaying {
 			// It will likely stop playing anyway, but let's make sure.
 			player.node.stop()
         }
@@ -203,20 +203,20 @@ protocol PlayerDelegate : AnyObject {
 				throw PlayError.error(message: "File duration is too long! The file is probably bugged.") // Likely bugged file and we'd crash otherwise
 			}
 			
-			player = try preparePlayer(forFile: file, device: device)
+			playingEmitter = try preparePlayer(forFile: file, device: device)
 		} catch let error {
 			if error is PlayError { throw error }
 			
 			print(error.localizedDescription)
 			playing = nil
-			player = nil
+			playingEmitter = nil
 			
 			throw PlayError.error(message: error.localizedDescription)
 		}
 						
-		player?.node.play()
+		playingEmitter?.node.play()
 		playing = track
-		(player?.node.duration).map {
+		(playingEmitter?.node.duration).map {
 			playCountCountdown.start(for: $0 * Player.minPlayTimePerListen)
 		}
 		_updatePlayerVolume()
@@ -228,7 +228,7 @@ protocol PlayerDelegate : AnyObject {
 	
 	private func _restartDevice() {
 		guard
-			let player = player,
+			let player = playingEmitter,
 			let device = currentOutputDevice
 		else {
 			// Nothing to play
@@ -248,7 +248,7 @@ protocol PlayerDelegate : AnyObject {
 				newPlayer.node.play()
 			}
 
-			self.player = newPlayer
+			self.playingEmitter = newPlayer
 		} catch let error {
 			NSAlert.warning(title: "Error when switching devices", text: error.localizedDescription)
 		}
@@ -258,7 +258,7 @@ protocol PlayerDelegate : AnyObject {
 		let newPlayer = try device.prepare(file)
 		
 		newPlayer.node.didFinishPlaying = { [weak self, weak newPlayer] in
-			guard self?.player == newPlayer else {
+			guard self?.playingEmitter == newPlayer else {
 				return
 			}
 			
@@ -272,7 +272,7 @@ protocol PlayerDelegate : AnyObject {
 	}
 	
 	private func _updatePlayerVolume() {
-		guard let playing = playing, let player = player else {
+		guard let playing = playing, let player = playingEmitter else {
 			return
 		}
 		
@@ -316,11 +316,11 @@ protocol PlayerDelegate : AnyObject {
     }
     
     func setPosition(_ position: TimeInterval) {
-		try? player?.node.move(to: position)
+		try? playingEmitter?.node.move(to: position)
     }
     
 	func movePosition(_ movement: TimeInterval) {
-		try? player?.node.move(by: movement)
+		try? playingEmitter?.node.move(by: movement)
 	}
 	        
     override class func automaticallyNotifiesObservers(forKey key: String) -> Bool {

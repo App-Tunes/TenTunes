@@ -7,7 +7,7 @@
 //
 
 import Cocoa
-import AudioKit
+import AVFAudio
 
 class AnalyzeCurrentTrack: Tasker {
     override var promise: Float? {
@@ -105,7 +105,7 @@ class AnalyzeTrack: TrackTask {
             // May exist on disk
             if !read || !asyncTrack.readAnalysis() {
                 // TODO Merge with metadata fetch etc
-                let audioFile = try! AKAudioFile(forReading: url)
+                let audioFile = try! AVAudioFile(forReading: url)
 				
 				if self.analyzeFlags.isEmpty {
 					// TODO Suboptimal setup, but eh.

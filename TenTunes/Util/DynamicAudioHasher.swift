@@ -7,7 +7,7 @@
 //
 
 import Cocoa
-import AudioKit
+import AVFAudio
 
 class DynamicAudioHasher: NSObject {
     let hashFunction: (URL, Int, Int) -> (Data, Bool)?
@@ -24,7 +24,7 @@ class DynamicAudioHasher: NSObject {
     }
     
     static func md5Audio(url: URL, start: Int, end: Int) -> (Data, Bool)? {
-        guard let file = try? AKAudioFile(forReading: url) else {
+        guard let file = try? AVAudioFile(forReading: url) else {
             print("Failed to create audio file for \(url)")
             return nil
         }
@@ -170,7 +170,7 @@ class DynamicAudioHasher: NSObject {
         static func hashEnd(iteration: Int) -> Int {
             return iteration < 0
                 ? 0
-                : Int(pow(2, PartialAudioHash.skipHashes + iteration))
+				: Int(pow(2, Double(PartialAudioHash.skipHashes + iteration)).rounded())
         }
         
         var longest: Data {

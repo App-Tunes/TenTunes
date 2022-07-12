@@ -143,7 +143,8 @@ class ViewController: NSViewController {
         selectOutputDevicePopover = NSPopover()
         selectOutputDevicePopover.contentViewController = NSViewController()
         if #available(OSX 10.15, *) {
-            selectOutputDevicePopover.contentViewController!.view = NSHostingView(rootView: OutputDeviceSelector())
+			let providerView = AudioProviderView(provider: AVAudioDeviceProvider(), current: .init(player, value: \.currentOutputDevice))
+			selectOutputDevicePopover.contentViewController!.view = NSHostingView(rootView: providerView.frame(width: 350))
         }
         selectOutputDevicePopover.animates = true
         selectOutputDevicePopover.behavior = .transient

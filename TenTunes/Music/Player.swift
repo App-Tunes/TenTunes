@@ -16,11 +16,15 @@ protocol PlayerDelegate : AnyObject {
     var currentHistory: PlayHistory? { get }
 }
 
-@objc class Player : NSObject {
+@objc class Player : NSObject, ObservableObject {
 	static let normalizedLUFS: Float = -14
 	static let minPlayTimePerListen = 0.5
 
     var history: PlayHistory = PlayHistory(playlist: PlaylistEmpty())
+	var currentOutputDevice: AVAudioDevice? = .systemDefault {
+		willSet { objectWillChange.send() }
+		didSet { _restartDevice() }
+	}
 	
 	@objc dynamic var player: SinglePlayer?
 	@objc dynamic var playing: Track?
@@ -170,53 +174,82 @@ protocol PlayerDelegate : AnyObject {
             didChangeValue(for: \.isPlaying)
         }
         
-        if let track = track {
-            if let url = track.liveURL {
-                do {
-					let file = try AVAudioFile(forReading: url)
+        guard let track = track else {
+			// Somebody decided we should stop playing
+			// Or we're at start / end of list
+			playing = nil
+			return
+		}
+		
+		guard let device = currentOutputDevice else {
+			// Nowhere to play
+			playing = nil
+			return
+		}
+		
+		guard let url = track.liveURL else {
+			playing = nil
+			
+			throw PlayError.missing
+		}
+		
+		do {
+			let file = try AVAudioFile(forReading: url)
 
-                    guard file.duration < 100000 else {
-                        playing = nil
-                        throw PlayError.error(message: "File duration is too long! The file is probably bugged.") // Likely bugged file and we'd crash otherwise
-                    }
-					
-					let newPlayer = SinglePlayer(node: .init(file: file))
-					try newPlayer.prepare(file)
-
-					player = newPlayer
-                } catch let error {
-                    if error is PlayError { throw error }
-                    
-                    print(error.localizedDescription)
-                    playing = nil
-					player = nil
-                    
-                    throw PlayError.error(message: error.localizedDescription)
-                }
-                                
-				player?.node.play()
-                playing = track
-				(player?.node.duration).map {
-                    playCountCountdown.start(for: $0 * Player.minPlayTimePerListen)
-                }
-				_updatePlayerVolume()
-                
-                if !NSApp.isActive {
-                    notifyPlay(of: track)
-                }
-            }
-            else {
-                playing = nil
-                
-                throw PlayError.missing
-            }
-        }
-        else {
-            // Somebody decided we should stop playing
-            // Or we're at start / end of list
-            playing = nil
-        }
+			guard file.duration < 100000 else {
+				playing = nil
+				throw PlayError.error(message: "File duration is too long! The file is probably bugged.") // Likely bugged file and we'd crash otherwise
+			}
+			
+			player = try device.prepare(file)
+		} catch let error {
+			if error is PlayError { throw error }
+			
+			print(error.localizedDescription)
+			playing = nil
+			player = nil
+			
+			throw PlayError.error(message: error.localizedDescription)
+		}
+						
+		player?.node.play()
+		playing = track
+		(player?.node.duration).map {
+			playCountCountdown.start(for: $0 * Player.minPlayTimePerListen)
+		}
+		_updatePlayerVolume()
+		
+		if !NSApp.isActive {
+			notifyPlay(of: track)
+		}
     }
+	
+	private func _restartDevice() {
+		guard
+			let player = player,
+			let device = currentOutputDevice
+		else {
+			// Nothing to play
+			return
+		}
+		
+		do {
+			let wasPlaying = player.node.isPlaying
+			if wasPlaying {
+				player.node.stop()
+			}
+			
+			let newPlayer = try device.prepare(player.node.file)
+			try newPlayer.node.move(to: player.node.currentTime)
+			self.player = newPlayer
+			
+			if wasPlaying {
+				newPlayer.node.play()
+			}
+		} catch let error {
+			NSAlert.warning(title: "Error when switching devices", text: error.localizedDescription)
+		}
+	}
 	
 	private func _updatePlayerVolume() {
 		guard let playing = playing, let player = player else {

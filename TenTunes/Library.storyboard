@@ -173,7 +173,7 @@
                                                                 <constraint firstAttribute="height" constant="27" id="GMN-4H-bwF"/>
                                                                 <constraint firstAttribute="width" constant="27" id="vc8-Gc-yyK"/>
                                                             </constraints>
-                                                            <buttonCell key="cell" type="bevel" title="􀑢" bezelStyle="regularSquare" alignment="center" enabled="NO" state="on" imageScaling="proportionallyDown" inset="2" id="bl2-uB-tqK">
+                                                            <buttonCell key="cell" type="bevel" title="􀑢" bezelStyle="regularSquare" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="bl2-uB-tqK">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="system" size="20"/>
                                                             </buttonCell>

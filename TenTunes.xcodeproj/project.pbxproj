@@ -52,7 +52,6 @@
 		804A15FF217252BC00CBF56F /* Cloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804A15FE217252BC00CBF56F /* Cloud.swift */; };
 		804DCC74215D01D30021A753 /* GraySliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804DCC73215D01D30021A753 /* GraySliderCell.swift */; };
 		804DCC77215D10170021A753 /* TrackPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804DCC76215D10170021A753 /* TrackPromise.swift */; };
-		804FC6DD252F3A1A00ED264E /* OutputDeviceSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804FC6DC252F3A1A00ED264E /* OutputDeviceSelector.swift */; };
 		8055FE7E20C947A300559F45 /* Volumes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8055FE7D20C947A300559F45 /* Volumes.swift */; };
 		8058FAC02043409F0086FF8A /* SubtleTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058FABF2043409F0086FF8A /* SubtleTableRowView.swift */; };
 		806611812124622100C3948E /* Library.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80D8A0FC212460BE003E1F11 /* Library.storyboard */; };
@@ -118,6 +117,8 @@
 		8093467120A62319001D15CD /* TrackController+Pasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093467020A62319001D15CD /* TrackController+Pasteboard.swift */; };
 		8093467320A628E1001D15CD /* Library+AudioFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093467220A628E1001D15CD /* Library+AudioFile.swift */; };
 		8093467520A629A7001D15CD /* Library+Pasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093467420A629A7001D15CD /* Library+Pasteboard.swift */; };
+		809829DF287DA83100629865 /* AVAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809829DE287DA83100629865 /* AVAudioDevice.swift */; };
+		809829E2287DAEA100629865 /* AVAudioDeviceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809829E1287DAEA100629865 /* AVAudioDeviceProvider.swift */; };
 		80987D5E21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80987D5D21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift */; };
 		809A9038287D7BFE00AB8E47 /* SinglePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809A9037287D7BFE00AB8E47 /* SinglePlayer.swift */; };
 		809A903C287D7C8100AB8E47 /* Countdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809A903B287D7C8100AB8E47 /* Countdown.swift */; };
@@ -323,7 +324,6 @@
 		804A15FE217252BC00CBF56F /* Cloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cloud.swift; sourceTree = "<group>"; };
 		804DCC73215D01D30021A753 /* GraySliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraySliderCell.swift; sourceTree = "<group>"; };
 		804DCC76215D10170021A753 /* TrackPromise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPromise.swift; sourceTree = "<group>"; };
-		804FC6DC252F3A1A00ED264E /* OutputDeviceSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputDeviceSelector.swift; sourceTree = "<group>"; };
 		8055FE7D20C947A300559F45 /* Volumes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Volumes.swift; sourceTree = "<group>"; };
 		8058FABF2043409F0086FF8A /* SubtleTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtleTableRowView.swift; sourceTree = "<group>"; };
 		806611892125B9BF00C3948E /* TagEditor+Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TagEditor+Tags.swift"; sourceTree = "<group>"; };
@@ -391,6 +391,8 @@
 		8093467020A62319001D15CD /* TrackController+Pasteboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackController+Pasteboard.swift"; sourceTree = "<group>"; };
 		8093467220A628E1001D15CD /* Library+AudioFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+AudioFile.swift"; sourceTree = "<group>"; };
 		8093467420A629A7001D15CD /* Library+Pasteboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Pasteboard.swift"; sourceTree = "<group>"; };
+		809829DE287DA83100629865 /* AVAudioDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioDevice.swift; sourceTree = "<group>"; };
+		809829E1287DAEA100629865 /* AVAudioDeviceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioDeviceProvider.swift; sourceTree = "<group>"; };
 		80987D5D21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSOutlineViewContextSensitiveMenu.swift; sourceTree = "<group>"; };
 		809A9037287D7BFE00AB8E47 /* SinglePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePlayer.swift; sourceTree = "<group>"; };
 		809A903B287D7C8100AB8E47 /* Countdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Countdown.swift; sourceTree = "<group>"; };
@@ -607,14 +609,6 @@
 			path = Library;
 			sourceTree = "<group>";
 		};
-		804FC6DB252F39FA00ED264E /* Audio */ = {
-			isa = PBXGroup;
-			children = (
-				804FC6DC252F3A1A00ED264E /* OutputDeviceSelector.swift */,
-			);
-			path = Audio;
-			sourceTree = "<group>";
-		};
 		805901BE20404CB900B97D84 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -623,7 +617,6 @@
 				80F8550220691866009A8FBE /* PlaylistController */,
 				80F854FC206917D6009A8FBE /* TrackController */,
 				80CAED152274ACBB001DD856 /* CategoryController */,
-				804FC6DB252F39FA00ED264E /* Audio */,
 				80C1F1702142E9E60032E554 /* Visualizer */,
 				808BAADB220DA73C0017557C /* Preferences */,
 				8058FABF2043409F0086FF8A /* SubtleTableRowView.swift */,
@@ -640,6 +633,7 @@
 		805901C020404CDF00B97D84 /* Music */ = {
 			isa = PBXGroup;
 			children = (
+				809829E0287DAE8100629865 /* Device */,
 				805D2D1820CE75EA00A61184 /* Library */,
 				80E2C9E3204B3D5C00298E81 /* Playlist */,
 				80CB65362052CAEA0031A6D7 /* Track */,
@@ -734,6 +728,15 @@
 				808BAAE7220DAD0A0017557C /* FilesPreferences.xib */,
 			);
 			path = Preferences;
+			sourceTree = "<group>";
+		};
+		809829E0287DAE8100629865 /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				809829DE287DA83100629865 /* AVAudioDevice.swift */,
+				809829E1287DAEA100629865 /* AVAudioDeviceProvider.swift */,
+			);
+			path = Device;
 			sourceTree = "<group>";
 		};
 		809CEABD2163EFE9008D6AC0 /* Resources */ = {
@@ -1273,7 +1276,6 @@
 				80CB652C20514E050031A6D7 /* Library+Export.swift in Sources */,
 				80C1F160214286A40032E554 /* VisualizerWindowController.swift in Sources */,
 				8020C651221740E800E6FA5C /* Library+RemoteLibrary.swift in Sources */,
-				804FC6DD252F3A1A00ED264E /* OutputDeviceSelector.swift in Sources */,
 				8030E00D20FCA04C006B4AE8 /* UpdateCurrentPlaylist.swift in Sources */,
 				80E6811B20573DC800DA5702 /* SimpleTransformer.swift in Sources */,
 				80DF297C254EF65000632675 /* TrackController+Columns.swift in Sources */,
@@ -1393,6 +1395,7 @@
 				80CAECF122730C5D001DD856 /* WorkflowWindowController.swift in Sources */,
 				80D5649122898683002CB8EF /* HierarchyEnum.swift in Sources */,
 				808BAAE5220DA99A0017557C /* Preferences.swift in Sources */,
+				809829E2287DAEA100629865 /* AVAudioDeviceProvider.swift in Sources */,
 				8079F6EC211B87A700B7A278 /* SpinningButton.swift in Sources */,
 				802F01CE2177DC6900E0EAB6 /* TrackEditorMultiplicityView.swift in Sources */,
 				8066118A2125B9BF00C3948E /* TagEditor+Tags.swift in Sources */,
@@ -1420,6 +1423,7 @@
 				806EFC27204B65C10079DBAA /* AnyPlaylist.swift in Sources */,
 				80CB65332052C9530031A6D7 /* Cocoa+TT.swift in Sources */,
 				8058FAC02043409F0086FF8A /* SubtleTableRowView.swift in Sources */,
+				809829DF287DA83100629865 /* AVAudioDevice.swift in Sources */,
 				80FA29242205AF07008E6A38 /* ViewController+Menu.swift in Sources */,
 				806FC30C2190DA36004B9770 /* DarkBoxView.swift in Sources */,
 				80FA291D2204E662008E6A38 /* LazyVar.swift in Sources */,

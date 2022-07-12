@@ -16,16 +16,4 @@ import TunesLogic
 	init(node: AVSeekableAudioPlayerNode) {
 		self.node = node
 	}
-	
-	func prepare(_ file: AVAudioFile) throws {
-		node.players.forEach {
-			engine.attach($0)
-			engine.connect($0, to: engine.mainMixerNode, format: file.processingFormat)
-		}
-		node.prepare()
-		
-		engine.prepare()
-
-		try engine.start()
-	}
 }

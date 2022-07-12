@@ -165,6 +165,7 @@ protocol PlayerDelegate : AnyObject {
         playCountCountdown.stop()
         
 		if let player = player, player.node.isPlaying {
+			// It will likely stop playing anyway, but let's make sure.
 			player.node.stop()
         }
 
@@ -201,7 +202,7 @@ protocol PlayerDelegate : AnyObject {
 				throw PlayError.error(message: "File duration is too long! The file is probably bugged.") // Likely bugged file and we'd crash otherwise
 			}
 			
-			player = try device.prepare(file)
+			player = try preparePlayer(forFile: file, device: device)
 		} catch let error {
 			if error is PlayError { throw error }
 			
@@ -239,16 +240,34 @@ protocol PlayerDelegate : AnyObject {
 				player.node.stop()
 			}
 			
-			let newPlayer = try device.prepare(player.node.file)
+			let newPlayer = try preparePlayer(forFile: player.node.file, device: device)
 			try newPlayer.node.move(to: player.node.currentTime)
-			self.player = newPlayer
-			
+
 			if wasPlaying {
 				newPlayer.node.play()
 			}
+
+			self.player = newPlayer
 		} catch let error {
 			NSAlert.warning(title: "Error when switching devices", text: error.localizedDescription)
 		}
+	}
+	
+	private func preparePlayer(forFile file: AVAudioFile, device: AVAudioDevice) throws -> SinglePlayer {
+		let newPlayer = try device.prepare(file)
+		
+		newPlayer.node.didFinishPlaying = { [weak self] in
+			guard self?.player == newPlayer else {
+				return
+			}
+			
+			// We're in an audio thread; move to main.
+			DispatchQueue.main.async {
+				self?.play(moved: 1)
+			}
+		}
+		
+		return newPlayer
 	}
 	
 	private func _updatePlayerVolume() {

@@ -16,6 +16,7 @@ protocol PlayerDelegate : AnyObject {
     var currentHistory: PlayHistory? { get }
 }
 
+/// A player handling sequential plays of tracks with a history.
 @objc class Player : NSObject, ObservableObject {
 	static let normalizedLUFS: Float = -14
 	static let minPlayTimePerListen = 0.5
@@ -26,7 +27,7 @@ protocol PlayerDelegate : AnyObject {
 		didSet { _restartDevice() }
 	}
 	
-	@objc dynamic var player: SinglePlayer?
+	@objc dynamic var player: AVAudioEmitter?
 	@objc dynamic var playing: Track?
 	
 	@objc dynamic var volume: Float = 1 {
@@ -253,10 +254,10 @@ protocol PlayerDelegate : AnyObject {
 		}
 	}
 	
-	private func preparePlayer(forFile file: AVAudioFile, device: AVAudioDevice) throws -> SinglePlayer {
+	private func preparePlayer(forFile file: AVAudioFile, device: AVAudioDevice) throws -> AVAudioEmitter {
 		let newPlayer = try device.prepare(file)
 		
-		newPlayer.node.didFinishPlaying = { [weak self] in
+		newPlayer.node.didFinishPlaying = { [weak self, weak newPlayer] in
 			guard self?.player == newPlayer else {
 				return
 			}

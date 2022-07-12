@@ -120,7 +120,7 @@
 		809829DF287DA83100629865 /* AVAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809829DE287DA83100629865 /* AVAudioDevice.swift */; };
 		809829E2287DAEA100629865 /* AVAudioDeviceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809829E1287DAEA100629865 /* AVAudioDeviceProvider.swift */; };
 		80987D5E21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80987D5D21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift */; };
-		809A9038287D7BFE00AB8E47 /* SinglePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809A9037287D7BFE00AB8E47 /* SinglePlayer.swift */; };
+		809A9038287D7BFE00AB8E47 /* AVAudioEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809A9037287D7BFE00AB8E47 /* AVAudioEmitter.swift */; };
 		809A903C287D7C8100AB8E47 /* Countdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809A903B287D7C8100AB8E47 /* Countdown.swift */; };
 		809CEAB92163E83D008D6AC0 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 809CEAB82163E83D008D6AC0 /* Credits.rtf */; };
 		809CEAC92164D336008D6AC0 /* Syphon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809CEAC82164D336008D6AC0 /* Syphon.swift */; };
@@ -394,7 +394,7 @@
 		809829DE287DA83100629865 /* AVAudioDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioDevice.swift; sourceTree = "<group>"; };
 		809829E1287DAEA100629865 /* AVAudioDeviceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioDeviceProvider.swift; sourceTree = "<group>"; };
 		80987D5D21B2F00C000C025D /* NSOutlineViewContextSensitiveMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSOutlineViewContextSensitiveMenu.swift; sourceTree = "<group>"; };
-		809A9037287D7BFE00AB8E47 /* SinglePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePlayer.swift; sourceTree = "<group>"; };
+		809A9037287D7BFE00AB8E47 /* AVAudioEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioEmitter.swift; sourceTree = "<group>"; };
 		809A903B287D7C8100AB8E47 /* Countdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Countdown.swift; sourceTree = "<group>"; };
 		809CEAB82163E83D008D6AC0 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		809CEAC02164CF76008D6AC0 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Syphon.framework; sourceTree = "<group>"; };
@@ -633,14 +633,12 @@
 		805901C020404CDF00B97D84 /* Music */ = {
 			isa = PBXGroup;
 			children = (
+				807039E6287DC6EB002863FE /* Player */,
 				809829E0287DAE8100629865 /* Device */,
 				805D2D1820CE75EA00A61184 /* Library */,
 				80E2C9E3204B3D5C00298E81 /* Playlist */,
 				80CB65362052CAEA0031A6D7 /* Track */,
 				80CB65372052CB100031A6D7 /* Analyze */,
-				806AC1322040D7C700857B1B /* PlayHistory.swift */,
-				80B3BE11207514D200B93961 /* Player.swift */,
-				809A9037287D7BFE00AB8E47 /* SinglePlayer.swift */,
 				80F77BF4203D8B35001E397F /* Key.swift */,
 			);
 			path = Music;
@@ -671,6 +669,16 @@
 				8069C07122085FB900CD3396 /* Info.plist */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		807039E6287DC6EB002863FE /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				806AC1322040D7C700857B1B /* PlayHistory.swift */,
+				80B3BE11207514D200B93961 /* Player.swift */,
+				809A9037287D7BFE00AB8E47 /* AVAudioEmitter.swift */,
+			);
+			path = Player;
 			sourceTree = "<group>";
 		};
 		807D7B5F21A7FD340021C73B /* Track Editor */ = {
@@ -1346,7 +1354,7 @@
 				8030CA852164E3F100229398 /* VisualizerViewController+Video.swift in Sources */,
 				80A7CABD216252340075C499 /* Track+Live.swift in Sources */,
 				80C1F16D2142AA010032E554 /* RFOpenGLView.m in Sources */,
-				809A9038287D7BFE00AB8E47 /* SinglePlayer.swift in Sources */,
+				809A9038287D7BFE00AB8E47 /* AVAudioEmitter.swift in Sources */,
 				80CAED0322731FB3001DD856 /* OptionStep.swift in Sources */,
 				80C1F143213B1DE80032E554 /* Foundation+Collections.swift in Sources */,
 				808BAADE220DA7C60017557C /* BehaviorPreferences.swift in Sources */,

@@ -20,8 +20,8 @@ class AVAudioDevice: AudioDevice {
 		self.deviceID = deviceID
 	}
 	
-	func prepare(_ file: AVAudioFile) throws -> SinglePlayer {
-		let device = SinglePlayer(node: .init(file: file))
+	func prepare(_ file: AVAudioFile) throws -> AVAudioEmitter {
+		let device = AVAudioEmitter(node: .init(file: file))
 
 		if let deviceID = deviceID {
 			var deviceID = deviceID

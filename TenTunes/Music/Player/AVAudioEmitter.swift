@@ -9,7 +9,7 @@
 import AVFoundation
 import TunesLogic
 
-@objc class SinglePlayer: NSObject {
+@objc class AVAudioEmitter: NSObject {
 	let engine = AVAudioEngine()
 	let node: AVSeekableAudioPlayerNode
 	

@@ -7,10 +7,8 @@
 //
 
 import Cocoa
-import AudioKit
 
 class ExportPlaylistsController: NSWindowController {
-    
     @IBOutlet var _trackLibrary: NSPathControl!
     
     @IBOutlet var _libraryDirectory: NSPathControl!

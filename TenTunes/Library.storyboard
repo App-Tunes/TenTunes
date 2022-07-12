@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="kJo-kH-Lbg">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="kJo-kH-Lbg">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -101,7 +102,7 @@
                                                             </constraints>
                                                             <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="-5" tickMarkPosition="above" sliderType="linear" id="MSi-om-pFM" customClass="GraySliderCell" customModule="TenTunes" customModuleProvider="target"/>
                                                             <connections>
-                                                                <binding destination="XfG-lQ-9wD" name="value" keyPath="player.outputNode.gain" id="LRa-DV-6JW">
+                                                                <binding destination="XfG-lQ-9wD" name="value" keyPath="player.volume" id="FzB-6T-UCE">
                                                                     <dictionary key="options">
                                                                         <string key="NSValueTransformerName">Pow2Transformer-5Off</string>
                                                                     </dictionary>
@@ -172,7 +173,7 @@
                                                                 <constraint firstAttribute="height" constant="27" id="GMN-4H-bwF"/>
                                                                 <constraint firstAttribute="width" constant="27" id="vc8-Gc-yyK"/>
                                                             </constraints>
-                                                            <buttonCell key="cell" type="bevel" title="􀑢" bezelStyle="regularSquare" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="bl2-uB-tqK">
+                                                            <buttonCell key="cell" type="bevel" title="􀑢" bezelStyle="regularSquare" alignment="center" enabled="NO" state="on" imageScaling="proportionallyDown" inset="2" id="bl2-uB-tqK">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="system" size="20"/>
                                                             </buttonCell>

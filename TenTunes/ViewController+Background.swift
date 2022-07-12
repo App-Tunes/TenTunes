@@ -8,7 +8,6 @@
 //
 
 import Cocoa
-import AudioKit
 
 extension ViewController {    
     func endTask() {
@@ -126,15 +125,5 @@ extension ViewController {
                 }
             }
         ])
-        
-        NotificationCenter.default.addObserver(forName: .AVAudioEngineConfigurationChange, object: nil, queue: OperationQueue.main) { [unowned self] _ in
-            // Sanity check audio player
-            if self.player.isPlaying {
-                //            player.sanityCheck()
-                
-                // Otherwise it doesn't reset correctly, it plays but no audio is hearable
-                self.player.restartPlay()
-            }
-        }
     }
 }

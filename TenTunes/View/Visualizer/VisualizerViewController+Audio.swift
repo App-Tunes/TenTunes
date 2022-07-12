@@ -71,11 +71,17 @@ extension VisualizerViewController {
             switch audioSource {
             case .direct:
                 let player = ViewController.shared.player
-                connection = .init(fft: try! FFTTap.AVNode(player.mixer.avAudioNode),
-                                   pause: {
-                                    player.togglePlay()
-                                    return player.isPlaying ? .played : .paused
-                }
+				guard let node = player.player?.engine.mainMixerNode else {
+					// Can't establish connection
+					return
+				}
+				
+				connection = .init(
+					fft: try! FFTTap.AVNode(node),
+					pause: {
+						player.togglePlay()
+						return player.isPlaying ? .played : .paused
+					}
                 )
             case .input(let device):
                 connection = .init(fft: try FFTTap.AVAudioDevice(deviceID: device.deviceID))

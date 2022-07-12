@@ -8,6 +8,7 @@
 
 import SwiftUI
 import AudioKit
+import TunesLogic
 
 @available(OSX 10.15, *)
 class AudioDeviceProxy: NSObject, ObservableObject {
@@ -74,7 +75,7 @@ class AudioDeviceProxy: NSObject, ObservableObject {
         switch option {
         case .systemDefault:
             linkDevice = AKManager.devices?
-                .filter { $0.deviceID == CoreAudioTT.defaultOutputDevice }
+                .filter { $0.deviceID == CoreAudioLogic.defaultOutputDevice }
                 .first
         case .device(let device):
             linkDevice = device
@@ -99,7 +100,7 @@ class AudioDeviceProxy: NSObject, ObservableObject {
     }
     
     var current: Option? {
-        guard let unit = AKManager.engine.outputNode.audioUnit, let currentID = CoreAudioTT.device(ofUnit: unit) else {
+        guard let unit = AKManager.engine.outputNode.audioUnit, let currentID = CoreAudioLogic.device(ofUnit: unit) else {
             return nil
         }
                         
@@ -108,11 +109,11 @@ class AudioDeviceProxy: NSObject, ObservableObject {
     
     var currentVolume: Float {
         get {
-            return current.flatMap { CoreAudioTT.volume(ofDevice: $0.id) } ?? 0
+            return current.flatMap { CoreAudioLogic.volume(ofDevice: $0.id) } ?? 0
         }
         set {
             objectWillChange.send()
-            current.map { CoreAudioTT.setVolume(ofDevice: $0.id, newValue) }
+            current.map { CoreAudioLogic.setVolume(ofDevice: $0.id, newValue) }
         }
     }
 }

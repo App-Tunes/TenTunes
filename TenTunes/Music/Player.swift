@@ -7,145 +7,67 @@
 //
 
 import Foundation
-import AudioKit
+import TunesLogic
+import AVFoundation
 
-extension AKPlayer {
-    // TODO Same as setPosition, but for some reason this func doesn't exist currently??
-    func jump(to position: Double) {
-        startTime = position
-        if isPlaying {
-            stop()
-            play()
-        }
-    }
-}
-
-extension AVPlayer {
-    var isPlaying: Bool {
-        return rate != 0 && error == nil
-    }
-}
-
-protocol PlayerDelegate : class {
+protocol PlayerDelegate : AnyObject {
     func playerTriggeredRepeat(_ player: Player)
 
     var currentHistory: PlayHistory? { get }
 }
 
-class Countdown {
-    var action: (() -> Void)?
-    
-    private var timer: Timer?
-    private var timeLeft: Double?
-    
-    init(action: (() -> Void)? = nil) {
-        self.action = action
-    }
-    
-    private func start() {
-        
-    }
-    
-    func start(for seconds: TimeInterval) {
-        timeLeft = nil
-        
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: seconds, repeats: false) { [unowned self] _ in
-            self.action?()
-        }
-    }
-    
-    func pause() {
-        timeLeft = (timer?.fireDate).map { $0.timeIntervalSinceNow } ?? nil
-        if (timeLeft ?? 0) <= 0 { timeLeft = nil }
-        
-        timer?.invalidate()
-        timer = nil
-    }
-    
-    func resume() {
-        timeLeft.map(start)
-    }
-    
-    func stop() {
-        timeLeft = nil
-        timer?.invalidate()
-        timer = nil
-    }
-}
-
 @objc class Player : NSObject {
-	static let normalizedLUFS = -14
+	static let normalizedLUFS: Float = -14
 	static let minPlayTimePerListen = 0.5
 
     var history: PlayHistory = PlayHistory(playlist: PlaylistEmpty())
-    @objc dynamic var player: AKPlayer
-    @objc dynamic var backingPlayer: AKPlayer
-    @objc dynamic var playing: Track?
+	
+	@objc dynamic var player: SinglePlayer?
+	@objc dynamic var playing: Track?
+	
+	@objc dynamic var volume: Float = 1 {
+		didSet { _updatePlayerVolume() }
+	}
     
     weak var delegate: PlayerDelegate?
-    
-    var mixer: AKMixer
-    @objc var outputNode: AKBooster
-    
+        
     var shuffle = true {
         didSet {
             (shuffle ? history.shuffle() : history.unshuffle())
         }
     }
     var `repeat` = true
-    
-    var startTime = 0.0
-    
-    var playCountCountdown: Countdown
+    	
+	var playCountCountdown: Countdown
 
     override init() {
-        player = AKPlayer()
-        backingPlayer = AKPlayer()
-        mixer = AKMixer(player, backingPlayer)
-        outputNode = AKBooster(mixer)
-        outputNode.gain = 0.7
-        
-        playCountCountdown = Countdown()
+		playCountCountdown = Countdown()
 
-        super.init()
+		super.init()
 
         playCountCountdown.action = { [unowned self] in
             self.playing?.playCount += 1
         }
-        player.completionHandler = completionHandler(for: player)
-        backingPlayer.completionHandler = completionHandler(for: backingPlayer)
-    }
-    
-    func start() {
-        AKManager.output = outputNode
     }
     
     @objc dynamic var isPlaying : Bool {
-        return player.isPlaying
+        player?.node.isPlaying ?? false
     }
     
     var isPaused : Bool {
-        return !isPlaying
+        !isPlaying
     }
     
-    var currentTime: Double? {
-        guard isPlaying else {
-            return startTime
-        }
-        
-        // Apparently this is really hard to get? lol
-        guard player.audioFile != nil, let stamp = player.avAudioNode.lastRenderTime?.audioTimeStamp, stamp.mFlags.contains(.hostTimeValid) && stamp.mFlags.contains(.sampleTimeValid) else {
-            return nil
-        }
-        
-        return player.currentTime
+    var currentTime: TimeInterval? {
+		player?.node.currentTime
     }
     
     var timeUntilNextTrack: Double? {
-        return currentTime.map {
-            player.duration - $0
-        }
+		guard let node = player?.node else {
+			return nil
+		}
+		
+		return node.duration - node.currentTime
     }
 
     func play(at: Int?, in history: PlayHistory?) {
@@ -187,43 +109,44 @@ class Countdown {
         }
         NSUserNotificationCenter.default.deliver(notification)
     }
-    
-    func sanityCheck() {
-        if !AKManager.engine.isRunning {
-            if (try? AKManager.start()) == nil {
-                print("Failed to start audio engine!")
-            }
-        }
-    }
-    
-    func restartPlay() {
-        guard isPlaying else {
-            return
-        }
         
-        willChangeValue(for: \.isPlaying)
-        
-        sanityCheck()
-        let currentTime = player.currentTime
-        player.pause()
-        player.play(from: currentTime, to: player.duration)
-        
-        didChangeValue(for: \.isPlaying)
-    }
-    
     func togglePlay() {
         if isPaused {
-            sanityCheck()
-            playCountCountdown.resume()
-            
-            willChangeValue(for: \.isPlaying)
-            player.play(from: startTime, to: player.duration)
-            didChangeValue(for: \.isPlaying)
+			self.resumePlay()
         }
         else {
             self.pause()
         }
     }
+	
+	func resumePlay() {
+		guard let player = player else {
+			// TODO Start new track?
+			return
+		}
+
+		guard isPaused else {
+			return
+		}
+		
+		playCountCountdown.resume()
+		
+		willChangeValue(for: \.isPlaying)
+		player.node.play()
+		didChangeValue(for: \.isPlaying)
+	}
+
+	func pause() {
+		guard let player = player, isPlaying else {
+			return
+		}
+
+		playCountCountdown.pause()
+		
+		willChangeValue(for: \.isPlaying)
+		player.node.stop()
+		didChangeValue(for: \.isPlaying)
+	}
 
     enum PlayError : Error {
         case missing
@@ -237,8 +160,8 @@ class Countdown {
     func play(track: Track?) throws {
         playCountCountdown.stop()
         
-        if player.isPlaying {
-            player.stop()
+		if let player = player, player.node.isPlaying {
+			player.node.stop()
         }
 
         // We don't entirely know if it changes but it might, and we don't want to check on EVERY path here
@@ -246,47 +169,37 @@ class Countdown {
         defer {
             didChangeValue(for: \.isPlaying)
         }
-
-        sanityCheck()
         
         if let track = track {
             if let url = track.liveURL {
                 do {
-                    let akfile = try AKAudioFile(forReading: url)
+					let file = try AVAudioFile(forReading: url)
 
-                    guard akfile.duration < 100000 else {
+                    guard file.duration < 100000 else {
                         playing = nil
                         throw PlayError.error(message: "File duration is too long! The file is probably bugged.") // Likely bugged file and we'd crash otherwise
                     }
-                    
-                    player.stop()
-                    
-                    try player.load(audioFile: akfile)
-                    try backingPlayer.load(audioFile: akfile)
+					
+					let newPlayer = SinglePlayer(node: .init(file: file))
+					try newPlayer.prepare(file)
+
+					player = newPlayer
                 } catch let error {
                     if error is PlayError { throw error }
                     
                     print(error.localizedDescription)
-                    player.stop()
                     playing = nil
+					player = nil
                     
                     throw PlayError.error(message: error.localizedDescription)
                 }
-                
-                // Apparently players are currently sometimes unusable after load
-                // for a second or so
-                swapPlayers()
-                
-                player.play(from: 0)
+                                
+				player?.node.play()
                 playing = track
-                playing?.duration.map {
-                    playCountCountdown.start(for: $0.seconds * Player.minPlayTimePerListen)
+				(player?.node.duration).map {
+                    playCountCountdown.start(for: $0 * Player.minPlayTimePerListen)
                 }
-                
-				let requiredLoudnessAdjustmentDB = Self.normalizedLUFS - track.loudness
-				let requiredLoudnessAdjustmentVolume = exp2(requiredLoudnessAdjustmentDB / 10)
-                mixer.volume = AppDelegate.defaults[.useNormalizedVolumes]
-					? min(1.0, requiredLoudnessAdjustmentVolume) : 1.0
+				_updatePlayerVolume()
                 
                 if !NSApp.isActive {
                     notifyPlay(of: track)
@@ -304,6 +217,20 @@ class Countdown {
             playing = nil
         }
     }
+	
+	private func _updatePlayerVolume() {
+		guard let playing = playing, let player = player else {
+			return
+		}
+		
+		var playerVolume = volume
+		if AppDelegate.defaults[.useNormalizedVolumes] {
+			let requiredLoudnessAdjustmentDB = Self.normalizedLUFS - playing.loudness
+			let requiredLoudnessAdjustmentVolume = exp2(requiredLoudnessAdjustmentDB / 10)
+			playerVolume *= min(1.0, requiredLoudnessAdjustmentVolume)
+		}
+		player.node.volume = playerVolume
+	}
     
     func play(moved: Int) {
         if moved == 0 {
@@ -335,81 +262,18 @@ class Countdown {
         }
     }
     
-    func swapPlayers() {
-        let _player = self.player
-        self.player = self.backingPlayer
-        self.backingPlayer = _player
+    func setPosition(_ position: TimeInterval) {
+		try? player?.node.move(to: position)
     }
     
-    func setPosition(_ position: Double, smooth: Bool = true) {
-        guard abs(position - player.currentTime) > 0.04 else {
-            return // Baaasically the same, so skip doing extra work
-        }
-        
-        guard isPlaying else {
-            startTime = position
-            return
-        }
-        
-        sanityCheck()
-        
-        guard smooth else {
-            player.jump(to: position)
-            return
-        }
-        
-        // This code block makes jumping the tiniest bit smoother
-        // TODO Maybe determine this heuristically? lol
-        let magicAdd = 0.04 // Hacky absolute that makes it even smoother
-        backingPlayer.jump(to: position + magicAdd)
-        backingPlayer.volume = 0
-        backingPlayer.play()
-        
-        swapPlayers()
-
-        // Slowly switch states. Kinda hacky but improves listening result
-        for _ in 0 ..< 100 {
-            player.volume += 1.0 / 100
-            backingPlayer.volume -= 1.0 / 100
-            Thread.sleep(forTimeInterval: 0.001)
-        }
-        
-        backingPlayer.stop()
-        player.volume = 1
-        backingPlayer.volume = 1
-    }
-    
-	func movePosition(_ movement: Double, smooth: Bool = true) {
-		self.setPosition(player.currentTime + movement, smooth: smooth)
+	func movePosition(_ movement: TimeInterval) {
+		try? player?.node.move(by: movement)
 	}
-	
-    func pause() {
-        playCountCountdown.pause()
-        
-        sanityCheck()
-
-        willChangeValue(for: \.isPlaying)
-
-        // The set position is reset when we play again
-        startTime = player.currentTime
-        player.stop()
-        
-        didChangeValue(for: \.isPlaying)
-    }
-        
+	        
     override class func automaticallyNotifiesObservers(forKey key: String) -> Bool {
         return key != #keyPath(isPlaying)
     }
     
-    func completionHandler(for player: AKPlayer) -> () -> Void {
-        return { [unowned self] in
-            // If < 0.01, it's probably bugged. No track is that short
-            if self.player == player {
-                self.play(moved: 1)
-            }
-        }
-    }
-
 //    override public class func keyPathsForValuesAffectingValue(forKey key: String) -> Set<String> {
 //        return [
             // TODO This doesn't work yet unfortunately, but is observed manually

@@ -109,7 +109,6 @@ class ViewController: NSViewController {
         ViewController.shared = self
         
         player.delegate = self
-        player.start()
         player.history = queueController.history // Empty but != nil
         
         playlistController.delegate = self
@@ -306,7 +305,7 @@ class ViewController: NSViewController {
     }
     
     @IBAction func updateTimesHidden(_ sender: AnyObject) {
-        if player.playing != nil, _waveformView.bounds.height > 30, !player.player.currentTime.isNaN {
+		if player.playing != nil, _waveformView.bounds.height > 30, !(player.currentTime ?? .nan).isNaN {
             _timePlayed.isHidden = false
             _timeLeft.isHidden = false
         }

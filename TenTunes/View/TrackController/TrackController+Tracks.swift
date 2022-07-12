@@ -196,9 +196,9 @@ extension TrackController: NSTableViewDelegate {
 				
 				switch $0 {
 				case .absolute(let position):
-					player.setPosition(Double(position), smooth: false)
+					player.setPosition(Double(position))
 				case .relative(let movement):
-					player.movePosition(Double(movement), smooth: false)
+					player.movePosition(Double(movement))
 				}
 			}
 			

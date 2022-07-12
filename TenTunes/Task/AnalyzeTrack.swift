@@ -11,7 +11,7 @@ import AVFAudio
 
 class AnalyzeCurrentTrack: Tasker {
     override var promise: Float? {
-        if let playing = ViewController.shared.player.playing, playing.analysis == nil {
+        if let playing = ViewController.shared.player.playingTrack, playing.analysis == nil {
             return 0.5
         }
         
@@ -19,7 +19,7 @@ class AnalyzeCurrentTrack: Tasker {
     }
     
     override func spawn(running: [Task]) -> Task? {
-        if let playing = ViewController.shared.player.playing {
+        if let playing = ViewController.shared.player.playingTrack {
             return AnalyzeTrack(track: playing, read: true, priority: 1)
         }
         
@@ -112,7 +112,7 @@ class AnalyzeTrack: TrackTask {
 					AnalysisInterpreter.analyzeWaveform(file: audioFile, track: asyncTrack)
 					asyncTrack.writeAnalysis()
 
-					if ViewController.shared.player.playing == track {
+					if ViewController.shared.player.playingTrack == track {
 						ViewController.shared._waveformView.waveformView.waveform = .from(asyncTrack.analysis?.values)
 					}
 				}

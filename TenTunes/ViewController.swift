@@ -186,14 +186,14 @@ class ViewController: NSViewController {
         startBackgroundTasks()
         
         playerChangedTrack(player)
-        observerPlaying = player.observe(\.playing) { [unowned self] player, _ in
+        observerPlaying = player.observe(\.playingTrack) { [unowned self] player, _ in
             self.playerChangedTrack(player)
         }
         observerIsPlaying = player.observe(\.isPlaying) { [unowned self] player, _ in
             self._play.image = player.isPlaying ? #imageLiteral(resourceName: "pause") : #imageLiteral(resourceName: "play")
         }
-        observerCoverImage = player.observe(\Player.playing?.artworkPreview) { [unowned self] player, _ in
-            self._coverImage.transitionWithImage(image: player.playing?.artworkPreview)
+        observerCoverImage = player.observe(\Player.playingTrack?.artworkPreview) { [unowned self] player, _ in
+            self._coverImage.transitionWithImage(image: player.playingTrack?.artworkPreview)
         }
     }
     
@@ -214,7 +214,7 @@ class ViewController: NSViewController {
     }
     
     @IBAction func play(_ sender: Any) {
-        guard player.playing != nil else {
+        guard player.playingTrack != nil else {
             if trackController.selectedTrack != nil {
                 player.play(at: trackController._tableView.selectedRow, in: trackController.history)
             }
@@ -306,7 +306,7 @@ class ViewController: NSViewController {
     }
     
     @IBAction func updateTimesHidden(_ sender: AnyObject) {
-		if player.playing != nil, _waveformView.bounds.height > 30, !(player.currentTime ?? .nan).isNaN {
+		if player.playingTrack != nil, _waveformView.bounds.height > 30, !(player.currentTime ?? .nan).isNaN {
             _timePlayed.isHidden = false
             _timeLeft.isHidden = false
         }
@@ -433,11 +433,11 @@ extension ViewController: PlayerDelegate {
         
         _queueButton.isEnabled = player.history.count > 0
         
-        playingTrackController._emptyIndicator.isHidden = player.playing != nil
+        playingTrackController._emptyIndicator.isHidden = player.playingTrack != nil
 		
-		trackController.onPlayingTrackChange(player.playing)
+		trackController.onPlayingTrackChange(player.playingTrack)
 		
-        guard let track = player.playing else {
+        guard let track = player.playingTrack else {
             playingTrackController.history = PlayHistory(playlist: PlaylistEmpty())
 			
 			_waveformView.waveformView.waveform = .empty

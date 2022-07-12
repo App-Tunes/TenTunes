@@ -125,7 +125,7 @@ extension TrackController {
         let row = _tableView.row(for: sender as! NSView)
         let track = history.track(at: row)
         
-        guard ViewController.shared.player.playing != track else {
+        guard ViewController.shared.player.playingTrack != track else {
             return
         }
         
@@ -204,9 +204,9 @@ extension TrackController: NSTableViewDelegate {
 			
 			if let duration = track.duration {
 				view.positionControl.locationProvider = {
-					player.playing == track ? player.currentTime.map { CGFloat($0) } : nil
+					player.playingTrack == track ? player.currentTime.map { CGFloat($0) } : nil
 				}
-				view.positionControl.timer.fps = track == player.playing ? WaveformView.activeFPS : nil
+				view.positionControl.timer.fps = track == player.playingTrack ? WaveformView.activeFPS : nil
 				view.positionControl.range = 0...CGFloat(duration.seconds)
 				
 				view.positionControl.jumpInterval = track.speed.map {

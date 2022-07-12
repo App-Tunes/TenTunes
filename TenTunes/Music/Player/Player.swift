@@ -28,10 +28,10 @@ protocol PlayerDelegate : AnyObject {
 	}
 	
 	@objc dynamic var playingEmitter: AVAudioEmitter?
-	@objc dynamic var playing: Track?
+	@objc dynamic var playingTrack: Track?
 	
 	@objc dynamic var volume: Float = 1 {
-		didSet { _updatePlayerVolume() }
+		didSet { _updateEmitterVolume() }
 	}
     
     weak var delegate: PlayerDelegate?
@@ -51,7 +51,7 @@ protocol PlayerDelegate : AnyObject {
 		super.init()
 
         playCountCountdown.action = { [unowned self] in
-            self.playing?.playCount += 1
+            self.playingTrack?.playCount += 1
         }
     }
     
@@ -125,7 +125,7 @@ protocol PlayerDelegate : AnyObject {
     }
 	
 	func resumePlay() {
-		guard let player = playingEmitter else {
+		guard let playingEmitter = playingEmitter else {
 			// TODO Start new track?
 			return
 		}
@@ -137,19 +137,19 @@ protocol PlayerDelegate : AnyObject {
 		playCountCountdown.resume()
 		
 		willChangeValue(for: \.isPlaying)
-		player.node.play()
+		playingEmitter.node.play()
 		didChangeValue(for: \.isPlaying)
 	}
 
 	func pause() {
-		guard let player = playingEmitter, isPlaying else {
+		guard let playingEmitter = playingEmitter, isPlaying else {
 			return
 		}
 
 		playCountCountdown.pause()
 		
 		willChangeValue(for: \.isPlaying)
-		player.node.stop()
+		playingEmitter.node.stop()
 		didChangeValue(for: \.isPlaying)
 	}
 
@@ -165,9 +165,9 @@ protocol PlayerDelegate : AnyObject {
     func play(track: Track?) throws {
         playCountCountdown.stop()
         
-		if let player = playingEmitter, player.node.isPlaying {
+		if let oldEmitter = playingEmitter, oldEmitter.node.isPlaying {
 			// It will likely stop playing anyway, but let's make sure.
-			player.node.stop()
+			oldEmitter.node.stop()
         }
 
         // We don't entirely know if it changes but it might, and we don't want to check on EVERY path here
@@ -179,18 +179,18 @@ protocol PlayerDelegate : AnyObject {
         guard let track = track else {
 			// Somebody decided we should stop playing
 			// Or we're at start / end of list
-			playing = nil
+			playingTrack = nil
 			return
 		}
 		
 		guard let device = currentOutputDevice else {
 			// Nowhere to play
-			playing = nil
+			playingTrack = nil
 			return
 		}
 		
 		guard let url = track.liveURL else {
-			playing = nil
+			playingTrack = nil
 			
 			throw PlayError.missing
 		}
@@ -199,27 +199,27 @@ protocol PlayerDelegate : AnyObject {
 			let file = try AVAudioFile(forReading: url)
 
 			guard file.duration < 100000 else {
-				playing = nil
+				playingTrack = nil
 				throw PlayError.error(message: "File duration is too long! The file is probably bugged.") // Likely bugged file and we'd crash otherwise
 			}
 			
-			playingEmitter = try preparePlayer(forFile: file, device: device)
+			playingEmitter = try prepareEmitter(forFile: file, device: device)
 		} catch let error {
 			if error is PlayError { throw error }
 			
 			print(error.localizedDescription)
-			playing = nil
+			playingTrack = nil
 			playingEmitter = nil
 			
 			throw PlayError.error(message: error.localizedDescription)
 		}
 						
 		playingEmitter?.node.play()
-		playing = track
+		playingTrack = track
 		(playingEmitter?.node.duration).map {
 			playCountCountdown.start(for: $0 * Player.minPlayTimePerListen)
 		}
-		_updatePlayerVolume()
+		_updateEmitterVolume()
 		
 		if !NSApp.isActive {
 			notifyPlay(of: track)
@@ -228,7 +228,7 @@ protocol PlayerDelegate : AnyObject {
 	
 	private func _restartDevice() {
 		guard
-			let player = playingEmitter,
+			let playingEmitter = playingEmitter,
 			let device = currentOutputDevice
 		else {
 			// Nothing to play
@@ -236,29 +236,29 @@ protocol PlayerDelegate : AnyObject {
 		}
 		
 		do {
-			let wasPlaying = player.node.isPlaying
+			let wasPlaying = playingEmitter.node.isPlaying
 			if wasPlaying {
-				player.node.stop()
+				playingEmitter.node.stop()
 			}
 			
-			let newPlayer = try preparePlayer(forFile: player.node.file, device: device)
-			try newPlayer.node.move(to: player.node.currentTime)
+			let newEmitter = try prepareEmitter(forFile: playingEmitter.node.file, device: device)
+			try newEmitter.node.move(to: playingEmitter.node.currentTime)
 
 			if wasPlaying {
-				newPlayer.node.play()
+				newEmitter.node.play()
 			}
 
-			self.playingEmitter = newPlayer
+			self.playingEmitter = newEmitter
 		} catch let error {
 			NSAlert.warning(title: "Error when switching devices", text: error.localizedDescription)
 		}
 	}
 	
-	private func preparePlayer(forFile file: AVAudioFile, device: AVAudioDevice) throws -> AVAudioEmitter {
-		let newPlayer = try device.prepare(file)
+	private func prepareEmitter(forFile file: AVAudioFile, device: AVAudioDevice) throws -> AVAudioEmitter {
+		let newEmitter = try device.prepare(file)
 		
-		newPlayer.node.didFinishPlaying = { [weak self, weak newPlayer] in
-			guard self?.playingEmitter == newPlayer else {
+		newEmitter.node.didFinishPlaying = { [weak self, weak newEmitter] in
+			guard self?.playingEmitter == newEmitter else {
 				return
 			}
 			
@@ -268,21 +268,21 @@ protocol PlayerDelegate : AnyObject {
 			}
 		}
 		
-		return newPlayer
+		return newEmitter
 	}
 	
-	private func _updatePlayerVolume() {
-		guard let playing = playing, let player = playingEmitter else {
+	private func _updateEmitterVolume() {
+		guard let playingTrack = playingTrack, let playingEmitter = playingEmitter else {
 			return
 		}
 		
-		var playerVolume = volume
+		var emitterVolume = volume
 		if AppDelegate.defaults[.useNormalizedVolumes] {
-			let requiredLoudnessAdjustmentDB = Self.normalizedLUFS - playing.loudness
+			let requiredLoudnessAdjustmentDB = Self.normalizedLUFS - playingTrack.loudness
 			let requiredLoudnessAdjustmentVolume = exp2(requiredLoudnessAdjustmentDB / 10)
-			playerVolume *= min(1.0, requiredLoudnessAdjustmentVolume)
+			emitterVolume *= min(1.0, requiredLoudnessAdjustmentVolume)
 		}
-		player.node.volume = playerVolume
+		playingEmitter.node.volume = emitterVolume
 	}
     
     func play(moved: Int) {
@@ -307,8 +307,8 @@ protocol PlayerDelegate : AnyObject {
         // Should play but didn't
         // And we are trying to move in some direction
         if moved != 0, history.playingTrack != nil, !didPlay {
-            if let playing = playing {
-                print("Skipped unplayable track \(playing.objectID.description): \(String(describing: playing.path))")
+            if let playingTrack = playingTrack {
+                print("Skipped unplayable track \(playingTrack.objectID.description): \(String(describing: playingTrack.path))")
             }
             
             play(moved: moved)

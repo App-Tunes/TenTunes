@@ -44,8 +44,8 @@ class PlayImageView: NSButton {
 
     func observe(track: Track, playingIn player: Player) {
         observeTrackToken?.invalidate()
-        observeTrackToken = player.observe(\.playing, options: [.initial, .new]) { [unowned self] player, _  in
-            self.showsPlaying = track == player.playing
+        observeTrackToken = player.observe(\.playingTrack, options: [.initial, .new]) { [unowned self] player, _  in
+            self.showsPlaying = track == player.playingTrack
         }
     }
     

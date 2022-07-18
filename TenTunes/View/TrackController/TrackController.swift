@@ -64,7 +64,9 @@ class TrackController: NSViewController {
 
     var history: PlayHistory = PlayHistory(playlist: PlaylistEmpty()) {
         didSet {
-            _tableView?.animateDifference(from: oldValue.tracks, to: history.tracks)
+			ListTransition.findBest(before: oldValue.tracks, after: history.tracks)
+				.executeAnimationsInTableView(_tableView)
+			
             self.reloadGUI()
         }
     }

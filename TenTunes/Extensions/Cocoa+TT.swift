@@ -93,32 +93,9 @@ extension NSTableView {
         }
         return [clickedRow]
     }
-    
-    func animateDifference<Element : Equatable>(from: [Element]?, to: [Element]?) {
-        if let from = from, let to = to, let (left, right) = from.difference(from: to) {
-            if (left ?? right!).count > 100 {
-                // Give up, this will look shite anyhow
-                reloadData()
-            }
-            else if let removed = left {
-                removeRows(at: IndexSet(removed), withAnimation: .slideDown)
-            }
-            else if let added = right {
-                insertRows(at: IndexSet(added), withAnimation: .slideUp)
-            }
-        }
-        else if let from = from, let to = to, let movement = from.movement(to: to) {
-            for (src, dst) in movement {
-                moveRow(at: src, to: dst)
-            }
-        }
-        else {
-            reloadData()
-        }
-    }
-    
+        
     func tableColumn(withIdentifier identifier: NSUserInterfaceItemIdentifier) -> NSTableColumn? {
-        return tableColumns[safe: column(withIdentifier: identifier)]
+        tableColumns[safe: column(withIdentifier: identifier)]
     }
     
     func scrollRowToTop(_ row: Int) {
@@ -206,43 +183,6 @@ extension NSOutlineView {
         editColumn(0, row: row, with: event, select: select)
     }
     
-    func animateDifference<Element : Equatable>(childrenOf parent: Any?, from: [Element]?, to: [Element]?) {
-        let fromCount = from?.count ?? 0
-        let toCount = to?.count ?? 0
-        
-        guard abs(fromCount - toCount) < 100 else {
-            // Give up, this will look shite anyhow
-            reloadItem(parent, reloadChildren: true)
-            return
-        }
-        
-        if let from = from, let to = to, let (left, right) = from.difference(from: to) {
-            guard (left ?? right!).count < 100 else {
-                // Give up, this will look shite anyhow
-                reloadItem(parent, reloadChildren: true)
-                return
-            }
-            
-            if let removed = left {
-                removeItems(at: IndexSet(removed), inParent: parent, withAnimation: .slideDown)
-            }
-            else if let added = right {
-                insertItems(at: IndexSet(added), inParent: parent, withAnimation: .slideUp)
-            }
-        }
-        else {
-            // Animate size difference first
-            if fromCount > toCount {
-                removeItems(at: IndexSet(integersIn: toCount ..< fromCount), inParent: parent, withAnimation: .slideDown)
-            }
-            else if toCount > fromCount {
-                insertItems(at: IndexSet(integersIn: fromCount ..< toCount), inParent: parent, withAnimation: .slideUp)
-            }
-            
-            reloadItems(at: IndexSet(integersIn: 0 ..< min(fromCount, toCount)), inParent: parent)
-        }
-    }
-
     func reloadItems(at rows: IndexSet, inParent parent: Any?) {
         removeItems(at: rows, inParent: parent, withAnimation: [])
         insertItems(at: rows, inParent: parent, withAnimation: [])

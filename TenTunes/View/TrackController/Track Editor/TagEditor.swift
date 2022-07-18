@@ -49,7 +49,9 @@ class TagEditor: NSObject {
             if Set(newTokens) != Set(tagTokens) {
                 let prev = outlineTokens
                 tagTokens = newTokens
-                outlineView.animateDifference(childrenOf: masterItem, from: prev, to: outlineTokens)
+				
+				ListTransition.findBest(before: prev, after: outlineTokens)
+					.executeAnimationsInOutlineView(outlineView, childrenOf: masterItem)
             }
         }
     }
@@ -57,7 +59,9 @@ class TagEditor: NSObject {
     func show(tracks: [Track]) {
         let prevTokens = outlineTokens
         tagTokens = TagEditor.desiredTagTokens(tracks: tracks)
-        outlineView.animateDifference(childrenOf: masterItem, from: prevTokens, to: outlineTokens)
+		
+		ListTransition.findBest(before: prevTokens, after: outlineTokens)
+			.executeAnimationsInOutlineView(outlineView, childrenOf: masterItem)
     }
 
     func delete(indices: IndexSet) {

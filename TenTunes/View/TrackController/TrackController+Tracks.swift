@@ -108,8 +108,11 @@ extension TrackController {
         guard mode == .tracksList else {
             let tracksBefore = history.tracks
             history.remove(indices: indices)
-            _tableView.animateDifference(from: tracksBefore, to: history.tracks)
-            return
+			
+			ListTransition.findBest(before: tracksBefore, after: history.tracks)
+				.executeAnimationsInTableView(_tableView!)
+
+			return
         }
         
         let playlist = (history.playlist as! ModifiablePlaylist)

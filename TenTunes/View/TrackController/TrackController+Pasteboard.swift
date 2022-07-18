@@ -86,7 +86,8 @@ extension TrackController {
                 history.insert(tracks: tracks, before: row)
             }
             
-            _tableView.animateDifference(from: tracksBefore, to: history.tracks)
+			ListTransition.findBest(before: tracksBefore, after: history.tracks)
+				.executeAnimationsInTableView(_tableView)
         }
         else if mode == .title {
             let player = ViewController.shared.player

@@ -27,7 +27,18 @@ protocol PlayerDelegate : AnyObject {
 		didSet { _restartDevice() }
 	}
 	
-	@objc dynamic var playingEmitter: AVAudioEmitter?
+	@objc dynamic var playingEmitter: AVAudioEmitter? {
+		willSet {
+			// TODO This can probably be done more gracefully
+			self.playingEmitter?.node.didFinishPlaying = nil
+			newValue?.node.didFinishPlaying = { [weak self] in
+				// We're in an audio thread; move to main.
+				DispatchQueue.main.async {
+					self?.play(moved: 1)
+				}
+			}
+		}
+	}
 	@objc dynamic var playingTrack: Track?
 	
 	@objc dynamic var volume: Float = 1 {
@@ -203,7 +214,7 @@ protocol PlayerDelegate : AnyObject {
 				throw PlayError.error(message: "File duration is too long! The file is probably bugged.") // Likely bugged file and we'd crash otherwise
 			}
 			
-			playingEmitter = try prepareEmitter(forFile: file, device: device)
+			playingEmitter = try device.prepare(file)
 		} catch let error {
 			if error is PlayError { throw error }
 			
@@ -241,34 +252,17 @@ protocol PlayerDelegate : AnyObject {
 				playingEmitter.node.stop()
 			}
 			
-			let newEmitter = try prepareEmitter(forFile: playingEmitter.node.file, device: device)
+			let newEmitter = try device.prepare(playingEmitter.node.file)
 			try newEmitter.node.move(to: playingEmitter.node.currentTime)
 
+			self.playingEmitter = newEmitter
+			
 			if wasPlaying {
 				newEmitter.node.play()
 			}
-
-			self.playingEmitter = newEmitter
 		} catch let error {
 			NSAlert.warning(title: "Error when switching devices", text: error.localizedDescription)
 		}
-	}
-	
-	private func prepareEmitter(forFile file: AVAudioFile, device: AVAudioDevice) throws -> AVAudioEmitter {
-		let newEmitter = try device.prepare(file)
-		
-		newEmitter.node.didFinishPlaying = { [weak self, weak newEmitter] in
-			guard self?.playingEmitter == newEmitter else {
-				return
-			}
-			
-			// We're in an audio thread; move to main.
-			DispatchQueue.main.async {
-				self?.play(moved: 1)
-			}
-		}
-		
-		return newEmitter
 	}
 	
 	private func _updateEmitterVolume() {

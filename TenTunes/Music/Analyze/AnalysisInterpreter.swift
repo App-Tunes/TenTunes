@@ -10,6 +10,7 @@ import Cocoa
 
 import AVFoundation
 import TunesUI
+import TunesLogic
 
 func simulateWave(_ pos: Float, _ size: Float, _ speed: Float, progress: Float, time: Float) -> Float {
     return (sin(pos * size + time * speed) + 1.0) * (pos > progress ? 0.3 : 0.05) + (pos > progress ? 0.1 : 0.35)
@@ -65,11 +66,11 @@ class AnalysisInterpreter {
 			let key = results.keyAnalysis!.key.flatMap { key in
 				results.keyAnalysis!.scale.flatMap { scale in
 					// TODO Can parse these separately
-					Key.parse("\(key)\(scale)")
+					MusicalKey.parse("\(key)\(scale)")
 				}
 			}
 			
-			track.keyString = (key?.key).map(Key.fileWriter.write)
+			track.keyString = key.map(MusicalKey.fileWriter.write)
 		}
 		
 		if flags.contains(.speed) {

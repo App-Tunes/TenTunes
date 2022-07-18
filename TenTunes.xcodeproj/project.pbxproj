@@ -226,7 +226,7 @@
 		80F2C57F2038808000212739 /* TenTunes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C57D2038808000212739 /* TenTunes.xcdatamodeld */; };
 		80F2C5812038808000212739 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80F2C5802038808000212739 /* Assets.xcassets */; };
 		80F2C5842038808000212739 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80F2C5822038808000212739 /* Main.storyboard */; };
-		80F77BF5203D8B35001E397F /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F77BF4203D8B35001E397F /* Key.swift */; };
+		80F77BF5203D8B35001E397F /* MusicalKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F77BF4203D8B35001E397F /* MusicalKey.swift */; };
 		80F854FF2069180A009A8FBE /* TrackController+RightClick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F854FE2069180A009A8FBE /* TrackController+RightClick.swift */; };
 		80F855012069183E009A8FBE /* TrackController+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F855002069183E009A8FBE /* TrackController+Menu.swift */; };
 		80F855042069187D009A8FBE /* PlaylistController+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F855032069187D009A8FBE /* PlaylistController+Menu.swift */; };
@@ -503,7 +503,7 @@
 		80F2C5832038808000212739 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		80F2C5852038808000212739 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		80F2C5862038808000212739 /* TenTunes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TenTunes.entitlements; sourceTree = "<group>"; };
-		80F77BF4203D8B35001E397F /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
+		80F77BF4203D8B35001E397F /* MusicalKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicalKey.swift; sourceTree = "<group>"; };
 		80F854FE2069180A009A8FBE /* TrackController+RightClick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackController+RightClick.swift"; sourceTree = "<group>"; };
 		80F855002069183E009A8FBE /* TrackController+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackController+Menu.swift"; sourceTree = "<group>"; };
 		80F855032069187D009A8FBE /* PlaylistController+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistController+Menu.swift"; sourceTree = "<group>"; };
@@ -639,7 +639,7 @@
 				80E2C9E3204B3D5C00298E81 /* Playlist */,
 				80CB65362052CAEA0031A6D7 /* Track */,
 				80CB65372052CB100031A6D7 /* Analyze */,
-				80F77BF4203D8B35001E397F /* Key.swift */,
+				80F77BF4203D8B35001E397F /* MusicalKey.swift */,
 			);
 			path = Music;
 			sourceTree = "<group>";
@@ -1437,7 +1437,7 @@
 				80FA291D2204E662008E6A38 /* LazyVar.swift in Sources */,
 				80E2C9F8204B40A000298E81 /* Playlist+CoreDataProperties.swift in Sources */,
 				80CAED0622735E8D001DD856 /* AppDelegate+Welcome.swift in Sources */,
-				80F77BF5203D8B35001E397F /* Key.swift in Sources */,
+				80F77BF5203D8B35001E397F /* MusicalKey.swift in Sources */,
 				808BAAE8220DAD0A0017557C /* FilesPreferences.swift in Sources */,
 				807D749A21C3D05900D3B610 /* DarkMatter.swift in Sources */,
 				80CAED0822746E6F001DD856 /* VisualizerViewController.swift in Sources */,

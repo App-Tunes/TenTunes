@@ -10,6 +10,7 @@ import Cocoa
 
 import AVFoundation
 import TunesUI
+import TunesLogic
 
 extension TrackController {
     var selectedTrack: Track? {
@@ -254,7 +255,7 @@ extension TrackController: NSTableViewDelegate {
         else if tableColumn?.identifier == ColumnIdentifiers.key, let view = tableView.makeView(withIdentifier: CellIdentifiers.key, owner: nil) as? NSTableCellView {
             view.textField?.bind(.value, to: track, withKeyPath: \.keyString) {
                 $0.map {
-                    if let key = Key.parse($0) {
+                    if let key = MusicalKey.parse($0) {
                         let string = AppDelegate.defaults[.initialKeyDisplay] == .file ? $0 : key.description
                         
                         return NSAttributedString(string: string, attributes: key.attributes).with(alignment: .center)
@@ -378,7 +379,7 @@ extension TrackController: NSTableViewDataSource {
             case "genre":
                 desired.sort = { Optional<String>.compare($1.genre, $0.genre) }
             case "key":
-                desired.sort = { Optional<Key>.compare($1.key, $0.key) }
+                desired.sort = { Optional<MusicalKey>.compare($1.key, $0.key) }
             case "bpm":
                 desired.sort = { ($0.speed ?? Track.Speed.zero) < ($1.speed ?? Track.Speed.zero)  }
             case "duration":

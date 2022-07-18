@@ -7,14 +7,10 @@
 //
 
 import Cocoa
+import TunesLogic
 
 class ValueTransformers {
-    class func register() {
-        SimpleTransformer<AnyObject, Key>.simple("MusicKeyTransformer",
-                                                 there: { $0?.stringValue.flatMap(Key.parse) },
-                                                 back: { $0?.write as AnyObject }
-        )
-        
+    class func register() {        
         SimpleTransformer<NSImage, NSData>.simple("NSImageTransformerTIFF",
                                                   there: { $0?.tiffRepresentation as NSData? },
                                                   back: { $0 != nil ? NSImage(data: $0! as Data) : nil }

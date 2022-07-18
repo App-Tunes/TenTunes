@@ -10,6 +10,7 @@
 import Foundation
 import CoreData
 import AVFoundation
+import TunesLogic
 
 @objc(Track)
 public class Track: NSManagedObject {
@@ -87,8 +88,8 @@ public class Track: NSManagedObject {
         set { bpmString = newValue?.write }
     }
     
-    @objc dynamic var key: Key? {
-        get { return keyString.flatMap(Key.parse) }
+    var key: MusicalKey? {
+        get { return keyString.flatMap(MusicalKey.parse) }
         set { keyString = newValue?.write }
     }
     
@@ -154,10 +155,9 @@ public class Track: NSManagedObject {
             #keyPath(Track.rSource): [#keyPath(Track.album), #keyPath(Track.author)],
             #keyPath(Track.rDuration): [#keyPath(Track.durationR)],
             #keyPath(Track.speed): [#keyPath(Track.bpmString)],
-            #keyPath(Track.key): [#keyPath(Track.keyString)],
             #keyPath(Track.artworkPreview): [#keyPath(Track.visuals.artworkPreview)],
             #keyPath(Track.rCreationDate): [#keyPath(Track.creationDate)],
-            ][key] ?? super.keyPathsForValuesAffectingValue(forKey: key)
+		][key] ?? super.keyPathsForValuesAffectingValue(forKey: key)
     }
 }
 

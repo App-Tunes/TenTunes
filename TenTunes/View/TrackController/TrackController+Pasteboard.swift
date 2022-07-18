@@ -7,8 +7,8 @@
 //
 
 import Foundation
-
 import AVFoundation
+import TunesUI
 
 extension TrackController {
     var pasteboardTypes: [NSPasteboard.PasteboardType] {

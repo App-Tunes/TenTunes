@@ -138,11 +138,7 @@ extension Array {
         // Insert to new position
         insert(contentsOf: elements, at: toAfter)
     }
-    
-    public func fullSlice() -> ArraySlice<Element> {
-        return self[indices]
-    }
-    
+        
     func of<T>(type: T.Type) -> [T] {
         return filter { $0 is T } as! [T]
     }

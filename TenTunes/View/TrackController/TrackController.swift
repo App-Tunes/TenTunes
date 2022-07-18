@@ -10,6 +10,7 @@ import Cocoa
 
 import AVFoundation
 import Defaults
+import TunesUI
 
 @objc class PlayHistorySetup : NSObject {
     override init() {

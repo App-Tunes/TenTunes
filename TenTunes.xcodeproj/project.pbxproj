@@ -133,7 +133,6 @@
 		80AEC60722846C8C00CDA2C7 /* ViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AEC60622846C8C00CDA2C7 /* ViewTest.swift */; };
 		80AF0868265AF8EC0039458A /* TunesUI in Frameworks */ = {isa = PBXBuildFile; productRef = 80AF0867265AF8EC0039458A /* TunesUI */; };
 		80B15824215D657D0015294B /* Cocoa+IBInspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B15823215D657D0015294B /* Cocoa+IBInspectable.swift */; };
-		80B205DE28861037007E931C /* ListTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B205DD28861037007E931C /* ListTransition.swift */; };
 		80B3BE12207514D200B93961 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B3BE11207514D200B93961 /* Player.swift */; };
 		80B4B7CE2276FA4D00AE5F08 /* PlaylistActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B4B7CC2276FA4D00AE5F08 /* PlaylistActions.swift */; };
 		80B4B7CF2276FA4D00AE5F08 /* PlaylistActions.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80B4B7CD2276FA4D00AE5F08 /* PlaylistActions.xib */; };
@@ -409,7 +408,6 @@
 		80AEC60622846C8C00CDA2C7 /* ViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTest.swift; sourceTree = "<group>"; };
 		80AF086B265AFE100039458A /* tag.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = tag.framework; path = ./TunesAnalysis/taglib/build/taglib/tag.framework; sourceTree = "<group>"; };
 		80B15823215D657D0015294B /* Cocoa+IBInspectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocoa+IBInspectable.swift"; sourceTree = "<group>"; };
-		80B205DD28861037007E931C /* ListTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTransition.swift; sourceTree = "<group>"; };
 		80B3BE11207514D200B93961 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		80B4B7CC2276FA4D00AE5F08 /* PlaylistActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistActions.swift; sourceTree = "<group>"; };
 		80B4B7CD2276FA4D00AE5F08 /* PlaylistActions.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistActions.xib; sourceTree = "<group>"; };
@@ -958,7 +956,6 @@
 				8029A5F2221858D600C1F0CC /* DynamicAudioHasher.swift */,
 				8033292A22718FBB00408017 /* CacheRegistry.swift */,
 				80CAED1A2274D062001DD856 /* StylerMyler.swift */,
-				80B205DD28861037007E931C /* ListTransition.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1342,7 +1339,6 @@
 				80B68BA62101204200A32E3D /* PlaylistSmart+CoreDataProperties.swift in Sources */,
 				80B3BE12207514D200B93961 /* Player.swift in Sources */,
 				809A903C287D7C8100AB8E47 /* Countdown.swift in Sources */,
-				80B205DE28861037007E931C /* ListTransition.swift in Sources */,
 				80F9703320962EA200A989D8 /* PopupEnum.swift in Sources */,
 				80E2C9FC204B40A000298E81 /* PlaylistFolder+CoreDataProperties.swift in Sources */,
 				8079F6E4210A2C5400B7A278 /* PlaylistRules+Tokens.swift in Sources */,

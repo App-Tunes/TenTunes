@@ -7,8 +7,9 @@
 //
 
 import Cocoa
+import TunesUI
 
-protocol TagEditorDelegate : class {
+protocol TagEditorDelegate : AnyObject {
     var tagEditorTracks: [Track] { get }
     var tagEditorOutline: NSOutlineView { get }
     var tagEditorMasterItem: AnyObject { get }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		80074CF9204583CF0055B87E /* TrackController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80074CF7204583CF0055B87E /* TrackController.xib */; };
 		80074CFD204584980055B87E /* PlaylistController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80074CFB204584980055B87E /* PlaylistController.xib */; };
+		80079BFB28A443C900EDAC38 /* AUMatrixMixerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 80079BFA28A443C800EDAC38 /* AUMatrixMixerFactory.m */; };
 		8007F1F82663F96F00047359 /* DarkGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8007F1F72663F96F00047359 /* DarkGradientView.swift */; };
 		80083CFE266CD94F00F8C9DD /* ResampleToSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80083CFD266CD94F00F8C9DD /* ResampleToSize.swift */; };
 		80083D06266D4FAC00F8C9DD /* NSRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80083D05266D4FAC00F8C9DD /* NSRange.swift */; };
@@ -284,6 +285,8 @@
 		80074CF7204583CF0055B87E /* TrackController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackController.xib; sourceTree = "<group>"; };
 		80074CFB204584980055B87E /* PlaylistController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistController.xib; sourceTree = "<group>"; };
 		80074CFE2046BB0B0055B87E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		80079BF928A443C800EDAC38 /* AUMatrixMixerFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUMatrixMixerFactory.h; sourceTree = "<group>"; };
+		80079BFA28A443C800EDAC38 /* AUMatrixMixerFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUMatrixMixerFactory.m; sourceTree = "<group>"; };
 		8007F1F72663F96F00047359 /* DarkGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkGradientView.swift; sourceTree = "<group>"; };
 		80083CFD266CD94F00F8C9DD /* ResampleToSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResampleToSize.swift; sourceTree = "<group>"; };
 		80083D05266D4FAC00F8C9DD /* NSRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSRange.swift; sourceTree = "<group>"; };
@@ -677,6 +680,8 @@
 				806AC1322040D7C700857B1B /* PlayHistory.swift */,
 				80B3BE11207514D200B93961 /* Player.swift */,
 				809A9037287D7BFE00AB8E47 /* AVAudioEmitter.swift */,
+				80079BF928A443C800EDAC38 /* AUMatrixMixerFactory.h */,
+				80079BFA28A443C800EDAC38 /* AUMatrixMixerFactory.m */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -1419,6 +1424,7 @@
 				80F2C57F2038808000212739 /* TenTunes.xcdatamodeld in Sources */,
 				80CAED192274B68A001DD856 /* CategoryController+Categories.swift in Sources */,
 				80CB65352052C9CC0031A6D7 /* CoreData+TT.swift in Sources */,
+				80079BFB28A443C900EDAC38 /* AUMatrixMixerFactory.m in Sources */,
 				8093467320A628E1001D15CD /* Library+AudioFile.swift in Sources */,
 				809CEAC92164D336008D6AC0 /* Syphon.swift in Sources */,
 				807E289E2101291B0080F332 /* SmartPlaylistRules.swift in Sources */,

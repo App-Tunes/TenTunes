@@ -5,6 +5,8 @@
 #import "RFOpenGLView.h"
 #import "SMButtonWithMenu.h"
 
+#import "AUMatrixMixerFactory.h"
+
 #import <CommonCrypto/CommonCrypto.h>
 
 #import <Syphon/Syphon.h>

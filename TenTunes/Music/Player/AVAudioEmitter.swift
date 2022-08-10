@@ -10,10 +10,35 @@ import AVFoundation
 import TunesLogic
 
 @objc class AVAudioEmitter: NSObject {
-	let engine = AVAudioEngine()
+	let engine: AVAudioEngine
 	let node: AVSeekableAudioPlayerNode
+
+	let environmentMixer: AVAudioEnvironmentNode
+
+	let leftSpeaker: AVAudioMixerNode
+	let rightSpeaker: AVAudioMixerNode
 	
-	init(node: AVSeekableAudioPlayerNode) {
+	let leftDownmixer: AVAudioUnit
+	let rightDownmixer: AVAudioUnit
+			
+	init(
+		engine: AVAudioEngine,
+		node: AVSeekableAudioPlayerNode,
+		environmentMixer: AVAudioEnvironmentNode,
+		leftSpeaker: AVAudioMixerNode,
+		rightSpeaker: AVAudioMixerNode,
+		leftDownmixer: AVAudioUnit,
+		rightDownmixer: AVAudioUnit
+	) {
+		self.engine = engine
+		
 		self.node = node
+		self.environmentMixer = environmentMixer
+		
+		self.leftSpeaker = leftSpeaker
+		self.rightSpeaker = rightSpeaker
+		self.leftDownmixer = leftDownmixer
+		self.rightDownmixer = rightDownmixer
 	}
 }
+

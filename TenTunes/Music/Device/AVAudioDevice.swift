@@ -21,12 +21,13 @@ class AVAudioDevice: AudioDevice {
 	}
 	
 	func prepare(_ file: AVAudioFile) throws -> AVAudioEmitter {
-		let device = AVAudioEmitter(node: .init(file: file))
+		let engine = AVAudioEngine()
+		let node = AVSeekableAudioPlayerNode(file: file)
 
 		if let deviceID = deviceID {
 			var deviceID = deviceID
 			let error = AudioUnitSetProperty(
-				device.engine.outputNode.audioUnit!,
+				engine.outputNode.audioUnit!,
 				kAudioOutputUnitProperty_CurrentDevice,
 				kAudioUnitScope_Global,
 				0,
@@ -38,18 +39,98 @@ class AVAudioDevice: AudioDevice {
 				throw CoreAudioLogic.OSError(code: error)
 			}
 		}
+		
+		let environmentMixer = AVAudioEnvironmentNode()
+		environmentMixer.renderingAlgorithm = .HRTFHQ
+		environmentMixer.outputType = .headphones
+		environmentMixer.reverbParameters.enable = true
+		environmentMixer.reverbParameters.level = 0
+		environmentMixer.reverbParameters.loadFactoryReverbPreset(.mediumRoom)
 
-		device.node.players.forEach {
-			device.engine.attach($0)
-			device.engine.connect($0, to: device.engine.mainMixerNode, format: file.processingFormat)
+		engine.attach(environmentMixer)
+		engine.connect(environmentMixer, to: engine.outputNode, format: file.processingFormat)
+
+
+		let leftSpeaker = AVAudioMixerNode()
+		let rightSpeaker = AVAudioMixerNode()
+
+		// Should be perfect triangle, i.e. 60º
+		leftSpeaker.sourceMode = .pointSource
+		leftSpeaker.position = .init(x: -1.5, y: 0, z: -2.6)
+		leftSpeaker.reverbBlend = 0.02
+		rightSpeaker.sourceMode = .pointSource
+		rightSpeaker.position = .init(x: 1.5, y: 0, z: -2.6)
+		rightSpeaker.reverbBlend = 0.02
+
+		engine.attach(leftSpeaker)
+		engine.attach(rightSpeaker)
+
+		engine.connect(leftSpeaker, to: environmentMixer, format: file.processingFormat)
+		engine.connect(rightSpeaker, to: environmentMixer, format: file.processingFormat)
+		
+		
+		var leftDownmixer: AVAudioUnit? = nil
+		var rightDownmixer: AVAudioUnit? = nil
+		
+		node.players.forEach {
+			engine.attach($0)
 		}
-		device.node.prepare()
-		
-		device.engine.prepare()
 
-		try device.engine.start()
+		let group = DispatchGroup()
+		group.enter()
+		group.enter()
+
+		AUMatrixMixerFactory.instantiate(with: engine) {
+			leftDownmixer = $0
+			group.leave()
+		}
 		
-		return device
+		AUMatrixMixerFactory.instantiate(with: engine) {
+			rightDownmixer = $0
+			group.leave()
+		}
+		
+		group.wait()
+		
+		guard let leftDownmixer = leftDownmixer, let rightDownmixer = rightDownmixer else {
+			fatalError()
+		}
+
+		engine.attach(leftDownmixer)
+		engine.attach(rightDownmixer)
+
+		// TODO We should connect both sub-players, when enough buses are available
+		engine.connect(node.primary, to: [
+				.init(node: leftDownmixer, bus: 0),
+				.init(node: rightDownmixer, bus: 0)
+			],
+			fromBus: 0,
+			format: nil
+		)
+
+		engine.connect(leftDownmixer, to: leftSpeaker, format: nil)
+		engine.connect(rightDownmixer, to: rightSpeaker, format: nil)
+
+		engine.prepare()
+		try engine.start()
+
+		// TODO For some reason, the file has to be played before postPlaySetup can be called. Maybe because of format interpretation?
+		node.primary.scheduleFile(file, at: nil)
+		node.primary.play()
+
+		AUMatrixMixerFactory.postPlaySetup(leftDownmixer)
+		AudioUnitSetParameter(leftDownmixer.audioUnit, kMatrixMixerParam_Volume, kAudioUnitScope_Output, 1, 0.0, 0);
+
+		AUMatrixMixerFactory.postPlaySetup(rightDownmixer)
+		AudioUnitSetParameter(rightDownmixer.audioUnit, kMatrixMixerParam_Volume, kAudioUnitScope_Output, 0, 0.0, 0);
+
+//		node.prepare()
+//
+//		engine.prepare()
+//
+//		try engine.start()
+				
+		return AVAudioEmitter(engine: engine, node: node, environmentMixer: environmentMixer, leftSpeaker: leftSpeaker, rightSpeaker: rightSpeaker, leftDownmixer: leftDownmixer, rightDownmixer: rightDownmixer)
 	}
 
 	var isDefault: Bool { deviceID == nil }

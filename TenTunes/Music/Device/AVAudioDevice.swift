@@ -23,7 +23,7 @@ class AVAudioDevice: AudioDevice {
 	func prepare(_ file: AVAudioFile) throws -> AVAudioEmitter {
 		let engine = AVAudioEngine()
 		let node = AVSeekableAudioPlayerNode(file: file)
-
+ 
 		if let deviceID = deviceID {
 			var deviceID = deviceID
 			let error = AudioUnitSetProperty(
@@ -43,9 +43,10 @@ class AVAudioDevice: AudioDevice {
 		let environmentMixer = AVAudioEnvironmentNode()
 		environmentMixer.renderingAlgorithm = .HRTFHQ
 		environmentMixer.outputType = .headphones
-		environmentMixer.reverbParameters.enable = true
-		environmentMixer.reverbParameters.level = 0
-		environmentMixer.reverbParameters.loadFactoryReverbPreset(.mediumRoom)
+		// Reverb is very basic
+//		environmentMixer.reverbParameters.enable = true
+//		environmentMixer.reverbParameters.level = 0
+//		environmentMixer.reverbParameters.loadFactoryReverbPreset(.mediumRoom)
 
 		engine.attach(environmentMixer)
 		engine.connect(environmentMixer, to: engine.outputNode, format: file.processingFormat)
@@ -57,10 +58,10 @@ class AVAudioDevice: AudioDevice {
 		// Should be perfect triangle, i.e. 60º
 		leftSpeaker.sourceMode = .pointSource
 		leftSpeaker.position = .init(x: -1.5, y: 0, z: -2.6)
-		leftSpeaker.reverbBlend = 0.02
+//		leftSpeaker.reverbBlend = 0.01
 		rightSpeaker.sourceMode = .pointSource
 		rightSpeaker.position = .init(x: 1.5, y: 0, z: -2.6)
-		rightSpeaker.reverbBlend = 0.02
+//		rightSpeaker.reverbBlend = 0.01
 
 		engine.attach(leftSpeaker)
 		engine.attach(rightSpeaker)
@@ -108,8 +109,8 @@ class AVAudioDevice: AudioDevice {
 			format: nil
 		)
 
-		engine.connect(leftDownmixer, to: leftSpeaker, format: nil)
-		engine.connect(rightDownmixer, to: rightSpeaker, format: nil)
+		engine.connect(leftDownmixer, to: leftSpeaker, format: file.processingFormat)
+		engine.connect(rightDownmixer, to: rightSpeaker, format: file.processingFormat)
 
 		engine.prepare()
 		try engine.start()

@@ -41,6 +41,7 @@ class AVAudioDevice: AudioDevice {
 		}
 		
 		let environmentMixer = AVAudioEnvironmentNode()
+		// TODO We need to compensate for speaker attenuation at 3m distance (1m reference, 8.5dB attenuation)
 		environmentMixer.renderingAlgorithm = .HRTFHQ
 		environmentMixer.outputType = .headphones
 		// Reverb is very basic

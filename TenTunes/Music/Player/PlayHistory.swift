@@ -10,7 +10,7 @@ import Cocoa
 
 extension Array {
     mutating func removeAll(keepTrackOf index: inout Int, where remove: (Element) -> Bool) {
-        let realisticIndex = (0...count).clamp(index)
+		let realisticIndex = Swift.min(Swift.max(index, 0), count)
         self[0..<realisticIndex].removeAll {
             let removed = remove($0)
             if removed { index -= 1 }
@@ -165,7 +165,8 @@ class PlayHistory {
     }
     
     func move(to: Int) {
-        playingIndex = (-1...(tracks.count > 0 ? tracks.count : -1)).clamp(to)
+		let upperBound = tracks.count > 0 ? tracks.count : -1
+		playingIndex = max(-1, min(to, upperBound))
     }
     
     func move(by: Int) -> Track? {
@@ -175,3 +176,4 @@ class PlayHistory {
     
     var playingTrack: Track? { return track(at: playingIndex) }
 }
+

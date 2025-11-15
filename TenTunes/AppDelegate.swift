@@ -22,7 +22,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     var preferencesController: PreferencesWindowController!
     var exportPlaylistsController: ExportPlaylistsController!
-    var visualizerController: VisualizerWindowController!
     
     // Otherwise, gets deallocated
     var currentWorkflow: WorkflowWindowController?
@@ -145,13 +144,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ])
         
         exportPlaylistsController = ExportPlaylistsController(windowNibName: .init("ExportPlaylistsController"))
-        
-        visualizerController = VisualizerWindowController(windowNibName: .init("VisualizerWindowController"))
-        visualizerController.loadWindow()
-        
-        WindowWarden.shared.remember(window: libraryWindowController.window!, key: ("0", .command))
-        WindowWarden.shared.remember(window: visualizerController.window!, key: ("t", .command), toggleable: true)
-        
+                
         if !launchURLs.isEmpty {
             self.import(urls: launchURLs)
             launchURLs = []

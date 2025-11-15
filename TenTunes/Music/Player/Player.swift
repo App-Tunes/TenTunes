@@ -209,7 +209,7 @@ protocol PlayerDelegate : AnyObject {
 		do {
 			let file = try AVAudioFile(forReading: url)
 
-			guard file.duration < 100000 else {
+			guard file.length < 100000 else {
 				playingTrack = nil
 				throw PlayError.error(message: "File duration is too long! The file is probably bugged.") // Likely bugged file and we'd crash otherwise
 			}

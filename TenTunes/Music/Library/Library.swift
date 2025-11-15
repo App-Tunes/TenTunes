@@ -314,7 +314,7 @@ extension Library {
     
     @IBAction func managedObjectContextDidSave(notification: NSNotification) {
         for fun in _saveDefer { fun() }
-        let didFun = _saveDefer.isNotEmpty
+        let didFun = !_saveDefer.isEmpty
         
         _saveDefer = []
         if didFun { try! viewContext.save() }

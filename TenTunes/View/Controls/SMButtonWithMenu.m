@@ -73,21 +73,7 @@
     
     [_holdMenu popUpMenuPositioningItem:nil atLocation:NSMakePoint(self.bounds.size.width-8, self.bounds.size.height-1) inView:self];
     
-    NSWindow* window = [self window];
-    
-    NSEvent* fakeMouseUp = [NSEvent mouseEventWithType:NSEventTypeLeftMouseUp
-                                              location:self.bounds.origin
-                                         modifierFlags:0
-                                             timestamp:[NSDate timeIntervalSinceReferenceDate]
-                                          windowNumber:[window windowNumber]
-                                               context:[NSGraphicsContext currentContext]
-                                           eventNumber:0
-                                            clickCount:1
-                                              pressure:0.0];
-    
-    [window postEvent:fakeMouseUp atStart:YES];
-    
-    [self setState:NSOnState];
+	[self setState: NSControlStateValueOn];
 }
 
 - (void)mouseEntered:(NSEvent *)event {

@@ -129,10 +129,6 @@
 		80B68BA62101204200A32E3D /* PlaylistSmart+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B68BA42101204200A32E3D /* PlaylistSmart+CoreDataProperties.swift */; };
 		80B68BA72101204200A32E3D /* PlaylistSmart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B68BA52101204200A32E3D /* PlaylistSmart.swift */; };
 		80B68BA92101255D00A32E3D /* TrackController+Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B68BA82101255D00A32E3D /* TrackController+Rules.swift */; };
-		80B6DF97219EF473003EA487 /* LICENSE-MIKMIDI.txt in Resources */ = {isa = PBXBuildFile; fileRef = 80B6DF96219EF473003EA487 /* LICENSE-MIKMIDI.txt */; };
-		80B6DF9D219EF72E003EA487 /* MIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B6DF9C219EF72E003EA487 /* MIDI.swift */; };
-		80B6DFA5219F06E9003EA487 /* MIKMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80B6DFA3219F06E4003EA487 /* MIKMIDI.framework */; };
-		80B6DFA6219F06E9003EA487 /* MIKMIDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 80B6DFA3219F06E4003EA487 /* MIKMIDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		80B764562072F38D003BD7F8 /* PlaylistEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B764552072F38D003BD7F8 /* PlaylistEmpty.swift */; };
 		80BD6D172668E4D100B4735A /* tag.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80AF086B265AFE100039458A /* tag.framework */; };
 		80BD6D182668E4D100B4735A /* tag.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 80AF086B265AFE100039458A /* tag.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -251,7 +247,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				80B6DFA6219F06E9003EA487 /* MIKMIDI.framework in Embed Frameworks */,
 				80BD6D182668E4D100B4735A /* tag.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -387,7 +382,6 @@
 		80B68BA52101204200A32E3D /* PlaylistSmart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlaylistSmart.swift; path = "/Users/lukas/XCode Projects/TenTunes/TenTunes/Music/Playlist/Manual/PlaylistSmart.swift"; sourceTree = "<absolute>"; };
 		80B68BA82101255D00A32E3D /* TrackController+Rules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackController+Rules.swift"; sourceTree = "<group>"; };
 		80B6DF96219EF473003EA487 /* LICENSE-MIKMIDI.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "LICENSE-MIKMIDI.txt"; sourceTree = "<group>"; };
-		80B6DF9C219EF72E003EA487 /* MIDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDI.swift; sourceTree = "<group>"; };
 		80B6DFA3219F06E4003EA487 /* MIKMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MIKMIDI.framework; path = Carthage/Build/Mac/MIKMIDI.framework; sourceTree = SOURCE_ROOT; };
 		80B764552072F38D003BD7F8 /* PlaylistEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistEmpty.swift; sourceTree = "<group>"; };
 		80B7E7252417FE340098E473 /* Ten Tunes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Ten Tunes.entitlements"; sourceTree = "<group>"; };
@@ -495,7 +489,6 @@
 				80E8B56026624F21003AA639 /* Preferences in Frameworks */,
 				80083D0F266D7F6400F8C9DD /* TunesLogic in Frameworks */,
 				80BD6D172668E4D100B4735A /* tag.framework in Frameworks */,
-				80B6DFA5219F06E9003EA487 /* MIKMIDI.framework in Frameworks */,
 				80AF0868265AF8EC0039458A /* TunesUI in Frameworks */,
 				80BD6D192668E61300B4735A /* libTunesAnalysis.a in Frameworks */,
 				806AC13E2041EDEE00857B1B /* AudioToolbox.framework in Frameworks */,
@@ -868,7 +861,6 @@
 				8074044B2136CE68007E0B4C /* Interpolation.swift */,
 				80C1F150214033C40032E554 /* Enumerations.swift */,
 				80C1F1732146E4A70032E554 /* WindowWarden.swift */,
-				80B6DF9C219EF72E003EA487 /* MIDI.swift */,
 				80CC986921A880D20030F04B /* NSTableView+Header.swift */,
 				8029A5F2221858D600C1F0CC /* DynamicAudioHasher.swift */,
 				8033292A22718FBB00408017 /* CacheRegistry.swift */,
@@ -1152,7 +1144,6 @@
 				80B4B7CF2276FA4D00AE5F08 /* PlaylistActions.xib in Resources */,
 				80C1F16421428EC80032E554 /* visualizer.fs in Resources */,
 				80C1F16A21429AC70032E554 /* visualizer.vs in Resources */,
-				80B6DF97219EF473003EA487 /* LICENSE-MIKMIDI.txt in Resources */,
 				8079F6DC2106745600B7A278 /* CartesianRulesController.xib in Resources */,
 				80074CFD204584980055B87E /* PlaylistController.xib in Resources */,
 				80CAED142274ACB6001DD856 /* CategoryController.xib in Resources */,
@@ -1205,7 +1196,6 @@
 				8030E00720FC9749006B4AE8 /* Task.swift in Sources */,
 				80FA292222050917008E6A38 /* PlaylistController+Playlists.swift in Sources */,
 				8030E00F20FCB12C006B4AE8 /* AnalyzeTrack.swift in Sources */,
-				80B6DF9D219EF72E003EA487 /* MIDI.swift in Sources */,
 				80B68B9E21011CC100A32E3D /* SMButtonWithMenu.m in Sources */,
 				80E2C9E1204AE18E00298E81 /* Track+CoreDataProperties.swift in Sources */,
 				80C1F1742146E4A70032E554 /* WindowWarden.swift in Sources */,

@@ -7,7 +7,7 @@
 //
 
 import Cocoa
-import AudioKit
+import CoreAudioKit
 
 fileprivate func parseGenre(_ genre: String?) -> String? {
     return genre == "Unknown" ? nil : genre

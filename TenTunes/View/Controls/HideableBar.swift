@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol HideableBarDelegate : class {
+protocol HideableBarDelegate : AnyObject {
     func hideableBar(_ bar: HideableBar, didChangeState state: Bool)
 }
 

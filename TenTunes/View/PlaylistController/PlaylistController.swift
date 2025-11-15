@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol PlaylistControllerDelegate : class {
+protocol PlaylistControllerDelegate : AnyObject {
     func playlistController(_ controller: PlaylistController, selectionDidChange items: [PlaylistController.Item])
 }
 

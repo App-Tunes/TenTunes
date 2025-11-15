@@ -525,7 +525,7 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </imageView>
-                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="no2-Pk-ubw">
+                        <customView clipsToBounds="YES" translatesAutoresizingMaskIntoConstraints="NO" id="no2-Pk-ubw">
                             <rect key="frame" x="0.0" y="0.0" width="1161" height="25"/>
                             <subviews>
                                 <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="underWindowBackground" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="RrY-WV-3rf">

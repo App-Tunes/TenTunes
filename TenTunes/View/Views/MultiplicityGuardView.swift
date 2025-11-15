@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol MultiplicityGuardDelegate : class {
+protocol MultiplicityGuardDelegate : AnyObject {
     func multiplicityGuard(_ view: MultiplicityGuardView, show elements: [Any]) -> MultiplicityGuardView.ShowAction
 }
 

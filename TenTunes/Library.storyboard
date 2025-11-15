@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="kJo-kH-Lbg">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="24412" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="kJo-kH-Lbg">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24412"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -46,8 +46,8 @@
                                             <customView verticalHuggingPriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="TnY-8S-uno" customClass="WaveformPositionCocoa" customModule="TunesUI">
                                                 <rect key="frame" x="0.0" y="0.0" width="1048" height="45"/>
                                                 <subviews>
-                                                    <textField toolTip="Duration Left" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Bx-lC-97p">
-                                                        <rect key="frame" x="970" y="21" width="70" height="22"/>
+                                                    <textField toolTip="Duration Left" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Bx-lC-97p">
+                                                        <rect key="frame" x="970" y="19" width="70" height="24"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="ybL-NU-qiE"/>
                                                         </constraints>
@@ -62,8 +62,8 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
-                                                    <textField toolTip="Duration Played" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1Xa-l4-VRg">
-                                                        <rect key="frame" x="8" y="21" width="70" height="22"/>
+                                                    <textField toolTip="Duration Played" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1Xa-l4-VRg">
+                                                        <rect key="frame" x="8" y="19" width="70" height="24"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="DqK-c4-H9k"/>
                                                         </constraints>
@@ -96,7 +96,7 @@
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <slider toolTip="Volume" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="weN-hW-VXM" customClass="ScrollableSlider" customModule="TenTunes" customModuleProvider="target">
-                                                            <rect key="frame" x="18" y="8" width="84" height="28"/>
+                                                            <rect key="frame" x="20" y="16" width="80" height="16"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="80" id="IaB-e8-PZM"/>
                                                             </constraints>
@@ -109,75 +109,76 @@
                                                                 </binding>
                                                             </connections>
                                                         </slider>
-                                                        <button toolTip="Tasks" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ETj-HU-NV5" customClass="SpinningButton" customModule="TenTunes" customModuleProvider="target">
+                                                        <button toolTip="Tasks" imageHugsTitle="YES" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="ETj-HU-NV5" customClass="SpinningButton" customModule="TenTunes" customModuleProvider="target">
                                                             <rect key="frame" x="248" y="14" width="19" height="19"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" secondItem="ETj-HU-NV5" secondAttribute="height" multiplier="1:1" id="qGX-a4-Xxa"/>
-                                                            </constraints>
                                                             <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="tasks" imagePosition="overlaps" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="pWN-MD-pQY">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="system" size="20"/>
                                                             </buttonCell>
                                                             <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="ETj-HU-NV5" secondAttribute="height" multiplier="1:1" id="qGX-a4-Xxa"/>
+                                                            </constraints>
                                                             <connections>
                                                                 <action selector="showTasks:" target="XfG-lQ-9wD" id="p4I-cb-dui"/>
                                                             </connections>
                                                         </button>
-                                                        <button toolTip="Shuffle" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Y2-7h-2Y4">
+                                                        <button toolTip="Shuffle" imageHugsTitle="YES" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="7Y2-7h-2Y4">
                                                             <rect key="frame" x="155" y="14" width="19" height="19"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" secondItem="7Y2-7h-2Y4" secondAttribute="height" multiplier="1:1" id="jRx-Wh-ukj"/>
-                                                            </constraints>
                                                             <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="shuffle" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="enp-s7-LxB">
                                                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system" size="20"/>
                                                             </buttonCell>
                                                             <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="7Y2-7h-2Y4" secondAttribute="height" multiplier="1:1" id="jRx-Wh-ukj"/>
+                                                            </constraints>
                                                             <connections>
                                                                 <action selector="toggleShuffle:" target="XfG-lQ-9wD" id="PPw-wd-bDy"/>
                                                             </connections>
                                                         </button>
-                                                        <button toolTip="Repeat (Play Forever)" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YPk-ZN-PTb" customClass="SpinningButton" customModule="TenTunes" customModuleProvider="target">
+                                                        <button toolTip="Repeat (Play Forever)" imageHugsTitle="YES" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="YPk-ZN-PTb" customClass="SpinningButton" customModule="TenTunes" customModuleProvider="target">
                                                             <rect key="frame" x="186" y="14" width="19" height="19"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="19" id="FUj-LY-fxI"/>
-                                                                <constraint firstAttribute="width" secondItem="YPk-ZN-PTb" secondAttribute="height" multiplier="1:1" id="GZA-kk-d2R"/>
-                                                            </constraints>
                                                             <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="repeat" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="LOm-js-1aQ">
                                                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system" size="20"/>
                                                             </buttonCell>
                                                             <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="19" id="FUj-LY-fxI"/>
+                                                                <constraint firstAttribute="width" secondItem="YPk-ZN-PTb" secondAttribute="height" multiplier="1:1" id="GZA-kk-d2R"/>
+                                                            </constraints>
                                                             <connections>
                                                                 <action selector="toggleRepeat:" target="XfG-lQ-9wD" id="XbT-Oa-xQz"/>
                                                             </connections>
                                                         </button>
                                                         <button toolTip="Find Everywhere" translatesAutoresizingMaskIntoConstraints="NO" id="a35-bI-I59">
                                                             <rect key="frame" x="217" y="14" width="19" height="19"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" secondItem="a35-bI-I59" secondAttribute="height" multiplier="1:1" id="XNQ-y3-hdG"/>
-                                                            </constraints>
                                                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="search" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="4vX-d1-0Qz">
                                                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
                                                             <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="a35-bI-I59" secondAttribute="height" multiplier="1:1" id="XNQ-y3-hdG"/>
+                                                            </constraints>
                                                             <connections>
                                                                 <action selector="findButtonClicked:" target="XfG-lQ-9wD" id="HVc-Yd-mk9"/>
                                                             </connections>
                                                         </button>
-                                                        <button toolTip="Shuffle" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h8o-eu-SjM">
+                                                        <button toolTip="Shuffle" imageHugsTitle="YES" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="h8o-eu-SjM">
                                                             <rect key="frame" x="108" y="10" width="27" height="27"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" secondItem="h8o-eu-SjM" secondAttribute="height" multiplier="1:1" id="CNS-3l-x4A"/>
-                                                                <constraint firstAttribute="height" constant="27" id="GMN-4H-bwF"/>
-                                                                <constraint firstAttribute="width" constant="27" id="vc8-Gc-yyK"/>
-                                                            </constraints>
                                                             <buttonCell key="cell" type="bevel" title="􀑢" bezelStyle="regularSquare" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="bl2-uB-tqK">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="system" size="20"/>
                                                             </buttonCell>
                                                             <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="h8o-eu-SjM" secondAttribute="height" multiplier="1:1" id="CNS-3l-x4A"/>
+                                                                <constraint firstAttribute="height" constant="27" id="GMN-4H-bwF"/>
+                                                                <constraint firstAttribute="width" secondItem="h8o-eu-SjM" secondAttribute="height" multiplier="1:1" id="YLW-Ok-znh"/>
+                                                                <constraint firstAttribute="width" constant="27" id="vc8-Gc-yyK"/>
+                                                            </constraints>
                                                             <connections>
                                                                 <action selector="selectOutputDevice:" target="XfG-lQ-9wD" id="TcN-6V-xc0"/>
                                                             </connections>
@@ -193,7 +194,6 @@
                                                         <constraint firstAttribute="trailing" secondItem="ETj-HU-NV5" secondAttribute="trailing" constant="20" id="PnR-Zt-5BC"/>
                                                         <constraint firstItem="weN-hW-VXM" firstAttribute="centerY" secondItem="YPk-ZN-PTb" secondAttribute="centerY" id="TAx-t5-qBt"/>
                                                         <constraint firstItem="weN-hW-VXM" firstAttribute="leading" secondItem="kR0-b6-yaW" secondAttribute="leading" constant="20" id="VvQ-8W-u69"/>
-                                                        <constraint firstItem="h8o-eu-SjM" firstAttribute="width" secondItem="h8o-eu-SjM" secondAttribute="height" multiplier="1:1" id="YLW-Ok-znh"/>
                                                         <constraint firstItem="7Y2-7h-2Y4" firstAttribute="leading" secondItem="h8o-eu-SjM" secondAttribute="trailing" constant="20" id="Zh9-yi-6Fd"/>
                                                         <constraint firstItem="ETj-HU-NV5" firstAttribute="leading" secondItem="a35-bI-I59" secondAttribute="trailing" constant="12" id="dWf-PM-w4E"/>
                                                         <constraint firstItem="7Y2-7h-2Y4" firstAttribute="height" secondItem="YPk-ZN-PTb" secondAttribute="height" id="jGc-nP-fbp"/>
@@ -217,11 +217,8 @@
                                                     <rect key="frame" x="1" y="1" width="180" height="45"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <button toolTip="Play / Pause" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Fc-0r-wVE">
+                                                        <button toolTip="Play / Pause" imageHugsTitle="YES" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="4Fc-0r-wVE">
                                                             <rect key="frame" x="105" y="12" width="30" height="21"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="30" id="U0M-9e-hwV"/>
-                                                            </constraints>
                                                             <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="play" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="3am-G2-ql0">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="system" size="20"/>
@@ -230,34 +227,37 @@ IA
 </string>
                                                             </buttonCell>
                                                             <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="30" id="U0M-9e-hwV"/>
+                                                            </constraints>
                                                             <connections>
                                                                 <action selector="play:" target="XfG-lQ-9wD" id="T0L-Lv-wjP"/>
                                                             </connections>
                                                         </button>
-                                                        <button toolTip="Previous" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vGp-jR-JQ9">
+                                                        <button toolTip="Previous" imageHugsTitle="YES" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="vGp-jR-JQ9">
                                                             <rect key="frame" x="75" y="16" width="25" height="13"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="25" id="l85-XI-Vhi"/>
-                                                            </constraints>
                                                             <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="play-previous" imagePosition="overlaps" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="Zjb-jG-uxV">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
                                                             <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="25" id="l85-XI-Vhi"/>
+                                                            </constraints>
                                                             <connections>
                                                                 <action selector="previousTrack:" target="XfG-lQ-9wD" id="Pk1-jA-gYo"/>
                                                             </connections>
                                                         </button>
-                                                        <button toolTip="Next" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ws9-gx-fi8">
+                                                        <button toolTip="Next" imageHugsTitle="YES" horizontalCompressionResistancePriority="400" verticalCompressionResistancePriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="Ws9-gx-fi8">
                                                             <rect key="frame" x="140" y="16" width="25" height="13"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="25" id="elU-UP-N0X"/>
-                                                            </constraints>
                                                             <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="play-next" imagePosition="overlaps" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="ZGz-kB-7P5">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
                                                             <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="25" id="elU-UP-N0X"/>
+                                                            </constraints>
                                                             <connections>
                                                                 <action selector="nextTrack:" target="XfG-lQ-9wD" id="tib-HN-e55"/>
                                                             </connections>
@@ -316,14 +316,14 @@ IA
                                             </box>
                                             <button toolTip="Play Queue" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mT7-oZ-jSc">
                                                 <rect key="frame" x="738" y="49" width="18" height="48"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="18" id="fcP-xp-0H7"/>
-                                                </constraints>
                                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="chevron-down" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="ioR-UL-uGb">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="18" id="fcP-xp-0H7"/>
+                                                </constraints>
                                                 <connections>
                                                     <action selector="showQueue:" target="XfG-lQ-9wD" id="SAR-yY-gNh"/>
                                                 </connections>

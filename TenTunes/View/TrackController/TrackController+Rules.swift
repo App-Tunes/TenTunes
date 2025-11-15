@@ -12,7 +12,7 @@ extension TrackController {
     override func cancelOperation(_ sender: Any?) {
         // TODO Move this to the Hideable Bar class
         let firstResponder = view.window?.firstResponder
-        
+
         if firstResponder == filterController._tokenField.currentEditor() {
             filterBar.close()
         }
@@ -22,10 +22,14 @@ extension TrackController {
     }
     
     @IBAction func rulesClicked(_ sender: Any) {
+		print("clicked")
         if ruleBar.isOpen {
+			print("close")
             ruleBar.close()
         }
         else {
+			print("open")
+
             ruleBar.open()
             
             if ruleBar.contentView == smartPlaylistRuleController {

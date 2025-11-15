@@ -55,4 +55,8 @@ class DragHighlightView: NSView {
     override func draggingExited(_ sender: NSDraggingInfo?) {
         delegate?.draggingExited?(sender)
     }
+	
+	override func hitTest(_ point: NSPoint) -> NSView? {
+		return nil
+	}
 }

@@ -31,6 +31,8 @@ class HideableBar: NSViewController {
     
     override func awakeFromNib() {
         _heightConstraint.constant = 0
+		_containerView.clipsToBounds = true
+		view.isHidden = true
     }
     
     var isOpen: Bool {
@@ -48,6 +50,7 @@ class HideableBar: NSViewController {
         NSAnimationContext.runAnimationGroup({_ in
             NSAnimationContext.current.duration = 0.2
             _heightConstraint.animator().constant = height
+			view.isHidden = false
         })
         
         delegate?.hideableBar(self, didChangeState: true)
@@ -69,6 +72,7 @@ class HideableBar: NSViewController {
         NSAnimationContext.runAnimationGroup {_ in
             NSAnimationContext.current.duration = 0.2
             _heightConstraint.animator().constant = 0
+			view.isHidden = true
         }
         
         delegate?.hideableBar(self, didChangeState: false)
